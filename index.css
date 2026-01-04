@@ -1,0 +1,35 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-navy: #0B1120;
+  --color-beige: #F5F5F0;
+  --color-gold: #C5A059;
+  --color-gold-hover: #B08D48;
+  --color-slate: #334155;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-beige);
+    color: var(--color-navy);
+  }
+  
+  /* Custom focus styles for accessibility */
+  *:focus-visible {
+    outline: 3px solid var(--color-gold);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* Skip link styling */
+  .skip-link {
+    @apply absolute -top-10 left-0 bg-p4c-navy text-white p-2 z-50 transition-[top] duration-200;
+  }
+  .skip-link:focus {
+    @apply top-0;
+  }
+}
