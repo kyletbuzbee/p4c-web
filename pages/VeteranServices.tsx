@@ -16,12 +16,13 @@ const VeteranServices: React.FC = () => {
       {/* Hero Banner */}
       <div className="relative h-[400px] w-full overflow-hidden flex items-center justify-center">
         <div className="absolute top-0 left-0 w-full h-full z-0">
-          <img 
-            src={IMAGES.BANNERS.RESOURCES}
-            alt="American flag flying on a front porch" 
+          <img
+            src={IMAGES.BANNERS.HERO_RESOURCES}
+            alt="American flag flying on a front porch"
             className="w-full h-full object-cover"
           />
-          <div className="absolute top-0 left-0 w-full h-full bg-p4c-navy/80 mix-blend-multiply"></div>
+          <div className="absolute top-0 left-0 w-full h-full hero-overlay-primary"></div>
+          <div className="absolute top-0 left-0 w-full h-full hero-overlay-secondary"></div>
         </div>
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-fade-in-up">
           <div className="flex justify-center mb-4">
@@ -29,10 +30,10 @@ const VeteranServices: React.FC = () => {
                 <Flag className="w-8 h-8 text-p4c-navy" />
             </div>
           </div>
-          <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4">
+          <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4 hero-text-contrast">
             Serving Those Who Served
           </h1>
-          <p className="text-xl text-gray-200">
+          <p className="text-xl text-gray-200 hero-text-enhanced">
              We don't just provide housing; we provide a home base for your next chapter.
           </p>
         </div>

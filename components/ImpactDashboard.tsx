@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatMetric } from '../types';
+import type { StatMetric } from '../types';
 import { Users, Home, Hammer } from 'lucide-react';
 
 const stats: StatMetric[] = [

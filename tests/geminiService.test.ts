@@ -3,21 +3,17 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { sendChatMessage } from '../services/geminiService';
 
 // Mock the GoogleGenAI library
-vi.mock('@google/genai', () => {
+vi.mock('@google/generative-ai', () => {
   return {
-    GoogleGenAI: vi.fn().mockImplementation(() => ({
-      chats: {
-        create: vi.fn().mockReturnValue({
-          sendMessage: vi.fn().mockResolvedValue({
-            text: 'Hello, this is a mock response from Patriot.'
-          })
+    GoogleGenerativeAI: vi.fn().mockImplementation(() => ({
+      getGenerativeModel: vi.fn().mockReturnValue({
+        generateContent: vi.fn().mockResolvedValue({
+          response: {
+            text: () => Promise.resolve('Hello, this is a mock response from Patriot.')
+          }
         })
-      },
-      models: {
-        generateContent: vi.fn()
-      }
-    })),
-    Chat: vi.fn()
+      })
+    }))
   };
 });
 
@@ -34,13 +30,11 @@ describe('Gemini Service', () => {
 
   it('sendChatMessage should handle API failures gracefully', async () => {
     // Override mock to throw error
-    const { GoogleGenAI } = await import('@google/genai');
-    (GoogleGenAI as any).mockImplementationOnce(() => ({
-      chats: {
-        create: vi.fn().mockReturnValue({
-          sendMessage: vi.fn().mockRejectedValue(new Error('Network error'))
-        })
-      }
+    const { GoogleGenerativeAI } = await import('@google/generative-ai');
+    (GoogleGenerativeAI as any).mockImplementationOnce(() => ({
+      getGenerativeModel: vi.fn().mockReturnValue({
+        generateContent: vi.fn().mockRejectedValue(new Error('Network error'))
+      })
     }));
 
     await expect(sendChatMessage('Hi', [])).rejects.toThrow('Failed to connect to AI service.');

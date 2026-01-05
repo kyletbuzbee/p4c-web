@@ -139,8 +139,8 @@ export class LazyImageLoader {
   }
 
   private loadImage(img: HTMLImageElement): void {
-    const src = img.dataset.src;
-    const srcset = img.dataset.srcset;
+    const src = img.dataset['src'];
+    const srcset = img.dataset['srcset'];
 
     if (src) {
       img.src = src;
@@ -194,7 +194,7 @@ export const preloadCriticalImages = (imageUrls: string[]): void => {
 };
 
 // Generate blur placeholder for lazy loading
-export const generateBlurPlaceholder = (imageUrl: string): string => {
+export const generateBlurPlaceholder = (): string => {
   // This would typically be handled by a build-time process
   // For now, return a simple data URL
   return `data:image/svg+xml;base64,${btoa(`

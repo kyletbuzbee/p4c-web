@@ -1,4 +1,5 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { Component } from 'react';
+import type { ErrorInfo, ReactNode } from 'react';
 import { AlertTriangle, RefreshCw } from 'lucide-react';
 
 interface Props {
@@ -16,7 +17,7 @@ interface State {
 }
 
 class ErrorBoundary extends Component<Props, State> {
-  public state: State = {
+  public override state: State = {
     hasError: false,
     error: null,
     errorId: '',
@@ -34,7 +35,7 @@ class ErrorBoundary extends Component<Props, State> {
     };
   }
 
-  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+  public override componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // Enhanced error logging with security considerations
     this.logErrorToService(error, errorInfo, this.state.errorId);
     
@@ -98,7 +99,7 @@ class ErrorBoundary extends Component<Props, State> {
         // Remove file paths, keep only filename and line number
         const match = line.match(/\(([^)]+)\)/);
         if (match) {
-          const path = match[1];
+          const path = match[1] || '';
           const filename = path.split('/').pop() || path;
           return line.replace(path, filename);
         }
@@ -194,7 +195,7 @@ class ErrorBoundary extends Component<Props, State> {
     }
   };
 
-  public render() {
+  public override render() {
     if (this.state.hasError) {
       // Custom fallback UI
       if (this.props.fallback) {

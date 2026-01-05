@@ -9,9 +9,9 @@ const Veterans: React.FC = () => {
       {/* Hero Banner */}
       <div className="relative h-[400px] w-full overflow-hidden flex items-center justify-center">
         <div className="absolute top-0 left-0 w-full h-full z-0">
-          <img 
-            src={IMAGES.BANNERS.RESOURCES}
-            alt="American flag flying on a front porch" 
+          <img
+            src={IMAGES.BANNERS.HERO_RESOURCES}
+            alt="American flag flying on a front porch"
             className="w-full h-full object-cover"
           />
           <div className="absolute top-0 left-0 w-full h-full bg-p4c-navy/80 mix-blend-multiply"></div>

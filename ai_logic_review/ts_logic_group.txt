@@ -92,10 +92,10 @@ export const IMAGES = {
 
 ================================================================================
 FILE_BEGIN: data\properties.ts
-METADATA: Size=5056 bytes | Last_Modified=2026-01-04 12:32:59.987926
+METADATA: Size=5061 bytes | Last_Modified=2026-01-04 20:33:01.640147
 ================================================================================
 
-import { Property } from '../types';
+import type { Property } from '../types';
 import { IMAGES } from '../constants/images';
 
 export interface ExtendedProperty extends Property {
@@ -228,25 +228,115 @@ export const getPropertyById = (id: string | undefined): ExtendedProperty | unde
 
 ================================================================================
 FILE_BEGIN: services\api.ts
-METADATA: Size=3449 bytes | Last_Modified=2026-01-04 12:32:59.533945
+METADATA: Size=11151 bytes | Last_Modified=2026-01-04 20:31:11.930254
 ================================================================================
 
-import { StatMetric, RenovationStandard, FinancialBreakdown } from '../types';
+import type { StatMetric, RenovationStandard, FinancialBreakdown } from '../types';
+import type { ExtendedProperty } from '../data/properties';
+import { properties, getPropertyById } from '../data/properties';
 
 /**
- * Backend API Shell
+ * Enhanced Backend API Service
  * 
- * In a production environment, these functions would use fetch() or axios
- * to communicate with your Node.js/Python/Go backend.
+ * This service supports both development (mock data) and production (real backend) modes.
  * 
- * Currently, they simulate network latency and return strictly typed mock data.
+ * Development Mode (Default):
+ * - Uses mock data with simulated network latency
+ * - No environment variables required
+ * - Perfect for frontend development and testing
+ * 
+ * Production Mode:
+ * - Set VITE_API_URL environment variable to enable real backend integration
+ * - Falls back to mock data if backend is unavailable
+ * - Automatic switching based on environment configuration
+ * 
+ * Environment Setup:
+ * - Copy .env.example to .env and configure VITE_API_URL
+ * - Development: Leave VITE_API_URL empty (uses mock data)
+ * - Production: Set VITE_API_URL to your backend endpoint
  */
 
 const SIMULATED_LATENCY = 800; // ms
 
+// Environment configuration for backend integration
+const API_CONFIG = {
+  // Get API URL from environment variable, fallback to empty string for mock data
+  baseUrl: import.meta.env['VITE_API_URL'] || '',
+  
+  // Check if we're in backend mode (has API URL) or mock mode (no API URL)
+  get isBackendMode() {
+    return this.baseUrl.trim().length > 0;
+  },
+  
+  // Get full API endpoint URL
+  getEndpointUrl(endpoint: string): string {
+    return `${this.baseUrl.replace(/\/$/, '')}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
+  }
+};
+
+/**
+ * HTTP client for backend communication
+ * Automatically falls back to mock data on network errors
+ */
+class ApiClient {
+  private async makeRequest<T>(endpoint: string, options?: RequestInit): Promise<T> {
+    if (!API_CONFIG.isBackendMode) {
+      throw new Error('Backend mode disabled - using mock data');
+    }
+    
+    try {
+      const url = API_CONFIG.getEndpointUrl(endpoint);
+      const response = await fetch(url, {
+        headers: {
+          'Content-Type': 'application/json',
+          ...options?.headers,
+        },
+        ...options,
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      
+      return await response.json();
+    } catch (error) {
+      console.warn(`Backend request failed for ${endpoint}, falling back to mock data:`, error);
+      throw new Error('Backend unavailable - using mock data');
+    }
+  }
+  
+  async get<T>(endpoint: string): Promise<T> {
+    return this.makeRequest<T>(endpoint, { method: 'GET' });
+  }
+  
+  async post<T>(endpoint: string, data?: any): Promise<T> {
+    return this.makeRequest<T>(endpoint, {
+      method: 'POST',
+      body: data ? JSON.stringify(data) : null,
+    });
+  }
+}
+
+const apiClient = new ApiClient();
+
 export const api = {
   impact: {
+    /**
+     * Get impact metrics
+     * Tries backend first if VITE_API_URL is set, falls back to mock data
+     */
     getMetrics: async (): Promise<StatMetric[]> => {
+      try {
+        // Try backend first if in backend mode
+        if (API_CONFIG.isBackendMode) {
+          const data = await apiClient.get<StatMetric[]>('/api/impact/metrics');
+          return data;
+        }
+      } catch (error) {
+        console.warn('Backend metrics request failed, using mock data:', error);
+      }
+      
+      // Fallback to mock data
       await new Promise(resolve => setTimeout(resolve, SIMULATED_LATENCY));
       return [
         { 
@@ -288,7 +378,22 @@ export const api = {
       ];
     },
     
+    /**
+     * Get financial breakdown
+     * Tries backend first if VITE_API_URL is set, falls back to mock data
+     */
     getFinancialBreakdown: async (): Promise<FinancialBreakdown[]> => {
+      try {
+        // Try backend first if in backend mode
+        if (API_CONFIG.isBackendMode) {
+          const data = await apiClient.get<FinancialBreakdown[]>('/api/impact/financial-breakdown');
+          return data;
+        }
+      } catch (error) {
+        console.warn('Backend financial breakdown request failed, using mock data:', error);
+      }
+      
+      // Fallback to mock data
       await new Promise(resolve => setTimeout(resolve, SIMULATED_LATENCY));
       return [
         { category: 'Property Maintenance', percentage: 35, color: '#0B1120' },
@@ -301,7 +406,22 @@ export const api = {
   },
 
   transparency: {
+    /**
+     * Get renovation standards
+     * Tries backend first if VITE_API_URL is set, falls back to mock data
+     */
     getStandards: async (): Promise<RenovationStandard[]> => {
+      try {
+        // Try backend first if in backend mode
+        if (API_CONFIG.isBackendMode) {
+          const data = await apiClient.get<RenovationStandard[]>('/api/transparency/standards');
+          return data;
+        }
+      } catch (error) {
+        console.warn('Backend standards request failed, using mock data:', error);
+      }
+      
+      // Fallback to mock data
       await new Promise(resolve => setTimeout(resolve, SIMULATED_LATENCY));
       return [
         {
@@ -334,6 +454,110 @@ export const api = {
         }
       ];
     }
+  },
+
+  properties: {
+    /**
+     * Get all available properties
+     * Tries backend first if VITE_API_URL is set, falls back to mock data
+     */
+    getAll: async (): Promise<ExtendedProperty[]> => {
+      try {
+        // Try backend first if in backend mode
+        if (API_CONFIG.isBackendMode) {
+          const data = await apiClient.get<ExtendedProperty[]>('/api/properties');
+          return data;
+        }
+      } catch (error) {
+        console.warn('Backend properties request failed, using mock data:', error);
+      }
+      
+      // Fallback to mock data
+      await new Promise(resolve => setTimeout(resolve, SIMULATED_LATENCY));
+      return properties;
+    },
+
+    /**
+     * Get a specific property by ID
+     * Tries backend first if VITE_API_URL is set, falls back to mock data
+     */
+    getById: async (id: string): Promise<ExtendedProperty | null> => {
+      try {
+        // Try backend first if in backend mode
+        if (API_CONFIG.isBackendMode) {
+          const data = await apiClient.get<ExtendedProperty>(`/api/properties/${id}`);
+          return data;
+        }
+      } catch (error) {
+        console.warn('Backend property by ID request failed, using mock data:', error);
+      }
+      
+      // Fallback to mock data
+      await new Promise(resolve => setTimeout(resolve, SIMULATED_LATENCY));
+      const property = getPropertyById(id);
+      return property || null;
+    },
+
+    /**
+     * Search properties by criteria
+     * Tries backend first if VITE_API_URL is set, falls back to mock data
+     */
+    search: async (criteria: {
+      minPrice?: number;
+      maxPrice?: number;
+      beds?: number;
+      baths?: number;
+      neighborhood?: string;
+      schoolDistrict?: string;
+    }): Promise<ExtendedProperty[]> => {
+      try {
+        // Try backend first if in backend mode
+        if (API_CONFIG.isBackendMode) {
+          const data = await apiClient.post<ExtendedProperty[]>('/api/properties/search', criteria);
+          return data;
+        }
+      } catch (error) {
+        console.warn('Backend property search request failed, using mock data:', error);
+      }
+      
+      // Fallback to mock data
+      await new Promise(resolve => setTimeout(resolve, SIMULATED_LATENCY));
+      
+      return properties.filter(property => {
+        if (criteria.minPrice && property.price < criteria.minPrice) return false;
+        if (criteria.maxPrice && property.price > criteria.maxPrice) return false;
+        if (criteria.beds && property.beds < criteria.beds) return false;
+        if (criteria.baths && property.baths < criteria.baths) return false;
+        if (criteria.neighborhood && !property.neighborhood.toLowerCase().includes(criteria.neighborhood.toLowerCase())) return false;
+        if (criteria.schoolDistrict && property.schoolDistrict !== criteria.schoolDistrict) return false;
+        return true;
+      });
+    },
+
+    /**
+     * Get properties by badge type
+     * Tries backend first if VITE_API_URL is set, falls back to mock data
+     */
+    getByBadge: async (badge: string): Promise<ExtendedProperty[]> => {
+      try {
+        // Try backend first if in backend mode
+        if (API_CONFIG.isBackendMode) {
+          const data = await apiClient.get<ExtendedProperty[]>(`/api/properties/badge/${encodeURIComponent(badge)}`);
+          return data;
+        }
+      } catch (error) {
+        console.warn('Backend property by badge request failed, using mock data:', error);
+      }
+      
+      // Fallback to mock data
+      await new Promise(resolve => setTimeout(resolve, SIMULATED_LATENCY));
+      
+      return properties.filter(property => 
+        property.badges.some(propertyBadge => 
+          propertyBadge.toLowerCase().includes(badge.toLowerCase())
+        )
+      );
+    }
   }
 };
 
@@ -343,7 +567,7 @@ export const api = {
 
 ================================================================================
 FILE_BEGIN: services\geminiService.ts
-METADATA: Size=6199 bytes | Last_Modified=2026-01-04 13:29:58.578156
+METADATA: Size=6205 bytes | Last_Modified=2026-01-05 00:50:39.647284
 ================================================================================
 /**
  * Secure Client-Side Service for AI Operations
@@ -389,7 +613,7 @@ const sanitizeInput = (input: string): string => {
       "'": '&#x27;',
       '&': '&'
     };
-    return entities[match];
+    return entities[match] || '';
   });
 };
 
@@ -586,28 +810,24 @@ export const validationUtils = {
 
 ================================================================================
 FILE_BEGIN: tests\geminiService.test.ts
-METADATA: Size=1440 bytes | Last_Modified=2026-01-04 12:33:00.154299
+METADATA: Size=1429 bytes | Last_Modified=2026-01-05 00:51:51.744068
 ================================================================================
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { sendChatMessage } from '../services/geminiService';
 
 // Mock the GoogleGenAI library
-vi.mock('@google/genai', () => {
+vi.mock('@google/generative-ai', () => {
   return {
-    GoogleGenAI: vi.fn().mockImplementation(() => ({
-      chats: {
-        create: vi.fn().mockReturnValue({
-          sendMessage: vi.fn().mockResolvedValue({
-            text: 'Hello, this is a mock response from Patriot.'
-          })
+    GoogleGenerativeAI: vi.fn().mockImplementation(() => ({
+      getGenerativeModel: vi.fn().mockReturnValue({
+        generateContent: vi.fn().mockResolvedValue({
+          response: {
+            text: () => Promise.resolve('Hello, this is a mock response from Patriot.')
+          }
         })
-      },
-      models: {
-        generateContent: vi.fn()
-      }
-    })),
-    Chat: vi.fn()
+      })
+    }))
   };
 });
 
@@ -624,13 +844,11 @@ describe('Gemini Service', () => {
 
   it('sendChatMessage should handle API failures gracefully', async () => {
     // Override mock to throw error
-    const { GoogleGenAI } = await import('@google/genai');
-    (GoogleGenAI as any).mockImplementationOnce(() => ({
-      chats: {
-        create: vi.fn().mockReturnValue({
-          sendMessage: vi.fn().mockRejectedValue(new Error('Network error'))
-        })
-      }
+    const { GoogleGenerativeAI } = await import('@google/generative-ai');
+    (GoogleGenerativeAI as any).mockImplementationOnce(() => ({
+      getGenerativeModel: vi.fn().mockReturnValue({
+        generateContent: vi.fn().mockRejectedValue(new Error('Network error'))
+      })
     }));
 
     await expect(sendChatMessage('Hi', [])).rejects.toThrow('Failed to connect to AI service.');
@@ -695,7 +913,7 @@ export interface FinancialBreakdown {
 
 ================================================================================
 FILE_BEGIN: utils\imageOptimization.ts
-METADATA: Size=5464 bytes | Last_Modified=2026-01-04 14:50:35.456882
+METADATA: Size=5454 bytes | Last_Modified=2026-01-05 00:52:51.967654
 ================================================================================
 /**
  * Image Optimization Utilities
@@ -838,8 +1056,8 @@ export class LazyImageLoader {
   }
 
   private loadImage(img: HTMLImageElement): void {
-    const src = img.dataset.src;
-    const srcset = img.dataset.srcset;
+    const src = img.dataset['src'];
+    const srcset = img.dataset['srcset'];
 
     if (src) {
       img.src = src;
@@ -893,7 +1111,7 @@ export const preloadCriticalImages = (imageUrls: string[]): void => {
 };
 
 // Generate blur placeholder for lazy loading
-export const generateBlurPlaceholder = (imageUrl: string): string => {
+export const generateBlurPlaceholder = (): string => {
   // This would typically be handled by a build-time process
   // For now, return a simple data URL
   return `data:image/svg+xml;base64,${btoa(`
@@ -913,7 +1131,7 @@ export const generateBlurPlaceholder = (imageUrl: string): string => {
 
 ================================================================================
 FILE_BEGIN: vite.config.ts
-METADATA: Size=4060 bytes | Last_Modified=2026-01-04 13:41:46.332191
+METADATA: Size=4309 bytes | Last_Modified=2026-01-05 00:14:34.950094
 ================================================================================
 import path from 'path';
 import { defineConfig, loadEnv } from 'vite';
@@ -922,7 +1140,13 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     
+    // GitHub Pages configuration
+    const isProduction = mode === 'production';
+    const repositoryName = process.env.VITE_REPOSITORY_NAME || '';
+    const base = isProduction ? `/${repositoryName}/` : '/';
+    
     return {
+      base: base,
       server: {
         port: 3000,
         host: '0.0.0.0',
@@ -983,7 +1207,7 @@ export default defineConfig(({ mode }) => {
               // UI library
               ui: ['lucide-react'],
               // AI service
-              ai: ['@google/genai'],
+              ai: ['@google/generative-ai'],
               // Utils
               utils: ['react-helmet-async']
             },
@@ -1020,7 +1244,7 @@ export default defineConfig(({ mode }) => {
           'react-dom',
           'react-router-dom',
           'lucide-react',
-          '@google/genai'
+          '@google/generative-ai'
         ]
       },
       // CSS optimizations

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Award, Accessibility, Home, Facebook, Instagram, Linkedin, Flag } from 'lucide-react';
+import { Accessibility, Home, Facebook, Instagram, Linkedin, Flag } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {

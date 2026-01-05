@@ -72,7 +72,7 @@ export default defineConfig(({ mode }) => {
               // UI library
               ui: ['lucide-react'],
               // AI service
-              ai: ['@google/genai'],
+              ai: ['@google/generative-ai'],
               // Utils
               utils: ['react-helmet-async']
             },
@@ -109,7 +109,7 @@ export default defineConfig(({ mode }) => {
           'react-dom',
           'react-router-dom',
           'lucide-react',
-          '@google/genai'
+          '@google/generative-ai'
         ]
       },
       // CSS optimizations

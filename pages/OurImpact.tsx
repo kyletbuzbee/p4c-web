@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { api } from '../services/api';
-import { StatMetric, FinancialBreakdown } from '../types';
+import type { StatMetric, FinancialBreakdown } from '../types';
 import { Home, Users, Hammer, DollarSign, Heart, Loader2, ArrowUpRight } from 'lucide-react';
 import { useToast } from '../context/ToastContext';
 import { IMAGES } from '../constants/images';
@@ -52,9 +52,9 @@ const OurImpact: React.FC = () => {
       {/* Hero */}
       <div className="bg-p4c-navy text-white pt-20 pb-32 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img 
-            src={IMAGES.BANNERS.IMPACT} 
-            alt="Impact Banner" 
+          <img
+            src={IMAGES.BANNERS.HERO_IMPACT}
+            alt="Impact Banner"
             className="w-full h-full object-cover opacity-20"
           />
         </div>

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Shield, Check, X, FileSearch, HardHat, TrendingUp, Loader2 } from 'lucide-react';
 import { api } from '../services/api';
-import { RenovationStandard } from '../types';
+import type { RenovationStandard } from '../types';
 import { useToast } from '../context/ToastContext';
 import { IMAGES } from '../constants/images';
 
@@ -36,20 +36,21 @@ const Transparency: React.FC = () => {
       {/* Hero Section */}
       <div className="relative text-white py-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img 
-            src={IMAGES.BANNERS.TRANSPARENCY}
+          <img
+            src={IMAGES.BANNERS.HERO_TRANSPARENCY}
             alt="Transparency Banner"
             className="w-full h-full object-cover"
           />
-           <div className="absolute inset-0 bg-p4c-navy/90 mix-blend-multiply"></div>
+           <div className="absolute inset-0 hero-overlay-primary"></div>
+           <div className="absolute inset-0 hero-overlay-secondary"></div>
         </div>
        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <div className="inline-flex items-center justify-center p-3 bg-white/10 rounded-full mb-6 backdrop-blur-sm border border-white/10">
             <FileSearch className="w-8 h-8 text-p4c-gold" />
           </div>
-          <h1 className="text-4xl md:text-5xl font-serif font-bold mb-6">The Open Book Policy</h1>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+          <h1 className="text-4xl md:text-5xl font-serif font-bold mb-6 hero-text-contrast">The Open Book Policy</h1>
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed hero-text-enhanced">
             Trust is earned through action, not words. We believe tenants and investors deserve to know exactly where every dollar goes and the quality of materials we install.
           </p>
         </div>

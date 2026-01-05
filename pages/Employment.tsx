@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Hammer, HardHat, Briefcase, CheckCircle2 } from 'lucide-react';
+import { HardHat, Briefcase, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { IMAGES } from '../constants/images';
 
@@ -15,13 +15,14 @@ const Employment: React.FC = () => {
             alt="Construction blueprints and tools" 
             className="w-full h-full object-cover"
           />
-          <div className="absolute top-0 left-0 w-full h-full bg-p4c-navy/80 mix-blend-multiply"></div>
+          <div className="absolute top-0 left-0 w-full h-full hero-overlay-primary"></div>
+          <div className="absolute top-0 left-0 w-full h-full hero-overlay-secondary"></div>
         </div>
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4">
+          <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4 hero-text-contrast">
             Build With Purpose
           </h1>
-          <p className="text-xl text-p4c-gold font-medium">
+          <p className="text-xl text-p4c-gold font-medium hero-text-enhanced">
             Join the P4C Crew. We Hire Veterans First.
           </p>
         </div>

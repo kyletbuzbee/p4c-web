@@ -100,7 +100,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
     if (!priority && loading === 'lazy' && imgRef.current) {
       const loader = new LazyImageLoader();
       loader.observe(imgRef.current);
-      
+       
       return () => {
         loader.disconnect();
       };
@@ -146,7 +146,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
         >
           {placeholder === 'blur' && (
             <img
-              src={generateBlurPlaceholder(src)}
+              src={generateBlurPlaceholder()}
               alt=""
               className="blur-placeholder"
               style={{

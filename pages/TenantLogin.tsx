@@ -40,7 +40,7 @@ const TenantLogin: React.FC = () => {
 
       {/* Left Side - Visuals */}
       <div className="lg:w-1/2 bg-p4c-navy relative hidden lg:flex flex-col justify-center px-12 text-white overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full bg-cover opacity-20" style={{ backgroundImage: `url('${IMAGES.BANNERS.HOME}')`}}></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-cover opacity-20" style={{ backgroundImage: `url('${IMAGES.BANNERS.HERO_HOME}')`}}></div>
         <div className="relative z-10">
             <h1 className="text-4xl font-serif font-bold mb-6">Welcome Home.</h1>
             <p className="text-lg text-gray-300 mb-8 max-w-md">

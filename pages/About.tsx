@@ -9,22 +9,23 @@ const About: React.FC = () => {
       {/* Hero Banner */}
       <div className="relative h-[500px] w-full overflow-hidden flex items-center justify-center">
         <div className="absolute top-0 left-0 w-full h-full z-0">
-          <img 
-            src={IMAGES.BANNERS.ABOUT}
-            alt="Architectural plans and safety hat" 
+          <img
+            src={IMAGES.BANNERS.HERO_ABOUT}
+            alt="Architectural plans and safety hat"
             className="w-full h-full object-cover"
           />
-          <div className="absolute top-0 left-0 w-full h-full bg-p4c-navy/90 mix-blend-multiply"></div>
+          <div className="absolute top-0 left-0 w-full h-full hero-overlay-primary"></div>
+          <div className="absolute top-0 left-0 w-full h-full hero-overlay-secondary"></div>
         </div>
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-fade-in-up">
           <div className="inline-flex items-center gap-2 bg-p4c-gold/20 backdrop-blur-sm border border-p4c-gold/30 rounded-full px-4 py-1 mb-6">
             <span className="text-p4c-gold text-xs font-bold uppercase tracking-widest">Est. 2024 • East Texas</span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight hero-text-contrast">
             Restoring Homes. <br />
             <span className="text-p4c-gold">Restoring Dignity.</span>
           </h1>
-          <p className="text-xl text-gray-200 font-light max-w-2xl mx-auto">
+          <p className="text-xl text-gray-200 font-light max-w-2xl mx-auto hero-text-enhanced">
             We are a veteran-owned company on a mission to redefine affordable housing standards through quality craftsmanship and compassionate management.
           </p>
         </div>

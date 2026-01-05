@@ -135,9 +135,9 @@ const Contact: React.FC = () => {
       {/* Hero Banner */}
       <div className="relative h-[300px] w-full overflow-hidden flex items-center justify-center">
         <div className="absolute top-0 left-0 w-full h-full z-0">
-          <img 
-            src={IMAGES.BANNERS.CONTACT}
-            alt="People working together and connecting" 
+          <img
+            src={IMAGES.BANNERS.HERO_CONTACT}
+            alt="People working together and connecting"
             className="w-full h-full object-cover"
           />
           <div className="absolute top-0 left-0 w-full h-full bg-p4c-navy/80 mix-blend-multiply"></div>

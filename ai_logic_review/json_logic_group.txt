@@ -399,7 +399,7 @@ METADATA: Size=233 bytes | Last_Modified=2026-01-04 12:32:59.453578
 
 ================================================================================
 FILE_BEGIN: package-lock.json
-METADATA: Size=400578 bytes | Last_Modified=2026-01-04 19:20:29.693082
+METADATA: Size=412218 bytes | Last_Modified=2026-01-04 23:20:54.154609
 ================================================================================
 {
   "name": "properties-4-creations",
@@ -415,9 +415,12 @@ METADATA: Size=400578 bytes | Last_Modified=2026-01-04 19:20:29.693082
         "@types/node": "^20.11.16",
         "axios": "^1.6.8",
         "express": "^4.19.2",
+        "lucide-react": "^0.562.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
+        "react-helmet-async": "^2.0.5",
         "react-hook-form": "^7.51.2",
+        "react-intersection-observer": "^10.0.0",
         "react-router-dom": "^6.22.3",
         "recharts": "^2.12.7"
       },
@@ -443,6 +446,7 @@ METADATA: Size=400578 bytes | Last_Modified=2026-01-04 19:20:29.693082
         "eslint": "^8.57.0",
         "eslint-plugin-react-hooks": "^4.6.0",
         "eslint-plugin-react-refresh": "^0.4.6",
+        "gh-pages": "^6.3.0",
         "postcss": "^8.4.35",
         "tailwindcss": "^3.4.1",
         "typescript": "^5.2.2",
@@ -3690,7 +3694,6 @@ METADATA: Size=400578 bytes | Last_Modified=2026-01-04 19:20:29.693082
       "resolved": "https://registry.npmjs.org/@types/node/-/node-20.19.27.tgz",
       "integrity": "sha512-N2clP5pJhB2YnZJ3PIHFk5RkygRX5WO/5f0WC08tp0wd+sv0rsJk3MqWn3CbNmT2J505a5336jaQj4ph1AdMug==",
       "license": "MIT",
-      "peer": true,
       "dependencies": {
         "undici-types": "~6.21.0"
       }
@@ -4906,6 +4909,13 @@ METADATA: Size=400578 bytes | Last_Modified=2026-01-04 19:20:29.693082
         "node": ">=4.0.0"
       }
     },
+    "node_modules/commondir": {
+      "version": "1.0.1",
+      "resolved": "https://registry.npmjs.org/commondir/-/commondir-1.0.1.tgz",
+      "integrity": "sha512-W9pAhw0ja1Edb5GVdIF1mjZw/ASI0AlShXM83UUGe2DVr5TdAPEA1OA8m/g8zWp9x6On7gqufY+FatDbC3MDQg==",
+      "dev": true,
+      "license": "MIT"
+    },
     "node_modules/concat-map": {
       "version": "0.0.1",
       "resolved": "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz",
@@ -5450,6 +5460,13 @@ METADATA: Size=400578 bytes | Last_Modified=2026-01-04 19:20:29.693082
       "integrity": "sha512-0Drusm6MVRXSOJpGbaSVgcQsuB4hEkMpHXaVstcPmhu5LIedxs1xNK/nIxmQIU/RPC0+1/o0AVZfBTkTNJOdUw==",
       "dev": true,
       "license": "ISC"
+    },
+    "node_modules/email-addresses": {
+      "version": "5.0.0",
+      "resolved": "https://registry.npmjs.org/email-addresses/-/email-addresses-5.0.0.tgz",
+      "integrity": "sha512-4OIPYlA6JXqtVn8zpHpGiI7vE6EQOAg16aGnDMIAlZVinnoZ8208tW1hAbjWydgN/4PLTT9q+O1K6AH/vALJGw==",
+      "dev": true,
+      "license": "MIT"
     },
     "node_modules/emoji-regex": {
       "version": "9.2.2",
@@ -6117,6 +6134,34 @@ METADATA: Size=400578 bytes | Last_Modified=2026-01-04 19:20:29.693082
         "node": ">=10"
       }
     },
+    "node_modules/filename-reserved-regex": {
+      "version": "2.0.0",
+      "resolved": "https://registry.npmjs.org/filename-reserved-regex/-/filename-reserved-regex-2.0.0.tgz",
+      "integrity": "sha512-lc1bnsSr4L4Bdif8Xb/qrtokGbq5zlsms/CYH8PP+WtCkGNF65DPiQY8vG3SakEdRn8Dlnm+gW/qWKKjS5sZzQ==",
+      "dev": true,
+      "license": "MIT",
+      "engines": {
+        "node": ">=4"
+      }
+    },
+    "node_modules/filenamify": {
+      "version": "4.3.0",
+      "resolved": "https://registry.npmjs.org/filenamify/-/filenamify-4.3.0.tgz",
+      "integrity": "sha512-hcFKyUG57yWGAzu1CMt/dPzYZuv+jAJUT85bL8mrXvNe6hWj6yEHEc4EdcgiA6Z3oi1/9wXJdZPXF2dZNgwgOg==",
+      "dev": true,
+      "license": "MIT",
+      "dependencies": {
+        "filename-reserved-regex": "^2.0.0",
+        "strip-outer": "^1.0.1",
+        "trim-repeated": "^1.0.0"
+      },
+      "engines": {
+        "node": ">=8"
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/sindresorhus"
+      }
+    },
     "node_modules/fill-range": {
       "version": "7.1.1",
       "resolved": "https://registry.npmjs.org/fill-range/-/fill-range-7.1.1.tgz",
@@ -6162,6 +6207,24 @@ METADATA: Size=400578 bytes | Last_Modified=2026-01-04 19:20:29.693082
       "resolved": "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz",
       "integrity": "sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A==",
       "license": "MIT"
+    },
+    "node_modules/find-cache-dir": {
+      "version": "3.3.2",
+      "resolved": "https://registry.npmjs.org/find-cache-dir/-/find-cache-dir-3.3.2.tgz",
+      "integrity": "sha512-wXZV5emFEjrridIgED11OoUKLxiYjAcqot/NJdAkOhlJ+vGzwhOAfcG5OX1jP+S0PcjEn8bdMJv+g2jwQ3Onig==",
+      "dev": true,
+      "license": "MIT",
+      "dependencies": {
+        "commondir": "^1.0.1",
+        "make-dir": "^3.0.2",
+        "pkg-dir": "^4.1.0"
+      },
+      "engines": {
+        "node": ">=8"
+      },
+      "funding": {
+        "url": "https://github.com/avajs/find-cache-dir?sponsor=1"
+      }
     },
     "node_modules/find-up": {
       "version": "5.0.0",
@@ -6484,6 +6547,54 @@ METADATA: Size=400578 bytes | Last_Modified=2026-01-04 19:20:29.693082
       },
       "funding": {
         "url": "https://github.com/sponsors/ljharb"
+      }
+    },
+    "node_modules/gh-pages": {
+      "version": "6.3.0",
+      "resolved": "https://registry.npmjs.org/gh-pages/-/gh-pages-6.3.0.tgz",
+      "integrity": "sha512-Ot5lU6jK0Eb+sszG8pciXdjMXdBJ5wODvgjR+imihTqsUWF2K6dJ9HST55lgqcs8wWcw6o6wAsUzfcYRhJPXbA==",
+      "dev": true,
+      "license": "MIT",
+      "dependencies": {
+        "async": "^3.2.4",
+        "commander": "^13.0.0",
+        "email-addresses": "^5.0.0",
+        "filenamify": "^4.3.0",
+        "find-cache-dir": "^3.3.1",
+        "fs-extra": "^11.1.1",
+        "globby": "^11.1.0"
+      },
+      "bin": {
+        "gh-pages": "bin/gh-pages.js",
+        "gh-pages-clean": "bin/gh-pages-clean.js"
+      },
+      "engines": {
+        "node": ">=10"
+      }
+    },
+    "node_modules/gh-pages/node_modules/commander": {
+      "version": "13.1.0",
+      "resolved": "https://registry.npmjs.org/commander/-/commander-13.1.0.tgz",
+      "integrity": "sha512-/rFeCpNJQbhSZjGVwO9RFV3xPqbnERS8MmIQzCtD/zl6gpJuV/bMLuN92oG3F7d8oDEHHRrujSXNUr8fpjntKw==",
+      "dev": true,
+      "license": "MIT",
+      "engines": {
+        "node": ">=18"
+      }
+    },
+    "node_modules/gh-pages/node_modules/fs-extra": {
+      "version": "11.3.3",
+      "resolved": "https://registry.npmjs.org/fs-extra/-/fs-extra-11.3.3.tgz",
+      "integrity": "sha512-VWSRii4t0AFm6ixFFmLLx1t7wS1gh+ckoa84aOeapGum0h+EZd1EhEumSB+ZdDLnEPuucsVB9oB7cxJHap6Afg==",
+      "dev": true,
+      "license": "MIT",
+      "dependencies": {
+        "graceful-fs": "^4.2.0",
+        "jsonfile": "^6.0.1",
+        "universalify": "^2.0.0"
+      },
+      "engines": {
+        "node": ">=14.14"
       }
     },
     "node_modules/glob": {
@@ -6842,6 +6953,15 @@ METADATA: Size=400578 bytes | Last_Modified=2026-01-04 19:20:29.693082
       "license": "ISC",
       "engines": {
         "node": ">=12"
+      }
+    },
+    "node_modules/invariant": {
+      "version": "2.2.4",
+      "resolved": "https://registry.npmjs.org/invariant/-/invariant-2.2.4.tgz",
+      "integrity": "sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==",
+      "license": "MIT",
+      "dependencies": {
+        "loose-envify": "^1.0.0"
       }
     },
     "node_modules/ipaddr.js": {
@@ -7872,6 +7992,15 @@ METADATA: Size=400578 bytes | Last_Modified=2026-01-04 19:20:29.693082
         "yallist": "^3.0.2"
       }
     },
+    "node_modules/lucide-react": {
+      "version": "0.562.0",
+      "resolved": "https://registry.npmjs.org/lucide-react/-/lucide-react-0.562.0.tgz",
+      "integrity": "sha512-82hOAu7y0dbVuFfmO4bYF1XEwYk/mEbM5E+b1jgci/udUBEE/R7LF5Ip0CCEmXe8AybRM8L+04eP+LGZeDvkiw==",
+      "license": "ISC",
+      "peerDependencies": {
+        "react": "^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+      }
+    },
     "node_modules/magic-string": {
       "version": "0.30.21",
       "resolved": "https://registry.npmjs.org/magic-string/-/magic-string-0.30.21.tgz",
@@ -7880,6 +8009,32 @@ METADATA: Size=400578 bytes | Last_Modified=2026-01-04 19:20:29.693082
       "license": "MIT",
       "dependencies": {
         "@jridgewell/sourcemap-codec": "^1.5.5"
+      }
+    },
+    "node_modules/make-dir": {
+      "version": "3.1.0",
+      "resolved": "https://registry.npmjs.org/make-dir/-/make-dir-3.1.0.tgz",
+      "integrity": "sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==",
+      "dev": true,
+      "license": "MIT",
+      "dependencies": {
+        "semver": "^6.0.0"
+      },
+      "engines": {
+        "node": ">=8"
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/sindresorhus"
+      }
+    },
+    "node_modules/make-dir/node_modules/semver": {
+      "version": "6.3.1",
+      "resolved": "https://registry.npmjs.org/semver/-/semver-6.3.1.tgz",
+      "integrity": "sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==",
+      "dev": true,
+      "license": "ISC",
+      "bin": {
+        "semver": "bin/semver.js"
       }
     },
     "node_modules/math-intrinsics": {
@@ -8308,6 +8463,16 @@ METADATA: Size=400578 bytes | Last_Modified=2026-01-04 19:20:29.693082
         "url": "https://github.com/sponsors/sindresorhus"
       }
     },
+    "node_modules/p-try": {
+      "version": "2.2.0",
+      "resolved": "https://registry.npmjs.org/p-try/-/p-try-2.2.0.tgz",
+      "integrity": "sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==",
+      "dev": true,
+      "license": "MIT",
+      "engines": {
+        "node": ">=6"
+      }
+    },
     "node_modules/package-json-from-dist": {
       "version": "1.0.1",
       "resolved": "https://registry.npmjs.org/package-json-from-dist/-/package-json-from-dist-1.0.1.tgz",
@@ -8472,6 +8637,75 @@ METADATA: Size=400578 bytes | Last_Modified=2026-01-04 19:20:29.693082
       "license": "MIT",
       "engines": {
         "node": ">= 6"
+      }
+    },
+    "node_modules/pkg-dir": {
+      "version": "4.2.0",
+      "resolved": "https://registry.npmjs.org/pkg-dir/-/pkg-dir-4.2.0.tgz",
+      "integrity": "sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==",
+      "dev": true,
+      "license": "MIT",
+      "dependencies": {
+        "find-up": "^4.0.0"
+      },
+      "engines": {
+        "node": ">=8"
+      }
+    },
+    "node_modules/pkg-dir/node_modules/find-up": {
+      "version": "4.1.0",
+      "resolved": "https://registry.npmjs.org/find-up/-/find-up-4.1.0.tgz",
+      "integrity": "sha512-PpOwAdQ/YlXQ2vj8a3h8IipDuYRi3wceVQQGYWxNINccq40Anw7BlsEXCMbt1Zt+OLA6Fq9suIpIWD0OsnISlw==",
+      "dev": true,
+      "license": "MIT",
+      "dependencies": {
+        "locate-path": "^5.0.0",
+        "path-exists": "^4.0.0"
+      },
+      "engines": {
+        "node": ">=8"
+      }
+    },
+    "node_modules/pkg-dir/node_modules/locate-path": {
+      "version": "5.0.0",
+      "resolved": "https://registry.npmjs.org/locate-path/-/locate-path-5.0.0.tgz",
+      "integrity": "sha512-t7hw9pI+WvuwNJXwk5zVHpyhIqzg2qTlklJOf0mVxGSbe3Fp2VieZcduNYjaLDoy6p9uGpQEGWG87WpMKlNq8g==",
+      "dev": true,
+      "license": "MIT",
+      "dependencies": {
+        "p-locate": "^4.1.0"
+      },
+      "engines": {
+        "node": ">=8"
+      }
+    },
+    "node_modules/pkg-dir/node_modules/p-limit": {
+      "version": "2.3.0",
+      "resolved": "https://registry.npmjs.org/p-limit/-/p-limit-2.3.0.tgz",
+      "integrity": "sha512-//88mFWSJx8lxCzwdAABTJL2MyWB12+eIY7MDL2SqLmAkeKU9qxRvWuSyTjm3FUmpBEMuFfckAIqEaVGUDxb6w==",
+      "dev": true,
+      "license": "MIT",
+      "dependencies": {
+        "p-try": "^2.0.0"
+      },
+      "engines": {
+        "node": ">=6"
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/sindresorhus"
+      }
+    },
+    "node_modules/pkg-dir/node_modules/p-locate": {
+      "version": "4.1.0",
+      "resolved": "https://registry.npmjs.org/p-locate/-/p-locate-4.1.0.tgz",
+      "integrity": "sha512-R79ZZ/0wAxKGu3oYMlz8jy/kbhsNrS7SKZ7PxEHBgJ5+F2mtFW2fK2cOtBh1cHYkQsbzFV7I+EoRKe6Yt0oK7A==",
+      "dev": true,
+      "license": "MIT",
+      "dependencies": {
+        "p-limit": "^2.2.0"
+      },
+      "engines": {
+        "node": ">=8"
       }
     },
     "node_modules/pkg-types": {
@@ -8861,6 +9095,26 @@ METADATA: Size=400578 bytes | Last_Modified=2026-01-04 19:20:29.693082
         "react": "^18.3.1"
       }
     },
+    "node_modules/react-fast-compare": {
+      "version": "3.2.2",
+      "resolved": "https://registry.npmjs.org/react-fast-compare/-/react-fast-compare-3.2.2.tgz",
+      "integrity": "sha512-nsO+KSNgo1SbJqJEYRE9ERzo7YtYbou/OqjSQKxV7jcKox7+usiUVZOAC+XnDOABXggQTno0Y1CpVnuWEc1boQ==",
+      "license": "MIT"
+    },
+    "node_modules/react-helmet-async": {
+      "version": "2.0.5",
+      "resolved": "https://registry.npmjs.org/react-helmet-async/-/react-helmet-async-2.0.5.tgz",
+      "integrity": "sha512-rYUYHeus+i27MvFE+Jaa4WsyBKGkL6qVgbJvSBoX8mbsWoABJXdEO0bZyi0F6i+4f0NuIb8AvqPMj3iXFHkMwg==",
+      "license": "Apache-2.0",
+      "dependencies": {
+        "invariant": "^2.2.4",
+        "react-fast-compare": "^3.2.2",
+        "shallowequal": "^1.1.0"
+      },
+      "peerDependencies": {
+        "react": "^16.6.0 || ^17.0.0 || ^18.0.0"
+      }
+    },
     "node_modules/react-hook-form": {
       "version": "7.70.0",
       "resolved": "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.70.0.tgz",
@@ -8875,6 +9129,21 @@ METADATA: Size=400578 bytes | Last_Modified=2026-01-04 19:20:29.693082
       },
       "peerDependencies": {
         "react": "^16.8.0 || ^17 || ^18 || ^19"
+      }
+    },
+    "node_modules/react-intersection-observer": {
+      "version": "10.0.0",
+      "resolved": "https://registry.npmjs.org/react-intersection-observer/-/react-intersection-observer-10.0.0.tgz",
+      "integrity": "sha512-JJRgcnFQoVXmbE5+GXr1OS1NDD1gHk0HyfpLcRf0575IbJz+io8yzs4mWVlfaqOQq1FiVjLvuYAdEEcrrCfveg==",
+      "license": "MIT",
+      "peerDependencies": {
+        "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0"
+      },
+      "peerDependenciesMeta": {
+        "react-dom": {
+          "optional": true
+        }
       }
     },
     "node_modules/react-is": {
@@ -9471,6 +9740,12 @@ METADATA: Size=400578 bytes | Last_Modified=2026-01-04 19:20:29.693082
       "integrity": "sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==",
       "license": "ISC"
     },
+    "node_modules/shallowequal": {
+      "version": "1.1.0",
+      "resolved": "https://registry.npmjs.org/shallowequal/-/shallowequal-1.1.0.tgz",
+      "integrity": "sha512-y0m1JoUZSlPAjXVtPPW70aZWfIL/dSP7AFkRnniLCrK/8MDKog3TySTBmckD+RObVxH0v4Tox67+F14PdED2oQ==",
+      "license": "MIT"
+    },
     "node_modules/shebang-command": {
       "version": "2.0.0",
       "resolved": "https://registry.npmjs.org/shebang-command/-/shebang-command-2.0.0.tgz",
@@ -9971,6 +10246,29 @@ METADATA: Size=400578 bytes | Last_Modified=2026-01-04 19:20:29.693082
       "dev": true,
       "license": "MIT"
     },
+    "node_modules/strip-outer": {
+      "version": "1.0.1",
+      "resolved": "https://registry.npmjs.org/strip-outer/-/strip-outer-1.0.1.tgz",
+      "integrity": "sha512-k55yxKHwaXnpYGsOzg4Vl8+tDrWylxDEpknGjhTiZB8dFRU5rTo9CAzeycivxV3s+zlTKwrs6WxMxR95n26kwg==",
+      "dev": true,
+      "license": "MIT",
+      "dependencies": {
+        "escape-string-regexp": "^1.0.2"
+      },
+      "engines": {
+        "node": ">=0.10.0"
+      }
+    },
+    "node_modules/strip-outer/node_modules/escape-string-regexp": {
+      "version": "1.0.5",
+      "resolved": "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz",
+      "integrity": "sha512-vbRorB5FUQWvla16U8R/qgaFIya2qGzwDrNmCZuYKrbdSUMG6I1ZCGQRefkRVhuOkIGVne7BQ35DSfo1qvJqFg==",
+      "dev": true,
+      "license": "MIT",
+      "engines": {
+        "node": ">=0.8.0"
+      }
+    },
     "node_modules/sucrase": {
       "version": "3.35.1",
       "resolved": "https://registry.npmjs.org/sucrase/-/sucrase-3.35.1.tgz",
@@ -10281,6 +10579,29 @@ METADATA: Size=400578 bytes | Last_Modified=2026-01-04 19:20:29.693082
       "license": "MIT",
       "dependencies": {
         "punycode": "^2.1.0"
+      }
+    },
+    "node_modules/trim-repeated": {
+      "version": "1.0.0",
+      "resolved": "https://registry.npmjs.org/trim-repeated/-/trim-repeated-1.0.0.tgz",
+      "integrity": "sha512-pkonvlKk8/ZuR0D5tLW8ljt5I8kmxp2XKymhepUeOdCEfKpZaktSArkLHZt76OB1ZvO9bssUsDty4SWhLvZpLg==",
+      "dev": true,
+      "license": "MIT",
+      "dependencies": {
+        "escape-string-regexp": "^1.0.2"
+      },
+      "engines": {
+        "node": ">=0.10.0"
+      }
+    },
+    "node_modules/trim-repeated/node_modules/escape-string-regexp": {
+      "version": "1.0.5",
+      "resolved": "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz",
+      "integrity": "sha512-vbRorB5FUQWvla16U8R/qgaFIya2qGzwDrNmCZuYKrbdSUMG6I1ZCGQRefkRVhuOkIGVne7BQ35DSfo1qvJqFg==",
+      "dev": true,
+      "license": "MIT",
+      "engines": {
+        "node": ">=0.8.0"
       }
     },
     "node_modules/ts-api-utils": {
@@ -11521,13 +11842,14 @@ METADATA: Size=400578 bytes | Last_Modified=2026-01-04 19:20:29.693082
 
 ================================================================================
 FILE_BEGIN: package.json
-METADATA: Size=1585 bytes | Last_Modified=2026-01-04 19:20:29.334256
+METADATA: Size=1870 bytes | Last_Modified=2026-01-04 23:20:35.127803
 ================================================================================
 {
   "name": "properties-4-creations",
   "private": true,
   "version": "2.0.0",
   "type": "module",
+  "homepage": ".",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -11535,16 +11857,22 @@ METADATA: Size=1585 bytes | Last_Modified=2026-01-04 19:20:29.334256
     "preview": "vite preview",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "test:run": "vitest run"
+    "test:run": "vitest run",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
+    "deploy:github": "npm run build && gh-pages -d dist"
   },
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
     "@types/node": "^20.11.16",
     "axios": "^1.6.8",
     "express": "^4.19.2",
+    "lucide-react": "^0.562.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-helmet-async": "^2.0.5",
     "react-hook-form": "^7.51.2",
+    "react-intersection-observer": "^10.0.0",
     "react-router-dom": "^6.22.3",
     "recharts": "^2.12.7"
   },
@@ -11570,6 +11898,7 @@ METADATA: Size=1585 bytes | Last_Modified=2026-01-04 19:20:29.334256
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
+    "gh-pages": "^6.3.0",
     "postcss": "^8.4.35",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.2.2",

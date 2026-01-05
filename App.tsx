@@ -20,7 +20,7 @@ const Home = React.lazy(() => import('./pages/Home'));
 const About = React.lazy(() => import('./pages/About'));
 const Employment = React.lazy(() => import('./pages/Employment'));
 const Application = React.lazy(() => import('./pages/Application'));
-const Veterans = React.lazy(() => import('./pages/Veterans')); // Keep for redirect or legacy if needed, mostly replaced by VeteranServices
+
 const VeteranServices = React.lazy(() => import('./pages/VeteranServices'));
 const SuccessStories = React.lazy(() => import('./pages/SuccessStories'));
 const Contact = React.lazy(() => import('./pages/Contact'));

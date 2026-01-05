@@ -2,9 +2,14 @@
 /**
  * Centralized Asset Registry
  * Maps application logic to physical file paths.
- * * Usage:
+ *
+ * Usage:
  * import { IMAGES } from '../constants/images';
- * <img src={IMAGES.BANNERS.HOME} alt="Home" />
+ * <img src={IMAGES.BANNERS.HERO_HOME} alt="Home" />
+ *
+ * Icons Usage:
+ * import { IMAGES } from '../constants/images';
+ * <img src={IMAGES.ICONS.SOLDIER} alt="Veteran Support" className="w-6 h-6" />
  */
 
 export const IMAGES = {
@@ -16,17 +21,17 @@ export const IMAGES = {
 
   // Page Hero Banners
   BANNERS: {
-    HOME: '/images/banners/hero-home-banner-800w.webp',
-    ABOUT: '/images/banners/hero-about-us-banner-400w.webp', // Using highest resolution available
-    CONTACT: '/images/banners/hero-contact-banner.webp',
-    IMPACT: '/images/banners/hero-impact-banner-400w.webp',
-    PRIVACY: '/images/banners/hero-privacy-banner.webp',
-    PROJECTS: '/images/banners/hero-projects-banner-400w.webp',
-    RESOURCES: '/images/banners/hero-resources-banner.webp',
-    TERMS: '/images/banners/hero-terms-banner-800w.webp',
-    TRANSPARENCY: '/images/banners/hero-transparency-banner-400w.webp',
-    APPLICATION: '/images/banners/hero-application-banner.jpg',
-    FAQ: '/images/banners/hero-faq-banner.png',
+    HERO_HOME: '/images/banners/hero-home-banner-800w.webp',
+    HERO_ABOUT: '/images/banners/hero-about-us-banner-400w.webp',
+    HERO_CONTACT: '/images/banners/hero-contact-banner.webp',
+    HERO_IMPACT: '/images/banners/hero-impact-banner-400w.webp',
+    HERO_PRIVACY: '/images/banners/hero-privacy-banner.webp',
+    HERO_PROJECTS: '/images/banners/hero-projects-banner-400w.webp',
+    HERO_RESOURCES: '/images/banners/hero-resources-banner.webp',
+    HERO_TERMS: '/images/banners/hero-terms-banner-800w.webp',
+    HERO_TRANSPARENCY: '/images/banners/hero-transparency-banner-400w.webp',
+    HERO_APPLICATION: '/images/banners/hero-application-banner.jpg',
+    HERO_FAQ: '/images/banners/hero-faq-banner.png',
   },
 
   // Property Listings
@@ -37,7 +42,7 @@ export const IMAGES = {
     LONGVIEW_VICTORIAN: '/images/properties/longview-victorian.webp',
     MARSHALL_FARMHOUSE: '/images/properties/marshall-farmhouse-400w.webp',
     MINEOLA_STUDIO: '/images/properties/mineola-studio.webp',
-    RODRIGUEZ_FAMILY: '/images/properties/rodriguez-family-400w.webp',
+    RODRIGUEZ_FAMILY: '/images/properties/impact-rodriguez-family-800w.webp',
   },
 
   // Team & About
@@ -74,9 +79,31 @@ export const IMAGES = {
     REMODELING: '/images/our-work-gallery/our-work-remodeling-400w.webp',
   },
 
+  // Icon System - Key icons for the veteran/family housing platform
+  ICONS: {
+    // Core Brand Icons
+    SOLDIER: '/images/icons/soldier.svg',
+    FLAG: '/images/icons/flag.svg',
+    HEART: '/images/icons/heart.svg',
+    HOME: '/images/icons/home.svg',
+    FAMILY: '/images/icons/family.svg',
+    
+    // Property & Construction Icons
+    PATIO: '/images/icons/american-flag-icon.svg',
+    QUALITY: '/images/icons/quality-checklist.svg',
+    COMMUNITY: '/images/icons/online-community.svg',
+    PATRIOTISM: '/images/icons/patriotism.svg',
+    
+    // Additional Support Icons
+    VA_LOAN: '/images/icons/032-va-loan.png',
+    SUPPORT: '/images/icons/019-heart.png',
+    QUALITY_CONTROL: '/images/icons/009-quality-control.png',
+    STANDARD: '/images/icons/012-quality-control-1.png',
+  },
+
   // Videos
   VIDEOS: {
     HERO_PROPERTIES: '/images/videos/hero-properties-banner.mp4',
-    HERO_OurWork: '/images/videos/hero-our-work-banner.mp4',
+    HERO_WORK: '/images/videos/hero-our-work-banner.mp4',
   }
 } as const;

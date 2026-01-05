@@ -1,7 +1,12 @@
 Website/
+├── .clinerules
+│   └── .p4c-rules.md
 ├── .github
 │   └── workflows
 │       └── ci.yml
+├── .kilocode
+│   └── rules
+│       └── .kilo-rules.md
 ├── components
 │   ├── AccessibilityTools.tsx
 │   ├── AIChatbot.tsx
@@ -217,17 +222,21 @@ Website/
 │   └── geminiService.test.ts
 ├── utils
 │   └── imageOptimization.ts
+├── .env.example
 ├── .env.local
 ├── .eslintrc.json
 ├── .gitignore
 ├── .tsbuildinfo
+├── 404.html
 ├── App.tsx
+├── CNAME
 ├── code-review.py
 ├── DEPLOYMENT_GUIDE.md
 ├── ENTERPRISE_CODE_IMPROV
 ├── ENTERPRISE_CODE_IMPROVEMENTS.md
 ├── ENTERPRISE_CODE_REVIEW_REPORT.md
 ├── EXECUTIVE_SUMMARY.md
+├── GITHUB_PAGES_DEPLOYMENT.md
 ├── IMPLEMENTATION_ROADMAP.md
 ├── IMPLEMENTATION_SUMMARY.md
 ├── index.css
@@ -236,8 +245,9 @@ Website/
 ├── metadata.json
 ├── package-lock.json
 ├── package.json
-├── postcss.config.js
+├── postcss.config.cjs
 ├── README.md
+├── REPOSITORY_PATTERN_IMPLEMENTATION.md
 ├── robots.txt
 ├── SECURITY_VULNERABILITY_REPORT.md
 ├── sitemap.xml

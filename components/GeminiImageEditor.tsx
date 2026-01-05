@@ -32,7 +32,7 @@ const GeminiImageEditor: React.FC = () => {
     }
   };
 
-  const handleGenerate = async () => {
+  const handleGenerate = async (): Promise<void> => {
     if (!selectedImage || !prompt) return;
 
     setLoading(true);
@@ -40,7 +40,7 @@ const GeminiImageEditor: React.FC = () => {
 
     try {
       // Strip base64 prefix for the API call
-      const base64Data = selectedImage.split(',')[1];
+      const base64Data = selectedImage.split(',')[1] || '';
       const result = await editImageWithGemini(base64Data, mimeType, prompt);
       setGeneratedImage(result);
     } catch (err) {

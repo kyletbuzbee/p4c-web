@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect, useCallback, memo } from 'react';
-import { Property } from '../types';
+import { useState, useRef, useEffect, useCallback, memo } from 'react';
+import type { Property } from '../types';
 import { Bed, Bath, Move, MapPin, Image as ImageIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
@@ -23,7 +23,7 @@ const LazyImage = memo(({
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
-  const imgRef = useRef<HTMLImageElement>(null);
+  const imgRef = useRef<HTMLImageElement | null>(null);
   
   const { ref: inViewRef, inView } = useInView({
     triggerOnce: true,
@@ -33,7 +33,9 @@ const LazyImage = memo(({
 
   // Combine refs
   const setRefs = useCallback((node: HTMLImageElement | null) => {
-    imgRef.current = node;
+    if (node) {
+      imgRef.current = node;
+    }
     inViewRef(node);
   }, [inViewRef]);
 
@@ -98,7 +100,7 @@ LazyImage.displayName = 'LazyImage';
 
 // Optimized PropertyCard with memoization
 const PropertyCard = memo<PropertyCardProps>(({ property, priority = false }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [, setIsHovered] = useState(false);
 
   // Preload critical images for better UX
   useEffect(() => {

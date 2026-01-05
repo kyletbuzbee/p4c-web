@@ -116,18 +116,19 @@ const Application: React.FC = () => {
        {/* Hero Banner */}
        <div className="relative h-[300px] w-full overflow-hidden flex items-center justify-center">
         <div className="absolute top-0 left-0 w-full h-full z-0">
-          <img 
-            src={IMAGES.BANNERS.APPLICATION}
-            alt="Handing over house keys" 
+          <img
+            src={IMAGES.BANNERS.HERO_APPLICATION}
+            alt="Handing over house keys"
             className="w-full h-full object-cover"
           />
-           <div className="absolute top-0 left-0 w-full h-full bg-p4c-navy/80 mix-blend-multiply"></div>
+           <div className="absolute top-0 left-0 w-full h-full hero-overlay-primary"></div>
+           <div className="absolute top-0 left-0 w-full h-full hero-overlay-secondary"></div>
         </div>
         <div className="relative z-10 text-center px-4">
-          <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-2">
+          <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-2 hero-text-contrast">
             The Dignity Application
           </h1>
-          <p className="text-gray-200 font-medium">No application fees. No judgement. Just a path home.</p>
+          <p className="text-gray-200 font-medium hero-text-enhanced">No application fees. No judgement. Just a path home.</p>
         </div>
       </div>
 

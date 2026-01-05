@@ -1,6 +1,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageSquare, X, Send, Loader2, Bot, AlertCircle } from 'lucide-react';
+import { MessageSquare, X, Send, Loader2, Bot } from 'lucide-react';
 import { sendChatMessage } from '../services/geminiService';
 
 interface Message {
@@ -33,9 +33,10 @@ const AIChatbot: React.FC = () => {
       // Focus input on open
       setTimeout(() => inputRef.current?.focus(), 100);
 
-      const handleKeyDown = (e: KeyboardEvent) => {
+      const handleKeyDown = (e: KeyboardEvent): void => {
         if (e.key === 'Escape') {
           setIsOpen(false);
+          return;
         }
         if (e.key === 'Tab' && chatContainerRef.current) {
             const focusableElements = chatContainerRef.current.querySelectorAll(
@@ -43,7 +44,7 @@ const AIChatbot: React.FC = () => {
             );
             const firstElement = focusableElements[0] as HTMLElement;
             const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
-
+    
             if (e.shiftKey) {
                 if (document.activeElement === firstElement) {
                     lastElement.focus();

@@ -181,6 +181,7 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
       return () => clearTimeout(timer);
     } else {
       setDisplayProgress(progress);
+      return;
     }
   }, [progress, animated]);
 
@@ -222,7 +223,7 @@ export const SmoothScroll: React.FC<SmoothScrollProps> = ({
   duration = 600,
   className = ''
 }) => {
-  const handleClick = (e: React.MouseEvent) => {
+  const handleClick = (e: React.MouseEvent): void => {
     e.preventDefault();
 
     const targetElement = document.querySelector(to);
@@ -336,17 +337,5 @@ export const LoadingDots: React.FC<LoadingDotsProps> = ({
 };
 
 // CSS for ripple animation (add to global CSS)
-const rippleStyles = `
-@keyframes ripple {
-  0% {
-    transform: scale(0);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(4);
-    opacity: 0;
-  }
-}
-`;
 
 export default AnimatedButton;

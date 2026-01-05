@@ -108,7 +108,7 @@ const SuccessStories: React.FC = () => {
 
           {/* Video Placeholder */}
           <div className="mt-20 bg-gray-900 rounded-2xl overflow-hidden relative h-[400px] flex items-center justify-center group cursor-pointer shadow-2xl ring-1 ring-white/10">
-              <div className="absolute inset-0 opacity-40 bg-cover bg-center" style={{ backgroundImage: `url('${IMAGES.BANNERS.HOME}')` }}></div>
+              <div className="absolute inset-0 opacity-40 bg-cover bg-center" style={{ backgroundImage: `url('${IMAGES.BANNERS.HERO_HOME}')` }}></div>
               <div className="relative z-10 text-center px-4">
                   <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-6 border-2 border-white group-hover:scale-110 transition-transform">
                       <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[20px] border-l-white border-b-[10px] border-b-transparent ml-1"></div>

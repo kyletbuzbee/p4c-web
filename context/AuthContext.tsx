@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, ReactNode, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import type { ReactNode } from 'react';
 import { useToast } from './ToastContext';
 
 type UserRole = 'guest' | 'tenant' | 'admin';

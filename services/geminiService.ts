@@ -42,7 +42,7 @@ const sanitizeInput = (input: string): string => {
       "'": '&#x27;',
       '&': '&'
     };
-    return entities[match];
+    return entities[match] || '';
   });
 };
 

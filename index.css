@@ -256,4 +256,36 @@
     transform: translateY(-2px);
     box-shadow: 0 10px 25px rgba(197, 160, 89, 0.3);
   }
+
+  /* Hero Banner Enhancement Utilities */
+  .hero-overlay-primary {
+    background: linear-gradient(180deg, rgba(11, 17, 32, 0.9) 0%, rgba(11, 17, 32, 0.6) 50%, rgba(11, 17, 32, 0.85) 100%);
+    mix-blend-mode: multiply;
+  }
+
+  .hero-overlay-secondary {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.15) 100%);
+  }
+
+  .hero-text-contrast {
+    text-shadow:
+      -1px -1px 0px #000,
+      1px -1px 0px #000,
+      -1px 1px 0px #000,
+      1px 1px 0px #000,
+      0px 0px 8px rgba(0, 0, 0, 0.8);
+    -webkit-text-stroke: 1px #000;
+    color: #ffffff;
+  }
+
+  .hero-text-enhanced {
+    text-shadow:
+      -1px -1px 0px #000,
+      1px -1px 0px #000,
+      -1px 1px 0px #000,
+      1px 1px 0px #000,
+      0px 0px 6px rgba(0, 0, 0, 0.7);
+    -webkit-text-stroke: 0.8px #000;
+    color: #ffffff;
+  }
 }

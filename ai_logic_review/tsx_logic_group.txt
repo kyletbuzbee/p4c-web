@@ -1,7 +1,7 @@
 
 ================================================================================
 FILE_BEGIN: App.tsx
-METADATA: Size=5240 bytes | Last_Modified=2026-01-04 14:43:19.622822
+METADATA: Size=5101 bytes | Last_Modified=2026-01-05 00:46:30.543867
 ================================================================================
 
 import React, { Suspense } from 'react';
@@ -25,7 +25,7 @@ const Home = React.lazy(() => import('./pages/Home'));
 const About = React.lazy(() => import('./pages/About'));
 const Employment = React.lazy(() => import('./pages/Employment'));
 const Application = React.lazy(() => import('./pages/Application'));
-const Veterans = React.lazy(() => import('./pages/Veterans')); // Keep for redirect or legacy if needed, mostly replaced by VeteranServices
+
 const VeteranServices = React.lazy(() => import('./pages/VeteranServices'));
 const SuccessStories = React.lazy(() => import('./pages/SuccessStories'));
 const Contact = React.lazy(() => import('./pages/Contact'));
@@ -415,11 +415,11 @@ export default AccessibilityTools;
 
 ================================================================================
 FILE_BEGIN: components\AIChatbot.tsx
-METADATA: Size=7534 bytes | Last_Modified=2026-01-04 12:32:59.628037
+METADATA: Size=7549 bytes | Last_Modified=2026-01-05 00:57:45.253120
 ================================================================================
 
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageSquare, X, Send, Loader2, Bot, AlertCircle } from 'lucide-react';
+import { MessageSquare, X, Send, Loader2, Bot } from 'lucide-react';
 import { sendChatMessage } from '../services/geminiService';
 
 interface Message {
@@ -452,9 +452,10 @@ const AIChatbot: React.FC = () => {
       // Focus input on open
       setTimeout(() => inputRef.current?.focus(), 100);
 
-      const handleKeyDown = (e: KeyboardEvent) => {
+      const handleKeyDown = (e: KeyboardEvent): void => {
         if (e.key === 'Escape') {
           setIsOpen(false);
+          return;
         }
         if (e.key === 'Tab' && chatContainerRef.current) {
             const focusableElements = chatContainerRef.current.querySelectorAll(
@@ -462,7 +463,7 @@ const AIChatbot: React.FC = () => {
             );
             const firstElement = focusableElements[0] as HTMLElement;
             const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
-
+    
             if (e.shiftKey) {
                 if (document.activeElement === firstElement) {
                     lastElement.focus();
@@ -697,7 +698,7 @@ export default BeforeAfterSlider;
 
 ================================================================================
 FILE_BEGIN: components\CookieConsent.tsx
-METADATA: Size=2356 bytes | Last_Modified=2026-01-04 12:32:59.651996
+METADATA: Size=2368 bytes | Last_Modified=2026-01-05 00:59:05.046229
 ================================================================================
 
 import React, { useState, useEffect } from 'react';
@@ -713,6 +714,7 @@ const CookieConsent: React.FC = () => {
       const timer = setTimeout(() => setIsVisible(true), 1000);
       return () => clearTimeout(timer);
     }
+    return;
   }, []);
 
   const handleAccept = () => {
@@ -835,9 +837,10 @@ export default DarkModeToggle;
 
 ================================================================================
 FILE_BEGIN: components\ErrorBoundary.tsx
-METADATA: Size=8753 bytes | Last_Modified=2026-01-04 13:31:59.063324
+METADATA: Size=8808 bytes | Last_Modified=2026-01-05 00:46:48.030281
 ================================================================================
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { Component } from 'react';
+import type { ErrorInfo, ReactNode } from 'react';
 import { AlertTriangle, RefreshCw } from 'lucide-react';
 
 interface Props {
@@ -855,7 +858,7 @@ interface State {
 }
 
 class ErrorBoundary extends Component<Props, State> {
-  public state: State = {
+  public override state: State = {
     hasError: false,
     error: null,
     errorId: '',
@@ -873,7 +876,7 @@ class ErrorBoundary extends Component<Props, State> {
     };
   }
 
-  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+  public override componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // Enhanced error logging with security considerations
     this.logErrorToService(error, errorInfo, this.state.errorId);
     
@@ -937,7 +940,7 @@ class ErrorBoundary extends Component<Props, State> {
         // Remove file paths, keep only filename and line number
         const match = line.match(/\(([^)]+)\)/);
         if (match) {
-          const path = match[1];
+          const path = match[1] || '';
           const filename = path.split('/').pop() || path;
           return line.replace(path, filename);
         }
@@ -1033,7 +1036,7 @@ class ErrorBoundary extends Component<Props, State> {
     }
   };
 
-  public render() {
+  public override render() {
     if (this.state.hasError) {
       // Custom fallback UI
       if (this.props.fallback) {
@@ -1114,11 +1117,11 @@ export default ErrorBoundary;
 
 ================================================================================
 FILE_BEGIN: components\Footer.tsx
-METADATA: Size=5595 bytes | Last_Modified=2026-01-04 12:32:59.600925
+METADATA: Size=5588 bytes | Last_Modified=2026-01-05 00:48:26.556151
 ================================================================================
 
 import React from 'react';
-import { Award, Accessibility, Home, Facebook, Instagram, Linkedin, Flag } from 'lucide-react';
+import { Accessibility, Home, Facebook, Instagram, Linkedin, Flag } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
@@ -1218,7 +1221,7 @@ export default Footer;
 
 ================================================================================
 FILE_BEGIN: components\GeminiImageEditor.tsx
-METADATA: Size=7253 bytes | Last_Modified=2026-01-04 12:32:59.572207
+METADATA: Size=7274 bytes | Last_Modified=2026-01-05 01:00:16.040499
 ================================================================================
 
 import React, { useState, useRef } from 'react';
@@ -1254,7 +1257,7 @@ const GeminiImageEditor: React.FC = () => {
     }
   };
 
-  const handleGenerate = async () => {
+  const handleGenerate = async (): Promise<void> => {
     if (!selectedImage || !prompt) return;
 
     setLoading(true);
@@ -1262,7 +1265,7 @@ const GeminiImageEditor: React.FC = () => {
 
     try {
       // Strip base64 prefix for the API call
-      const base64Data = selectedImage.split(',')[1];
+      const base64Data = selectedImage.split(',')[1] || '';
       const result = await editImageWithGemini(base64Data, mimeType, prompt);
       setGeneratedImage(result);
     } catch (err) {
@@ -1674,10 +1677,10 @@ export default ImageOptimizer;
 
 ================================================================================
 FILE_BEGIN: components\ImpactDashboard.tsx
-METADATA: Size=1926 bytes | Last_Modified=2026-01-04 12:32:59.587925
+METADATA: Size=1931 bytes | Last_Modified=2026-01-05 01:09:59.363595
 ================================================================================
 import React from 'react';
-import { StatMetric } from '../types';
+import type { StatMetric } from '../types';
 import { Users, Home, Hammer } from 'lucide-react';
 
 const stats: StatMetric[] = [
@@ -1723,7 +1726,7 @@ export default ImpactDashboard;
 
 ================================================================================
 FILE_BEGIN: components\MicroInteractions.tsx
-METADATA: Size=9417 bytes | Last_Modified=2026-01-04 14:49:46.229489
+METADATA: Size=9272 bytes | Last_Modified=2026-01-05 01:03:41.737939
 ================================================================================
 import React, { useState, useEffect, useRef } from 'react';
 
@@ -1908,6 +1911,7 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
       return () => clearTimeout(timer);
     } else {
       setDisplayProgress(progress);
+      return;
     }
   }, [progress, animated]);
 
@@ -1949,7 +1953,7 @@ export const SmoothScroll: React.FC<SmoothScrollProps> = ({
   duration = 600,
   className = ''
 }) => {
-  const handleClick = (e: React.MouseEvent) => {
+  const handleClick = (e: React.MouseEvent): void => {
     e.preventDefault();
 
     const targetElement = document.querySelector(to);
@@ -2063,18 +2067,6 @@ export const LoadingDots: React.FC<LoadingDotsProps> = ({
 };
 
 // CSS for ripple animation (add to global CSS)
-const rippleStyles = `
-@keyframes ripple {
-  0% {
-    transform: scale(0);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(4);
-    opacity: 0;
-  }
-}
-`;
 
 export default AnimatedButton;
 
@@ -2273,7 +2265,7 @@ export default Navbar;
 
 ================================================================================
 FILE_BEGIN: components\OptimizedImage.tsx
-METADATA: Size=6982 bytes | Last_Modified=2026-01-04 14:51:17.891459
+METADATA: Size=6980 bytes | Last_Modified=2026-01-05 01:07:09.691556
 ================================================================================
 /**
  * Optimized Image Component
@@ -2377,7 +2369,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
     if (!priority && loading === 'lazy' && imgRef.current) {
       const loader = new LazyImageLoader();
       loader.observe(imgRef.current);
-      
+       
       return () => {
         loader.disconnect();
       };
@@ -2423,7 +2415,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
         >
           {placeholder === 'blur' && (
             <img
-              src={generateBlurPlaceholder(src)}
+              src={generateBlurPlaceholder()}
               alt=""
               className="blur-placeholder"
               style={{
@@ -2530,10 +2522,10 @@ export default OptimizedImage;
 
 ================================================================================
 FILE_BEGIN: components\PropertyCard.tsx
-METADATA: Size=7175 bytes | Last_Modified=2026-01-04 13:43:10.446834
+METADATA: Size=7195 bytes | Last_Modified=2026-01-05 00:47:29.184210
 ================================================================================
-import React, { useState, useRef, useEffect, useCallback, memo } from 'react';
-import { Property } from '../types';
+import { useState, useRef, useEffect, useCallback, memo } from 'react';
+import type { Property } from '../types';
 import { Bed, Bath, Move, MapPin, Image as ImageIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
@@ -2557,7 +2549,7 @@ const LazyImage = memo(({
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
-  const imgRef = useRef<HTMLImageElement>(null);
+  const imgRef = useRef<HTMLImageElement | null>(null);
   
   const { ref: inViewRef, inView } = useInView({
     triggerOnce: true,
@@ -2567,7 +2559,9 @@ const LazyImage = memo(({
 
   // Combine refs
   const setRefs = useCallback((node: HTMLImageElement | null) => {
-    imgRef.current = node;
+    if (node) {
+      imgRef.current = node;
+    }
     inViewRef(node);
   }, [inViewRef]);
 
@@ -2632,7 +2626,7 @@ LazyImage.displayName = 'LazyImage';
 
 // Optimized PropertyCard with memoization
 const PropertyCard = memo<PropertyCardProps>(({ property, priority = false }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [, setIsHovered] = useState(false);
 
   // Preload critical images for better UX
   useEffect(() => {
@@ -2918,9 +2912,10 @@ export default Skeleton;
 
 ================================================================================
 FILE_BEGIN: context\AuthContext.tsx
-METADATA: Size=9308 bytes | Last_Modified=2026-01-04 13:31:05.042464
+METADATA: Size=9337 bytes | Last_Modified=2026-01-05 00:54:14.743670
 ================================================================================
-import React, { createContext, useContext, useState, ReactNode, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import type { ReactNode } from 'react';
 import { useToast } from './ToastContext';
 
 type UserRole = 'guest' | 'tenant' | 'admin';
@@ -3238,9 +3233,10 @@ const getDefaultPermissions = (role: UserRole): string[] => {
 
 ================================================================================
 FILE_BEGIN: context\DarkModeContext.tsx
-METADATA: Size=3032 bytes | Last_Modified=2026-01-04 14:39:24.763680
+METADATA: Size=3062 bytes | Last_Modified=2026-01-05 00:54:53.135820
 ================================================================================
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import type { ReactNode } from 'react';
 
 interface DarkModeContextType {
   isDarkMode: boolean;
@@ -3347,9 +3343,10 @@ export const DarkModeProvider: React.FC<DarkModeProviderProps> = ({ children }) 
 
 ================================================================================
 FILE_BEGIN: context\EnhancedAuthContext.tsx
-METADATA: Size=22721 bytes | Last_Modified=2026-01-04 19:18:34.125601
+METADATA: Size=22939 bytes | Last_Modified=2026-01-04 23:20:06.430344
 ================================================================================
-import React, { createContext, useContext, useState, ReactNode, useEffect, useCallback, useRef } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
+import type { ReactNode } from 'react';
 import { useToast } from './ToastContext';
 
 type UserRole = 'guest' | 'tenant' | 'admin';
@@ -3503,7 +3500,6 @@ class SessionManager {
 
   static validateLoginAttempts(email: string): { allowed: boolean; remainingAttempts: number; lockoutRemaining?: number } {
     const attempts = parseInt(localStorage.getItem(`login_attempts_${email}`) || '0');
-    const lastAttempt = parseInt(localStorage.getItem(`last_attempt_${email}`) || '0');
     const lockoutUntil = parseInt(localStorage.getItem(`lockout_${email}`) || '0');
     const now = Date.now();
     
@@ -3628,12 +3624,12 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({ childr
   const handleSessionTimeout = useCallback(() => {
     console.log('Session timeout reached, logging out user');
     logout();
-    addToast('Your session has expired. Please log in again.', 'warning');
+    addToast('Your session has expired. Please log in again.', 'info');
   }, [addToast]);
 
   // Session warning handler
   const handleSessionWarning = useCallback(() => {
-    addToast('Your session will expire in 5 minutes. Please save your work.', 'warning');
+    addToast('Your session will expire in 5 minutes. Please save your work.', 'info');
   }, [addToast]);
 
   // Update session activity
@@ -3694,6 +3690,16 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({ childr
         }
       };
     }
+    
+    // Return cleanup function when user is falsy
+    return () => {
+      if (sessionTimeoutRef.current) {
+        clearTimeout(sessionTimeoutRef.current);
+      }
+      if (warningTimeoutRef.current) {
+        clearTimeout(warningTimeoutRef.current);
+      }
+    };
   }, [user, handleSessionTimeout, handleSessionWarning, updateSessionActivity]);
 
   // Enhanced session validation on mount
@@ -4063,9 +4069,10 @@ const throttle = (func: Function, limit: number) => {
 
 ================================================================================
 FILE_BEGIN: context\ToastContext.tsx
-METADATA: Size=2354 bytes | Last_Modified=2026-01-04 12:33:00.111823
+METADATA: Size=2383 bytes | Last_Modified=2026-01-04 23:17:44.406769
 ================================================================================
-import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useCallback } from 'react';
+import type { ReactNode } from 'react';
 import { X, CheckCircle, AlertCircle, Info } from 'lucide-react';
 
 type ToastType = 'success' | 'error' | 'info';
@@ -4438,17 +4445,36 @@ export default AccessibilityStatement;
 
 ================================================================================
 FILE_BEGIN: pages\AdminDashboard.tsx
-METADATA: Size=7093 bytes | Last_Modified=2026-01-04 12:32:59.850830
+METADATA: Size=8258 bytes | Last_Modified=2026-01-04 20:16:28.266627
 ================================================================================
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAuth } from '../context/AuthContext';
 import { BarChart3, Users, Home, Settings, LogOut, Plus, Edit2, Trash2 } from 'lucide-react';
-import { properties } from '../data/properties';
+import { api } from '../services/api';
+import type { ExtendedProperty } from '../data/properties';
 
 const AdminDashboard: React.FC = () => {
   const { user, logout } = useAuth();
+  const [properties, setProperties] = useState<ExtendedProperty[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProperties = async () => {
+      try {
+        setLoading(true);
+        const propertiesData = await api.properties.getAll();
+        setProperties(propertiesData);
+      } catch (error) {
+        console.error('Failed to fetch properties:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProperties();
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-100 flex">
@@ -4529,51 +4555,64 @@ const AdminDashboard: React.FC = () => {
               <h3 className="font-bold text-gray-800">Active Listings</h3>
               <button className="text-sm text-p4c-gold font-medium hover:underline">View All</button>
             </div>
-            <div className="overflow-x-auto">
-              <table className="w-full text-left">
-                <thead className="bg-gray-50 text-xs uppercase text-gray-500 font-semibold">
-                  <tr>
-                    <th className="px-6 py-4">Property</th>
-                    <th className="px-6 py-4">Status</th>
-                    <th className="px-6 py-4">Price</th>
-                    <th className="px-6 py-4">Applications</th>
-                    <th className="px-6 py-4 text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-100">
-                  {properties.map((property) => (
-                    <tr key={property.id} className="hover:bg-gray-50/50 transition-colors">
-                      <td className="px-6 py-4">
-                        <div className="flex items-center">
-                          <img src={property.imageUrl} alt="" className="w-10 h-10 rounded-md object-cover mr-3" />
-                          <div>
-                            <div className="font-medium text-gray-900">{property.title}</div>
-                            <div className="text-xs text-gray-500">{property.address}</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                          Active
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 text-gray-600">${property.price}/mo</td>
-                      <td className="px-6 py-4 text-gray-600">4 New</td>
-                      <td className="px-6 py-4 text-right">
-                        <div className="flex justify-end gap-2">
-                          <button className="p-1.5 hover:bg-gray-100 rounded text-gray-500 hover:text-p4c-navy">
-                            <Edit2 className="w-4 h-4" />
-                          </button>
-                          <button className="p-1.5 hover:bg-red-50 rounded text-gray-500 hover:text-red-600">
-                            <Trash2 className="w-4 h-4" />
-                          </button>
-                        </div>
-                      </td>
+            {loading ? (
+              <div className="p-8 text-center">
+                <div className="animate-pulse">
+                  <div className="h-4 bg-gray-200 rounded w-1/4 mx-auto mb-4"></div>
+                  <div className="space-y-3">
+                    {[1, 2, 3].map(i => (
+                      <div key={i} className="h-16 bg-gray-100 rounded"></div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-left">
+                  <thead className="bg-gray-50 text-xs uppercase text-gray-500 font-semibold">
+                    <tr>
+                      <th className="px-6 py-4">Property</th>
+                      <th className="px-6 py-4">Status</th>
+                      <th className="px-6 py-4">Price</th>
+                      <th className="px-6 py-4">Applications</th>
+                      <th className="px-6 py-4 text-right">Actions</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {properties.map((property) => (
+                      <tr key={property.id} className="hover:bg-gray-50/50 transition-colors">
+                        <td className="px-6 py-4">
+                          <div className="flex items-center">
+                            <img src={property.imageUrl} alt="" className="w-10 h-10 rounded-md object-cover mr-3" />
+                            <div>
+                              <div className="font-medium text-gray-900">{property.title}</div>
+                              <div className="text-xs text-gray-500">{property.address}</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4">
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                            Active
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 text-gray-600">${property.price}/mo</td>
+                        <td className="px-6 py-4 text-gray-600">4 New</td>
+                        <td className="px-6 py-4 text-right">
+                          <div className="flex justify-end gap-2">
+                            <button className="p-1.5 hover:bg-gray-100 rounded text-gray-500 hover:text-p4c-navy">
+                              <Edit2 className="w-4 h-4" />
+                            </button>
+                            <button className="p-1.5 hover:bg-red-50 rounded text-gray-500 hover:text-red-600">
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         </div>
       </main>
@@ -5218,11 +5257,11 @@ export default Contact;
 
 ================================================================================
 FILE_BEGIN: pages\Employment.tsx
-METADATA: Size=5592 bytes | Last_Modified=2026-01-04 12:32:59.781037
+METADATA: Size=5584 bytes | Last_Modified=2026-01-05 00:48:55.886771
 ================================================================================
 
 import React from 'react';
-import { Hammer, HardHat, Briefcase, CheckCircle2 } from 'lucide-react';
+import { HardHat, Briefcase, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { IMAGES } from '../constants/images';
 
@@ -5450,36 +5489,56 @@ export default FAQ;
 
 ================================================================================
 FILE_BEGIN: pages\Home.tsx
-METADATA: Size=12994 bytes | Last_Modified=2026-01-04 12:32:59.776042
+METADATA: Size=14674 bytes | Last_Modified=2026-01-04 23:18:16.562454
 ================================================================================
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Hero from '../components/Hero';
 import ImpactDashboard from '../components/ImpactDashboard';
 import PropertyCard from '../components/PropertyCard';
 import BeforeAfterSlider from '../components/BeforeAfterSlider';
 import GeminiImageEditor from '../components/GeminiImageEditor';
-import { properties } from '../data/properties';
+import { api } from '../services/api';
+import type { ExtendedProperty } from '../data/properties';
 import { IMAGES } from '../constants/images';
 import { CheckCircle2, Shield, Search, SlidersHorizontal, X } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
 
-  // Filter States
+  // States
+  const [properties, setProperties] = useState<ExtendedProperty[]>([]);
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [maxPrice, setMaxPrice] = useState<number>(2000);
   const [minBeds, setMinBeds] = useState<number>(0);
   const [selectedBadges, setSelectedBadges] = useState<string[]>([]);
+
+  // Fetch properties on component mount
+  useEffect(() => {
+    const fetchProperties = async () => {
+      try {
+        setLoading(true);
+        const propertiesData = await api.properties.getAll();
+        setProperties(propertiesData);
+      } catch (error) {
+        console.error('Failed to fetch properties:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProperties();
+  }, []);
 
   // Extract unique badges from all properties for the filter list
   const allBadges = useMemo(() => {
     const badges = new Set<string>();
     properties.forEach(p => p.badges.forEach(b => badges.add(b)));
     return Array.from(badges);
-  }, []);
+  }, [properties]);
 
   // Filtering Logic
   const filteredProperties = useMemo(() => {
@@ -5502,7 +5561,7 @@ const Home: React.FC = () => {
 
       return matchesSearch && matchesPrice && matchesBeds && matchesBadges;
     });
-  }, [searchQuery, maxPrice, minBeds, selectedBadges]);
+  }, [properties, searchQuery, maxPrice, minBeds, selectedBadges]);
 
   const toggleBadge = (badge: string) => {
     setSelectedBadges(prev => 
@@ -5624,7 +5683,25 @@ const Home: React.FC = () => {
           </div>
           
           {/* Results Grid */}
-          {filteredProperties.length > 0 ? (
+          {loading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[1, 2, 3, 4, 5, 6].map(i => (
+                <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+                  <div className="h-64 bg-gray-200 animate-pulse"></div>
+                  <div className="p-6">
+                    <div className="h-6 bg-gray-200 rounded animate-pulse mb-2"></div>
+                    <div className="h-4 bg-gray-200 rounded animate-pulse mb-4"></div>
+                    <div className="h-4 bg-gray-200 rounded animate-pulse mb-6"></div>
+                    <div className="grid grid-cols-3 gap-2">
+                      <div className="h-12 bg-gray-200 rounded animate-pulse"></div>
+                      <div className="h-12 bg-gray-200 rounded animate-pulse"></div>
+                      <div className="h-12 bg-gray-200 rounded animate-pulse"></div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : filteredProperties.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredProperties.map(prop => (
                     <PropertyCard key={prop.id} property={prop} />
@@ -5734,13 +5811,13 @@ export default Home;
 
 ================================================================================
 FILE_BEGIN: pages\OurImpact.tsx
-METADATA: Size=7914 bytes | Last_Modified=2026-01-04 12:32:59.823351
+METADATA: Size=7919 bytes | Last_Modified=2026-01-05 01:10:59.585483
 ================================================================================
 
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { api } from '../services/api';
-import { StatMetric, FinancialBreakdown } from '../types';
+import type { StatMetric, FinancialBreakdown } from '../types';
 import { Home, Users, Hammer, DollarSign, Heart, Loader2, ArrowUpRight } from 'lucide-react';
 import { useToast } from '../context/ToastContext';
 import { IMAGES } from '../constants/images';
@@ -5993,12 +6070,13 @@ export default Privacy;
 
 ================================================================================
 FILE_BEGIN: pages\PropertyDetails.tsx
-METADATA: Size=11200 bytes | Last_Modified=2026-01-04 12:32:59.809334
+METADATA: Size=12360 bytes | Last_Modified=2026-01-04 20:23:30.319629
 ================================================================================
 
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { getPropertyById, ExtendedProperty } from '../data/properties';
+import { api } from '../services/api';
+import type { ExtendedProperty } from '../data/properties';
 import { Bed, Bath, Move, MapPin, Check, ArrowLeft, Calendar, School, Accessibility, ShieldCheck, Map } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import PropertyDetailsSkeleton from '../components/PropertyDetailsSkeleton';
@@ -6007,27 +6085,64 @@ const PropertyDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [property, setProperty] = useState<ExtendedProperty | undefined>(undefined);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Simulate API fetch latency for enterprise feel (smooth transitions)
     const fetchProperty = async () => {
-        setLoading(true);
-        await new Promise(resolve => setTimeout(resolve, 600)); // 600ms artificial delay
-        setProperty(getPropertyById(id));
+      if (!id) {
+        setError('Property ID is required');
         setLoading(false);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        setError(null);
+        const propertyData = await api.properties.getById(id);
+        setProperty(propertyData || undefined);
+      } catch (err) {
+        setError('Failed to load property details. Please try again.');
+        console.error('Error fetching property:', err);
+      } finally {
+        setLoading(false);
+      }
     };
+
     fetchProperty();
   }, [id]);
 
   if (loading) {
-      return <PropertyDetailsSkeleton />;
+    return <PropertyDetailsSkeleton />;
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-p4c-beige px-4">
+        <Helmet>
+          <title>Error Loading Property | Properties 4 Creations</title>
+        </Helmet>
+        <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-4">Unable to Load Property</h2>
+        <p className="text-gray-600 mb-4">{error}</p>
+        <div className="space-x-4">
+          <button 
+            onClick={() => window.location.reload()} 
+            className="bg-p4c-navy text-white px-6 py-3 rounded-md font-bold hover:bg-opacity-90"
+          >
+            Try Again
+          </button>
+          <Link to="/" className="bg-gray-500 text-white px-6 py-3 rounded-md font-bold hover:bg-opacity-90">
+            Back to Listings
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   if (!property) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-p4c-beige px-4">
         <Helmet>
-            <title>Property Not Found | Properties 4 Creations</title>
+          <title>Property Not Found | Properties 4 Creations</title>
         </Helmet>
         <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-4">Property Not Found</h2>
         <p className="text-gray-600 mb-8">The listing you are looking for may have been removed or is unavailable.</p>
@@ -6869,7 +6984,7 @@ export default Veterans;
 
 ================================================================================
 FILE_BEGIN: pages\VeteranServices.tsx
-METADATA: Size=8872 bytes | Last_Modified=2026-01-04 12:32:59.858459
+METADATA: Size=8872 bytes | Last_Modified=2026-01-05 00:49:29.570735
 ================================================================================
 
 import React from 'react';
