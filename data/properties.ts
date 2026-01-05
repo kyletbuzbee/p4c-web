@@ -1,5 +1,5 @@
 
-import { Property } from '../types';
+import type { Property } from '../types';
 import { IMAGES } from '../constants/images';
 
 export interface ExtendedProperty extends Property {

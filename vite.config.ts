@@ -5,7 +5,13 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     
+    // GitHub Pages configuration
+    const isProduction = mode === 'production';
+    const repositoryName = process.env.VITE_REPOSITORY_NAME || '';
+    const base = isProduction ? `/${repositoryName}/` : '/';
+    
     return {
+      base: base,
       server: {
         port: 3000,
         host: '0.0.0.0',

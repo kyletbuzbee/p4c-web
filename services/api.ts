@@ -1,5 +1,5 @@
 
-import type { StatMetric, RenovationStandard, FinancialBreakdown, Property } from '../types';
+import type { StatMetric, RenovationStandard, FinancialBreakdown } from '../types';
 import type { ExtendedProperty } from '../data/properties';
 import { properties, getPropertyById } from '../data/properties';
 
