@@ -6,12 +6,13 @@ const customValidators = {
   sanitizeHTML: (value) => {
     if (typeof value !== 'string') return value;
     
-    // Remove script tags, style tags, and dangerous attributes
+    // Remove dangerous HTML tags and attributes
     return value
-      .replace(/<script[^>]*>.*?<\/script>/gi, '')
-      .replace(/<style[^>]*>.*?<\/style>/gi, '')
-      .replace(/javascript:/gi, '')
-      .replace(/on\w+\s*=/gi, '')
+      .replace(/<(?:script|iframe|object|embed|form|link|meta|base|input|textarea|select|button)[\s\S]*?<\/(?:script|iframe|object|embed|form|link|meta|base|input|textarea|select|button)>/gi, '')
+      .replace(/<[^>]*(?:on\w+|href|src|data|action|formaction|style)[^>]*>/gi, '')
+      .replace(/(?:javascript|vbscript|data|file|ftp):/gi, '')
+      .replace(/[\r\n\t]+/g, ' ')
+      .replace(/\s+/g, ' ')
       .trim();
   },
 

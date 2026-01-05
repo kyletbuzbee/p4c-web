@@ -68,7 +68,7 @@ class ApiClient {
       
       return await response.json();
     } catch (error) {
-      console.warn(`Backend request failed for ${endpoint}, falling back to mock data:`, error);
+      console.warn('Backend request failed for endpoint ' + endpoint + ', falling back to mock data:', error);
       throw new Error('Backend unavailable - using mock data');
     }
   }

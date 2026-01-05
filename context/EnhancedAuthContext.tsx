@@ -560,8 +560,9 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({ childr
         throw new Error('Failed to enable MFA');
       }
 
-      const { secret, qrCode } = await response.json();
-      localStorage.setItem('p4c_mfa_secret', secret);
+      const { qrCode } = await response.json();
+      // Store MFA secret temporarily in memory only, not in localStorage
+      // The secret should be handled server-side for security
       
       return qrCode;
     } catch (error) {
@@ -572,22 +573,16 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({ childr
 
   const verifyMFA = async (code: string): Promise<boolean> => {
     try {
-      const secret = localStorage.getItem('p4c_mfa_secret');
-      if (!secret) {
-        throw new Error('MFA secret not found');
-      }
-
       const response = await fetch('/api/auth/verify-mfa', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('p4c_session_token')}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ code, secret })
+        body: JSON.stringify({ code })
       });
 
       if (response.ok) {
-        localStorage.removeItem('p4c_mfa_secret');
         return true;
       }
       

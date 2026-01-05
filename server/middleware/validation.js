@@ -194,9 +194,11 @@ const sanitizeRequest = (req, res, next) => {
   const sanitizeString = (str) => {
     if (typeof str !== 'string') return str;
     return str
-      .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '') // Remove script tags
-      .replace(/javascript:/gi, '') // Remove javascript: protocols
-      .replace(/on\w+\s*=/gi, '') // Remove event handlers
+      .replace(/<(?:script|iframe|object|embed|form|link|meta|base|input|textarea|select|button)[\s\S]*?<\/(?:script|iframe|object|embed|form|link|meta|base|input|textarea|select|button)>/gi, '') // Remove dangerous HTML tags
+      .replace(/<[^>]*(?:on\w+|href|src|data|action|formaction|style)[^>]*>/gi, '') // Remove event handlers and dangerous attributes
+      .replace(/(?:javascript|vbscript|data|file|ftp):/gi, '') // Remove dangerous protocols
+      .replace(/[\r\n\t]+/g, ' ') // Normalize whitespace
+      .replace(/\s+/g, ' ') // Collapse multiple spaces
       .trim();
   };
 
@@ -235,7 +237,10 @@ const preventSQLInjection = (req, res, next) => {
     /(\b(SELECT|INSERT|UPDATE|DELETE|DROP|CREATE|ALTER|EXEC|UNION|SCRIPT)\b)/gi,
     /('|(\\x27)|(\\x2D)|(\\x2D)|(\\x23)|(\\x3A))/gi,
     /(\b(OR|AND)\b\s*['"]?\d+['"]?\s*=\s*['"]?\d+['"]?)/gi,
-    /(\b(OR|AND)\b\s*['"]?\w+['"]?\s*=\s*['"]?\w+['"]?)/gi
+    /(\b(OR|AND)\b\s*['"]?\w+['"]?\s*=\s*['"]?\w+['"]?)/gi,
+    /https?:\/\/[^\/]*@/gi, // URL scheme validation - prevent user:pass@host
+    /file:\/\//gi, // Block file:// protocol
+    /data:\/\//gi // Block data: protocol
   ];
 
   const checkForSQL = (obj) => {
@@ -312,19 +317,11 @@ const validateFileUpload = (req, res, next) => {
 // XSS prevention
 const preventXSS = (req, res, next) => {
   const xssPatterns = [
-    /<script[^>]*>.*?<\/script>/gi,
-    /<iframe[^>]*>.*?<\/iframe>/gi,
-    /<object[^>]*>.*?<\/object>/gi,
-    /<embed[^>]*>.*?<\/embed>/gi,
-    /<form[^>]*>.*?<\/form>/gi,
-    /javascript:/gi,
-    /vbscript:/gi,
-    /onload=/gi,
-    /onerror=/gi,
-    /onclick=/gi,
-    /onmouseover=/gi,
-    /onfocus=/gi,
-    /onblur=/gi
+    /<(?:script|iframe|object|embed|form|link|meta|base|input|textarea|select|button)[\s\S]*?<\/(?:script|iframe|object|embed|form|link|meta|base|input|textarea|select|button)>/gi,
+    /<[^>]*(?:on\w+|href|src|data|action|formaction|style)[^>]*>/gi,
+    /(?:javascript|vbscript|data|file|ftp):/gi,
+    /[\r\n\t]+/g,
+    /<[^>]*>/g
   ];
 
   const checkForXSS = (obj) => {
