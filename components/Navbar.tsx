@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Menu, X, Home, HeartHandshake, Info, BarChart3, UserCircle, LogOut, LayoutDashboard, Star } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import DarkModeToggle from './DarkModeToggle';
 
 const NAV_LINKS = [
   { name: 'Properties', path: '/', icon: <Home className="w-4 h-4 mr-2" /> },
@@ -92,8 +93,11 @@ const Navbar: React.FC = () => {
               </Link>
             )}
 
+            {/* Dark Mode Toggle */}
+            <DarkModeToggle className="group" />
+            
             {!isAuthenticated && (
-              <Link 
+              <Link
                 to="/apply"
                 className="bg-p4c-gold text-p4c-navy hover:bg-p4c-goldHover px-5 py-2.5 rounded-md font-bold font-sans transition-all duration-200 shadow-lg hover:shadow-p4c-gold/30 hover:-translate-y-0.5 ml-2"
               >

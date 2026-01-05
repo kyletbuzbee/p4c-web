@@ -8,8 +8,10 @@ import ScrollToTop from './components/ScrollToTop';
 import ErrorBoundary from './components/ErrorBoundary';
 import { ToastProvider } from './context/ToastContext';
 import { AuthProvider } from './context/AuthContext';
+import { DarkModeProvider } from './context/DarkModeContext';
 import AIChatbot from './components/AIChatbot';
 import CookieConsent from './components/CookieConsent';
+import AccessibilityTools from './components/AccessibilityTools';
 import ProtectedRoute from './components/ProtectedRoute';
 import { Loader2 } from 'lucide-react';
 
@@ -45,7 +47,8 @@ function App() {
     <HelmetProvider>
       <ErrorBoundary>
         <ToastProvider>
-          <AuthProvider>
+          <DarkModeProvider>
+            <AuthProvider>
             <div className="font-sans antialiased text-p4c-navy bg-p4c-beige min-h-screen flex flex-col">
               <a href="#main-content" className="skip-link">Skip to main content</a>
               <ScrollToTop />
@@ -88,13 +91,15 @@ function App() {
                       </Suspense>
                     </main>
                     <AIChatbot />
+                    <AccessibilityTools />
                     <Footer />
                     <CookieConsent />
                   </>
                 } />
               </Routes>
             </div>
-          </AuthProvider>
+            </AuthProvider>
+          </DarkModeProvider>
         </ToastProvider>
       </ErrorBoundary>
     </HelmetProvider>

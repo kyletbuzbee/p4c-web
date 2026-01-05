@@ -1,12 +1,13 @@
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Hero from '../components/Hero';
 import ImpactDashboard from '../components/ImpactDashboard';
 import PropertyCard from '../components/PropertyCard';
 import BeforeAfterSlider from '../components/BeforeAfterSlider';
 import GeminiImageEditor from '../components/GeminiImageEditor';
-import { properties } from '../data/properties';
+import { api } from '../services/api';
+import type { ExtendedProperty } from '../data/properties';
 import { IMAGES } from '../constants/images';
 import { CheckCircle2, Shield, Search, SlidersHorizontal, X } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -14,18 +15,37 @@ import { Link, useNavigate } from 'react-router-dom';
 const Home: React.FC = () => {
   const navigate = useNavigate();
 
-  // Filter States
+  // States
+  const [properties, setProperties] = useState<ExtendedProperty[]>([]);
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [maxPrice, setMaxPrice] = useState<number>(2000);
   const [minBeds, setMinBeds] = useState<number>(0);
   const [selectedBadges, setSelectedBadges] = useState<string[]>([]);
+
+  // Fetch properties on component mount
+  useEffect(() => {
+    const fetchProperties = async () => {
+      try {
+        setLoading(true);
+        const propertiesData = await api.properties.getAll();
+        setProperties(propertiesData);
+      } catch (error) {
+        console.error('Failed to fetch properties:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProperties();
+  }, []);
 
   // Extract unique badges from all properties for the filter list
   const allBadges = useMemo(() => {
     const badges = new Set<string>();
     properties.forEach(p => p.badges.forEach(b => badges.add(b)));
     return Array.from(badges);
-  }, []);
+  }, [properties]);
 
   // Filtering Logic
   const filteredProperties = useMemo(() => {
@@ -48,7 +68,7 @@ const Home: React.FC = () => {
 
       return matchesSearch && matchesPrice && matchesBeds && matchesBadges;
     });
-  }, [searchQuery, maxPrice, minBeds, selectedBadges]);
+  }, [properties, searchQuery, maxPrice, minBeds, selectedBadges]);
 
   const toggleBadge = (badge: string) => {
     setSelectedBadges(prev => 
@@ -170,7 +190,25 @@ const Home: React.FC = () => {
           </div>
           
           {/* Results Grid */}
-          {filteredProperties.length > 0 ? (
+          {loading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[1, 2, 3, 4, 5, 6].map(i => (
+                <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+                  <div className="h-64 bg-gray-200 animate-pulse"></div>
+                  <div className="p-6">
+                    <div className="h-6 bg-gray-200 rounded animate-pulse mb-2"></div>
+                    <div className="h-4 bg-gray-200 rounded animate-pulse mb-4"></div>
+                    <div className="h-4 bg-gray-200 rounded animate-pulse mb-6"></div>
+                    <div className="grid grid-cols-3 gap-2">
+                      <div className="h-12 bg-gray-200 rounded animate-pulse"></div>
+                      <div className="h-12 bg-gray-200 rounded animate-pulse"></div>
+                      <div className="h-12 bg-gray-200 rounded animate-pulse"></div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : filteredProperties.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredProperties.map(prop => (
                     <PropertyCard key={prop.id} property={prop} />

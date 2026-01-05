@@ -1,12 +1,31 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAuth } from '../context/AuthContext';
 import { BarChart3, Users, Home, Settings, LogOut, Plus, Edit2, Trash2 } from 'lucide-react';
-import { properties } from '../data/properties';
+import { api } from '../services/api';
+import type { ExtendedProperty } from '../data/properties';
 
 const AdminDashboard: React.FC = () => {
   const { user, logout } = useAuth();
+  const [properties, setProperties] = useState<ExtendedProperty[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProperties = async () => {
+      try {
+        setLoading(true);
+        const propertiesData = await api.properties.getAll();
+        setProperties(propertiesData);
+      } catch (error) {
+        console.error('Failed to fetch properties:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProperties();
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-100 flex">
@@ -87,51 +106,64 @@ const AdminDashboard: React.FC = () => {
               <h3 className="font-bold text-gray-800">Active Listings</h3>
               <button className="text-sm text-p4c-gold font-medium hover:underline">View All</button>
             </div>
-            <div className="overflow-x-auto">
-              <table className="w-full text-left">
-                <thead className="bg-gray-50 text-xs uppercase text-gray-500 font-semibold">
-                  <tr>
-                    <th className="px-6 py-4">Property</th>
-                    <th className="px-6 py-4">Status</th>
-                    <th className="px-6 py-4">Price</th>
-                    <th className="px-6 py-4">Applications</th>
-                    <th className="px-6 py-4 text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-100">
-                  {properties.map((property) => (
-                    <tr key={property.id} className="hover:bg-gray-50/50 transition-colors">
-                      <td className="px-6 py-4">
-                        <div className="flex items-center">
-                          <img src={property.imageUrl} alt="" className="w-10 h-10 rounded-md object-cover mr-3" />
-                          <div>
-                            <div className="font-medium text-gray-900">{property.title}</div>
-                            <div className="text-xs text-gray-500">{property.address}</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                          Active
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 text-gray-600">${property.price}/mo</td>
-                      <td className="px-6 py-4 text-gray-600">4 New</td>
-                      <td className="px-6 py-4 text-right">
-                        <div className="flex justify-end gap-2">
-                          <button className="p-1.5 hover:bg-gray-100 rounded text-gray-500 hover:text-p4c-navy">
-                            <Edit2 className="w-4 h-4" />
-                          </button>
-                          <button className="p-1.5 hover:bg-red-50 rounded text-gray-500 hover:text-red-600">
-                            <Trash2 className="w-4 h-4" />
-                          </button>
-                        </div>
-                      </td>
+            {loading ? (
+              <div className="p-8 text-center">
+                <div className="animate-pulse">
+                  <div className="h-4 bg-gray-200 rounded w-1/4 mx-auto mb-4"></div>
+                  <div className="space-y-3">
+                    {[1, 2, 3].map(i => (
+                      <div key={i} className="h-16 bg-gray-100 rounded"></div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-left">
+                  <thead className="bg-gray-50 text-xs uppercase text-gray-500 font-semibold">
+                    <tr>
+                      <th className="px-6 py-4">Property</th>
+                      <th className="px-6 py-4">Status</th>
+                      <th className="px-6 py-4">Price</th>
+                      <th className="px-6 py-4">Applications</th>
+                      <th className="px-6 py-4 text-right">Actions</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {properties.map((property) => (
+                      <tr key={property.id} className="hover:bg-gray-50/50 transition-colors">
+                        <td className="px-6 py-4">
+                          <div className="flex items-center">
+                            <img src={property.imageUrl} alt="" className="w-10 h-10 rounded-md object-cover mr-3" />
+                            <div>
+                              <div className="font-medium text-gray-900">{property.title}</div>
+                              <div className="text-xs text-gray-500">{property.address}</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4">
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                            Active
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 text-gray-600">${property.price}/mo</td>
+                        <td className="px-6 py-4 text-gray-600">4 New</td>
+                        <td className="px-6 py-4 text-right">
+                          <div className="flex justify-end gap-2">
+                            <button className="p-1.5 hover:bg-gray-100 rounded text-gray-500 hover:text-p4c-navy">
+                              <Edit2 className="w-4 h-4" />
+                            </button>
+                            <button className="p-1.5 hover:bg-red-50 rounded text-gray-500 hover:text-red-600">
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         </div>
       </main>

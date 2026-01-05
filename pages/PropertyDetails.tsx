@@ -1,7 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { getPropertyById, ExtendedProperty } from '../data/properties';
+import { api } from '../services/api';
+import type { ExtendedProperty } from '../data/properties';
 import { Bed, Bath, Move, MapPin, Check, ArrowLeft, Calendar, School, Accessibility, ShieldCheck, Map } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import PropertyDetailsSkeleton from '../components/PropertyDetailsSkeleton';
@@ -10,27 +11,64 @@ const PropertyDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [property, setProperty] = useState<ExtendedProperty | undefined>(undefined);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Simulate API fetch latency for enterprise feel (smooth transitions)
     const fetchProperty = async () => {
-        setLoading(true);
-        await new Promise(resolve => setTimeout(resolve, 600)); // 600ms artificial delay
-        setProperty(getPropertyById(id));
+      if (!id) {
+        setError('Property ID is required');
         setLoading(false);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        setError(null);
+        const propertyData = await api.properties.getById(id);
+        setProperty(propertyData || undefined);
+      } catch (err) {
+        setError('Failed to load property details. Please try again.');
+        console.error('Error fetching property:', err);
+      } finally {
+        setLoading(false);
+      }
     };
+
     fetchProperty();
   }, [id]);
 
   if (loading) {
-      return <PropertyDetailsSkeleton />;
+    return <PropertyDetailsSkeleton />;
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-p4c-beige px-4">
+        <Helmet>
+          <title>Error Loading Property | Properties 4 Creations</title>
+        </Helmet>
+        <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-4">Unable to Load Property</h2>
+        <p className="text-gray-600 mb-4">{error}</p>
+        <div className="space-x-4">
+          <button 
+            onClick={() => window.location.reload()} 
+            className="bg-p4c-navy text-white px-6 py-3 rounded-md font-bold hover:bg-opacity-90"
+          >
+            Try Again
+          </button>
+          <Link to="/" className="bg-gray-500 text-white px-6 py-3 rounded-md font-bold hover:bg-opacity-90">
+            Back to Listings
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   if (!property) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-p4c-beige px-4">
         <Helmet>
-            <title>Property Not Found | Properties 4 Creations</title>
+          <title>Property Not Found | Properties 4 Creations</title>
         </Helmet>
         <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-4">Property Not Found</h2>
         <p className="text-gray-600 mb-8">The listing you are looking for may have been removed or is unavailable.</p>

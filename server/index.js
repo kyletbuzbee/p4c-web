@@ -9,6 +9,31 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const dotenv = require('dotenv');
+const {
+  createEnhancedSecurityHeadersMiddleware,
+  applyEnhancedSecurityHeaders,
+  handleCSPViolation,
+  applyAPISecurityHeaders,
+  generateSecurityHeadersReport
+} = require('./middleware/enhancedSecurityHeaders');
+
+// Import comprehensive security middleware
+const {
+  createAdvancedRateLimiter,
+  createInputValidation,
+  createSizeLimiter,
+  createDynamicSecurityHeaders,
+  createAPIKeyValidator,
+  createSecurityLogger,
+  createSecurityErrorHandler
+} = require('./middleware/comprehensiveSecurity');
+
+// Import performance monitoring
+const {
+  createPerformanceMonitor,
+  createPerformanceEndpoints,
+  metricsAggregator
+} = require('./middleware/performanceMonitoring');
 
 // Load environment variables
 dotenv.config();
@@ -16,26 +41,35 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Security middleware
-app.use(helmet({
+// Enhanced Security middleware
+app.use(createEnhancedSecurityHeadersMiddleware({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-      scriptSrc: ["'self'", "'unsafe-inline'"],
-      imgSrc: ["'self'", "data:", "https:"],
-      fontSrc: ["'self'", "https://fonts.gstatic.com"],
-      connectSrc: ["'self'", "https://generativelanguage.googleapis.com"],
-      frameSrc: ["'none'"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdn.jsdelivr.net"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://apis.google.com", "https://cdn.jsdelivr.net"],
+      imgSrc: ["'self'", "data:", "https:", "blob:", "https://*.googleusercontent.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdn.jsdelivr.net"],
+      connectSrc: ["'self'", "https://generativelanguage.googleapis.com", "https://api.gemini.google.com"],
+      frameSrc: ["'self'"],
       objectSrc: ["'none'"],
-      baseUri: ["'self'"],
+      mediaSrc: ["'self'", "https:", "blob:"],
+      workerSrc: ["'self'", "blob:"],
+      childSrc: ["'self'"],
       formAction: ["'self'"],
-      upgradeInsecureRequests: []
-    },
-  },
-  crossOriginEmbedderPolicy: false,
-  crossOriginResourcePolicy: { policy: "cross-origin" }
+      frameAncestors: ["'none'"],
+      baseUri: ["'self'"],
+      manifestSrc: ["'self'"],
+      reportUri: '/api/security/csp-violation'
+    }
+  }
 }));
+
+// Performance monitoring middleware
+app.use(createPerformanceMonitor());
+
+// Apply additional security headers for all routes
+app.use(applyEnhancedSecurityHeaders);
 
 app.use(cors({
   origin: process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:3000'],
@@ -44,18 +78,29 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
 
-// Rate limiting
-const limiter = rateLimit({
+// Comprehensive security middleware
+app.use(createAdvancedRateLimiter({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100, // limit each IP to 100 requests per windowMs
-  message: {
-    error: 'Too many requests from this IP, please try again later.',
-    retryAfter: 15 * 60 // 15 minutes in seconds
-  },
+  skipSuccessfulRequests: false,
+  skipFailedRequests: false,
   standardHeaders: true,
   legacyHeaders: false
-});
-app.use('/api/', limiter);
+}));
+
+// Input validation and sanitization
+app.use(createInputValidation());
+
+// Request size limiting
+app.use(createSizeLimiter({
+  limit: '10mb'
+}));
+
+// Security logging
+app.use(createSecurityLogger());
+
+// API key validation for protected endpoints
+app.use('/api/', createAPIKeyValidator());
 
 // Input validation middleware
 const validateInput = (req, res, next) => {
@@ -102,6 +147,15 @@ const verifyApiKey = (req, res, next) => {
   }
   next();
 };
+
+// CSP violation reporting endpoint
+app.post('/api/security/csp-violation', handleCSPViolation);
+
+// Performance monitoring endpoints
+createPerformanceEndpoints(app);
+
+// Apply API-specific security headers for all API routes
+app.use('/api/', applyAPISecurityHeaders);
 
 // Proxy endpoint for image editing
 app.post('/api/ai/edit-image', verifyApiKey, async (req, res) => {
@@ -274,15 +328,8 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error('Unhandled error:', err);
-  res.status(500).json({
-    error: 'Internal server error',
-    code: 'UNHANDLED_ERROR',
-    timestamp: new Date().toISOString()
-  });
-});
+// Comprehensive security error handling
+app.use(createSecurityErrorHandler());
 
 // 404 handler
 app.use('*', (req, res) => {

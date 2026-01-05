@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
+    
     return {
       server: {
         port: 3000,
@@ -28,7 +29,15 @@ export default defineConfig(({ mode }) => {
           }
         }
       },
-      plugins: [react()],
+      plugins: [
+        react(),
+        // Add PWA and compression plugins in production
+        ...(mode === 'production' ? [
+          // These would be added when dependencies are installed
+          // VitePWA({...}),
+          // viteCompression({algorithm: 'gzip'})
+        ] : [])
+      ],
       define: {
         // REMOVED: API key exposure vulnerability (CRITICAL FIX)
         // API keys are now handled server-side only via proxy
@@ -37,20 +46,69 @@ export default defineConfig(({ mode }) => {
       },
       resolve: {
         alias: {
-          '@': new URL('.', import.meta.url).pathname,
+          '@': path.resolve(__dirname, '.'),
         }
       },
       build: {
+        target: 'es2020',
         sourcemap: mode !== 'production',
+        minify: 'terser',
+        cssMinify: true,
+        // Performance optimizations
         rollupOptions: {
           output: {
+            // Manual chunks for better caching
             manualChunks: {
-              vendor: ['react', 'react-dom'],
+              // React and React DOM together
+              react: ['react', 'react-dom'],
+              // Router
               router: ['react-router-dom'],
-              ui: ['lucide-react']
+              // UI library
+              ui: ['lucide-react'],
+              // AI service
+              ai: ['@google/genai'],
+              // Utils
+              utils: ['react-helmet-async']
+            },
+            // Optimize chunk file names
+            chunkFileNames: 'js/[name]-[hash].js',
+            assetFileNames: (assetInfo) => {
+              const info = assetInfo.name?.split('.') || [];
+              const extType = info[info.length - 1];
+              if (/\.(png|jpe?g|gif|svg|webp)$/i.test(assetInfo.name || '')) {
+                return `images/[name]-[hash][extname]`;
+              }
+              if (/\.(woff2?|eot|ttf|otf)$/i.test(assetInfo.name || '')) {
+                return `fonts/[name]-[hash][extname]`;
+              }
+              return `assets/[name]-[hash][extname]`;
             }
           }
-        }
+        },
+        // Optimize terser options
+        terserOptions: {
+          compress: {
+            drop_console: mode === 'production',
+            drop_debugger: mode === 'production',
+            pure_funcs: mode === 'production' ? ['console.log', 'console.info', 'console.debug'] : []
+          }
+        },
+        // Chunk size warnings
+        chunkSizeWarningLimit: 1000
+      },
+      // Performance optimizations
+      optimizeDeps: {
+        include: [
+          'react',
+          'react-dom',
+          'react-router-dom',
+          'lucide-react',
+          '@google/genai'
+        ]
+      },
+      // CSS optimizations
+      css: {
+        devSourcemap: mode !== 'production'
       }
     };
   });

@@ -1,0 +1,248 @@
+Website/
+├── .github
+│   └── workflows
+│       └── ci.yml
+├── components
+│   ├── AccessibilityTools.tsx
+│   ├── AIChatbot.tsx
+│   ├── BeforeAfterSlider.tsx
+│   ├── CookieConsent.tsx
+│   ├── DarkModeToggle.tsx
+│   ├── ErrorBoundary.tsx
+│   ├── Footer.tsx
+│   ├── GeminiImageEditor.tsx
+│   ├── Hero.tsx
+│   ├── ImageOptimizer.tsx
+│   ├── ImpactDashboard.tsx
+│   ├── MicroInteractions.tsx
+│   ├── Navbar.tsx
+│   ├── OptimizedImage.tsx
+│   ├── PropertyCard.tsx
+│   ├── PropertyDetailsSkeleton.tsx
+│   ├── ProtectedRoute.tsx
+│   ├── ScrollToTop.tsx
+│   └── Skeleton.tsx
+├── constants
+│   └── images.ts
+├── context
+│   ├── AuthContext.tsx
+│   ├── DarkModeContext.tsx
+│   ├── EnhancedAuthContext.tsx
+│   └── ToastContext.tsx
+├── data
+│   └── properties.ts
+├── images
+│   ├── about
+│   │   ├── about-us-team-headshot.png
+│   │   ├── about-us-team-owner.png
+│   │   └── index.html
+│   ├── banners
+│   │   ├── hero-about-us-banner-400w.webp
+│   │   ├── hero-application-banner.jpg
+│   │   ├── hero-contact-banner-1200w.webp
+│   │   ├── hero-contact-banner-400w.webp
+│   │   ├── hero-contact-banner-800w.webp
+│   │   ├── hero-contact-banner-placeholder.jpg
+│   │   ├── hero-contact-banner.webp
+│   │   ├── hero-faq-banner.png
+│   │   ├── hero-home-banner-400w.webp
+│   │   ├── hero-home-banner-800w.webp
+│   │   ├── hero-impact-banner-400w.webp
+│   │   ├── hero-impact-banner-placeholder.jpg
+│   │   ├── hero-privacy-banner-1200w.webp
+│   │   ├── hero-privacy-banner-1600w.webp
+│   │   ├── hero-privacy-banner-400w.webp
+│   │   ├── hero-privacy-banner-800w.webp
+│   │   ├── hero-privacy-banner-placeholder.jpg
+│   │   ├── hero-privacy-banner.webp
+│   │   ├── hero-projects-banner-400w.webp
+│   │   ├── hero-resources-banner.png
+│   │   ├── hero-resources-banner.webp
+│   │   ├── hero-terms-banner-1200w.webp
+│   │   ├── hero-terms-banner-400w.webp
+│   │   ├── hero-terms-banner-800w.webp
+│   │   └── hero-transparency-banner-400w.webp
+│   ├── before-after-comparison
+│   │   ├── after.webp
+│   │   ├── after1.webp
+│   │   ├── after2.webp
+│   │   ├── before.webp
+│   │   ├── before1.webp
+│   │   ├── before2.webp
+│   │   ├── projects-after-bathroom-400w.webp
+│   │   ├── projects-after-bathroom-800w.webp
+│   │   ├── projects-after-bathroom-placeholder.jpg
+│   │   ├── projects-after-brick-patio-400w.webp
+│   │   ├── projects-after-brick-patio-placeholder.jpg
+│   │   ├── projects-after-front-porch-400w.webp
+│   │   ├── projects-after-front-porch-800w.webp
+│   │   ├── projects-after-front-porch-placeholder.jpg
+│   │   ├── projects-after-front-porch.webp
+│   │   ├── projects-after-kitchen-400w.webp
+│   │   ├── projects-after-kitchen-800w.webp
+│   │   ├── projects-after-kitchen-placeholder.jpg
+│   │   ├── projects-after-kitchen.webp
+│   │   ├── projects-after-living-room-400w.webp
+│   │   ├── projects-after-living-room-800w.webp
+│   │   ├── projects-after-living-room-placeholder.jpg
+│   │   ├── projects-after-living-room.webp
+│   │   ├── projects-before-bathroom-400w.webp
+│   │   ├── projects-before-bathroom-800w.webp
+│   │   ├── projects-before-bathroom-placeholder.jpg
+│   │   ├── projects-before-front-porch-400w.webp
+│   │   ├── projects-before-front-porch-placeholder.jpg
+│   │   ├── projects-before-kitchen-400w.webp
+│   │   ├── projects-before-kitchen-800w.webp
+│   │   ├── projects-before-kitchen-placeholder.jpg
+│   │   ├── projects-before-living-room-400w.webp
+│   │   ├── projects-before-living-room-800w.webp
+│   │   └── projects-before-living-room-placeholder.jpg
+│   ├── icons
+│   │   ├── 001-house.svg
+│   │   ├── 009-quality-control.png
+│   │   ├── 010-check.png
+│   │   ├── 011-standard-1.png
+│   │   ├── 012-quality-control-1.png
+│   │   ├── 013-quality-standard.png
+│   │   ├── 014-community-engagement.png
+│   │   ├── 015-epidemiology.png
+│   │   ├── 016-social-care.png
+│   │   ├── 017-public-health.png
+│   │   ├── 018-social-justice.png
+│   │   ├── 019-heart.png
+│   │   ├── 020-online-community.png
+│   │   ├── 021-family.png
+│   │   ├── 022-family-1.png
+│   │   ├── 023-family-2.png
+│   │   ├── 024-family-3.png
+│   │   ├── 025-home.png
+│   │   ├── 026-family-4.png
+│   │   ├── 027-family-5.png
+│   │   ├── 028-family-6.png
+│   │   ├── 029-home-1.png
+│   │   ├── 030-family-7.png
+│   │   ├── 031-happy-house.png
+│   │   ├── 032-va-loan.png
+│   │   ├── 033-va-loan-1.png
+│   │   ├── 034-soldier.png
+│   │   ├── 035-usa.png
+│   │   ├── 036-patriotism.png
+│   │   ├── 037-flag.png
+│   │   ├── 038-ribbon.png
+│   │   ├── 039-flat.png
+│   │   ├── american-flag-icon.svg
+│   │   ├── flag.svg
+│   │   ├── heart.svg
+│   │   ├── home.svg
+│   │   ├── online-community.svg
+│   │   ├── patriotism.svg
+│   │   ├── quality-checklist.svg
+│   │   └── soldier.svg
+│   ├── logo
+│   │   ├── brand-logo.svg
+│   │   └── brand-logo2.png
+│   ├── our-work-gallery
+│   │   ├── images
+│   │   ├── our-work-detailed-measuring-400w.webp
+│   │   ├── our-work-detailed-measuring-800w.webp
+│   │   ├── our-work-detailed-measuring-placeholder.jpg
+│   │   ├── our-work-framing-door-1200w.webp
+│   │   ├── our-work-framing-door-400w.webp
+│   │   ├── our-work-framing-door-800w.webp
+│   │   ├── our-work-framing-door-placeholder.jpg
+│   │   ├── our-work-framing-door.webp
+│   │   ├── our-work-painting-dog-400w.webp
+│   │   ├── our-work-painting-dog-800w.webp
+│   │   ├── our-work-painting-dog-placeholder.jpg
+│   │   ├── our-work-remodeling-400w.webp
+│   │   └── our-work-remodeling-placeholder.jpg
+│   ├── properties
+│   │   ├── impact-rodriguez-family-800w.webp
+│   │   ├── jefferson-river.webp
+│   │   ├── jefferson-riverfront.webp
+│   │   ├── kemp-townhome.webp
+│   │   ├── longview-victorian-400w.webp
+│   │   ├── longview-victorian.webp
+│   │   ├── marshall-farmhouse-400w.jpg
+│   │   ├── marshall-farmhouse-400w.webp
+│   │   ├── mineola-studio-outside.webp
+│   │   ├── mineola-studio.webp
+│   │   ├── rodriguez-family-400w.webp
+│   │   ├── tyler-ranch-home-400w.webp
+│   │   └── tyler-ranch-home.webp
+│   └── videos
+│       ├── hero-our-work-banner.mp4
+│       └── hero-properties-banner.mp4
+├── pages
+│   ├── About.tsx
+│   ├── AccessibilityStatement.tsx
+│   ├── AdminDashboard.tsx
+│   ├── Application.tsx
+│   ├── Contact.tsx
+│   ├── Employment.tsx
+│   ├── EqualHousing.tsx
+│   ├── FAQ.tsx
+│   ├── Home.tsx
+│   ├── OurImpact.tsx
+│   ├── Privacy.tsx
+│   ├── PropertyDetails.tsx
+│   ├── SuccessStories.tsx
+│   ├── TenantLogin.tsx
+│   ├── Terms.tsx
+│   ├── Transparency.tsx
+│   ├── Veterans.tsx
+│   └── VeteranServices.tsx
+├── public
+│   └── sw.js
+├── server
+│   ├── middleware
+│   │   ├── comprehensiveSecurity.js
+│   │   ├── enhancedSecurityHeaders.js
+│   │   ├── imageOptimization.js
+│   │   ├── inputValidation.js
+│   │   ├── logging.js
+│   │   ├── performanceMonitoring.js
+│   │   ├── rateLimiting.js
+│   │   ├── securityHeaders.js
+│   │   └── validation.js
+│   ├── utils
+│   │   └── logger.js
+│   ├── .env.example
+│   ├── index.js
+│   └── package.json
+├── services
+│   ├── api.ts
+│   └── geminiService.ts
+├── tests
+│   └── geminiService.test.ts
+├── utils
+│   └── imageOptimization.ts
+├── .env.local
+├── .eslintrc.json
+├── .gitignore
+├── .tsbuildinfo
+├── App.tsx
+├── code-review.py
+├── DEPLOYMENT_GUIDE.md
+├── ENTERPRISE_CODE_IMPROV
+├── ENTERPRISE_CODE_IMPROVEMENTS.md
+├── ENTERPRISE_CODE_REVIEW_REPORT.md
+├── EXECUTIVE_SUMMARY.md
+├── IMPLEMENTATION_ROADMAP.md
+├── IMPLEMENTATION_SUMMARY.md
+├── index.css
+├── index.html
+├── index.tsx
+├── metadata.json
+├── package-lock.json
+├── package.json
+├── postcss.config.js
+├── README.md
+├── robots.txt
+├── SECURITY_VULNERABILITY_REPORT.md
+├── sitemap.xml
+├── tailwind.config.js
+├── tsconfig.enhanced.json
+├── tsconfig.json
+├── types.ts
+└── vite.config.ts

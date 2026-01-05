@@ -1,29 +1,121 @@
 {
   "compilerOptions": {
+    /* Enhanced Target and Module Configuration */
     "target": "ES2022",
-    "experimentalDecorators": true,
-    "useDefineForClassFields": false,
     "module": "ESNext",
     "lib": [
       "ES2022",
       "DOM",
-      "DOM.Iterable"
+      "DOM.Iterable",
+      "WebWorker"
     ],
-    "skipLibCheck": true,
-    "types": [
-      "node"
-    ],
+    "allowJs": true,
+    "checkJs": false,
+    "jsx": "react-jsx",
+    "declaration": false,
+    "declarationMap": false,
+    "sourceMap": true,
+
+    /* Enhanced Type Safety */
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+
+    /* Enhanced Module Resolution */
     "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
     "isolatedModules": true,
     "moduleDetection": "force",
-    "allowJs": true,
-    "jsx": "react-jsx",
+    "noEmit": true,
+    "skipLibCheck": true,
+
+    /* Enhanced Decorator Support */
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false,
+
+    /* Enhanced Path Mapping */
+    "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"],
+      "@/components/*": ["./components/*"],
+      "@/pages/*": ["./pages/*"],
+      "@/context/*": ["./context/*"],
+      "@/services/*": ["./services/*"],
+      "@/types/*": ["./types/*"],
+      "@/constants/*": ["./constants/*"],
+      "@/utils/*": ["./utils/*"],
+      "@/hooks/*": ["./hooks/*"],
+      "@/data/*": ["./data/*"]
     },
-    "allowImportingTsExtensions": true,
-    "noEmit": true
+
+    /* Enhanced Type Definitions */
+    "types": [
+      "node",
+      "react",
+      "react-dom",
+      "vite/client"
+    ],
+
+    /* Enhanced Output Configuration */
+    "removeComments": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Enhanced Error Handling */
+    "listFiles": false,
+    "listEmittedFiles": false,
+
+    /* Enhanced Build Options */
+    "incremental": true,
+    "tsBuildInfoFile": "./.tsbuildinfo",
+
+    /* Enhanced Security Options */
+    "noEmitOnError": true,
+    "verbatimModuleSyntax": true,
+    "assumeChangesOnlyAffectDirectDependencies": true
+  },
+
+  /* Enhanced Include Patterns */
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.mjs",
+    "**/*.cjs"
+  ],
+
+  /* Enhanced Exclude Patterns */
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "coverage",
+    "*.config.js",
+    "*.config.ts",
+    "server/**/*.js",
+    "server/**/*.ts"
+  ],
+
+  /* Enhanced File Watching */
+  "watchOptions": {
+    "watchFile": "useFsEvents",
+    "watchDirectory": "useFsEvents",
+    "fallbackPolling": "dynamicPriority"
   }
 }

@@ -1,0 +1,122 @@
+{
+  "compilerOptions": {
+    /* Language and Environment */
+    "target": "ES2022",
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Modules */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@context/*": ["./src/context/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@services/*": ["./src/services/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@types/*": ["./src/types/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@constants/*": ["./src/constants/*"]
+    },
+    "rootDir": ".",
+    "rootDirs": [".", "src"],
+    "typeRoots": ["./node_modules/@types", "./src/types"],
+
+    /* JavaScript Support */
+    "allowJs": true,
+    "checkJs": true,
+
+    /* Emit */
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "./dist",
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "downlevelIteration": true,
+
+    /* Interop Constraints */
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "verbatimModuleSyntax": false,
+
+    /* Type Checking */
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "useUnknownInCatchVariables": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "exactOptionalPropertyTypes": false,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": false,
+
+    /* Completeness */
+    "skipLibCheck": false,
+
+    /* Advanced */
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "allowUmdGlobalAccess": true,
+    "resolvePackageJsonExports": true,
+    "resolvePackageJsonImports": true,
+    "allowArbitraryExtensions": true,
+
+    /* Source Map Options */
+    "sourceMap": true,
+    "inlineSourceMap": false,
+    "inlineSources": false,
+    "sourceRoot": "",
+    "mapRoot": "",
+    "inlineSourceMap": false,
+
+    /* Advanced Options */
+    "skipDefaultLibCheck": true,
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules"
+      },
+      {
+        "name": "typescript-plugin-styled-components"
+      }
+    ]
+  },
+  "include": [
+    "src/**/*",
+    "server/**/*",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.spec.ts",
+    "**/*.spec.tsx"
+  ],
+  "files": [
+    "src/types/global.d.ts",
+    "src/types/env.d.ts"
+  ]
+}
