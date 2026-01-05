@@ -103,7 +103,7 @@ const PropertyCard = memo<PropertyCardProps>(({ property, priority = false }) =>
   const [, setIsHovered] = useState(false);
 
   // Preload critical images for better UX
-  useEffect(() => {
+  useEffect((): (() => void) | void => {
     if (priority) {
       const link = document.createElement('link');
       link.rel = 'preload';

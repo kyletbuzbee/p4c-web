@@ -1,9 +1,7 @@
-
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { IMAGES } from '../constants/images';
-import { Flag, HeartHandshake, Briefcase, Users, Home, Shield, Phone, ExternalLink } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Flag, Briefcase, Users, Home, Shield, Phone } from 'lucide-react';
 
 const VeteranServices: React.FC = () => {
   return (
@@ -50,7 +48,7 @@ const VeteranServices: React.FC = () => {
                     { icon: Shield, title: "Deposit Assistance", text: "We partner with local non-profits like CampV to help cover security deposits and move-in costs." },
                     { icon: Users, title: "Community Connection", text: "Regular meetups and a network of veteran residents to foster camaraderie and combat isolation." },
                     { icon: Briefcase, title: "Employment Support", text: "Direct hiring pipeline for P4C renovation projects and referrals to veteran-friendly local employers." },
-                    { icon: HeartHandshake, title: "Benefits Navigation", text: "Our staff is trained to help you navigate VA paperwork and connect with County Service Officers." },
+                    { icon: Users, title: "Benefits Navigation", text: "Our staff is trained to help you navigate VA paperwork and connect with County Service Officers." },
                     { icon: Phone, title: "24/7 Support Line", text: "Dedicated maintenance and support line for veteran residents to ensure your needs are met promptly." },
                 ].map((service, i) => (
                     <div key={i} className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow border-t-4 border-p4c-gold">

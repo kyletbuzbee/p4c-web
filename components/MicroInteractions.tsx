@@ -220,7 +220,6 @@ export const SmoothScroll: React.FC<SmoothScrollProps> = ({
   to,
   children,
   offset = 0,
-  duration = 600,
   className = ''
 }) => {
   const handleClick = (e: React.MouseEvent): void => {

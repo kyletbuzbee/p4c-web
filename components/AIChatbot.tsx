@@ -28,7 +28,7 @@ const AIChatbot: React.FC = () => {
   }, [messages, isOpen]);
 
   // Accessibility: Focus Trap & Escape Key
-  useEffect(() => {
+  useEffect((): (() => void) | void => {
     if (isOpen) {
       // Focus input on open
       setTimeout(() => inputRef.current?.focus(), 100);

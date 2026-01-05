@@ -96,7 +96,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   }, [src, width, quality, imageFormatSupport]);
 
   // Lazy loading setup
-  useEffect(() => {
+  useEffect((): (() => void) | void => {
     if (!priority && loading === 'lazy' && imgRef.current) {
       const loader = new LazyImageLoader();
       loader.observe(imgRef.current);
