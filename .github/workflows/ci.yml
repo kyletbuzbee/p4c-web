@@ -8,7 +8,7 @@ on:
 
 env:
   NODE_VERSION: '18'
-  PNPM_VERSION: '8'
+  npm_VERSION: '8'
 
 jobs:
   security-scan:
@@ -42,39 +42,39 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install pnpm
-        run: npm install -g pnpm@${{ env.PNPM_VERSION }}
+      - name: Install npm
+        run: npm install -g npm@${{ env.npm_VERSION }}
 
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
           path: |
-            ~/.pnpm-store
+            ~/.npm-store
             node_modules
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/npm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-pnpm-
+            ${{ runner.os }}-npm-
 
       - name: Install dependencies
-        run: pnpm install
+        run: npm install
 
       - name: Run linting
-        run: pnpm run lint
+        run: npm run lint
 
       - name: Run type checking
-        run: pnpm run type-check
+        run: npm run type-check
 
       - name: Run unit tests
-        run: pnpm run test:unit
+        run: npm run test:unit
 
       - name: Run integration tests
-        run: pnpm run test:integration
+        run: npm run test:integration
 
       - name: Run E2E tests
-        run: pnpm run test:e2e
+        run: npm run test:e2e
 
       - name: Generate test coverage
-        run: pnpm run test:coverage
+        run: npm run test:coverage
 
       - name: Upload coverage reports
         uses: codecov/codecov-action@v3
@@ -95,25 +95,25 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Install pnpm
-        run: npm install -g pnpm@${{ env.PNPM_VERSION }}
+      - name: Install npm
+        run: npm install -g npm@${{ env.npm_VERSION }}
 
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
           path: |
-            ~/.pnpm-store
+            ~/.npm-store
             node_modules
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/npm-lock.yaml') }}
 
       - name: Install dependencies
-        run: pnpm install
+        run: npm install
 
       - name: Build application
-        run: pnpm run build
+        run: npm run build
 
       - name: Optimize images
-        run: pnpm run optimize:images
+        run: npm run optimize:images
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
