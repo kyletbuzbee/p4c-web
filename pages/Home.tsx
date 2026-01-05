@@ -10,7 +10,7 @@ import { api } from '../services/api';
 import type { ExtendedProperty } from '../data/properties';
 import { IMAGES } from '../constants/images';
 import { CheckCircle2, Shield, Search, SlidersHorizontal, X } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();

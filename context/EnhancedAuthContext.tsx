@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, ReactNode, useEffect, useCallback, useRef } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
+import type { ReactNode } from 'react';
 import { useToast } from './ToastContext';
 
 type UserRole = 'guest' | 'tenant' | 'admin';
@@ -152,7 +153,6 @@ class SessionManager {
 
   static validateLoginAttempts(email: string): { allowed: boolean; remainingAttempts: number; lockoutRemaining?: number } {
     const attempts = parseInt(localStorage.getItem(`login_attempts_${email}`) || '0');
-    const lastAttempt = parseInt(localStorage.getItem(`last_attempt_${email}`) || '0');
     const lockoutUntil = parseInt(localStorage.getItem(`lockout_${email}`) || '0');
     const now = Date.now();
     
@@ -277,12 +277,12 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({ childr
   const handleSessionTimeout = useCallback(() => {
     console.log('Session timeout reached, logging out user');
     logout();
-    addToast('Your session has expired. Please log in again.', 'warning');
+    addToast('Your session has expired. Please log in again.', 'info');
   }, [addToast]);
 
   // Session warning handler
   const handleSessionWarning = useCallback(() => {
-    addToast('Your session will expire in 5 minutes. Please save your work.', 'warning');
+    addToast('Your session will expire in 5 minutes. Please save your work.', 'info');
   }, [addToast]);
 
   // Update session activity
@@ -343,6 +343,16 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({ childr
         }
       };
     }
+    
+    // Return cleanup function when user is falsy
+    return () => {
+      if (sessionTimeoutRef.current) {
+        clearTimeout(sessionTimeoutRef.current);
+      }
+      if (warningTimeoutRef.current) {
+        clearTimeout(warningTimeoutRef.current);
+      }
+    };
   }, [user, handleSessionTimeout, handleSessionWarning, updateSessionActivity]);
 
   // Enhanced session validation on mount
