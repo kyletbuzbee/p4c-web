@@ -8,7 +8,7 @@ on:
 
 env:
   NODE_VERSION: '18'
-  npm_VERSION: '8'
+  NPM_VERSION: '9'
 
 jobs:
   security-scan:
@@ -49,11 +49,11 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-            ~/.npm-store
+            ~/.npm
             node_modules
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/npm-lock.yaml') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-
+            ${{ runner.os }}-node-
 
       - name: Install dependencies
         run: npm install
@@ -102,9 +102,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-            ~/.npm-store
+            ~/.npm
             node_modules
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/npm-lock.yaml') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install dependencies
         run: npm install
