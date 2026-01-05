@@ -89,7 +89,7 @@ const Home: React.FC = () => {
     <>
       <Helmet>
         <title>Properties 4 Creations | Veteran Owned Affordable Housing</title>
-        <meta name="description" content="P4C buys distressed properties, renovates them to premium standards, and rents them affordably to veterans and families in East Texas." />
+        <meta name="description" content="Properties 4 Creation buys distressed properties, renovates them to premium standards, and rents them affordably to veterans and families in East Texas." />
       </Helmet>
       
       <Hero />
@@ -244,7 +244,7 @@ const Home: React.FC = () => {
                           <span className="text-p4c-gold">Not Cheap Fixes.</span>
                       </h2>
                       <p className="text-gray-600 mb-8 leading-relaxed">
-                          Many landlords cut corners. We don't. At P4C, we use homeowner-grade materials like Quartz countertops, luxury vinyl plank flooring, and high-efficiency HVAC systems. Why? because you deserve a home that lasts and feels proud to live in.
+                          Many landlords cut corners. We don't. At Properties 4 Creation, we use homeowner-grade materials like Quartz countertops, luxury vinyl plank flooring, and high-efficiency HVAC systems. Why? because you deserve a home that lasts and feels proud to live in.
                       </p>
                       
                       <ul className="space-y-4 mb-8">

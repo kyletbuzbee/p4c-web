@@ -6,18 +6,13 @@ import { IMAGES } from '../constants/images';
 const Hero: React.FC = () => {
   return (
     <div className="relative h-[85vh] w-full overflow-hidden flex items-center justify-center">
-      {/* Video Background */}
+      {/* Image Background */}
       <div className="absolute top-0 left-0 w-full h-full z-0">
-        <video 
-          autoPlay 
-          muted 
-          loop 
-          playsInline 
+        <img
+          src={IMAGES.BANNERS.HERO_HOME}
+          alt="Hero background"
           className="object-cover w-full h-full"
-          poster={IMAGES.BANNERS.HERO_HOME}
-        >
-          <source src={IMAGES.VIDEOS.HERO_PROPERTIES} type="video/mp4" />
-        </video>
+        />
         {/* Enhanced overlay for readability */}
         <div className="absolute top-0 left-0 w-full h-full hero-overlay-primary"></div>
         <div className="absolute top-0 left-0 w-full h-full hero-overlay-secondary"></div>
@@ -25,12 +20,12 @@ const Hero: React.FC = () => {
 
       {/* Content */}
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-fade-in-up">
-        <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight hero-text-contrast">
+        <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight hero-text-contrast tracking-wide">
           Dignity in Every Detail. <br/>
           <span className="text-p4c-gold">Welcome Home.</span>
         </h1>
-        <p className="text-lg md:text-xl text-gray-200 mb-10 font-light max-w-2xl mx-auto leading-relaxed hero-text-enhanced">
-          We transform distressed properties into premium, affordable homes for East Texas families and veterans. Experience the P4C difference.
+        <p className="text-lg md:text-xl text-gray-200 mb-10 font-light max-w-2xl mx-auto leading-relaxed hero-text-enhanced tracking-normal">
+          We transform distressed properties into premium, affordable homes for East Texas families and veterans. Experience the Properties 4 Creation difference.
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center">

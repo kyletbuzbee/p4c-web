@@ -97,7 +97,8 @@
     "**/*.js",
     "**/*.jsx",
     "**/*.mjs",
-    "**/*.cjs"
+    "**/*.cjs",
+    "**/*.css"
   ],
 
   /* Enhanced Exclude Patterns */
@@ -105,11 +106,7 @@
     "node_modules",
     "dist",
     "build",
-    "coverage",
-    "*.config.js",
-    "*.config.ts",
-    "server/**/*.js",
-    "server/**/*.ts"
+    "coverage"
   ],
 
   /* Enhanced File Watching */

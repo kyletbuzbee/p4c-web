@@ -23,7 +23,7 @@ const Employment: React.FC = () => {
             Build With Purpose
           </h1>
           <p className="text-xl text-p4c-gold font-medium hero-text-enhanced">
-            Join the P4C Crew. We Hire Veterans First.
+            Join the Properties 4 Creation Crew. We Hire Veterans First.
           </p>
         </div>
       </div>

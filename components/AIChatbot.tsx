@@ -11,7 +11,7 @@ interface Message {
 const AIChatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'model', text: "Welcome to P4C! I'm Patriot, your virtual concierge. How can I help you find your home today?" }
+    { role: 'model', text: "Welcome to Properties 4 Creation! I'm Patriot, your virtual concierge. How can I help you find your home today?" }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -99,7 +99,7 @@ const AIChatbot: React.FC = () => {
             ref={chatContainerRef}
             className="bg-white w-[350px] h-[500px] rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden mb-4 pointer-events-auto animate-fade-in-up ring-1 ring-black/5"
             role="dialog"
-            aria-label="P4C Concierge Chat"
+            aria-label="Properties 4 Creation Concierge Chat"
         >
           {/* Header */}
           <div className="bg-p4c-navy p-4 flex justify-between items-center text-white">
@@ -108,7 +108,7 @@ const AIChatbot: React.FC = () => {
                 <Bot className="w-4 h-4 text-p4c-navy" />
               </div>
               <div>
-                <h3 className="font-bold text-sm font-serif">P4C Concierge</h3>
+                <h3 className="font-bold text-sm font-serif">Properties 4 Creation Concierge</h3>
                 <div className="flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
                     <p className="text-xs text-gray-300">Online</p>

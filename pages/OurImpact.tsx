@@ -115,7 +115,7 @@ const OurImpact: React.FC = () => {
                <div className="relative z-10">
                   <Heart className="w-10 h-10 text-p4c-gold mb-4" />
                   <p className="text-xl font-serif italic mb-6">
-                    "I was living in my car for three months before finding P4C. They didn't just give me keys; they treated me with respect from the first phone call. This isn't just a house, it's my sanctuary."
+                    "I was living in my car for three months before finding Properties 4 Creation. They didn't just give me keys; they treated me with respect from the first phone call. This isn't just a house, it's my sanctuary."
                   </p>
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-gray-400"></div> {/* Avatar Placeholder */}

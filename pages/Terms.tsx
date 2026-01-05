@@ -21,7 +21,7 @@ const Terms: React.FC = () => {
 
           <div className="prose prose-slate max-w-none text-gray-700">
             <p className="lead text-lg">
-              Welcome to the Properties 4 Creations (P4C) website. By accessing or using our website, Resident Portal, or application services, you agree to be bound by these terms.
+              Welcome to the Properties 4 Creations website. By accessing or using our website, Resident Portal, or application services, you agree to be bound by these terms.
             </p>
 
             <h3 className="text-xl font-bold text-p4c-navy mt-8 mb-4 flex items-center gap-2">
@@ -50,7 +50,7 @@ const Terms: React.FC = () => {
 
             <h3 className="text-xl font-bold text-p4c-navy mt-8 mb-4">5. Third-Party Links</h3>
             <p>
-              Our website may contain links to websites owned or operated by parties other than P4C (e.g., Veteran Affairs, HUD). These links are provided for your reference only. P4C does not control outside sites and is not responsible for their content.
+              Our website may contain links to websites owned or operated by parties other than Properties 4 Creation (e.g., Veteran Affairs, HUD). These links are provided for your reference only. Properties 4 Creation does not control outside sites and is not responsible for their content.
             </p>
 
              <div className="bg-gray-50 p-6 rounded-xl mt-8 border border-gray-200">

@@ -9,35 +9,35 @@ const testimonials = [
         id: 1,
         name: "James & Sarah M.",
         type: "Family",
-        text: "After losing our home in the pandemic, we struggled to find a landlord who would accept our assistance. P4C didn't just accept us; they welcomed us. The home is beautiful, safe, and our kids finally have a backyard again.",
+        text: "After losing our home in the pandemic, we struggled to find a landlord who would accept our assistance. Properties 4 Creation didn't just accept us; they welcomed us. The home is beautiful, safe, and our kids finally have a backyard again.",
         location: "Tyler, TX"
     },
     {
         id: 2,
         name: "Sgt. Michael R. (Ret.)",
         type: "Veteran",
-        text: "The transition from active duty to civilian life was harder than I expected. Finding stable housing through the HUD-VASH program with P4C gave me the foundation I needed to go back to school.",
+        text: "The transition from active duty to civilian life was harder than I expected. Finding stable housing through the HUD-VASH program with Properties 4 Creation gave me the foundation I needed to go back to school.",
         location: "Longview, TX"
     },
     {
         id: 3,
         name: "Elena G.",
         type: "Single Mother",
-        text: "I was worried about safety for my daughter. The security lighting and smart locks P4C installed made me feel secure immediately. Maintenance requests are handled in hours, not weeks.",
+        text: "I was worried about safety for my daughter. The security lighting and smart locks Properties 4 Creation installed made me feel secure immediately. Maintenance requests are handled in hours, not weeks.",
         location: "Kilgore, TX"
     },
     {
         id: 4,
         name: "David W.",
         type: "Veteran",
-        text: "Most landlords see a voucher. P4C saw a veteran. They helped me with the paperwork and even connected me with a local job opportunity in construction.",
+        text: "Most landlords see a voucher. Properties 4 Creation saw a veteran. They helped me with the paperwork and even connected me with a local job opportunity in construction.",
         location: "Tyler, TX"
     },
     {
         id: 5,
         name: "The Williams Family",
         type: "Family",
-        text: "We've lived in 'affordable' housing before that was falling apart. P4C's standards are different. Granite countertops, new floors—it feels like a home we own.",
+        text: "We've lived in 'affordable' housing before that was falling apart. Properties 4 Creation's standards are different. Granite countertops, new floors—it feels like a home we own.",
         location: "Lindale, TX"
     },
     {

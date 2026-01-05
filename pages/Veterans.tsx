@@ -94,7 +94,7 @@ const Veterans: React.FC = () => {
                               <span className="font-bold text-lg">1-877-4AID-VET</span>
                           </li>
                           <li>
-                              <span className="block text-gray-400 text-xs uppercase tracking-wider">P4C Veteran Liaison</span>
+                              <span className="block text-gray-400 text-xs uppercase tracking-wider">Properties 4 Creation Veteran Liaison</span>
                               <span className="font-bold text-lg">(903) 555-0199</span>
                           </li>
                       </ul>

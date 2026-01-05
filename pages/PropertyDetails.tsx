@@ -82,7 +82,7 @@ const PropertyDetails: React.FC = () => {
   return (
     <div className="bg-p4c-beige min-h-screen pb-20 animate-fade-in">
       <Helmet>
-        <title>{property.title} | P4C Listings</title>
+        <title>{property.title} | Properties 4 Creation Listings</title>
         <meta name="description" content={`Check out ${property.title} in ${property.address}. ${property.beds} Bed, ${property.baths} Bath, ${property.badges.join(', ')}.`} />
       </Helmet>
 

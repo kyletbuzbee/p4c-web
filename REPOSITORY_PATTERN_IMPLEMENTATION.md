@@ -1227,7 +1227,7 @@ app.get('/health', (req, res) => {
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`🚀 P4C API Server running on port ${PORT}`);
+  console.log(`🚀 Properties 4 Creation API Server running on port ${PORT}`);
   console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}`);
 });
 ```
@@ -2004,7 +2004,7 @@ info:
   description: API for managing affordable housing properties
   version: 1.0.0
   contact:
-    name: P4C Development Team
+    name: Properties 4 Creation Development Team
     email: dev@p4c.org
 
 servers:

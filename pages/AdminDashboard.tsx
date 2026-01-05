@@ -36,7 +36,7 @@ const AdminDashboard: React.FC = () => {
       {/* Sidebar */}
       <aside className="w-64 bg-p4c-navy text-white hidden md:flex flex-col">
         <div className="p-6 border-b border-gray-700">
-          <h2 className="text-xl font-serif font-bold text-p4c-gold">P4C Admin</h2>
+          <h2 className="text-xl font-serif font-bold text-p4c-gold">Properties 4 Creation Admin</h2>
           <p className="text-xs text-gray-400 mt-1">Enterprise Portal</p>
         </div>
         

@@ -39,7 +39,7 @@ const About: React.FC = () => {
                 <h2 className="text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-6">Our Mission</h2>
                 <div className="w-20 h-1 bg-p4c-gold mb-8"></div>
                 <p className="text-gray-700 leading-relaxed mb-6 text-lg">
-                    Properties 4 Creations (P4C) was founded with a simple but radical idea: <strong>Affordable housing shouldn't mean lower standards.</strong>
+                    Properties 4 Creations was founded with a simple but radical idea: <strong>Affordable housing shouldn't mean lower standards.</strong>
                 </p>
                 <p className="text-gray-700 leading-relaxed mb-6">
                     As veterans, we understand the importance of a safe, stable base. When we looked at the affordable housing market in East Texas, we saw distressed properties and neglected neighborhoods. Where others saw risk, we saw potential for revitalization.
@@ -52,7 +52,7 @@ const About: React.FC = () => {
                 <div className="absolute -top-6 -left-6 w-32 h-32 bg-p4c-gold/20 rounded-tl-3xl -z-10 transition-transform group-hover:translate-x-2 group-hover:translate-y-2"></div>
                 <img 
                     src={IMAGES.TEAM.OWNER}
-                    alt="P4C Team Owner" 
+                    alt="Properties 4 Creation Team Owner"
                     loading="lazy"
                     className="rounded-2xl shadow-2xl w-full object-cover h-[500px]" 
                 />
@@ -68,7 +68,7 @@ const About: React.FC = () => {
         {/* The P4C Standard Section */}
         <div className="mb-32">
             <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-4">The P4C Standard</h2>
+                <h2 className="text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-4">The Properties 4 Creation Standard</h2>
                 <p className="text-gray-600 max-w-2xl mx-auto text-lg">We invest upfront in premium materials to ensure our tenants live in dignity and comfort.</p>
             </div>
 

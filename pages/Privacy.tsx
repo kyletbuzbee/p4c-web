@@ -21,7 +21,7 @@ const Privacy: React.FC = () => {
 
           <div className="prose prose-slate max-w-none text-gray-700">
             <p className="lead text-lg">
-              At Properties 4 Creations (P4C), we value your dignity and your privacy. We understand that applying for housing requires sharing sensitive personal information, and we are committed to protecting that data with the highest standards of security.
+              At Properties 4 Creations, we value your dignity and your privacy. We understand that applying for housing requires sharing sensitive personal information, and we are committed to protecting that data with the highest standards of security.
             </p>
 
             <h3 className="text-xl font-bold text-p4c-navy mt-8 mb-4 flex items-center gap-2">
@@ -52,7 +52,7 @@ const Privacy: React.FC = () => {
                 <Lock className="text-p4c-gold w-5 h-5" /> Data Security
             </h3>
             <p>
-              We implement enterprise-grade security measures to prevent your personal data from being accidentally lost, used, or accessed in an unauthorized way. Access to your personal data is limited to P4C employees, agents, and contractors who have a business need to know and are subject to a duty of confidentiality.
+              We implement enterprise-grade security measures to prevent your personal data from being accidentally lost, used, or accessed in an unauthorized way. Access to your personal data is limited to Properties 4 Creation employees, agents, and contractors who have a business need to know and are subject to a duty of confidentiality.
             </p>
 
             <h3 className="text-xl font-bold text-p4c-navy mt-8 mb-4">Your Rights</h3>

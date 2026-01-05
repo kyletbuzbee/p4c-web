@@ -17,7 +17,7 @@ const FAQ: React.FC = () => {
     <div className="bg-p4c-beige min-h-screen py-16">
       <Helmet>
         <title>FAQ | Properties 4 Creations</title>
-        <meta name="description" content="Frequently asked questions about applying for housing, Section 8, and veteran services at P4C." />
+        <meta name="description" content="Frequently asked questions about applying for housing, Section 8, and veteran services at Properties 4 Creation." />
       </Helmet>
 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">

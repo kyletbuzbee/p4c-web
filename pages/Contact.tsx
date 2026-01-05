@@ -129,7 +129,7 @@ const Contact: React.FC = () => {
     <div className="bg-p4c-beige min-h-screen">
       <Helmet>
         <title>Contact Us | Properties 4 Creations</title>
-        <meta name="description" content="Contact P4C for housing inquiries, investor relations, or employment opportunities in East Texas." />
+        <meta name="description" content="Contact Properties 4 Creation for housing inquiries, investor relations, or employment opportunities in East Texas." />
       </Helmet>
 
       {/* Hero Banner */}

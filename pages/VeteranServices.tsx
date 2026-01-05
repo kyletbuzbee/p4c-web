@@ -47,7 +47,7 @@ const VeteranServices: React.FC = () => {
                     { icon: Home, title: "Priority Housing", text: "Veterans receive priority placement for all available units. We hold units for up to 7 days for VASH voucher processing." },
                     { icon: Shield, title: "Deposit Assistance", text: "We partner with local non-profits like CampV to help cover security deposits and move-in costs." },
                     { icon: Users, title: "Community Connection", text: "Regular meetups and a network of veteran residents to foster camaraderie and combat isolation." },
-                    { icon: Briefcase, title: "Employment Support", text: "Direct hiring pipeline for P4C renovation projects and referrals to veteran-friendly local employers." },
+                    { icon: Briefcase, title: "Employment Support", text: "Direct hiring pipeline for Properties 4 Creation renovation projects and referrals to veteran-friendly local employers." },
                     { icon: Users, title: "Benefits Navigation", text: "Our staff is trained to help you navigate VA paperwork and connect with County Service Officers." },
                     { icon: Phone, title: "24/7 Support Line", text: "Dedicated maintenance and support line for veteran residents to ensure your needs are met promptly." },
                 ].map((service, i) => (

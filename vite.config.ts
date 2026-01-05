@@ -7,7 +7,7 @@ export default defineConfig(({ mode }) => {
     
     // GitHub Pages configuration
     const isProduction = mode === 'production';
-    const repositoryName = process.env.VITE_REPOSITORY_NAME || '';
+    const repositoryName = env['VITE_REPOSITORY_NAME'] || '';
     const base = isProduction ? `/${repositoryName}/` : '/';
     
     return {
@@ -21,7 +21,7 @@ export default defineConfig(({ mode }) => {
           'X-Content-Type-Options': 'nosniff',
           'Referrer-Policy': 'strict-origin-when-cross-origin',
           'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
-          'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
+          'Strict-Transport-Security': 'mndax-age=31536000; includeSubDomains; preload',
           // Content Security Policy - XSS Prevention
           'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' http://localhost:3001; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;"
         },
@@ -79,8 +79,6 @@ export default defineConfig(({ mode }) => {
             // Optimize chunk file names
             chunkFileNames: 'js/[name]-[hash].js',
             assetFileNames: (assetInfo) => {
-              const info = assetInfo.name?.split('.') || [];
-              const extType = info[info.length - 1];
               if (/\.(png|jpe?g|gif|svg|webp)$/i.test(assetInfo.name || '')) {
                 return `images/[name]-[hash][extname]`;
               }
