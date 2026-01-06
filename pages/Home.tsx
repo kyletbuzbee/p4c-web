@@ -88,7 +88,7 @@ const Home: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Properties 4 Creations | Veteran Owned Affordable Housing</title>
+        <title>Properties 4 Creation | Veteran Owned Affordable Housing</title>
         <meta name="description" content="Properties 4 Creation buys distressed properties, renovates them to premium standards, and rents them affordably to veterans and families in East Texas." />
       </Helmet>
       

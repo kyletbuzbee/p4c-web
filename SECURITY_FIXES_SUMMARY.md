@@ -1,7 +1,7 @@
 # Security Vulnerabilities Fixed - Summary Report
 
 ## Overview
-This document summarizes all security vulnerabilities that have been identified and fixed in the Properties 4 Creations application. All fixes have been implemented following security best practices.
+This document summarizes all security vulnerabilities that have been identified and fixed in the Properties 4 Creation application. All fixes have been implemented following security best practices.
 
 ## Fixed Vulnerabilities
 

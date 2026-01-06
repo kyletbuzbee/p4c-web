@@ -42,7 +42,7 @@ export default defineConfig(({ mode }) => {
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Properties 4 Creations</title>
+  <title>Properties 4 Creation</title>
   <meta http-equiv="refresh" content="0; url=./">
 </head>
 <body>

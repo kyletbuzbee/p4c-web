@@ -45,7 +45,7 @@ const OurImpact: React.FC = () => {
   return (
     <div className="bg-p4c-beige min-h-screen">
       <Helmet>
-        <title>Our Impact | Properties 4 Creations</title>
+        <title>Our Impact | Properties 4 Creation</title>
         <meta name="description" content="See the data behind our mission. Families housed, veterans served, and communities revitalized in East Texas." />
       </Helmet>
 

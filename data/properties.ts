@@ -110,7 +110,7 @@ export const properties: ExtendedProperty[] = [
     beds: 3,
     baths: 2.5,
     sqft: 1750,
-    imageUrl: IMAGES.PROPERTIES.RODRIGUEZ_FAMILY,
+    imageUrl: IMAGES.PROPERTIES.LINDALE_COTTAGE,
     badges: ['Family Size', 'Top Rated Schools'],
     description: 'Beautiful brick home in the highly sought-after Lindale school district. Features a double vanity, large soaking tub, and a fireplace for cozy evenings.',
     amenities: ['Fireplace', 'Double Vanity', 'Soaking Tub', 'Brick Exterior'],

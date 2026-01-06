@@ -7,8 +7,8 @@ const Terms: React.FC = () => {
   return (
     <div className="bg-p4c-beige min-h-screen py-16">
       <Helmet>
-        <title>Terms of Service | Properties 4 Creations</title>
-        <meta name="description" content="Terms of service for using the Properties 4 Creations website and portal." />
+        <title>Terms of Service | Properties 4 Creation</title>
+        <meta name="description" content="Terms of service for using the Properties 4 Creation website and portal." />
       </Helmet>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -21,14 +21,14 @@ const Terms: React.FC = () => {
 
           <div className="prose prose-slate max-w-none text-gray-700">
             <p className="lead text-lg">
-              Welcome to the Properties 4 Creations website. By accessing or using our website, Resident Portal, or application services, you agree to be bound by these terms.
+              Welcome to the Properties 4 Creation website. By accessing or using our website, Resident Portal, or application services, you agree to be bound by these terms.
             </p>
 
             <h3 className="text-xl font-bold text-p4c-navy mt-8 mb-4 flex items-center gap-2">
                 <FileText className="text-p4c-gold w-5 h-5" /> 1. Fair Housing Policy
             </h3>
             <p>
-              Properties 4 Creations is committed to the letter and spirit of U.S. policy for the achievement of equal housing opportunity. We encourage and support an affirmative advertising and marketing program in which there are no barriers to obtaining housing because of race, color, religion, sex, handicap, familial status, or national origin.
+              Properties 4 Creation is committed to the letter and spirit of U.S. policy for the achievement of equal housing opportunity. We encourage and support an affirmative advertising and marketing program in which there are no barriers to obtaining housing because of race, color, religion, sex, handicap, familial status, or national origin.
             </p>
 
             <h3 className="text-xl font-bold text-p4c-navy mt-8 mb-4">2. Use of Site</h3>
@@ -45,7 +45,7 @@ const Terms: React.FC = () => {
                 <Scale className="text-p4c-gold w-5 h-5" /> 4. Limitation of Liability
             </h3>
             <p>
-              Properties 4 Creations shall not be liable for any direct, indirect, special, incidental, consequential, or punitive damages arising out of your access to, or use of, this website or the content available on this website.
+              Properties 4 Creation shall not be liable for any direct, indirect, special, incidental, consequential, or punitive damages arising out of your access to, or use of, this website or the content available on this website.
             </p>
 
             <h3 className="text-xl font-bold text-p4c-navy mt-8 mb-4">5. Third-Party Links</h3>

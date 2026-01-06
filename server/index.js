@@ -272,7 +272,7 @@ app.post('/api/ai/chat', verifyApiKey, async (req, res) => {
     console.log(`Processing chat request from ${req.ip}`);
 
     const model = genAI.getGenerativeModel({
-      systemInstruction: `You are 'Patriot', the AI Concierge for Properties 4 Creations (P4C). 
+      systemInstruction: `You are 'Patriot', the AI Concierge for Properties 4 Creation (P4C). 
       P4C is a veteran-owned company in East Texas that provides high-quality affordable housing.
       
       Key Information:

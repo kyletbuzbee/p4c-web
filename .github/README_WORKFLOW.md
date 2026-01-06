@@ -1,4 +1,4 @@
-# GitHub Actions Workflow for Properties 4 Creations
+# GitHub Actions Workflow for Properties 4 Creation
 
 ## 🎯 Purpose
 Automated deployment workflow for GitHub Pages with custom domain `www.properties4creations.com`

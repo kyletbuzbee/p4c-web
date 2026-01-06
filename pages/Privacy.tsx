@@ -7,8 +7,8 @@ const Privacy: React.FC = () => {
   return (
     <div className="bg-p4c-beige min-h-screen py-16">
       <Helmet>
-        <title>Privacy Policy | Properties 4 Creations</title>
-        <meta name="description" content="Privacy policy and data protection standards for Properties 4 Creations applicants and residents." />
+        <title>Privacy Policy | Properties 4 Creation</title>
+        <meta name="description" content="Privacy policy and data protection standards for Properties 4 Creation applicants and residents." />
       </Helmet>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -21,7 +21,7 @@ const Privacy: React.FC = () => {
 
           <div className="prose prose-slate max-w-none text-gray-700">
             <p className="lead text-lg">
-              At Properties 4 Creations, we value your dignity and your privacy. We understand that applying for housing requires sharing sensitive personal information, and we are committed to protecting that data with the highest standards of security.
+              At Properties 4 Creation, we value your dignity and your privacy. We understand that applying for housing requires sharing sensitive personal information, and we are committed to protecting that data with the highest standards of security.
             </p>
 
             <h3 className="text-xl font-bold text-p4c-navy mt-8 mb-4 flex items-center gap-2">

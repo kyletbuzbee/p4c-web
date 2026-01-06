@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Properties 4 Creations website uses a centralized image management system implemented through the [`constants/images.ts`](./images.ts) file. This system provides a unified, responsive approach to managing all visual assets while maintaining clean separation between code and resources.
+The Properties 4 Creation website uses a centralized image management system implemented through the [`constants/images.ts`](./images.ts) file. This system provides a unified, responsive approach to managing all visual assets while maintaining clean separation between code and resources.
 
 ## Benefits
 
@@ -188,4 +188,4 @@ The image system integrates seamlessly with existing components:
 - **Hero**: Uses `IMAGES.BANNERS.HERO_HOME` for main hero image
 - **All pages**: Use appropriate banner images from `IMAGES.BANNERS`
 
-This centralized approach ensures consistency, maintainability, and excellent developer experience across the entire Properties 4 Creations platform.
+This centralized approach ensures consistency, maintainability, and excellent developer experience across the entire Properties 4 Creation platform.

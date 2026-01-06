@@ -95,7 +95,7 @@ app.post('/api/ai/chat', async (req, res) => {
     const { message, history } = req.body;
     
     const model = genAI.getGenerativeModel({
-      systemInstruction: `You are 'Patriot', the AI Concierge for Properties 4 Creations.
+      systemInstruction: `You are 'Patriot', the AI Concierge for Properties 4 Creation.
       P4C is a veteran-owned company in East Texas that provides high-quality affordable housing.`
     });
 
@@ -598,7 +598,7 @@ const Home: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Properties 4 Creations | Veteran Owned Affordable Housing</title>
+        <title>Properties 4 Creation | Veteran Owned Affordable Housing</title>
         <meta name="description" content="Properties 4 Creation buys distressed properties, renovates them to premium standards, and rents them affordably to veterans and families in East Texas." />
         <link rel="preload" href={IMAGES.BANNERS.HOME} as="image" />
       </Helmet>

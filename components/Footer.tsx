@@ -15,7 +15,7 @@ const Footer: React.FC = () => {
                      <div className="bg-p4c-gold p-1.5 rounded-full">
                         <Home className="text-p4c-navy w-5 h-5" />
                      </div>
-                    <span className="font-serif text-xl font-bold text-p4c-beige">Properties 4 Creations</span>
+                    <span className="font-serif text-xl font-bold text-p4c-beige">Properties 4 Creation</span>
                 </div>
                 <p className="text-gray-400 text-sm leading-relaxed mb-6">
                     Breaking the stigma of affordable housing in East Texas. We restore properties to restore dignity, focusing on veterans and families using housing vouchers.
@@ -85,7 +85,7 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="border-t border-gray-800 pt-8 text-center text-gray-600 text-xs">
-            <p>&copy; {new Date().getFullYear()} Properties 4 Creations, LLC. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} Properties 4 Creation, LLC. All rights reserved.</p>
         </div>
       </div>
     </footer>

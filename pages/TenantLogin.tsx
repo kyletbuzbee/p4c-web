@@ -35,7 +35,7 @@ const TenantLogin: React.FC = () => {
   return (
     <div className="min-h-screen bg-p4c-beige flex flex-col lg:flex-row">
       <Helmet>
-        <title>Portal Login | Properties 4 Creations</title>
+        <title>Portal Login | Properties 4 Creation</title>
       </Helmet>
 
       {/* Left Side - Visuals */}

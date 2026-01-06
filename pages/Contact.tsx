@@ -128,7 +128,7 @@ const Contact: React.FC = () => {
   return (
     <div className="bg-p4c-beige min-h-screen">
       <Helmet>
-        <title>Contact Us | Properties 4 Creations</title>
+        <title>Contact Us | Properties 4 Creation</title>
         <meta name="description" content="Contact Properties 4 Creation for housing inquiries, investor relations, or employment opportunities in East Texas." />
       </Helmet>
 

@@ -1,5 +1,5 @@
 /**
- * Service Worker for Properties 4 Creations
+ * Service Worker for Properties 4 Creation
  * Provides offline functionality and caching strategies
  */
 
@@ -256,7 +256,7 @@ self.addEventListener('push', (event) => {
   };
   
   event.waitUntil(
-    self.registration.showNotification('Properties 4 Creations', options)
+    self.registration.showNotification('Properties 4 Creation', options)
   );
 });
 

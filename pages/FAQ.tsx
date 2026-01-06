@@ -6,7 +6,7 @@ import { ChevronDown, HelpCircle } from 'lucide-react';
 const FAQs = [
     { q: "Do you accept Section 8 vouchers?", a: "Yes, absolutely. We accept Housing Choice Vouchers (Section 8), HUD-VASH, and Rapid Rehousing assistance for all of our properties." },
     { q: "What is your pet policy?", a: "We are pet-friendly! We allow up to 2 pets per household with a refundable pet deposit. Breed restrictions may apply due to insurance regulations." },
-    { q: "Is there an application fee?", a: "No. Properties 4 Creations believes in dignity-first housing. We do not charge application fees." },
+    { q: "Is there an application fee?", a: "No. Properties 4 Creation believes in dignity-first housing. We do not charge application fees." },
     { q: "Do you perform background checks?", a: "Yes, we conduct background and credit checks to ensure community safety. However, we take a holistic view of every applicant and consider explaining circumstances." },
     { q: "How long does the application process take?", a: "Typically 2-3 business days. If you are using a voucher, it may take longer depending on the housing authority's inspection schedule." },
     { q: "Do you offer month-to-month leases?", a: "Our standard lease is 12 months, but we do offer flexible terms for veterans in transitional housing programs." },
@@ -16,7 +16,7 @@ const FAQ: React.FC = () => {
   return (
     <div className="bg-p4c-beige min-h-screen py-16">
       <Helmet>
-        <title>FAQ | Properties 4 Creations</title>
+        <title>FAQ | Properties 4 Creation</title>
         <meta name="description" content="Frequently asked questions about applying for housing, Section 8, and veteran services at Properties 4 Creation." />
       </Helmet>
 

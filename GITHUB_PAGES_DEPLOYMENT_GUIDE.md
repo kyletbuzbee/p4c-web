@@ -1,8 +1,8 @@
-# GitHub Pages Deployment Guide for Properties 4 Creations
+# GitHub Pages Deployment Guide for Properties 4 Creation
 
 ## 🚀 Overview
 
-This guide provides step-by-step instructions to deploy **Properties 4 Creations** (www.properties4creations.com) to GitHub Pages using the configured GitHub Actions workflow.
+This guide provides step-by-step instructions to deploy **Properties 4 Creation** (www.properties4creations.com) to GitHub Pages using the configured GitHub Actions workflow.
 
 **Project Details:**
 - **Domain**: www.properties4creations.com

@@ -40,7 +40,7 @@ const Employment: React.FC = () => {
                 <h2 className="text-3xl font-serif font-bold text-p4c-navy">Why Work With Us?</h2>
             </div>
             <p className="text-gray-700 leading-relaxed mb-6">
-                At Properties 4 Creations, we believe that the hands that built our nation are best suited to build our communities. We aren't just renovating houses; we are restoring dignity.
+                At Properties 4 Creation, we believe that the hands that built our nation are best suited to build our communities. We aren't just renovating houses; we are restoring dignity.
             </p>
             <p className="text-gray-700 leading-relaxed mb-8">
                 We offer competitive pay, flexible schedules for reservists, and a culture that understands the value of discipline, integrity, and hard work.

@@ -39,7 +39,7 @@ const Veterans: React.FC = () => {
                   <section>
                       <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-4">The HUD-VASH Program</h2>
                       <p className="text-gray-700 leading-relaxed mb-4">
-                          Properties 4 Creations works directly with the HUD-VASH program to provide permanent housing for homeless veterans. This program combines Housing Choice Voucher (HCV) rental assistance for homeless Veterans with case management and clinical services provided by the Department of Veterans Affairs (VA).
+                          Properties 4 Creation works directly with the HUD-VASH program to provide permanent housing for homeless veterans. This program combines Housing Choice Voucher (HCV) rental assistance for homeless Veterans with case management and clinical services provided by the Department of Veterans Affairs (VA).
                       </p>
                       <p className="text-gray-700 leading-relaxed">
                           We streamline the inspection and lease-up process to get you out of temporary shelter and into your own home faster.

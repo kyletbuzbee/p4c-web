@@ -29,7 +29,7 @@ const Transparency: React.FC = () => {
   return (
     <div className="bg-p4c-beige min-h-screen">
       <Helmet>
-        <title>Transparency & Standards | Properties 4 Creations</title>
+        <title>Transparency & Standards | Properties 4 Creation</title>
         <meta name="description" content="View our open book policy on renovation standards. We compare typical landlord shortcuts with the Properties 4 Creation premium standard." />
       </Helmet>
 

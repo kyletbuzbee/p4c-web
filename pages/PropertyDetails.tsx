@@ -45,7 +45,7 @@ const PropertyDetails: React.FC = () => {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-p4c-beige px-4">
         <Helmet>
-          <title>Error Loading Property | Properties 4 Creations</title>
+          <title>Error Loading Property | Properties 4 Creation</title>
         </Helmet>
         <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-4">Unable to Load Property</h2>
         <p className="text-gray-600 mb-4">{error}</p>
@@ -68,7 +68,7 @@ const PropertyDetails: React.FC = () => {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-p4c-beige px-4">
         <Helmet>
-          <title>Property Not Found | Properties 4 Creations</title>
+          <title>Property Not Found | Properties 4 Creation</title>
         </Helmet>
         <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-4">Property Not Found</h2>
         <p className="text-gray-600 mb-8">The listing you are looking for may have been removed or is unavailable.</p>

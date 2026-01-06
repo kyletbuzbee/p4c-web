@@ -1,5 +1,5 @@
 # Enterprise Security Hardening - Deployment Guide
-**Properties 4 Creations - Critical Security Implementation**
+**Properties 4 Creation - Critical Security Implementation**
 
 ---
 

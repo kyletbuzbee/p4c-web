@@ -7,7 +7,7 @@ const EqualHousing: React.FC = () => {
   return (
     <div className="bg-p4c-beige min-h-screen py-16">
       <Helmet>
-        <title>Equal Housing Opportunity | Properties 4 Creations</title>
+        <title>Equal Housing Opportunity | Properties 4 Creation</title>
       </Helmet>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -19,7 +19,7 @@ const EqualHousing: React.FC = () => {
             
             <div className="prose prose-lg mx-auto text-gray-600 text-left">
                 <p>
-                    Properties 4 Creations is pledged to the letter and spirit of U.S. policy for the achievement of equal housing opportunity throughout the Nation. We encourage and support an affirmative advertising and marketing program in which there are no barriers to obtaining housing because of race, color, religion, sex, handicap, familial status, or national origin.
+                    Properties 4 Creation is pledged to the letter and spirit of U.S. policy for the achievement of equal housing opportunity throughout the Nation. We encourage and support an affirmative advertising and marketing program in which there are no barriers to obtaining housing because of race, color, religion, sex, handicap, familial status, or national origin.
                 </p>
                 <p>
                     <strong>We agree to:</strong>

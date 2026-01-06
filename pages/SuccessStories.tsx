@@ -53,8 +53,8 @@ const SuccessStories: React.FC = () => {
   return (
     <div className="bg-p4c-beige min-h-screen">
       <Helmet>
-        <title>Success Stories | Properties 4 Creations</title>
-        <meta name="description" content="Read real stories from families and veterans housed by Properties 4 Creations. See our impact in East Texas." />
+        <title>Success Stories | Properties 4 Creation</title>
+        <meta name="description" content="Read real stories from families and veterans housed by Properties 4 Creation. See our impact in East Texas." />
       </Helmet>
 
       <div className="bg-p4c-navy text-white py-20 text-center px-4">

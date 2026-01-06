@@ -30,7 +30,7 @@ export const IMAGES = {
     HERO_RESOURCES: '/images/banners/hero-resources-banner.webp',
     HERO_TERMS: '/images/banners/hero-terms-banner-800w.webp',
     HERO_TRANSPARENCY: '/images/banners/hero-transparency-banner-400w.webp',
-    HERO_APPLICATION: '/images/banners/hero-application-banner.jpg',
+    HERO_APPLICATION: '/images/banners/hero-application-banner.webp',
     HERO_FAQ: '/images/banners/hero-faq-banner.png',
   },
 
@@ -42,7 +42,7 @@ export const IMAGES = {
     LONGVIEW_VICTORIAN: '/images/properties/longview-victorian.webp',
     MARSHALL_FARMHOUSE: '/images/properties/marshall-farmhouse-400w.webp',
     MINEOLA_STUDIO: '/images/properties/mineola-studio.webp',
-    RODRIGUEZ_FAMILY: '/images/properties/impact-rodriguez-family-800w.webp',
+    LINDALE_COTTAGE: '/images/properties/lindale-cottage.webp',
   },
 
   // Team & About

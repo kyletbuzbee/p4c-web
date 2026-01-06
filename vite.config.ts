@@ -44,6 +44,7 @@ export default defineConfig(({ mode }) => {
           // viteCompression({algorithm: 'gzip'})
         ] : [])
       ],
+      assetsInclude: ['**/*.bin', '**/*.json'], // Helps loading local TFJS models if needed
       define: {
         // REMOVED: API key exposure vulnerability (CRITICAL FIX)
         // API keys are now handled server-side only via proxy

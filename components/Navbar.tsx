@@ -76,7 +76,7 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-p4c-gold/95 border-b border-p4c-navy/30 text-p4c-navy backdrop-blur-xl shadow-lg">
+    <nav className="sticky top-0 z-50 bg-[#0B1120]/90 border-b border-[#0B1120]/30 text-white backdrop-blur-xl shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20 items-center">
           
@@ -102,7 +102,7 @@ const Navbar: React.FC = () => {
                 onMouseEnter={() => handleMouseEnter(group.label)}
                 onMouseLeave={handleMouseLeave}
               >
-                <button className={`flex items-center text-sm font-medium transition-colors duration-200 ${activeDropdown === group.label ? 'text-p4c-gold' : 'text-gray-200 hover:text-white'}`}>
+                <button className={`flex items-center text-sm font-medium transition-colors duration-200 ${activeDropdown === group.label ? 'text-p4c-gold' : 'text-gray-300 hover:text-white'}`}>
                   {group.label}
                   <ChevronDown className={`ml-1 w-3 h-3 transition-transform duration-200 ${activeDropdown === group.label ? 'rotate-180' : ''}`} />
                 </button>
@@ -135,7 +135,7 @@ const Navbar: React.FC = () => {
             {/* Direct Links */}
             <button
               onClick={() => handleNavClick('/contact')}
-              className="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium"
+              className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium"
             >
               Contact
             </button>
@@ -174,7 +174,7 @@ const Navbar: React.FC = () => {
 
       {/* Mobile Menu Overlay */}
       {isOpen && (
-        <div className="md:hidden bg-p4c-navy border-t border-gray-800 max-h-[calc(100vh-80px)] overflow-y-auto">
+        <div className="md:hidden bg-[#0B1120] border-t border-gray-800 max-h-[calc(100vh-80px)] overflow-y-auto">
           <div className="px-4 pt-4 pb-6 space-y-6">
             {navStructure.map((group) => (
               <div key={group.label} className="space-y-3">

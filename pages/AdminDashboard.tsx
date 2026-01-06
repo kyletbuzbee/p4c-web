@@ -30,7 +30,7 @@ const AdminDashboard: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-100 flex">
       <Helmet>
-        <title>Admin Dashboard | Properties 4 Creations</title>
+        <title>Admin Dashboard | Properties 4 Creation</title>
       </Helmet>
 
       {/* Sidebar */}

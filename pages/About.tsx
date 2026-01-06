@@ -39,7 +39,7 @@ const About: React.FC = () => {
                 <h2 className="text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-6">Our Mission</h2>
                 <div className="w-20 h-1 bg-p4c-gold mb-8"></div>
                 <p className="text-gray-700 leading-relaxed mb-6 text-lg">
-                    Properties 4 Creations was founded with a simple but radical idea: <strong>Affordable housing shouldn't mean lower standards.</strong>
+                    Properties 4 Creation was founded with a simple but radical idea: <strong>Affordable housing shouldn't mean lower standards.</strong>
                 </p>
                 <p className="text-gray-700 leading-relaxed mb-6">
                     As veterans, we understand the importance of a safe, stable base. When we looked at the affordable housing market in East Texas, we saw distressed properties and neglected neighborhoods. Where others saw risk, we saw potential for revitalization.

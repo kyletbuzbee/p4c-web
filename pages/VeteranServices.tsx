@@ -7,7 +7,7 @@ const VeteranServices: React.FC = () => {
   return (
     <div className="bg-p4c-beige min-h-screen">
       <Helmet>
-        <title>Veteran Services | Properties 4 Creations</title>
+        <title>Veteran Services | Properties 4 Creation</title>
         <meta name="description" content="Comprehensive housing and support services for veterans in East Texas. HUD-VASH, employment, and community integration." />
       </Helmet>
 
