@@ -7,7 +7,7 @@ import {
   Brain,
   Shield,
   Users,
-  Home as HomeIcon
+  Home as HomeIcon,
 } from 'lucide-react';
 
 const Tools: React.FC = () => {
@@ -17,18 +17,20 @@ const Tools: React.FC = () => {
     {
       id: 'image-upscaler',
       title: 'Free Image Upscaler',
-      description: 'Enhance your property photos with AI - 2x resolution, completely free!',
+      description:
+        'Enhance your property photos with AI - 2x resolution, completely free!',
       icon: <Zap className="w-8 h-8 text-p4c-gold" />,
       component: <ClientUpscaler />,
-      color: 'from-p4c-gold to-p4c-navy'
+      color: 'from-p4c-gold to-p4c-navy',
     },
     {
       id: 'ai-assistant',
       title: 'AI Housing Assistant',
-      description: 'Get personalized help with your housing needs from our AI concierge.',
+      description:
+        'Get personalized help with your housing needs from our AI concierge.',
       icon: <Brain className="w-8 h-8 text-p4c-navy" />,
       action: () => navigate('/'),
-      color: 'from-p4c-navy to-p4c-beige'
+      color: 'from-p4c-navy to-p4c-beige',
     },
     {
       id: 'veteran-resources',
@@ -36,7 +38,7 @@ const Tools: React.FC = () => {
       description: 'Access specialized housing programs and support services.',
       icon: <Shield className="w-8 h-8 text-p4c-gold" />,
       action: () => navigate('/veterans'),
-      color: 'from-p4c-gold to-p4c-navy'
+      color: 'from-p4c-gold to-p4c-navy',
     },
     {
       id: 'find-homes',
@@ -44,8 +46,8 @@ const Tools: React.FC = () => {
       description: 'Browse available properties and start your application.',
       icon: <HomeIcon className="w-8 h-8 text-p4c-navy" />,
       action: () => navigate('/'),
-      color: 'from-p4c-navy to-p4c-beige'
-    }
+      color: 'from-p4c-navy to-p4c-beige',
+    },
   ];
 
   return (
@@ -57,8 +59,8 @@ const Tools: React.FC = () => {
             Free Tools & Resources
           </h1>
           <p className="text-xl md:text-2xl text-p4c-beige mb-8 max-w-3xl mx-auto">
-            Empowering veterans and families with cutting-edge tools and personalized support
-            to find their perfect home in East Texas.
+            Empowering veterans and families with cutting-edge tools and
+            personalized support to find their perfect home in East Texas.
           </p>
           <div className="flex justify-center gap-4">
             <button
@@ -108,13 +110,11 @@ const Tools: React.FC = () => {
                   )}
                 </div>
               </div>
-              
+
               {tool.id === 'image-upscaler' && (
-                <div className="p-6">
-                  {tool.component}
-                </div>
+                <div className="p-6">{tool.component}</div>
               )}
-              
+
               {tool.id !== 'image-upscaler' && (
                 <div className="p-6">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600">
@@ -143,24 +143,39 @@ const Tools: React.FC = () => {
             <div className="bg-p4c-gold/20 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
               <Zap className="w-8 h-8 text-p4c-gold" />
             </div>
-            <h3 className="text-xl font-semibold text-p4c-navy mb-2">Free Tools</h3>
-            <p className="text-gray-600">No hidden fees, no subscriptions - everything is completely free for our veterans and families.</p>
+            <h3 className="text-xl font-semibold text-p4c-navy mb-2">
+              Free Tools
+            </h3>
+            <p className="text-gray-600">
+              No hidden fees, no subscriptions - everything is completely free
+              for our veterans and families.
+            </p>
           </div>
-          
+
           <div className="text-center">
             <div className="bg-p4c-navy/20 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
               <Brain className="w-8 h-8 text-p4c-navy" />
             </div>
-            <h3 className="text-xl font-semibold text-p4c-navy mb-2">AI-Powered</h3>
-            <p className="text-gray-600">Leverage cutting-edge AI technology to enhance your housing experience.</p>
+            <h3 className="text-xl font-semibold text-p4c-navy mb-2">
+              AI-Powered
+            </h3>
+            <p className="text-gray-600">
+              Leverage cutting-edge AI technology to enhance your housing
+              experience.
+            </p>
           </div>
-          
+
           <div className="text-center">
             <div className="bg-p4c-beige/80 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
               <Shield className="w-8 h-8 text-p4c-navy" />
             </div>
-            <h3 className="text-xl font-semibold text-p4c-navy mb-2">Veteran Support</h3>
-            <p className="text-gray-600">Specialized resources and support tailored specifically for veterans and their families.</p>
+            <h3 className="text-xl font-semibold text-p4c-navy mb-2">
+              Veteran Support
+            </h3>
+            <p className="text-gray-600">
+              Specialized resources and support tailored specifically for
+              veterans and their families.
+            </p>
           </div>
         </div>
       </div>

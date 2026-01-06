@@ -1,4 +1,11 @@
-import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+} from 'react';
 import type { ReactNode } from 'react';
 import { useToast } from './ToastContext';
 
@@ -31,7 +38,10 @@ interface AuthContextType {
   hasPermission: (permission: string) => boolean;
   enableMFA: () => Promise<string>;
   verifyMFA: (code: string) => Promise<boolean>;
-  changePassword: (currentPassword: string, newPassword: string) => Promise<void>;
+  changePassword: (
+    currentPassword: string,
+    newPassword: string,
+  ) => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
   lockAccount: (reason?: string) => void;
   unlockAccount: () => void;
@@ -49,48 +59,58 @@ export const useAuth = () => {
 };
 
 // Enhanced password policy validator
-const validatePasswordPolicy = (password: string): { isValid: boolean; errors: string[] } => {
+const validatePasswordPolicy = (
+  password: string,
+): { isValid: boolean; errors: string[] } => {
   const errors: string[] = [];
-  
+
   if (password.length < 12) {
     errors.push('Password must be at least 12 characters long');
   }
-  
+
   if (!/[A-Z]/.test(password)) {
     errors.push('Password must contain at least one uppercase letter');
   }
-  
+
   if (!/[a-z]/.test(password)) {
     errors.push('Password must contain at least one lowercase letter');
   }
-  
+
   if (!/[0-9]/.test(password)) {
     errors.push('Password must contain at least one number');
   }
-  
+
   if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
     errors.push('Password must contain at least one special character');
   }
-  
+
   // Check for common passwords
-  const commonPasswords = ['password', '123456', 'password123', 'admin', 'qwerty'];
-  if (commonPasswords.some(common => password.toLowerCase().includes(common))) {
+  const commonPasswords = [
+    'password',
+    '123456',
+    'password123',
+    'admin',
+    'qwerty',
+  ];
+  if (
+    commonPasswords.some((common) => password.toLowerCase().includes(common))
+  ) {
     errors.push('Password contains common patterns');
   }
-  
+
   // Check for sequential characters
   if (/(012|123|234|345|456|567|678|789|890)/.test(password)) {
     errors.push('Password contains sequential characters');
   }
-  
+
   // Check for repeated characters
   if (/(.)\1{2,}/.test(password)) {
     errors.push('Password contains repeated characters');
   }
-  
+
   return {
     isValid: errors.length === 0,
-    errors
+    errors,
   };
 };
 
@@ -105,7 +125,9 @@ class SessionManager {
     if (typeof window !== 'undefined' && window.crypto) {
       const array = new Uint8Array(16);
       window.crypto.getRandomValues(array);
-      return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+      return Array.from(array, (byte) =>
+        byte.toString(16).padStart(2, "0"),
+      ).join("");
     }
     return Math.random().toString(36).substring(2) + Date.now().toString(36);
   }
@@ -114,35 +136,37 @@ class SessionManager {
     const array = new Uint8Array(32);
     if (typeof window !== 'undefined' && window.crypto) {
       window.crypto.getRandomValues(array);
-      return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+      return Array.from(array, (byte) =>
+        byte.toString(16).padStart(2, "0"),
+      ).join("");
     }
     return btoa(String.fromCharCode(...array));
   }
 
   static validateSession(user: User): boolean {
     if (!user.sessionStart || !user.lastActivity) return false;
-    
+
     const sessionStart = new Date(user.sessionStart).getTime();
     const lastActivity = new Date(user.lastActivity).getTime();
     const now = Date.now();
-    
+
     // Check if session has expired
     if (now - sessionStart > this.SESSION_TIMEOUT) return false;
-    
+
     // Check if user has been inactive for too long
     if (now - lastActivity > this.SESSION_TIMEOUT / 2) return false;
-    
+
     return true;
   }
 
   static getSessionTimeRemaining(user: User): number {
     if (!user.sessionStart) return 0;
-    
+
     const sessionStart = new Date(user.sessionStart).getTime();
     const now = Date.now();
     const elapsed = now - sessionStart;
     const remaining = this.SESSION_TIMEOUT - elapsed;
-    
+
     return Math.max(0, remaining);
   }
 
@@ -151,41 +175,50 @@ class SessionManager {
     return remaining <= this.WARNING_TIME && remaining > 0;
   }
 
-  static validateLoginAttempts(email: string): { allowed: boolean; remainingAttempts: number; lockoutRemaining?: number } {
-    const attempts = parseInt(localStorage.getItem(`login_attempts_${email}`) || '0');
-    const lockoutUntil = parseInt(localStorage.getItem(`lockout_${email}`) || '0');
+  static validateLoginAttempts(email: string): {
+    allowed: boolean;
+    remainingAttempts: number;
+    lockoutRemaining?: number;
+  } {
+    const attempts = parseInt(
+      localStorage.getItem(`login_attempts_${email}`) || '0',
+    );
+    const lockoutUntil = parseInt(
+      localStorage.getItem(`lockout_${email}`) || '0',
+    );
     const now = Date.now();
-    
+
     // Check if still locked out
     if (now < lockoutUntil) {
       return {
         allowed: false,
         remainingAttempts: 0,
-        lockoutRemaining: lockoutUntil - now
+        lockoutRemaining: lockoutUntil - now,
       };
     }
-    
+
     // Reset attempts if lockout period has expired
     if (now >= lockoutUntil) {
       localStorage.removeItem(`lockout_${email}`);
       localStorage.removeItem(`login_attempts_${email}`);
       localStorage.removeItem(`last_attempt_${email}`);
     }
-    
+
     const remainingAttempts = this.MAX_LOGIN_ATTEMPTS - attempts;
     return {
       allowed: remainingAttempts > 0,
-      remainingAttempts
+      remainingAttempts,
     };
   }
 
   static recordFailedAttempt(email: string): void {
-    const attempts = parseInt(localStorage.getItem(`login_attempts_${email}`) || '0') + 1;
+    const attempts =
+      parseInt(localStorage.getItem(`login_attempts_${email}`) || '0') + 1;
     const now = Date.now();
-    
+
     localStorage.setItem(`login_attempts_${email}`, attempts.toString());
     localStorage.setItem(`last_attempt_${email}`, now.toString());
-    
+
     // Lock account if max attempts reached
     if (attempts >= this.MAX_LOGIN_ATTEMPTS) {
       const lockoutUntil = now + this.LOCKOUT_DURATION;
@@ -206,23 +239,25 @@ const validateUserData = (userData: any): User | null => {
     if (!userData.id || !userData.email || !userData.role) {
       return null;
     }
-    
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(userData.email)) {
       return null;
     }
-    
+
     if (!['guest', 'tenant', 'admin'].includes(userData.role)) {
       return null;
     }
-    
+
     // Validate data types
-    if (typeof userData.id !== 'string' || 
-        typeof userData.email !== 'string' || 
-        typeof userData.role !== 'string') {
+    if (
+      typeof userData.id !== 'string' ||
+      typeof userData.email !== 'string' ||
+      typeof userData.role !== 'string'
+    ) {
       return null;
     }
-    
+
     return {
       id: userData.id,
       name: userData.name || userData.email.split('@')[0],
@@ -234,7 +269,7 @@ const validateUserData = (userData: any): User | null => {
       permissions: userData.permissions || getDefaultPermissions(userData.role),
       mfaEnabled: userData.mfaEnabled || false,
       loginAttempts: userData.loginAttempts || 0,
-      lockedUntil: userData.lockedUntil
+      lockedUntil: userData.lockedUntil,
     };
   } catch (error) {
     return null;
@@ -242,18 +277,21 @@ const validateUserData = (userData: any): User | null => {
 };
 
 // Enhanced backend session validation
-const validateSessionWithBackend = async (userId: string, sessionToken: string): Promise<boolean> => {
+const validateSessionWithBackend = async (
+  userId: string,
+  sessionToken: string,
+): Promise<boolean> => {
   try {
     const response = await fetch('/api/auth/validate-session', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${sessionToken}`,
+        Authorization: `Bearer ${sessionToken}`,
         'X-Requested-With': 'XMLHttpRequest',
-        'X-Session-Validation': 'true'
+        'X-Session-Validation': 'true',
       },
       body: JSON.stringify({ userId }),
-      credentials: 'include'
+      credentials: 'include',
     });
 
     return response.ok;
@@ -263,7 +301,9 @@ const validateSessionWithBackend = async (userId: string, sessionToken: string):
   }
 };
 
-export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [loginAttempts, setLoginAttempts] = useState(0);
@@ -282,7 +322,10 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({ childr
 
   // Session warning handler
   const handleSessionWarning = useCallback(() => {
-    addToast('Your session will expire in 5 minutes. Please save your work.', 'info');
+    addToast(
+      'Your session will expire in 5 minutes. Please save your work.',
+      'info',
+    );
   }, [addToast]);
 
   // Update session activity
@@ -290,11 +333,11 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({ childr
     if (user) {
       const updatedUser = {
         ...user,
-        lastActivity: new Date().toISOString()
+        lastActivity: new Date().toISOString(),
       };
       setUser(updatedUser);
       localStorage.setItem('p4c_user', JSON.stringify(updatedUser));
-      
+
       // Update session time remaining
       const remaining = SessionManager.getSessionTimeRemaining(updatedUser);
       setSessionTimeRemaining(remaining);
@@ -306,33 +349,42 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({ childr
     if (user) {
       const remaining = SessionManager.getSessionTimeRemaining(user);
       setSessionTimeRemaining(remaining);
-      
+
       // Set up session timeout
       if (sessionTimeoutRef.current) {
         clearTimeout(sessionTimeoutRef.current);
       }
-      
+
       sessionTimeoutRef.current = setTimeout(handleSessionTimeout, remaining);
-      
+
       // Set up session warning
       if (warningTimeoutRef.current) {
         clearTimeout(warningTimeoutRef.current);
       }
-      
+
       if (SessionManager.shouldShowWarning(user)) {
-        warningTimeoutRef.current = setTimeout(handleSessionWarning, remaining - (5 * 60 * 1000));
+        warningTimeoutRef.current = setTimeout(
+          handleSessionWarning,
+          remaining - 5 * 60 * 1000,
+        );
       }
-      
+
       // Set up activity tracking
-      const activityEvents = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'];
+      const activityEvents = [
+        'mousedown',
+        'mousemove',
+        'keypress',
+        'scroll',
+        'touchstart',
+      ];
       const throttledUpdateActivity = throttle(updateSessionActivity, 60000); // Update every minute
-      
-      activityEvents.forEach(event => {
+
+      activityEvents.forEach((event) => {
         document.addEventListener(event, throttledUpdateActivity, true);
       });
-      
+
       return () => {
-        activityEvents.forEach(event => {
+        activityEvents.forEach((event) => {
           document.removeEventListener(event, throttledUpdateActivity, true);
         });
         if (sessionTimeoutRef.current) {
@@ -343,7 +395,7 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({ childr
         }
       };
     }
-    
+
     // Return cleanup function when user is falsy
     return () => {
       if (sessionTimeoutRef.current) {
@@ -361,13 +413,16 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({ childr
       try {
         const storedUser = localStorage.getItem('p4c_user');
         const sessionToken = localStorage.getItem('p4c_session_token');
-        
+
         if (storedUser && sessionToken) {
           const validatedUser = validateUserData(storedUser);
-          
+
           if (validatedUser && SessionManager.validateSession(validatedUser)) {
-            const isValidSession = await validateSessionWithBackend(validatedUser.id, sessionToken);
-            
+            const isValidSession = await validateSessionWithBackend(
+              validatedUser.id,
+              sessionToken,
+            );
+
             if (isValidSession) {
               console.log('Session validated successfully');
               setUser(validatedUser);
@@ -394,58 +449,60 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({ childr
   // Enhanced login function
   const login = async (email: string, password?: string, mfaCode?: string) => {
     setIsLoading(true);
-    
+
     try {
       // Input validation
       if (!email || !email.includes('@')) {
         throw new Error('Valid email is required');
       }
-      
+
       // Check login attempts
       const attemptCheck = SessionManager.validateLoginAttempts(email);
       if (!attemptCheck.allowed) {
         if (attemptCheck.lockoutRemaining) {
           const minutes = Math.ceil(attemptCheck.lockoutRemaining / 60000);
-          throw new Error(`Account temporarily locked. Try again in ${minutes} minutes.`);
+          throw new Error(
+            `Account temporarily locked. Try again in ${minutes} minutes.`,
+          );
         }
         throw new Error('Account temporarily locked. Please try again later.');
       }
 
       console.log('Initiating enhanced login process...');
-      
+
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'X-Requested-With': 'XMLHttpRequest',
-          'X-Login-Attempt': (attemptCheck.remainingAttempts).toString()
+          'X-Login-Attempt': attemptCheck.remainingAttempts.toString(),
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           email: email.trim().toLowerCase(),
           password: password || '',
-          mfaCode: mfaCode || ''
+          mfaCode: mfaCode || '',
         }),
-        credentials: 'include'
+        credentials: 'include',
       });
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({
-          error: 'Authentication failed'
+          error: 'Authentication failed',
         }));
-        
+
         // Record failed attempt
         SessionManager.recordFailedAttempt(email);
-        setLoginAttempts(prev => prev + 1);
-        
+        setLoginAttempts((prev) => prev + 1);
+
         throw new Error(errorData.error || 'Login failed');
       }
 
       const { user: userData, token } = await response.json();
-      
+
       // Clear failed attempts on successful login
       SessionManager.clearFailedAttempts(email);
       setLoginAttempts(0);
-      
+
       // Sanitize and validate user data
       const cleanUser: User = {
         id: userData.id || SessionManager.generateSecureId(),
@@ -455,23 +512,27 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({ childr
         lastLogin: new Date().toISOString(),
         lastActivity: new Date().toISOString(),
         sessionStart: new Date().toISOString(),
-        permissions: userData.permissions || getDefaultPermissions(userData.role || 'tenant'),
+        permissions:
+          userData.permissions ||
+          getDefaultPermissions(userData.role || 'tenant'),
         mfaEnabled: userData.mfaEnabled || false,
-        loginAttempts: 0
+        loginAttempts: 0,
       };
 
       // Store securely
       localStorage.setItem('p4c_user', JSON.stringify(cleanUser));
       localStorage.setItem('p4c_session_token', token);
-      
+
       setUser(cleanUser);
-      
+
       console.log('Enhanced login successful for user:', cleanUser.email);
       addToast(`Welcome back, ${cleanUser.name}`, 'success');
-      
     } catch (error) {
       console.error('Login error:', error);
-      const errorMessage = error instanceof Error ? error.message : 'Login failed. Please try again.';
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : 'Login failed. Please try again.';
       addToast(errorMessage, 'error');
       throw error;
     } finally {
@@ -482,27 +543,27 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({ childr
   // Enhanced logout function
   const logout = useCallback(() => {
     console.log('Initiating enhanced secure logout...');
-    
+
     // Clear state immediately
     setUser(null);
     setLoginAttempts(0);
     setIsLocked(false);
-    
+
     // Clear storage
     clearSensitiveData();
-    
+
     // Notify backend (non-blocking)
     fetch('/api/auth/logout', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('p4c_session_token')}`,
-        'X-Requested-With': 'XMLHttpRequest'
+        Authorization: `Bearer ${localStorage.getItem('p4c_session_token')}`,
+        'X-Requested-With': 'XMLHttpRequest',
       },
-      credentials: 'include'
+      credentials: 'include',
     }).catch(() => {
       // Ignore network errors on logout
     });
-    
+
     addToast('You have been logged out.', 'info');
   }, [addToast]);
 
@@ -525,10 +586,10 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({ childr
       const response = await fetch('/api/auth/refresh', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${currentToken}`,
-          'X-Requested-With': 'XMLHttpRequest'
+          Authorization: `Bearer ${currentToken}`,
+          'X-Requested-With': 'XMLHttpRequest',
         },
-        credentials: 'include'
+        credentials: 'include',
       });
 
       if (response.ok) {
@@ -551,9 +612,9 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({ childr
       const response = await fetch('/api/auth/enable-mfa', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('p4c_session_token')}`,
-          'Content-Type': 'application/json'
-        }
+          Authorization: `Bearer ${localStorage.getItem('p4c_session_token')}`,
+          'Content-Type': 'application/json',
+        },
       });
 
       if (!response.ok) {
@@ -563,7 +624,7 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({ childr
       const { qrCode } = await response.json();
       // Store MFA secret temporarily in memory only, not in localStorage
       // The secret should be handled server-side for security
-      
+
       return qrCode;
     } catch (error) {
       console.error('MFA enable error:', error);
@@ -576,16 +637,16 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({ childr
       const response = await fetch('/api/auth/verify-mfa', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('p4c_session_token')}`,
-          'Content-Type': 'application/json'
+          Authorization: `Bearer ${localStorage.getItem('p4c_session_token')}`,
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ code })
+        body: JSON.stringify({ code }),
       });
 
       if (response.ok) {
         return true;
       }
-      
+
       return false;
     } catch (error) {
       console.error('MFA verification error:', error);
@@ -594,24 +655,29 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({ childr
   };
 
   // Password management
-  const changePassword = async (currentPassword: string, newPassword: string) => {
+  const changePassword = async (
+    currentPassword: string,
+    newPassword: string,
+  ) => {
     const validation = validatePasswordPolicy(newPassword);
     if (!validation.isValid) {
-      throw new Error(`Password policy violations: ${validation.errors.join(', ')}`);
+      throw new Error(
+        `Password policy violations: ${validation.errors.join(', ')}`,
+      );
     }
 
     const response = await fetch('/api/auth/change-password', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('p4c_session_token')}`,
-        'Content-Type': 'application/json'
+        Authorization: `Bearer ${localStorage.getItem('p4c_session_token')}`,
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ currentPassword, newPassword })
+      body: JSON.stringify({ currentPassword, newPassword }),
     });
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({
-        error: 'Password change failed'
+        error: 'Password change failed',
       }));
       throw new Error(errorData.error || 'Password change failed');
     }
@@ -623,9 +689,9 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({ childr
     const response = await fetch('/api/auth/reset-password', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email })
+      body: JSON.stringify({ email }),
     });
 
     if (!response.ok) {
@@ -649,36 +715,41 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({ childr
   };
 
   // Permission checking function
-  const hasPermission = useCallback((permission: string): boolean => {
-    if (!user || isLocked) return false;
-    
-    // Admins have all permissions
-    if (user.role === 'admin') return true;
-    
-    // Check specific permissions
-    return user.permissions.includes(permission);
-  }, [user, isLocked]);
+  const hasPermission = useCallback(
+    (permission: string): boolean => {
+      if (!user || isLocked) return false;
+
+      // Admins have all permissions
+      if (user.role === 'admin') return true;
+
+      // Check specific permissions
+      return user.permissions.includes(permission);
+    },
+    [user, isLocked],
+  );
 
   return (
-    <AuthContext.Provider value={{ 
-      user, 
-      isAuthenticated: !!user && !isLocked, 
-      isLoading, 
-      isLocked,
-      loginAttempts,
-      sessionTimeRemaining,
-      login, 
-      logout, 
-      refreshToken,
-      hasPermission,
-      enableMFA,
-      verifyMFA,
-      changePassword,
-      resetPassword,
-      lockAccount,
-      unlockAccount,
-      clearSensitiveData
-    }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        isAuthenticated: !!user && !isLocked,
+        isLoading,
+        isLocked,
+        loginAttempts,
+        sessionTimeRemaining,
+        login,
+        logout,
+        refreshToken,
+        hasPermission,
+        enableMFA,
+        verifyMFA,
+        changePassword,
+        resetPassword,
+        lockAccount,
+        unlockAccount,
+        clearSensitiveData,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
@@ -688,7 +759,15 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({ childr
 const getDefaultPermissions = (role: UserRole): string[] => {
   switch (role) {
     case 'admin':
-      return ['read', 'write', 'delete', 'manage_users', 'manage_properties', 'view_analytics', 'system_admin'];
+      return [
+        'read',
+        'write',
+        'delete',
+        'manage_users',
+        'manage_properties',
+        'view_analytics',
+        'system_admin',
+      ];
     case 'tenant':
       return ['read', 'write', 'view_own_data'];
     case 'guest':
@@ -701,13 +780,13 @@ const getDefaultPermissions = (role: UserRole): string[] => {
 // Utility function for throttling
 const throttle = (func: Function, limit: number) => {
   let inThrottle: boolean;
-  return function(this: any) {
+  return function (this: any) {
     const args = arguments;
     const context = this;
     if (!inThrottle) {
       func.apply(context, args);
       inThrottle = true;
-      setTimeout(() => inThrottle = false, limit);
+      setTimeout(() => (inThrottle = false), limit);
     }
   };
 };

@@ -11,9 +11,7 @@ const crypto = require('crypto');
  * Generate secure nonce for CSP headers
  * @returns {string} Base64 encoded nonce
  */
-const generateNonce = () => {
-  return crypto.randomBytes(16).toString('base64');
-};
+const generateNonce = () => crypto.randomBytes(16).toString("base64");
 
 /**
  * Creates comprehensive security headers configuration
@@ -31,18 +29,18 @@ const createEnhancedSecurityHeadersMiddleware = (options = {}) => {
           "'unsafe-eval'", // Required for Vite dev server
           "https://apis.google.com",
           "https://cdn.jsdelivr.net",
-          "https://www.googletagmanager.com"
+          "https://www.googletagmanager.com",
         ],
         styleSrc: [
           "'self'",
           "'unsafe-inline'", // Required for Tailwind CSS
           "https://fonts.googleapis.com",
-          "https://cdn.jsdelivr.net"
+          "https://cdn.jsdelivr.net",
         ],
         fontSrc: [
           "'self'",
           "https://fonts.gstatic.com",
-          "https://cdn.jsdelivr.net"
+          "https://cdn.jsdelivr.net",
         ],
         imgSrc: [
           "'self'",
@@ -50,19 +48,19 @@ const createEnhancedSecurityHeadersMiddleware = (options = {}) => {
           "https:",
           "blob:",
           "https://*.googleusercontent.com",
-          "https://*.gstatic.com"
+          "https://*.gstatic.com",
         ],
         connectSrc: [
           "'self'",
           "https://generativelanguage.googleapis.com",
           "https://api.gemini.google.com",
           "https://www.google-analytics.com",
-          "https://analytics.google.com"
+          "https://analytics.google.com",
         ],
         frameSrc: [
           "'self'",
           "https://www.youtube.com",
-          "https://player.vimeo.com"
+          "https://player.vimeo.com",
         ],
         objectSrc: ["'none'"],
         mediaSrc: ["'self'", "https:", "blob:"],
@@ -73,16 +71,16 @@ const createEnhancedSecurityHeadersMiddleware = (options = {}) => {
         baseUri: ["'self'"],
         manifestSrc: ["'self'"],
         prefetchSrc: ["'self'"],
-        navigateTo: ["'self'"]
+        navigateTo: ["'self'"],
       },
-      reportUri: '/api/security/csp-violation'
+      reportUri: '/api/security/csp-violation',
     },
     referrerPolicy = { policy: "strict-origin-when-cross-origin" },
     crossOriginEmbedderPolicy = false, // Disable for API compatibility
     hsts = {
       maxAge: 31536000, // 1 year
       includeSubDomains: true,
-      preload: true
+      preload: true,
     },
     noSniff = true,
     xssFilter = true,
@@ -111,9 +109,9 @@ const createEnhancedSecurityHeadersMiddleware = (options = {}) => {
         screenWakeLock: ["'none'"],
         clipboardRead: ["'none'"],
         clipboardWrite: ["'none'"],
-        displayCapture: ["'none'"]
-      }
-    }
+        displayCapture: ["'none'"],
+      },
+    },
   } = options;
 
   return helmet({
@@ -133,7 +131,7 @@ const createEnhancedSecurityHeadersMiddleware = (options = {}) => {
     // Additional security headers
     hidePoweredBy: true,
     noSniff: true,
-    featurePolicy
+    featurePolicy,
   });
 };
 
@@ -146,7 +144,7 @@ const createEnhancedSecurityHeadersMiddleware = (options = {}) => {
 const applyEnhancedSecurityHeaders = (req, res, next) => {
   // Generate nonce for CSP
   const nonce = generateNonce();
-  
+
   // Add additional security headers not covered by helmet
   res.setHeader('X-Permitted-Cross-Domain-Policies', 'none');
   res.setHeader('X-Download-Options', 'noopen');
@@ -154,35 +152,41 @@ const applyEnhancedSecurityHeaders = (req, res, next) => {
   res.setHeader('X-Frame-Options', 'DENY');
   res.setHeader('X-XSS-Protection', '1; mode=block');
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-  res.setHeader('Permissions-Policy', [
-    'accelerometer=()',
-    'autoplay=()',
-    'camera=()',
-    'clipboard-read=()',
-    'clipboard-write=()',
-    'display-capture=()',
-    'encrypted-media=()',
-    'fullscreen=(self)',
-    'geolocation=()',
-    'gyroscope=()',
-    'magnetometer=()',
-    'microphone=()',
-    'midi=()',
-    'payment=()',
-    'picture-in-picture=()',
-    'publickey-credentials-get=(self)',
-    'screen-wake-lock=()',
-    'serial=()',
-    'usb=()',
-    'vr=()',
-    'xr-spatial-tracking=()'
-  ].join(', '));
-  
+  res.setHeader(
+    'Permissions-Policy',
+    [
+      'accelerometer=()',
+      'autoplay=()',
+      'camera=()',
+      'clipboard-read=()',
+      'clipboard-write=()',
+      'display-capture=()',
+      'encrypted-media=()',
+      'fullscreen=(self)',
+      'geolocation=()',
+      'gyroscope=()',
+      'magnetometer=()',
+      'microphone=()',
+      'midi=()',
+      'payment=()',
+      'picture-in-picture=()',
+      'publickey-credentials-get=(self)',
+      'screen-wake-lock=()',
+      'serial=()',
+      'usb=()',
+      'vr=()',
+      'xr-spatial-tracking=()',
+    ].join(', '),
+  );
+
   // Add security headers for modern browsers
-  res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+  res.setHeader(
+    'Strict-Transport-Security',
+    'max-age=31536000; includeSubDomains; preload',
+  );
   res.setHeader('Expect-CT', 'max-age=86400, enforce');
   res.setHeader('Server', 'Secure Server'); // Hide server information
-  
+
   // Add CSP nonce to response locals for use in templates
   res.locals.cspNonce = nonce;
 
@@ -209,11 +213,14 @@ const handleCSPViolation = async (req, res) => {
       userAgent: req.headers['user-agent'],
       ip: req.ip,
       method: req.method,
-      path: req.path
+      path: req.path,
     };
 
     // Log violation for monitoring
-    console.warn('CSP Violation Detected:', JSON.stringify(violationReport, null, 2));
+    console.warn(
+      'CSP Violation Detected:',
+      JSON.stringify(violationReport, null, 2),
+    );
 
     // In production, you might want to:
     // 1. Send to security monitoring system (Sentry, DataDog, etc.)
@@ -223,7 +230,6 @@ const handleCSPViolation = async (req, res) => {
 
     // For now, just log and respond
     res.status(204).end();
-
   } catch (error) {
     console.error('Error processing CSP violation:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -241,10 +247,16 @@ const applyAPISecurityHeaders = (req, res, next) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'DENY');
   res.setHeader('X-XSS-Protection', '1; mode=block');
-  res.setHeader('Content-Security-Policy', "default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'");
+  res.setHeader(
+    'Content-Security-Policy',
+    "default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'",
+  );
   res.setHeader('Referrer-Policy', 'no-referrer');
-  res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
-  
+  res.setHeader(
+    'Strict-Transport-Security',
+    'max-age=31536000; includeSubDomains; preload',
+  );
+
   next();
 };
 
@@ -252,26 +264,24 @@ const applyAPISecurityHeaders = (req, res, next) => {
  * Generate security headers report for monitoring
  * @returns {Object} Security headers status report
  */
-const generateSecurityHeadersReport = () => {
-  return {
-    timestamp: new Date().toISOString(),
-    securityHeaders: {
-      hsts: 'Enabled with preload',
-      csp: 'Comprehensive policy with reporting',
-      xssProtection: 'Enabled with blocking',
-      contentTypeOptions: 'nosniff enabled',
-      frameOptions: 'DENY',
-      referrerPolicy: 'strict-origin-when-cross-origin',
-      permissionsPolicy: 'Restrictive permissions',
-      featurePolicy: 'Restrictive features'
-    },
-    recommendations: [
-      'Monitor CSP violations regularly',
-      'Review and update CSP directives periodically',
-      'Consider adding additional security headers as needed'
-    ]
-  };
-};
+const generateSecurityHeadersReport = () => ({
+  timestamp: new Date().toISOString(),
+  securityHeaders: {
+    hsts: "Enabled with preload",
+    csp: "Comprehensive policy with reporting",
+    xssProtection: "Enabled with blocking",
+    contentTypeOptions: "nosniff enabled",
+    frameOptions: "DENY",
+    referrerPolicy: "strict-origin-when-cross-origin",
+    permissionsPolicy: "Restrictive permissions",
+    featurePolicy: "Restrictive features",
+  },
+  recommendations: [
+    "Monitor CSP violations regularly",
+    "Review and update CSP directives periodically",
+    "Consider adding additional security headers as needed",
+  ],
+});
 
 module.exports = {
   createEnhancedSecurityHeadersMiddleware,
@@ -279,5 +289,5 @@ module.exports = {
   handleCSPViolation,
   applyAPISecurityHeaders,
   generateSecurityHeadersReport,
-  generateNonce
+  generateNonce,
 };

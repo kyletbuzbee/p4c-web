@@ -21,29 +21,33 @@ class ErrorBoundary extends Component<Props, State> {
     hasError: false,
     error: null,
     errorId: '',
-    timestamp: ''
+    timestamp: '',
   };
 
   public static getDerivedStateFromError(error: Error): State {
     // Generate unique error ID for tracking
     const errorId = `ERR_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    return { 
-      hasError: true, 
+    return {
+      hasError: true,
       error,
       errorId,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
   }
 
   public override componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // Enhanced error logging with security considerations
     this.logErrorToService(error, errorInfo, this.state.errorId);
-    
+
     // Call custom error handler if provided
     this.props.onError?.(error, errorInfo);
   }
 
-  private logErrorToService = async (error: Error, errorInfo: ErrorInfo, errorId: string) => {
+  private logErrorToService = async (
+    error: Error,
+    errorInfo: ErrorInfo,
+    errorId: string,
+  ) => {
     // Only log if enabled (security consideration)
     if (!this.props.enableLogging) {
       return;
@@ -61,7 +65,9 @@ class ErrorBoundary extends Component<Props, State> {
         userId: this.getCurrentUserId(),
         // Stack trace - only include filename and line numbers, not full paths
         stack: this.sanitizeStackTrace(error.stack || ''),
-        componentStack: this.sanitizeComponentStack(errorInfo.componentStack || '')
+        componentStack: this.sanitizeComponentStack(
+          errorInfo.componentStack || '',
+        ),
       };
 
       // Send to secure logging endpoint
@@ -69,9 +75,9 @@ class ErrorBoundary extends Component<Props, State> {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-Requested-With': 'XMLHttpRequest'
+          'X-Requested-With': 'XMLHttpRequest',
         },
-        body: JSON.stringify(sanitizedErrorData)
+        body: JSON.stringify(sanitizedErrorData),
       });
     } catch (loggingError) {
       // Fail silently to avoid recursive errors
@@ -79,23 +85,25 @@ class ErrorBoundary extends Component<Props, State> {
     }
   };
 
-  private sanitizeErrorMessage = (message: string): string => {
+  private sanitizeErrorMessage = (message: string): string =>
     // Remove potential sensitive information from error messages
-    return message
-      .replace(/api[_-]?key["\s]*[:=]["\s]*[a-zA-Z0-9\-_]+/gi, 'api_key: [REDACTED]')
-      .replace(/token["\s]*[:=]["\s]*[a-zA-Z0-9\-_]+/gi, 'token: [REDACTED]')
-      .replace(/password["\s]*[:=]["\s]*[^,\s]+/gi, 'password: [REDACTED]')
-      .replace(/email["\s]*[:=]["\s]*[^,\s]+@[^,\s]+/gi, 'email: [REDACTED]')
+    message
+      .replace(
+        /api[_-]?key["\s]*[:=]["\s]*[a-zA-Z0-9\-_]+/gi,
+        "api_key: [REDACTED]",
+      )
+      .replace(/token["\s]*[:=]["\s]*[a-zA-Z0-9\-_]+/gi, "token: [REDACTED]")
+      .replace(/password["\s]*[:=]["\s]*[^,\s]+/gi, "password: [REDACTED]")
+      .replace(/email["\s]*[:=]["\s]*[^,\s]+@[^,\s]+/gi, "email: [REDACTED]")
       .substring(0, 500); // Limit length
-  };
 
   private sanitizeStackTrace = (stack: string): string => {
     if (!stack) return '';
-    
+
     return stack
       .split('\n')
       .slice(0, 10) // Limit stack depth
-      .map(line => {
+      .map((line) => {
         // Remove file paths, keep only filename and line number
         const match = line.match(/\(([^)]+)\)/);
         if (match) {
@@ -111,11 +119,11 @@ class ErrorBoundary extends Component<Props, State> {
 
   private sanitizeComponentStack = (componentStack: string): string => {
     if (!componentStack) return '';
-    
+
     return componentStack
       .split('\n')
       .slice(0, 5) // Limit component stack depth
-      .map(line => {
+      .map((line) => {
         // Remove full component paths, keep only component names
         const match = line.match(/in\s+(\w+)/);
         if (match) {
@@ -142,28 +150,28 @@ class ErrorBoundary extends Component<Props, State> {
 
   private handleReload = () => {
     console.log('Error boundary: User chose to reload page');
-    
+
     // Clear any corrupted state
     this.setState({
       hasError: false,
       error: null,
       errorId: '',
-      timestamp: ''
+      timestamp: '',
     });
-    
+
     // Reload the page
     window.location.reload();
   };
 
   private handleReset = () => {
     console.log('Error boundary: User chose to reset application state');
-    
+
     // Clear any corrupted state and try to recover
     this.setState({
       hasError: false,
       error: null,
       errorId: '',
-      timestamp: ''
+      timestamp: '',
     });
   };
 
@@ -177,19 +185,21 @@ class ErrorBoundary extends Component<Props, State> {
         timestamp: this.state.timestamp,
         userAgent: navigator.userAgent.substring(0, 100),
         url: window.location.href,
-        userMessage: 'User reported this error via error boundary'
+        userMessage: 'User reported this error via error boundary',
       };
 
       await fetch('/api/errors/report', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-Requested-With': 'XMLHttpRequest'
+          'X-Requested-With': 'XMLHttpRequest',
         },
-        body: JSON.stringify(reportData)
+        body: JSON.stringify(reportData),
       });
 
-      alert('Error report submitted successfully. Thank you for your feedback!');
+      alert(
+        'Error report submitted successfully. Thank you for your feedback!',
+      );
     } catch (error) {
       alert('Failed to submit error report. Please try again later.');
     }
@@ -206,7 +216,7 @@ class ErrorBoundary extends Component<Props, State> {
         <div className="min-h-screen flex items-center justify-center bg-p4c-beige p-4">
           <div className="bg-white p-8 rounded-xl shadow-2xl max-w-md w-full text-center border-t-4 border-red-500">
             <div className="bg-red-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                <AlertTriangle className="w-8 h-8 text-red-500" />
+              <AlertTriangle className="w-8 h-8 text-red-500" />
             </div>
             <h1 className="text-2xl font-serif font-bold text-p4c-navy mb-2">
               Something went wrong
@@ -214,14 +224,15 @@ class ErrorBoundary extends Component<Props, State> {
             <p className="text-gray-600 mb-2">
               We encountered an unexpected issue and are working to resolve it.
             </p>
-            
+
             {/* Security-conscious error details */}
             <div className="bg-gray-50 p-3 rounded-lg mb-6 text-left">
               <p className="text-sm text-gray-500 mb-1">
                 <strong>Error ID:</strong> {this.state.errorId}
               </p>
               <p className="text-sm text-gray-500 mb-1">
-                <strong>Time:</strong> {new Date(this.state.timestamp).toLocaleString()}
+                <strong>Time:</strong>{' '}
+                {new Date(this.state.timestamp).toLocaleString()}
               </p>
               <p className="text-sm text-gray-500">
                 <strong>Status:</strong> Application error detected
@@ -255,7 +266,10 @@ class ErrorBoundary extends Component<Props, State> {
             <div className="mt-6 pt-4 border-t border-gray-200">
               <p className="text-xs text-gray-500">
                 If this problem persists, please contact support at{' '}
-                <a href="mailto:support@p4c-homes.com" className="text-blue-600 hover:underline">
+                <a
+                  href="mailto:support@p4c-homes.com"
+                  className="text-blue-600 hover:underline"
+                >
                   support@p4c-homes.com
                 </a>
               </p>

@@ -2,63 +2,63 @@ const winston = require('winston');
 const DailyRotateFile = require('winston-daily-rotate-file');
 const { combine, timestamp, errors, printf, colorize, json } = winston.format;
 const LokiTransport = require('winston-loki');
-const { createMetrics, collectDefaultMetrics, register } = require('prom-client');
+const {
+  createMetrics,
+  collectDefaultMetrics,
+  register,
+} = require('prom-client');
 
 // Initialize metrics collection
 const startMetricsCollection = () => {
   collectDefaultMetrics({ prefix: 'app_' });
-  
+
   // Custom metrics
   const httpRequestDuration = new Histogram({
     name: 'http_request_duration_seconds',
     help: 'Duration of HTTP requests in seconds',
-    labelNames: ['method', 'route', 'status_code']
+    labelNames: ['method', 'route', 'status_code'],
   });
-  
+
   const httpRequestsTotal = new Counter({
     name: 'http_requests_total',
     help: 'Total number of HTTP requests',
-    labelNames: ['method', 'route', 'status_code']
+    labelNames: ['method', 'route', 'status_code'],
   });
-  
+
   const activeConnections = new Gauge({
     name: 'active_connections',
-    help: 'Number of active connections'
+    help: 'Number of active connections',
   });
-  
+
   const databaseQueryDuration = new Histogram({
     name: 'database_query_duration_seconds',
     help: 'Duration of database queries in seconds',
-    labelNames: ['query_type', 'table']
+    labelNames: ['query_type', 'table'],
   });
-  
+
   const cacheHitRatio = new Gauge({
     name: 'cache_hit_ratio',
     help: 'Cache hit ratio',
-    labelNames: ['cache_type']
+    labelNames: ['cache_type'],
   });
-  
+
   return {
     httpRequestDuration,
     httpRequestsTotal,
     activeConnections,
     databaseQueryDuration,
-    cacheHitRatio
+    cacheHitRatio,
   };
 };
 
 // Configure Winston logger
 const logger = winston.createLogger({
   level: process.env.LOG_LEVEL || 'info',
-  format: combine(
-    timestamp(),
-    errors({ stack: true }),
-    json()
-  ),
+  format: combine(timestamp(), errors({ stack: true }), json()),
   defaultMeta: {
     service: 'properties-app',
     version: process.env.npm_package_version || '1.0.0',
-    environment: process.env.NODE_ENV || 'development'
+    environment: process.env.NODE_ENV || 'development',
   },
   transports: [
     // Console logging
@@ -66,71 +66,71 @@ const logger = winston.createLogger({
       format: combine(
         colorize(),
         timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-        printf(({ timestamp, level, message, ...meta }) => {
-          return `${timestamp} [${level}]: ${message} ${Object.keys(meta).length ? JSON.stringify(meta, null, 2) : ''}`;
-        })
-      )
-    })
-  ]
+        printf(
+          ({ timestamp, level, message, ...meta }) =>
+            `${timestamp} [${level}]: ${message} ${Object.keys(meta).length ? JSON.stringify(meta, null, 2) : ""}`,
+        ),
+      ),
+    }),
+  ],
 });
 
 // Add file transports for production
 if (process.env.NODE_ENV === 'production') {
   // Error log file
-  logger.add(new DailyRotateFile({
-    filename: 'logs/error-%DATE%.log',
-    datePattern: 'YYYY-MM-DD',
-    level: 'error',
-    format: combine(
-      timestamp(),
-      errors({ stack: true }),
-      json()
-    ),
-    maxSize: '20m',
-    maxFiles: '14d'
-  }));
-  
+  logger.add(
+    new DailyRotateFile({
+      filename: 'logs/error-%DATE%.log',
+      datePattern: 'YYYY-MM-DD',
+      level: 'error',
+      format: combine(timestamp(), errors({ stack: true }), json()),
+      maxSize: '20m',
+      maxFiles: '14d',
+    }),
+  );
+
   // Combined log file
-  logger.add(new DailyRotateFile({
-    filename: 'logs/combined-%DATE%.log',
-    datePattern: 'YYYY-MM-DD',
-    format: combine(
-      timestamp(),
-      errors({ stack: true }),
-      json()
-    ),
-    maxSize: '20m',
-    maxFiles: '30d'
-  }));
-  
+  logger.add(
+    new DailyRotateFile({
+      filename: 'logs/combined-%DATE%.log',
+      datePattern: 'YYYY-MM-DD',
+      format: combine(timestamp(), errors({ stack: true }), json()),
+      maxSize: '20m',
+      maxFiles: '30d',
+    }),
+  );
+
   // Security events log
-  logger.add(new DailyRotateFile({
-    filename: 'logs/security-%DATE%.log',
-    datePattern: 'YYYY-MM-DD',
-    level: 'warn',
-    format: combine(
-      timestamp(),
-      json()
-    ),
-    maxSize: '20m',
-    maxFiles: '90d'
-  }));
-  
+  logger.add(
+    new DailyRotateFile({
+      filename: 'logs/security-%DATE%.log',
+      datePattern: 'YYYY-MM-DD',
+      level: 'warn',
+      format: combine(timestamp(), json()),
+      maxSize: '20m',
+      maxFiles: '90d',
+    }),
+  );
+
   // Add Loki transport if configured
   if (process.env.LOKI_URL) {
-    logger.add(new LokiTransport({
-      host: process.env.LOKI_URL,
-      basicAuth: process.env.LOKI_USERNAME ? {
-        username: process.env.LOKI_USERNAME,
-        password: process.env.LOKI_PASSWORD
-      } : undefined,
-      labels: {
-        service: 'properties-app',
-        environment: process.env.NODE_ENV
-      },
-      format: winston.format.json(),
-      level: 'info'
-    }));
+    logger.add(
+      new LokiTransport({
+        host: process.env.LOKI_URL,
+        basicAuth: process.env.LOKI_USERNAME
+          ? {
+              username: process.env.LOKI_USERNAME,
+              password: process.env.LOKI_PASSWORD,
+            }
+          : undefined,
+        labels: {
+          service: 'properties-app',
+          environment: process.env.NODE_ENV,
+        },
+        format: winston.format.json(),
+        level: 'info',
+      }),
+    );
   }
 }
 
@@ -142,7 +142,7 @@ const securityLogger = (event, details) => {
     timestamp: new Date().toISOString(),
     ip: details.ip || 'unknown',
     userAgent: details.userAgent || 'unknown',
-    userId: details.userId || 'anonymous'
+    userId: details.userId || 'anonymous',
   });
 };
 
@@ -152,7 +152,7 @@ const performanceLogger = (operation, duration, metadata = {}) => {
     operation,
     duration,
     ...metadata,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 };
 
@@ -164,7 +164,7 @@ const databaseLogger = (query, duration, success, metadata = {}) => {
     duration,
     success,
     ...metadata,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 };
 
@@ -178,9 +178,9 @@ const apiLogger = (req, res, duration) => {
     ip: req.ip,
     userAgent: req.get('User-Agent'),
     userId: req.user?.id,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   };
-  
+
   if (res.statusCode >= 400) {
     logger.warn('API Request Failed', logData);
   } else {
@@ -194,7 +194,7 @@ const errorLogger = (error, context = {}) => {
     message: error.message,
     stack: error.stack,
     context,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 };
 
@@ -204,7 +204,7 @@ const userActivityLogger = (userId, action, details = {}) => {
     userId,
     action,
     details,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 };
 
@@ -217,16 +217,16 @@ const authLogger = (event, userId, ip, success, details = {}) => {
     ip,
     success,
     details,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
-  
+
   // Log security events separately
   if (!success && event === 'login_failed') {
     securityLogger('authentication_failure', {
       userId,
       ip,
       event,
-      ...details
+      ...details,
     });
   }
 };
@@ -236,7 +236,7 @@ const healthLogger = (status, checks = {}) => {
   logger.info('Health Check', {
     status,
     checks,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 };
 
@@ -245,37 +245,35 @@ class MetricsCollector {
   constructor() {
     this.metrics = startMetricsCollection();
   }
-  
+
   recordHttpRequest(method, route, statusCode, duration) {
     this.metrics.httpRequestDuration
       .labels(method, route, statusCode.toString())
       .observe(duration / 1000);
-    
+
     this.metrics.httpRequestsTotal
       .labels(method, route, statusCode.toString())
       .inc();
   }
-  
+
   recordDatabaseQuery(queryType, table, duration, success) {
     this.metrics.databaseQueryDuration
       .labels(queryType, table)
       .observe(duration / 1000);
   }
-  
+
   updateCacheHitRatio(cacheType, hitRatio) {
-    this.metrics.cacheHitRatio
-      .labels(cacheType)
-      .set(hitRatio);
+    this.metrics.cacheHitRatio.labels(cacheType).set(hitRatio);
   }
-  
+
   updateActiveConnections(count) {
     this.metrics.activeConnections.set(count);
   }
-  
+
   getMetrics() {
     return register.metrics();
   }
-  
+
   getMetricsSummary() {
     return register.getMetricsAsJSON();
   }
@@ -287,33 +285,33 @@ const metricsCollector = new MetricsCollector();
 // Middleware for automatic request logging
 const requestLogger = (req, res, next) => {
   const startTime = Date.now();
-  
+
   // Add request ID for tracing
   req.requestId = require('crypto').randomUUID();
   res.setHeader('X-Request-ID', req.requestId);
-  
+
   // Log request start
   logger.debug('Request Started', {
     requestId: req.requestId,
     method: req.method,
     url: req.originalUrl,
     ip: req.ip,
-    userAgent: req.get('User-Agent')
+    userAgent: req.get('User-Agent'),
   });
-  
+
   // Override res.end to log response
   const originalEnd = res.end;
-  res.end = function(...args) {
+  res.end = function (...args) {
     const duration = Date.now() - startTime;
-    
+
     // Record metrics
     metricsCollector.recordHttpRequest(
       req.method,
       req.route?.path || req.path,
       res.statusCode,
-      duration
+      duration,
     );
-    
+
     // Log response
     logger.debug('Request Completed', {
       requestId: req.requestId,
@@ -321,63 +319,64 @@ const requestLogger = (req, res, next) => {
       url: req.originalUrl,
       statusCode: res.statusCode,
       duration,
-      contentLength: res.get('content-length')
+      contentLength: res.get('content-length'),
     });
-    
+
     // Call original end method
     originalEnd.apply(this, args);
   };
-  
+
   next();
 };
 
 // Error handling middleware
 const errorHandler = (err, req, res, next) => {
   const duration = Date.now() - (req.startTime || Date.now());
-  
+
   errorLogger(err, {
     requestId: req.requestId,
     method: req.method,
     url: req.originalUrl,
     ip: req.ip,
     userAgent: req.get('User-Agent'),
-    duration
+    duration,
   });
-  
+
   // Don't leak error details in production
-  const message = process.env.NODE_ENV === 'production' 
-    ? 'Internal Server Error' 
-    : err.message;
-  
+  const message =
+    process.env.NODE_ENV === 'production'
+      ? 'Internal Server Error'
+      : err.message;
+
   res.status(err.status || 500).json({
     error: message,
     requestId: req.requestId,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 };
 
 // Performance monitoring middleware
-const performanceMonitor = (threshold = 1000) => {
-  return (req, res, next) => {
+const performanceMonitor =
+  (threshold = 1000) =>
+  (req, res, next) => {
     const startTime = Date.now();
-    
-    res.on('finish', () => {
+
+    res.on("finish", () => {
       const duration = Date.now() - startTime;
-      
+
       if (duration > threshold) {
-        logger.warn('Slow Request Detected', {
+        logger.warn("Slow Request Detected", {
           method: req.method,
           url: req.originalUrl,
           duration,
           threshold,
-          statusCode: res.statusCode
+          statusCode: res.statusCode,
         });
       }
     });
-    
+
     next();
   };
-};
 
 // Health check endpoint data
 const healthCheckData = {
@@ -386,7 +385,7 @@ const healthCheckData = {
   version: process.env.npm_package_version || '1.0.0',
   environment: process.env.NODE_ENV || 'development',
   memory: process.memoryUsage(),
-  cpu: process.cpuUsage()
+  cpu: process.cpuUsage(),
 };
 
 module.exports = {
@@ -403,5 +402,5 @@ module.exports = {
   requestLogger,
   errorHandler,
   performanceMonitor,
-  healthCheckData
+  healthCheckData,
 };

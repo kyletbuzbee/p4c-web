@@ -5,7 +5,7 @@ import {
   Download,
   Image as ImageIcon,
   X,
-  FileText
+  FileText,
 } from 'lucide-react';
 
 interface UpscalerState {
@@ -22,56 +22,59 @@ const ClientUpscaler: React.FC = () => {
     upscaledImage: null,
     isProcessing: false,
     progress: 0,
-    error: null
+    error: null,
   });
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileSelect = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
+  const handleFileSelect = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0];
+      if (!file) return;
 
-    // Validate file size (max 5MB)
-    if (file.size > 5 * 1024 * 1024) {
-      setState(prev => ({
-        ...prev,
-        error: 'File size must be under 5MB'
-      }));
-      return;
-    }
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        setState((prev) => ({
+          ...prev,
+          error: 'File size must be under 5MB',
+        }));
+        return;
+      }
 
-    // Validate file type
-    if (!file.type.startsWith('image/')) {
-      setState(prev => ({
-        ...prev,
-        error: 'Please select a valid image file'
-      }));
-      return;
-    }
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        setState((prev) => ({
+          ...prev,
+          error: 'Please select a valid image file',
+        }));
+        return;
+      }
 
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const imageDataUrl = e.target?.result as string;
-      setState(prev => ({
-        ...prev,
-        originalImage: imageDataUrl,
-        upscaledImage: null,
-        error: null,
-        progress: 0
-      }));
-    };
-    reader.readAsDataURL(file);
-  }, []);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const imageDataUrl = e.target?.result as string;
+        setState((prev) => ({
+          ...prev,
+          originalImage: imageDataUrl,
+          upscaledImage: null,
+          error: null,
+          progress: 0,
+        }));
+      };
+      reader.readAsDataURL(file);
+    },
+    [],
+  );
 
   const handleUpscale = useCallback(async () => {
     if (!state.originalImage) return;
 
     try {
-      setState(prev => ({
+      setState((prev) => ({
         ...prev,
         isProcessing: true,
         progress: 0,
-        error: null
+        error: null,
       }));
 
       // Import upscaler dynamically to avoid SSR issues
@@ -90,27 +93,26 @@ const ClientUpscaler: React.FC = () => {
       });
 
       // Update progress
-      setState(prev => ({ ...prev, progress: 30 }));
+      setState((prev) => ({ ...prev, progress: 30 }));
 
       // Upscale the image
       const upscaled = await upscaler.upscale(img);
 
       // The upscaled result is already a data URL string
       if (typeof upscaled === 'string') {
-        setState(prev => ({
+        setState((prev) => ({
           ...prev,
           upscaledImage: upscaled,
           progress: 100,
-          isProcessing: false
+          isProcessing: false,
         }));
       }
-
     } catch (error) {
       console.error('Upscaling failed:', error);
-      setState(prev => ({
+      setState((prev) => ({
         ...prev,
         error: 'Failed to upscale image. Please try again.',
-        isProcessing: false
+        isProcessing: false,
       }));
     }
   }, [state.originalImage]);
@@ -132,7 +134,7 @@ const ClientUpscaler: React.FC = () => {
       upscaledImage: null,
       isProcessing: false,
       progress: 0,
-      error: null
+      error: null,
     });
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
@@ -144,10 +146,13 @@ const ClientUpscaler: React.FC = () => {
       <div className="text-center mb-8">
         <div className="flex items-center justify-center gap-3 mb-4">
           <Zap className="w-8 h-8 text-p4c-gold" />
-          <h2 className="text-2xl font-bold text-p4c-navy">Free Image Upscaler</h2>
+          <h2 className="text-2xl font-bold text-p4c-navy">
+            Free Image Upscaler
+          </h2>
         </div>
         <p className="text-gray-600">
-          Upscale your images 2x using your browser's processing power - completely free!
+          Upscale your images 2x using your browser's processing power -
+          completely free!
         </p>
       </div>
 
@@ -221,7 +226,7 @@ const ClientUpscaler: React.FC = () => {
             <div
               className="bg-p4c-gold h-2 rounded-full transition-all duration-300"
               style={{ width: `${state.progress}%` }}
-            ></div>
+            />
           </div>
         </div>
       )}
@@ -232,7 +237,9 @@ const ClientUpscaler: React.FC = () => {
           {/* Original Image */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-p4c-navy">Original Image</h3>
+              <h3 className="text-lg font-semibold text-p4c-navy">
+                Original Image
+              </h3>
               <div className="text-sm text-gray-500">
                 {Math.round((state.originalImage.length * 0.75) / 1024)} KB
               </div>
@@ -250,7 +257,9 @@ const ClientUpscaler: React.FC = () => {
           {/* Upscaled Image */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-p4c-navy">Upscaled Image (2x)</h3>
+              <h3 className="text-lg font-semibold text-p4c-navy">
+                Upscaled Image (2x)
+              </h3>
               {state.upscaledImage && (
                 <button
                   onClick={handleDownload}
@@ -265,8 +274,10 @@ const ClientUpscaler: React.FC = () => {
               {state.isProcessing ? (
                 <div className="flex items-center justify-center h-64 bg-gray-100 rounded">
                   <div className="text-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-p4c-gold mx-auto"></div>
-                    <p className="mt-4 text-gray-600">Upscaling your image...</p>
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-p4c-gold mx-auto" />
+                    <p className="mt-4 text-gray-600">
+                      Upscaling your image...
+                    </p>
                   </div>
                 </div>
               ) : state.upscaledImage ? (

@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from 'react';
 import type { ReactNode } from 'react';
 import { useToast } from './ToastContext';
 
@@ -37,32 +43,36 @@ export const useAuth = () => {
 const validateStoredUser = (storedUser: string): User | null => {
   try {
     const user = JSON.parse(storedUser);
-    
+
     // Validate required fields
     if (!user.id || !user.email || !user.role) {
       console.warn('Invalid user data: missing required fields');
       return null;
     }
-    
+
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(user.email)) {
       console.warn('Invalid user data: invalid email format');
       return null;
     }
-    
+
     // Validate role
     if (!['guest', 'tenant', 'admin'].includes(user.role)) {
       console.warn('Invalid user data: invalid role');
       return null;
     }
-    
+
     // Validate data types
-    if (typeof user.id !== 'string' || typeof user.email !== 'string' || typeof user.role !== 'string') {
+    if (
+      typeof user.id !== 'string' ||
+      typeof user.email !== 'string' ||
+      typeof user.role !== 'string'
+    ) {
       console.warn('Invalid user data: incorrect data types');
       return null;
     }
-    
+
     return user;
   } catch (error) {
     console.warn('Failed to parse stored user data:', error);
@@ -71,16 +81,19 @@ const validateStoredUser = (storedUser: string): User | null => {
 };
 
 // Secure session validation with backend
-const validateSessionWithBackend = async (userId: string, sessionToken: string): Promise<boolean> => {
+const validateSessionWithBackend = async (
+  userId: string,
+  sessionToken: string,
+): Promise<boolean> => {
   try {
     const response = await fetch('/api/auth/validate-session', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${sessionToken}`,
-        'X-Requested-With': 'XMLHttpRequest'
+        Authorization: `Bearer ${sessionToken}`,
+        'X-Requested-With': 'XMLHttpRequest',
       },
-      body: JSON.stringify({ userId })
+      body: JSON.stringify({ userId }),
     });
 
     return response.ok;
@@ -96,13 +109,17 @@ const generateSecureUserId = (): string => {
   if (typeof window !== 'undefined' && window.crypto) {
     const array = new Uint8Array(16);
     window.crypto.getRandomValues(array);
-    return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+    return Array.from(array, (byte) => byte.toString(16).padStart(2, "0")).join(
+      "",
+    );
   }
   // Fallback for older browsers
   return Math.random().toString(36).substring(2) + Date.now().toString(36);
 };
 
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const { addToast } = useToast();
@@ -113,14 +130,17 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       try {
         const storedUser = localStorage.getItem('p4c_user');
         const sessionToken = localStorage.getItem('p4c_session_token');
-        
+
         if (storedUser && sessionToken) {
           const validatedUser = validateStoredUser(storedUser);
-          
+
           if (validatedUser) {
             // Verify session with backend
-            const isValidSession = await validateSessionWithBackend(validatedUser.id, sessionToken);
-            
+            const isValidSession = await validateSessionWithBackend(
+              validatedUser.id,
+              sessionToken,
+            );
+
             if (isValidSession) {
               console.log('Session validated successfully');
               setUser(validatedUser);
@@ -153,40 +173,40 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   // Secure login function
   const login = async (email: string, role: UserRole) => {
     setIsLoading(true);
-    
+
     try {
       // Input validation
       if (!email || !email.includes('@')) {
         throw new Error('Valid email is required');
       }
-      
+
       if (!role || !['guest', 'tenant', 'admin'].includes(role)) {
         throw new Error('Valid role is required');
       }
 
       console.log('Initiating secure login process...');
-      
+
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-Requested-With': 'XMLHttpRequest'
+          'X-Requested-With': 'XMLHttpRequest',
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           email: email.trim().toLowerCase(),
-          role 
-        })
+          role,
+        }),
       });
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({
-          error: 'Authentication failed'
+          error: 'Authentication failed',
         }));
         throw new Error(errorData.error || 'Login failed');
       }
 
       const { user: userData, token } = await response.json();
-      
+
       // Sanitize and validate user data
       const cleanUser: User = {
         id: userData.id || generateSecureUserId(),
@@ -194,21 +214,23 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         email: userData.email || email,
         role: userData.role || role,
         lastLogin: new Date().toISOString(),
-        permissions: userData.permissions || getDefaultPermissions(role)
+        permissions: userData.permissions || getDefaultPermissions(role),
       };
 
       // Store securely
       localStorage.setItem('p4c_user', JSON.stringify(cleanUser));
       localStorage.setItem('p4c_session_token', token);
-      
+
       setUser(cleanUser);
-      
+
       console.log('Login successful for user:', cleanUser.email);
       addToast(`Welcome back, ${cleanUser.name}`, 'success');
-      
     } catch (error) {
       console.error('Login error:', error);
-      const errorMessage = error instanceof Error ? error.message : 'Login failed. Please try again.';
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : 'Login failed. Please try again.';
       addToast(errorMessage, 'error');
       throw error;
     } finally {
@@ -219,25 +241,25 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   // Secure logout function
   const logout = useCallback(() => {
     console.log('Initiating secure logout...');
-    
+
     // Clear state immediately
     setUser(null);
-    
+
     // Clear storage
     localStorage.removeItem('p4c_user');
     localStorage.removeItem('p4c_session_token');
-    
+
     // Notify backend (non-blocking)
     fetch('/api/auth/logout', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('p4c_session_token')}`,
-        'X-Requested-With': 'XMLHttpRequest'
-      }
+        Authorization: `Bearer ${localStorage.getItem('p4c_session_token')}`,
+        'X-Requested-With': 'XMLHttpRequest',
+      },
     }).catch(() => {
       // Ignore network errors on logout
     });
-    
+
     addToast('You have been logged out.', 'info');
   }, [addToast]);
 
@@ -252,9 +274,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       const response = await fetch('/api/auth/refresh', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${currentToken}`,
-          'X-Requested-With': 'XMLHttpRequest'
-        }
+          Authorization: `Bearer ${currentToken}`,
+          'X-Requested-With': 'XMLHttpRequest',
+        },
       });
 
       if (response.ok) {
@@ -272,26 +294,31 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   // Permission checking function
-  const hasPermission = useCallback((permission: string): boolean => {
-    if (!user) return false;
-    
-    // Admins have all permissions
-    if (user.role === 'admin') return true;
-    
-    // Check specific permissions
-    return user.permissions.includes(permission);
-  }, [user]);
+  const hasPermission = useCallback(
+    (permission: string): boolean => {
+      if (!user) return false;
+
+      // Admins have all permissions
+      if (user.role === 'admin') return true;
+
+      // Check specific permissions
+      return user.permissions.includes(permission);
+    },
+    [user],
+  );
 
   return (
-    <AuthContext.Provider value={{ 
-      user, 
-      isAuthenticated: !!user, 
-      isLoading, 
-      login, 
-      logout, 
-      refreshToken,
-      hasPermission 
-    }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        isAuthenticated: !!user,
+        isLoading,
+        login,
+        logout,
+        refreshToken,
+        hasPermission,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
@@ -301,7 +328,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 const getDefaultPermissions = (role: UserRole): string[] => {
   switch (role) {
     case 'admin':
-      return ['read', 'write', 'delete', 'manage_users', 'manage_properties', 'view_analytics'];
+      return [
+        'read',
+        'write',
+        'delete',
+        'manage_users',
+        'manage_properties',
+        'view_analytics',
+      ];
     case 'tenant':
       return ['read', 'write'];
     case 'guest':

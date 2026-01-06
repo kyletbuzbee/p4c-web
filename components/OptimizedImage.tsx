@@ -4,14 +4,14 @@
  */
 
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { 
-  detectImageFormatSupport, 
-  getOptimalImageFormat, 
-  generateResponsiveSrcset, 
+import {
+  detectImageFormatSupport,
+  getOptimalImageFormat,
+  generateResponsiveSrcset,
   generateOptimizedImageUrl,
   LazyImageLoader,
   generateBlurPlaceholder,
-  responsiveImageConfig
+  responsiveImageConfig,
 } from '../utils/imageOptimization';
 
 interface OptimizedImageProps {
@@ -43,7 +43,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   formats = ['avif', 'webp', 'jpeg'],
   onLoad,
   onError,
-  loading = 'lazy'
+  loading = 'lazy',
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -60,25 +60,34 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
     const sources = new Map<string, string>();
 
     // Generate sources for supported formats
-    formats.forEach(format => {
+    formats.forEach((format) => {
       if (format === 'avif' && imageFormatSupport.avif) {
-        sources.set('image/avif', generateResponsiveSrcset(
-          baseUrl, 
-          responsiveImageConfig.breakpoints, 
-          'avif'
-        ));
+        sources.set(
+          'image/avif',
+          generateResponsiveSrcset(
+            baseUrl,
+            responsiveImageConfig.breakpoints,
+            'avif',
+          ),
+        );
       } else if (format === 'webp' && imageFormatSupport.webp) {
-        sources.set('image/webp', generateResponsiveSrcset(
-          baseUrl, 
-          responsiveImageConfig.breakpoints, 
-          'webp'
-        ));
+        sources.set(
+          'image/webp',
+          generateResponsiveSrcset(
+            baseUrl,
+            responsiveImageConfig.breakpoints,
+            'webp',
+          ),
+        );
       } else if (format === 'jpeg') {
-        sources.set('image/jpeg', generateResponsiveSrcset(
-          baseUrl, 
-          responsiveImageConfig.breakpoints, 
-          'jpeg'
-        ));
+        sources.set(
+          'image/jpeg',
+          generateResponsiveSrcset(
+            baseUrl,
+            responsiveImageConfig.breakpoints,
+            'jpeg',
+          ),
+        );
       }
     });
 
@@ -91,7 +100,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
     return generateOptimizedImageUrl(src.replace(/\.[^/.]+$/, ''), {
       width: width || 800,
       quality,
-      format: optimalFormat
+      format: optimalFormat,
     });
   }, [src, width, quality, imageFormatSupport]);
 
@@ -100,7 +109,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
     if (!priority && loading === 'lazy' && imgRef.current) {
       const loader = new LazyImageLoader();
       loader.observe(imgRef.current);
-       
+
       return () => {
         loader.disconnect();
       };
@@ -131,7 +140,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
     <div className={`optimized-image-container ${className}`}>
       {/* Placeholder */}
       {!isLoaded && !isError && (
-        <div 
+        <div
           className="image-placeholder"
           style={{
             width: width ? `${width}px` : '100%',
@@ -141,7 +150,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
             top: 0,
             left: 0,
             opacity: placeholder === 'blur' ? 1 : 0,
-            transition: 'opacity 0.3s ease'
+            transition: 'opacity 0.3s ease',
           }}
         >
           {placeholder === 'blur' && (
@@ -154,7 +163,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
                 height: '100%',
                 objectFit: 'cover',
                 filter: 'blur(20px)',
-                transform: 'scale(1.1)'
+                transform: 'scale(1.1)',
               }}
             />
           )}
@@ -162,7 +171,9 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
       )}
 
       {/* Main image */}
-      <picture className={`optimized-image ${isLoaded ? 'loaded' : ''} ${isError ? 'error' : ''}`}>
+      <picture
+        className={`optimized-image ${isLoaded ? 'loaded' : ''} ${isError ? 'error' : ''}`}
+      >
         {/* AVIF sources */}
         {imageSources.has('image/avif') && (
           <source
@@ -171,7 +182,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
             type="image/avif"
           />
         )}
-        
+
         {/* WebP sources */}
         {imageSources.has('image/webp') && (
           <source
@@ -180,11 +191,13 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
             type="image/webp"
           />
         )}
-        
+
         {/* Fallback */}
         <img
           ref={imgRef}
-          src={currentSrc || (priority || loading === 'eager' ? fallbackSrc : '')}
+          src={
+            currentSrc || (priority || loading === 'eager' ? fallbackSrc : '')
+          }
           alt={alt}
           width={width}
           height={height}
@@ -195,7 +208,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
           decoding="async"
           style={{
             opacity: isLoaded ? 1 : 0,
-            transition: 'opacity 0.3s ease'
+            transition: 'opacity 0.3s ease',
           }}
         />
       </picture>

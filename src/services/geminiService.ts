@@ -1,10 +1,15 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 // Initialize Google Generative AI with API key
-const apiKey = import.meta.env['VITE_GEMINI_API_KEY'] || process.env['VITE_GEMINI_API_KEY'];
+const apiKey =
+  (import.meta.env as Record<string, string>).VITE_GEMINI_API_KEY ||
+  process.env.VITE_GEMINI_API_KEY;
 
 if (!apiKey) {
-  console.warn('Gemini API key not found. Set VITE_GEMINI_API_KEY in your environment variables.');
+  // eslint-disable-next-line no-console
+  console.warn(
+    'Gemini API key not found. Set VITE_GEMINI_API_KEY in your environment variables.',
+  );
 }
 
 const genAI = new GoogleGenerativeAI(apiKey || '');
@@ -19,7 +24,7 @@ interface ChatSession {
 }
 
 class GeminiService {
-  private chatSession: any = null;
+  private chatSession: unknown = null;
   private isInitialized = false;
 
   /**
@@ -34,15 +39,17 @@ class GeminiService {
         model: 'gemini-2.5-flash',
         systemInstruction: {
           role: 'system',
-          parts: [{
-            text: `You are Patriot, a virtual concierge for Properties 4 Creation (P4C). 
+          parts: [
+            {
+              text: `You are Patriot, a virtual concierge for Properties 4 Creation (P4C). 
             Help veterans with housing/vouchers and their families find suitable homes. 
             Your tone should be warm, professional, and supportive. 
             Focus on providing helpful information about housing options, 
             veteran resources, and the application process. 
-            You are knowledgeable about East Texas housing market and veteran benefits.`
-          }]
-        }
+            You are knowledgeable about East Texas housing market and veteran benefits.`,
+            },
+          ],
+        },
       });
 
       // Configure generation parameters for cost efficiency
@@ -60,8 +67,10 @@ class GeminiService {
       });
 
       this.isInitialized = true;
+      // eslint-disable-next-line no-console
       console.log('Gemini service initialized successfully');
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Failed to initialize Gemini service:', error);
       throw new Error('Gemini service initialization failed');
     }
@@ -88,8 +97,9 @@ class GeminiService {
 
       return text;
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Error sending chat message:', error);
-      
+
       // Return a helpful fallback message
       if (error instanceof Error) {
         if (error.message.includes('quota')) {
@@ -99,7 +109,7 @@ class GeminiService {
           return "I'm currently unable to access the AI service. Please try refreshing the page or contact our support team for assistance.";
         }
       }
-      
+
       return "I apologize, but I'm experiencing technical difficulties. Please try your question again in a moment, or contact our team directly for immediate assistance with your housing needs.";
     }
   }
@@ -110,7 +120,12 @@ class GeminiService {
    * @param prompt - The editing prompt (not used yet)
    * @returns Promise with the edited image or error message
    */
-  async editImageWithGemini(_imageData: string, _prompt: string): Promise<string> {
+  async editImageWithGemini(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _imageData: string,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _prompt: string,
+  ): Promise<string> {
     try {
       if (!this.isInitialized) {
         await this.initialize();
@@ -119,7 +134,7 @@ class GeminiService {
       // Note: The gemini-2.5-flash model is primarily text-focused
       // For image editing, you would typically use gemini-pro-vision
       // This is a placeholder that returns a helpful message
-      
+
       return `I'm currently unable to edit images directly. However, I can help you with:
       
       1. **Finding suitable properties** based on your preferences
@@ -128,8 +143,8 @@ class GeminiService {
       4. **Information about available housing programs** in East Texas
       
       If you have a specific property image you'd like to discuss or need help with any housing-related questions, please let me know!`;
-
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Error editing image:', error);
       return "I'm sorry, but I'm currently unable to process image editing requests. Please try again later or contact our team for assistance.";
     }
@@ -147,9 +162,10 @@ class GeminiService {
       const history = await this.chatSession.getHistory();
       return history.map((entry: any) => ({
         role: entry.role === 'user' ? 'user' : 'model',
-        text: entry.parts[0]?.text || ''
+        text: entry.parts[0]?.text || '',
       }));
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Error getting chat history:', error);
       return [];
     }
@@ -164,6 +180,7 @@ class GeminiService {
         // Restart the chat session to clear history
         await this.initialize();
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error('Error clearing chat history:', error);
       }
     }

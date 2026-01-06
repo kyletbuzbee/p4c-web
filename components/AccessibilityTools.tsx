@@ -4,7 +4,9 @@ interface AccessibilityToolsProps {
   className?: string;
 }
 
-const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({ className = '' }) => {
+const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
+  className = '',
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [fontSize, setFontSize] = useState(100);
   const [contrast, setContrast] = useState('normal');
@@ -15,10 +17,10 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({ className = '' 
   // Apply styles to document
   useEffect(() => {
     const root = document.documentElement;
-    
+
     // Font size
     root.style.setProperty('--accessibility-font-size', `${fontSize}%`);
-    
+
     // Contrast
     if (contrast === 'high') {
       root.classList.add('high-contrast');
@@ -29,14 +31,14 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({ className = '' 
     } else {
       root.classList.remove('high-contrast', 'dark-high-contrast');
     }
-    
+
     // Reading mode
     if (readingMode) {
       root.classList.add('reading-mode');
     } else {
       root.classList.remove('reading-mode');
     }
-    
+
     // Focus mode
     if (focusMode) {
       root.classList.add('focus-mode');
@@ -46,15 +48,15 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({ className = '' 
   }, [fontSize, contrast, readingMode, focusMode]);
 
   const increaseFontSize = () => {
-    if (fontSize < 150) setFontSize(prev => prev + 10);
+    if (fontSize < 150) setFontSize((prev) => prev + 10);
   };
 
   const decreaseFontSize = () => {
-    if (fontSize > 80) setFontSize(prev => prev - 10);
+    if (fontSize > 80) setFontSize((prev) => prev - 10);
   };
 
   const toggleContrast = () => {
-    setContrast(prev => {
+    setContrast((prev) => {
       if (prev === 'normal') return 'high';
       if (prev === 'high') return 'dark-high';
       return 'normal';
@@ -73,7 +75,9 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({ className = '' 
     setAudioAssistance(!audioAssistance);
     if (!audioAssistance) {
       // Announce feature activation
-      const utterance = new SpeechSynthesisUtterance('Audio assistance activated. Use keyboard shortcuts for navigation.');
+      const utterance = new SpeechSynthesisUtterance(
+        'Audio assistance activated. Use keyboard shortcuts for navigation.',
+      );
       speechSynthesis.speak(utterance);
     }
   };
@@ -130,7 +134,7 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({ className = '' 
       >
         <span className="text-lg">⚙️</span>
         {isOpen && (
-          <span className="absolute -top-2 -right-2 w-3 h-3 bg-red-500 rounded-full"></span>
+          <span className="absolute -top-2 -right-2 w-3 h-3 bg-red-500 rounded-full" />
         )}
       </button>
 
@@ -138,9 +142,7 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({ className = '' 
       {isOpen && (
         <div className="fixed bottom-24 right-6 bg-white border border-gray-200 rounded-lg shadow-xl p-4 w-80 z-50 animate-in slide-in-from-bottom-2 duration-200">
           <div className="flex justify-between items-center mb-3">
-            <h3 className="font-semibold text-gray-800">
-              Accessibility Tools
-            </h3>
+            <h3 className="font-semibold text-gray-800">Accessibility Tools</h3>
             <button
               onClick={() => setIsOpen(false)}
               className="text-gray-500 hover:text-gray-700"
@@ -185,8 +187,8 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({ className = '' 
                 <button
                   onClick={() => setContrast('normal')}
                   className={`flex-1 px-3 py-2 rounded text-sm ${
-                    contrast === 'normal' 
-                      ? 'bg-p4c-navy text-white' 
+                    contrast === 'normal'
+                      ? 'bg-p4c-navy text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
@@ -195,8 +197,8 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({ className = '' 
                 <button
                   onClick={() => setContrast('high')}
                   className={`flex-1 px-3 py-2 rounded text-sm ${
-                    contrast === 'high' 
-                      ? 'bg-p4c-navy text-white' 
+                    contrast === 'high'
+                      ? 'bg-p4c-navy text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
@@ -205,8 +207,8 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({ className = '' 
                 <button
                   onClick={() => setContrast('dark-high')}
                   className={`flex-1 px-3 py-2 rounded text-sm ${
-                    contrast === 'dark-high' 
-                      ? 'bg-p4c-navy text-white' 
+                    contrast === 'dark-high'
+                      ? 'bg-p4c-navy text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
@@ -220,15 +222,19 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({ className = '' 
               <button
                 onClick={toggleReadingMode}
                 className={`w-full flex items-center justify-between px-3 py-2 rounded ${
-                  readingMode 
-                    ? 'bg-p4c-beige text-p4c-navy' 
+                  readingMode
+                    ? 'bg-p4c-beige text-p4c-navy'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
                 <span>Reading Mode</span>
-                <span className={`w-4 h-4 border-2 rounded ${
-                  readingMode ? 'bg-p4c-navy border-p4c-navy' : 'border-gray-400'
-                }`}></span>
+                <span
+                  className={`w-4 h-4 border-2 rounded ${
+                    readingMode
+                      ? 'bg-p4c-navy border-p4c-navy'
+                      : 'border-gray-400'
+                  }`}
+                />
               </button>
             </div>
 
@@ -237,15 +243,19 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({ className = '' 
               <button
                 onClick={toggleFocusMode}
                 className={`w-full flex items-center justify-between px-3 py-2 rounded ${
-                  focusMode 
-                    ? 'bg-p4c-beige text-p4c-navy' 
+                  focusMode
+                    ? 'bg-p4c-beige text-p4c-navy'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
                 <span>Focus Mode</span>
-                <span className={`w-4 h-4 border-2 rounded ${
-                  focusMode ? 'bg-p4c-navy border-p4c-navy' : 'border-gray-400'
-                }`}></span>
+                <span
+                  className={`w-4 h-4 border-2 rounded ${
+                    focusMode
+                      ? 'bg-p4c-navy border-p4c-navy'
+                      : 'border-gray-400'
+                  }`}
+                />
               </button>
             </div>
 
@@ -254,15 +264,19 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({ className = '' 
               <button
                 onClick={toggleAudioAssistance}
                 className={`w-full flex items-center justify-between px-3 py-2 rounded ${
-                  audioAssistance 
-                    ? 'bg-p4c-beige text-p4c-navy' 
+                  audioAssistance
+                    ? 'bg-p4c-beige text-p4c-navy'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
                 <span>Audio Assistance</span>
-                <span className={`w-4 h-4 border-2 rounded ${
-                  audioAssistance ? 'bg-p4c-navy border-p4c-navy' : 'border-gray-400'
-                }`}></span>
+                <span
+                  className={`w-4 h-4 border-2 rounded ${
+                    audioAssistance
+                      ? 'bg-p4c-navy border-p4c-navy'
+                      : 'border-gray-400'
+                  }`}
+                />
               </button>
             </div>
 

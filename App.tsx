@@ -1,4 +1,3 @@
-
 import React, { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
@@ -28,12 +27,14 @@ const OurImpact = React.lazy(() => import('./pages/OurImpact'));
 const TenantLogin = React.lazy(() => import('./pages/TenantLogin'));
 const Privacy = React.lazy(() => import('./pages/Privacy'));
 const Terms = React.lazy(() => import('./pages/Terms'));
-const AccessibilityStatement = React.lazy(() => import('./pages/AccessibilityStatement'));
+const AccessibilityStatement = React.lazy(
+  () => import('./pages/AccessibilityStatement'),
+);
 const EqualHousing = React.lazy(() => import('./pages/EqualHousing'));
 const SuccessStories = React.lazy(() => import('./pages/SuccessStories'));
 const AdminDashboard = React.lazy(() => import('./pages/AdminDashboard'));
 const FAQ = React.lazy(() => import('./pages/FAQ'));
-const Tools = React.lazy(() => import('./src/pages/Tools'));
+const Tools = React.lazy(() => import('./pages/Tools'));
 
 // Loading Fallback
 const PageLoader = () => (
@@ -49,57 +50,84 @@ function App() {
         <ToastProvider>
           <DarkModeProvider>
             <AuthProvider>
-            <div className="font-sans antialiased text-p4c-navy bg-p4c-beige min-h-screen flex flex-col">
-              <a href="#main-content" className="skip-link">Skip to main content</a>
-              <ScrollToTop />
-              
-              <Routes>
-                {/* Public Routes with Standard Layout */}
-                <Route path="*" element={
-                  <>
-                    <Navbar />
-                    <main id="main-content" className="flex-grow">
-                      <Suspense fallback={<PageLoader />}>
-                        <Routes>
-                          {/* Find a Home (Transactional) */}
-                          <Route path="/" element={<Home />} />
-                          <Route path="/properties/:id" element={<PropertyDetails />} />
-                          <Route path="/apply" element={<Application />} />
-                          <Route path="/equal-housing" element={<EqualHousing />} />
-                          
-                          {/* Mission (Trust & Credibility) */}
-                          <Route path="/about" element={<About />} />
-                          <Route path="/impact" element={<OurImpact />} />
-                          <Route path="/transparency" element={<Transparency />} />
-                          <Route path="/stories" element={<SuccessStories />} />
-                          <Route path="/employment" element={<Employment />} />
-                          
-                          {/* Residents (Service Hub) */}
-                          <Route path="/veterans" element={<Veterans />} />
-                          <Route path="/veteran-services" element={<VeteranServices />} />
-                          <Route path="/portal" element={<TenantLogin />} />
-                          <Route path="/faq" element={<FAQ />} />
-                          <Route path="/accessibility" element={<AccessibilityStatement />} />
-                          
-                          {/* Tools & Resources */}
-                          <Route path="/tools" element={<Tools />} />
-                          
-                          {/* Support (Connection) */}
-                          <Route path="/contact" element={<Contact />} />
-                          <Route path="/admin" element={<AdminDashboard />} />
-                          <Route path="/privacy" element={<Privacy />} />
-                          <Route path="/terms" element={<Terms />} />
-                        </Routes>
-                      </Suspense>
-                    </main>
-                    <AIChatbot />
-                    <AccessibilityTools />
-                    <Footer />
-                    <CookieConsent />
-                  </>
-                } />
-              </Routes>
-            </div>
+              <div className="font-sans antialiased text-p4c-navy bg-p4c-beige min-h-screen flex flex-col">
+                <a href="#main-content" className="skip-link">
+                  Skip to main content
+                </a>
+                <ScrollToTop />
+
+                <Routes>
+                  {/* Public Routes with Standard Layout */}
+                  <Route
+                    path="*"
+                    element={
+                      <>
+                        <Navbar />
+                        <main id="main-content" className="flex-grow">
+                          <Suspense fallback={<PageLoader />}>
+                            <Routes>
+                              {/* Find a Home (Transactional) */}
+                              <Route path="/" element={<Home />} />
+                              <Route
+                                path="/properties/:id"
+                                element={<PropertyDetails />}
+                              />
+                              <Route path="/apply" element={<Application />} />
+                              <Route
+                                path="/equal-housing"
+                                element={<EqualHousing />}
+                              />
+
+                              {/* Mission (Trust & Credibility) */}
+                              <Route path="/about" element={<About />} />
+                              <Route path="/impact" element={<OurImpact />} />
+                              <Route
+                                path="/transparency"
+                                element={<Transparency />}
+                              />
+                              <Route
+                                path="/stories"
+                                element={<SuccessStories />}
+                              />
+                              <Route
+                                path="/employment"
+                                element={<Employment />}
+                              />
+
+                              {/* Residents (Service Hub) */}
+                              <Route path="/veterans" element={<Veterans />} />
+                              <Route
+                                path="/veteran-services"
+                                element={<VeteranServices />}
+                              />
+                              <Route path="/portal" element={<TenantLogin />} />
+                              <Route path="/faq" element={<FAQ />} />
+                              <Route
+                                path="/accessibility"
+                                element={<AccessibilityStatement />}
+                              />
+
+                              {/* Tools & Resources */}
+                              <Route path="/tools" element={<Tools />} />
+
+                              {/* Support (Connection) */}
+                              <Route path="/contact" element={<Contact />} />
+                              <Route
+                                path="/admin"
+                                element={<AdminDashboard />}
+                              />
+                              <Route path="/privacy" element={<Privacy />} />
+                              <Route path="/terms" element={<Terms />} />
+                            </Routes>
+                          </Suspense>
+                        </main>
+                        <AIChatbot />
+                        <AccessibilityTools />
+                        <Footer />
+                        <CookieConsent />
+                      </>
+                    }
+                  />
             </AuthProvider>
           </DarkModeProvider>
         </ToastProvider>

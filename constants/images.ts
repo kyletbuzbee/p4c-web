@@ -1,4 +1,3 @@
-
 /**
  * Centralized Asset Registry
  * Maps application logic to physical file paths.
@@ -15,8 +14,7 @@
 export const IMAGES = {
   // Brand Assets
   LOGO: {
-    SVG: '/images/logo/brand-logo.svg',
-    PNG: '/images/logo/brand-logo2.png',
+    PNG: '/images/logo/brand-logo.png',
   },
 
   // Page Hero Banners
@@ -54,20 +52,27 @@ export const IMAGES = {
   // Renovation Showcase (Before/After)
   RENOVATION: {
     BATHROOM: {
-      BEFORE: '/images/before-after-comparison/projects-before-bathroom-800w.webp',
-      AFTER: '/images/before-after-comparison/projects-after-bathroom-800w.webp',
+      BEFORE:
+        '/images/before-after-comparison/projects-before-bathroom-800w.webp',
+      AFTER:
+        '/images/before-after-comparison/projects-after-bathroom-800w.webp',
     },
     KITCHEN: {
-      BEFORE: '/images/before-after-comparison/projects-before-kitchen-800w.webp',
+      BEFORE:
+        '/images/before-after-comparison/projects-before-kitchen-800w.webp',
       AFTER: '/images/before-after-comparison/projects-after-kitchen-800w.webp',
     },
     LIVING_ROOM: {
-      BEFORE: '/images/before-after-comparison/projects-before-living-room-800w.webp',
-      AFTER: '/images/before-after-comparison/projects-after-living-room-800w.webp',
+      BEFORE:
+        '/images/before-after-comparison/projects-before-living-room-800w.webp',
+      AFTER:
+        '/images/before-after-comparison/projects-after-living-room-800w.webp',
     },
     PORCH: {
-      BEFORE: '/images/before-after-comparison/projects-before-front-porch-400w.webp',
-      AFTER: '/images/before-after-comparison/projects-after-front-porch-800w.webp',
+      BEFORE:
+        '/images/before-after-comparison/projects-before-front-porch-400w.webp',
+      AFTER:
+        '/images/before-after-comparison/projects-after-front-porch-800w.webp',
     },
   },
 
@@ -87,13 +92,13 @@ export const IMAGES = {
     HEART: '/images/icons/heart.svg',
     HOME: '/images/icons/home.svg',
     FAMILY: '/images/icons/family.svg',
-    
+
     // Property & Construction Icons
     PATIO: '/images/icons/american-flag-icon.svg',
     QUALITY: '/images/icons/quality-checklist.svg',
     COMMUNITY: '/images/icons/online-community.svg',
     PATRIOTISM: '/images/icons/patriotism.svg',
-    
+
     // Additional Support Icons
     VA_LOAN: '/images/icons/032-va-loan.png',
     SUPPORT: '/images/icons/019-heart.png',
@@ -105,5 +110,5 @@ export const IMAGES = {
   VIDEOS: {
     HERO_PROPERTIES: '/images/videos/hero-properties-banner.mp4',
     HERO_WORK: '/images/videos/hero-our-work-banner.mp4',
-  }
+  },
 } as const;

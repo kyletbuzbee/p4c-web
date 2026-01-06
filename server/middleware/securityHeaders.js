@@ -20,46 +20,36 @@ const createSecurityHeadersMiddleware = (options = {}) => {
           "'unsafe-inline'", // Required for React/Vite development
           "'unsafe-eval'", // Required for Vite dev server
           "https://apis.google.com",
-          "https://cdn.jsdelivr.net"
+          "https://cdn.jsdelivr.net",
         ],
         styleSrc: [
           "'self'",
           "'unsafe-inline'", // Required for Tailwind CSS
-          "https://fonts.googleapis.com"
+          "https://fonts.googleapis.com",
         ],
-        fontSrc: [
-          "'self'",
-          "https://fonts.gstatic.com"
-        ],
-        imgSrc: [
-          "'self'",
-          "data:",
-          "https:",
-          "blob:"
-        ],
+        fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+        imgSrc: ["'self'", 'data:', 'https:', 'blob:'],
         connectSrc: [
           "'self'",
           "https://generativelanguage.googleapis.com",
-          "https://api.gemini.google.com"
+          "https://api.gemini.google.com",
         ],
-        frameSrc: [
-          "'self'"
-        ],
+        frameSrc: ["'self'"],
         objectSrc: ["'none'"],
         mediaSrc: ["'self'"],
         workerSrc: ["'self'", "blob:"],
         childSrc: ["'self'"],
         formAction: ["'self'"],
         frameAncestors: ["'none'"],
-        baseUri: ["'self'"]
-      }
+        baseUri: ["'self'"],
+      },
     },
     referrerPolicy = { policy: "no-referrer-when-downgrade" },
     crossOriginEmbedderPolicy = false, // Disable for API compatibility
     hsts = {
       maxAge: 31536000,
       includeSubDomains: true,
-      preload: true
+      preload: true,
     },
     noSniff = true,
     xssFilter = true,
@@ -67,7 +57,7 @@ const createSecurityHeadersMiddleware = (options = {}) => {
     originAgentCluster = true,
     permittedCrossDomainPolicies = false,
     forceHTTPSRedirect = true,
-    excludeErrorPages = false
+    excludeErrorPages = false,
   } = options;
 
   return helmet({
@@ -86,7 +76,7 @@ const createSecurityHeadersMiddleware = (options = {}) => {
     xssFilter,
     // Additional security headers
     hidePoweredBy: true,
-    noSniff: true
+    noSniff: true,
   });
 };
 
@@ -104,27 +94,30 @@ const applySecurityHeaders = (req, res, next) => {
   res.setHeader('X-Frame-Options', 'DENY');
   res.setHeader('X-XSS-Protection', '1; mode=block');
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-  res.setHeader('Permissions-Policy', [
-    'accelerometer=()',
-    'autoplay=()',
-    'camera=()',
-    'clipboard-read=()',
-    'clipboard-write=()',
-    'display-capture=()',
-    'encrypted-media=()',
-    'fullscreen=()',
-    'geolocation=()',
-    'gyroscope=()',
-    'magnetometer=()',
-    'microphone=()',
-    'midi=()',
-    'payment=()',
-    'picture-in-picture=()',
-    'publickey-credentials-get=(self)',
-    'screen-wake-lock=()',
-    'serial=()',
-    'usb=()'
-  ].join(', '));
+  res.setHeader(
+    'Permissions-Policy',
+    [
+      'accelerometer=()',
+      'autoplay=()',
+      'camera=()',
+      'clipboard-read=()',
+      'clipboard-write=()',
+      'display-capture=()',
+      'encrypted-media=()',
+      'fullscreen=()',
+      'geolocation=()',
+      'gyroscope=()',
+      'magnetometer=()',
+      'microphone=()',
+      'midi=()',
+      'payment=()',
+      'picture-in-picture=()',
+      'publickey-credentials-get=(self)',
+      'screen-wake-lock=()',
+      'serial=()',
+      'usb=()',
+    ].join(', '),
+  );
 
   next();
 };
@@ -146,7 +139,7 @@ const handleCSPViolation = (req, res) => {
     lineNumber: req.body['line-number'],
     columnNumber: req.body['column-number'],
     userAgent: req.headers['user-agent'],
-    ip: req.ip
+    ip: req.ip,
   };
 
   // Log violation for monitoring (in production, send to security monitoring system)
@@ -163,5 +156,5 @@ const handleCSPViolation = (req, res) => {
 module.exports = {
   createSecurityHeadersMiddleware,
   applySecurityHeaders,
-  handleCSPViolation
+  handleCSPViolation,
 };

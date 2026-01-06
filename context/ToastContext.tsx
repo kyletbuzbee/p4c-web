@@ -25,7 +25,9 @@ export const useToast = () => {
   return context;
 };
 
-export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const ToastProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
 
   const addToast = useCallback((message: string, type: ToastType) => {
@@ -49,18 +51,23 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) =
           <div
             key={toast.id}
             className={`min-w-[300px] max-w-sm p-4 rounded-lg shadow-xl flex items-start gap-3 animate-slide-in text-white ${
-              toast.type === 'success' ? 'bg-green-600' :
-              toast.type === 'error' ? 'bg-red-600' :
-              'bg-blue-600'
+              toast.type === 'success'
+                ? 'bg-green-600'
+                : toast.type === 'error'
+                  ? 'bg-red-600'
+                  : 'bg-blue-600'
             }`}
           >
             <div className="mt-0.5">
-                {toast.type === 'success' && <CheckCircle className="w-5 h-5" />}
-                {toast.type === 'error' && <AlertCircle className="w-5 h-5" />}
-                {toast.type === 'info' && <Info className="w-5 h-5" />}
+              {toast.type === 'success' && <CheckCircle className="w-5 h-5" />}
+              {toast.type === 'error' && <AlertCircle className="w-5 h-5" />}
+              {toast.type === 'info' && <Info className="w-5 h-5" />}
             </div>
             <p className="flex-1 text-sm font-medium">{toast.message}</p>
-            <button onClick={() => removeToast(toast.id)} className="hover:opacity-80">
+            <button
+              onClick={() => removeToast(toast.id)}
+              className="hover:opacity-80"
+            >
               <X className="w-4 h-4" />
             </button>
           </div>

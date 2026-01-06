@@ -20,67 +20,71 @@ const STATIC_ASSETS = [
 const CACHE_STRATEGIES = {
   CACHE_FIRST: 'cache-first',
   NETWORK_FIRST: 'network-first',
-  STALE_WHILE_REVALIDATE: 'stale-while-revalidate'
+  STALE_WHILE_REVALIDATE: 'stale-while-revalidate',
 };
 
 // Install event - cache static assets
-self.addEventListener('install', (event) => {
-  console.log('[SW] Installing service worker');
-  
+self.addEventListener("install", (event) => {
+  console.log("[SW] Installing service worker");
+
   event.waitUntil(
-    caches.open(STATIC_CACHE)
+    caches
+      .open(STATIC_CACHE)
       .then((cache) => {
-        console.log('[SW] Caching static assets');
+        console.log("[SW] Caching static assets");
         return cache.addAll(STATIC_ASSETS);
       })
       .then(() => {
-        console.log('[SW] Static assets cached successfully');
+        console.log("[SW] Static assets cached successfully");
         return self.skipWaiting();
       })
       .catch((error) => {
-        console.error('[SW] Failed to cache static assets:', error);
-      })
+        console.error("[SW] Failed to cache static assets:", error);
+      }),
   );
 });
 
 // Activate event - clean up old caches
-self.addEventListener('activate', (event) => {
-  console.log('[SW] Activating service worker');
-  
+self.addEventListener("activate", (event) => {
+  console.log("[SW] Activating service worker");
+
   event.waitUntil(
-    caches.keys()
-      .then((cacheNames) => {
-        return Promise.all(
+    caches
+      .keys()
+      .then((cacheNames) =>
+        Promise.all(
           cacheNames.map((cacheName) => {
             // Delete old caches
-            if (cacheName !== STATIC_CACHE && 
-                cacheName !== DYNAMIC_CACHE && 
-                cacheName !== IMAGE_CACHE) {
-              console.log('[SW] Deleting old cache:', cacheName);
+            if (
+              cacheName !== STATIC_CACHE &&
+              cacheName !== DYNAMIC_CACHE &&
+              cacheName !== IMAGE_CACHE
+            ) {
+              console.log("[SW] Deleting old cache:", cacheName);
               return caches.delete(cacheName);
             }
-          })
-        );
-      })
+          }),
+        ),
+      )
       .then(() => {
-        console.log('[SW] Service worker activated');
+        console.log("[SW] Service worker activated");
         return self.clients.claim();
-      })
+      }),
   );
 });
 
 // Fetch event - handle requests with appropriate strategies
-self.addEventListener('fetch', (event) => {
+self.addEventListener("fetch", (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
   // Skip non-GET requests
-  if (request.method !== 'GET') {
+  if (request.method !== "GET") {
     return;
   }
 
   // Skip API requests (let them go to the server)
-  if (url.pathname.startsWith('/api/')) {
+  if (url.pathname.startsWith("/api/")) {
     return;
   }
 
@@ -105,13 +109,15 @@ function isImageRequest(request) {
 // Check if request is for a static asset
 function isStaticAsset(request) {
   const url = new URL(request.url);
-  return STATIC_ASSETS.some(asset => url.pathname === asset) ||
-         /\.(css|js|woff|woff2|ttf|otf)$/i.test(url.pathname);
+  return (
+    STATIC_ASSETS.some((asset) => url.pathname === asset) ||
+    /\.(css|js|woff|woff2|ttf|otf)$/i.test(url.pathname)
+  );
 }
 
 // Check if request is for navigation
 function isNavigationRequest(request) {
-  return request.mode === 'navigate';
+  return request.mode === "navigate";
 }
 
 // Cache-first strategy for images
@@ -127,14 +133,16 @@ async function handleImageRequest(request) {
       const cache = await caches.open(IMAGE_CACHE);
       cache.put(request, networkResponse.clone());
     }
-    
+
     return networkResponse;
   } catch (error) {
-    console.error('[SW] Image request failed:', error);
-    
+    console.error("[SW] Image request failed:", error);
+
     // Return a fallback image if available
-    const fallbackResponse = await caches.match('/images/fallback.png');
-    return fallbackResponse || new Response('Image not available', { status: 404 });
+    const fallbackResponse = await caches.match("/images/fallback.png");
+    return (
+      fallbackResponse || new Response("Image not available", { status: 404 })
+    );
   }
 }
 
@@ -151,11 +159,11 @@ async function handleStaticAsset(request) {
       const cache = await caches.open(STATIC_CACHE);
       cache.put(request, networkResponse.clone());
     }
-    
+
     return networkResponse;
   } catch (error) {
-    console.error('[SW] Static asset request failed:', error);
-    return new Response('Asset not available', { status: 404 });
+    console.error("[SW] Static asset request failed:", error);
+    return new Response("Asset not available", { status: 404 });
   }
 }
 
@@ -163,26 +171,28 @@ async function handleStaticAsset(request) {
 async function handleNavigationRequest(request) {
   try {
     const networkResponse = await fetch(request);
-    
+
     // Cache successful responses
     if (networkResponse.ok) {
       const cache = await caches.open(DYNAMIC_CACHE);
       cache.put(request, networkResponse.clone());
     }
-    
+
     return networkResponse;
   } catch (error) {
-    console.error('[SW] Navigation request failed, trying cache:', error);
-    
+    console.error("[SW] Navigation request failed, trying cache:", error);
+
     // Fallback to cached version
     const cachedResponse = await caches.match(request);
     if (cachedResponse) {
       return cachedResponse;
     }
-    
+
     // Final fallback to index.html for SPA routing
-    const fallbackResponse = await caches.match('/index.html');
-    return fallbackResponse || new Response('Page not available', { status: 404 });
+    const fallbackResponse = await caches.match("/index.html");
+    return (
+      fallbackResponse || new Response("Page not available", { status: 404 })
+    );
   }
 }
 
@@ -190,18 +200,18 @@ async function handleNavigationRequest(request) {
 async function handleDynamicRequest(request) {
   try {
     const cachedResponse = await caches.match(request);
-    
+
     // Fetch from network in background
     const networkResponsePromise = fetch(request)
       .then((networkResponse) => {
         if (networkResponse.ok) {
           const cache = caches.open(DYNAMIC_CACHE);
-          cache.then(c => c.put(request, networkResponse.clone()));
+          cache.then((c) => c.put(request, networkResponse.clone()));
         }
         return networkResponse;
       })
       .catch((error) => {
-        console.error('[SW] Network request failed:', error);
+        console.error("[SW] Network request failed:", error);
         return null;
       });
 
@@ -211,23 +221,26 @@ async function handleDynamicRequest(request) {
       networkResponsePromise;
       return cachedResponse;
     }
-    
+
     // Wait for network if no cache
     const networkResponse = await networkResponsePromise;
-    return networkResponse || new Response('Content not available', { status: 404 });
-    
+    return (
+      networkResponse || new Response("Content not available", { status: 404 })
+    );
   } catch (error) {
-    console.error('[SW] Dynamic request failed:', error);
-    
+    console.error("[SW] Dynamic request failed:", error);
+
     const cachedResponse = await caches.match(request);
-    return cachedResponse || new Response('Content not available', { status: 404 });
+    return (
+      cachedResponse || new Response("Content not available", { status: 404 })
+    );
   }
 }
 
 // Background sync for offline actions
-self.addEventListener('sync', (event) => {
-  if (event.tag === 'background-sync') {
-    console.log('[SW] Background sync triggered');
+self.addEventListener("sync", (event) => {
+  if (event.tag === "background-sync") {
+    console.log("[SW] Background sync triggered");
     event.waitUntil(performBackgroundSync());
   }
 });
@@ -236,39 +249,37 @@ self.addEventListener('sync', (event) => {
 async function performBackgroundSync() {
   try {
     // Sync any pending data when connection is restored
-    console.log('[SW] Performing background sync');
+    console.log("[SW] Performing background sync");
     // Add your background sync logic here
   } catch (error) {
-    console.error('[SW] Background sync failed:', error);
+    console.error("[SW] Background sync failed:", error);
   }
 }
 
 // Push notifications (if needed in future)
-self.addEventListener('push', (event) => {
-  console.log('[SW] Push notification received');
-  
+self.addEventListener("push", (event) => {
+  console.log("[SW] Push notification received");
+
   const options = {
-    body: event.data ? event.data.text() : 'New notification',
-    icon: '/icon-192x192.png',
-    badge: '/badge-72x72.png',
-    tag: 'p4c-notification',
-    requireInteraction: true
+    body: event.data ? event.data.text() : "New notification",
+    icon: "/icon-192x192.png",
+    badge: "/badge-72x72.png",
+    tag: "p4c-notification",
+    requireInteraction: true,
   };
-  
+
   event.waitUntil(
-    self.registration.showNotification('Properties 4 Creation', options)
+    self.registration.showNotification("Properties 4 Creation", options),
   );
 });
 
 // Handle notification clicks
-self.addEventListener('notificationclick', (event) => {
-  console.log('[SW] Notification clicked');
-  
+self.addEventListener("notificationclick", (event) => {
+  console.log("[SW] Notification clicked");
+
   event.notification.close();
-  
-  event.waitUntil(
-    clients.openWindow('/')
-  );
+
+  event.waitUntil(clients.openWindow("/"));
 });
 
-console.log('[SW] Service worker loaded successfully');
+console.log("[SW] Service worker loaded successfully");

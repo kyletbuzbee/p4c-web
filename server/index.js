@@ -14,7 +14,7 @@ const {
   applyEnhancedSecurityHeaders,
   handleCSPViolation,
   applyAPISecurityHeaders,
-  generateSecurityHeadersReport
+  generateSecurityHeadersReport,
 } = require('./middleware/enhancedSecurityHeaders');
 
 // Import comprehensive security middleware
@@ -25,14 +25,14 @@ const {
   createDynamicSecurityHeaders,
   createAPIKeyValidator,
   createSecurityLogger,
-  createSecurityErrorHandler
+  createSecurityErrorHandler,
 } = require('./middleware/comprehensiveSecurity');
 
 // Import performance monitoring
 const {
   createPerformanceMonitor,
   createPerformanceEndpoints,
-  metricsAggregator
+  metricsAggregator,
 } = require('./middleware/performanceMonitoring');
 
 // Load environment variables
@@ -42,28 +42,55 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Enhanced Security middleware
-app.use(createEnhancedSecurityHeadersMiddleware({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdn.jsdelivr.net"],
-      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://apis.google.com", "https://cdn.jsdelivr.net"],
-      imgSrc: ["'self'", "data:", "https:", "blob:", "https://*.googleusercontent.com"],
-      fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdn.jsdelivr.net"],
-      connectSrc: ["'self'", "https://generativelanguage.googleapis.com", "https://api.gemini.google.com"],
-      frameSrc: ["'self'"],
-      objectSrc: ["'none'"],
-      mediaSrc: ["'self'", "https:", "blob:"],
-      workerSrc: ["'self'", "blob:"],
-      childSrc: ["'self'"],
-      formAction: ["'self'"],
-      frameAncestors: ["'none'"],
-      baseUri: ["'self'"],
-      manifestSrc: ["'self'"],
-      reportUri: '/api/security/csp-violation'
-    }
-  }
-}));
+app.use(
+  createEnhancedSecurityHeadersMiddleware({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          'https://fonts.googleapis.com',
+          'https://cdn.jsdelivr.net',
+        ],
+        scriptSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "'unsafe-eval'",
+          'https://apis.google.com',
+          'https://cdn.jsdelivr.net',
+        ],
+        imgSrc: [
+          "'self'",
+          'data:',
+          'https:',
+          'blob:',
+          'https://*.googleusercontent.com',
+        ],
+        fontSrc: [
+          "'self'",
+          'https://fonts.gstatic.com',
+          'https://cdn.jsdelivr.net',
+        ],
+        connectSrc: [
+          "'self'",
+          'https://generativelanguage.googleapis.com',
+          'https://api.gemini.google.com',
+        ],
+        frameSrc: ["'self'"],
+        objectSrc: ["'none'"],
+        mediaSrc: ["'self'", 'https:', 'blob:'],
+        workerSrc: ["'self'", 'blob:'],
+        childSrc: ["'self'"],
+        formAction: ["'self'"],
+        frameAncestors: ["'none'"],
+        baseUri: ["'self'"],
+        manifestSrc: ["'self'"],
+        reportUri: '/api/security/csp-violation',
+      },
+    },
+  }),
+);
 
 // Performance monitoring middleware
 app.use(createPerformanceMonitor());
@@ -71,30 +98,38 @@ app.use(createPerformanceMonitor());
 // Apply additional security headers for all routes
 app.use(applyEnhancedSecurityHeaders);
 
-app.use(cors({
-  origin: process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:3000'],
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
-}));
+app.use(
+  cors({
+    origin: process.env.ALLOWED_ORIGINS?.split(',') || [
+      'http://localhost:3000',
+    ],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  }),
+);
 
 // Comprehensive security middleware
-app.use(createAdvancedRateLimiter({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-  skipSuccessfulRequests: false,
-  skipFailedRequests: false,
-  standardHeaders: true,
-  legacyHeaders: false
-}));
+app.use(
+  createAdvancedRateLimiter({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // limit each IP to 100 requests per windowMs
+    skipSuccessfulRequests: false,
+    skipFailedRequests: false,
+    standardHeaders: true,
+    legacyHeaders: false,
+  }),
+);
 
 // Input validation and sanitization
 app.use(createInputValidation());
 
 // Request size limiting
-app.use(createSizeLimiter({
-  limit: '10mb'
-}));
+app.use(
+  createSizeLimiter({
+    limit: '10mb',
+  }),
+);
 
 // Security logging
 app.use(createSecurityLogger());
@@ -112,7 +147,7 @@ const validateInput = (req, res, next) => {
         '>': '>',
         '"': '"',
         "'": '&#x27;',
-        '&': '&'
+        '&': '&',
       };
       return entities[match];
     });
@@ -140,9 +175,9 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const verifyApiKey = (req, res, next) => {
   if (!process.env.GEMINI_API_KEY) {
     console.error('GEMINI_API_KEY not configured');
-    return res.status(500).json({ 
+    return res.status(500).json({
       error: 'Server configuration error',
-      code: 'API_KEY_MISSING'
+      code: 'API_KEY_MISSING',
     });
   }
   next();
@@ -161,55 +196,60 @@ app.use('/api/', applyAPISecurityHeaders);
 app.post('/api/ai/edit-image', verifyApiKey, async (req, res) => {
   try {
     const { base64Image, mimeType, prompt } = req.body;
-    
+
     // Input validation
     if (!base64Image || !mimeType || !prompt) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         error: 'Missing required fields',
         code: 'VALIDATION_ERROR',
-        details: ['base64Image', 'mimeType', 'prompt']
+        details: ['base64Image', 'mimeType', 'prompt'],
       });
     }
 
     // Validate base64 format
     const base64Regex = /^[A-Za-z0-9+/]*={0,2}$/;
     if (!base64Regex.test(base64Image)) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         error: 'Invalid image format',
-        code: 'INVALID_IMAGE_FORMAT'
+        code: 'INVALID_IMAGE_FORMAT',
       });
     }
 
     // Validate MIME type
-    const allowedMimeTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+    const allowedMimeTypes = [
+      'image/jpeg',
+      'image/jpg',
+      'image/png',
+      'image/webp',
+    ];
     if (!allowedMimeTypes.includes(mimeType)) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         error: 'Unsupported image format',
         code: 'UNSUPPORTED_FORMAT',
-        allowedFormats: allowedMimeTypes
+        allowedFormats: allowedMimeTypes,
       });
     }
 
     // Validate prompt length
     if (prompt.length > 1000) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         error: 'Prompt too long',
         code: 'PROMPT_TOO_LONG',
-        maxLength: 1000
+        maxLength: 1000,
       });
     }
 
     console.log(`Processing image edit request from ${req.ip}`);
 
     const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-image' });
-    
+
     const result = await model.generateContent({
       contents: {
         parts: [
           {
             inlineData: {
               data: base64Image,
-              mimeType: mimeType,
+              mimeType,
             },
           },
           {
@@ -225,25 +265,24 @@ app.post('/api/ai/edit-image', verifyApiKey, async (req, res) => {
         return res.json({
           success: true,
           data: `data:image/png;base64,${part.inlineData.data}`,
-          timestamp: new Date().toISOString()
+          timestamp: new Date().toISOString(),
         });
       }
     }
 
     console.warn('No image data returned from AI service');
-    res.status(500).json({ 
+    res.status(500).json({
       error: 'Failed to process image',
-      code: 'PROCESSING_FAILED'
+      code: 'PROCESSING_FAILED',
     });
-
   } catch (error) {
     console.error('Image edit proxy error:', error);
-    
+
     // Don't expose internal error details
-    res.status(500).json({ 
+    res.status(500).json({
       error: 'Internal server error',
       code: 'INTERNAL_ERROR',
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 });
@@ -252,20 +291,20 @@ app.post('/api/ai/edit-image', verifyApiKey, async (req, res) => {
 app.post('/api/ai/chat', verifyApiKey, async (req, res) => {
   try {
     const { message, history } = req.body;
-    
+
     // Input validation
     if (!message || typeof message !== 'string') {
-      return res.status(400).json({ 
+      return res.status(400).json({
         error: 'Message is required',
-        code: 'VALIDATION_ERROR'
+        code: 'VALIDATION_ERROR',
       });
     }
 
     if (message.length > 4000) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         error: 'Message too long',
         code: 'MESSAGE_TOO_LONG',
-        maxLength: 4000
+        maxLength: 4000,
       });
     }
 
@@ -284,7 +323,7 @@ app.post('/api/ai/chat', verifyApiKey, async (req, res) => {
       - Location: Tyler, TX.
       
       Tone: Warm, professional, dignified, and helpful. Keep answers concise (under 3 sentences when possible).
-      Do not make up specific property availability, just say check the 'Homes' page.`
+      Do not make up specific property availability, just say check the 'Homes' page.`,
     });
 
     const chat = model.startChat({
@@ -292,24 +331,25 @@ app.post('/api/ai/chat', verifyApiKey, async (req, res) => {
     });
 
     const result = await chat.sendMessage(message);
-    
-    const response = result.response.text() || "I'm sorry, I couldn't process that request right now.";
-    
+
+    const response =
+      result.response.text() ||
+      "I'm sorry, I couldn't process that request right now.";
+
     console.log('Chat response successful');
     res.json({
       success: true,
       message: response,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
-
   } catch (error) {
     console.error('Chat proxy error:', error);
-    
+
     // Don't expose internal error details
-    res.status(500).json({ 
+    res.status(500).json({
       error: 'Failed to process chat request',
       code: 'CHAT_PROCESSING_FAILED',
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 });
@@ -323,8 +363,8 @@ app.get('/api/health', (req, res) => {
     services: {
       api: !!process.env.GEMINI_API_KEY,
       cors: true,
-      security: true
-    }
+      security: true,
+    },
   });
 });
 
@@ -337,18 +377,22 @@ app.use('*', (req, res) => {
     error: 'Endpoint not found',
     code: 'NOT_FOUND',
     path: req.originalUrl,
-    method: req.method
+    method: req.method,
   });
 });
 
 app.listen(PORT, () => {
   console.log(`🚀 Enterprise Security Proxy running on port ${PORT}`);
-  console.log(`🔒 Security headers enabled`);
-  console.log(`⚡ Rate limiting active (100 requests/15min)`);
-  console.log(`🌍 CORS configured for: ${process.env.ALLOWED_ORIGINS || 'http://localhost:3000'}`);
-  
+  console.log("🔒 Security headers enabled");
+  console.log("⚡ Rate limiting active (100 requests/15min)");
+  console.log(
+    `🌍 CORS configured for: ${process.env.ALLOWED_ORIGINS || 'http://localhost:3000'}`,
+  );
+
   if (!process.env.GEMINI_API_KEY) {
-    console.warn('⚠️  WARNING: GEMINI_API_KEY not configured in environment variables');
+    console.warn(
+      '⚠️  WARNING: GEMINI_API_KEY not configured in environment variables',
+    );
   }
 });
 

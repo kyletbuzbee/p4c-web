@@ -5,57 +5,61 @@ const crypto = require('crypto');
 const { logSecurityEvent } = require('./logging');
 
 // Rate limiting configurations
-const createRateLimiter = (options = {}) => {
-  return rateLimit({
+const createRateLimiter = (options = {}) =>
+  rateLimit({
     windowMs: options.windowMs || 15 * 60 * 1000, // 15 minutes
     max: options.max || 100, // limit each IP to 100 requests per windowMs
     message: {
-      error: 'Too many requests',
-      retryAfter: options.windowMs || 900000
+      error: "Too many requests",
+      retryAfter: options.windowMs || 900000,
     },
     standardHeaders: true,
     legacyHeaders: false,
     handler: (req, res) => {
-      logSecurityEvent('rate_limit_exceeded', 'medium', 'Rate limit exceeded', req, {
-        ip: req.ip,
-        attempts: req.rateLimit?.totalHits || 0
-      });
+      logSecurityEvent(
+        "rate_limit_exceeded",
+        "medium",
+        "Rate limit exceeded",
+        req,
+        {
+          ip: req.ip,
+          attempts: req.rateLimit?.totalHits || 0,
+        },
+      );
       res.status(429).json({
-        error: 'Too many requests',
-        retryAfter: req.rateLimit?.resetTime
+        error: "Too many requests",
+        retryAfter: req.rateLimit?.resetTime,
       });
     },
-    skip: (req) => {
+    skip: (req) =>
       // Skip rate limiting for health checks
-      return req.path === '/health' || req.path === '/metrics';
-    }
+      req.path === '/health' || req.path === '/metrics',
   });
-};
 
 // Stricter rate limiter for authentication endpoints
 const authRateLimiter = createRateLimiter({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 5, // 5 attempts per window
-  message: 'Too many authentication attempts'
+  message: 'Too many authentication attempts',
 });
 
 // General API rate limiter
 const apiRateLimiter = createRateLimiter({
   windowMs: 15 * 60 * 1000,
-  max: 100
+  max: 100,
 });
 
 // Upload rate limiter (stricter for file uploads)
 const uploadRateLimiter = createRateLimiter({
   windowMs: 60 * 60 * 1000, // 1 hour
-  max: 10 // 10 uploads per hour
+  max: 10, // 10 uploads per hour
 });
 
 // Speed limiter to slow down repeated requests
 const speedLimiter = slowDown({
   windowMs: 15 * 60 * 1000, // 15 minutes
   delayAfter: 50, // allow 50 requests per 15 minutes at full speed
-  delayMs: 500 // add 500ms delay per request after delayAfter
+  delayMs: 500, // add 500ms delay per request after delayAfter
 });
 
 // Request validation rules
@@ -69,25 +73,33 @@ const validate = {
       .withMessage('Valid email is required'),
     body('password')
       .isLength({ min: 8, max: 128 })
-      .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/)
-      .withMessage('Password must be 8-128 characters with uppercase, lowercase, number, and special character'),
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
+      )
+      .withMessage(
+        'Password must be 8-128 characters with uppercase, lowercase, number, and special character',
+      ),
     body('firstName')
       .trim()
       .isLength({ min: 1, max: 50 })
       .matches(/^[a-zA-Z\s]+$/)
-      .withMessage('First name must contain only letters and be 1-50 characters'),
+      .withMessage(
+        'First name must contain only letters and be 1-50 characters',
+      ),
     body('lastName')
       .trim()
       .isLength({ min: 1, max: 50 })
       .matches(/^[a-zA-Z\s]+$/)
-      .withMessage('Last name must contain only letters and be 1-50 characters'),
+      .withMessage(
+        'Last name must contain only letters and be 1-50 characters',
+      ),
     body('phone')
       .optional()
       .isMobilePhone('any')
       .withMessage('Valid phone number is required'),
     body('role')
       .isIn(['tenant', 'landlord', 'admin'])
-      .withMessage('Role must be tenant, landlord, or admin')
+      .withMessage('Role must be tenant, landlord, or admin'),
   ],
 
   // Property validation
@@ -99,7 +111,9 @@ const validate = {
     body('description')
       .trim()
       .isLength({ min: 1, max: 2000 })
-      .withMessage('Description is required and must be less than 2000 characters'),
+      .withMessage(
+        'Description is required and must be less than 2000 characters',
+      ),
     body('address.street')
       .trim()
       .isLength({ min: 1, max: 100 })
@@ -132,7 +146,7 @@ const validate = {
       .withMessage('Square feet must be between 1 and 50000'),
     body('propertyType')
       .isIn(['apartment', 'house', 'condo', 'townhouse', 'studio'])
-      .withMessage('Invalid property type')
+      .withMessage('Invalid property type'),
   ],
 
   // Query validation
@@ -152,15 +166,11 @@ const validate = {
     query('sortOrder')
       .optional()
       .isIn(['asc', 'desc'])
-      .withMessage('Sort order must be asc or desc')
+      .withMessage('Sort order must be asc or desc'),
   ],
 
   // Parameter validation
-  validateId: [
-    param('id')
-      .isUUID()
-      .withMessage('Valid UUID is required')
-  ],
+  validateId: [param('id').isUUID().withMessage('Valid UUID is required')],
 
   // Contact form validation
   contactForm: [
@@ -184,8 +194,8 @@ const validate = {
     body('message')
       .trim()
       .isLength({ min: 1, max: 2000 })
-      .withMessage('Message is required and must be less than 2000 characters')
-  ]
+      .withMessage('Message is required and must be less than 2000 characters'),
+  ],
 };
 
 // Request sanitization middleware
@@ -194,8 +204,14 @@ const sanitizeRequest = (req, res, next) => {
   const sanitizeString = (str) => {
     if (typeof str !== 'string') return str;
     return str
-      .replace(/<(?:script|iframe|object|embed|form|link|meta|base|input|textarea|select|button)[\s\S]*?<\/(?:script|iframe|object|embed|form|link|meta|base|input|textarea|select|button)>/gi, '') // Remove dangerous HTML tags
-      .replace(/<[^>]*(?:on\w+|href|src|data|action|formaction|style)[^>]*>/gi, '') // Remove event handlers and dangerous attributes
+      .replace(
+        /<(?:script|iframe|object|embed|form|link|meta|base|input|textarea|select|button)[\s\S]*?<\/(?:script|iframe|object|embed|form|link|meta|base|input|textarea|select|button)>/gi,
+        '',
+      ) // Remove dangerous HTML tags
+      .replace(
+        /<[^>]*(?:on\w+|href|src|data|action|formaction|style)[^>]*>/gi,
+        '',
+      ) // Remove event handlers and dangerous attributes
       .replace(/(?:javascript|vbscript|data|file|ftp):/gi, '') // Remove dangerous protocols
       .replace(/[\r\n\t]+/g, ' ') // Normalize whitespace
       .replace(/\s+/g, ' ') // Collapse multiple spaces
@@ -217,9 +233,9 @@ const sanitizeRequest = (req, res, next) => {
 
 const sanitizeObject = (obj, sanitizeFn) => {
   if (Array.isArray(obj)) {
-    return obj.map(item => sanitizeObject(item, sanitizeFn));
+    return obj.map((item) => sanitizeObject(item, sanitizeFn));
   }
-  
+
   if (obj && typeof obj === 'object') {
     const sanitized = {};
     for (const [key, value] of Object.entries(obj)) {
@@ -227,7 +243,7 @@ const sanitizeObject = (obj, sanitizeFn) => {
     }
     return sanitized;
   }
-  
+
   return typeof obj === 'string' ? sanitizeFn(obj) : obj;
 };
 
@@ -240,7 +256,7 @@ const preventSQLInjection = (req, res, next) => {
     /(\b(OR|AND)\b\s*['"]?\w+['"]?\s*=\s*['"]?\w+['"]?)/gi,
     /https?:\/\/[^\/]*@/gi, // URL scheme validation - prevent user:pass@host
     /file:\/\//gi, // Block file:// protocol
-    /data:\/\//gi // Block data: protocol
+    /data:\/\//gi, // Block data: protocol
   ];
 
   const checkForSQL = (obj) => {
@@ -248,11 +264,17 @@ const preventSQLInjection = (req, res, next) => {
       if (typeof value === 'string') {
         for (const pattern of sqlPatterns) {
           if (pattern.test(value)) {
-            logSecurityEvent('sql_injection_attempt', 'high', 'SQL injection attempt detected', req, {
-              key,
-              value,
-              pattern: pattern.source
-            });
+            logSecurityEvent(
+              'sql_injection_attempt',
+              'high',
+              'SQL injection attempt detected',
+              req,
+              {
+                key,
+                value,
+                pattern: pattern.source,
+              },
+            );
             return true;
           }
         }
@@ -266,7 +288,7 @@ const preventSQLInjection = (req, res, next) => {
 
   if (checkForSQL(req.body) || checkForSQL(req.query)) {
     return res.status(400).json({
-      error: 'Invalid input detected'
+      error: 'Invalid input detected',
     });
   }
 
@@ -288,13 +310,19 @@ const validateFileUpload = (req, res, next) => {
 
     for (const uploadedFile of files) {
       if (!allowedTypes.includes(uploadedFile.mimetype)) {
-        logSecurityEvent('invalid_file_type', 'medium', 'Invalid file type uploaded', req, {
-          fieldName,
-          mimetype: uploadedFile.mimetype,
-          filename: uploadedFile.name
-        });
+        logSecurityEvent(
+          'invalid_file_type',
+          'medium',
+          'Invalid file type uploaded',
+          req,
+          {
+            fieldName,
+            mimetype: uploadedFile.mimetype,
+            filename: uploadedFile.name,
+          },
+        );
         return res.status(400).json({
-          error: `Invalid file type. Allowed types: ${allowedTypes.join(', ')}`
+          error: `Invalid file type. Allowed types: ${allowedTypes.join(', ')}`,
         });
       }
 
@@ -302,10 +330,10 @@ const validateFileUpload = (req, res, next) => {
         logSecurityEvent('file_too_large', 'medium', 'File too large', req, {
           fieldName,
           size: uploadedFile.size,
-          maxSize
+          maxSize,
         });
         return res.status(400).json({
-          error: `File too large. Maximum size: ${maxSize / 1024 / 1024}MB`
+          error: `File too large. Maximum size: ${maxSize / 1024 / 1024}MB`,
         });
       }
     }
@@ -321,7 +349,7 @@ const preventXSS = (req, res, next) => {
     /<[^>]*(?:on\w+|href|src|data|action|formaction|style)[^>]*>/gi,
     /(?:javascript|vbscript|data|file|ftp):/gi,
     /[\r\n\t]+/g,
-    /<[^>]*>/g
+    /<[^>]*>/g,
   ];
 
   const checkForXSS = (obj) => {
@@ -329,11 +357,17 @@ const preventXSS = (req, res, next) => {
       if (typeof value === 'string') {
         for (const pattern of xssPatterns) {
           if (pattern.test(value)) {
-            logSecurityEvent('xss_attempt', 'high', 'XSS attempt detected', req, {
-              key,
-              value: value.substring(0, 100), // Log first 100 chars
-              pattern: pattern.source
-            });
+            logSecurityEvent(
+              'xss_attempt',
+              'high',
+              'XSS attempt detected',
+              req,
+              {
+                key,
+                value: value.substring(0, 100), // Log first 100 chars
+                pattern: pattern.source,
+              },
+            );
             return true;
           }
         }
@@ -347,7 +381,7 @@ const preventXSS = (req, res, next) => {
 
   if (checkForXSS(req.body) || checkForXSS(req.query)) {
     return res.status(400).json({
-      error: 'Potentially dangerous content detected'
+      error: 'Potentially dangerous content detected',
     });
   }
 
@@ -362,10 +396,10 @@ const validateRequestSize = (req, res, next) => {
   if (contentLength && parseInt(contentLength) > maxSize) {
     logSecurityEvent('request_too_large', 'medium', 'Request too large', req, {
       contentLength,
-      maxSize
+      maxSize,
     });
     return res.status(413).json({
-      error: 'Request payload too large'
+      error: 'Request payload too large',
     });
   }
 
@@ -376,12 +410,18 @@ const validateRequestSize = (req, res, next) => {
 const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    logSecurityEvent('validation_error', 'low', 'Request validation failed', req, {
-      errors: errors.array()
-    });
+    logSecurityEvent(
+      'validation_error',
+      'low',
+      'Request validation failed',
+      req,
+      {
+        errors: errors.array(),
+      },
+    );
     return res.status(400).json({
       error: 'Validation failed',
-      details: errors.array()
+      details: errors.array(),
     });
   }
   next();
@@ -399,5 +439,5 @@ module.exports = {
   validateFileUpload,
   preventXSS,
   validateRequestSize,
-  handleValidationErrors
+  handleValidationErrors,
 };

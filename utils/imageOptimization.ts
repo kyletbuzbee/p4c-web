@@ -27,11 +27,11 @@ export interface ResponsiveImageConfig {
 export const detectImageFormatSupport = (): ImageFormat => {
   const webp = checkWebPSupport();
   const avif = checkAVIFSupport();
-  
+
   return {
     webp,
     avif,
-    original: 'jpeg'
+    original: 'jpeg',
   };
 };
 
@@ -52,7 +52,9 @@ const checkAVIFSupport = (): boolean => {
 };
 
 // Get optimal image format based on browser support
-export const getOptimalImageFormat = (formats: ImageFormat): 'avif' | 'webp' | 'jpeg' => {
+export const getOptimalImageFormat = (
+  formats: ImageFormat,
+): 'avif' | 'webp' | 'jpeg' => {
   if (formats.avif) return 'avif';
   if (formats.webp) return 'webp';
   return 'jpeg';
@@ -62,15 +64,14 @@ export const getOptimalImageFormat = (formats: ImageFormat): 'avif' | 'webp' | '
 export const generateResponsiveSrcset = (
   baseUrl: string,
   widths: number[],
-  format: 'avif' | 'webp' | 'jpeg' = 'webp'
-): string => {
-  return widths
-    .map(width => {
+  format: 'avif' | 'webp' | 'jpeg' = 'webp',
+): string =>
+  widths
+    .map((width) => {
       const url = `${baseUrl}-${width}w.${format}`;
       return `${url} ${width}w`;
     })
     .join(', ');
-};
 
 // Generate optimized image URL
 export const generateOptimizedImageUrl = (
@@ -81,16 +82,22 @@ export const generateOptimizedImageUrl = (
     quality?: number;
     format?: 'avif' | 'webp' | 'jpeg';
     blur?: boolean;
-  } = {}
+  } = {},
 ): string => {
-  const { width, height, quality = 80, format = 'webp', blur = false } = options;
-  
+  const {
+    width,
+    height,
+    quality = 80,
+    format = 'webp',
+    blur = false,
+  } = options;
+
   const params = new URLSearchParams();
   if (width) params.set('w', width.toString());
   if (height) params.set('h', height.toString());
   if (quality !== 80) params.set('q', quality.toString());
   if (blur) params.set('blur', '50');
-  
+
   const formatParam = format === 'jpeg' ? 'jpg' : format;
   return `${baseUrl}.${formatParam}${params.toString() ? `?${params.toString()}` : ''}`;
 };
@@ -102,17 +109,17 @@ export class LazyImageLoader {
 
   constructor(
     callback?: (entries: IntersectionObserverEntry[]) => void,
-    config: IntersectionObserverInit = {}
+    config: IntersectionObserverInit = {},
   ) {
     this.config = {
       rootMargin: '50px',
       threshold: 0.01,
-      ...config
+      ...config,
     };
 
     this.observer = new IntersectionObserver(
       callback || this.handleIntersection.bind(this),
-      this.config
+      this.config,
     );
   }
 
@@ -129,7 +136,7 @@ export class LazyImageLoader {
   }
 
   private handleIntersection(entries: IntersectionObserverEntry[]): void {
-    entries.forEach(entry => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const img = entry.target as HTMLImageElement;
         this.loadImage(img);
@@ -139,8 +146,8 @@ export class LazyImageLoader {
   }
 
   private loadImage(img: HTMLImageElement): void {
-    const src = img.dataset['src'];
-    const srcset = img.dataset['srcset'];
+    const src = img.dataset.src;
+    const srcset = img.dataset.srcset;
 
     if (src) {
       img.src = src;
@@ -164,7 +171,7 @@ export const imageOptimizationConfig: OptimizedImageConfig = {
   quality: 80,
   progressive: true,
   lossy: true,
-  effort: 4
+  effort: 4,
 };
 
 // Responsive image configuration
@@ -177,13 +184,13 @@ export const responsiveImageConfig: ResponsiveImageConfig = {
     '(max-width: 768px) 100vw',
     '(max-width: 1024px) 100vw',
     '(max-width: 1280px) 100vw',
-    '100vw'
-  ]
+    '100vw',
+  ],
 };
 
 // Preload critical images
 export const preloadCriticalImages = (imageUrls: string[]): void => {
-  imageUrls.forEach(url => {
+  imageUrls.forEach((url) => {
     const link = document.createElement('link');
     link.rel = 'preload';
     link.as = 'image';
@@ -194,10 +201,10 @@ export const preloadCriticalImages = (imageUrls: string[]): void => {
 };
 
 // Generate blur placeholder for lazy loading
-export const generateBlurPlaceholder = (): string => {
+export const generateBlurPlaceholder = (): string =>
   // This would typically be handled by a build-time process
   // For now, return a simple data URL
-  return `data:image/svg+xml;base64,${btoa(`
+  `data:image/svg+xml;base64,${btoa(`
     <svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <filter id="blur">
@@ -207,4 +214,3 @@ export const generateBlurPlaceholder = (): string => {
       <rect width="400" height="300" fill="#f0f0f0" filter="url(#blur)" />
     </svg>
   `)}`;
-};

@@ -32,7 +32,10 @@ const ImageOptimizer: React.FC<ImageOptimizerProps> = ({
   const imgRef = useRef<HTMLImageElement>(null);
 
   // Generate optimized image URLs
-  const generateOptimizedSrc = (originalSrc: string, format: string = 'webp') => {
+  const generateOptimizedSrc = (
+    originalSrc: string,
+    format: string = 'webp',
+  ) => {
     // In a real implementation, this would call an image optimization service
     // For now, we'll simulate format conversion and responsive sizing
 
@@ -49,25 +52,24 @@ const ImageOptimizer: React.FC<ImageOptimizerProps> = ({
   const generateSrcSet = (originalSrc: string) => {
     const widths = [320, 640, 1024, 1920];
     return widths
-      .map(width => `${generateOptimizedSrc(originalSrc)} ${width}w`)
+      .map((width) => `${generateOptimizedSrc(originalSrc)} ${width}w`)
       .join(', ');
   };
 
   // Check browser WebP/AVIF support
-  const checkFormatSupport = () => {
-    return new Promise<string>((resolve) => {
-      const canvas = document.createElement('canvas');
+  const checkFormatSupport = () =>
+    new Promise<string>((resolve) => {
+      const canvas = document.createElement("canvas");
       canvas.width = 1;
       canvas.height = 1;
 
       // Test AVIF support
-      canvas.toDataURL('image/avif').startsWith('data:image/avif')
-        ? resolve('avif')
-        : canvas.toDataURL('image/webp').startsWith('data:image/webp')
-        ? resolve('webp')
-        : resolve('jpeg');
+      canvas.toDataURL("image/avif").startsWith("data:image/avif")
+        ? resolve("avif")
+        : canvas.toDataURL("image/webp").startsWith("data:image/webp")
+          ? resolve("webp")
+          : resolve("jpeg");
     });
-  };
 
   useEffect(() => {
     let isMounted = true;
@@ -107,7 +109,6 @@ const ImageOptimizer: React.FC<ImageOptimizerProps> = ({
 
         // Set source
         img.src = optimizedSrc;
-
       } catch (error) {
         console.warn('Image optimization failed, using original:', error);
         if (isMounted) {
@@ -133,8 +134,8 @@ const ImageOptimizer: React.FC<ImageOptimizerProps> = ({
         },
         {
           rootMargin: '50px', // Load 50px before entering viewport
-          threshold: 0.01
-        }
+          threshold: 0.01,
+        },
       );
 
       if (imgRef.current) {
@@ -154,7 +155,9 @@ const ImageOptimizer: React.FC<ImageOptimizerProps> = ({
   }, [src, priority, onLoad, onError]);
 
   // Generate sizes attribute for responsive images
-  const sizes = width ? `${width}px` : '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
+  const sizes = width
+    ? `${width}px`
+    : '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
 
   return (
     <img
@@ -171,7 +174,7 @@ const ImageOptimizer: React.FC<ImageOptimizerProps> = ({
         // Add blur effect while loading
         filter: !isLoaded ? 'blur(10px)' : 'none',
         transition: 'filter 0.3s ease-in-out, opacity 0.3s ease-in-out',
-        opacity: isLoaded ? 1 : 0.7
+        opacity: isLoaded ? 1 : 0.7,
       }}
       loading={priority ? 'eager' : 'lazy'}
       decoding="async"
@@ -181,10 +184,9 @@ const ImageOptimizer: React.FC<ImageOptimizerProps> = ({
 };
 
 // Progressive image component with blur placeholder
-export const ProgressiveImage: React.FC<ImageOptimizerProps & { blurDataURL?: string }> = ({
-  blurDataURL,
-  ...props
-}) => {
+export const ProgressiveImage: React.FC<
+  ImageOptimizerProps & { blurDataURL?: string }
+> = ({ blurDataURL, ...props }) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   return (

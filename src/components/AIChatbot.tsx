@@ -1,12 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import {
-  X,
-  Send,
-  Bot,
-  Loader2,
-  Sparkles,
-  User
-} from 'lucide-react';
+import { X, Send, Bot, Loader2, Sparkles, User } from 'lucide-react';
 import { geminiService } from '../services/geminiService';
 
 interface Message {
@@ -21,13 +14,13 @@ const AIChatbot: React.FC = () => {
     {
       role: 'model',
       text: "Hello! I'm Patriot, your virtual concierge at Properties 4 Creation. How can I help you find your perfect home today?",
-      timestamp: new Date()
-    }
+      timestamp: new Date(),
+    },
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -59,36 +52,36 @@ const AIChatbot: React.FC = () => {
     const userMessageObj: Message = {
       role: 'user',
       text: userMessage,
-      timestamp: new Date()
+      timestamp: new Date(),
     };
-    
-    setMessages(prev => [...prev, userMessageObj]);
+
+    setMessages((prev) => [...prev, userMessageObj]);
     setIsTyping(true);
 
     try {
       // Send message to Gemini service
       const response = await geminiService.sendChatMessage(userMessage);
-      
+
       // Add AI response to chat
       const aiMessageObj: Message = {
         role: 'model',
         text: response,
-        timestamp: new Date()
+        timestamp: new Date(),
       };
-      
-      setMessages(prev => [...prev, aiMessageObj]);
+
+      setMessages((prev) => [...prev, aiMessageObj]);
     } catch (err) {
       console.error('Chat error:', err);
       setError('Failed to send message. Please try again.');
-      
+
       // Add fallback error message
       const errorMessageObj: Message = {
         role: 'model',
         text: "I'm sorry, I'm experiencing technical difficulties right now. Please try again in a moment, or contact our team directly for immediate assistance.",
-        timestamp: new Date()
+        timestamp: new Date(),
       };
-      
-      setMessages(prev => [...prev, errorMessageObj]);
+
+      setMessages((prev) => [...prev, errorMessageObj]);
     } finally {
       setIsTyping(false);
     }
@@ -114,8 +107,8 @@ const AIChatbot: React.FC = () => {
         {
           role: 'model',
           text: "Chat cleared! How can I help you today?",
-          timestamp: new Date()
-        }
+          timestamp: new Date(),
+        },
       ]);
     } catch (err) {
       console.error('Error clearing chat:', err);
@@ -123,9 +116,8 @@ const AIChatbot: React.FC = () => {
     }
   };
 
-  const formatTime = (date: Date) => {
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  };
+  const formatTime = (date: Date) =>
+    date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
   return (
     <>
@@ -134,8 +126,8 @@ const AIChatbot: React.FC = () => {
         <button
           onClick={toggleChat}
           className={`w-16 h-16 rounded-full shadow-lg transition-all duration-300 ${
-            isOpen 
-              ? 'bg-p4c-navy text-white hover:bg-p4c-navy/90' 
+            isOpen
+              ? 'bg-p4c-navy text-white hover:bg-p4c-navy/90'
               : 'bg-p4c-gold text-p4c-navy hover:bg-p4c-goldHover'
           }`}
           aria-label="Open chat"
@@ -210,7 +202,7 @@ const AIChatbot: React.FC = () => {
                 </div>
               </div>
             ))}
-            
+
             {/* Typing Indicator */}
             {isTyping && (
               <div className="flex justify-start mb-4">
@@ -219,15 +211,21 @@ const AIChatbot: React.FC = () => {
                     <Bot className="w-4 h-4 text-p4c-gold" />
                     <span className="text-xs text-gray-500">Typing</span>
                     <div className="flex gap-1">
-                      <div className="w-2 h-2 bg-p4c-gold rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-p4c-gold rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                      <div className="w-2 h-2 bg-p4c-gold rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                      <div className="w-2 h-2 bg-p4c-gold rounded-full animate-bounce" />
+                      <div
+                        className="w-2 h-2 bg-p4c-gold rounded-full animate-bounce"
+                        style={{ animationDelay: '0.1s' }}
+                      />
+                      <div
+                        className="w-2 h-2 bg-p4c-gold rounded-full animate-bounce"
+                        style={{ animationDelay: '0.2s' }}
+                      />
                     </div>
                   </div>
                 </div>
               </div>
             )}
-            
+
             {/* Error Message */}
             {error && (
               <div className="flex justify-start mb-4">
@@ -236,7 +234,7 @@ const AIChatbot: React.FC = () => {
                 </div>
               </div>
             )}
-            
+
             <div ref={messagesEndRef} />
           </div>
 

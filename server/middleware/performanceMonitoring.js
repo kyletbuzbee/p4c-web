@@ -9,65 +9,72 @@ const process = require('process');
 /**
  * Performance monitoring middleware
  */
-const createPerformanceMonitor = () => {
-  return (req, res, next) => {
-    const startTime = process.hrtime.bigint();
-    const startMemory = process.memoryUsage();
-    
-    // Store start time for later use
-    req.performanceStart = {
-      time: startTime,
-      memory: startMemory
-    };
+const createPerformanceMonitor = () => (req, res, next) => {
+  const startTime = process.hrtime.bigint();
+  const startMemory = process.memoryUsage();
 
-    // Override res.end to capture end metrics
-    const originalEnd = res.end;
-    res.end = function(...args) {
-      const endTime = process.hrtime.bigint();
-      const endMemory = process.memoryUsage();
-      
-      // Calculate metrics
-      const responseTime = Number(endTime - startTime) / 1e6; // Convert to milliseconds
-      const memoryDelta = {
-        rss: endMemory.rss - startMemory.rss,
-        heapUsed: endMemory.heapUsed - startMemory.heapUsed,
-        heapTotal: endMemory.heapTotal - startMemory.heapTotal,
-        external: endMemory.external - startMemory.external
-      };
-
-      // Log performance metrics
-      const performanceLog = {
-        timestamp: new Date().toISOString(),
-        method: req.method,
-        path: req.path,
-        statusCode: res.statusCode,
-        responseTime,
-        memoryDelta,
-        userAgent: req.get('User-Agent'),
-        ip: req.ip,
-        contentLength: res.get('Content-Length'),
-        contentType: res.get('Content-Type')
-      };
-
-      // Log based on response time thresholds
-      if (responseTime > 1000) {
-        console.warn('Performance Alert - Slow Response:', JSON.stringify(performanceLog));
-      } else if (responseTime > 500) {
-        console.log('Performance Notice - Moderate Response:', JSON.stringify(performanceLog));
-      }
-
-      // Add performance headers (optional)
-      res.setHeader('X-Response-Time', `${responseTime.toFixed(2)}ms`);
-      res.setHeader('X-Memory-Usage', `${(endMemory.heapUsed / 1024 / 1024).toFixed(2)}MB`);
-
-      // Store metrics for potential further processing
-      req.performanceMetrics = performanceLog;
-
-      originalEnd.apply(this, args);
-    };
-
-    next();
+  // Store start time for later use
+  req.performanceStart = {
+    time: startTime,
+    memory: startMemory,
   };
+
+  // Override res.end to capture end metrics
+  const originalEnd = res.end;
+  res.end = function (...args) {
+    const endTime = process.hrtime.bigint();
+    const endMemory = process.memoryUsage();
+
+    // Calculate metrics
+    const responseTime = Number(endTime - startTime) / 1e6; // Convert to milliseconds
+    const memoryDelta = {
+      rss: endMemory.rss - startMemory.rss,
+      heapUsed: endMemory.heapUsed - startMemory.heapUsed,
+      heapTotal: endMemory.heapTotal - startMemory.heapTotal,
+      external: endMemory.external - startMemory.external,
+    };
+
+    // Log performance metrics
+    const performanceLog = {
+      timestamp: new Date().toISOString(),
+      method: req.method,
+      path: req.path,
+      statusCode: res.statusCode,
+      responseTime,
+      memoryDelta,
+      userAgent: req.get("User-Agent"),
+      ip: req.ip,
+      contentLength: res.get("Content-Length"),
+      contentType: res.get("Content-Type"),
+    };
+
+    // Log based on response time thresholds
+    if (responseTime > 1000) {
+      console.warn(
+        "Performance Alert - Slow Response:",
+        JSON.stringify(performanceLog),
+      );
+    } else if (responseTime > 500) {
+      console.log(
+        "Performance Notice - Moderate Response:",
+        JSON.stringify(performanceLog),
+      );
+    }
+
+    // Add performance headers (optional)
+    res.setHeader("X-Response-Time", `${responseTime.toFixed(2)}ms`);
+    res.setHeader(
+      "X-Memory-Usage",
+      `${(endMemory.heapUsed / 1024 / 1024).toFixed(2)}MB`,
+    );
+
+    // Store metrics for potential further processing
+    req.performanceMetrics = performanceLog;
+
+    originalEnd.apply(this, args);
+  };
+
+  next();
 };
 
 /**
@@ -90,7 +97,7 @@ const getSystemHealth = () => {
       external: memUsage.external,
       free: freeMem,
       total: totalMem,
-      usagePercent: ((totalMem - freeMem) / totalMem) * 100
+      usagePercent: ((totalMem - freeMem) / totalMem) * 100,
     },
     cpu: {
       user: cpuUsage.user,
@@ -98,12 +105,12 @@ const getSystemHealth = () => {
       loadAverage: {
         '1min': loadAvg[0],
         '5min': loadAvg[1],
-        '15min': loadAvg[2]
-      }
+        '15min': loadAvg[2],
+      },
     },
     platform: os.platform(),
     nodeVersion: process.version,
-    pid: process.pid
+    pid: process.pid,
   };
 };
 
@@ -121,16 +128,16 @@ class MetricsAggregator {
       statusCodeCounts: {},
       pathCounts: {},
       errorCount: 0,
-      slowRequests: 0
+      slowRequests: 0,
     };
-    
+
     this.samplingRate = 0.1; // Sample 10% of requests for detailed metrics
   }
 
   recordRequest(metrics) {
     this.metrics.totalRequests++;
     this.metrics.totalResponseTime += metrics.responseTime;
-    
+
     // Update min/max
     if (metrics.responseTime < this.metrics.minResponseTime) {
       this.metrics.minResponseTime = metrics.responseTime;
@@ -138,27 +145,28 @@ class MetricsAggregator {
     if (metrics.responseTime > this.metrics.maxResponseTime) {
       this.metrics.maxResponseTime = metrics.responseTime;
     }
-    
+
     // Count status codes
-    this.metrics.statusCodeCounts[metrics.statusCode] = 
+    this.metrics.statusCodeCounts[metrics.statusCode] =
       (this.metrics.statusCodeCounts[metrics.statusCode] || 0) + 1;
-    
+
     // Count paths
-    this.metrics.pathCounts[metrics.path] = 
+    this.metrics.pathCounts[metrics.path] =
       (this.metrics.pathCounts[metrics.path] || 0) + 1;
-    
+
     // Count errors
     if (metrics.statusCode >= 400) {
       this.metrics.errorCount++;
     }
-    
+
     // Count slow requests
     if (metrics.responseTime > 1000) {
       this.metrics.slowRequests++;
     }
-    
+
     // Update average
-    this.metrics.avgResponseTime = this.metrics.totalResponseTime / this.metrics.totalRequests;
+    this.metrics.avgResponseTime =
+      this.metrics.totalResponseTime / this.metrics.totalRequests;
   }
 
   getMetrics() {
@@ -166,8 +174,9 @@ class MetricsAggregator {
       ...this.metrics,
       avgResponseTime: this.metrics.avgResponseTime,
       errorRate: (this.metrics.errorCount / this.metrics.totalRequests) * 100,
-      slowRequestRate: (this.metrics.slowRequests / this.metrics.totalRequests) * 100,
-      samplingRate: this.samplingRate
+      slowRequestRate:
+        (this.metrics.slowRequests / this.metrics.totalRequests) * 100,
+      samplingRate: this.samplingRate,
     };
   }
 
@@ -181,7 +190,7 @@ class MetricsAggregator {
       statusCodeCounts: {},
       pathCounts: {},
       errorCount: 0,
-      slowRequests: 0
+      slowRequests: 0,
     };
   }
 }
@@ -196,12 +205,12 @@ const createPerformanceEndpoints = (app) => {
   app.get('/api/performance/health', (req, res) => {
     const health = getSystemHealth();
     const metrics = metricsAggregator.getMetrics();
-    
+
     res.json({
       status: 'healthy',
       timestamp: new Date().toISOString(),
       system: health,
-      application: metrics
+      application: metrics,
     });
   });
 
@@ -214,7 +223,10 @@ const createPerformanceEndpoints = (app) => {
   // Reset metrics endpoint (for testing)
   app.post('/api/performance/reset', (req, res) => {
     metricsAggregator.reset();
-    res.json({ message: 'Metrics reset successfully', timestamp: new Date().toISOString() });
+    res.json({
+      message: 'Metrics reset successfully',
+      timestamp: new Date().toISOString(),
+    });
   });
 
   // Real-time performance endpoint
@@ -226,9 +238,9 @@ const createPerformanceEndpoints = (app) => {
       uptime: process.uptime(),
       load: os.loadavg(),
       activeHandles: process._getActiveHandles().length,
-      activeRequests: process._getActiveRequests().length
+      activeRequests: process._getActiveRequests().length,
     };
-    
+
     res.json(currentMetrics);
   });
 };
@@ -238,5 +250,5 @@ module.exports = {
   getSystemHealth,
   MetricsAggregator,
   createPerformanceEndpoints,
-  metricsAggregator
+  metricsAggregator,
 };

@@ -23,7 +23,9 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
   ...props
 }) => {
   const [isPressed, setIsPressed] = useState(false);
-  const [ripples, setRipples] = useState<Array<{ id: number; x: number; y: number }>>([]);
+  const [ripples, setRipples] = useState<
+    Array<{ id: number; x: number; y: number }>
+  >([]);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -36,11 +38,13 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
         const newRipple = { id: Date.now(), x, y };
-        setRipples(prev => [...prev, newRipple]);
+        setRipples((prev) => [...prev, newRipple]);
 
         // Remove ripple after animation
         setTimeout(() => {
-          setRipples(prev => prev.filter(ripple => ripple.id !== newRipple.id));
+          setRipples((prev) =>
+            prev.filter((ripple) => ripple.id !== newRipple.id),
+          );
         }, 600);
       }
 
@@ -52,18 +56,21 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
     onClick?.();
   };
 
-  const baseClasses = 'relative overflow-hidden transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
+  const baseClasses =
+    'relative overflow-hidden transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
 
   const variantClasses = {
-    primary: 'bg-p4c-gold text-p4c-navy hover:bg-p4c-goldHover focus:ring-p4c-gold shadow-lg hover:shadow-xl hover:-translate-y-0.5',
-    secondary: 'bg-p4c-navy text-white hover:bg-p4c-slate focus:ring-p4c-navy shadow-md hover:shadow-lg',
-    ghost: 'bg-transparent text-p4c-navy hover:bg-gray-100 focus:ring-p4c-navy'
+    primary:
+      'bg-p4c-gold text-p4c-navy hover:bg-p4c-goldHover focus:ring-p4c-gold shadow-lg hover:shadow-xl hover:-translate-y-0.5',
+    secondary:
+      'bg-p4c-navy text-white hover:bg-p4c-slate focus:ring-p4c-navy shadow-md hover:shadow-lg',
+    ghost: 'bg-transparent text-p4c-navy hover:bg-gray-100 focus:ring-p4c-navy',
   };
 
   const sizeClasses = {
     sm: 'px-3 py-1.5 text-sm rounded-md',
     md: 'px-4 py-2 text-base rounded-lg',
-    lg: 'px-6 py-3 text-lg rounded-xl'
+    lg: 'px-6 py-3 text-lg rounded-xl',
   };
 
   return (
@@ -75,7 +82,7 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
       {...props}
     >
       {/* Ripple effects */}
-      {ripples.map(ripple => (
+      {ripples.map((ripple) => (
         <span
           key={ripple.id}
           className="absolute rounded-full bg-white/30 animate-ping"
@@ -84,7 +91,7 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
             top: ripple.y - 10,
             width: 20,
             height: 20,
-            animation: 'ripple 0.6s linear'
+            animation: 'ripple 0.6s linear',
           }}
         />
       ))}
@@ -111,9 +118,7 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
         </span>
       )}
 
-      <span className={loading ? 'opacity-0' : ''}>
-        {children}
-      </span>
+      <span className={loading ? 'opacity-0' : ''}>{children}</span>
     </button>
   );
 };
@@ -129,13 +134,13 @@ export const FloatingAction: React.FC<FloatingActionProps> = ({
   children,
   onClick,
   position = 'bottom-right',
-  className = ''
+  className = '',
 }) => {
   const positionClasses = {
     'bottom-right': 'bottom-6 right-6',
     'bottom-left': 'bottom-6 left-6',
     'top-right': 'top-6 right-6',
-    'top-left': 'top-6 left-6'
+    'top-left': 'top-6 left-6',
   };
 
   return (
@@ -149,7 +154,7 @@ export const FloatingAction: React.FC<FloatingActionProps> = ({
       </div>
 
       {/* Pulse animation */}
-      <div className="absolute inset-0 rounded-full bg-p4c-gold animate-ping opacity-20"></div>
+      <div className="absolute inset-0 rounded-full bg-p4c-gold animate-ping opacity-20" />
     </button>
   );
 };
@@ -169,7 +174,7 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
   color = 'bg-p4c-gold',
   className = '',
   showLabel = false,
-  animated = true
+  animated = true,
 }) => {
   const [displayProgress, setDisplayProgress] = useState(0);
 
@@ -179,21 +184,21 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
         setDisplayProgress(progress);
       }, 100);
       return () => clearTimeout(timer);
-    } else {
-      setDisplayProgress(progress);
-      return;
     }
+    setDisplayProgress(progress);
   }, [progress, animated]);
 
   const sizeClasses = {
     sm: 'w-16 h-2',
     md: 'w-24 h-3',
-    lg: 'w-32 h-4'
+    lg: 'w-32 h-4',
   };
 
   return (
     <div className={`flex items-center space-x-2 ${className}`}>
-      <div className={`bg-gray-200 rounded-full overflow-hidden ${sizeClasses[size]}`}>
+      <div
+        className={`bg-gray-200 rounded-full overflow-hidden ${sizeClasses[size]}`}
+      >
         <div
           className={`${color} h-full rounded-full transition-all duration-500 ease-out`}
           style={{ width: `${Math.min(displayProgress, 100)}%` }}
@@ -220,18 +225,19 @@ export const SmoothScroll: React.FC<SmoothScrollProps> = ({
   to,
   children,
   offset = 0,
-  className = ''
+  className = '',
 }) => {
   const handleClick = (e: React.MouseEvent): void => {
     e.preventDefault();
 
     const targetElement = document.querySelector(to);
     if (targetElement) {
-      const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+      const targetPosition =
+        targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
 
       window.scrollTo({
         top: targetPosition,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
     }
   };
@@ -256,24 +262,22 @@ interface StaggeredListProps {
 export const StaggeredList: React.FC<StaggeredListProps> = ({
   children,
   staggerDelay = 100,
-  className = ''
-}) => {
-  return (
-    <div className={className}>
-      {React.Children.map(children, (child, index) => (
-        <div
-          key={index}
-          className="animate-fade-in"
-          style={{
-            animationDelay: `${index * staggerDelay}ms`
-          }}
-        >
-          {child}
-        </div>
-      ))}
-    </div>
-  );
-};
+  className = '',
+}) => (
+  <div className={className}>
+    {React.Children.map(children, (child, index) => (
+      <div
+        key={index}
+        className="animate-fade-in"
+        style={{
+          animationDelay: `${index * staggerDelay}ms`,
+        }}
+      >
+        {child}
+      </div>
+    ))}
+  </div>
+);
 
 interface HoverCardProps {
   children: React.ReactNode;
@@ -284,13 +288,13 @@ interface HoverCardProps {
 export const HoverCard: React.FC<HoverCardProps> = ({
   children,
   className = '',
-  hoverEffect = 'lift'
+  hoverEffect = 'lift',
 }) => {
   const effectClasses = {
     lift: 'hover:-translate-y-2 hover:shadow-xl',
     glow: 'hover:shadow-lg hover:shadow-p4c-gold/20',
     scale: 'hover:scale-105',
-    border: 'hover:border-p4c-gold hover:border-2'
+    border: 'hover:border-p4c-gold hover:border-2',
   };
 
   return (
@@ -311,12 +315,12 @@ interface LoadingDotsProps {
 export const LoadingDots: React.FC<LoadingDotsProps> = ({
   size = 'md',
   color = 'bg-p4c-gold',
-  className = ''
+  className = '',
 }) => {
   const sizeClasses = {
     sm: 'w-1 h-1',
     md: 'w-2 h-2',
-    lg: 'w-3 h-3'
+    lg: 'w-3 h-3',
   };
 
   return (
@@ -327,7 +331,7 @@ export const LoadingDots: React.FC<LoadingDotsProps> = ({
           className={`${sizeClasses[size]} ${color} rounded-full animate-bounce`}
           style={{
             animationDelay: `${i * 0.1}s`,
-            animationDuration: '0.6s'
+            animationDuration: '0.6s',
           }}
         />
       ))}

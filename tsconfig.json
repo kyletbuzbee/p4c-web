@@ -98,7 +98,8 @@
     "**/*.jsx",
     "**/*.mjs",
     "**/*.cjs",
-    "**/*.css"
+    "**/*.css",
+    ".eslintrc.cjs"
   ],
 
   /* Enhanced Exclude Patterns */
