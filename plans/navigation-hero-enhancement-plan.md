@@ -12,7 +12,7 @@ Enhance website navigation and hero banner readability through improved contrast
 ### Hero Banner Implementations Found
 1. **Home (components/Hero.tsx)**: Video background, `bg-p4c-navy/60` + `bg-black/30` overlays
 2. **About (pages/About.tsx)**: Image background, `bg-p4c-navy/90` overlay
-3. **Contact (pages/Contact.tsx)**: Image background, `bg-p4c-navy/80` overlay  
+3. **Contact (pages/Contact.tsx)**: Image background, `bg-p4c-navy/80` overlay
 4. **Employment (pages/Employment.tsx)**: Image background, `bg-p4c-navy/80` overlay
 5. **Application (pages/Application.tsx)**: Image background, `bg-p4c-navy/80` overlay
 6. **VeteranServices (pages/VeteranServices.tsx)**: Image background, `bg-p4c-navy/80` overlay
@@ -96,7 +96,7 @@ Enhance website navigation and hero banner readability through improved contrast
 // Before
 className="bg-p4c-navy/80 backdrop-blur-md border-b border-white/10"
 
-// After  
+// After
 className="bg-p4c-navy/90 backdrop-blur-xl border-b border-white/20"
 ```
 

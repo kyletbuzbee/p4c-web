@@ -149,9 +149,7 @@ class ErrorBoundary extends Component<Props, State> {
   };
 
   private handleReload = () => {
-    console.log('Error boundary: User chose to reload page');
-
-    // Clear any corrupted state
+/n    // Clear any corrupted state
     this.setState({
       hasError: false,
       error: null,
@@ -164,9 +162,7 @@ class ErrorBoundary extends Component<Props, State> {
   };
 
   private handleReset = () => {
-    console.log('Error boundary: User chose to reset application state');
-
-    // Clear any corrupted state and try to recover
+/n    // Clear any corrupted state and try to recover
     this.setState({
       hasError: false,
       error: null,

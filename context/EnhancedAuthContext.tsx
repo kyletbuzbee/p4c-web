@@ -315,7 +315,7 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
 
   // Session timeout handler
   const handleSessionTimeout = useCallback(() => {
-    console.log('Session timeout reached, logging out user');
+
     logout();
     addToast('Your session has expired. Please log in again.', 'info');
   }, [addToast]);
@@ -424,7 +424,7 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
             );
 
             if (isValidSession) {
-              console.log('Session validated successfully');
+
               setUser(validatedUser);
             } else {
               console.warn('Invalid session detected, clearing storage');
@@ -467,10 +467,7 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
         }
         throw new Error('Account temporarily locked. Please try again later.');
       }
-
-      console.log('Initiating enhanced login process...');
-
-      const response = await fetch('/api/auth/login', {
+/n      const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -524,9 +521,7 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
       localStorage.setItem('p4c_session_token', token);
 
       setUser(cleanUser);
-
-      console.log('Enhanced login successful for user:', cleanUser.email);
-      addToast(`Welcome back, ${cleanUser.name}`, 'success');
+/n      addToast(`Welcome back, ${cleanUser.name}`, 'success');
     } catch (error) {
       console.error('Login error:', error);
       const errorMessage =
@@ -542,9 +537,7 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
 
   // Enhanced logout function
   const logout = useCallback(() => {
-    console.log('Initiating enhanced secure logout...');
-
-    // Clear state immediately
+/n    // Clear state immediately
     setUser(null);
     setLoginAttempts(0);
     setIsLocked(false);
@@ -595,7 +588,7 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
       if (response.ok) {
         const { token } = await response.json();
         localStorage.setItem('p4c_session_token', token);
-        console.log('Token refreshed successfully');
+
       } else {
         console.warn('Token refresh failed, logging out');
         logout();

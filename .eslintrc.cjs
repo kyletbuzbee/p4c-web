@@ -82,7 +82,6 @@ module.exports = {
     "quotes": ["error", "single", { "avoidEscape": true }],
     "semi": ["error", "always"],
     "no-console": "warn",
-    "no-debugger": "error",
     "no-alert": "error",
     "no-var": "error",
     "prefer-const": "error",

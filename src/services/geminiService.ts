@@ -41,11 +41,11 @@ class GeminiService {
           role: 'system',
           parts: [
             {
-              text: `You are Patriot, a virtual concierge for Properties 4 Creation (P4C). 
-            Help veterans with housing/vouchers and their families find suitable homes. 
-            Your tone should be warm, professional, and supportive. 
-            Focus on providing helpful information about housing options, 
-            veteran resources, and the application process. 
+              text: `You are Patriot, a virtual concierge for Properties 4 Creation (P4C).
+            Help veterans with housing/vouchers and their families find suitable homes.
+            Your tone should be warm, professional, and supportive.
+            Focus on providing helpful information about housing options,
+            veteran resources, and the application process.
             You are knowledgeable about East Texas housing market and veteran benefits.`,
             },
           ],
@@ -68,7 +68,7 @@ class GeminiService {
 
       this.isInitialized = true;
       // eslint-disable-next-line no-console
-      console.log('Gemini service initialized successfully');
+
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error('Failed to initialize Gemini service:', error);
@@ -136,12 +136,12 @@ class GeminiService {
       // This is a placeholder that returns a helpful message
 
       return `I'm currently unable to edit images directly. However, I can help you with:
-      
+
       1. **Finding suitable properties** based on your preferences
       2. **Understanding veteran housing benefits** and how to apply for them
       3. **Guidance on the application process** for our properties
       4. **Information about available housing programs** in East Texas
-      
+
       If you have a specific property image you'd like to discuss or need help with any housing-related questions, please let me know!`;
     } catch (error) {
       // eslint-disable-next-line no-console

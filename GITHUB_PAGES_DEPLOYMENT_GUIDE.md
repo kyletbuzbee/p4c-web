@@ -41,7 +41,7 @@ Add these DNS records at your domain registrar:
 ```bash
 # Primary A records (IP addresses)
 Type: A    | Name: @     | Value: 185.199.108.153
-Type: A    | Name: @     | Value: 185.199.109.153  
+Type: A    | Name: @     | Value: 185.199.109.153
 Type: A    | Name: @     | Value: 185.199.110.153
 Type: A    | Name: @     | Value: 185.199.111.153
 
@@ -97,33 +97,33 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'npm'
-          
+
       - name: Install dependencies
         run: npm ci
-        
+
       - name: Build application
         run: npm run build
         env:
           VITE_REPOSITORY_NAME: ${{ github.event.repository.name }}
-          
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
-        
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
-          
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
@@ -163,7 +163,7 @@ TTL: 3600 (1 hour)
 ```
 
 ```
-Type: A  
+Type: A
 Host/Name: @ (or leave blank)
 Value: 185.199.109.153
 TTL: 3600 (1 hour)
@@ -171,7 +171,7 @@ TTL: 3600 (1 hour)
 
 ```
 Type: A
-Host/Name: @ (or leave blank)  
+Host/Name: @ (or leave blank)
 Value: 185.199.110.153
 TTL: 3600 (1 hour)
 ```
@@ -236,7 +236,7 @@ export default defineConfig(({ mode }) => {
   const isProduction = mode === 'production';
   const repositoryName = process.env.VITE_REPOSITORY_NAME || '';
   const base = isProduction ? `/${repositoryName}/` : '/';
-  
+
   return {
     base: base,
     // ... other configuration
@@ -381,7 +381,7 @@ The workflow builds your application using:
    ```bash
    # Check domain resolution
    nslookup www.properties4creations.com
-   
+
    # Check for DNS propagation
    dig www.properties4creations.com
    ```

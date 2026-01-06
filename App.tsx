@@ -34,7 +34,6 @@ const EqualHousing = React.lazy(() => import('./pages/EqualHousing'));
 const SuccessStories = React.lazy(() => import('./pages/SuccessStories'));
 const AdminDashboard = React.lazy(() => import('./pages/AdminDashboard'));
 const FAQ = React.lazy(() => import('./pages/FAQ'));
-const Tools = React.lazy(() => import('./pages/Tools'));
 
 // Loading Fallback
 const PageLoader = () => (
@@ -107,9 +106,6 @@ function App() {
                                 element={<AccessibilityStatement />}
                               />
 
-                              {/* Tools & Resources */}
-                              <Route path="/tools" element={<Tools />} />
-
                               {/* Support (Connection) */}
                               <Route path="/contact" element={<Contact />} />
                               <Route
@@ -128,6 +124,8 @@ function App() {
                       </>
                     }
                   />
+                </Routes>
+              </div>
             </AuthProvider>
           </DarkModeProvider>
         </ToastProvider>

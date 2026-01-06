@@ -79,10 +79,7 @@ export const editImageWithGemini = async (
 
     // Sanitize inputs
     const sanitizedPrompt = sanitizeInput(prompt);
-
-    console.log('Sending image edit request to secure proxy...');
-
-    const response = await fetch(`${API_BASE_URL}/ai/edit-image`, {
+/n    const response = await fetch(`${API_BASE_URL}/ai/edit-image`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -109,9 +106,7 @@ export const editImageWithGemini = async (
     if (!result.success || !result.data) {
       throw new Error(result.error || 'Image processing failed');
     }
-
-    console.log('Image edit successful');
-    return result.data;
+/n    return result.data;
   } catch (error) {
     console.error('Image edit error:', error);
 
@@ -154,10 +149,7 @@ export const sendChatMessage = async (
 
     // Sanitize message
     const sanitizedMessage = sanitizeInput(message);
-
-    console.log('Sending chat request to secure proxy...');
-
-    const response = await fetch(`${API_BASE_URL}/ai/chat`, {
+/n    const response = await fetch(`${API_BASE_URL}/ai/chat`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -186,9 +178,7 @@ export const sendChatMessage = async (
     if (!result.success || !result.message) {
       throw new Error(result.error || 'Chat processing failed');
     }
-
-    console.log('Chat response successful');
-    return result.message;
+/n    return result.message;
   } catch (error) {
     console.error('Chat error:', error);
 

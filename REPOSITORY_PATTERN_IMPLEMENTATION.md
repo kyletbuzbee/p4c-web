@@ -208,7 +208,7 @@ export const api = {
       } catch (error) {
         console.warn('Backend request failed, using mock data:', error);
       }
-      
+
       // Fallback to mock data
       await new Promise(resolve => setTimeout(resolve, SIMULATED_LATENCY));
       return mockDataArray;
@@ -270,12 +270,12 @@ export const api = {
               availability_date,
               coordinates
             `);
-          
+
           if (error) {
             console.warn('Supabase request failed, using mock data:', error);
             throw error;
           }
-          
+
           // Transform data to match ExtendedProperty interface
           return data.map(property => ({
             id: property.id,
@@ -299,7 +299,7 @@ export const api = {
       } catch (error) {
         console.warn('Backend request failed, using mock data:', error);
       }
-      
+
       // Fallback to mock data
       await new Promise(resolve => setTimeout(resolve, SIMULATED_LATENCY));
       return properties;
@@ -313,12 +313,12 @@ export const api = {
             .select('*')
             .eq('id', id)
             .single();
-          
+
           if (error) {
             console.warn('Supabase getById failed:', error);
             throw error;
           }
-          
+
           return data ? {
             id: data.id,
             title: data.title,
@@ -341,7 +341,7 @@ export const api = {
       } catch (error) {
         console.warn('Backend getById failed, using mock data:', error);
       }
-      
+
       // Fallback to mock data
       await new Promise(resolve => setTimeout(resolve, SIMULATED_LATENCY));
       const property = getPropertyById(id);
@@ -359,7 +359,7 @@ export const api = {
       try {
         if (API_CONFIG.isBackendMode) {
           let query = supabase.from('properties').select('*');
-          
+
           if (criteria.minPrice) {
             query = query.gte('price', criteria.minPrice);
           }
@@ -378,14 +378,14 @@ export const api = {
           if (criteria.schoolDistrict) {
             query = query.eq('school_district', criteria.schoolDistrict);
           }
-          
+
           const { data, error } = await query;
-          
+
           if (error) {
             console.warn('Supabase search failed:', error);
             throw error;
           }
-          
+
           return data.map(property => ({
             id: property.id,
             title: property.title,
@@ -408,10 +408,10 @@ export const api = {
       } catch (error) {
         console.warn('Backend search failed, using mock data:', error);
       }
-      
+
       // Fallback to mock data
       await new Promise(resolve => setTimeout(resolve, SIMULATED_LATENCY));
-      
+
       return properties.filter(property => {
         if (criteria.minPrice && property.price < criteria.minPrice) return false;
         if (criteria.maxPrice && property.price > criteria.maxPrice) return false;
@@ -502,16 +502,16 @@ export const auth = getAuth(app);
 **Step 3: Enhanced services/api.ts with Firebase**
 ```typescript
 import { db } from '../firebase/config';
-import { 
-  collection, 
-  getDocs, 
-  getDoc, 
-  doc, 
-  query, 
-  where, 
-  orderBy, 
+import {
+  collection,
+  getDocs,
+  getDoc,
+  doc,
+  query,
+  where,
+  orderBy,
   limit,
-  QueryConstraint 
+  QueryConstraint
 } from 'firebase/firestore';
 
 export const api = {
@@ -521,18 +521,18 @@ export const api = {
         if (API_CONFIG.isBackendMode) {
           const propertiesCollection = collection(db, 'properties');
           const querySnapshot = await getDocs(propertiesCollection);
-          
+
           const properties = querySnapshot.docs.map(doc => ({
             id: doc.id,
             ...doc.data()
           })) as ExtendedProperty[];
-          
+
           return properties;
         }
       } catch (error) {
         console.warn('Firebase getAll failed, using mock data:', error);
       }
-      
+
       // Fallback to mock data
       await new Promise(resolve => setTimeout(resolve, SIMULATED_LATENCY));
       return properties;
@@ -543,7 +543,7 @@ export const api = {
         if (API_CONFIG.isBackendMode) {
           const propertyDoc = doc(db, 'properties', id);
           const docSnap = await getDoc(propertyDoc);
-          
+
           if (docSnap.exists()) {
             return { id: docSnap.id, ...docSnap.data() } as ExtendedProperty;
           }
@@ -552,7 +552,7 @@ export const api = {
       } catch (error) {
         console.warn('Firebase getById failed, using mock data:', error);
       }
-      
+
       // Fallback to mock data
       await new Promise(resolve => setTimeout(resolve, SIMULATED_LATENCY));
       const property = getPropertyById(id);
@@ -570,7 +570,7 @@ export const api = {
       try {
         if (API_CONFIG.isBackendMode) {
           const constraints: QueryConstraint[] = [];
-          
+
           if (criteria.minPrice) {
             constraints.push(where('price', '>=', criteria.minPrice));
           }
@@ -583,37 +583,37 @@ export const api = {
           if (criteria.baths) {
             constraints.push(where('baths', '>=', criteria.baths));
           }
-          
+
           constraints.push(orderBy('price'));
           constraints.push(limit(50));
-          
+
           const q = query(collection(db, 'properties'), ...constraints);
           const querySnapshot = await getDocs(q);
-          
+
           let properties = querySnapshot.docs.map(doc => ({
             id: doc.id,
             ...doc.data()
           })) as ExtendedProperty[];
-          
+
           // Client-side filtering for fields that don't support queries
           if (criteria.neighborhood) {
-            properties = properties.filter(p => 
+            properties = properties.filter(p =>
               p.neighborhood.toLowerCase().includes(criteria.neighborhood!.toLowerCase())
             );
           }
           if (criteria.schoolDistrict) {
             properties = properties.filter(p => p.schoolDistrict === criteria.schoolDistrict);
           }
-          
+
           return properties;
         }
       } catch (error) {
         console.warn('Firebase search failed, using mock data:', error);
       }
-      
+
       // Fallback to mock data
       await new Promise(resolve => setTimeout(resolve, SIMULATED_LATENCY));
-      
+
       return properties.filter(property => {
         if (criteria.minPrice && property.price < criteria.minPrice) return false;
         if (criteria.maxPrice && property.price > criteria.maxPrice) return false;
@@ -666,7 +666,7 @@ app.use('/api/transparency', transparencyRouter);
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).json({ 
+  res.status(500).json({
     error: 'Something went wrong!',
     message: process.env.NODE_ENV === 'development' ? err.message : 'Internal server error'
   });
@@ -674,7 +674,7 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+
 });
 ```
 
@@ -691,7 +691,7 @@ router.get('/', async (req, res) => {
     const properties = await Property.find({ isActive: true })
       .sort({ createdAt: -1 })
       .lean();
-    
+
     res.json(properties);
   } catch (error) {
     console.error('Error fetching properties:', error);
@@ -703,11 +703,11 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const property = await Property.findById(req.params.id).lean();
-    
+
     if (!property) {
       return res.status(404).json({ error: 'Property not found' });
     }
-    
+
     res.json(property);
   } catch (error) {
     console.error('Error fetching property:', error);
@@ -719,15 +719,15 @@ router.get('/:id', async (req, res) => {
 router.post('/search', async (req, res) => {
   try {
     const { minPrice, maxPrice, beds, baths, neighborhood, schoolDistrict } = req.body;
-    
+
     let query = { isActive: true };
-    
+
     if (minPrice || maxPrice) {
       query.price = {};
       if (minPrice) query.price.$gte = minPrice;
       if (maxPrice) query.price.$lte = maxPrice;
     }
-    
+
     if (beds) query.beds = { $gte: beds };
     if (baths) query.baths = { $gte: baths };
     if (neighborhood) {
@@ -736,12 +736,12 @@ router.post('/search', async (req, res) => {
     if (schoolDistrict) {
       query.schoolDistrict = schoolDistrict;
     }
-    
+
     const properties = await Property.find(query)
       .sort({ price: 1 })
       .limit(50)
       .lean();
-    
+
     res.json(properties);
   } catch (error) {
     console.error('Error searching properties:', error);
@@ -753,12 +753,12 @@ router.post('/search', async (req, res) => {
 router.get('/badge/:badge', async (req, res) => {
   try {
     const { badge } = req.params;
-    
+
     const properties = await Property.find({
       isActive: true,
       badges: { $in: [new RegExp(badge, 'i')] }
     }).lean();
-    
+
     res.json(properties);
   } catch (error) {
     console.error('Error fetching properties by badge:', error);
@@ -975,7 +975,7 @@ app.get('/api/impact/metrics', async (req, res) => {
     const metrics = await ImpactMetric.find({ isActive: true })
       .sort({ order: 1 })
       .lean();
-    
+
     res.json(metrics);
   } catch (error) {
     console.error('Error fetching impact metrics:', error);
@@ -993,7 +993,7 @@ app.get('/api/impact/financial-breakdown', async (req, res) => {
       { category: 'Community Programs', percentage: 10, color: '#94a3b8' },
       { category: 'Admin/Ops', percentage: 5, color: '#cbd5e1' },
     ];
-    
+
     res.json(breakdown);
   } catch (error) {
     console.error('Error fetching financial breakdown:', error);
@@ -1007,7 +1007,7 @@ app.get('/api/transparency/standards', async (req, res) => {
     const standards = await RenovationStandard.find({ isActive: true })
       .sort({ category: 1 })
       .lean();
-    
+
     res.json(standards);
   } catch (error) {
     console.error('Error fetching renovation standards:', error);
@@ -1018,27 +1018,27 @@ app.get('/api/transparency/standards', async (req, res) => {
 // Property Routes with Advanced Filtering
 app.get('/api/properties', async (req, res) => {
   try {
-    const { 
-      minPrice, 
-      maxPrice, 
-      beds, 
-      baths, 
-      neighborhood, 
+    const {
+      minPrice,
+      maxPrice,
+      beds,
+      baths,
+      neighborhood,
       schoolDistrict,
       badges,
       limit = 50,
       offset = 0
     } = req.query;
-    
+
     let query = { isActive: true };
-    
+
     // Build query conditions
     if (minPrice || maxPrice) {
       query.price = {};
       if (minPrice) query.price.$gte = parseInt(minPrice);
       if (maxPrice) query.price.$lte = parseInt(maxPrice);
     }
-    
+
     if (beds) query.beds = { $gte: parseInt(beds) };
     if (baths) query.baths = { $gte: parseFloat(baths) };
     if (neighborhood) {
@@ -1051,16 +1051,16 @@ app.get('/api/properties', async (req, res) => {
       const badgeArray = badges.split(',');
       query.badges = { $in: badgeArray };
     }
-    
+
     const properties = await Property.find(query)
       .sort({ price: 1 })
       .limit(parseInt(limit))
       .skip(parseInt(offset))
       .lean();
-    
+
     // Get total count for pagination
     const total = await Property.countDocuments(query);
-    
+
     res.json({
       data: properties,
       pagination: {
@@ -1079,11 +1079,11 @@ app.get('/api/properties', async (req, res) => {
 app.get('/api/properties/:id', async (req, res) => {
   try {
     const property = await Property.findById(req.params.id).lean();
-    
+
     if (!property) {
       return res.status(404).json({ error: 'Property not found' });
     }
-    
+
     res.json(property);
   } catch (error) {
     console.error('Error fetching property:', error);
@@ -1093,50 +1093,50 @@ app.get('/api/properties/:id', async (req, res) => {
 
 app.post('/api/properties/search', async (req, res) => {
   try {
-    const { 
-      minPrice, 
-      maxPrice, 
-      beds, 
-      baths, 
-      neighborhood, 
+    const {
+      minPrice,
+      maxPrice,
+      beds,
+      baths,
+      neighborhood,
       schoolDistrict,
       amenities,
-      accessibilityFeatures 
+      accessibilityFeatures
     } = req.body;
-    
+
     let query = { isActive: true };
-    
+
     // Build complex search query
     if (minPrice || maxPrice) {
       query.price = {};
       if (minPrice) query.price.$gte = minPrice;
       if (maxPrice) query.price.$lte = maxPrice;
     }
-    
+
     if (beds) query.beds = { $gte: beds };
     if (baths) query.baths = { $gte: baths };
-    
+
     if (neighborhood) {
       query.neighborhood = { $regex: neighborhood, $options: 'i' };
     }
-    
+
     if (schoolDistrict) {
       query.schoolDistrict = schoolDistrict;
     }
-    
+
     if (amenities && amenities.length > 0) {
       query.amenities = { $in: amenities };
     }
-    
+
     if (accessibilityFeatures && accessibilityFeatures.length > 0) {
       query.accessibilityFeatures = { $in: accessibilityFeatures };
     }
-    
+
     const properties = await Property.find(query)
       .sort({ price: 1, beds: 1 })
       .limit(100)
       .lean();
-    
+
     res.json(properties);
   } catch (error) {
     console.error('Error searching properties:', error);
@@ -1148,14 +1148,14 @@ app.get('/api/properties/badge/:badge', async (req, res) => {
   try {
     const { badge } = req.params;
     const decodedBadge = decodeURIComponent(badge);
-    
+
     const properties = await Property.find({
       isActive: true,
       badges: { $regex: new RegExp(decodedBadge, 'i') }
     })
     .sort({ price: 1 })
     .lean();
-    
+
     res.json(properties);
   } catch (error) {
     console.error('Error fetching properties by badge:', error);
@@ -1184,11 +1184,11 @@ app.put('/api/properties/:id', async (req, res) => {
       req.body,
       { new: true, runValidators: true }
     );
-    
+
     if (!property) {
       return res.status(404).json({ error: 'Property not found' });
     }
-    
+
     res.json(property);
   } catch (error) {
     console.error('Error updating property:', error);
@@ -1204,11 +1204,11 @@ app.delete('/api/properties/:id', async (req, res) => {
       { isActive: false },
       { new: true }
     );
-    
+
     if (!property) {
       return res.status(404).json({ error: 'Property not found' });
     }
-    
+
     res.json({ message: 'Property deactivated successfully' });
   } catch (error) {
     console.error('Error deactivating property:', error);
@@ -1218,8 +1218,8 @@ app.delete('/api/properties/:id', async (req, res) => {
 
 // Health check endpoint
 app.get('/health', (req, res) => {
-  res.json({ 
-    status: 'OK', 
+  res.json({
+    status: 'OK',
     timestamp: new Date().toISOString(),
     database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected'
   });
@@ -1227,9 +1227,7 @@ app.get('/health', (req, res) => {
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`🚀 Properties 4 Creation API Server running on port ${PORT}`);
-  console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}`);
-});
+/n});
 ```
 
 **Environment Configuration for Backend:**
@@ -1384,19 +1382,19 @@ const fetchProperties = async () => {
   try {
     setLoading(true);
     setError(null);
-    
+
     const propertiesData = await api.properties.getAll();
-    
+
     if (!propertiesData || propertiesData.length === 0) {
       setError('No properties available at this time.');
       return;
     }
-    
+
     setProperties(propertiesData);
   } catch (error) {
     console.error('Error fetching properties:', error);
     setError('Unable to load properties. Please try again later.');
-    
+
     // Could implement retry logic here
     // setTimeout(() => fetchProperties(), 3000);
   } finally {
@@ -1459,7 +1457,7 @@ const logError = (endpoint: string, error: Error, context: any) => {
     timestamp: new Date().toISOString(),
     userAgent: navigator.userAgent
   });
-  
+
   // Could send to error tracking service
   // errorTracker.captureException(error, { tags: { endpoint } });
 };
@@ -1502,12 +1500,12 @@ class ApiClient {
   private async makeRequest<T>(endpoint: string, options?: RequestInit): Promise<T> {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
-    
+
     try {
       if (!API_CONFIG.isBackendMode) {
         throw new Error('Backend mode disabled - using mock data');
       }
-      
+
       const response = await fetch(API_CONFIG.getEndpointUrl(endpoint), {
         ...options,
         signal: controller.signal,
@@ -1516,13 +1514,13 @@ class ApiClient {
           ...options?.headers,
         },
       });
-      
+
       clearTimeout(timeoutId);
-      
+
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
-      
+
       return await response.json();
     } catch (error) {
       clearTimeout(timeoutId);
@@ -1549,7 +1547,7 @@ const connectDB = async () => {
       socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
       family: 4 // Use IPv4, skip trying IPv6
     });
-    console.log('✅ MongoDB connected successfully');
+
   } catch (error) {
     console.error('❌ MongoDB connection error:', error);
     // Retry connection after 5 seconds
@@ -1558,11 +1556,11 @@ const connectDB = async () => {
 };
 
 mongoose.connection.on('disconnected', () => {
-  console.log('⚠️ MongoDB disconnected');
+
 });
 
 mongoose.connection.on('reconnected', () => {
-  console.log('🔄 MongoDB reconnected');
+
 });
 ```
 
@@ -1581,13 +1579,13 @@ const getCachedProperties = async (key, queryFunction, expiration = 300) => {
     if (cached) {
       return JSON.parse(cached);
     }
-    
+
     // If not in cache, fetch from database
     const data = await queryFunction();
-    
+
     // Store in cache with expiration
     await client.setex(key, expiration, JSON.stringify(data));
-    
+
     return data;
   } catch (error) {
     console.error('Cache error:', error);
@@ -1600,13 +1598,13 @@ const getCachedProperties = async (key, queryFunction, expiration = 300) => {
 app.get('/api/properties', async (req, res) => {
   try {
     const cacheKey = `properties:${JSON.stringify(req.query)}`;
-    
+
     const properties = await getCachedProperties(
       cacheKey,
       () => Property.find(query).lean(),
       300 // 5 minutes cache
     );
-    
+
     res.json(properties);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch properties' });
@@ -1617,23 +1615,23 @@ app.get('/api/properties', async (req, res) => {
 **Database Indexing Strategy:**
 ```javascript
 // Advanced indexing for better query performance
-propertySchema.index({ 
-  price: 1, 
-  beds: 1, 
-  isActive: 1 
+propertySchema.index({
+  price: 1,
+  beds: 1,
+  isActive: 1
 }); // Compound index for price/bed queries
 
-propertySchema.index({ 
-  neighborhood: 1, 
-  schoolDistrict: 1 
+propertySchema.index({
+  neighborhood: 1,
+  schoolDistrict: 1
 }); // Compound index for location queries
 
-propertySchema.index({ 
-  badges: 1 
+propertySchema.index({
+  badges: 1
 }); // Text index for badge searches
 
-propertySchema.index({ 
-  coordinates: '2dsphere' 
+propertySchema.index({
+  coordinates: '2dsphere'
 }); // Geospatial index for location-based searches
 
 // TTL index for temporary data (like view counts)
@@ -1745,19 +1743,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
           cache: 'npm'
-      
+
       - name: Install dependencies
         run: npm ci
-      
+
       - name: Run tests
         run: npm test
-      
+
       - name: Run linting
         run: npm run lint
 
@@ -1767,7 +1765,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Deploy to server
         uses: appleboy/ssh-action@v0.1.5
         with:
@@ -1786,21 +1784,21 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
           cache: 'npm'
-      
+
       - name: Install dependencies
         run: npm ci
-      
+
       - name: Build
         run: npm run build
         env:
           VITE_API_URL: ${{ secrets.API_URL }}
-      
+
       - name: Deploy to static hosting
         uses: peaceiris/actions-gh-pages@v3
         with:
@@ -1870,25 +1868,25 @@ describe('Home Component', () => {
 
   it('should display properties when API call succeeds', async () => {
     vi.mocked(api.properties.getAll).mockResolvedValue(mockProperties);
-    
+
     render(<Home />);
-    
+
     // Should show loading initially
     expect(screen.getByText(/loading/i)).toBeInTheDocument();
-    
+
     // Should show properties after loading
     await waitFor(() => {
       expect(screen.getByText('Test Property')).toBeInTheDocument();
     });
-    
+
     expect(screen.getByText('123 Test St')).toBeInTheDocument();
   });
 
   it('should handle API errors gracefully', async () => {
     vi.mocked(api.properties.getAll).mockRejectedValue(new Error('API Error'));
-    
+
     render(<Home />);
-    
+
     await waitFor(() => {
       expect(screen.getByText(/error|failed/i)).toBeInTheDocument();
     });
@@ -1899,9 +1897,9 @@ describe('Home Component', () => {
     vi.mocked(api.properties.getAll).mockImplementation(() => {
       throw new Error('Backend mode disabled - using mock data');
     });
-    
+
     render(<Home />);
-    
+
     // Should still render with fallback data
     await waitFor(() => {
       expect(screen.queryByText(/loading/i)).not.toBeInTheDocument();
@@ -1930,7 +1928,7 @@ describe('API Service', () => {
   describe('Properties API', () => {
     it('should return mock data when no backend URL is set', async () => {
       const properties = await api.properties.getAll();
-      
+
       expect(Array.isArray(properties)).toBe(true);
       expect(properties.length).toBeGreaterThan(0);
       expect(properties[0]).toHaveProperty('id');
@@ -1939,15 +1937,15 @@ describe('API Service', () => {
 
     it('should call backend when VITE_API_URL is set', async () => {
       import.meta.env.VITE_API_URL = 'https://api.test.com';
-      
+
       const mockData = [{ id: '1', title: 'Backend Property' }];
       mockFetch.mockResolvedValueOnce({
         ok: true,
         json: () => Promise.resolve(mockData)
       });
-      
+
       const properties = await api.properties.getAll();
-      
+
       expect(mockFetch).toHaveBeenCalledWith(
         'https://api.test.com/api/properties',
         expect.objectContaining({
@@ -1957,17 +1955,17 @@ describe('API Service', () => {
           })
         })
       );
-      
+
       expect(properties).toEqual(mockData);
     });
 
     it('should fallback to mock data when backend fails', async () => {
       import.meta.env.VITE_API_URL = 'https://api.test.com';
-      
+
       mockFetch.mockRejectedValueOnce(new Error('Network Error'));
-      
+
       const properties = await api.properties.getAll();
-      
+
       // Should fallback to mock data
       expect(Array.isArray(properties)).toBe(true);
       expect(properties.length).toBeGreaterThan(0);
@@ -1977,15 +1975,15 @@ describe('API Service', () => {
   describe('Error Handling', () => {
     it('should handle timeout errors', async () => {
       import.meta.env.VITE_API_URL = 'https://api.test.com';
-      
-      mockFetch.mockImplementationOnce(() => 
-        new Promise((_, reject) => 
+
+      mockFetch.mockImplementationOnce(() =>
+        new Promise((_, reject) =>
           setTimeout(() => reject(new Error('Timeout')), 100)
         )
       );
-      
+
       const properties = await api.properties.getAll();
-      
+
       // Should fallback to mock data on timeout
       expect(Array.isArray(properties)).toBe(true);
     });
@@ -2192,7 +2190,7 @@ export const trackAPICall = (endpoint: string, duration: number, success: boolea
       custom_parameter_1: endpoint.split('/')[2] // Extract resource name
     });
   }
-  
+
   // Custom analytics service
   if (window.analytics) {
     window.analytics.track('API Call', {
@@ -2208,7 +2206,7 @@ class MonitoredApiClient {
   private async makeRequest<T>(endpoint: string, options?: RequestInit): Promise<T> {
     const startTime = Date.now();
     let success = false;
-    
+
     try {
       const result = await this.performRequest<T>(endpoint, options);
       success = true;
@@ -2241,14 +2239,14 @@ const propertySchema = Joi.object({
 
 const validateProperty = (req: any, res: any, next: any) => {
   const { error, value } = propertySchema.validate(req.body);
-  
+
   if (error) {
     return res.status(400).json({
       error: 'Validation failed',
       details: error.details.map(detail => detail.message)
     });
   }
-  
+
   req.body = value;
   next();
 };

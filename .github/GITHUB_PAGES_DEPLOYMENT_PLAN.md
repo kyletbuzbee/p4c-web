@@ -2,10 +2,10 @@
 
 ## 🎯 Project Overview
 
-**Project**: Properties 4 Creation - Veteran-owned affordable housing platform  
-**Domain**: www.properties4creations.com  
-**Tech Stack**: React 19 + Vite + TypeScript + Tailwind CSS  
-**Hosting**: GitHub Pages with custom domain  
+**Project**: Properties 4 Creation - Veteran-owned affordable housing platform
+**Domain**: www.properties4creations.com
+**Tech Stack**: React 19 + Vite + TypeScript + Tailwind CSS
+**Hosting**: GitHub Pages with custom domain
 **Repository**: https://github.com/kyletbuzbee/p4c-web.git
 
 ## 📋 Current State Analysis
@@ -138,7 +138,7 @@ TTL: 3600
 
 ```
 Type: A
-Name: @ (or leave blank)  
+Name: @ (or leave blank)
 Value: 185.199.109.153
 TTL: 3600
 ```
@@ -177,34 +177,34 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'npm'
-          
+
       - name: Install dependencies
         run: npm ci
-        
+
       - name: Build application
         run: npm run build
         env:
           # Optional: Set repository name for base path
           VITE_REPOSITORY_NAME: ${{ github.event.repository.name }}
-          
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
-        
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
-          
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
@@ -225,21 +225,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'npm'
-          
+
       - name: Install dependencies
         run: npm ci
-        
+
       - name: Build
         run: npm run build
         env:
           VITE_REPOSITORY_NAME: ${{ github.event.repository.name }}
-          
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
@@ -257,11 +257,11 @@ Add production-specific optimizations:
 ```typescript
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '');
-  
+
   const isProduction = mode === 'production';
   const repositoryName = process.env.VITE_REPOSITORY_NAME || '';
   const base = isProduction ? `/${repositoryName}/` : '/';
-  
+
   return {
     // ... existing configuration
     build: {
@@ -286,7 +286,7 @@ export default defineConfig(({ mode }) => {
       terserOptions: {
         compress: {
           drop_console: true,
-          drop_debugger: true
+          drop_: true
         }
       }
     }

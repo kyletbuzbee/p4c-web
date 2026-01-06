@@ -27,7 +27,7 @@ export default defineConfig(({ mode }) => {
   const isProduction = mode === 'production';
   const repositoryName = process.env.VITE_REPOSITORY_NAME || '';
   const base = isProduction ? `/${repositoryName}/` : '/';
-  
+
   return {
     base: base, // This must match your GitHub Pages setup
     // ...

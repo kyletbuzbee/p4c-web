@@ -42,7 +42,7 @@ This guide provides step-by-step instructions for deploying the Properties-4-Cre
    ```bash
    # Copy the example environment file
    cp .env.example .env
-   
+
    # Edit .env file if you have a backend API
    # For GitHub Pages deployment, leave VITE_API_URL empty to use mock data
    ```
@@ -72,31 +72,31 @@ This guide provides step-by-step instructions for deploying the Properties-4-Cre
    ```yaml
    # .github/workflows/deploy.yml
    name: Deploy to GitHub Pages
-   
+
    on:
      push:
        branches: [ main ]
-   
+
    jobs:
      deploy:
        runs-on: ubuntu-latest
        steps:
          - uses: actions/checkout@v4
-         
+
          - name: Setup Node.js
            uses: actions/setup-node@v4
            with:
              node-version: '18'
              cache: 'npm'
-             
+
          - name: Install dependencies
            run: npm ci
-           
+
          - name: Build
            run: npm run build
            env:
              VITE_REPOSITORY_NAME: ${{ github.event.repository.name }}
-             
+
          - name: Deploy to GitHub Pages
            uses: peaceiris/actions-gh-pages@v3
            with:
@@ -132,12 +132,12 @@ The project is pre-configured for GitHub Pages deployment:
 // vite.config.ts
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '');
-  
+
   // GitHub Pages configuration
   const isProduction = mode === 'production';
   const repositoryName = process.env.VITE_REPOSITORY_NAME || '';
   const base = isProduction ? `/${repositoryName}/` : '/';
-  
+
   return {
     base: base,
     // ... rest of configuration

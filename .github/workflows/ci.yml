@@ -2,13 +2,13 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 env:
-  NODE_VERSION: '18'
-  NPM_VERSION: '9'
+  NODE_VERSION: "18"
+  NPM_VERSION: "9"
 
 jobs:
   security-scan:
@@ -39,7 +39,7 @@ jobs:
     strategy:
       matrix:
         node-version: [18, 20]
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -95,7 +95,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: read
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -159,7 +159,7 @@ jobs:
     needs: [build, performance-test]
     if: github.ref == 'refs/heads/develop'
     # environment: staging
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -185,7 +185,7 @@ jobs:
       deployments: write
       pull-requests: read
     # environment: production
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

@@ -25,17 +25,15 @@ const CACHE_STRATEGIES = {
 
 // Install event - cache static assets
 self.addEventListener("install", (event) => {
-  console.log("[SW] Installing service worker");
-
-  event.waitUntil(
+/n  event.waitUntil(
     caches
       .open(STATIC_CACHE)
       .then((cache) => {
-        console.log("[SW] Caching static assets");
+
         return cache.addAll(STATIC_ASSETS);
       })
       .then(() => {
-        console.log("[SW] Static assets cached successfully");
+
         return self.skipWaiting();
       })
       .catch((error) => {
@@ -46,9 +44,7 @@ self.addEventListener("install", (event) => {
 
 // Activate event - clean up old caches
 self.addEventListener("activate", (event) => {
-  console.log("[SW] Activating service worker");
-
-  event.waitUntil(
+/n  event.waitUntil(
     caches
       .keys()
       .then((cacheNames) =>
@@ -60,14 +56,14 @@ self.addEventListener("activate", (event) => {
               cacheName !== DYNAMIC_CACHE &&
               cacheName !== IMAGE_CACHE
             ) {
-              console.log("[SW] Deleting old cache:", cacheName);
+
               return caches.delete(cacheName);
             }
           }),
         ),
       )
       .then(() => {
-        console.log("[SW] Service worker activated");
+
         return self.clients.claim();
       }),
   );
@@ -240,7 +236,7 @@ async function handleDynamicRequest(request) {
 // Background sync for offline actions
 self.addEventListener("sync", (event) => {
   if (event.tag === "background-sync") {
-    console.log("[SW] Background sync triggered");
+
     event.waitUntil(performBackgroundSync());
   }
 });
@@ -249,7 +245,7 @@ self.addEventListener("sync", (event) => {
 async function performBackgroundSync() {
   try {
     // Sync any pending data when connection is restored
-    console.log("[SW] Performing background sync");
+
     // Add your background sync logic here
   } catch (error) {
     console.error("[SW] Background sync failed:", error);
@@ -258,9 +254,7 @@ async function performBackgroundSync() {
 
 // Push notifications (if needed in future)
 self.addEventListener("push", (event) => {
-  console.log("[SW] Push notification received");
-
-  const options = {
+/n  const options = {
     body: event.data ? event.data.text() : "New notification",
     icon: "/icon-192x192.png",
     badge: "/badge-72x72.png",
@@ -275,11 +269,8 @@ self.addEventListener("push", (event) => {
 
 // Handle notification clicks
 self.addEventListener("notificationclick", (event) => {
-  console.log("[SW] Notification clicked");
-
-  event.notification.close();
+/n  event.notification.close();
 
   event.waitUntil(clients.openWindow("/"));
 });
-
-console.log("[SW] Service worker loaded successfully");
+/n

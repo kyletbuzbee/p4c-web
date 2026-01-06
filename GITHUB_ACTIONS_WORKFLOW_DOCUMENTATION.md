@@ -2,9 +2,9 @@
 
 ## 📋 Workflow Overview
 
-**File**: `.github/workflows/deploy.yml`  
-**Purpose**: Automated deployment to GitHub Pages with custom domain `www.properties4creations.com`  
-**Triggers**: Push and pull request to `main` branch  
+**File**: `.github/workflows/deploy.yml`
+**Purpose**: Automated deployment to GitHub Pages with custom domain `www.properties4creations.com`
+**Triggers**: Push and pull request to `main` branch
 **Runtime**: Ubuntu Latest (GitHub-hosted runner)
 
 ## 🔧 Workflow Configuration
@@ -35,8 +35,8 @@ jobs:
 - name: Checkout repository
   uses: actions/checkout@v4
 ```
-**Purpose**: Downloads the repository code to the runner  
-**Details**: 
+**Purpose**: Downloads the repository code to the runner
+**Details**:
 - Uses latest checkout action (v4)
 - Includes Git history for proper deployment
 - Sets up repository for subsequent steps
@@ -49,7 +49,7 @@ jobs:
     node-version: '18'          # Specify Node.js version
     cache: 'npm'               # Enable npm dependency caching
 ```
-**Purpose**: Configures Node.js environment for building the application  
+**Purpose**: Configures Node.js environment for building the application
 **Details**:
 - Installs Node.js version 18 (compatible with modern React/Vite)
 - Caches npm dependencies for faster subsequent builds
@@ -60,7 +60,7 @@ jobs:
 - name: Install dependencies
   run: npm ci
 ```
-**Purpose**: Installs exact dependency versions from package-lock.json  
+**Purpose**: Installs exact dependency versions from package-lock.json
 **Details**:
 - `npm ci` provides clean, reproducible installs
 - Uses cached dependencies when available
@@ -73,7 +73,7 @@ jobs:
   env:
     VITE_REPOSITORY_NAME: ${{ github.event.repository.name }}
 ```
-**Purpose**: Compiles the React application for production deployment  
+**Purpose**: Compiles the React application for production deployment
 **Details**:
 - Runs `npm run build` script from package.json
 - Sets `VITE_REPOSITORY_NAME` environment variable
@@ -92,7 +92,7 @@ jobs:
 - name: Setup Pages
   uses: actions/configure-pages@v4
 ```
-**Purpose**: Configures GitHub Pages deployment environment  
+**Purpose**: Configures GitHub Pages deployment environment
 **Details**:
 - Validates Pages configuration
 - Prepares deployment artifacts
@@ -105,7 +105,7 @@ jobs:
   with:
     path: ./dist
 ```
-**Purpose**: Packages built files for deployment  
+**Purpose**: Packages built files for deployment
 **Details**:
 - Uploads entire `/dist` directory
 - Creates deployment artifact
@@ -118,7 +118,7 @@ jobs:
   id: deployment
   uses: actions/deploy-pages@v4
 ```
-**Purpose**: Final deployment to GitHub Pages  
+**Purpose**: Final deployment to GitHub Pages
 **Details**:
 - Deploys uploaded artifacts
 - Updates GitHub Pages site

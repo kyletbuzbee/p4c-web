@@ -238,10 +238,7 @@ app.post('/api/ai/edit-image', verifyApiKey, async (req, res) => {
         maxLength: 1000,
       });
     }
-
-    console.log(`Processing image edit request from ${req.ip}`);
-
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-image' });
+/n    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-image' });
 
     const result = await model.generateContent({
       contents: {
@@ -261,7 +258,7 @@ app.post('/api/ai/edit-image', verifyApiKey, async (req, res) => {
 
     for (const part of result.response.candidates?.[0]?.content?.parts || []) {
       if (part.inlineData) {
-        console.log('Image edit successful');
+
         return res.json({
           success: true,
           data: `data:image/png;base64,${part.inlineData.data}`,
@@ -307,13 +304,10 @@ app.post('/api/ai/chat', verifyApiKey, async (req, res) => {
         maxLength: 4000,
       });
     }
-
-    console.log(`Processing chat request from ${req.ip}`);
-
-    const model = genAI.getGenerativeModel({
-      systemInstruction: `You are 'Patriot', the AI Concierge for Properties 4 Creation (P4C). 
+/n    const model = genAI.getGenerativeModel({
+      systemInstruction: `You are 'Patriot', the AI Concierge for Properties 4 Creation (P4C).
       P4C is a veteran-owned company in East Texas that provides high-quality affordable housing.
-      
+
       Key Information:
       - We accept Section 8, HUD-VASH, and Rapid Rehousing vouchers.
       - We prioritize veterans.
@@ -321,7 +315,7 @@ app.post('/api/ai/chat', verifyApiKey, async (req, res) => {
       - We do NOT charge application fees.
       - Contact email: support@p4c-homes.com.
       - Location: Tyler, TX.
-      
+
       Tone: Warm, professional, dignified, and helpful. Keep answers concise (under 3 sentences when possible).
       Do not make up specific property availability, just say check the 'Homes' page.`,
     });
@@ -335,9 +329,7 @@ app.post('/api/ai/chat', verifyApiKey, async (req, res) => {
     const response =
       result.response.text() ||
       "I'm sorry, I couldn't process that request right now.";
-
-    console.log('Chat response successful');
-    res.json({
+/n    res.json({
       success: true,
       message: response,
       timestamp: new Date().toISOString(),
@@ -382,9 +374,7 @@ app.use('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Enterprise Security Proxy running on port ${PORT}`);
-  console.log("🔒 Security headers enabled");
-  console.log("⚡ Rate limiting active (100 requests/15min)");
+/n");
   console.log(
     `🌍 CORS configured for: ${process.env.ALLOWED_ORIGINS || 'http://localhost:3000'}`,
   );
@@ -398,12 +388,12 @@ app.listen(PORT, () => {
 
 // Graceful shutdown
 process.on('SIGTERM', () => {
-  console.log('🛑 SIGTERM received, shutting down gracefully');
+
   process.exit(0);
 });
 
 process.on('SIGINT', () => {
-  console.log('🛑 SIGINT received, shutting down gracefully');
+
   process.exit(0);
 });
 

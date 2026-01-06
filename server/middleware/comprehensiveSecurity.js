@@ -274,7 +274,7 @@ const createSecurityLogger = () => (req, res, next) => {
     userId: req.user?.id || "anonymous",
   };
 
-  console.log("Security Log:", JSON.stringify(logData));
+);
 
   // Override res.end to log response
   const originalEnd = res.end;
@@ -287,7 +287,7 @@ const createSecurityLogger = () => (req, res, next) => {
       responseSize: res.get("Content-Length") || "unknown",
     };
 
-    console.log("Response Log:", JSON.stringify(responseLog));
+);
     originalEnd.apply(this, args);
   };
 

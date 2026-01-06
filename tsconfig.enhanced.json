@@ -14,8 +14,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-
-    /* Modules */
+/n    /* Modules */
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
@@ -32,26 +31,22 @@
     "rootDir": ".",
     "rootDirs": [".", "src"],
     "typeRoots": ["./node_modules/@types", "./src/types"],
-
-    /* JavaScript Support */
+/n    /* JavaScript Support */
     "allowJs": true,
     "checkJs": true,
-
-    /* Emit */
+/n    /* Emit */
     "declaration": true,
     "declarationMap": true,
     "outDir": "./dist",
     "removeComments": true,
     "preserveConstEnums": true,
     "downlevelIteration": true,
-
-    /* Interop Constraints */
+/n    /* Interop Constraints */
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "verbatimModuleSyntax": false,
-
-    /* Type Checking */
+/n    /* Type Checking */
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -69,27 +64,23 @@
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": false,
-
-    /* Completeness */
+/n    /* Completeness */
     "skipLibCheck": false,
-
-    /* Advanced */
+/n    /* Advanced */
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "allowUmdGlobalAccess": true,
     "resolvePackageJsonExports": true,
     "resolvePackageJsonImports": true,
     "allowArbitraryExtensions": true,
-
-    /* Source Map Options */
+/n    /* Source Map Options */
     "sourceMap": true,
     "inlineSourceMap": false,
     "inlineSources": false,
     "sourceRoot": "",
     "mapRoot": "",
     "inlineSourceMap": false,
-
-    /* Advanced Options */
+/n    /* Advanced Options */
     "skipDefaultLibCheck": true,
     "plugins": [
       {

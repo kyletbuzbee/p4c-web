@@ -51,13 +51,13 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 app.post('/api/ai/edit-image', async (req, res) => {
   try {
     const { base64Image, mimeType, prompt } = req.body;
-    
+
     if (!base64Image || !mimeType || !prompt) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
     const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-image' });
-    
+
     const result = await model.generateContent({
       contents: {
         parts: [
@@ -94,9 +94,9 @@ app.post('/api/ai/edit-image', async (req, res) => {
 app.post('/api/ai/chat', async (req, res) => {
   try {
     const { message, history } = req.body;
-    
+
     const model = genAI.getGenerativeModel({
-      systemInstruction: `You are 'Patriot', the AI Concierge for Properties 4 Creation (P4C). 
+      systemInstruction: `You are 'Patriot', the AI Concierge for Properties 4 Creation (P4C).
       P4C is a veteran-owned company in East Texas that provides high-quality affordable housing.`
     });
 
@@ -116,7 +116,7 @@ app.post('/api/ai/chat', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`API Proxy server running on port ${PORT}`);
+
 });
 
 // ============================================
@@ -162,23 +162,23 @@ export const useAuth = () => {
 const validateStoredUser = (storedUser: string): User | null => {
   try {
     const user = JSON.parse(storedUser);
-    
+
     // Validate required fields
     if (!user.id || !user.email || !user.role) {
       return null;
     }
-    
+
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(user.email)) {
       return null;
     }
-    
+
     // Validate role
     if (!['guest', 'tenant', 'admin'].includes(user.role)) {
       return null;
     }
-    
+
     return user;
   } catch {
     return null;
@@ -196,10 +196,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       try {
         const storedUser = localStorage.getItem('p4c_user');
         const sessionToken = localStorage.getItem('p4c_session_token');
-        
+
         if (storedUser && sessionToken) {
           const validatedUser = validateStoredUser(storedUser);
-          
+
           if (validatedUser) {
             // Verify session with backend
             const response = await fetch('/api/auth/validate-session', {
@@ -210,7 +210,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
               },
               body: JSON.stringify({ userId: validatedUser.id })
             });
-            
+
             if (response.ok) {
               setUser(validatedUser);
             } else {
@@ -253,7 +253,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       }
 
       const { user: userData, token } = await response.json();
-      
+
       // Sanitize user data
       const cleanUser: User = {
         id: userData.id,
@@ -265,11 +265,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       };
 
       setUser(cleanUser);
-      
+
       // Store securely
       localStorage.setItem('p4c_user', JSON.stringify(cleanUser));
       localStorage.setItem('p4c_session_token', token);
-      
+
       addToast(`Welcome back, ${cleanUser.name}`, 'success');
     } catch (error) {
       addToast('Login failed. Please try again.', 'error');
@@ -282,11 +282,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const logout = useCallback(() => {
     // Clear state
     setUser(null);
-    
+
     // Clear storage
     localStorage.removeItem('p4c_user');
     localStorage.removeItem('p4c_session_token');
-    
+
     // Notify backend
     fetch('/api/auth/logout', {
       method: 'POST',
@@ -296,7 +296,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }).catch(() => {
       // Ignore network errors on logout
     });
-    
+
     addToast('You have been logged out.', 'info');
   }, [addToast]);
 
@@ -325,14 +325,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, [user]);
 
   return (
-    <AuthContext.Provider value={{ 
-      user, 
-      isAuthenticated: !!user, 
-      isLoading, 
-      login, 
-      logout, 
+    <AuthContext.Provider value={{
+      user,
+      isAuthenticated: !!user,
+      isLoading,
+      login,
+      logout,
       refreshToken,
-      hasPermission 
+      hasPermission
     }}>
       {children}
     </AuthContext.Provider>
@@ -367,8 +367,8 @@ class ErrorBoundary extends Component<Props, State> {
   };
 
   public static getDerivedStateFromError(error: Error): State {
-    return { 
-      hasError: true, 
+    return {
+      hasError: true,
       error,
       errorId: `ERR_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
     };
@@ -376,13 +376,13 @@ class ErrorBoundary extends Component<Props, State> {
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error('Uncaught error:', error, errorInfo);
-    
+
     // Generate unique error ID for tracking
     const errorId = this.state.errorId || `ERR_${Date.now()}`;
-    
+
     // Log to monitoring service (Sentry, DataDog, etc.)
     this.logErrorToService(error, errorInfo, errorId);
-    
+
     // Call custom error handler if provided
     this.props.onError?.(error, errorInfo);
   }
@@ -524,7 +524,7 @@ const usePropertyFilter = (properties: any[]) => {
 
       // Badge filter - must have ALL selected badges
       if (filters.selectedBadges.length > 0) {
-        const hasAllBadges = filters.selectedBadges.every(badge => 
+        const hasAllBadges = filters.selectedBadges.every(badge =>
           property.badges.includes(badge)
         );
         if (!hasAllBadges) return false;
@@ -569,7 +569,7 @@ const usePropertyFilter = (properties: any[]) => {
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const searchRef = useRef<HTMLInputElement>(null);
-  
+
   const {
     filters,
     filteredProperties,
@@ -580,7 +580,7 @@ const Home: React.FC = () => {
 
   // Optimized badge toggle with useCallback
   const toggleBadge = useCallback((badge: string) => {
-    updateFilter('selectedBadges', 
+    updateFilter('selectedBadges',
       filters.selectedBadges.includes(badge)
         ? filters.selectedBadges.filter(b => b !== badge)
         : [...filters.selectedBadges, badge]
@@ -594,23 +594,23 @@ const Home: React.FC = () => {
         <meta name="description" content="P4C buys distressed properties, renovates them to premium standards, and rents them affordably to veterans and families in East Texas." />
         <link rel="preload" href={IMAGES.BANNERS.HOME} as="image" />
       </Helmet>
-      
+
       {/* Optimized search and filter section */}
       <section className="py-8 bg-white border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
-            
+
             {/* Enhanced Search Input */}
             <div className="md:col-span-5 relative">
               <label htmlFor="property-search" className="sr-only">
                 Search properties
               </label>
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <input 
+              <input
                 ref={searchRef}
                 id="property-search"
-                type="text" 
-                placeholder="Search by city, address, or keyword..." 
+                type="text"
+                placeholder="Search by city, address, or keyword..."
                 className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-p4c-gold focus:border-p4c-gold transition-all"
                 value={filters.searchQuery}
                 onChange={(e) => updateFilter('searchQuery', e.target.value)}
@@ -623,7 +623,7 @@ const Home: React.FC = () => {
               <label htmlFor="price-filter" className="sr-only">
                 Maximum Price
               </label>
-              <select 
+              <select
                 id="price-filter"
                 className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-p4c-gold focus:border-p4c-gold bg-white"
                 value={filters.maxPrice}
@@ -642,7 +642,7 @@ const Home: React.FC = () => {
               <label htmlFor="bed-filter" className="sr-only">
                 Minimum Bedrooms
               </label>
-              <select 
+              <select
                 id="bed-filter"
                 className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-p4c-gold focus:border-p4c-gold bg-white"
                 value={filters.minBeds}
@@ -658,7 +658,7 @@ const Home: React.FC = () => {
 
             {/* Clear Button */}
             <div className="md:col-span-1 flex justify-center">
-              <button 
+              <button
                 onClick={clearFilters}
                 className="text-gray-400 hover:text-red-500 transition-colors p-2 rounded-full hover:bg-gray-100"
                 title="Clear Filters"
@@ -673,7 +673,7 @@ const Home: React.FC = () => {
           {allBadges.length > 0 && (
             <div className="mt-6 pt-4 border-t border-gray-100">
               <div className="flex items-center gap-2 mb-3 text-sm font-bold text-gray-500 uppercase tracking-wide">
-                <SlidersHorizontal className="w-4 h-4" /> 
+                <SlidersHorizontal className="w-4 h-4" />
                 <span>Filter by Features:</span>
                 <span id="search-results-count" className="text-p4c-gold">
                   ({filteredProperties.length} properties)
@@ -712,7 +712,7 @@ const Home: React.FC = () => {
                 Showing {filteredProperties.length} of {properties.length} properties
               </p>
             </div>
-            
+
             {/* Optimized grid with intersection observer for lazy loading */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredProperties.map((property) => (
@@ -731,7 +731,7 @@ const Home: React.FC = () => {
             <p className="text-gray-500 mb-6">
               Try adjusting your filters or price range.
             </p>
-            <button 
+            <button
               onClick={clearFilters}
               className="text-p4c-gold font-bold hover:underline"
             >
@@ -829,7 +829,7 @@ describe('Home Component', () => {
 
   it('renders property search interface', () => {
     render(<Home />);
-    
+
     expect(screen.getByLabelText(/search properties/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/maximum price/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/minimum bedrooms/i)).toBeInTheDocument();
@@ -837,10 +837,10 @@ describe('Home Component', () => {
 
   it('filters properties by search query', async () => {
     render(<Home />);
-    
+
     const searchInput = screen.getByLabelText(/search properties/i);
     fireEvent.change(searchInput, { target: { value: 'Test Property' } });
-    
+
     await waitFor(() => {
       expect(screen.getByTestId('property-card')).toBeInTheDocument();
     });
@@ -848,10 +848,10 @@ describe('Home Component', () => {
 
   it('filters properties by price range', async () => {
     render(<Home />);
-    
+
     const priceSelect = screen.getByLabelText(/maximum price/i);
     fireEvent.change(priceSelect, { target: { value: '800' } });
-    
+
     await waitFor(() => {
       // Should show no properties since test property is $1000
       expect(screen.queryByTestId('property-card')).not.toBeInTheDocument();
@@ -860,10 +860,10 @@ describe('Home Component', () => {
 
   it('shows no results message when filters yield no properties', async () => {
     render(<Home />);
-    
+
     const priceSelect = screen.getByLabelText(/maximum price/i);
     fireEvent.change(priceSelect, { target: { value: '800' } });
-    
+
     await waitFor(() => {
       expect(screen.getByText(/no homes found matching your criteria/i)).toBeInTheDocument();
     });
@@ -871,15 +871,15 @@ describe('Home Component', () => {
 
   it('clears all filters when clear button is clicked', async () => {
     render(<Home />);
-    
+
     // Set some filters
     const searchInput = screen.getByLabelText(/search properties/i);
     fireEvent.change(searchInput, { target: { value: 'test' } });
-    
+
     // Clear filters
     const clearButton = screen.getByTitle(/clear filters/i);
     fireEvent.click(clearButton);
-    
+
     await waitFor(() => {
       expect(searchInput).toHaveValue('');
       expect(screen.getByTestId('property-card')).toBeInTheDocument();
@@ -913,12 +913,12 @@ export const usePerformanceMonitor = (componentName: string) => {
       new PerformanceObserver((list) => {
         const entries = list.getEntries();
         const lastEntry = entries[entries.length - 1];
-        
+
         const lcp = lastEntry.startTime;
         const lcpRating = lcp < 2500 ? 'good' : lcp < 4000 ? 'needs-improvement' : 'poor';
-        
-        console.log(`LCP: ${lcp}ms (${lcpRating})`);
-        
+
+`);
+
         // Send to analytics service
         sendMetric('LCP', lcp, lcpRating);
       }).observe({ entryTypes: ['largest-contentful-paint'] });
@@ -928,8 +928,8 @@ export const usePerformanceMonitor = (componentName: string) => {
         for (const entry of list.getEntries()) {
           const fid = entry.processingStart - entry.startTime;
           const fidRating = fid < 100 ? 'good' : fid < 300 ? 'needs-improvement' : 'poor';
-          
-          console.log(`FID: ${fid}ms (${fidRating})`);
+
+`);
           sendMetric('FID', fid, fidRating);
         }
       }).observe({ entryTypes: ['first-input'] });
@@ -942,9 +942,9 @@ export const usePerformanceMonitor = (componentName: string) => {
             clsScore += entry.value;
           }
         }
-        
+
         const clsRating = clsScore < 0.1 ? 'good' : clsScore < 0.25 ? 'needs-improvement' : 'poor';
-        console.log(`CLS: ${clsScore} (${clsRating})`);
+`);
         sendMetric('CLS', clsScore, clsRating);
       }).observe({ entryTypes: ['layout-shift'] });
     };
@@ -968,7 +968,7 @@ export const usePerformanceMonitor = (componentName: string) => {
 
     return () => {
       const totalTime = performance.now() - startTime.current;
-      console.log(`${componentName} mounted in ${totalTime.toFixed(2)}ms`);
+}ms`);
     };
   }, [componentName]);
 };

@@ -16,7 +16,7 @@
     background-color: var(--color-beige);
     color: var(--color-navy);
   }
-  
+
   /* Custom focus styles for accessibility */
   *:focus-visible {
     outline: 3px solid var(--color-gold);
