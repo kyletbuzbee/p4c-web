@@ -1,10 +1,12 @@
 # Deploying to Render.com (Free Tier)
 
 ## Your Website
+
 - **Frontend:** https://www.properties4creations.com (GitHub Pages)
 - **Backend:** Deploy to Render.com (follow steps below)
 
 ## Prerequisites
+
 1. GitHub account with this repository
 2. Render.com account (free sign up at https://render.com)
 3. Google Gemini API Key (get from https://makersuite.google.com/app/apikey)
@@ -33,6 +35,7 @@
 
 4. **Add Environment Variables:**
    Click "Advanced" → "Add Environment Variables":
+
    ```
    GEMINI_API_KEY=your_gemini_api_key_here
    NODE_ENV=production
@@ -52,11 +55,13 @@
 
 1. **Edit `.env.local`:**
    Replace `YOUR_BACKEND_URL` with your Render URL:
+
    ```
    VITE_API_URL=https://p4c-backend.onrender.com/api
    ```
 
 2. **Push Changes:**
+
    ```bash
    git add .
    git commit -m "Connect chatbot to Render backend"
@@ -69,8 +74,9 @@
 
 1. **Test Backend Health:**
    Visit: `https://YOUR_RENDER_APP.onrender.com/api/health`
-   
+
    Expected response:
+
    ```json
    {
      "status": "healthy",
@@ -84,26 +90,32 @@
 ## Troubleshooting
 
 ### CORS Errors
+
 If chatbot shows "trouble connecting":
+
 - Check that `ALLOWED_ORIGINS` includes `https://www.properties4creations.com`
 - Update Render env vars and redeploy
 
 ### API Key Missing
+
 - Verify `GEMINI_API_KEY` is set in Render dashboard
 - Get a new key from: https://makersuite.google.com/app/apikey
 
 ### Free Tier Limitations
+
 - Service sleeps after 15 min of inactivity
 - First request after sleep: ~30-60 second delay
 - Monthly limit: 750 hours free
 
 ## Cost
-| Tier | Monthly Cost |
-|------|-------------|
-| Free | $0 |
+
+| Tier | Monthly Cost          |
+| ---- | --------------------- |
+| Free | $0                    |
 | Paid | ~$7/month (always-on) |
 
 ## Architecture
+
 ```
 ┌─────────────────────────────────────────────────────┐
 │  User's Browser                                     │

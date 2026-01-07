@@ -128,19 +128,19 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
       {/* Floating Accessibility Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-6 right-6 bg-p4c-navy text-white p-4 rounded-full shadow-lg hover:bg-p4c-gold hover:text-p4c-navy transition-all duration-300 z-50 focus:outline-none focus:ring-2 focus:ring-p4c-gold focus:ring-offset-2 ${className}`}
+        className={`fixed bottom-6 left-6 bg-p4c-navy text-white p-4 rounded-full shadow-lg hover:bg-p4c-gold hover:text-p4c-navy transition-all duration-300 z-50 focus:outline-none focus:ring-2 focus:ring-p4c-gold focus:ring-offset-2 ${className}`}
         aria-label="Accessibility Tools"
         title="Accessibility Tools (Ctrl/Cmd + K for contrast, + and - for font size)"
       >
         <span className="text-lg">⚙️</span>
         {isOpen && (
-          <span className="absolute -top-2 -right-2 w-3 h-3 bg-red-500 rounded-full" />
+          <span className="absolute -top-2 -left-2 w-3 h-3 bg-red-500 rounded-full" />
         )}
       </button>
 
       {/* Accessibility Panel */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 bg-white border border-gray-200 rounded-lg shadow-xl p-4 w-80 z-50 animate-in slide-in-from-bottom-2 duration-200">
+        <div className="fixed bottom-24 left-6 bg-white border border-gray-200 rounded-lg shadow-xl p-4 w-80 z-50 animate-in slide-in-from-bottom-2 duration-200">
           <div className="flex justify-between items-center mb-3">
             <h3 className="font-semibold text-gray-800">Accessibility Tools</h3>
             <button
@@ -155,9 +155,9 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
           <div className="space-y-4">
             {/* Font Size Control */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <span className="block text-sm font-medium text-gray-700 mb-2">
                 Font Size: {fontSize}%
-              </label>
+              </span>
               <div className="flex gap-2">
                 <button
                   onClick={decreaseFontSize}
@@ -180,9 +180,9 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
 
             {/* Contrast Control */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <span className="block text-sm font-medium text-gray-700 mb-2">
                 Contrast Mode
-              </label>
+              </span>
               <div className="flex gap-2">
                 <button
                   onClick={() => setContrast('normal')}

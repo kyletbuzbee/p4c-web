@@ -224,3 +224,11 @@ export const validationUtils = {
   validateMimeType,
   sanitizeInput,
 };
+
+// Default export for backward compatibility
+export default {
+  sendChatMessage,
+  editImageWithGemini,
+  checkAiServiceHealth,
+  validationUtils,
+};

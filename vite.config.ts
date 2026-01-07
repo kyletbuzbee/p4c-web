@@ -29,6 +29,7 @@ export default defineConfig(({ mode }) => {
     server: {
       port: 3000,
       host: '0.0.0.0',
+      allowedHosts: ['p4c-web.onrender.com', 'p4c-web', '.onrender.com'],
       headers: {
         // Security Headers - CRITICAL for XSS Protection
         'X-Frame-Options': 'DENY',
@@ -39,7 +40,7 @@ export default defineConfig(({ mode }) => {
           'max-age=31536000; includeSubDomains; preload',
         // Content Security Policy - XSS Prevention
         'Content-Security-Policy':
-          "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' http://localhost:3001; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;",
+          "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://p4c-web.onrender.com https://generativelanguage.googleapis.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;",
       },
       proxy: {
         // Proxy API calls to secure server

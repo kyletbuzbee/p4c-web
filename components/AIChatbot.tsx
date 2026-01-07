@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, X, Send, Loader2, Bot } from 'lucide-react';
-import { sendChatMessage } from '../services/geminiService';
+import geminiService from '../services/geminiService';
 
 interface Message {
   role: 'user' | 'model';
@@ -78,14 +78,7 @@ const AIChatbot: React.FC = () => {
     setIsLoading(true);
 
     try {
-      // Create history snapshot excluding the message we just added (since state updates are async/batched)
-      // and formatting it for the API.
-      const history = messages.map((m) => ({
-        role: m.role,
-        parts: [{ text: m.text }],
-      }));
-
-      const response = await sendChatMessage(userMessage, history);
+      const response = await geminiService.sendChatMessage(userMessage);
       setMessages((prev) => [...prev, { role: 'model', text: response }]);
     } catch (error) {
       setMessages((prev) => [
