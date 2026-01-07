@@ -148,9 +148,9 @@ const Footer: React.FC = () => (
             Get in Touch
           </h4>
           <ul className="space-y-2 text-sm text-gray-400 mb-6">
-            <li>123 Veteran Way, Tyler, TX 75701</li>
-            <li>(903) 555-0123</li>
-            <li>support@p4c-homes.com</li>
+            <li>Longview, Texas</li>
+            <li>(936) 707-8460</li>
+            <li>Richard@properties4creation.com</li>
           </ul>
           <h5 className="font-bold text-sm text-white mb-2">Legal</h5>
           <ul className="space-y-2 text-sm text-gray-400">

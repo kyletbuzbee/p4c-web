@@ -1,7 +1,7 @@
 
 ================================================================================
 FILE_BEGIN: App.tsx
-METADATA: Size=6012 bytes | Last_Modified=2026-01-05 22:45:26.980857
+METADATA: Size=4452 bytes | Last_Modified=2026-01-07 11:50:33.532006
 ================================================================================
 import React, { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
@@ -10,6 +10,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import ErrorBoundary from './components/ErrorBoundary';
+import SkipLink from './components/SkipLink';
 import { ToastProvider } from './context/ToastContext';
 import { AuthProvider } from './context/AuthContext';
 import { DarkModeProvider } from './context/DarkModeContext';
@@ -33,18 +34,60 @@ const TenantLogin = React.lazy(() => import('./pages/TenantLogin'));
 const Privacy = React.lazy(() => import('./pages/Privacy'));
 const Terms = React.lazy(() => import('./pages/Terms'));
 const AccessibilityStatement = React.lazy(
-  () => import('./pages/AccessibilityStatement'),
+  () => import('./pages/AccessibilityStatement')
 );
 const EqualHousing = React.lazy(() => import('./pages/EqualHousing'));
 const SuccessStories = React.lazy(() => import('./pages/SuccessStories'));
 const AdminDashboard = React.lazy(() => import('./pages/AdminDashboard'));
-const FAQ = React.lazy(() => import('./pages/FAQ'));
+const Faq = React.lazy(() => import('./pages/FAQ'));
 
 // Loading Fallback
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center bg-p4c-beige">
     <Loader2 className="w-12 h-12 text-p4c-gold animate-spin" />
   </div>
+);
+
+// Standard Layout Component
+const StandardLayout = () => (
+  <>
+    <Navbar />
+    <main id="main-content" className="flex-grow">
+      <Suspense fallback={<PageLoader />}>
+        <Routes>
+          {/* Find a Home (Transactional) */}
+          <Route path="/" element={<Home />} />
+          <Route path="/properties/:id" element={<PropertyDetails />} />
+          <Route path="/apply" element={<Application />} />
+          <Route path="/equal-housing" element={<EqualHousing />} />
+
+          {/* Mission (Trust & Credibility) */}
+          <Route path="/about" element={<About />} />
+          <Route path="/impact" element={<OurImpact />} />
+          <Route path="/transparency" element={<Transparency />} />
+          <Route path="/stories" element={<SuccessStories />} />
+          <Route path="/employment" element={<Employment />} />
+
+          {/* Residents (Service Hub) */}
+          <Route path="/veterans" element={<Veterans />} />
+          <Route path="/veteran-services" element={<VeteranServices />} />
+          <Route path="/portal" element={<TenantLogin />} />
+          <Route path="/faq" element={<Faq />} />
+          <Route path="/accessibility" element={<AccessibilityStatement />} />
+
+          {/* Support (Connection) */}
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
+        </Routes>
+      </Suspense>
+    </main>
+    <AIChatbot />
+    <AccessibilityTools />
+    <Footer />
+    <CookieConsent />
+  </>
 );
 
 function App() {
@@ -55,80 +98,10 @@ function App() {
           <DarkModeProvider>
             <AuthProvider>
               <div className="font-sans antialiased text-p4c-navy bg-p4c-beige min-h-screen flex flex-col">
-                <a href="#main-content" className="skip-link">
-                  Skip to main content
-                </a>
+                <SkipLink />
                 <ScrollToTop />
-
                 <Routes>
-                  {/* Public Routes with Standard Layout */}
-                  <Route
-                    path="*"
-                    element={
-                      <>
-                        <Navbar />
-                        <main id="main-content" className="flex-grow">
-                          <Suspense fallback={<PageLoader />}>
-                            <Routes>
-                              {/* Find a Home (Transactional) */}
-                              <Route path="/" element={<Home />} />
-                              <Route
-                                path="/properties/:id"
-                                element={<PropertyDetails />}
-                              />
-                              <Route path="/apply" element={<Application />} />
-                              <Route
-                                path="/equal-housing"
-                                element={<EqualHousing />}
-                              />
-
-                              {/* Mission (Trust & Credibility) */}
-                              <Route path="/about" element={<About />} />
-                              <Route path="/impact" element={<OurImpact />} />
-                              <Route
-                                path="/transparency"
-                                element={<Transparency />}
-                              />
-                              <Route
-                                path="/stories"
-                                element={<SuccessStories />}
-                              />
-                              <Route
-                                path="/employment"
-                                element={<Employment />}
-                              />
-
-                              {/* Residents (Service Hub) */}
-                              <Route path="/veterans" element={<Veterans />} />
-                              <Route
-                                path="/veteran-services"
-                                element={<VeteranServices />}
-                              />
-                              <Route path="/portal" element={<TenantLogin />} />
-                              <Route path="/faq" element={<FAQ />} />
-                              <Route
-                                path="/accessibility"
-                                element={<AccessibilityStatement />}
-                              />
-
-                              {/* Support (Connection) */}
-                              <Route path="/contact" element={<Contact />} />
-                              <Route
-                                path="/admin"
-                                element={<AdminDashboard />}
-                              />
-                              <Route path="/privacy" element={<Privacy />} />
-                              <Route path="/terms" element={<Terms />} />
-                            </Routes>
-                          </Suspense>
-                        </main>
-                        <AIChatbot />
-                        <AccessibilityTools />
-                        <Footer />
-                        <CookieConsent />
-                      </>
-                    }
-                  />
+                  <Route path="*" element={<StandardLayout />} />
                 </Routes>
               </div>
             </AuthProvider>
@@ -147,7 +120,7 @@ export default App;
 
 ================================================================================
 FILE_BEGIN: components\AccessibilityTools.tsx
-METADATA: Size=10132 bytes | Last_Modified=2026-01-05 21:05:53.876867
+METADATA: Size=10131 bytes | Last_Modified=2026-01-07 10:13:28.761943
 ================================================================================
 import React, { useState, useEffect } from 'react';
 
@@ -227,7 +200,7 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
     if (!audioAssistance) {
       // Announce feature activation
       const utterance = new SpeechSynthesisUtterance(
-        'Audio assistance activated. Use keyboard shortcuts for navigation.',
+        'Audio assistance activated. Use keyboard shortcuts for navigation.'
       );
       speechSynthesis.speak(utterance);
     }
@@ -457,8 +430,121 @@ export default AccessibilityTools;
 ################################################################################
 
 ================================================================================
+FILE_BEGIN: components\AdminDashboardSkeleton.tsx
+METADATA: Size=3382 bytes | Last_Modified=2026-01-07 13:38:27.995984
+================================================================================
+import React from 'react';
+
+interface AdminDashboardSkeletonProps {
+  variant?: 'sidebar' | 'full';
+}
+
+const SidebarSkeleton: React.FC = () => (
+  <aside className="w-64 bg-p4c-navy text-white hidden md:flex flex-col animate-pulse">
+    <div className="p-6 border-b border-gray-700">
+      <div className="h-6 bg-gray-600 rounded w-3/4 mb-2" />
+      <div className="h-4 bg-gray-700 rounded w-1/2" />
+    </div>
+    <nav className="flex-1 p-4 space-y-2">
+      {[1, 2, 3, 4].map((i) => (
+        <div
+          key={i}
+          className="flex items-center w-full px-4 py-3 bg-gray-700/30 rounded-lg"
+        >
+          <div className="w-5 h-5 bg-gray-600 rounded mr-3" />
+          <div className="h-4 bg-gray-600 rounded w-20" />
+        </div>
+      ))}
+    </nav>
+    <div className="p-4 border-t border-gray-700">
+      <div className="flex items-center gap-3 mb-4">
+        <div className="w-8 h-8 bg-gray-600 rounded-full" />
+        <div className="space-y-1">
+          <div className="h-4 bg-gray-600 rounded w-16" />
+          <div className="h-3 bg-gray-700 rounded w-20" />
+        </div>
+      </div>
+      <div className="h-10 bg-gray-600 rounded w-full" />
+    </div>
+  </aside>
+);
+
+const StatsSkeleton: React.FC = () => (
+  <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+    {[1, 2, 3, 4].map((i) => (
+      <div
+        key={i}
+        className="bg-white p-6 rounded-xl shadow-sm border border-gray-100"
+      >
+        <div className="h-4 bg-gray-200 rounded w-24 mb-2" />
+        <div className="h-8 bg-gray-200 rounded w-16 mb-2" />
+        <div className="h-3 bg-gray-100 rounded w-28" />
+      </div>
+    ))}
+  </div>
+);
+
+const TableSkeleton: React.FC = () => (
+  <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+    <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
+      <div className="h-5 bg-gray-200 rounded w-32" />
+      <div className="h-4 bg-gray-100 rounded w-16" />
+    </div>
+    <div className="p-8">
+      <div className="space-y-4">
+        <div className="h-4 bg-gray-100 rounded w-1/4 mx-auto mb-6" />
+        {[1, 2, 3].map((i) => (
+          <div
+            key={i}
+            className="h-16 bg-gray-50 rounded flex items-center px-6"
+          >
+            <div className="flex items-center w-full">
+              <div className="w-10 h-10 bg-gray-200 rounded mr-4" />
+              <div className="flex-1 space-y-2">
+                <div className="h-4 bg-gray-200 rounded w-1/3" />
+                <div className="h-3 bg-gray-100 rounded w-1/4" />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+);
+
+const AdminDashboardSkeleton: React.FC<AdminDashboardSkeletonProps> = ({
+  variant = 'full',
+}) => {
+  if (variant === 'sidebar') {
+    return <SidebarSkeleton />;
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-100 flex">
+      <SidebarSkeleton />
+      <main className="flex-1 overflow-y-auto">
+        <div className="p-8">
+          <div className="flex justify-between items-center mb-8">
+            <div className="h-8 bg-gray-200 rounded w-48" />
+            <div className="h-10 bg-gray-200 rounded w-32" />
+          </div>
+          <StatsSkeleton />
+          <TableSkeleton />
+        </div>
+      </main>
+    </div>
+  );
+};
+
+export default AdminDashboardSkeleton;
+
+
+[FILE_END: components\AdminDashboardSkeleton.tsx]
+################################################################################
+
+================================================================================
 FILE_BEGIN: components\AIChatbot.tsx
-METADATA: Size=7827 bytes | Last_Modified=2026-01-05 21:05:53.876867
+METADATA: Size=7826 bytes | Last_Modified=2026-01-07 10:13:28.780866
 ================================================================================
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, X, Send, Loader2, Bot } from 'lucide-react';
@@ -484,7 +570,7 @@ const AIChatbot: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
@@ -504,7 +590,7 @@ const AIChatbot: React.FC = () => {
         }
         if (e.key === 'Tab' && chatContainerRef.current) {
           const focusableElements = chatContainerRef.current.querySelectorAll(
-            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
           );
           const firstElement = focusableElements[0] as HTMLElement;
           const lastElement = focusableElements[
@@ -536,7 +622,7 @@ const AIChatbot: React.FC = () => {
 
     const userMessage = input;
     setInput('');
-    setMessages((prev) => [...prev, { role: "user", text: userMessage }]);
+    setMessages((prev) => [...prev, { role: 'user', text: userMessage }]);
     setIsLoading(true);
 
     try {
@@ -548,12 +634,12 @@ const AIChatbot: React.FC = () => {
       }));
 
       const response = await sendChatMessage(userMessage, history);
-      setMessages((prev) => [...prev, { role: "model", text: response }]);
+      setMessages((prev) => [...prev, { role: 'model', text: response }]);
     } catch (error) {
       setMessages((prev) => [
         ...prev,
         {
-          role: "model",
+          role: 'model',
           text: "I'm having trouble connecting to the server. Please try again later.",
         },
       ]);
@@ -770,7 +856,7 @@ export default BeforeAfterSlider;
 
 ================================================================================
 FILE_BEGIN: components\CookieConsent.tsx
-METADATA: Size=2546 bytes | Last_Modified=2026-01-07 07:21:31.220740
+METADATA: Size=2556 bytes | Last_Modified=2026-01-07 11:11:14.869000
 ================================================================================
 import React, { useState, useEffect } from 'react';
 import { Cookie } from 'lucide-react';
@@ -814,7 +900,7 @@ const CookieConsent: React.FC = (): React.ReactNode => {
             <p>
               We use cookies to enhance your browsing experience, serve
               personalized content, and analyze our traffic. By clicking
-              "Accept", you consent to our use of cookies.{' '}
+              &quot;Accept&quot;, you consent to our use of cookies.{' '}
               <a
                 href="/privacy"
                 className="underline text-p4c-navy hover:text-p4c-gold"
@@ -932,7 +1018,7 @@ export default DarkModeToggle;
 
 ================================================================================
 FILE_BEGIN: components\ErrorBoundary.tsx
-METADATA: Size=9067 bytes | Last_Modified=2026-01-06 08:04:58.399699
+METADATA: Size=8781 bytes | Last_Modified=2026-01-07 10:13:28.823042
 ================================================================================
 import { Component } from 'react';
 import type { ErrorInfo, ReactNode } from 'react';
@@ -982,7 +1068,7 @@ class ErrorBoundary extends Component<Props, State> {
   private logErrorToService = async (
     error: Error,
     errorInfo: ErrorInfo,
-    errorId: string,
+    errorId: string
   ) => {
     // Only log if enabled (security consideration)
     if (!this.props.enableLogging) {
@@ -1002,7 +1088,7 @@ class ErrorBoundary extends Component<Props, State> {
         // Stack trace - only include filename and line numbers, not full paths
         stack: this.sanitizeStackTrace(error.stack || ''),
         componentStack: this.sanitizeComponentStack(
-          errorInfo.componentStack || '',
+          errorInfo.componentStack || ''
         ),
       };
 
@@ -1026,11 +1112,11 @@ class ErrorBoundary extends Component<Props, State> {
     message
       .replace(
         /api[_-]?key["\s]*[:=]["\s]*[a-zA-Z0-9\-_]+/gi,
-        "api_key: [REDACTED]",
+        'api_key: [REDACTED]'
       )
-      .replace(/token["\s]*[:=]["\s]*[a-zA-Z0-9\-_]+/gi, "token: [REDACTED]")
-      .replace(/password["\s]*[:=]["\s]*[^,\s]+/gi, "password: [REDACTED]")
-      .replace(/email["\s]*[:=]["\s]*[^,\s]+@[^,\s]+/gi, "email: [REDACTED]")
+      .replace(/token["\s]*[:=]["\s]*[a-zA-Z0-9\-_]+/gi, 'token: [REDACTED]')
+      .replace(/password["\s]*[:=]["\s]*[^,\s]+/gi, 'password: [REDACTED]')
+      .replace(/email["\s]*[:=]["\s]*[^,\s]+@[^,\s]+/gi, 'email: [REDACTED]')
       .substring(0, 500); // Limit length
 
   private sanitizeStackTrace = (stack: string): string => {
@@ -1130,7 +1216,7 @@ class ErrorBoundary extends Component<Props, State> {
       });
 
       alert(
-        'Error report submitted successfully. Thank you for your feedback!',
+        'Error report submitted successfully. Thank you for your feedback!'
       );
     } catch (error) {
       alert('Failed to submit error report. Please try again later.');
@@ -1223,7 +1309,7 @@ export default ErrorBoundary;
 
 ================================================================================
 FILE_BEGIN: components\Footer.tsx
-METADATA: Size=6963 bytes | Last_Modified=2026-01-07 03:20:34.334455
+METADATA: Size=6956 bytes | Last_Modified=2026-01-07 15:38:17.085569
 ================================================================================
 import React from 'react';
 import {
@@ -1375,9 +1461,9 @@ const Footer: React.FC = () => (
             Get in Touch
           </h4>
           <ul className="space-y-2 text-sm text-gray-400 mb-6">
-            <li>123 Veteran Way, Tyler, TX 75701</li>
-            <li>(903) 555-0123</li>
-            <li>support@p4c-homes.com</li>
+            <li>Longview, Texas</li>
+            <li>(936) 707-8460</li>
+            <li>Richard@properties4creation.com</li>
           </ul>
           <h5 className="font-bold text-sm text-white mb-2">Legal</h5>
           <ul className="space-y-2 text-sm text-gray-400">
@@ -1447,7 +1533,7 @@ export default Footer;
 
 ================================================================================
 FILE_BEGIN: components\GeminiImageEditor.tsx
-METADATA: Size=7773 bytes | Last_Modified=2026-01-05 21:05:53.876867
+METADATA: Size=7772 bytes | Last_Modified=2026-01-07 10:13:28.850563
 ================================================================================
 import React, { useState, useRef } from 'react';
 import {
@@ -1472,7 +1558,7 @@ const GeminiImageEditor: React.FC = () => {
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > 5 * 1024 * 1024) {
-        setError("Image size too large. Please use an image under 5MB.");
+        setError('Image size too large. Please use an image under 5MB.');
         return;
       }
 
@@ -1501,7 +1587,7 @@ const GeminiImageEditor: React.FC = () => {
       setGeneratedImage(result);
     } catch (err) {
       setError(
-        'Failed to process image. Please try again with a different prompt.',
+        'Failed to process image. Please try again with a different prompt.'
       );
     } finally {
       setLoading(false);
@@ -1653,7 +1739,7 @@ export default GeminiImageEditor;
 
 ================================================================================
 FILE_BEGIN: components\Hero.tsx
-METADATA: Size=2509 bytes | Last_Modified=2026-01-07 03:33:29.420379
+METADATA: Size=2504 bytes | Last_Modified=2026-01-07 14:06:37.756655
 ================================================================================
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
@@ -1672,7 +1758,7 @@ const Hero: React.FC = () => (
         className="object-cover w-full h-full"
         aria-label="Hero background video showcasing renovated properties"
       >
-        <source src={IMAGES.VIDEOS.HERO_WORK} type="video/mp4" />
+        <source src={IMAGES.VIDEOS.HOME} type="video/mp4" />
       </video>
       {/* Enhanced overlay for readability */}
       <div className="absolute top-0 left-0 w-full h-full hero-overlay-primary" />
@@ -1718,7 +1804,7 @@ export default Hero;
 
 ================================================================================
 FILE_BEGIN: components\ImageOptimizer.tsx
-METADATA: Size=5997 bytes | Last_Modified=2026-01-05 21:05:53.876867
+METADATA: Size=5995 bytes | Last_Modified=2026-01-07 10:13:28.868498
 ================================================================================
 import React, { useState, useEffect, useRef } from 'react';
 
@@ -1756,7 +1842,7 @@ const ImageOptimizer: React.FC<ImageOptimizerProps> = ({
   // Generate optimized image URLs
   const generateOptimizedSrc = (
     originalSrc: string,
-    format: string = 'webp',
+    format: string = 'webp'
   ) => {
     // In a real implementation, this would call an image optimization service
     // For now, we'll simulate format conversion and responsive sizing
@@ -1766,7 +1852,7 @@ const ImageOptimizer: React.FC<ImageOptimizerProps> = ({
     if (extension === format) return originalSrc;
 
     // Simulate format conversion (in production, use Cloudinary, Imgix, etc.)
-    const baseName = originalSrc.replace(/\.[^/.]+$/, "");
+    const baseName = originalSrc.replace(/\.[^/.]+$/, '');
     return `${baseName}.${format}`;
   };
 
@@ -1781,16 +1867,16 @@ const ImageOptimizer: React.FC<ImageOptimizerProps> = ({
   // Check browser WebP/AVIF support
   const checkFormatSupport = () =>
     new Promise<string>((resolve) => {
-      const canvas = document.createElement("canvas");
+      const canvas = document.createElement('canvas');
       canvas.width = 1;
       canvas.height = 1;
 
       // Test AVIF support
-      canvas.toDataURL("image/avif").startsWith("data:image/avif")
-        ? resolve("avif")
-        : canvas.toDataURL("image/webp").startsWith("data:image/webp")
-          ? resolve("webp")
-          : resolve("jpeg");
+      canvas.toDataURL('image/avif').startsWith('data:image/avif')
+        ? resolve('avif')
+        : canvas.toDataURL('image/webp').startsWith('data:image/webp')
+          ? resolve('webp')
+          : resolve('jpeg');
     });
 
   useEffect(() => {
@@ -1857,7 +1943,7 @@ const ImageOptimizer: React.FC<ImageOptimizerProps> = ({
         {
           rootMargin: '50px', // Load 50px before entering viewport
           threshold: 0.01,
-        },
+        }
       );
 
       if (imgRef.current) {
@@ -1941,7 +2027,7 @@ export default ImageOptimizer;
 
 ================================================================================
 FILE_BEGIN: components\ImpactDashboard.tsx
-METADATA: Size=1914 bytes | Last_Modified=2026-01-05 21:05:53.876867
+METADATA: Size=1915 bytes | Last_Modified=2026-01-07 11:04:17.846463
 ================================================================================
 import React from 'react';
 import type { StatMetric } from '../types';
@@ -1973,14 +2059,14 @@ const ImpactDashboard: React.FC = () => (
             className="bg-white/5 border border-white/10 p-8 rounded-2xl flex flex-col items-center text-center hover:bg-white/10 transition-colors duration-300"
           >
             <div className="bg-p4c-gold p-4 rounded-full mb-6 text-p4c-navy">
-              {stat.icon === "home" && <Home className="w-8 h-8" />}
-              {stat.icon === "users" && <Users className="w-8 h-8" />}
-              {stat.icon === "hammer" && <Hammer className="w-8 h-8" />}
+              {stat.icon === 'home' && <Home className="w-8 h-8" />}
+              {stat.icon === 'users' && <Users className="w-8 h-8" />}
+              {stat.icon === 'hammer' && <Hammer className="w-8 h-8" />}
             </div>
             <div className="text-5xl font-bold font-serif text-white mb-2">
               {stat.value}
             </div>
-            <div className="text-p4c-gold uppercase tracking-widest text-sm font-semibold">
+            <div className="text-[#A68030] uppercase tracking-widest text-sm font-semibold">
               {stat.label}
             </div>
           </div>
@@ -1998,7 +2084,7 @@ export default ImpactDashboard;
 
 ================================================================================
 FILE_BEGIN: components\MicroInteractions.tsx
-METADATA: Size=8941 bytes | Last_Modified=2026-01-07 07:20:11.812536
+METADATA: Size=9547 bytes | Last_Modified=2026-01-07 11:27:30.922838
 ================================================================================
 import React, { useState, useEffect, useRef } from 'react';
 
@@ -2045,7 +2131,7 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
         // Remove ripple after animation
         setTimeout(() => {
           setRipples((prev) =>
-            prev.filter((ripple) => ripple.id !== newRipple.id),
+            prev.filter((ripple) => ripple.id !== newRipple.id)
           );
         }, 600);
       }
@@ -2080,7 +2166,9 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
       ref={buttonRef}
       onClick={handleClick}
       disabled={disabled || loading}
+      /* eslint-disable security/detect-object-injection */
       className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${isPressed ? 'scale-95' : ''} ${animate ? 'hover-lift button-press' : ''} ${className}`}
+      /* eslint-enable security/detect-object-injection */
       {...props}
     >
       {/* Ripple effects */}
@@ -2148,7 +2236,9 @@ export const FloatingAction: React.FC<FloatingActionProps> = ({
   return (
     <button
       onClick={onClick}
+      /* eslint-disable security/detect-object-injection */
       className={`fixed ${positionClasses[position]} z-40 w-14 h-14 bg-p4c-gold text-p4c-navy rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-p4c-gold focus:ring-offset-2 group ${className}`}
+      /* eslint-enable security/detect-object-injection */
       aria-label="Floating action button"
     >
       <div className="flex items-center justify-center w-full h-full group-hover:scale-110 transition-transform duration-200">
@@ -2200,7 +2290,9 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
   return (
     <div className={`flex items-center space-x-2 ${className}`}>
       <div
+        /* eslint-disable security/detect-object-injection */
         className={`bg-gray-200 rounded-full overflow-hidden ${sizeClasses[size]}`}
+        /* eslint-enable security/detect-object-injection */
       >
         <div
           className={`${color} h-full rounded-full transition-all duration-500 ease-out`}
@@ -2302,7 +2394,9 @@ export const HoverCard: React.FC<HoverCardProps> = ({
 
   return (
     <div
+      /* eslint-disable security/detect-object-injection */
       className={`transition-all duration-300 ease-in-out ${effectClasses[hoverEffect]} ${className}`}
+      /* eslint-enable security/detect-object-injection */
     >
       {children}
     </div>
@@ -2331,7 +2425,9 @@ export const LoadingDots: React.FC<LoadingDotsProps> = ({
       {[0, 1, 2].map((i) => (
         <div
           key={i}
+          /* eslint-disable security/detect-object-injection */
           className={`${sizeClasses[size]} ${color} rounded-full animate-bounce`}
+          /* eslint-enable security/detect-object-injection */
           style={{
             animationDelay: `${i * 0.1}s`,
             animationDuration: '0.6s',
@@ -2352,7 +2448,7 @@ export default AnimatedButton;
 
 ================================================================================
 FILE_BEGIN: components\Navbar.tsx
-METADATA: Size=10190 bytes | Last_Modified=2026-01-07 03:16:06.221598
+METADATA: Size=10745 bytes | Last_Modified=2026-01-07 14:02:15.077956
 ================================================================================
 import React, { useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -2392,7 +2488,7 @@ interface NavItem {
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false); // Mobile menu state
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const dropdownTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const navigate = useNavigate();
 
   // Define the Navigation Structure
@@ -2511,6 +2607,13 @@ const Navbar: React.FC = () => {
     window.scrollTo(0, 0);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent, path: string) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleNavClick(path);
+    }
+  };
+
   return (
     <nav className="sticky top-0 z-50 bg-[#0B1120]/90 border-b border-[#0B1120]/30 text-white backdrop-blur-xl shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -2521,7 +2624,7 @@ const Navbar: React.FC = () => {
             className="flex-shrink-0 flex items-center gap-3 hover:opacity-90 transition-opacity"
           >
             <img
-              src={IMAGES.LOGO.SVG}
+              src={IMAGES.LOGO.PNG}
               alt="Properties 4 Creation Logo"
               className="h-14 w-auto object-contain"
             />
@@ -2538,6 +2641,8 @@ const Navbar: React.FC = () => {
               >
                 <button
                   className={`flex items-center text-sm font-medium transition-colors duration-200 ${activeDropdown === group.label ? 'text-p4c-gold' : 'text-gray-300 hover:text-white'}`}
+                  aria-expanded={activeDropdown === group.label}
+                  aria-haspopup="true"
                 >
                   {group.label}
                   <ChevronDown
@@ -2553,7 +2658,9 @@ const Navbar: React.FC = () => {
                         <button
                           key={child.label}
                           onClick={() => handleNavClick(child.path)}
+                          onKeyDown={(e) => handleKeyDown(e, child.path)}
                           className="w-full text-left px-4 py-3 hover:bg-gray-50 flex items-start gap-3 group/item transition-colors"
+                          role="menuitem"
                         >
                           <div className="mt-1 p-1.5 bg-p4c-beige rounded-md text-p4c-navy group-hover/item:bg-p4c-navy group-hover/item:text-p4c-gold transition-colors">
                             {child.icon}
@@ -2589,6 +2696,7 @@ const Navbar: React.FC = () => {
               onClick={() => handleNavClick('/admin')}
               className="text-gray-400 hover:text-p4c-gold p-2 rounded-full"
               title="Staff Dashboard"
+              aria-label="Staff Dashboard - Access admin area"
             >
               <LayoutDashboard className="w-4 h-4" />
             </button>
@@ -2607,6 +2715,7 @@ const Navbar: React.FC = () => {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-gray-300 hover:text-white p-2"
+              aria-label={isOpen ? 'Close mobile menu' : 'Open mobile menu'}
             >
               {isOpen ? (
                 <X className="h-6 w-6" />
@@ -2670,7 +2779,7 @@ export default Navbar;
 
 ================================================================================
 FILE_BEGIN: components\OptimizedImage.tsx
-METADATA: Size=6887 bytes | Last_Modified=2026-01-05 21:05:53.876867
+METADATA: Size=6881 bytes | Last_Modified=2026-01-07 10:13:28.929273
 ================================================================================
 /**
  * Optimized Image Component
@@ -2741,8 +2850,8 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
           generateResponsiveSrcset(
             baseUrl,
             responsiveImageConfig.breakpoints,
-            'avif',
-          ),
+            'avif'
+          )
         );
       } else if (format === 'webp' && imageFormatSupport.webp) {
         sources.set(
@@ -2750,8 +2859,8 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
           generateResponsiveSrcset(
             baseUrl,
             responsiveImageConfig.breakpoints,
-            'webp',
-          ),
+            'webp'
+          )
         );
       } else if (format === 'jpeg') {
         sources.set(
@@ -2759,8 +2868,8 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
           generateResponsiveSrcset(
             baseUrl,
             responsiveImageConfig.breakpoints,
-            'jpeg',
-          ),
+            'jpeg'
+          )
         );
       }
     });
@@ -2941,7 +3050,7 @@ export default OptimizedImage;
 
 ================================================================================
 FILE_BEGIN: components\PropertyCard.tsx
-METADATA: Size=7653 bytes | Last_Modified=2026-01-05 21:05:53.876867
+METADATA: Size=7694 bytes | Last_Modified=2026-01-07 11:04:34.694728
 ================================================================================
 import { useState, useRef, useEffect, useCallback, memo } from 'react';
 import type { Property } from '../types';
@@ -2985,7 +3094,7 @@ const LazyImage = memo(
         }
         inViewRef(node);
       },
-      [inViewRef],
+      [inViewRef]
     );
 
     useEffect(() => {
@@ -3033,6 +3142,8 @@ const LazyImage = memo(
         <img
           ref={setRefs}
           alt={alt}
+          width="400"
+          height="256"
           className={`w-full h-full object-cover transition-opacity duration-300 ${
             imageLoaded ? 'opacity-100' : 'opacity-0'
           }`}
@@ -3045,7 +3156,7 @@ const LazyImage = memo(
         />
       </div>
     );
-  },
+  }
 );
 
 LazyImage.displayName = 'LazyImage';
@@ -3091,13 +3202,13 @@ const PropertyCard = memo<PropertyCardProps>(
     // Optimize price display
     const formatPrice = useCallback(
       (price: number) =>
-        new Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency: "USD",
+        new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD',
           minimumFractionDigits: 0,
           maximumFractionDigits: 0,
         }).format(price),
-      [],
+      []
     );
 
     return (
@@ -3173,7 +3284,7 @@ const PropertyCard = memo<PropertyCardProps>(
         </div>
       </div>
     );
-  },
+  }
 );
 
 PropertyCard.displayName = 'PropertyCard';
@@ -3321,7 +3432,7 @@ export default function ScrollToTop() {
 
 ================================================================================
 FILE_BEGIN: components\Skeleton.tsx
-METADATA: Size=250 bytes | Last_Modified=2026-01-05 21:05:53.876867
+METADATA: Size=250 bytes | Last_Modified=2026-01-07 10:13:28.980753
 ================================================================================
 import React from 'react';
 
@@ -3329,7 +3440,7 @@ interface SkeletonProps {
   className?: string;
 }
 
-const Skeleton: React.FC<SkeletonProps> = ({ className = "" }) => (
+const Skeleton: React.FC<SkeletonProps> = ({ className = '' }) => (
   <div className={`animate-pulse bg-gray-200 rounded-lg ${className}`} />
 );
 
@@ -3340,8 +3451,96 @@ export default Skeleton;
 ################################################################################
 
 ================================================================================
+FILE_BEGIN: components\SkipLink.tsx
+METADATA: Size=2262 bytes | Last_Modified=2026-01-07 13:33:10.081783
+================================================================================
+import React, { useEffect, useState, useCallback } from 'react';
+import { ArrowRight, X } from 'lucide-react';
+
+const SkipLink: React.FC = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  const hideSkipLink = useCallback(() => {
+    setIsVisible(false);
+  }, []);
+
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      // Show skip link when user presses Tab for the first time
+      if (e.key === 'Tab' && !e.shiftKey) {
+        setIsVisible(true);
+      }
+      // Dismiss with Escape key
+      if (e.key === 'Escape') {
+        hideSkipLink();
+      }
+    },
+    [hideSkipLink]
+  );
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [handleKeyDown]);
+
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const mainContent = document.getElementById('main-content');
+    if (mainContent) {
+      mainContent.setAttribute('tabindex', '-1');
+      mainContent.focus();
+      mainContent.removeAttribute('tabindex');
+    }
+    setIsVisible(false);
+  };
+
+  if (!isVisible) {
+    return null;
+  }
+
+  return (
+    <div
+      className="fixed top-0 left-0 right-0 z-[100] flex justify-start"
+      role="region"
+      aria-label="Skip navigation"
+    >
+      <a
+        href="#main-content"
+        onClick={handleClick}
+        onKeyDown={(e) => e.key === 'Escape' && hideSkipLink()}
+        className="skip-link inline-flex items-center px-4 py-3 bg-p4c-navy text-white font-semibold shadow-lg focus:outline-none focus:ring-2 focus:ring-p4c-gold focus:ring-offset-2"
+        aria-label="Skip to main content"
+      >
+        <span>Skip to main content</span>
+        <ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" />
+        <button
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            hideSkipLink();
+          }}
+          onKeyDown={(e) => e.key === 'Enter' && hideSkipLink()}
+          className="ml-3 p-1 hover:bg-white/20 rounded-full transition-colors"
+          aria-label="Dismiss skip link"
+        >
+          <X className="w-4 h-4" aria-hidden="true" />
+        </button>
+      </a>
+    </div>
+  );
+};
+
+export default SkipLink;
+
+
+[FILE_END: components\SkipLink.tsx]
+################################################################################
+
+================================================================================
 FILE_BEGIN: context\AuthContext.tsx
-METADATA: Size=9480 bytes | Last_Modified=2026-01-05 23:14:26.469807
+METADATA: Size=9476 bytes | Last_Modified=2026-01-07 10:13:29.051584
 ================================================================================
 /* eslint-disable */
 import React, {
@@ -3429,7 +3628,7 @@ const validateStoredUser = (storedUser: string): User | null => {
 // Secure session validation with backend
 const validateSessionWithBackend = async (
   userId: string,
-  sessionToken: string,
+  sessionToken: string
 ): Promise<boolean> => {
   try {
     const response = await fetch('/api/auth/validate-session', {
@@ -3455,8 +3654,8 @@ const generateSecureUserId = (): string => {
   if (typeof window !== 'undefined' && window.crypto) {
     const array = new Uint8Array(16);
     window.crypto.getRandomValues(array);
-    return Array.from(array, (byte) => byte.toString(16).padStart(2, "0")).join(
-      "",
+    return Array.from(array, (byte) => byte.toString(16).padStart(2, '0')).join(
+      ''
     );
   }
   // Fallback for older browsers
@@ -3484,7 +3683,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
             // Verify session with backend
             const isValidSession = await validateSessionWithBackend(
               validatedUser.id,
-              sessionToken,
+              sessionToken
             );
 
             if (isValidSession) {
@@ -3650,7 +3849,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       // Check specific permissions
       return user.permissions.includes(permission);
     },
-    [user],
+    [user]
   );
 
   return (
@@ -3697,7 +3896,7 @@ const getDefaultPermissions = (role: UserRole): string[] => {
 
 ================================================================================
 FILE_BEGIN: context\DarkModeContext.tsx
-METADATA: Size=2982 bytes | Last_Modified=2026-01-05 21:05:53.876867
+METADATA: Size=2980 bytes | Last_Modified=2026-01-07 10:13:29.060031
 ================================================================================
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
@@ -3710,7 +3909,7 @@ interface DarkModeContextType {
 }
 
 const DarkModeContext = createContext<DarkModeContextType | undefined>(
-  undefined,
+  undefined
 );
 
 export const useDarkMode = () => {
@@ -3737,7 +3936,7 @@ export const DarkModeProvider: React.FC<DarkModeProviderProps> = ({
 
     // Check system preference
     const prefersDark = window.matchMedia(
-      '(prefers-color-scheme: dark)',
+      '(prefers-color-scheme: dark)'
     ).matches;
     return prefersDark;
   });
@@ -3816,7 +4015,7 @@ export const DarkModeProvider: React.FC<DarkModeProviderProps> = ({
 
 ================================================================================
 FILE_BEGIN: context\EnhancedAuthContext.tsx
-METADATA: Size=22031 bytes | Last_Modified=2026-01-06 08:05:43.733544
+METADATA: Size=22014 bytes | Last_Modified=2026-01-07 10:13:29.100844
 ================================================================================
 import React, {
   createContext,
@@ -3860,7 +4059,7 @@ interface AuthContextType {
   verifyMFA: (code: string) => Promise<boolean>;
   changePassword: (
     currentPassword: string,
-    newPassword: string,
+    newPassword: string
   ) => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
   lockAccount: (reason?: string) => void;
@@ -3880,7 +4079,7 @@ export const useAuth = () => {
 
 // Enhanced password policy validator
 const validatePasswordPolicy = (
-  password: string,
+  password: string
 ): { isValid: boolean; errors: string[] } => {
   const errors: string[] = [];
 
@@ -3946,8 +4145,8 @@ class SessionManager {
       const array = new Uint8Array(16);
       window.crypto.getRandomValues(array);
       return Array.from(array, (byte) =>
-        byte.toString(16).padStart(2, "0"),
-      ).join("");
+        byte.toString(16).padStart(2, '0')
+      ).join('');
     }
     return Math.random().toString(36).substring(2) + Date.now().toString(36);
   }
@@ -3957,8 +4156,8 @@ class SessionManager {
     if (typeof window !== 'undefined' && window.crypto) {
       window.crypto.getRandomValues(array);
       return Array.from(array, (byte) =>
-        byte.toString(16).padStart(2, "0"),
-      ).join("");
+        byte.toString(16).padStart(2, '0')
+      ).join('');
     }
     return btoa(String.fromCharCode(...array));
   }
@@ -4001,10 +4200,10 @@ class SessionManager {
     lockoutRemaining?: number;
   } {
     const attempts = parseInt(
-      localStorage.getItem(`login_attempts_${email}`) || '0',
+      localStorage.getItem(`login_attempts_${email}`) || '0'
     );
     const lockoutUntil = parseInt(
-      localStorage.getItem(`lockout_${email}`) || '0',
+      localStorage.getItem(`lockout_${email}`) || '0'
     );
     const now = Date.now();
 
@@ -4099,7 +4298,7 @@ const validateUserData = (userData: any): User | null => {
 // Enhanced backend session validation
 const validateSessionWithBackend = async (
   userId: string,
-  sessionToken: string,
+  sessionToken: string
 ): Promise<boolean> => {
   try {
     const response = await fetch('/api/auth/validate-session', {
@@ -4135,7 +4334,6 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
 
   // Session timeout handler
   const handleSessionTimeout = useCallback(() => {
-
     logout();
     addToast('Your session has expired. Please log in again.', 'info');
   }, [addToast]);
@@ -4144,7 +4342,7 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
   const handleSessionWarning = useCallback(() => {
     addToast(
       'Your session will expire in 5 minutes. Please save your work.',
-      'info',
+      'info'
     );
   }, [addToast]);
 
@@ -4185,7 +4383,7 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
       if (SessionManager.shouldShowWarning(user)) {
         warningTimeoutRef.current = setTimeout(
           handleSessionWarning,
-          remaining - 5 * 60 * 1000,
+          remaining - 5 * 60 * 1000
         );
       }
 
@@ -4240,11 +4438,10 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
           if (validatedUser && SessionManager.validateSession(validatedUser)) {
             const isValidSession = await validateSessionWithBackend(
               validatedUser.id,
-              sessionToken,
+              sessionToken
             );
 
             if (isValidSession) {
-
               setUser(validatedUser);
             } else {
               console.warn('Invalid session detected, clearing storage');
@@ -4282,7 +4479,7 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
         if (attemptCheck.lockoutRemaining) {
           const minutes = Math.ceil(attemptCheck.lockoutRemaining / 60000);
           throw new Error(
-            `Account temporarily locked. Try again in ${minutes} minutes.`,
+            `Account temporarily locked. Try again in ${minutes} minutes.`
           );
         }
         throw new Error('Account temporarily locked. Please try again later.');
@@ -4408,7 +4605,6 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
       if (response.ok) {
         const { token } = await response.json();
         localStorage.setItem('p4c_session_token', token);
-
       } else {
         console.warn('Token refresh failed, logging out');
         logout();
@@ -4470,12 +4666,12 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
   // Password management
   const changePassword = async (
     currentPassword: string,
-    newPassword: string,
+    newPassword: string
   ) => {
     const validation = validatePasswordPolicy(newPassword);
     if (!validation.isValid) {
       throw new Error(
-        `Password policy violations: ${validation.errors.join(', ')}`,
+        `Password policy violations: ${validation.errors.join(', ')}`
       );
     }
 
@@ -4538,7 +4734,7 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
       // Check specific permissions
       return user.permissions.includes(permission);
     },
-    [user, isLocked],
+    [user, isLocked]
   );
 
   return (
@@ -4610,7 +4806,7 @@ const throttle = (func: Function, limit: number) => {
 
 ================================================================================
 FILE_BEGIN: context\ToastContext.tsx
-METADATA: Size=2462 bytes | Last_Modified=2026-01-05 21:05:53.876867
+METADATA: Size=2598 bytes | Last_Modified=2026-01-07 13:32:40.502044
 ================================================================================
 import React, { createContext, useContext, useState, useCallback } from 'react';
 import type { ReactNode } from 'react';
@@ -4660,11 +4856,17 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({
   return (
     <ToastContext.Provider value={{ addToast, removeToast }}>
       {children}
-      <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2">
+      <div
+        className="fixed bottom-4 right-4 z-50 flex flex-col gap-2"
+        role="region"
+        aria-label="Notifications"
+        aria-live="polite"
+      >
         {toasts.map((toast) => (
           <div
             key={toast.id}
-            className={`min-w-[300px] max-w-sm p-4 rounded-lg shadow-xl flex items-start gap-3 animate-slide-in text-white ${
+            role="alert"
+            className={`min-w-[300px] max-w-sm p-4 rounded-lg shadow-xl flex items-start gap-3 animate-slide-in-from-bottom text-white ${
               toast.type === 'success'
                 ? 'bg-green-600'
                 : toast.type === 'error'
@@ -4697,7 +4899,7 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({
 
 ================================================================================
 FILE_BEGIN: index.tsx
-METADATA: Size=457 bytes | Last_Modified=2026-01-05 21:05:53.876867
+METADATA: Size=456 bytes | Last_Modified=2026-01-07 10:13:31.573877
 ================================================================================
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -4707,7 +4909,7 @@ import './index.css';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
-  throw new Error("Could not find root element to mount to");
+  throw new Error('Could not find root element to mount to');
 }
 
 const root = ReactDOM.createRoot(rootElement);
@@ -4716,7 +4918,7 @@ root.render(
     <HashRouter>
       <App />
     </HashRouter>
-  </React.StrictMode>,
+  </React.StrictMode>
 );
 
 
@@ -4725,7 +4927,7 @@ root.render(
 
 ================================================================================
 FILE_BEGIN: pages\About.tsx
-METADATA: Size=12639 bytes | Last_Modified=2026-01-05 21:05:53.876867
+METADATA: Size=12639 bytes | Last_Modified=2026-01-07 10:13:31.651499
 ================================================================================
 import React from 'react';
 import {
@@ -4778,7 +4980,7 @@ const About: React.FC = () => (
           </h2>
           <div className="w-20 h-1 bg-p4c-gold mb-8" />
           <p className="text-gray-700 leading-relaxed mb-6 text-lg">
-            Properties 4 Creation was founded with a simple but radical idea:{" "}
+            Properties 4 Creation was founded with a simple but radical idea:{' '}
             <strong>Affordable housing shouldn't mean lower standards.</strong>
           </p>
           <p className="text-gray-700 leading-relaxed mb-6">
@@ -5079,11 +5281,12 @@ export default AccessibilityStatement;
 
 ================================================================================
 FILE_BEGIN: pages\AdminDashboard.tsx
-METADATA: Size=9200 bytes | Last_Modified=2026-01-05 21:05:53.876867
+METADATA: Size=8886 bytes | Last_Modified=2026-01-07 13:36:50.088053
 ================================================================================
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAuth } from '../context/AuthContext';
+import AdminDashboardSkeleton from '../components/AdminDashboardSkeleton';
 import {
   BarChart3,
   Users,
@@ -5095,7 +5298,7 @@ import {
   Trash2,
 } from 'lucide-react';
 import { api } from '../services/api';
-import type { ExtendedProperty } from '../data/properties';
+import type { ExtendedProperty } from '../types';
 
 const AdminDashboard: React.FC = () => {
   const { user, logout } = useAuth();
@@ -5233,16 +5436,7 @@ const AdminDashboard: React.FC = () => {
               </button>
             </div>
             {loading ? (
-              <div className="p-8 text-center">
-                <div className="animate-pulse">
-                  <div className="h-4 bg-gray-200 rounded w-1/4 mx-auto mb-4" />
-                  <div className="space-y-3">
-                    {[1, 2, 3].map((i) => (
-                      <div key={i} className="h-16 bg-gray-100 rounded" />
-                    ))}
-                  </div>
-                </div>
-              </div>
+              <AdminDashboardSkeleton variant="full" />
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-left">
@@ -5318,7 +5512,7 @@ export default AdminDashboard;
 
 ================================================================================
 FILE_BEGIN: pages\Application.tsx
-METADATA: Size=11819 bytes | Last_Modified=2026-01-05 21:05:53.876867
+METADATA: Size=12428 bytes | Last_Modified=2026-01-07 11:44:21.932503
 ================================================================================
 import React, { useState } from 'react';
 import {
@@ -5329,6 +5523,7 @@ import {
   AlertCircle,
 } from 'lucide-react';
 import { IMAGES } from '../constants/images';
+import { useToast } from '../context/ToastContext';
 
 interface ApplicationForm {
   firstName: string;
@@ -5339,6 +5534,7 @@ interface ApplicationForm {
 }
 
 const Application: React.FC = () => {
+  const { addToast } = useToast();
   const [formData, setFormData] = useState<ApplicationForm>({
     firstName: '',
     lastName: '',
@@ -5361,7 +5557,7 @@ const Application: React.FC = () => {
 
   const validateField = (
     name: keyof ApplicationForm,
-    value: string,
+    value: string
   ): string | undefined => {
     if (!value.trim()) {
       switch (name) {
@@ -5382,7 +5578,7 @@ const Application: React.FC = () => {
       return 'Please enter a valid email address';
     }
 
-    if (name === 'phone' && !/^[\d\-\(\)\s]{10,}$/.test(value)) {
+    if (name === 'phone' && !/^[\d\-\s]{10,}$/.test(value)) {
       return 'Please enter a valid phone number';
     }
 
@@ -5390,7 +5586,7 @@ const Application: React.FC = () => {
   };
 
   const handleBlur = (
-    e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>,
+    e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     const fieldName = name as keyof ApplicationForm;
@@ -5401,7 +5597,7 @@ const Application: React.FC = () => {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     const fieldName = name as keyof ApplicationForm;
@@ -5443,8 +5639,9 @@ const Application: React.FC = () => {
     }));
 
     if (isValid) {
-      alert(
+      addToast(
         'Success! Application pre-check complete. Proceeding to background check integration...',
+        'success'
       );
     }
   };
@@ -5452,7 +5649,7 @@ const Application: React.FC = () => {
   const getInputClassName = (fieldName: keyof ApplicationForm) => {
     const hasError = touched[fieldName] && errors[fieldName];
     const baseClasses =
-      "w-full rounded-lg shadow-sm p-3.5 border transition-all duration-200 outline-none";
+      'w-full rounded-lg shadow-sm p-3.5 border transition-all duration-200 outline-none';
 
     if (hasError) {
       return `${baseClasses} border-red-500 bg-red-50 text-red-900 focus:border-red-500 focus:ring-2 focus:ring-red-200`;
@@ -5499,8 +5696,8 @@ const Application: React.FC = () => {
             <div className="absolute top-1/2 left-0 w-full h-1 bg-gray-100 -z-10 -translate-y-1/2 rounded-full" />
 
             {[
-              { icon: UserCheck, label: "About You", active: true },
-              { icon: FileText, label: "History", active: false },
+              { icon: UserCheck, label: 'About You', active: true },
+              { icon: FileText, label: 'History', active: false },
               { icon: Key, label: 'Preferences', active: false },
             ].map((step, i) => (
               <div key={i} className="flex flex-col items-center bg-white px-4">
@@ -5522,11 +5719,15 @@ const Application: React.FC = () => {
           <form className="space-y-6" noValidate>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-bold text-p4c-navy mb-1.5">
+                <label
+                  htmlFor="firstName"
+                  className="block text-sm font-bold text-p4c-navy mb-1.5"
+                >
                   First Name
                 </label>
                 <input
                   type="text"
+                  id="firstName"
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleChange}
@@ -5543,11 +5744,15 @@ const Application: React.FC = () => {
                 )}
               </div>
               <div>
-                <label className="block text-sm font-bold text-p4c-navy mb-1.5">
+                <label
+                  htmlFor="lastName"
+                  className="block text-sm font-bold text-p4c-navy mb-1.5"
+                >
                   Last Name
                 </label>
                 <input
                   type="text"
+                  id="lastName"
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleChange}
@@ -5567,11 +5772,15 @@ const Application: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-bold text-p4c-navy mb-1.5">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-bold text-p4c-navy mb-1.5"
+                >
                   Email Address
                 </label>
                 <input
                   type="email"
+                  id="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
@@ -5588,11 +5797,15 @@ const Application: React.FC = () => {
                 )}
               </div>
               <div>
-                <label className="block text-sm font-bold text-p4c-navy mb-1.5">
+                <label
+                  htmlFor="phone"
+                  className="block text-sm font-bold text-p4c-navy mb-1.5"
+                >
                   Phone Number
                 </label>
                 <input
                   type="tel"
+                  id="phone"
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
@@ -5611,10 +5824,14 @@ const Application: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-bold text-p4c-navy mb-1.5">
+              <label
+                htmlFor="voucherType"
+                className="block text-sm font-bold text-p4c-navy mb-1.5"
+              >
                 Do you currently have a housing voucher?
               </label>
               <select
+                id="voucherType"
                 name="voucherType"
                 value={formData.voucherType}
                 onChange={handleChange}
@@ -5663,7 +5880,7 @@ export default Application;
 
 ================================================================================
 FILE_BEGIN: pages\Contact.tsx
-METADATA: Size=13819 bytes | Last_Modified=2026-01-05 21:05:53.876867
+METADATA: Size=13816 bytes | Last_Modified=2026-01-07 10:13:31.704680
 ================================================================================
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, AlertCircle, Check } from 'lucide-react';
@@ -5700,24 +5917,24 @@ const Contact: React.FC = () => {
 
   const validateField = (
     name: keyof ContactForm,
-    value: string,
+    value: string
   ): string | undefined => {
     if (!value.trim()) {
       switch (name) {
         case 'name':
-          return "Please enter your full name.";
+          return 'Please enter your full name.';
         case 'email':
-          return "Email address is required.";
+          return 'Email address is required.';
         case 'subject':
-          return "Please select a subject.";
+          return 'Please select a subject.';
         case 'message':
-          return "Please enter a message.";
+          return 'Please enter a message.';
         default:
-          return "This field is required.";
+          return 'This field is required.';
       }
     }
     if (name === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-      return "Please enter a valid email address (e.g., name@example.com).";
+      return 'Please enter a valid email address (e.g., name@example.com).';
     }
     return undefined;
   };
@@ -5725,7 +5942,7 @@ const Contact: React.FC = () => {
   const handleBlur = (
     e: React.FocusEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
+    >
   ) => {
     const { name, value } = e.target;
     const fieldName = name as keyof ContactForm;
@@ -5738,7 +5955,7 @@ const Contact: React.FC = () => {
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
+    >
   ) => {
     const { name, value } = e.target;
     const fieldName = name as keyof ContactForm;
@@ -5805,7 +6022,7 @@ const Contact: React.FC = () => {
   const getInputClassName = (fieldName: keyof ContactForm) => {
     const hasError = touched[fieldName] && errors[fieldName];
     const baseClasses =
-      "w-full rounded-md shadow-sm p-3 border focus:ring transition-colors duration-200";
+      'w-full rounded-md shadow-sm p-3 border focus:ring transition-colors duration-200';
 
     if (hasError) {
       return `${baseClasses} border-red-500 focus:border-red-500 focus:ring-red-200 bg-red-50`;
@@ -6066,7 +6283,7 @@ export default Contact;
 
 ================================================================================
 FILE_BEGIN: pages\Employment.tsx
-METADATA: Size=6016 bytes | Last_Modified=2026-01-05 21:05:53.876867
+METADATA: Size=6016 bytes | Last_Modified=2026-01-07 10:13:31.712868
 ================================================================================
 import React from 'react';
 import { HardHat, Briefcase, CheckCircle2 } from 'lucide-react';
@@ -6126,9 +6343,9 @@ const Employment: React.FC = () => (
             <ul className="space-y-3">
               {[
                 'Priority hiring for Veterans and spouses',
-                "Weekly pay schedules",
+                'Weekly pay schedules',
                 'Tools and safety gear allowance',
-                "Skills training and certification support",
+                'Skills training and certification support',
               ].map((item, i) => (
                 <li key={i} className="flex items-center text-gray-700">
                   <CheckCircle2 className="w-5 h-5 text-p4c-gold mr-3" />
@@ -6153,28 +6370,28 @@ const Employment: React.FC = () => (
           <div className="space-y-4">
             {[
               {
-                title: "Lead Carpenter",
-                type: "Full-Time",
-                location: "Tyler, TX",
-                salary: "$25 - $35/hr",
+                title: 'Lead Carpenter',
+                type: 'Full-Time',
+                location: 'Tyler, TX',
+                salary: '$25 - $35/hr',
               },
               {
-                title: "HVAC Technician",
-                type: "Contract",
-                location: "Longview, TX",
-                salary: "Project Based",
+                title: 'HVAC Technician',
+                type: 'Contract',
+                location: 'Longview, TX',
+                salary: 'Project Based',
               },
               {
-                title: "Property Manager",
-                type: "Full-Time",
-                location: "East Texas Area",
-                salary: "$45k - $55k/yr",
+                title: 'Property Manager',
+                type: 'Full-Time',
+                location: 'East Texas Area',
+                salary: '$45k - $55k/yr',
               },
               {
-                title: "General Laborer",
-                type: "Part-Time",
-                location: "Various Sites",
-                salary: "$18/hr",
+                title: 'General Laborer',
+                type: 'Part-Time',
+                location: 'Various Sites',
+                salary: '$18/hr',
               },
             ].map((job, index) => (
               <div
@@ -6295,11 +6512,53 @@ export default EqualHousing;
 
 ================================================================================
 FILE_BEGIN: pages\FAQ.tsx
-METADATA: Size=2970 bytes | Last_Modified=2026-01-05 21:05:53.876867
+METADATA: Size=3778 bytes | Last_Modified=2026-01-07 13:34:22.674228
 ================================================================================
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { ChevronDown, HelpCircle } from 'lucide-react';
+
+interface FAQItemProps {
+  question: string;
+  answer: string;
+}
+
+const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div
+      className={`group bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden ${
+        isOpen ? 'ring-2 ring-p4c-gold/50' : ''
+      }`}
+    >
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
+        aria-controls={`faq-content-${question.replace(/\s+/g, '-').toLowerCase()}`}
+        className="flex items-center justify-between w-full p-6 cursor-pointer list-none font-bold text-p4c-navy hover:bg-gray-50 text-left focus:outline-none focus:ring-2 focus:ring-p4c-gold focus:ring-inset transition-colors"
+      >
+        <span>{question}</span>
+        <ChevronDown
+          className={`w-5 h-5 text-gray-400 transition-transform duration-300 ease-out flex-shrink-0 ${
+            isOpen ? 'rotate-180' : ''
+          }`}
+          aria-hidden="true"
+        />
+      </button>
+      <div
+        id={`faq-content-${question.replace(/\s+/g, '-').toLowerCase()}`}
+        className="accordion-content"
+        role="region"
+        aria-label={question}
+      >
+        <div className="px-6 pb-6 text-gray-600 leading-relaxed border-t border-gray-100 pt-4">
+          {answer}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const FAQs = [
   {
@@ -6353,18 +6612,7 @@ const FAQ: React.FC = () => (
 
       <div className="space-y-4">
         {FAQs.map((faq, index) => (
-          <details
-            key={index}
-            className="group bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden open:ring-2 open:ring-p4c-gold/50 transition-all"
-          >
-            <summary className="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-p4c-navy hover:bg-gray-50">
-              {faq.q}
-              <ChevronDown className="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" />
-            </summary>
-            <div className="px-6 pb-6 text-gray-600 leading-relaxed border-t border-gray-100 pt-4">
-              {faq.a}
-            </div>
-          </details>
+          <FAQItem key={index} question={faq.q} answer={faq.a} />
         ))}
       </div>
     </div>
@@ -6379,7 +6627,7 @@ export default FAQ;
 
 ================================================================================
 FILE_BEGIN: pages\Home.tsx
-METADATA: Size=14545 bytes | Last_Modified=2026-01-05 21:05:53.876867
+METADATA: Size=15125 bytes | Last_Modified=2026-01-07 14:07:08.956043
 ================================================================================
 import React, { useState, useMemo, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -6389,7 +6637,7 @@ import PropertyCard from '../components/PropertyCard';
 import BeforeAfterSlider from '../components/BeforeAfterSlider';
 import GeminiImageEditor from '../components/GeminiImageEditor';
 import { api } from '../services/api';
-import type { ExtendedProperty } from '../data/properties';
+import type { ExtendedProperty } from '../types';
 import { IMAGES } from '../constants/images';
 import {
   CheckCircle2,
@@ -6454,17 +6702,17 @@ const Home: React.FC = () => {
 
         // Badge Filter (Must have ALL selected badges)
         const matchesBadges = selectedBadges.every((badge) =>
-          property.badges.includes(badge),
+          property.badges.includes(badge)
         );
 
         return matchesSearch && matchesPrice && matchesBeds && matchesBadges;
       }),
-    [properties, searchQuery, maxPrice, minBeds, selectedBadges],
+    [properties, searchQuery, maxPrice, minBeds, selectedBadges]
   );
 
   const toggleBadge = (badge: string) => {
     setSelectedBadges((prev) =>
-      prev.includes(badge) ? prev.filter((b) => b !== badge) : [...prev, badge],
+      prev.includes(badge) ? prev.filter((b) => b !== badge) : [...prev, badge]
     );
   };
 
@@ -6651,11 +6899,11 @@ const Home: React.FC = () => {
                 <span className="text-p4c-gold">Not Cheap Fixes.</span>
               </h2>
               <p className="text-gray-600 mb-8 leading-relaxed">
-                Many landlords cut corners. We don't. At Properties 4 Creation,
-                we use homeowner-grade materials like Quartz countertops, luxury
-                vinyl plank flooring, and high-efficiency HVAC systems. Why?
-                because you deserve a home that lasts and feels proud to live
-                in.
+                Many landlords cut corners. We don&apos;t. At Properties 4
+                Creation, we use homeowner-grade materials like Quartz
+                countertops, luxury vinyl plank flooring, and high-efficiency
+                HVAC systems. Why? Because you deserve a home that lasts and
+                feels proud to live in.
               </p>
 
               <ul className="space-y-4 mb-8">
@@ -6692,6 +6940,21 @@ const Home: React.FC = () => {
                 afterImage={IMAGES.RENOVATION.LIVING_ROOM.AFTER}
                 label="Living Room"
               />
+              <div className="mt-8">
+                <div className="mb-4 text-center text-sm text-gray-500 italic">
+                  Watch our team in action
+                </div>
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full rounded-xl shadow-lg"
+                  aria-label="Timelapse video of our team assembling a kitchen"
+                >
+                  <source src={IMAGES.VIDEOS.HERO_WORK} type="video/mp4" />
+                </video>
+              </div>
             </div>
           </div>
         </div>
@@ -6749,7 +7012,7 @@ export default Home;
 
 ================================================================================
 FILE_BEGIN: pages\OurImpact.tsx
-METADATA: Size=8533 bytes | Last_Modified=2026-01-05 21:05:53.876867
+METADATA: Size=8533 bytes | Last_Modified=2026-01-07 10:13:31.762996
 ================================================================================
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -6783,7 +7046,7 @@ const OurImpact: React.FC = () => {
         setMetrics(metricsData);
         setFinancials(financialData);
       } catch (error) {
-        addToast("Unable to load impact data.", "error");
+        addToast('Unable to load impact data.', 'error');
       } finally {
         setLoading(false);
       }
@@ -7091,12 +7354,12 @@ export default Privacy;
 
 ================================================================================
 FILE_BEGIN: pages\PropertyDetails.tsx
-METADATA: Size=12401 bytes | Last_Modified=2026-01-05 21:05:53.876867
+METADATA: Size=12390 bytes | Last_Modified=2026-01-07 13:31:51.707555
 ================================================================================
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { api } from '../services/api';
-import type { ExtendedProperty } from '../data/properties';
+import type { ExtendedProperty } from '../types';
 import {
   Bed,
   Bath,
@@ -7116,7 +7379,7 @@ import PropertyDetailsSkeleton from '../components/PropertyDetailsSkeleton';
 const PropertyDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [property, setProperty] = useState<ExtendedProperty | undefined>(
-    undefined,
+    undefined
   );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -7422,7 +7685,7 @@ export default PropertyDetails;
 
 ================================================================================
 FILE_BEGIN: pages\SuccessStories.tsx
-METADATA: Size=9917 bytes | Last_Modified=2026-01-07 01:20:45.143727
+METADATA: Size=10105 bytes | Last_Modified=2026-01-07 11:12:06.767994
 ================================================================================
 import React, { useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -7494,9 +7757,11 @@ const CustomVideoPlayer: React.FC<CustomVideoPlayerProps> = ({
         onTimeUpdate={handleTimeUpdate}
         playsInline
       >
+        <track kind="captions" />
         <source src={src} type="video/mp4" />
         <p className="text-white p-4">
-          Your browser does not support the video tag. Please upgrade your browser.
+          Your browser does not support the video tag. Please upgrade your
+          browser.
         </p>
       </video>
 
@@ -7508,7 +7773,10 @@ const CustomVideoPlayer: React.FC<CustomVideoPlayerProps> = ({
             className="w-20 h-20 rounded-full bg-p4c-gold hover:bg-p4c-goldHover flex items-center justify-center shadow-xl transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-4 focus:ring-p4c-gold/50"
             aria-label="Play video"
           >
-            <Play className="w-10 h-10 text-p4c-navy ml-1" fill="currentColor" />
+            <Play
+              className="w-10 h-10 text-p4c-navy ml-1"
+              fill="currentColor"
+            />
           </button>
         </div>
       )}
@@ -7566,14 +7834,16 @@ const SuccessStories: React.FC = () => {
       id: 1,
       name: 'Marcus Thompson',
       location: 'Tyler, TX',
-      quote: 'Properties 4 Creation gave me and my family a fresh start. After serving overseas, coming home to a place we could truly call our own was everything.',
+      quote:
+        'Properties 4 Creation gave me and my family a fresh start. After serving overseas, coming home to a place we could truly call our own was everything.',
       videoLabel: 'Marcus Thompson success story - Tyler veteran housing',
     },
     {
       id: 2,
       name: 'Sarah Martinez',
       location: 'Longview, TX',
-      quote: 'The attention to detail in every renovation shows how much they care about the community. Our home is more than just a house—it is a home for our children.',
+      quote:
+        'The attention to detail in every renovation shows how much they care about the community. Our home is more than just a house—it is a home for our children.',
       videoLabel: 'Sarah Martinez family success story - Longview',
     },
   ];
@@ -7581,7 +7851,9 @@ const SuccessStories: React.FC = () => {
   return (
     <div className="min-h-screen bg-p4c-beige">
       <Helmet>
-        <title>Success Stories | Properties 4 Creation - East Texas Veteran Housing</title>
+        <title>
+          Success Stories | Properties 4 Creation - East Texas Veteran Housing
+        </title>
         <meta
           name="description"
           content="Hear from veterans and families whose lives have been transformed by Properties 4 Creation in Tyler, Longview, and across East Texas."
@@ -7609,8 +7881,9 @@ const SuccessStories: React.FC = () => {
               Stories of <span className="text-p4c-gold">Hope & Home</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-200 font-light max-w-2xl mx-auto leading-relaxed">
-              Real stories from veterans and families who found dignity, comfort,
-              and community in East Texas through Properties 4 Creation.
+              Real stories from veterans and families who found dignity,
+              comfort, and community in East Texas through Properties 4
+              Creation.
             </p>
           </div>
         </div>
@@ -7643,11 +7916,13 @@ const SuccessStories: React.FC = () => {
               <div className="w-full lg:w-1/2 space-y-6">
                 <Quote className="w-12 h-12 text-p4c-gold" />
                 <blockquote className="text-xl md:text-2xl text-p4c-navy font-serif italic leading-relaxed">
-                  "{story.quote}"
+                  &quot;{story.quote}&quot;
                 </blockquote>
                 <footer className="border-t border-p4c-gold/30 pt-6">
                   <cite className="not-italic">
-                    <p className="font-bold text-p4c-navy text-lg">{story.name}</p>
+                    <p className="font-bold text-p4c-navy text-lg">
+                      {story.name}
+                    </p>
                     <p className="text-gray-600">{story.location}</p>
                   </cite>
                 </footer>
@@ -7664,9 +7939,9 @@ const SuccessStories: React.FC = () => {
             Ready to Write Your Success Story?
           </h2>
           <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
-            Whether you are a veteran seeking a place to call home or a family looking
-            for quality housing in Tyler, Longview, or across East Texas—we are here
-            to help you find your perfect home.
+            Whether you are a veteran seeking a place to call home or a family
+            looking for quality housing in Tyler, Longview, or across East
+            Texas—we are here to help you find your perfect home.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
@@ -7696,7 +7971,7 @@ export default SuccessStories;
 
 ================================================================================
 FILE_BEGIN: pages\TenantLogin.tsx
-METADATA: Size=7365 bytes | Last_Modified=2026-01-05 21:05:53.876867
+METADATA: Size=7364 bytes | Last_Modified=2026-01-07 10:13:31.804005
 ================================================================================
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -7736,7 +8011,7 @@ const TenantLogin: React.FC = () => {
       navigate(from === '/admin' ? '/' : from); // Tenants can't go to admin
     } else {
       setError(
-        'Invalid credentials. Try (admin@p4c.com / admin) or (demo@p4c.com / demo)',
+        'Invalid credentials. Try (admin@p4c.com / admin) or (demo@p4c.com / demo)'
       );
     }
   };
@@ -8001,7 +8276,7 @@ export default Terms;
 
 ================================================================================
 FILE_BEGIN: pages\Transparency.tsx
-METADATA: Size=7739 bytes | Last_Modified=2026-01-05 21:05:53.876867
+METADATA: Size=7738 bytes | Last_Modified=2026-01-07 10:13:31.828753
 ================================================================================
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -8031,8 +8306,8 @@ const Transparency: React.FC = () => {
         setStandards(data);
       } catch (error) {
         addToast(
-          "Failed to load transparency data. Please try again.",
-          "error",
+          'Failed to load transparency data. Please try again.',
+          'error'
         );
       } finally {
         setLoading(false);
@@ -8361,7 +8636,7 @@ export default Veterans;
 
 ================================================================================
 FILE_BEGIN: pages\VeteranServices.tsx
-METADATA: Size=9201 bytes | Last_Modified=2026-01-05 21:05:53.876867
+METADATA: Size=9201 bytes | Last_Modified=2026-01-07 10:13:31.845210
 ================================================================================
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -8415,33 +8690,33 @@ const VeteranServices: React.FC = () => (
           {[
             {
               icon: Home,
-              title: "Priority Housing",
-              text: "Veterans receive priority placement for all available units. We hold units for up to 7 days for VASH voucher processing.",
+              title: 'Priority Housing',
+              text: 'Veterans receive priority placement for all available units. We hold units for up to 7 days for VASH voucher processing.',
             },
             {
               icon: Shield,
-              title: "Deposit Assistance",
-              text: "We partner with local non-profits like CampV to help cover security deposits and move-in costs.",
+              title: 'Deposit Assistance',
+              text: 'We partner with local non-profits like CampV to help cover security deposits and move-in costs.',
             },
             {
               icon: Users,
-              title: "Community Connection",
-              text: "Regular meetups and a network of veteran residents to foster camaraderie and combat isolation.",
+              title: 'Community Connection',
+              text: 'Regular meetups and a network of veteran residents to foster camaraderie and combat isolation.',
             },
             {
               icon: Briefcase,
-              title: "Employment Support",
-              text: "Direct hiring pipeline for Properties 4 Creation renovation projects and referrals to veteran-friendly local employers.",
+              title: 'Employment Support',
+              text: 'Direct hiring pipeline for Properties 4 Creation renovation projects and referrals to veteran-friendly local employers.',
             },
             {
               icon: Users,
-              title: "Benefits Navigation",
-              text: "Our staff is trained to help you navigate VA paperwork and connect with County Service Officers.",
+              title: 'Benefits Navigation',
+              text: 'Our staff is trained to help you navigate VA paperwork and connect with County Service Officers.',
             },
             {
               icon: Phone,
-              title: "24/7 Support Line",
-              text: "Dedicated maintenance and support line for veteran residents to ensure your needs are met promptly.",
+              title: '24/7 Support Line',
+              text: 'Dedicated maintenance and support line for veteran residents to ensure your needs are met promptly.',
             },
           ].map((service, i) => (
             <div
@@ -8522,24 +8797,24 @@ const VeteranServices: React.FC = () => (
           <div className="space-y-4">
             {[
               {
-                name: "CampV Tyler",
-                desc: "Holistic veteran support campus.",
-                phone: "(903) 566-1010",
+                name: 'CampV Tyler',
+                desc: 'Holistic veteran support campus.',
+                phone: '(903) 566-1010',
               },
               {
-                name: "Texas Veterans Commission",
-                desc: "Claims representation and employment services.",
-                phone: "(512) 463-6564",
+                name: 'Texas Veterans Commission',
+                desc: 'Claims representation and employment services.',
+                phone: '(512) 463-6564',
               },
               {
-                name: "Smith County VSO",
-                desc: "Local assistance with VA claims.",
-                phone: "(903) 590-2930",
+                name: 'Smith County VSO',
+                desc: 'Local assistance with VA claims.',
+                phone: '(903) 590-2930',
               },
               {
-                name: "VA Clinic - Tyler",
-                desc: "Primary care and mental health services.",
-                phone: "(903) 590-3050",
+                name: 'VA Clinic - Tyler',
+                desc: 'Primary care and mental health services.',
+                phone: '(903) 590-3050',
               },
             ].map((res, i) => (
               <div
@@ -8554,7 +8829,7 @@ const VeteranServices: React.FC = () => (
                 </div>
                 <div className="mt-4 sm:mt-0">
                   <a
-                    href={`tel:${res.phone.replace(/\D/g, "")}`}
+                    href={`tel:${res.phone.replace(/\D/g, '')}`}
                     className="text-p4c-gold font-bold hover:underline flex items-center gap-2"
                   >
                     <Phone className="w-4 h-4" /> {res.phone}

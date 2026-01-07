@@ -1,7 +1,7 @@
 
 ================================================================================
 FILE_BEGIN: constants\images.ts
-METADATA: Size=4125 bytes | Last_Modified=2026-01-07 07:25:59.134492
+METADATA: Size=4173 bytes | Last_Modified=2026-01-07 15:40:01.638154
 ================================================================================
 /**
  * Centralized Asset Registry
@@ -20,7 +20,7 @@ export const IMAGES = {
   // Brand Assets
   LOGO: {
     PNG: '/images/logo/brand-logo.png',
-    SVG: '/images/logo/brand-logo.svg',
+    SVG: '/images/logo/brand-logo-white-gold.svg',
   },
 
   // Page Hero Banners
@@ -114,6 +114,7 @@ export const IMAGES = {
 
   // Videos
   VIDEOS: {
+    HOME: '/images/videos/home.mp4',
     HERO_PROPERTIES: '/images/videos/hero-properties-banner.mp4',
     HERO_WORK: '/images/videos/hero-our-work-banner.mp4',
     SUCCESS_STORY: '/images/videos/success-story.mp4',
@@ -126,19 +127,13 @@ export const IMAGES = {
 
 ================================================================================
 FILE_BEGIN: data\properties.ts
-METADATA: Size=5274 bytes | Last_Modified=2026-01-05 21:05:53.876867
+METADATA: Size=5141 bytes | Last_Modified=2026-01-07 13:30:53.157372
 ================================================================================
-import type { Property } from '../types';
+import type { ExtendedProperty } from '../types';
 import { IMAGES } from '../constants/images';
 
-export interface ExtendedProperty extends Property {
-  amenities: string[];
-  accessibilityFeatures: string[];
-  schoolDistrict: string;
-  neighborhood: string;
-  availabilityDate: string;
-  coordinates: { lat: number; lng: number };
-}
+// Re-export ExtendedProperty type for backward compatibility
+export type { ExtendedProperty };
 
 export const properties: ExtendedProperty[] = [
   {
@@ -287,7 +282,7 @@ export const properties: ExtendedProperty[] = [
 ];
 
 export const getPropertyById = (
-  id: string | undefined,
+  id: string | undefined
 ): ExtendedProperty | undefined => properties.find((p) => p.id === id);
 
 
@@ -296,14 +291,14 @@ export const getPropertyById = (
 
 ================================================================================
 FILE_BEGIN: services\api.ts
-METADATA: Size=11664 bytes | Last_Modified=2026-01-07 07:18:19.232005
+METADATA: Size=10849 bytes | Last_Modified=2026-01-07 13:31:10.972027
 ================================================================================
 import type {
   StatMetric,
   RenovationStandard,
   FinancialBreakdown,
+  ExtendedProperty,
 } from '../types';
-import type { ExtendedProperty } from '../data/properties';
 import { properties, getPropertyById } from '../data/properties';
 
 /**
@@ -333,7 +328,7 @@ const SIMULATED_LATENCY = 800; // ms
 const API_CONFIG = {
   // Get API URL from environment variable, fallback to empty string for mock data
   // eslint-disable-next-line dot-notation
-  baseUrl: import.meta.env['VITE_API_URL'] || "",
+  baseUrl: import.meta.env['VITE_API_URL'] || '',
 
   // Check if we're in backend mode (has API URL) or mock mode (no API URL)
   get isBackendMode() {
@@ -353,7 +348,7 @@ const API_CONFIG = {
 class ApiClient {
   private async makeRequest<T>(
     endpoint: string,
-    options?: RequestInit,
+    options?: RequestInit
   ): Promise<T> {
     if (!API_CONFIG.isBackendMode) {
       throw new Error('Backend mode disabled - using mock data');
@@ -374,20 +369,16 @@ class ApiClient {
       }
 
       return await response.json();
-    } catch (error) {
-      console.warn(
-        `Backend request failed for endpoint ${endpoint}, falling back to mock data:`,
-        error,
-      );
+    } catch {
       throw new Error('Backend unavailable - using mock data');
     }
   }
 
-  async get<T>(endpoint: string): Promise<T> {
+  get<T>(endpoint: string): Promise<T> {
     return this.makeRequest<T>(endpoint, { method: 'GET' });
   }
 
-  async post<T>(endpoint: string, data?: any): Promise<T> {
+  post<T>(endpoint: string, data?: unknown): Promise<T> {
     return this.makeRequest<T>(endpoint, {
       method: 'POST',
       body: data ? JSON.stringify(data) : null,
@@ -410,8 +401,8 @@ export const api = {
           const data = await apiClient.get<StatMetric[]>('/api/impact/metrics');
           return data;
         }
-      } catch (error) {
-        console.warn('Backend metrics request failed, using mock data:', error);
+      } catch {
+        // Fallback to mock data
       }
 
       // Fallback to mock data
@@ -465,15 +456,12 @@ export const api = {
         // Try backend first if in backend mode
         if (API_CONFIG.isBackendMode) {
           const data = await apiClient.get<FinancialBreakdown[]>(
-            '/api/impact/financial-breakdown',
+            '/api/impact/financial-breakdown'
           );
           return data;
         }
-      } catch (error) {
-        console.warn(
-          'Backend financial breakdown request failed, using mock data:',
-          error,
-        );
+      } catch {
+        // Fallback to mock data
       }
 
       // Fallback to mock data
@@ -498,15 +486,12 @@ export const api = {
         // Try backend first if in backend mode
         if (API_CONFIG.isBackendMode) {
           const data = await apiClient.get<RenovationStandard[]>(
-            '/api/transparency/standards',
+            '/api/transparency/standards'
           );
           return data;
         }
-      } catch (error) {
-        console.warn(
-          'Backend standards request failed, using mock data:',
-          error,
-        );
+      } catch {
+        // Fallback to mock data
       }
 
       // Fallback to mock data
@@ -559,11 +544,8 @@ export const api = {
             await apiClient.get<ExtendedProperty[]>('/api/properties');
           return data;
         }
-      } catch (error) {
-        console.warn(
-          'Backend properties request failed, using mock data:',
-          error,
-        );
+      } catch {
+        // Fallback to mock data
       }
 
       // Fallback to mock data
@@ -580,15 +562,12 @@ export const api = {
         // Try backend first if in backend mode
         if (API_CONFIG.isBackendMode) {
           const data = await apiClient.get<ExtendedProperty>(
-            `/api/properties/${id}`,
+            `/api/properties/${id}`
           );
           return data;
         }
-      } catch (error) {
-        console.warn(
-          'Backend property by ID request failed, using mock data:',
-          error,
-        );
+      } catch {
+        // Fallback to mock data
       }
 
       // Fallback to mock data
@@ -614,15 +593,12 @@ export const api = {
         if (API_CONFIG.isBackendMode) {
           const data = await apiClient.post<ExtendedProperty[]>(
             '/api/properties/search',
-            criteria,
+            criteria
           );
           return data;
         }
-      } catch (error) {
-        console.warn(
-          'Backend property search request failed, using mock data:',
-          error,
-        );
+      } catch {
+        // Fallback to mock data
       }
 
       // Fallback to mock data
@@ -660,15 +636,12 @@ export const api = {
         // Try backend first if in backend mode
         if (API_CONFIG.isBackendMode) {
           const data = await apiClient.get<ExtendedProperty[]>(
-            `/api/properties/badge/${encodeURIComponent(badge)}`,
+            `/api/properties/badge/${encodeURIComponent(badge)}`
           );
           return data;
         }
-      } catch (error) {
-        console.warn(
-          'Backend property by badge request failed, using mock data:',
-          error,
-        );
+      } catch {
+        // Fallback to mock data
       }
 
       // Fallback to mock data
@@ -676,8 +649,8 @@ export const api = {
 
       return properties.filter((property) =>
         property.badges.some((propertyBadge) =>
-          propertyBadge.toLowerCase().includes(badge.toLowerCase()),
-        ),
+          propertyBadge.toLowerCase().includes(badge.toLowerCase())
+        )
       );
     },
   },
@@ -689,7 +662,7 @@ export const api = {
 
 ================================================================================
 FILE_BEGIN: services\geminiService.ts
-METADATA: Size=5932 bytes | Last_Modified=2026-01-06 09:13:55.926325
+METADATA: Size=5929 bytes | Last_Modified=2026-01-07 11:13:33.840107
 ================================================================================
 /**
  * Secure Client-Side Service for AI Operations
@@ -727,7 +700,7 @@ const validateMimeType = (mimeType: string): boolean => {
 
 const sanitizeInput = (input: string): string => {
   if (typeof input !== 'string') return '';
-  return input.replace(/[<>\"'&]/g, (match) => {
+  return input.replace(/[<>\\"'&]/g, (match) => {
     const entities: Record<string, string> = {
       '<': '<',
       '>': '>',
@@ -750,7 +723,7 @@ const sanitizeInput = (input: string): string => {
 export const editImageWithGemini = async (
   base64Image: string,
   mimeType: string,
-  prompt: string,
+  prompt: string
 ): Promise<string> => {
   try {
     // Input validation - CRITICAL for security
@@ -806,7 +779,7 @@ export const editImageWithGemini = async (
     // Provide user-friendly error messages
     if (error instanceof TypeError && error.message.includes('fetch')) {
       throw new Error(
-        'Unable to connect to AI service. Please try again later.',
+        'Unable to connect to AI service. Please try again later.'
       );
     }
 
@@ -823,7 +796,7 @@ export const editImageWithGemini = async (
  */
 export const sendChatMessage = async (
   message: string,
-  history: ChatMessage[] = [],
+  history: ChatMessage[] = []
 ): Promise<string> => {
   try {
     // Input validation
@@ -878,7 +851,7 @@ export const sendChatMessage = async (
     // Provide user-friendly error messages
     if (error instanceof TypeError && error.message.includes('fetch')) {
       throw new Error(
-        'Unable to connect to AI service. Please try again later.',
+        'Unable to connect to AI service. Please try again later.'
       );
     }
 
@@ -923,8 +896,222 @@ export const validationUtils = {
 ################################################################################
 
 ================================================================================
+FILE_BEGIN: src\services\geminiService.test.ts
+METADATA: Size=7060 bytes | Last_Modified=2026-01-07 11:07:33.672959
+================================================================================
+/**
+ * Unit tests for geminiService.ts
+ * Tests validation utilities and service functions
+ */
+
+import {
+  editImageWithGemini,
+  sendChatMessage,
+  checkAiServiceHealth,
+  validationUtils,
+} from '../../services/geminiService';
+
+describe('geminiService Validation Utilities', () => {
+  describe('validateBase64', () => {
+    it('should return true for valid base64 string', () => {
+      expect(validationUtils.validateBase64('SGVsbG8gV29ybGQ=')).toBe(true);
+      expect(validationUtils.validateBase64('dGVzdDEyMzQ=')).toBe(true);
+      expect(validationUtils.validateBase64('YWJjZGVmZ2hpamtsbW5vcA==')).toBe(
+        true
+      );
+    });
+
+    it('should return false for invalid base64 string', () => {
+      expect(validationUtils.validateBase64('')).toBe(false);
+      expect(validationUtils.validateBase64('!!!')).toBe(false);
+      expect(validationUtils.validateBase64(null as unknown as string)).toBe(
+        false
+      );
+      expect(
+        validationUtils.validateBase64(undefined as unknown as string)
+      ).toBe(false);
+    });
+
+    it('should return false for non-string input', () => {
+      expect(validationUtils.validateBase64(123 as unknown as string)).toBe(
+        false
+      );
+      expect(validationUtils.validateBase64({} as unknown as string)).toBe(
+        false
+      );
+    });
+  });
+
+  describe('validateMimeType', () => {
+    it('should return true for allowed mime types', () => {
+      expect(validationUtils.validateMimeType('image/jpeg')).toBe(true);
+      expect(validationUtils.validateMimeType('image/jpg')).toBe(true);
+      expect(validationUtils.validateMimeType('image/png')).toBe(true);
+      expect(validationUtils.validateMimeType('image/webp')).toBe(true);
+    });
+
+    it('should return false for disallowed mime types', () => {
+      expect(validationUtils.validateMimeType('image/gif')).toBe(false);
+      expect(validationUtils.validateMimeType('image/bmp')).toBe(false);
+      expect(validationUtils.validateMimeType('application/pdf')).toBe(false);
+      expect(validationUtils.validateMimeType('')).toBe(false);
+    });
+  });
+
+  describe('sanitizeInput', () => {
+    it('should sanitize HTML special characters', () => {
+      expect(
+        validationUtils.sanitizeInput('<script>alert("xss")</script>')
+      ).toBe('<script>alert("xss")</script>');
+      expect(validationUtils.sanitizeInput("It's a test")).toBe(
+        'It&#x27;s a test'
+      );
+      expect(validationUtils.sanitizeInput('AT&T')).toBe('AT&T');
+      expect(validationUtils.sanitizeInput('<div>Content</div>')).toBe(
+        '<div>Content</div>'
+      );
+    });
+
+    it('should return empty string for non-string input', () => {
+      expect(validationUtils.sanitizeInput(null as unknown as string)).toBe('');
+      expect(
+        validationUtils.sanitizeInput(undefined as unknown as string)
+      ).toBe('');
+      expect(validationUtils.sanitizeInput(123 as unknown as string)).toBe('');
+    });
+
+    it('should pass through safe strings unchanged', () => {
+      expect(validationUtils.sanitizeInput('Hello World')).toBe('Hello World');
+      expect(validationUtils.sanitizeInput('Property at 123 Main St')).toBe(
+        'Property at 123 Main St'
+      );
+    });
+  });
+});
+
+describe('geminiService API Functions', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  describe('editImageWithGemini', () => {
+    it('should throw error for invalid base64 image', async () => {
+      await expect(
+        editImageWithGemini('!!!invalid!!!', 'image/jpeg', 'Make it brighter')
+      ).rejects.toThrow('Invalid image format');
+    });
+
+    it('should throw error for unsupported mime type', async () => {
+      await expect(
+        editImageWithGemini('SGVsbG8gV29ybGQ=', 'image/gif', 'Make it brighter')
+      ).rejects.toThrow('Unsupported image format');
+    });
+
+    it('should throw error for empty prompt', async () => {
+      await expect(
+        editImageWithGemini('SGVsbG8gV29ybGQ=', 'image/jpeg', '')
+      ).rejects.toThrow('Prompt is required');
+    });
+
+    it('should throw error for prompt exceeding max length', async () => {
+      const longPrompt = 'a'.repeat(1001);
+      await expect(
+        editImageWithGemini('SGVsbG8gV29ybGQ=', 'image/jpeg', longPrompt)
+      ).rejects.toThrow('Prompt too long');
+    });
+
+    it('should throw error for non-string prompt', async () => {
+      await expect(
+        editImageWithGemini(
+          'SGVsbG8gV29ybGQ=',
+          'image/jpeg',
+          null as unknown as string
+        )
+      ).rejects.toThrow('Prompt is required');
+    });
+  });
+
+  describe('sendChatMessage', () => {
+    it('should throw error for empty message', async () => {
+      await expect(sendChatMessage('')).rejects.toThrow('Message is required');
+    });
+
+    it('should throw error for non-string message', async () => {
+      await expect(sendChatMessage(null as unknown as string)).rejects.toThrow(
+        'Message is required'
+      );
+    });
+
+    it('should throw error for message exceeding max length', async () => {
+      const longMessage = 'a'.repeat(4001);
+      await expect(sendChatMessage(longMessage)).rejects.toThrow(
+        'Message too long'
+      );
+    });
+
+    it('should handle empty history array gracefully', async () => {
+      globalThis.fetch = vi.fn().mockResolvedValue({
+        ok: true,
+        status: 200,
+        json: () => Promise.resolve({ success: true, message: 'Hello back!' }),
+      });
+      const result = await sendChatMessage('Hello', []);
+      expect(Array.isArray(result)).toBe(false);
+      expect(result).toBe('Hello back!');
+    });
+  });
+
+  describe('checkAiServiceHealth', () => {
+    it('should return false on fetch failure', async () => {
+      globalThis.fetch = vi.fn().mockRejectedValue(new Error('Network error'));
+      const result = await checkAiServiceHealth();
+      expect(result).toBe(false);
+    });
+
+    it('should return false for non-ok response', async () => {
+      globalThis.fetch = vi.fn().mockResolvedValue({
+        ok: false,
+        status: 500,
+        json: () => Promise.resolve({}),
+      });
+      const result = await checkAiServiceHealth();
+      expect(result).toBe(false);
+    });
+
+    it('should return false when status is not healthy', async () => {
+      globalThis.fetch = vi.fn().mockResolvedValue({
+        ok: true,
+        status: 200,
+        json: () => Promise.resolve({ status: 'unhealthy' }),
+      });
+      const result = await checkAiServiceHealth();
+      expect(result).toBe(false);
+    });
+  });
+});
+
+describe('validationUtils export', () => {
+  it('should export all validation functions', () => {
+    expect(validationUtils).toHaveProperty('validateBase64');
+    expect(validationUtils).toHaveProperty('validateMimeType');
+    expect(validationUtils).toHaveProperty('sanitizeInput');
+    expect(typeof validationUtils.validateBase64).toBe('function');
+    expect(typeof validationUtils.validateMimeType).toBe('function');
+    expect(typeof validationUtils.sanitizeInput).toBe('function');
+  });
+});
+
+
+[FILE_END: src\services\geminiService.test.ts]
+################################################################################
+
+================================================================================
 FILE_BEGIN: src\services\geminiService.ts
-METADATA: Size=6343 bytes | Last_Modified=2026-01-07 07:19:35.972037
+METADATA: Size=6648 bytes | Last_Modified=2026-01-07 11:24:15.969087
 ================================================================================
 import {
   GoogleGenerativeAI,
@@ -932,11 +1119,15 @@ import {
 } from '@google/generative-ai';
 
 // Initialize Google Generative AI with API key
-// eslint-disable-next-line dot-notation
-const apiKey =
-  (import.meta.env as Record<string, string>)['VITE_GEMINI_API_KEY'] ||
+const getEnvVar = (key: string): string => {
   // eslint-disable-next-line dot-notation
-  process.env['VITE_GEMINI_API_KEY'];
+  const val = import.meta.env?.[key as string];
+  if (val) return val;
+  // eslint-disable-next-line dot-notation
+  return process.env?.[key as string] || '';
+};
+
+const apiKey = getEnvVar('VITE_GEMINI_API_KEY');
 
 if (!apiKey) {
   // eslint-disable-next-line no-console
@@ -959,8 +1150,8 @@ class GeminiService {
   /**
    * Initialize the Gemini service with the specified model
    */
-  async initialize(): Promise<void> {
-    if (this.isInitialized) return;
+  initialize(): Promise<void> {
+    if (this.isInitialized) return Promise.resolve();
 
     try {
       // Use the cost-effective gemini-2.5-flash model
@@ -996,11 +1187,11 @@ class GeminiService {
       }) as GoogleChatSession;
 
       this.isInitialized = true;
-      // eslint-disable-next-line no-console
+      return Promise.resolve();
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error('Failed to initialize Gemini service:', error);
-      throw new Error('Gemini service initialization failed');
+      return Promise.reject(new Error('Gemini service initialization failed'));
     }
   }
 
@@ -1030,10 +1221,11 @@ class GeminiService {
 
       // Return a helpful fallback message
       if (error instanceof Error) {
-        if (error.message.includes('quota')) {
+        const errorMessage = error.message;
+        if (errorMessage.includes('quota')) {
           return "I'm sorry, but I've reached my usage limit for today. Please try again later, or contact our team directly for assistance with your housing needs.";
         }
-        if (error.message.includes('API key')) {
+        if (errorMessage.includes('API key')) {
           return "I'm currently unable to access the AI service. Please try refreshing the page or contact our support team for assistance.";
         }
       }
@@ -1044,24 +1236,29 @@ class GeminiService {
 
   /**
    * Edit an image with Gemini (placeholder for future implementation)
-   * @param imageData - Base64 encoded image data (not used yet)
-   * @param prompt - The editing prompt (not used yet)
+   * @param _imageData - Base64 encoded image data (reserved for future use)
+   * @param _prompt - The editing prompt (reserved for future use)
    * @returns Promise with the edited image or error message
    */
+  /* eslint-disable no-unused-vars */
   async editImageWithGemini(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _imageData: string,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _prompt: string
   ): Promise<string> {
+    /* eslint-enable no-unused-vars */
+    // Parameters are reserved for future implementation
+    // TODO: Implement image editing when gemini-pro-vision model is available
+    if (import.meta.env?.DEV) {
+      // eslint-disable-next-line no-console
+      console.log(
+        'Image editing requested with params (reserved for future use)'
+      );
+    }
+
     try {
       if (!this.isInitialized) {
         await this.initialize();
       }
-
-      // Note: The gemini-2.5-flash model is primarily text-focused
-      // For image editing, you would typically use gemini-pro-vision
-      // This is a placeholder that returns a helpful message
 
       return `I'm currently unable to edit images directly. However, I can help you with:
 
@@ -1088,10 +1285,12 @@ class GeminiService {
 
     try {
       const history = await this.chatSession.getHistory();
-      return history.map((entry: any) => ({
-        role: entry.role === 'user' ? 'user' : 'model',
-        text: entry.parts[0]?.text || '',
-      }));
+      return history.map(
+        (entry: { role: string; parts: Array<{ text?: string }> }) => ({
+          role: entry.role === 'user' ? 'user' : 'model',
+          text: entry.parts[0]?.text || '',
+        })
+      );
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error('Error getting chat history:', error);
@@ -1127,8 +1326,53 @@ export default geminiService;
 ################################################################################
 
 ================================================================================
+FILE_BEGIN: src\test\setup.ts
+METADATA: Size=909 bytes | Last_Modified=2026-01-07 11:07:33.687106
+================================================================================
+/**
+ * Global test setup file for Vitest
+ * Configures the test environment for P4C React components
+ */
+
+import { vi } from 'vitest';
+
+// Mock window.matchMedia for components that use it
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: vi.fn().mockImplementation((query) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: vi.fn(),
+    removeListener: vi.fn(),
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    dispatchEvent: vi.fn(),
+  })),
+});
+
+// Mock ResizeObserver for components using it
+global.ResizeObserver = vi.fn().mockImplementation(() => ({
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
+}));
+
+// Suppress console.error in tests to reduce noise
+// Only uncomment if debugging: vi.spyOn(console, 'error').mockImplementation(() => {});
+
+// Set default test timeout
+vi.setConfig({
+  testTimeout: 10000,
+});
+
+
+[FILE_END: src\test\setup.ts]
+################################################################################
+
+================================================================================
 FILE_BEGIN: types.ts
-METADATA: Size=780 bytes | Last_Modified=2026-01-05 21:05:53.877940
+METADATA: Size=1017 bytes | Last_Modified=2026-01-07 13:30:14.206438
 ================================================================================
 export interface Property {
   id: string;
@@ -1141,6 +1385,15 @@ export interface Property {
   imageUrl: string;
   badges: string[];
   description: string;
+}
+
+export interface ExtendedProperty extends Property {
+  amenities: string[];
+  accessibilityFeatures: string[];
+  schoolDistrict: string;
+  neighborhood: string;
+  availabilityDate: string;
+  coordinates: { lat: number; lng: number };
 }
 
 export interface TransformationData {
@@ -1179,7 +1432,7 @@ export interface FinancialBreakdown {
 
 ================================================================================
 FILE_BEGIN: utils\formatters.ts
-METADATA: Size=2258 bytes | Last_Modified=2026-01-07 00:58:26.967934
+METADATA: Size=2167 bytes | Last_Modified=2026-01-07 10:13:32.363553
 ================================================================================
 /**
  * Utility functions for formatting data throughout the application
@@ -1193,7 +1446,7 @@ METADATA: Size=2258 bytes | Last_Modified=2026-01-07 00:58:26.967934
  */
 export const formatCurrency = (
   amount: number,
-  options?: Intl.NumberFormatOptions,
+  options?: Intl.NumberFormatOptions
 ): string => {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -1221,7 +1474,7 @@ export const formatNumber = (num: number): string => {
  */
 export const formatDate = (
   dateString: string,
-  options?: Intl.DateTimeFormatOptions,
+  options?: Intl.DateTimeFormatOptions
 ): string => {
   const date = new Date(dateString);
   return new Intl.DateTimeFormat('en-US', {
@@ -1277,7 +1530,7 @@ export const slugify = (text: string): string => {
 
 ================================================================================
 FILE_BEGIN: utils\imageOptimization.ts
-METADATA: Size=5349 bytes | Last_Modified=2026-01-07 07:17:56.820341
+METADATA: Size=5344 bytes | Last_Modified=2026-01-07 10:13:32.379806
 ================================================================================
 /**
  * Image Optimization Utilities
@@ -1334,7 +1587,7 @@ const checkAVIFSupport = (): boolean => {
 
 // Get optimal image format based on browser support
 export const getOptimalImageFormat = (
-  formats: ImageFormat,
+  formats: ImageFormat
 ): 'avif' | 'webp' | 'jpeg' => {
   if (formats.avif) return 'avif';
   if (formats.webp) return 'webp';
@@ -1345,7 +1598,7 @@ export const getOptimalImageFormat = (
 export const generateResponsiveSrcset = (
   baseUrl: string,
   widths: number[],
-  format: 'avif' | 'webp' | 'jpeg' = 'webp',
+  format: 'avif' | 'webp' | 'jpeg' = 'webp'
 ): string =>
   widths
     .map((width) => {
@@ -1363,7 +1616,7 @@ export const generateOptimizedImageUrl = (
     quality?: number;
     format?: 'avif' | 'webp' | 'jpeg';
     blur?: boolean;
-  } = {},
+  } = {}
 ): string => {
   const {
     width,
@@ -1390,7 +1643,7 @@ export class LazyImageLoader {
 
   constructor(
     callback?: (entries: IntersectionObserverEntry[]) => void,
-    config: IntersectionObserverInit = {},
+    config: IntersectionObserverInit = {}
   ) {
     this.config = {
       rootMargin: '50px',
@@ -1400,7 +1653,7 @@ export class LazyImageLoader {
 
     this.observer = new IntersectionObserver(
       callback || this.handleIntersection.bind(this),
-      this.config,
+      this.config
     );
   }
 
@@ -1504,14 +1757,17 @@ export const generateBlurPlaceholder = (): string =>
 
 ================================================================================
 FILE_BEGIN: vite.config.ts
-METADATA: Size=4325 bytes | Last_Modified=2026-01-07 08:48:51.869571
+METADATA: Size=7263 bytes | Last_Modified=2026-01-07 11:38:23.623867
 ================================================================================
 import path from 'path';
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
+import { VitePWA } from 'vite-plugin-pwa';
 
 interface EnvVariables {
   [key: string]: string;
+  VITE_REPOSITORY_NAME?: string;
+  VITE_USE_CUSTOM_DOMAIN?: string;
 }
 
 export default defineConfig(({ mode }) => {
@@ -1521,11 +1777,12 @@ export default defineConfig(({ mode }) => {
   const isProduction = mode === 'production';
   // eslint-disable-next-line dot-notation
   const repositoryName = env['VITE_REPOSITORY_NAME'] || '';
-  // For custom domain (CNAME), use root path; for github.io pages, use repository path
+  const useCustomDomain = env.VITE_USE_CUSTOM_DOMAIN === 'true';
+  // For custom domain (CNAME), use root path '/'; for github.io pages, use repository path
   const base = isProduction
-    ? repositoryName
-      ? `/${repositoryName}/`
-      : '/'
+    ? useCustomDomain || !repositoryName
+      ? '/'
+      : `/${repositoryName}/`
     : '/';
 
   return {
@@ -1540,7 +1797,7 @@ export default defineConfig(({ mode }) => {
         'Referrer-Policy': 'strict-origin-when-cross-origin',
         'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
         'Strict-Transport-Security':
-          'mndax-age=31536000; includeSubDomains; preload',
+          'max-age=31536000; includeSubDomains; preload',
         // Content Security Policy - XSS Prevention
         'Content-Security-Policy':
           "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' http://localhost:3001; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;",
@@ -1557,14 +1814,84 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [
       react(),
-      // Add PWA and compression plugins in production
-      ...(mode === 'production'
-        ? [
-            // These would be added when dependencies are installed
-            // VitePWA({...}),
-            // viteCompression({algorithm: 'gzip'})
-          ]
-        : []),
+      // PWA configuration for installability and service worker
+      VitePWA({
+        registerType: 'autoUpdate',
+        includeAssets: [
+          'favicon.ico',
+          'apple-touch-icon.png',
+          'masked-icon.svg',
+        ],
+        manifest: {
+          name: 'Properties 4 Creation',
+          short_name: 'P4C',
+          description:
+            'Housing solutions for veterans and families in East Texas',
+          theme_color: '#0B1120',
+          background_color: '#0B1120',
+          display: 'standalone',
+          orientation: 'portrait',
+          scope: '/',
+          start_url: '/',
+          icons: [
+            {
+              src: '/pwa-192x192.png',
+              sizes: '192x192',
+              type: 'image/png',
+            },
+            {
+              src: '/pwa-512x512.png',
+              sizes: '512x512',
+              type: 'image/png',
+            },
+            {
+              src: '/pwa-512x512.png',
+              sizes: '512x512',
+              type: 'image/png',
+              purpose: 'any maskable',
+            },
+          ],
+        },
+        workbox: {
+          maximumFileSizeToCacheInBytes: 10485760, // 10 MB to accommodate large banner images
+          globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,woff2}'],
+          runtimeCaching: [
+            {
+              urlPattern: /^https:\/\/api\..*/i,
+              handler: 'NetworkFirst',
+              options: {
+                cacheName: 'api-cache',
+                expiration: {
+                  maxEntries: 50,
+                  maxAgeSeconds: 86400, // 24 hours in seconds
+                },
+              },
+            },
+            {
+              urlPattern: /^https:\/fonts\.googleapis\.com\/.*/i,
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'google-fonts-cache',
+                expiration: {
+                  maxEntries: 10,
+                  maxAgeSeconds: 31536000, // 1 year in seconds
+                },
+              },
+            },
+            {
+              urlPattern: /^https:\/fonts\.gstatic\.com\/.*/i,
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'gstatic-fonts-cache',
+                expiration: {
+                  maxEntries: 10,
+                  maxAgeSeconds: 31536000, // 1 year in seconds
+                },
+              },
+            },
+          ],
+        },
+      }),
     ],
     assetsInclude: ['**/*.bin', '**/*.json'], // Helps loading local TFJS models if needed
     define: {
@@ -1638,6 +1965,29 @@ export default defineConfig(({ mode }) => {
     // CSS optimizations
     css: {
       devSourcemap: mode !== 'production',
+    },
+    // Test configuration (Vitest)
+    test: {
+      environment: 'jsdom',
+      globals: true,
+      setupFiles: ['./src/test/setup.ts'],
+      include: [
+        'src/**/*.{test,spec}.{ts,tsx}',
+        'services/**/*.{test,spec}.{ts,tsx}',
+      ],
+      coverage: {
+        provider: 'v8',
+        reporter: ['text', 'json', 'html'],
+        include: ['src/**/*.ts', 'src/**/*.tsx'],
+        exclude: [
+          'src/**/*.test.ts',
+          'src/types.ts',
+          'node_modules/',
+          'src/test/',
+          '**/*.d.ts',
+          '**/*.config.*',
+        ],
+      },
     },
   };
 });

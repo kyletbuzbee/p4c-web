@@ -1,7 +1,7 @@
 
 ================================================================================
 FILE_BEGIN: .github\.dependabot.yaml
-METADATA: Size=533 bytes | Last_Modified=2026-01-05 23:08:46.710995
+METADATA: Size=523 bytes | Last_Modified=2026-01-07 10:13:28.393404
 ================================================================================
 # To get started with Dependabot version updates, you'll need to specify which
 # package ecosystems to update and where the package manifests are located.
@@ -9,10 +9,10 @@ METADATA: Size=533 bytes | Last_Modified=2026-01-05 23:08:46.710995
 # https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
 /nversion: 2
 updates:
-  - package-ecosystem: "" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  - package-ecosystem: '' # See documentation for possible values
+    directory: '/' # Location of package manifests
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
 
 
 [FILE_END: .github\.dependabot.yaml]

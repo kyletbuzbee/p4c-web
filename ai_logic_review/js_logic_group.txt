@@ -1,7 +1,7 @@
 
 ================================================================================
 FILE_BEGIN: public\sw.js
-METADATA: Size=7243 bytes | Last_Modified=2026-01-06 08:06:36.378257
+METADATA: Size=7233 bytes | Last_Modified=2026-01-07 10:13:31.878625
 ================================================================================
 /**
  * Service Worker for Properties 4 Creation
@@ -29,26 +29,24 @@ const CACHE_STRATEGIES = {
 };
 
 // Install event - cache static assets
-self.addEventListener("install", (event) => {
+self.addEventListener('install', (event) => {
   event.waitUntil(
     caches
       .open(STATIC_CACHE)
       .then((cache) => {
-
         return cache.addAll(STATIC_ASSETS);
       })
       .then(() => {
-
         return self.skipWaiting();
       })
       .catch((error) => {
-        console.error("[SW] Failed to cache static assets:", error);
-      }),
+        console.error('[SW] Failed to cache static assets:', error);
+      })
   );
 });
 
 // Activate event - clean up old caches
-self.addEventListener("activate", (event) => {
+self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches
       .keys()
@@ -61,31 +59,29 @@ self.addEventListener("activate", (event) => {
               cacheName !== DYNAMIC_CACHE &&
               cacheName !== IMAGE_CACHE
             ) {
-
               return caches.delete(cacheName);
             }
-          }),
-        ),
+          })
+        )
       )
       .then(() => {
-
         return self.clients.claim();
-      }),
+      })
   );
 });
 
 // Fetch event - handle requests with appropriate strategies
-self.addEventListener("fetch", (event) => {
+self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
   // Skip non-GET requests
-  if (request.method !== "GET") {
+  if (request.method !== 'GET') {
     return;
   }
 
   // Skip API requests (let them go to the server)
-  if (url.pathname.startsWith("/api/")) {
+  if (url.pathname.startsWith('/api/')) {
     return;
   }
 
@@ -118,7 +114,7 @@ function isStaticAsset(request) {
 
 // Check if request is for navigation
 function isNavigationRequest(request) {
-  return request.mode === "navigate";
+  return request.mode === 'navigate';
 }
 
 // Cache-first strategy for images
@@ -137,12 +133,12 @@ async function handleImageRequest(request) {
 
     return networkResponse;
   } catch (error) {
-    console.error("[SW] Image request failed:", error);
+    console.error('[SW] Image request failed:', error);
 
     // Return a fallback image if available
-    const fallbackResponse = await caches.match("/images/fallback.png");
+    const fallbackResponse = await caches.match('/images/fallback.png');
     return (
-      fallbackResponse || new Response("Image not available", { status: 404 })
+      fallbackResponse || new Response('Image not available', { status: 404 })
     );
   }
 }
@@ -163,8 +159,8 @@ async function handleStaticAsset(request) {
 
     return networkResponse;
   } catch (error) {
-    console.error("[SW] Static asset request failed:", error);
-    return new Response("Asset not available", { status: 404 });
+    console.error('[SW] Static asset request failed:', error);
+    return new Response('Asset not available', { status: 404 });
   }
 }
 
@@ -181,7 +177,7 @@ async function handleNavigationRequest(request) {
 
     return networkResponse;
   } catch (error) {
-    console.error("[SW] Navigation request failed, trying cache:", error);
+    console.error('[SW] Navigation request failed, trying cache:', error);
 
     // Fallback to cached version
     const cachedResponse = await caches.match(request);
@@ -190,9 +186,9 @@ async function handleNavigationRequest(request) {
     }
 
     // Final fallback to index.html for SPA routing
-    const fallbackResponse = await caches.match("/index.html");
+    const fallbackResponse = await caches.match('/index.html');
     return (
-      fallbackResponse || new Response("Page not available", { status: 404 })
+      fallbackResponse || new Response('Page not available', { status: 404 })
     );
   }
 }
@@ -212,7 +208,7 @@ async function handleDynamicRequest(request) {
         return networkResponse;
       })
       .catch((error) => {
-        console.error("[SW] Network request failed:", error);
+        console.error('[SW] Network request failed:', error);
         return null;
       });
 
@@ -226,22 +222,21 @@ async function handleDynamicRequest(request) {
     // Wait for network if no cache
     const networkResponse = await networkResponsePromise;
     return (
-      networkResponse || new Response("Content not available", { status: 404 })
+      networkResponse || new Response('Content not available', { status: 404 })
     );
   } catch (error) {
-    console.error("[SW] Dynamic request failed:", error);
+    console.error('[SW] Dynamic request failed:', error);
 
     const cachedResponse = await caches.match(request);
     return (
-      cachedResponse || new Response("Content not available", { status: 404 })
+      cachedResponse || new Response('Content not available', { status: 404 })
     );
   }
 }
 
 // Background sync for offline actions
-self.addEventListener("sync", (event) => {
-  if (event.tag === "background-sync") {
-
+self.addEventListener('sync', (event) => {
+  if (event.tag === 'background-sync') {
     event.waitUntil(performBackgroundSync());
   }
 });
@@ -250,41 +245,41 @@ self.addEventListener("sync", (event) => {
 async function performBackgroundSync() {
   try {
     // Sync any pending data when connection is restored
-
     // Add your background sync logic here
   } catch (error) {
-    console.error("[SW] Background sync failed:", error);
+    console.error('[SW] Background sync failed:', error);
   }
 }
 
 // Push notifications (if needed in future)
-self.addEventListener("push", (event) => {
+self.addEventListener('push', (event) => {
   const options = {
-    body: event.data ? event.data.text() : "New notification",
-    icon: "/icon-192x192.png",
-    badge: "/badge-72x72.png",
-    tag: "p4c-notification",
+    body: event.data ? event.data.text() : 'New notification',
+    icon: '/icon-192x192.png',
+    badge: '/badge-72x72.png',
+    tag: 'p4c-notification',
     requireInteraction: true,
   };
 
   event.waitUntil(
-    self.registration.showNotification("Properties 4 Creation", options),
+    self.registration.showNotification('Properties 4 Creation', options)
   );
 });
 
 // Handle notification clicks
-self.addEventListener("notificationclick", (event) => {
+self.addEventListener('notificationclick', (event) => {
   event.notification.close();
 
-  event.waitUntil(clients.openWindow("/"));
+  event.waitUntil(clients.openWindow('/'));
 });
+
 
 [FILE_END: public\sw.js]
 ################################################################################
 
 ================================================================================
 FILE_BEGIN: server\index.js
-METADATA: Size=10290 bytes | Last_Modified=2026-01-06 08:07:54.090497
+METADATA: Size=10272 bytes | Last_Modified=2026-01-07 10:13:32.107661
 ================================================================================
 /**
  * Enterprise Security Proxy Server
@@ -377,7 +372,7 @@ app.use(
         reportUri: '/api/security/csp-violation',
       },
     },
-  }),
+  })
 );
 
 // Performance monitoring middleware
@@ -394,7 +389,7 @@ app.use(
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-  }),
+  })
 );
 
 // Comprehensive security middleware
@@ -406,7 +401,7 @@ app.use(
     skipFailedRequests: false,
     standardHeaders: true,
     legacyHeaders: false,
-  }),
+  })
 );
 
 // Input validation and sanitization
@@ -416,7 +411,7 @@ app.use(createInputValidation());
 app.use(
   createSizeLimiter({
     limit: '10mb',
-  }),
+  })
 );
 
 // Security logging
@@ -546,7 +541,6 @@ app.post('/api/ai/edit-image', verifyApiKey, async (req, res) => {
 
     for (const part of result.response.candidates?.[0]?.content?.parts || []) {
       if (part.inlineData) {
-
         return res.json({
           success: true,
           data: `data:image/png;base64,${part.inlineData.data}`,
@@ -662,28 +656,24 @@ app.use('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
   console.log(
-    `🚀 Server running on port ${PORT}`,
-  );
-  console.log(
-    `🌍 CORS configured for: ${process.env.ALLOWED_ORIGINS || 'http://localhost:3000'}`,
+    `🌍 CORS configured for: ${process.env.ALLOWED_ORIGINS || 'http://localhost:3000'}`
   );
 
   if (!process.env.GEMINI_API_KEY) {
     console.warn(
-      '⚠️  WARNING: GEMINI_API_KEY not configured in environment variables',
+      '⚠️  WARNING: GEMINI_API_KEY not configured in environment variables'
     );
   }
 });
 
 // Graceful shutdown
 process.on('SIGTERM', () => {
-
   process.exit(0);
 });
 
 process.on('SIGINT', () => {
-
   process.exit(0);
 });
 
@@ -695,7 +685,7 @@ module.exports = app;
 
 ================================================================================
 FILE_BEGIN: server\middleware\comprehensiveSecurity.js
-METADATA: Size=9119 bytes | Last_Modified=2026-01-06 08:10:40.964359
+METADATA: Size=9116 bytes | Last_Modified=2026-01-07 10:13:32.124341
 ================================================================================
 /**
  * Comprehensive Security Middleware
@@ -751,7 +741,7 @@ const createAdvancedRateLimiter = (options = {}) => {
     skip,
     handler: (req, res) => {
       console.warn(
-        `Rate limit exceeded for IP: ${req.ip}, User-Agent: ${req.get('User-Agent')}`,
+        `Rate limit exceeded for IP: ${req.ip}, User-Agent: ${req.get('User-Agent')}`
       );
       res.status(429).json({
         error: 'Rate limit exceeded',
@@ -768,17 +758,17 @@ const createAdvancedRateLimiter = (options = {}) => {
  */
 const createInputValidation = () => (req, res, next) => {
   // Sanitize request body
-  if (req.body && typeof req.body === "object") {
+  if (req.body && typeof req.body === 'object') {
     sanitizeObject(req.body);
   }
 
   // Sanitize query parameters
-  if (req.query && typeof req.query === "object") {
+  if (req.query && typeof req.query === 'object') {
     sanitizeObject(req.query);
   }
 
   // Sanitize URL parameters
-  if (req.params && typeof req.params === "object") {
+  if (req.params && typeof req.params === 'object') {
     sanitizeObject(req.params);
   }
 
@@ -838,7 +828,7 @@ const createSizeLimiter = (options = {}) => {
 
     if (contentLength > maxBytes) {
       console.warn(
-        `Request size limit exceeded: ${contentLength} bytes > ${maxBytes} bytes`,
+        `Request size limit exceeded: ${contentLength} bytes > ${maxBytes} bytes`
       );
       return res.status(statusCode).json({
         error: message,
@@ -878,13 +868,13 @@ const parseBytes = (sizeStr) => {
  */
 const createDynamicSecurityHeaders = () => (req, res, next) => {
   // Generate nonce for CSP
-  const crypto = require("crypto");
-  const nonce = crypto.randomBytes(16).toString("base64");
+  const crypto = require('crypto');
+  const nonce = crypto.randomBytes(16).toString('base64');
 
   // Set dynamic CSP based on route
   let cspDirective = "default-src 'self'";
 
-  if (req.path.startsWith("/api/")) {
+  if (req.path.startsWith('/api/')) {
     cspDirective =
       "default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self'; font-src 'self'";
   } else {
@@ -899,17 +889,17 @@ const createDynamicSecurityHeaders = () => (req, res, next) => {
       "object-src 'none'",
       "base-uri 'self'",
       "form-action 'self'",
-    ].join("; ");
+    ].join('; ');
   }
 
-  res.setHeader("Content-Security-Policy", cspDirective);
-  res.setHeader("X-Content-Type-Options", "nosniff");
-  res.setHeader("X-Frame-Options", "DENY");
-  res.setHeader("X-XSS-Protection", "1; mode=block");
-  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+  res.setHeader('Content-Security-Policy', cspDirective);
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
   res.setHeader(
-    "Permissions-Policy",
-    "camera=(), microphone=(), geolocation=()",
+    'Permissions-Policy',
+    'camera=(), microphone=(), geolocation=()'
   );
 
   // Add nonce to response for use in templates
@@ -923,19 +913,19 @@ const createDynamicSecurityHeaders = () => (req, res, next) => {
  */
 const createAPIKeyValidator = () => (req, res, next) => {
   // Skip validation for public endpoints
-  const publicEndpoints = ["/api/health", "/api/security/status"];
+  const publicEndpoints = ['/api/health', '/api/security/status'];
   if (publicEndpoints.includes(req.path)) {
     return next();
   }
 
   // Check for API key in headers
-  const apiKey = req.get("X-API-Key") || req.get("Authorization");
+  const apiKey = req.get('X-API-Key') || req.get('Authorization');
 
   if (!apiKey) {
     return res.status(401).json({
-      error: "API key required",
-      code: "MISSING_API_KEY",
-      message: "Please provide a valid API key in the request headers",
+      error: 'API key required',
+      code: 'MISSING_API_KEY',
+      message: 'Please provide a valid API key in the request headers',
       timestamp: new Date().toISOString(),
     });
   }
@@ -945,8 +935,8 @@ const createAPIKeyValidator = () => (req, res, next) => {
   if (expectedKey && apiKey !== expectedKey) {
     console.warn(`Invalid API key attempt: ${req.ip}`);
     return res.status(403).json({
-      error: "Invalid API key",
-      code: "INVALID_API_KEY",
+      error: 'Invalid API key',
+      code: 'INVALID_API_KEY',
       timestamp: new Date().toISOString(),
     });
   }
@@ -966,13 +956,13 @@ const createSecurityLogger = () => (req, res, next) => {
     method: req.method,
     path: req.path,
     ip: req.ip,
-    userAgent: req.get("User-Agent"),
-    referer: req.get("Referer"),
-    contentType: req.get("Content-Type"),
-    contentLength: req.get("Content-Length"),
-    userId: req.user?.id || "anonymous",
+    userAgent: req.get('User-Agent'),
+    referer: req.get('Referer'),
+    contentType: req.get('Content-Type'),
+    contentLength: req.get('Content-Length'),
+    userId: req.user?.id || 'anonymous',
   };
-  console.log("Request:", JSON.stringify(logData, null, 2));
+  console.log('Request:', JSON.stringify(logData, null, 2));
 
   // Override res.end to log response
   const originalEnd = res.end;
@@ -982,10 +972,10 @@ const createSecurityLogger = () => (req, res, next) => {
       ...logData,
       statusCode: res.statusCode,
       responseTime: `${duration}ms`,
-      responseSize: res.get("Content-Length") || "unknown",
+      responseSize: res.get('Content-Length') || 'unknown',
     };
 
-    console.log("Response:", JSON.stringify(responseLog, null, 2));
+    console.log('Response:', JSON.stringify(responseLog, null, 2));
     originalEnd.apply(this, args);
   };
 
@@ -997,26 +987,26 @@ const createSecurityLogger = () => (req, res, next) => {
  */
 const createSecurityErrorHandler = () => (err, req, res, next) => {
   // Log error details (without exposing sensitive information)
-  console.error("Security Error:", {
+  console.error('Security Error:', {
     timestamp: new Date().toISOString(),
     path: req.path,
     method: req.method,
     ip: req.ip,
-    userAgent: req.get("User-Agent"),
+    userAgent: req.get('User-Agent'),
     error: err.message,
-    stack: err.stack?.split("\n").slice(0, 5).join("\n"), // Limit stack trace
+    stack: err.stack?.split('\n').slice(0, 5).join('\n'), // Limit stack trace
   });
 
   // Don't expose internal error details to client
   const statusCode = err.status || err.statusCode || 500;
-  const message = statusCode === 500 ? "Internal server error" : err.message;
+  const message = statusCode === 500 ? 'Internal server error' : err.message;
 
   res.status(statusCode).json({
     error: message,
-    code: err.code || "INTERNAL_ERROR",
+    code: err.code || 'INTERNAL_ERROR',
     timestamp: new Date().toISOString(),
     requestId:
-      req.get("X-Request-ID") || Math.random().toString(36).substr(2, 9),
+      req.get('X-Request-ID') || Math.random().toString(36).substr(2, 9),
   });
 };
 
@@ -1036,7 +1026,7 @@ module.exports = {
 
 ================================================================================
 FILE_BEGIN: server\middleware\enhancedSecurityHeaders.js
-METADATA: Size=8903 bytes | Last_Modified=2026-01-05 21:16:38.753096
+METADATA: Size=8898 bytes | Last_Modified=2026-01-07 10:13:32.132484
 ================================================================================
 /**
  * Enhanced Security Headers Middleware
@@ -1051,7 +1041,7 @@ const crypto = require('crypto');
  * Generate secure nonce for CSP headers
  * @returns {string} Base64 encoded nonce
  */
-const generateNonce = () => crypto.randomBytes(16).toString("base64");
+const generateNonce = () => crypto.randomBytes(16).toString('base64');
 
 /**
  * Creates comprehensive security headers configuration
@@ -1067,45 +1057,45 @@ const createEnhancedSecurityHeadersMiddleware = (options = {}) => {
           "'self'",
           "'unsafe-inline'", // Required for React/Vite development
           "'unsafe-eval'", // Required for Vite dev server
-          "https://apis.google.com",
-          "https://cdn.jsdelivr.net",
-          "https://www.googletagmanager.com",
+          'https://apis.google.com',
+          'https://cdn.jsdelivr.net',
+          'https://www.googletagmanager.com',
         ],
         styleSrc: [
           "'self'",
           "'unsafe-inline'", // Required for Tailwind CSS
-          "https://fonts.googleapis.com",
-          "https://cdn.jsdelivr.net",
+          'https://fonts.googleapis.com',
+          'https://cdn.jsdelivr.net',
         ],
         fontSrc: [
           "'self'",
-          "https://fonts.gstatic.com",
-          "https://cdn.jsdelivr.net",
+          'https://fonts.gstatic.com',
+          'https://cdn.jsdelivr.net',
         ],
         imgSrc: [
           "'self'",
-          "data:",
-          "https:",
-          "blob:",
-          "https://*.googleusercontent.com",
-          "https://*.gstatic.com",
+          'data:',
+          'https:',
+          'blob:',
+          'https://*.googleusercontent.com',
+          'https://*.gstatic.com',
         ],
         connectSrc: [
           "'self'",
-          "https://generativelanguage.googleapis.com",
-          "https://api.gemini.google.com",
-          "https://www.google-analytics.com",
-          "https://analytics.google.com",
+          'https://generativelanguage.googleapis.com',
+          'https://api.gemini.google.com',
+          'https://www.google-analytics.com',
+          'https://analytics.google.com',
         ],
         frameSrc: [
           "'self'",
-          "https://www.youtube.com",
-          "https://player.vimeo.com",
+          'https://www.youtube.com',
+          'https://player.vimeo.com',
         ],
         objectSrc: ["'none'"],
-        mediaSrc: ["'self'", "https:", "blob:"],
-        workerSrc: ["'self'", "blob:"],
-        childSrc: ["'self'", "blob:"],
+        mediaSrc: ["'self'", 'https:', 'blob:'],
+        workerSrc: ["'self'", 'blob:'],
+        childSrc: ["'self'", 'blob:'],
         formAction: ["'self'"],
         frameAncestors: ["'none'"],
         baseUri: ["'self'"],
@@ -1115,7 +1105,7 @@ const createEnhancedSecurityHeadersMiddleware = (options = {}) => {
       },
       reportUri: '/api/security/csp-violation',
     },
-    referrerPolicy = { policy: "strict-origin-when-cross-origin" },
+    referrerPolicy = { policy: 'strict-origin-when-cross-origin' },
     crossOriginEmbedderPolicy = false, // Disable for API compatibility
     hsts = {
       maxAge: 31536000, // 1 year
@@ -1157,10 +1147,10 @@ const createEnhancedSecurityHeadersMiddleware = (options = {}) => {
   return helmet({
     contentSecurityPolicy,
     crossOriginEmbedderPolicy,
-    crossOriginOpenerPolicy: { policy: "same-origin" },
-    crossOriginResourcePolicy: { policy: "same-origin" },
+    crossOriginOpenerPolicy: { policy: 'same-origin' },
+    crossOriginResourcePolicy: { policy: 'same-origin' },
     dnsPrefetchControl: { allow: false },
-    frameguard: { action: "deny" },
+    frameguard: { action: 'deny' },
     hsts,
     ieNoOpen: noOpen,
     noSniff,
@@ -1216,13 +1206,13 @@ const applyEnhancedSecurityHeaders = (req, res, next) => {
       'usb=()',
       'vr=()',
       'xr-spatial-tracking=()',
-    ].join(', '),
+    ].join(', ')
   );
 
   // Add security headers for modern browsers
   res.setHeader(
     'Strict-Transport-Security',
-    'max-age=31536000; includeSubDomains; preload',
+    'max-age=31536000; includeSubDomains; preload'
   );
   res.setHeader('Expect-CT', 'max-age=86400, enforce');
   res.setHeader('Server', 'Secure Server'); // Hide server information
@@ -1259,7 +1249,7 @@ const handleCSPViolation = async (req, res) => {
     // Log violation for monitoring
     console.warn(
       'CSP Violation Detected:',
-      JSON.stringify(violationReport, null, 2),
+      JSON.stringify(violationReport, null, 2)
     );
 
     // In production, you might want to:
@@ -1289,12 +1279,12 @@ const applyAPISecurityHeaders = (req, res, next) => {
   res.setHeader('X-XSS-Protection', '1; mode=block');
   res.setHeader(
     'Content-Security-Policy',
-    "default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'",
+    "default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'"
   );
   res.setHeader('Referrer-Policy', 'no-referrer');
   res.setHeader(
     'Strict-Transport-Security',
-    'max-age=31536000; includeSubDomains; preload',
+    'max-age=31536000; includeSubDomains; preload'
   );
 
   next();
@@ -1307,19 +1297,19 @@ const applyAPISecurityHeaders = (req, res, next) => {
 const generateSecurityHeadersReport = () => ({
   timestamp: new Date().toISOString(),
   securityHeaders: {
-    hsts: "Enabled with preload",
-    csp: "Comprehensive policy with reporting",
-    xssProtection: "Enabled with blocking",
-    contentTypeOptions: "nosniff enabled",
-    frameOptions: "DENY",
-    referrerPolicy: "strict-origin-when-cross-origin",
-    permissionsPolicy: "Restrictive permissions",
-    featurePolicy: "Restrictive features",
+    hsts: 'Enabled with preload',
+    csp: 'Comprehensive policy with reporting',
+    xssProtection: 'Enabled with blocking',
+    contentTypeOptions: 'nosniff enabled',
+    frameOptions: 'DENY',
+    referrerPolicy: 'strict-origin-when-cross-origin',
+    permissionsPolicy: 'Restrictive permissions',
+    featurePolicy: 'Restrictive features',
   },
   recommendations: [
-    "Monitor CSP violations regularly",
-    "Review and update CSP directives periodically",
-    "Consider adding additional security headers as needed",
+    'Monitor CSP violations regularly',
+    'Review and update CSP directives periodically',
+    'Consider adding additional security headers as needed',
   ],
 });
 
@@ -1338,17 +1328,17 @@ module.exports = {
 
 ================================================================================
 FILE_BEGIN: server\middleware\imageOptimization.js
-METADATA: Size=10348 bytes | Last_Modified=2026-01-06 09:13:57.257953
+METADATA: Size=10349 bytes | Last_Modified=2026-01-07 10:13:32.149181
 ================================================================================
 /**
  * Advanced Image Optimization Middleware with WebP/AVIF Support
  * Implements smart format detection, compression, and delivery optimization
  */
 
-const sharp = require("sharp");
-const path = require("path");
-const fs = require("fs").promises;
-const crypto = require("crypto");
+const sharp = require('sharp');
+const path = require('path');
+const fs = require('fs').promises;
+const crypto = require('crypto');
 
 // Modern browser support detection
 const SUPPORTED_FORMATS = {
@@ -1361,9 +1351,9 @@ const SUPPORTED_FORMATS = {
 // Cache configuration
 const CACHE_CONFIG = {
   headers: {
-    "Cache-Control": "public, max-age=31536000, immutable",
-    Vary: "Accept",
-    "Access-Control-Allow-Origin": "*",
+    'Cache-Control': 'public, max-age=31536000, immutable',
+    Vary: 'Accept',
+    'Access-Control-Allow-Origin': '*',
   },
   ttl: 365 * 24 * 60 * 60 * 1000, // 1 year
 };
@@ -1383,22 +1373,22 @@ class ImageOptimizationService {
    * Detect best image format based on Accept header
    */
   detectBestFormat(acceptHeader) {
-    if (!acceptHeader) return "jpeg";
+    if (!acceptHeader) return 'jpeg';
 
     const preferences = acceptHeader
-      .split(",")
+      .split(',')
       .map((item) => item.trim().toLowerCase())
       .filter((item) => item.startsWith('image/'))
       .map((item) => item.split(';')[0]);
 
     // Priority order: AVIF > WebP > JPEG > PNG
-    for (const format of ["image/avif", "image/webp"]) {
-      if (preferences.some((pref) => pref.includes(format.split("/")[1]))) {
-        return format.split("/")[1];
+    for (const format of ['image/avif', 'image/webp']) {
+      if (preferences.some((pref) => pref.includes(format.split('/')[1]))) {
+        return format.split('/')[1];
       }
     }
 
-    return "jpeg";
+    return 'jpeg';
   }
 
   /**
@@ -1410,9 +1400,9 @@ class ImageOptimizationService {
       ...options,
     };
     return crypto
-      .createHash("md5")
+      .createHash('md5')
       .update(JSON.stringify(keyData))
-      .digest("hex");
+      .digest('hex');
   }
 
   /**
@@ -1428,12 +1418,12 @@ class ImageOptimizationService {
       const ratio = size / dimensions;
 
       // High complexity = larger file size relative to dimensions
-      if (ratio > 0.8) return "high";
-      if (ratio > 0.4) return "medium";
-      return "low";
+      if (ratio > 0.8) return 'high';
+      if (ratio > 0.4) return 'medium';
+      return 'low';
     } catch (error) {
-      console.error("Error analyzing image complexity:", error);
-      return "medium";
+      console.error('Error analyzing image complexity:', error);
+      return 'medium';
     }
   }
 
@@ -1445,7 +1435,7 @@ class ImageOptimizationService {
       width,
       height,
       quality: requestedQuality,
-      compression = "auto",
+      compression = 'auto',
       progressive = true,
       lossless = false,
     } = options;
@@ -1457,7 +1447,7 @@ class ImageOptimizationService {
       sharpness = sharpness.resize({
         width: width || null,
         height: height || null,
-        fit: "inside",
+        fit: 'inside',
         withoutEnlargement: true,
         fastShrinkOnLoad: true,
       });
@@ -1467,12 +1457,12 @@ class ImageOptimizationService {
     const complexity = await this.analyzeImageComplexity(buffer);
     let quality = requestedQuality;
 
-    if (compression === "auto") {
+    if (compression === 'auto') {
       const formatConfig = SUPPORTED_FORMATS[format] || SUPPORTED_FORMATS.jpeg;
 
-      if (complexity === "high") {
+      if (complexity === 'high') {
         quality = Math.max(formatConfig.quality - 10, 30);
-      } else if (complexity === "low") {
+      } else if (complexity === 'low') {
         quality = Math.min(formatConfig.quality + 5, 100);
       } else {
         quality = formatConfig.quality;
@@ -1481,36 +1471,36 @@ class ImageOptimizationService {
 
     // Apply format-specific optimizations
     switch (format) {
-      case "avif":
+      case 'avif':
         return await sharpness
           .avif({
             quality,
             effort: formatConfig?.speed || 3,
-            chromaSubsampling: "4:2:0",
+            chromaSubsampling: '4:2:0',
           })
           .toBuffer();
 
-      case "webp":
+      case 'webp':
         return await sharpness
           .webp({
             quality,
             effort: formatConfig?.speed || 6,
             alphaQuality: quality,
-            lossless: lossless || complexity === "low",
+            lossless: lossless || complexity === 'low',
           })
           .toBuffer();
 
-      case "jpeg":
+      case 'jpeg':
         return await sharpness
           .jpeg({
             quality,
             progressive,
-            chromaSubsampling: "4:2:0",
+            chromaSubsampling: '4:2:0',
             mozjpeg: true,
           })
           .toBuffer();
 
-      case "png":
+      case 'png':
         return await sharpness
           .png({
             quality,
@@ -1534,14 +1524,14 @@ class ImageOptimizationService {
 
     for (const breakpoint of breakpoints) {
       try {
-        const optimizedBuffer = await this.optimizeImage(baseBuffer, "webp", {
+        const optimizedBuffer = await this.optimizeImage(baseBuffer, 'webp', {
           width: breakpoint,
-          compression: "auto",
+          compression: 'auto',
         });
 
         variants[`${breakpoint}w`] = {
           buffer: optimizedBuffer,
-          contentType: "image/webp",
+          contentType: 'image/webp',
           size: optimizedBuffer.length,
         };
       } catch (error) {
@@ -1576,16 +1566,16 @@ class ImageOptimizationService {
         const cached = this.cache.get(cacheKey);
 
         res.set({
-          "Content-Type": `image/${acceptFormat}`,
+          'Content-Type': `image/${acceptFormat}`,
           ...CACHE_CONFIG.headers,
-          "X-Cache": "HIT",
+          'X-Cache': 'HIT',
         });
 
         return res.send(cached);
       }
 
       // Load original image
-      const fullPath = path.join(process.cwd(), "public", imagePath);
+      const fullPath = path.join(process.cwd(), 'public', imagePath);
       const originalBuffer = await fs.readFile(fullPath);
 
       // Optimize image
@@ -1596,8 +1586,8 @@ class ImageOptimizationService {
           width: req.query.width ? parseInt(req.query.width) : undefined,
           height: req.query.height ? parseInt(req.query.height) : undefined,
           quality: req.query.quality ? parseInt(req.query.quality) : undefined,
-          compression: req.query.compression || "auto",
-        },
+          compression: req.query.compression || 'auto',
+        }
       );
 
       // Cache the result
@@ -1612,24 +1602,24 @@ class ImageOptimizationService {
 
       // Set headers
       res.set({
-        "Content-Type": `image/${acceptFormat}`,
+        'Content-Type': `image/${acceptFormat}`,
         ...CACHE_CONFIG.headers,
-        "X-Cache": "MISS",
-        "X-Original-Size": originalBuffer.length,
-        "X-Optimized-Size": optimizedBuffer.length,
-        "X-Compression-Ratio": (
+        'X-Cache': 'MISS',
+        'X-Original-Size': originalBuffer.length,
+        'X-Optimized-Size': optimizedBuffer.length,
+        'X-Compression-Ratio': (
           optimizedBuffer.length / originalBuffer.length
         ).toFixed(2),
-        "X-Response-Time": `${responseTime}ms`,
+        'X-Response-Time': `${responseTime}ms`,
       });
 
       return res.send(optimizedBuffer);
     } catch (error) {
-      console.error("Image optimization error:", error);
+      console.error('Image optimization error:', error);
 
       // Fallback to original image
-      if (req.path.startsWith("/images/")) {
-        const fullPath = path.join(process.cwd(), "public", req.path);
+      if (req.path.startsWith('/images/')) {
+        const fullPath = path.join(process.cwd(), 'public', req.path);
         if (
           await fs
             .access(fullPath)
@@ -1637,12 +1627,12 @@ class ImageOptimizationService {
             .catch(() => false)
         ) {
           const originalBuffer = await fs.readFile(fullPath);
-          res.set("Content-Type", "image/jpeg");
+          res.set('Content-Type', 'image/jpeg');
           return res.send(originalBuffer);
         }
       }
 
-      return res.status(500).json({ error: "Image processing failed" });
+      return res.status(500).json({ error: 'Image processing failed' });
     }
   }
 
@@ -1653,10 +1643,10 @@ class ImageOptimizationService {
     try {
       const imagePath = req.query.path;
       if (!imagePath) {
-        return res.status(400).json({ error: "Image path required" });
+        return res.status(400).json({ error: 'Image path required' });
       }
 
-      const fullPath = path.join(process.cwd(), "public", imagePath);
+      const fullPath = path.join(process.cwd(), 'public', imagePath);
       const buffer = await fs.readFile(fullPath);
       const metadata = await sharp(buffer).metadata();
 
@@ -1680,8 +1670,8 @@ class ImageOptimizationService {
         bestFormat: this.detectBestFormat(req.headers.accept),
       });
     } catch (error) {
-      console.error("Metadata generation error:", error);
-      res.status(500).json({ error: "Metadata generation failed" });
+      console.error('Metadata generation error:', error);
+      res.status(500).json({ error: 'Metadata generation failed' });
     }
   }
 
@@ -1694,7 +1684,7 @@ class ImageOptimizationService {
       cacheSize: this.cache.size,
       cacheHitRate:
         this.stats.requests > 0
-          ? `${(this.stats.cacheHits / this.stats.requests * 100).toFixed(2)}%`
+          ? `${((this.stats.cacheHits / this.stats.requests) * 100).toFixed(2)}%`
           : '0%',
     };
   }
@@ -1704,7 +1694,7 @@ class ImageOptimizationService {
    */
   clearCache() {
     this.cache.clear();
-    return { message: "Cache cleared", size: 0 };
+    return { message: 'Cache cleared', size: 0 };
   }
 }
 
@@ -1715,7 +1705,7 @@ const imageOptimizationService = new ImageOptimizationService();
 module.exports = (req, res, next) => {
   // Only process images
   if (
-    req.path.startsWith("/images/") ||
+    req.path.startsWith('/images/') ||
     req.path.match(/\.(jpg|jpeg|png|gif|webp|avif)$/i)
   ) {
     return imageOptimizationService.imageOptimizationMiddleware(req, res, next);
@@ -1732,7 +1722,7 @@ module.exports.SUPPORTED_FORMATS = SUPPORTED_FORMATS;
 
 ================================================================================
 FILE_BEGIN: server\middleware\inputValidation.js
-METADATA: Size=15340 bytes | Last_Modified=2026-01-05 21:16:38.753096
+METADATA: Size=15335 bytes | Last_Modified=2026-01-07 10:13:32.173683
 ================================================================================
 const { body, param, query, validationResult } = require('express-validator');
 
@@ -1746,11 +1736,11 @@ const customValidators = {
     return value
       .replace(
         /<(?:script|iframe|object|embed|form|link|meta|base|input|textarea|select|button)[\s\S]*?<\/(?:script|iframe|object|embed|form|link|meta|base|input|textarea|select|button)>/gi,
-        '',
+        ''
       )
       .replace(
         /<[^>]*(?:on\w+|href|src|data|action|formaction|style)[^>]*>/gi,
-        '',
+        ''
       )
       .replace(/(?:javascript|vbscript|data|file|ftp):/gi, '')
       .replace(/[\r\n\t]+/g, ' ')
@@ -1825,15 +1815,15 @@ const customValidators = {
     if (!value) return value;
 
     // Remove all non-digits
-    const cleaned = value.replace(/\D/g, "");
+    const cleaned = value.replace(/\D/g, '');
 
     // Check if it's a valid US phone number (10 or 11 digits)
     if (cleaned.length === 10) {
       return cleaned;
-    } else if (cleaned.length === 11 && cleaned.startsWith("1")) {
+    } else if (cleaned.length === 11 && cleaned.startsWith('1')) {
       return cleaned;
     }
-    throw new Error("Invalid phone number format");
+    throw new Error('Invalid phone number format');
   },
 
   // Validate and sanitize ZIP code
@@ -1884,7 +1874,7 @@ const createValidationMiddleware = (validations) => async (req, res, next) => {
     if (!errors.isEmpty()) {
       return res.status(400).json({
         success: false,
-        error: "Validation failed",
+        error: 'Validation failed',
         details: errors.array().map((err) => ({
           field: err.param,
           message: err.msg,
@@ -1895,10 +1885,10 @@ const createValidationMiddleware = (validations) => async (req, res, next) => {
 
     next();
   } catch (error) {
-    console.error("Validation middleware error:", error);
+    console.error('Validation middleware error:', error);
     res.status(500).json({
       success: false,
-      error: "Validation system error",
+      error: 'Validation system error',
     });
   }
 };
@@ -1919,14 +1909,14 @@ const schemas = {
       .isLength({ min: 1, max: 50 })
       .matches(/^[a-zA-Z\s'-]+$/)
       .withMessage(
-        'First name must be 1-50 characters and contain only letters, spaces, hyphens, and apostrophes',
+        'First name must be 1-50 characters and contain only letters, spaces, hyphens, and apostrophes'
       ),
     body('lastName')
       .trim()
       .isLength({ min: 1, max: 50 })
       .matches(/^[a-zA-Z\s'-]+$/)
       .withMessage(
-        'Last name must be 1-50 characters and contain only letters, spaces, hyphens, and apostrophes',
+        'Last name must be 1-50 characters and contain only letters, spaces, hyphens, and apostrophes'
       ),
     body('phone')
       .optional()
@@ -1994,7 +1984,7 @@ const schemas = {
       .isLength({ min: 1, max: 100 })
       .matches(/^[a-zA-Z\s'-]+$/)
       .withMessage(
-        'Name must be 1-100 characters and contain only letters, spaces, hyphens, and apostrophes',
+        'Name must be 1-100 characters and contain only letters, spaces, hyphens, and apostrophes'
       ),
     body('email')
       .isEmail()
@@ -2283,7 +2273,7 @@ module.exports = {
 
 ================================================================================
 FILE_BEGIN: server\middleware\logging.js
-METADATA: Size=9737 bytes | Last_Modified=2026-01-05 21:16:38.753096
+METADATA: Size=9730 bytes | Last_Modified=2026-01-07 10:13:32.198231
 ================================================================================
 const winston = require('winston');
 const DailyRotateFile = require('winston-daily-rotate-file');
@@ -2355,8 +2345,8 @@ const logger = winston.createLogger({
         timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
         printf(
           ({ timestamp, level, message, ...meta }) =>
-            `${timestamp} [${level}]: ${message} ${Object.keys(meta).length ? JSON.stringify(meta, null, 2) : ""}`,
-        ),
+            `${timestamp} [${level}]: ${message} ${Object.keys(meta).length ? JSON.stringify(meta, null, 2) : ''}`
+        )
       ),
     }),
   ],
@@ -2373,7 +2363,7 @@ if (process.env.NODE_ENV === 'production') {
       format: combine(timestamp(), errors({ stack: true }), json()),
       maxSize: '20m',
       maxFiles: '14d',
-    }),
+    })
   );
 
   // Combined log file
@@ -2384,7 +2374,7 @@ if (process.env.NODE_ENV === 'production') {
       format: combine(timestamp(), errors({ stack: true }), json()),
       maxSize: '20m',
       maxFiles: '30d',
-    }),
+    })
   );
 
   // Security events log
@@ -2396,7 +2386,7 @@ if (process.env.NODE_ENV === 'production') {
       format: combine(timestamp(), json()),
       maxSize: '20m',
       maxFiles: '90d',
-    }),
+    })
   );
 
   // Add Loki transport if configured
@@ -2416,7 +2406,7 @@ if (process.env.NODE_ENV === 'production') {
         },
         format: winston.format.json(),
         level: 'info',
-      }),
+      })
     );
   }
 }
@@ -2596,7 +2586,7 @@ const requestLogger = (req, res, next) => {
       req.method,
       req.route?.path || req.path,
       res.statusCode,
-      duration,
+      duration
     );
 
     // Log response
@@ -2648,11 +2638,11 @@ const performanceMonitor =
   (req, res, next) => {
     const startTime = Date.now();
 
-    res.on("finish", () => {
+    res.on('finish', () => {
       const duration = Date.now() - startTime;
 
       if (duration > threshold) {
-        logger.warn("Slow Request Detected", {
+        logger.warn('Slow Request Detected', {
           method: req.method,
           url: req.originalUrl,
           duration,
@@ -2698,7 +2688,7 @@ module.exports = {
 
 ================================================================================
 FILE_BEGIN: server\middleware\performanceMonitoring.js
-METADATA: Size=6575 bytes | Last_Modified=2026-01-05 21:16:38.753096
+METADATA: Size=6572 bytes | Last_Modified=2026-01-07 10:13:32.206342
 ================================================================================
 /**
  * Performance Monitoring Middleware
@@ -2744,30 +2734,30 @@ const createPerformanceMonitor = () => (req, res, next) => {
       statusCode: res.statusCode,
       responseTime,
       memoryDelta,
-      userAgent: req.get("User-Agent"),
+      userAgent: req.get('User-Agent'),
       ip: req.ip,
-      contentLength: res.get("Content-Length"),
-      contentType: res.get("Content-Type"),
+      contentLength: res.get('Content-Length'),
+      contentType: res.get('Content-Type'),
     };
 
     // Log based on response time thresholds
     if (responseTime > 1000) {
       console.warn(
-        "Performance Alert - Slow Response:",
-        JSON.stringify(performanceLog),
+        'Performance Alert - Slow Response:',
+        JSON.stringify(performanceLog)
       );
     } else if (responseTime > 500) {
       console.log(
-        "Performance Notice - Moderate Response:",
-        JSON.stringify(performanceLog),
+        'Performance Notice - Moderate Response:',
+        JSON.stringify(performanceLog)
       );
     }
 
     // Add performance headers (optional)
-    res.setHeader("X-Response-Time", `${responseTime.toFixed(2)}ms`);
+    res.setHeader('X-Response-Time', `${responseTime.toFixed(2)}ms`);
     res.setHeader(
-      "X-Memory-Usage",
-      `${(endMemory.heapUsed / 1024 / 1024).toFixed(2)}MB`,
+      'X-Memory-Usage',
+      `${(endMemory.heapUsed / 1024 / 1024).toFixed(2)}MB`
     );
 
     // Store metrics for potential further processing
@@ -2961,7 +2951,7 @@ module.exports = {
 
 ================================================================================
 FILE_BEGIN: server\middleware\rateLimiting.js
-METADATA: Size=9403 bytes | Last_Modified=2026-01-05 21:16:38.754096
+METADATA: Size=9403 bytes | Last_Modified=2026-01-07 10:13:32.223003
 ================================================================================
 const Redis = require('redis');
 const rateLimit = require('express-rate-limit');
@@ -3031,7 +3021,7 @@ function createRateLimiter(options = {}) {
       : undefined,
     keyGenerator: (req) =>
       // Use IP address and user agent for more granular rate limiting
-      `${req.ip}:${req.get("User-Agent")?.substring(0, 100) || "unknown"}`,
+      `${req.ip}:${req.get('User-Agent')?.substring(0, 100) || 'unknown'}`,
     handler: (req, res) => {
       const retryAfter = Math.round(options.windowMs / 1000);
       res.status(429).json({
@@ -3356,7 +3346,7 @@ module.exports = {
 
 ================================================================================
 FILE_BEGIN: server\middleware\securityHeaders.js
-METADATA: Size=4711 bytes | Last_Modified=2026-01-05 21:16:38.754096
+METADATA: Size=4710 bytes | Last_Modified=2026-01-07 10:13:32.223003
 ================================================================================
 /**
  * Security Headers Middleware
@@ -3379,32 +3369,32 @@ const createSecurityHeadersMiddleware = (options = {}) => {
           "'self'",
           "'unsafe-inline'", // Required for React/Vite development
           "'unsafe-eval'", // Required for Vite dev server
-          "https://apis.google.com",
-          "https://cdn.jsdelivr.net",
+          'https://apis.google.com',
+          'https://cdn.jsdelivr.net',
         ],
         styleSrc: [
           "'self'",
           "'unsafe-inline'", // Required for Tailwind CSS
-          "https://fonts.googleapis.com",
+          'https://fonts.googleapis.com',
         ],
         fontSrc: ["'self'", 'https://fonts.gstatic.com'],
         imgSrc: ["'self'", 'data:', 'https:', 'blob:'],
         connectSrc: [
           "'self'",
-          "https://generativelanguage.googleapis.com",
-          "https://api.gemini.google.com",
+          'https://generativelanguage.googleapis.com',
+          'https://api.gemini.google.com',
         ],
         frameSrc: ["'self'"],
         objectSrc: ["'none'"],
         mediaSrc: ["'self'"],
-        workerSrc: ["'self'", "blob:"],
+        workerSrc: ["'self'", 'blob:'],
         childSrc: ["'self'"],
         formAction: ["'self'"],
         frameAncestors: ["'none'"],
         baseUri: ["'self'"],
       },
     },
-    referrerPolicy = { policy: "no-referrer-when-downgrade" },
+    referrerPolicy = { policy: 'no-referrer-when-downgrade' },
     crossOriginEmbedderPolicy = false, // Disable for API compatibility
     hsts = {
       maxAge: 31536000,
@@ -3423,10 +3413,10 @@ const createSecurityHeadersMiddleware = (options = {}) => {
   return helmet({
     contentSecurityPolicy,
     crossOriginEmbedderPolicy,
-    crossOriginOpenerPolicy: { policy: "same-origin" },
-    crossOriginResourcePolicy: { policy: "same-origin" },
+    crossOriginOpenerPolicy: { policy: 'same-origin' },
+    crossOriginResourcePolicy: { policy: 'same-origin' },
     dnsPrefetchControl: { allow: false },
-    frameguard: { action: "deny" },
+    frameguard: { action: 'deny' },
     hsts,
     ieNoOpen: noOpen,
     noSniff,
@@ -3476,7 +3466,7 @@ const applySecurityHeaders = (req, res, next) => {
       'screen-wake-lock=()',
       'serial=()',
       'usb=()',
-    ].join(', '),
+    ].join(', ')
   );
 
   next();
@@ -3525,7 +3515,7 @@ module.exports = {
 
 ================================================================================
 FILE_BEGIN: server\middleware\validation.js
-METADATA: Size=12778 bytes | Last_Modified=2026-01-05 21:16:38.755146
+METADATA: Size=12766 bytes | Last_Modified=2026-01-07 10:13:32.239480
 ================================================================================
 const rateLimit = require('express-rate-limit');
 const slowDown = require('express-slow-down');
@@ -3539,24 +3529,24 @@ const createRateLimiter = (options = {}) =>
     windowMs: options.windowMs || 15 * 60 * 1000, // 15 minutes
     max: options.max || 100, // limit each IP to 100 requests per windowMs
     message: {
-      error: "Too many requests",
+      error: 'Too many requests',
       retryAfter: options.windowMs || 900000,
     },
     standardHeaders: true,
     legacyHeaders: false,
     handler: (req, res) => {
       logSecurityEvent(
-        "rate_limit_exceeded",
-        "medium",
-        "Rate limit exceeded",
+        'rate_limit_exceeded',
+        'medium',
+        'Rate limit exceeded',
         req,
         {
           ip: req.ip,
           attempts: req.rateLimit?.totalHits || 0,
-        },
+        }
       );
       res.status(429).json({
-        error: "Too many requests",
+        error: 'Too many requests',
         retryAfter: req.rateLimit?.resetTime,
       });
     },
@@ -3603,24 +3593,24 @@ const validate = {
     body('password')
       .isLength({ min: 8, max: 128 })
       .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/
       )
       .withMessage(
-        'Password must be 8-128 characters with uppercase, lowercase, number, and special character',
+        'Password must be 8-128 characters with uppercase, lowercase, number, and special character'
       ),
     body('firstName')
       .trim()
       .isLength({ min: 1, max: 50 })
       .matches(/^[a-zA-Z\s]+$/)
       .withMessage(
-        'First name must contain only letters and be 1-50 characters',
+        'First name must contain only letters and be 1-50 characters'
       ),
     body('lastName')
       .trim()
       .isLength({ min: 1, max: 50 })
       .matches(/^[a-zA-Z\s]+$/)
       .withMessage(
-        'Last name must contain only letters and be 1-50 characters',
+        'Last name must contain only letters and be 1-50 characters'
       ),
     body('phone')
       .optional()
@@ -3641,7 +3631,7 @@ const validate = {
       .trim()
       .isLength({ min: 1, max: 2000 })
       .withMessage(
-        'Description is required and must be less than 2000 characters',
+        'Description is required and must be less than 2000 characters'
       ),
     body('address.street')
       .trim()
@@ -3735,11 +3725,11 @@ const sanitizeRequest = (req, res, next) => {
     return str
       .replace(
         /<(?:script|iframe|object|embed|form|link|meta|base|input|textarea|select|button)[\s\S]*?<\/(?:script|iframe|object|embed|form|link|meta|base|input|textarea|select|button)>/gi,
-        '',
+        ''
       ) // Remove dangerous HTML tags
       .replace(
         /<[^>]*(?:on\w+|href|src|data|action|formaction|style)[^>]*>/gi,
-        '',
+        ''
       ) // Remove event handlers and dangerous attributes
       .replace(/(?:javascript|vbscript|data|file|ftp):/gi, '') // Remove dangerous protocols
       .replace(/[\r\n\t]+/g, ' ') // Normalize whitespace
@@ -3802,7 +3792,7 @@ const preventSQLInjection = (req, res, next) => {
                 key,
                 value,
                 pattern: pattern.source,
-              },
+              }
             );
             return true;
           }
@@ -3848,7 +3838,7 @@ const validateFileUpload = (req, res, next) => {
             fieldName,
             mimetype: uploadedFile.mimetype,
             filename: uploadedFile.name,
-          },
+          }
         );
         return res.status(400).json({
           error: `Invalid file type. Allowed types: ${allowedTypes.join(', ')}`,
@@ -3895,7 +3885,7 @@ const preventXSS = (req, res, next) => {
                 key,
                 value: value.substring(0, 100), // Log first 100 chars
                 pattern: pattern.source,
-              },
+              }
             );
             return true;
           }
@@ -3946,7 +3936,7 @@ const handleValidationErrors = (req, res, next) => {
       req,
       {
         errors: errors.array(),
-      },
+      }
     );
     return res.status(400).json({
       error: 'Validation failed',
@@ -3977,7 +3967,7 @@ module.exports = {
 
 ================================================================================
 FILE_BEGIN: server\utils\logger.js
-METADATA: Size=5104 bytes | Last_Modified=2026-01-05 21:16:38.753096
+METADATA: Size=5102 bytes | Last_Modified=2026-01-07 10:13:32.256348
 ================================================================================
 const winston = require('winston');
 const path = require('path');
@@ -3996,7 +3986,7 @@ const logFormat = winston.format.combine(
       log += `\n${JSON.stringify(meta, null, 2)}`;
     }
     return log;
-  }),
+  })
 );
 
 // Create logger instance
@@ -4012,7 +4002,7 @@ const logger = winston.createLogger({
     new winston.transports.Console({
       format: winston.format.combine(
         winston.format.colorize(),
-        winston.format.simple(),
+        winston.format.simple()
       ),
     }),
 

@@ -15,7 +15,7 @@ export const IMAGES = {
   // Brand Assets
   LOGO: {
     PNG: '/images/logo/brand-logo.png',
-    SVG: '/images/logo/brand-logo.svg',
+    SVG: '/images/logo/brand-logo-white-gold.svg',
   },
 
   // Page Hero Banners
