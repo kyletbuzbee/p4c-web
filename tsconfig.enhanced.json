@@ -78,26 +78,6 @@
   },
   "include": ["src/**/*", "server/**/*", "**/*.ts", "**/*.tsx"],
   "exclude": [
-    "mapRoot": "",
-    "inlineSourceMap": false,
-    "//": " Advanced Options */
-    "skipDefaultLibCheck": true,
-    "plugins": [
-      {
-        "name": "typescript-plugin-css-modules"
-      },
-      {
-        "name": "typescript-plugin-styled-components"
-      }
-    ]
-  },
-  "include": [
-    "src/**/*",
-    "server/**/*",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
     "node_modules",
     "dist",
     "build",
@@ -106,8 +86,5 @@
     "**/*.spec.ts",
     "**/*.spec.tsx"
   ],
-  "files": [
-    "src/types/global.d.ts",
-    "src/types/env.d.ts"
-  ]
+  "files": ["src/types/global.d.ts", "src/types/env.d.ts"]
 }
