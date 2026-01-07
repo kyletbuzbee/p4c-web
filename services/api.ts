@@ -74,20 +74,16 @@ class ApiClient {
       }
 
       return await response.json();
-    } catch (error) {
-      console.warn(
-        `Backend request failed for endpoint ${endpoint}, falling back to mock data:`,
-        error
-      );
+    } catch {
       throw new Error('Backend unavailable - using mock data');
     }
   }
 
-  async get<T>(endpoint: string): Promise<T> {
+  get<T>(endpoint: string): Promise<T> {
     return this.makeRequest<T>(endpoint, { method: 'GET' });
   }
 
-  async post<T>(endpoint: string, data?: any): Promise<T> {
+  post<T>(endpoint: string, data?: unknown): Promise<T> {
     return this.makeRequest<T>(endpoint, {
       method: 'POST',
       body: data ? JSON.stringify(data) : null,
@@ -110,8 +106,8 @@ export const api = {
           const data = await apiClient.get<StatMetric[]>('/api/impact/metrics');
           return data;
         }
-      } catch (error) {
-        console.warn('Backend metrics request failed, using mock data:', error);
+      } catch {
+        // Fallback to mock data
       }
 
       // Fallback to mock data
@@ -169,11 +165,8 @@ export const api = {
           );
           return data;
         }
-      } catch (error) {
-        console.warn(
-          'Backend financial breakdown request failed, using mock data:',
-          error
-        );
+      } catch {
+        // Fallback to mock data
       }
 
       // Fallback to mock data
@@ -202,11 +195,8 @@ export const api = {
           );
           return data;
         }
-      } catch (error) {
-        console.warn(
-          'Backend standards request failed, using mock data:',
-          error
-        );
+      } catch {
+        // Fallback to mock data
       }
 
       // Fallback to mock data
@@ -259,11 +249,8 @@ export const api = {
             await apiClient.get<ExtendedProperty[]>('/api/properties');
           return data;
         }
-      } catch (error) {
-        console.warn(
-          'Backend properties request failed, using mock data:',
-          error
-        );
+      } catch {
+        // Fallback to mock data
       }
 
       // Fallback to mock data
@@ -284,11 +271,8 @@ export const api = {
           );
           return data;
         }
-      } catch (error) {
-        console.warn(
-          'Backend property by ID request failed, using mock data:',
-          error
-        );
+      } catch {
+        // Fallback to mock data
       }
 
       // Fallback to mock data
@@ -318,11 +302,8 @@ export const api = {
           );
           return data;
         }
-      } catch (error) {
-        console.warn(
-          'Backend property search request failed, using mock data:',
-          error
-        );
+      } catch {
+        // Fallback to mock data
       }
 
       // Fallback to mock data
@@ -364,11 +345,8 @@ export const api = {
           );
           return data;
         }
-      } catch (error) {
-        console.warn(
-          'Backend property by badge request failed, using mock data:',
-          error
-        );
+      } catch {
+        // Fallback to mock data
       }
 
       // Fallback to mock data

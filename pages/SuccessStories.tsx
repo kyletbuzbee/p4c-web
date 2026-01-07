@@ -68,6 +68,7 @@ const CustomVideoPlayer: React.FC<CustomVideoPlayerProps> = ({
         onTimeUpdate={handleTimeUpdate}
         playsInline
       >
+        <track kind="captions" />
         <source src={src} type="video/mp4" />
         <p className="text-white p-4">
           Your browser does not support the video tag. Please upgrade your
@@ -226,7 +227,7 @@ const SuccessStories: React.FC = () => {
               <div className="w-full lg:w-1/2 space-y-6">
                 <Quote className="w-12 h-12 text-p4c-gold" />
                 <blockquote className="text-xl md:text-2xl text-p4c-navy font-serif italic leading-relaxed">
-                  "{story.quote}"
+                  &quot;{story.quote}&quot;
                 </blockquote>
                 <footer className="border-t border-p4c-gold/30 pt-6">
                   <cite className="not-italic">

@@ -34,7 +34,7 @@ const validateMimeType = (mimeType: string): boolean => {
 
 const sanitizeInput = (input: string): string => {
   if (typeof input !== 'string') return '';
-  return input.replace(/[<>\"'&]/g, (match) => {
+  return input.replace(/[<>\\"'&]/g, (match) => {
     const entities: Record<string, string> = {
       '<': '<',
       '>': '>',

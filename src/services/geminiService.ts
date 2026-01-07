@@ -4,11 +4,15 @@ import {
 } from '@google/generative-ai';
 
 // Initialize Google Generative AI with API key
-// eslint-disable-next-line dot-notation
-const apiKey =
-  (import.meta.env as Record<string, string>).VITE_GEMINI_API_KEY ||
+const getEnvVar = (key: string): string => {
   // eslint-disable-next-line dot-notation
-  process.env['VITE_GEMINI_API_KEY'];
+  const val = import.meta.env?.[key as string];
+  if (val) return val;
+  // eslint-disable-next-line dot-notation
+  return process.env?.[key as string] || '';
+};
+
+const apiKey = getEnvVar('VITE_GEMINI_API_KEY');
 
 if (!apiKey) {
   // eslint-disable-next-line no-console
@@ -31,8 +35,8 @@ class GeminiService {
   /**
    * Initialize the Gemini service with the specified model
    */
-  async initialize(): Promise<void> {
-    if (this.isInitialized) return;
+  initialize(): Promise<void> {
+    if (this.isInitialized) return Promise.resolve();
 
     try {
       // Use the cost-effective gemini-2.5-flash model
@@ -68,11 +72,11 @@ class GeminiService {
       }) as GoogleChatSession;
 
       this.isInitialized = true;
-      // eslint-disable-next-line no-console
+      return Promise.resolve();
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error('Failed to initialize Gemini service:', error);
-      throw new Error('Gemini service initialization failed');
+      return Promise.reject(new Error('Gemini service initialization failed'));
     }
   }
 
@@ -102,10 +106,11 @@ class GeminiService {
 
       // Return a helpful fallback message
       if (error instanceof Error) {
-        if (error.message.includes('quota')) {
+        const errorMessage = error.message;
+        if (errorMessage.includes('quota')) {
           return "I'm sorry, but I've reached my usage limit for today. Please try again later, or contact our team directly for assistance with your housing needs.";
         }
-        if (error.message.includes('API key')) {
+        if (errorMessage.includes('API key')) {
           return "I'm currently unable to access the AI service. Please try refreshing the page or contact our support team for assistance.";
         }
       }
@@ -116,24 +121,29 @@ class GeminiService {
 
   /**
    * Edit an image with Gemini (placeholder for future implementation)
-   * @param imageData - Base64 encoded image data (not used yet)
-   * @param prompt - The editing prompt (not used yet)
+   * @param _imageData - Base64 encoded image data (reserved for future use)
+   * @param _prompt - The editing prompt (reserved for future use)
    * @returns Promise with the edited image or error message
    */
+  /* eslint-disable no-unused-vars */
   async editImageWithGemini(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _imageData: string,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _prompt: string
   ): Promise<string> {
+    /* eslint-enable no-unused-vars */
+    // Parameters are reserved for future implementation
+    // TODO: Implement image editing when gemini-pro-vision model is available
+    if (import.meta.env?.DEV) {
+      // eslint-disable-next-line no-console
+      console.log(
+        'Image editing requested with params (reserved for future use)'
+      );
+    }
+
     try {
       if (!this.isInitialized) {
         await this.initialize();
       }
-
-      // Note: The gemini-2.5-flash model is primarily text-focused
-      // For image editing, you would typically use gemini-pro-vision
-      // This is a placeholder that returns a helpful message
 
       return `I'm currently unable to edit images directly. However, I can help you with:
 
@@ -160,10 +170,12 @@ class GeminiService {
 
     try {
       const history = await this.chatSession.getHistory();
-      return history.map((entry: any) => ({
-        role: entry.role === 'user' ? 'user' : 'model',
-        text: entry.parts[0]?.text || '',
-      }));
+      return history.map(
+        (entry: { role: string; parts: Array<{ text?: string }> }) => ({
+          role: entry.role === 'user' ? 'user' : 'model',
+          text: entry.parts[0]?.text || '',
+        })
+      );
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error('Error getting chat history:', error);

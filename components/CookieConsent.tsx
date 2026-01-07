@@ -40,7 +40,7 @@ const CookieConsent: React.FC = (): React.ReactNode => {
             <p>
               We use cookies to enhance your browsing experience, serve
               personalized content, and analyze our traffic. By clicking
-              "Accept", you consent to our use of cookies.{' '}
+              &quot;Accept&quot;, you consent to our use of cookies.{' '}
               <a
                 href="/privacy"
                 className="underline text-p4c-navy hover:text-p4c-gold"
