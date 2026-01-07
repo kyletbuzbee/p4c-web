@@ -268,11 +268,11 @@ const Home: React.FC = () => {
                 <span className="text-p4c-gold">Not Cheap Fixes.</span>
               </h2>
               <p className="text-gray-600 mb-8 leading-relaxed">
-                Many landlords cut corners. We don't. At Properties 4 Creation,
-                we use homeowner-grade materials like Quartz countertops, luxury
-                vinyl plank flooring, and high-efficiency HVAC systems. Why?
-                because you deserve a home that lasts and feels proud to live
-                in.
+                Many landlords cut corners. We don&apos;t. At Properties 4
+                Creation, we use homeowner-grade materials like Quartz
+                countertops, luxury vinyl plank flooring, and high-efficiency
+                HVAC systems. Why? Because you deserve a home that lasts and
+                feels proud to live in.
               </p>
 
               <ul className="space-y-4 mb-8">

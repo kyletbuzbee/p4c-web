@@ -172,7 +172,7 @@ const Navbar: React.FC = () => {
             className="flex-shrink-0 flex items-center gap-3 hover:opacity-90 transition-opacity"
           >
             <img
-              src={IMAGES.LOGO.SVG}
+              src={IMAGES.LOGO.PNG}
               alt="Properties 4 Creation Logo"
               className="h-14 w-auto object-contain"
             />
