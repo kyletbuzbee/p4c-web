@@ -34,13 +34,55 @@ const AccessibilityStatement = React.lazy(
 const EqualHousing = React.lazy(() => import('./pages/EqualHousing'));
 const SuccessStories = React.lazy(() => import('./pages/SuccessStories'));
 const AdminDashboard = React.lazy(() => import('./pages/AdminDashboard'));
-const FAQ = React.lazy(() => import('./pages/FAQ'));
+const Faq = React.lazy(() => import('./pages/FAQ'));
 
 // Loading Fallback
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center bg-p4c-beige">
     <Loader2 className="w-12 h-12 text-p4c-gold animate-spin" />
   </div>
+);
+
+// Standard Layout Component
+const StandardLayout = () => (
+  <>
+    <Navbar />
+    <main id="main-content" className="flex-grow">
+      <Suspense fallback={<PageLoader />}>
+        <Routes>
+          {/* Find a Home (Transactional) */}
+          <Route path="/" element={<Home />} />
+          <Route path="/properties/:id" element={<PropertyDetails />} />
+          <Route path="/apply" element={<Application />} />
+          <Route path="/equal-housing" element={<EqualHousing />} />
+
+          {/* Mission (Trust & Credibility) */}
+          <Route path="/about" element={<About />} />
+          <Route path="/impact" element={<OurImpact />} />
+          <Route path="/transparency" element={<Transparency />} />
+          <Route path="/stories" element={<SuccessStories />} />
+          <Route path="/employment" element={<Employment />} />
+
+          {/* Residents (Service Hub) */}
+          <Route path="/veterans" element={<Veterans />} />
+          <Route path="/veteran-services" element={<VeteranServices />} />
+          <Route path="/portal" element={<TenantLogin />} />
+          <Route path="/faq" element={<Faq />} />
+          <Route path="/accessibility" element={<AccessibilityStatement />} />
+
+          {/* Support (Connection) */}
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
+        </Routes>
+      </Suspense>
+    </main>
+    <AIChatbot />
+    <AccessibilityTools />
+    <Footer />
+    <CookieConsent />
+  </>
 );
 
 function App() {
@@ -53,76 +95,8 @@ function App() {
               <div className="font-sans antialiased text-p4c-navy bg-p4c-beige min-h-screen flex flex-col">
                 <SkipLink />
                 <ScrollToTop />
-
                 <Routes>
-                  {/* Public Routes with Standard Layout */}
-                  <Route
-                    path="*"
-                    element={
-                      <>
-                        <Navbar />
-                        <main id="main-content" className="flex-grow">
-                          <Suspense fallback={<PageLoader />}>
-                            <Routes>
-                              {/* Find a Home (Transactional) */}
-                              <Route path="/" element={<Home />} />
-                              <Route
-                                path="/properties/:id"
-                                element={<PropertyDetails />}
-                              />
-                              <Route path="/apply" element={<Application />} />
-                              <Route
-                                path="/equal-housing"
-                                element={<EqualHousing />}
-                              />
-
-                              {/* Mission (Trust & Credibility) */}
-                              <Route path="/about" element={<About />} />
-                              <Route path="/impact" element={<OurImpact />} />
-                              <Route
-                                path="/transparency"
-                                element={<Transparency />}
-                              />
-                              <Route
-                                path="/stories"
-                                element={<SuccessStories />}
-                              />
-                              <Route
-                                path="/employment"
-                                element={<Employment />}
-                              />
-
-                              {/* Residents (Service Hub) */}
-                              <Route path="/veterans" element={<Veterans />} />
-                              <Route
-                                path="/veteran-services"
-                                element={<VeteranServices />}
-                              />
-                              <Route path="/portal" element={<TenantLogin />} />
-                              <Route path="/faq" element={<FAQ />} />
-                              <Route
-                                path="/accessibility"
-                                element={<AccessibilityStatement />}
-                              />
-
-                              {/* Support (Connection) */}
-                              <Route path="/contact" element={<Contact />} />
-                              <Route
-                                path="/admin"
-                                element={<AdminDashboard />}
-                              />
-                              <Route path="/privacy" element={<Privacy />} />
-                              <Route path="/terms" element={<Terms />} />
-                            </Routes>
-                          </Suspense>
-                        </main>
-                        <AIChatbot />
-                        <AccessibilityTools />
-                        <Footer />
-                        <CookieConsent />
-                      </>
-                    }
-                  />
+                  <Route path="*" element={<StandardLayout />} />
                 </Routes>
               </div>
             </AuthProvider>
