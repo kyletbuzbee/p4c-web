@@ -1,6 +1,54 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { ChevronDown, HelpCircle } from 'lucide-react';
+
+interface FAQItemProps {
+  question: string;
+  answer: string;
+}
+
+const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [maxHeight, setMaxHeight] = useState(0);
+
+  useEffect(() => {
+    if (contentRef.current) {
+      setMaxHeight(contentRef.current.scrollHeight);
+    }
+  }, []);
+
+  return (
+    <div
+      className={`group bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden transition-all ${isOpen ? 'ring-2 ring-p4c-gold/50' : ''}`}
+    >
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
+        aria-controls={`faq-content-${question.replace(/\s+/g, '-').toLowerCase()}`}
+        className="flex items-center justify-between w-full p-6 cursor-pointer list-none font-bold text-p4c-navy hover:bg-gray-50 text-left focus:outline-none focus:ring-2 focus:ring-p4c-gold focus:ring-inset"
+      >
+        <span>{question}</span>
+        <ChevronDown
+          className={`w-5 h-5 text-gray-400 transition-transform duration-300 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`}
+          aria-hidden="true"
+        />
+      </button>
+      <div
+        id={`faq-content-${question.replace(/\s+/g, '-').toLowerCase()}`}
+        ref={contentRef}
+        className="overflow-hidden transition-all duration-300 ease-in-out"
+        style={{ maxHeight: isOpen ? maxHeight : 0, opacity: isOpen ? 1 : 0 }}
+        role="region"
+        aria-label={question}
+      >
+        <div className="px-6 pb-6 text-gray-600 leading-relaxed border-t border-gray-100 pt-4">
+          {answer}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const FAQs = [
   {
@@ -54,18 +102,7 @@ const FAQ: React.FC = () => (
 
       <div className="space-y-4">
         {FAQs.map((faq, index) => (
-          <details
-            key={index}
-            className="group bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden open:ring-2 open:ring-p4c-gold/50 transition-all"
-          >
-            <summary className="flex items-center justify-between p-6 cursor-pointer list-none font-bold text-p4c-navy hover:bg-gray-50">
-              {faq.q}
-              <ChevronDown className="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" />
-            </summary>
-            <div className="px-6 pb-6 text-gray-600 leading-relaxed border-t border-gray-100 pt-4">
-              {faq.a}
-            </div>
-          </details>
+          <FAQItem key={index} question={faq.q} answer={faq.a} />
         ))}
       </div>
     </div>
