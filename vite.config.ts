@@ -13,7 +13,12 @@ export default defineConfig(({ mode }) => {
   const isProduction = mode === 'production';
   // eslint-disable-next-line dot-notation
   const repositoryName = env['VITE_REPOSITORY_NAME'] || '';
-  const base = isProduction ? `/${repositoryName}/` : '/';
+  // For custom domain (CNAME), use root path; for github.io pages, use repository path
+  const base = isProduction
+    ? repositoryName
+      ? `/${repositoryName}/`
+      : '/'
+    : '/';
 
   return {
     base,
