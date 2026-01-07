@@ -7,6 +7,7 @@ import {
   AlertCircle,
 } from 'lucide-react';
 import { IMAGES } from '../constants/images';
+import { useToast } from '../context/ToastContext';
 
 interface ApplicationForm {
   firstName: string;
@@ -17,6 +18,7 @@ interface ApplicationForm {
 }
 
 const Application: React.FC = () => {
+  const { addToast } = useToast();
   const [formData, setFormData] = useState<ApplicationForm>({
     firstName: '',
     lastName: '',
@@ -60,7 +62,7 @@ const Application: React.FC = () => {
       return 'Please enter a valid email address';
     }
 
-    if (name === 'phone' && !/^[\d\-\(\)\s]{10,}$/.test(value)) {
+    if (name === 'phone' && !/^[\d\-\s]{10,}$/.test(value)) {
       return 'Please enter a valid phone number';
     }
 
@@ -121,8 +123,9 @@ const Application: React.FC = () => {
     }));
 
     if (isValid) {
-      alert(
-        'Success! Application pre-check complete. Proceeding to background check integration...'
+      addToast(
+        'Success! Application pre-check complete. Proceeding to background check integration...',
+        'success'
       );
     }
   };
@@ -200,11 +203,15 @@ const Application: React.FC = () => {
           <form className="space-y-6" noValidate>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-bold text-p4c-navy mb-1.5">
+                <label
+                  htmlFor="firstName"
+                  className="block text-sm font-bold text-p4c-navy mb-1.5"
+                >
                   First Name
                 </label>
                 <input
                   type="text"
+                  id="firstName"
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleChange}
@@ -221,11 +228,15 @@ const Application: React.FC = () => {
                 )}
               </div>
               <div>
-                <label className="block text-sm font-bold text-p4c-navy mb-1.5">
+                <label
+                  htmlFor="lastName"
+                  className="block text-sm font-bold text-p4c-navy mb-1.5"
+                >
                   Last Name
                 </label>
                 <input
                   type="text"
+                  id="lastName"
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleChange}
@@ -245,11 +256,15 @@ const Application: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-bold text-p4c-navy mb-1.5">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-bold text-p4c-navy mb-1.5"
+                >
                   Email Address
                 </label>
                 <input
                   type="email"
+                  id="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
@@ -266,11 +281,15 @@ const Application: React.FC = () => {
                 )}
               </div>
               <div>
-                <label className="block text-sm font-bold text-p4c-navy mb-1.5">
+                <label
+                  htmlFor="phone"
+                  className="block text-sm font-bold text-p4c-navy mb-1.5"
+                >
                   Phone Number
                 </label>
                 <input
                   type="tel"
+                  id="phone"
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
@@ -289,10 +308,14 @@ const Application: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-bold text-p4c-navy mb-1.5">
+              <label
+                htmlFor="voucherType"
+                className="block text-sm font-bold text-p4c-navy mb-1.5"
+              >
                 Do you currently have a housing voucher?
               </label>
               <select
+                id="voucherType"
                 name="voucherType"
                 value={formData.voucherType}
                 onChange={handleChange}

@@ -155,6 +155,13 @@ const Navbar: React.FC = () => {
     window.scrollTo(0, 0);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent, path: string) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleNavClick(path);
+    }
+  };
+
   return (
     <nav className="sticky top-0 z-50 bg-[#0B1120]/90 border-b border-[#0B1120]/30 text-white backdrop-blur-xl shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -182,6 +189,8 @@ const Navbar: React.FC = () => {
               >
                 <button
                   className={`flex items-center text-sm font-medium transition-colors duration-200 ${activeDropdown === group.label ? 'text-p4c-gold' : 'text-gray-300 hover:text-white'}`}
+                  aria-expanded={activeDropdown === group.label}
+                  aria-haspopup="true"
                 >
                   {group.label}
                   <ChevronDown
@@ -197,7 +206,9 @@ const Navbar: React.FC = () => {
                         <button
                           key={child.label}
                           onClick={() => handleNavClick(child.path)}
+                          onKeyDown={(e) => handleKeyDown(e, child.path)}
                           className="w-full text-left px-4 py-3 hover:bg-gray-50 flex items-start gap-3 group/item transition-colors"
+                          role="menuitem"
                         >
                           <div className="mt-1 p-1.5 bg-p4c-beige rounded-md text-p4c-navy group-hover/item:bg-p4c-navy group-hover/item:text-p4c-gold transition-colors">
                             {child.icon}

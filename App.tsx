@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import ErrorBoundary from './components/ErrorBoundary';
+import SkipLink from './components/SkipLink';
 import { ToastProvider } from './context/ToastContext';
 import { AuthProvider } from './context/AuthContext';
 import { DarkModeProvider } from './context/DarkModeContext';
@@ -50,9 +51,7 @@ function App() {
           <DarkModeProvider>
             <AuthProvider>
               <div className="font-sans antialiased text-p4c-navy bg-p4c-beige min-h-screen flex flex-col">
-                <a href="#main-content" className="skip-link">
-                  Skip to main content
-                </a>
+                <SkipLink />
                 <ScrollToTop />
 
                 <Routes>
