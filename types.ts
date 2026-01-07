@@ -11,6 +11,15 @@ export interface Property {
   description: string;
 }
 
+export interface ExtendedProperty extends Property {
+  amenities: string[];
+  accessibilityFeatures: string[];
+  schoolDistrict: string;
+  neighborhood: string;
+  availabilityDate: string;
+  coordinates: { lat: number; lng: number };
+}
+
 export interface TransformationData {
   beforeImage: string;
   afterImage: string;

@@ -1,14 +1,8 @@
-import type { Property } from '../types';
+import type { ExtendedProperty } from '../types';
 import { IMAGES } from '../constants/images';
 
-export interface ExtendedProperty extends Property {
-  amenities: string[];
-  accessibilityFeatures: string[];
-  schoolDistrict: string;
-  neighborhood: string;
-  availabilityDate: string;
-  coordinates: { lat: number; lng: number };
-}
+// Re-export ExtendedProperty type for backward compatibility
+export type { ExtendedProperty };
 
 export const properties: ExtendedProperty[] = [
   {

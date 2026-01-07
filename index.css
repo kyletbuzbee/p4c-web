@@ -8,6 +8,11 @@
   --color-gold: #c5a059;
   --color-gold-hover: #b08d48;
   --color-slate: #334155;
+  /* Animation custom properties */
+  --animation-duration-fast: 150ms;
+  --animation-duration-normal: 300ms;
+  --animation-duration-slow: 500ms;
+  --animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @layer base {
@@ -26,10 +31,12 @@
 @layer components {
   /* Skip link styling */
   .skip-link {
-    @apply absolute -top-10 left-0 bg-p4c-navy text-white p-2 z-50 transition-[top] duration-200;
+    @apply fixed left-4 top-4 bg-p4c-navy text-white p-3 z-[100] rounded-lg shadow-lg transition-all duration-200;
+    transform: translateY(-100%);
   }
+  .skip-link:focus-within,
   .skip-link:focus {
-    @apply top-0;
+    transform: translateY(0);
   }
 
   /* Image optimizer animations */
@@ -293,6 +300,28 @@
     line-height: 1.3;
   }
 
+  /* FAQ Accordion Animation using grid-template-rows for smooth transitions */
+  .accordion-content {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows var(--animation-duration-normal)
+      var(--animation-easing);
+  }
+
+  .accordion-content > div {
+    overflow: hidden;
+  }
+
+  /* When accordion is open, the parent div with class will have this style applied via JavaScript or sibling selector */
+  .accordion-open .accordion-content {
+    grid-template-rows: 1fr;
+  }
+
+  /* Alternative: Use :has() selector when supported */
+  .group:has(.accordion-content) {
+    /* styles for parent when accordion is open */
+  }
+
   /* Reduced Motion - Accessibility */
   @media (prefers-reduced-motion: reduce) {
     *,
@@ -346,6 +375,15 @@
 
     .hero-overlay-secondary {
       transition: opacity 0.3s ease-in-out;
+    }
+
+    /* Accordion animation enabled when user prefers motion */
+    .accordion-content {
+      grid-template-rows: 0fr;
+    }
+
+    .group:has(.accordion-content) {
+      /* Fallback for browsers that don't support :has() */
     }
   }
 }

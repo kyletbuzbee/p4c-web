@@ -6,7 +6,7 @@ import PropertyCard from '../components/PropertyCard';
 import BeforeAfterSlider from '../components/BeforeAfterSlider';
 import GeminiImageEditor from '../components/GeminiImageEditor';
 import { api } from '../services/api';
-import type { ExtendedProperty } from '../data/properties';
+import type { ExtendedProperty } from '../types';
 import { IMAGES } from '../constants/images';
 import {
   CheckCircle2,

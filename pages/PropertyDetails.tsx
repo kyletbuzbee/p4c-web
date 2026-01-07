@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { api } from '../services/api';
-import type { ExtendedProperty } from '../data/properties';
+import type { ExtendedProperty } from '../types';
 import {
   Bed,
   Bath,

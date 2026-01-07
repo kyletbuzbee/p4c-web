@@ -2,8 +2,8 @@ import type {
   StatMetric,
   RenovationStandard,
   FinancialBreakdown,
+  ExtendedProperty,
 } from '../types';
-import type { ExtendedProperty } from '../data/properties';
 import { properties, getPropertyById } from '../data/properties';
 
 /**

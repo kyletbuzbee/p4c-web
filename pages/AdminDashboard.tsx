@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAuth } from '../context/AuthContext';
+import AdminDashboardSkeleton from '../components/AdminDashboardSkeleton';
 import {
   BarChart3,
   Users,
@@ -12,7 +13,7 @@ import {
   Trash2,
 } from 'lucide-react';
 import { api } from '../services/api';
-import type { ExtendedProperty } from '../data/properties';
+import type { ExtendedProperty } from '../types';
 
 const AdminDashboard: React.FC = () => {
   const { user, logout } = useAuth();
@@ -150,16 +151,7 @@ const AdminDashboard: React.FC = () => {
               </button>
             </div>
             {loading ? (
-              <div className="p-8 text-center">
-                <div className="animate-pulse">
-                  <div className="h-4 bg-gray-200 rounded w-1/4 mx-auto mb-4" />
-                  <div className="space-y-3">
-                    {[1, 2, 3].map((i) => (
-                      <div key={i} className="h-16 bg-gray-100 rounded" />
-                    ))}
-                  </div>
-                </div>
-              </div>
+              <AdminDashboardSkeleton variant="full" />
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-left">

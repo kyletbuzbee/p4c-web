@@ -1,28 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import { ArrowRight } from 'lucide-react';
+import React, { useEffect, useState, useCallback } from 'react';
+import { ArrowRight, X } from 'lucide-react';
 
 const SkipLink: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
+  const hideSkipLink = useCallback(() => {
+    setIsVisible(false);
+  }, []);
+
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
       // Show skip link when user presses Tab for the first time
       if (e.key === 'Tab' && !e.shiftKey) {
         setIsVisible(true);
       }
-    };
+      // Dismiss with Escape key
+      if (e.key === 'Escape') {
+        hideSkipLink();
+      }
+    },
+    [hideSkipLink]
+  );
 
-    // Hide after first press or when user clicks
-    const handleClick = () => setIsVisible(false);
-
+  useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('click', handleClick);
-
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('click', handleClick);
     };
-  }, []);
+  }, [handleKeyDown]);
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -40,15 +45,34 @@ const SkipLink: React.FC = () => {
   }
 
   return (
-    <a
-      href="#main-content"
-      onClick={handleClick}
-      className="skip-link"
-      aria-label="Skip to main content"
+    <div
+      className="fixed top-0 left-0 right-0 z-[100] flex justify-start"
+      role="region"
+      aria-label="Skip navigation"
     >
-      Skip to main content
-      <ArrowRight className="w-4 h-4 ml-2" />
-    </a>
+      <a
+        href="#main-content"
+        onClick={handleClick}
+        onKeyDown={(e) => e.key === 'Escape' && hideSkipLink()}
+        className="skip-link inline-flex items-center px-4 py-3 bg-p4c-navy text-white font-semibold shadow-lg focus:outline-none focus:ring-2 focus:ring-p4c-gold focus:ring-offset-2"
+        aria-label="Skip to main content"
+      >
+        <span>Skip to main content</span>
+        <ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" />
+        <button
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            hideSkipLink();
+          }}
+          onKeyDown={(e) => e.key === 'Enter' && hideSkipLink()}
+          className="ml-3 p-1 hover:bg-white/20 rounded-full transition-colors"
+          aria-label="Dismiss skip link"
+        >
+          <X className="w-4 h-4" aria-hidden="true" />
+        </button>
+      </a>
+    </div>
   );
 };
 

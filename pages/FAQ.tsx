@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { ChevronDown, HelpCircle } from 'lucide-react';
 
@@ -9,36 +9,30 @@ interface FAQItemProps {
 
 const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [maxHeight, setMaxHeight] = useState(0);
-
-  useEffect(() => {
-    if (contentRef.current) {
-      setMaxHeight(contentRef.current.scrollHeight);
-    }
-  }, []);
 
   return (
     <div
-      className={`group bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden transition-all ${isOpen ? 'ring-2 ring-p4c-gold/50' : ''}`}
+      className={`group bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden ${
+        isOpen ? 'ring-2 ring-p4c-gold/50' : ''
+      }`}
     >
       <button
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
         aria-controls={`faq-content-${question.replace(/\s+/g, '-').toLowerCase()}`}
-        className="flex items-center justify-between w-full p-6 cursor-pointer list-none font-bold text-p4c-navy hover:bg-gray-50 text-left focus:outline-none focus:ring-2 focus:ring-p4c-gold focus:ring-inset"
+        className="flex items-center justify-between w-full p-6 cursor-pointer list-none font-bold text-p4c-navy hover:bg-gray-50 text-left focus:outline-none focus:ring-2 focus:ring-p4c-gold focus:ring-inset transition-colors"
       >
         <span>{question}</span>
         <ChevronDown
-          className={`w-5 h-5 text-gray-400 transition-transform duration-300 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-5 h-5 text-gray-400 transition-transform duration-300 ease-out flex-shrink-0 ${
+            isOpen ? 'rotate-180' : ''
+          }`}
           aria-hidden="true"
         />
       </button>
       <div
         id={`faq-content-${question.replace(/\s+/g, '-').toLowerCase()}`}
-        ref={contentRef}
-        className="overflow-hidden transition-all duration-300 ease-in-out"
-        style={{ maxHeight: isOpen ? maxHeight : 0, opacity: isOpen ? 1 : 0 }}
+        className="accordion-content"
         role="region"
         aria-label={question}
       >
