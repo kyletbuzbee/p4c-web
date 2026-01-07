@@ -15,18 +15,19 @@ export const IMAGES = {
   // Brand Assets
   LOGO: {
     PNG: '/images/logo/brand-logo.png',
+    SVG: '/images/logo/brand-logo.svg',
   },
 
   // Page Hero Banners
   BANNERS: {
     HERO_HOME: '/images/banners/hero-home-banner-800w.webp',
     HERO_ABOUT: '/images/banners/hero-about-us-banner-400w.webp',
-    HERO_CONTACT: '/images/banners/hero-contact-banner.webp',
+    HERO_CONTACT: '/images/banners/hero-about-banner-1280.webp',
     HERO_IMPACT: '/images/banners/hero-impact-banner-400w.webp',
     HERO_PRIVACY: '/images/banners/hero-privacy-banner.webp',
-    HERO_PROJECTS: '/images/banners/hero-projects-banner-400w.webp',
-    HERO_RESOURCES: '/images/banners/hero-resources-banner.webp',
-    HERO_TERMS: '/images/banners/hero-terms-banner-800w.webp',
+    HERO_PROJECTS: '/images/banners/hero-projects-banner-1920.webp',
+    HERO_RESOURCES: '/images/banners/hero-resources-banner-1920.webp',
+    HERO_TERMS: '/images/banners/hero-terms-banner-1200w.webp',
     HERO_TRANSPARENCY: '/images/banners/hero-transparency-banner-400w.webp',
     HERO_APPLICATION: '/images/banners/hero-application-banner.webp',
     HERO_FAQ: '/images/banners/hero-faq-banner.png',

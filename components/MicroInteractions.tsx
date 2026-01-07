@@ -186,6 +186,7 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
       return () => clearTimeout(timer);
     }
     setDisplayProgress(progress);
+    return undefined;
   }, [progress, animated]);
 
   const sizeClasses = {

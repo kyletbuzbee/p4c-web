@@ -18,7 +18,7 @@ const Footer: React.FC = () => (
         <div className="col-span-1">
           <div className="flex items-center gap-2 mb-4">
             <img
-              src={IMAGES.LOGO.PNG}
+              src={IMAGES.LOGO.SVG}
               alt="Properties 4 Creation Logo"
               className="h-10 w-auto object-contain"
             />
@@ -30,19 +30,25 @@ const Footer: React.FC = () => (
           </p>
           <div className="flex gap-4">
             <a
-              href="#"
+              href="https://facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-gray-400 hover:text-p4c-gold transition-colors"
             >
               <Facebook className="w-5 h-5" />
             </a>
             <a
-              href="#"
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-gray-400 hover:text-p4c-gold transition-colors"
             >
               <Instagram className="w-5 h-5" />
             </a>
             <a
-              href="#"
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-gray-400 hover:text-p4c-gold transition-colors"
             >
               <Linkedin className="w-5 h-5" />
@@ -114,7 +120,7 @@ const Footer: React.FC = () => (
                 to="/employment"
                 className="hover:text-white transition-colors flex items-center gap-2"
               >
-                Careers{" "}
+                Careers{' '}
                 <span className="text-xs bg-p4c-gold text-p4c-navy px-1.5 rounded font-bold">
                   Hiring
                 </span>

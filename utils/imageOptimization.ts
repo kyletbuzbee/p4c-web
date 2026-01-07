@@ -146,8 +146,10 @@ export class LazyImageLoader {
   }
 
   private loadImage(img: HTMLImageElement): void {
-    const src = img.dataset.src;
-    const srcset = img.dataset.srcset;
+    // eslint-disable-next-line dot-notation
+    const src = img.dataset['src'];
+    // eslint-disable-next-line dot-notation
+    const srcset = img.dataset['srcset'];
 
     if (src) {
       img.src = src;

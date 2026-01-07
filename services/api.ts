@@ -32,7 +32,8 @@ const SIMULATED_LATENCY = 800; // ms
 // Environment configuration for backend integration
 const API_CONFIG = {
   // Get API URL from environment variable, fallback to empty string for mock data
-  baseUrl: import.meta.env.VITE_API_URL || "",
+  // eslint-disable-next-line dot-notation
+  baseUrl: import.meta.env['VITE_API_URL'] || "",
 
   // Check if we're in backend mode (has API URL) or mock mode (no API URL)
   get isBackendMode() {

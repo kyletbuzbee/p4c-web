@@ -3,7 +3,7 @@
  * Tests the API layer with mock data fallback behavior
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import type { StatMetric, RenovationStandard, FinancialBreakdown } from '../types';
 import { api } from './api';
 

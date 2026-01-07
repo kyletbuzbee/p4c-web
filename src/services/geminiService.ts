@@ -1,9 +1,14 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import {
+  GoogleGenerativeAI,
+  ChatSession as GoogleChatSession,
+} from '@google/generative-ai';
 
 // Initialize Google Generative AI with API key
+// eslint-disable-next-line dot-notation
 const apiKey =
-  (import.meta.env as Record<string, string>).VITE_GEMINI_API_KEY ||
-  process.env.VITE_GEMINI_API_KEY;
+  (import.meta.env as Record<string, string>)['VITE_GEMINI_API_KEY'] ||
+  // eslint-disable-next-line dot-notation
+  process.env['VITE_GEMINI_API_KEY'];
 
 if (!apiKey) {
   // eslint-disable-next-line no-console
@@ -19,12 +24,8 @@ interface Message {
   text: string;
 }
 
-interface ChatSession {
-  sendChatMessage: (message: string) => Promise<string>;
-}
-
 class GeminiService {
-  private chatSession: unknown = null;
+  private chatSession: GoogleChatSession | null = null;
   private isInitialized = false;
 
   /**
@@ -64,7 +65,7 @@ class GeminiService {
       this.chatSession = model.startChat({
         generationConfig,
         history: [],
-      });
+      }) as GoogleChatSession;
 
       this.isInitialized = true;
       // eslint-disable-next-line no-console
@@ -190,5 +191,5 @@ class GeminiService {
 export const geminiService = new GeminiService();
 
 // Export types for use in components
-export type { Message, ChatSession };
+export type { Message };
 export default geminiService;

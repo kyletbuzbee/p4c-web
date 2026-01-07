@@ -137,10 +137,9 @@ module.exports = {
       version: "detect"
     },
     "import/resolver": {
-      typescript: {
-        alwaysTryTypes: true,
-        project: "./tsconfig.json",
-        extensions: [".ts", ".tsx", ".js", ".jsx", ".json", ".css", ".scss", ".less"]
+      node: {
+        extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
+        moduleDirectory: ["node_modules", "."]
       }
     },
     tailwindcss: {

@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Cookie } from 'lucide-react';
 
-const CookieConsent: React.FC = () => {
+const CookieConsent: React.FC = (): React.ReactNode => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const consent = localStorage.getItem("p4c_cookie_consent");
+    const consent = localStorage.getItem('p4c_cookie_consent');
     if (!consent) {
       // Small delay to prevent layout shift on immediate load
       const timer = setTimeout(() => setIsVisible(true), 1000);
       return () => clearTimeout(timer);
     }
+    return undefined;
   }, []);
 
   const handleAccept = () => {

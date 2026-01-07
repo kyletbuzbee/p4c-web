@@ -2,12 +2,17 @@ import path from 'path';
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 
+interface EnvVariables {
+  [key: string]: string;
+}
+
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, '.', '');
+  const env = loadEnv(mode, '.', '') as EnvVariables;
 
   // GitHub Pages configuration
   const isProduction = mode === 'production';
-  const repositoryName = env.VITE_REPOSITORY_NAME || '';
+  // eslint-disable-next-line dot-notation
+  const repositoryName = env['VITE_REPOSITORY_NAME'] || '';
   const base = isProduction ? `/${repositoryName}/` : '/';
 
   return {
@@ -98,7 +103,6 @@ export default defineConfig(({ mode }) => {
       terserOptions: {
         compress: {
           drop_console: mode === 'production',
-          drop_: mode === 'production',
           pure_funcs:
             mode === 'production'
               ? ['console.log', 'console.info', 'console.debug']
