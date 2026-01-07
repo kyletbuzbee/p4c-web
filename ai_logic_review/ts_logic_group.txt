@@ -1,7 +1,7 @@
 
 ================================================================================
 FILE_BEGIN: constants\images.ts
-METADATA: Size=4021 bytes | Last_Modified=2026-01-05 21:05:53.876867
+METADATA: Size=4125 bytes | Last_Modified=2026-01-07 07:25:59.134492
 ================================================================================
 /**
  * Centralized Asset Registry
@@ -20,18 +20,19 @@ export const IMAGES = {
   // Brand Assets
   LOGO: {
     PNG: '/images/logo/brand-logo.png',
+    SVG: '/images/logo/brand-logo.svg',
   },
 
   // Page Hero Banners
   BANNERS: {
     HERO_HOME: '/images/banners/hero-home-banner-800w.webp',
     HERO_ABOUT: '/images/banners/hero-about-us-banner-400w.webp',
-    HERO_CONTACT: '/images/banners/hero-contact-banner.webp',
+    HERO_CONTACT: '/images/banners/hero-about-banner-1280.webp',
     HERO_IMPACT: '/images/banners/hero-impact-banner-400w.webp',
     HERO_PRIVACY: '/images/banners/hero-privacy-banner.webp',
-    HERO_PROJECTS: '/images/banners/hero-projects-banner-400w.webp',
-    HERO_RESOURCES: '/images/banners/hero-resources-banner.webp',
-    HERO_TERMS: '/images/banners/hero-terms-banner-800w.webp',
+    HERO_PROJECTS: '/images/banners/hero-projects-banner-1920.webp',
+    HERO_RESOURCES: '/images/banners/hero-resources-banner-1920.webp',
+    HERO_TERMS: '/images/banners/hero-terms-banner-1200w.webp',
     HERO_TRANSPARENCY: '/images/banners/hero-transparency-banner-400w.webp',
     HERO_APPLICATION: '/images/banners/hero-application-banner.webp',
     HERO_FAQ: '/images/banners/hero-faq-banner.png',
@@ -115,6 +116,7 @@ export const IMAGES = {
   VIDEOS: {
     HERO_PROPERTIES: '/images/videos/hero-properties-banner.mp4',
     HERO_WORK: '/images/videos/hero-our-work-banner.mp4',
+    SUCCESS_STORY: '/images/videos/success-story.mp4',
   },
 } as const;
 
@@ -294,7 +296,7 @@ export const getPropertyById = (
 
 ================================================================================
 FILE_BEGIN: services\api.ts
-METADATA: Size=11618 bytes | Last_Modified=2026-01-05 21:05:53.876867
+METADATA: Size=11664 bytes | Last_Modified=2026-01-07 07:18:19.232005
 ================================================================================
 import type {
   StatMetric,
@@ -330,7 +332,8 @@ const SIMULATED_LATENCY = 800; // ms
 // Environment configuration for backend integration
 const API_CONFIG = {
   // Get API URL from environment variable, fallback to empty string for mock data
-  baseUrl: import.meta.env.VITE_API_URL || "",
+  // eslint-disable-next-line dot-notation
+  baseUrl: import.meta.env['VITE_API_URL'] || "",
 
   // Check if we're in backend mode (has API URL) or mock mode (no API URL)
   get isBackendMode() {
@@ -921,14 +924,19 @@ export const validationUtils = {
 
 ================================================================================
 FILE_BEGIN: src\services\geminiService.ts
-METADATA: Size=6273 bytes | Last_Modified=2026-01-05 23:21:13.063041
+METADATA: Size=6343 bytes | Last_Modified=2026-01-07 07:19:35.972037
 ================================================================================
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import {
+  GoogleGenerativeAI,
+  ChatSession as GoogleChatSession,
+} from '@google/generative-ai';
 
 // Initialize Google Generative AI with API key
+// eslint-disable-next-line dot-notation
 const apiKey =
-  (import.meta.env as Record<string, string>).VITE_GEMINI_API_KEY ||
-  process.env.VITE_GEMINI_API_KEY;
+  (import.meta.env as Record<string, string>)['VITE_GEMINI_API_KEY'] ||
+  // eslint-disable-next-line dot-notation
+  process.env['VITE_GEMINI_API_KEY'];
 
 if (!apiKey) {
   // eslint-disable-next-line no-console
@@ -944,12 +952,8 @@ interface Message {
   text: string;
 }
 
-interface ChatSession {
-  sendChatMessage: (message: string) => Promise<string>;
-}
-
 class GeminiService {
-  private chatSession: unknown = null;
+  private chatSession: GoogleChatSession | null = null;
   private isInitialized = false;
 
   /**
@@ -989,7 +993,7 @@ class GeminiService {
       this.chatSession = model.startChat({
         generationConfig,
         history: [],
-      });
+      }) as GoogleChatSession;
 
       this.isInitialized = true;
       // eslint-disable-next-line no-console
@@ -1115,62 +1119,11 @@ class GeminiService {
 export const geminiService = new GeminiService();
 
 // Export types for use in components
-export type { Message, ChatSession };
+export type { Message };
 export default geminiService;
 
 
 [FILE_END: src\services\geminiService.ts]
-################################################################################
-
-================================================================================
-FILE_BEGIN: tests\geminiService.test.ts
-METADATA: Size=1428 bytes | Last_Modified=2026-01-05 21:18:03.280957
-================================================================================
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { sendChatMessage } from '../services/geminiService';
-
-// Mock the GoogleGenAI library
-vi.mock('@google/generative-ai', () => ({
-  GoogleGenerativeAI: vi.fn().mockImplementation(() => ({
-    getGenerativeModel: vi.fn().mockReturnValue({
-      generateContent: vi.fn().mockResolvedValue({
-        response: {
-          text: () =>
-            Promise.resolve('Hello, this is a mock response from Patriot.'),
-        },
-      }),
-    }),
-  })),
-}));
-
-describe('Gemini Service', () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
-  it('sendChatMessage should return text response on success', async () => {
-    const history = [{ role: 'user', parts: [{ text: 'Hi' }] }] as any;
-    const response = await sendChatMessage('How are you?', history);
-    expect(response).toBe('Hello, this is a mock response from Patriot.');
-  });
-
-  it('sendChatMessage should handle API failures gracefully', async () => {
-    // Override mock to throw error
-    const { GoogleGenerativeAI } = await import('@google/generative-ai');
-    (GoogleGenerativeAI as any).mockImplementationOnce(() => ({
-      getGenerativeModel: vi.fn().mockReturnValue({
-        generateContent: vi.fn().mockRejectedValue(new Error('Network error')),
-      }),
-    }));
-
-    await expect(sendChatMessage('Hi', [])).rejects.toThrow(
-      'Failed to connect to AI service.',
-    );
-  });
-});
-
-
-[FILE_END: tests\geminiService.test.ts]
 ################################################################################
 
 ================================================================================
@@ -1225,8 +1178,106 @@ export interface FinancialBreakdown {
 ################################################################################
 
 ================================================================================
+FILE_BEGIN: utils\formatters.ts
+METADATA: Size=2258 bytes | Last_Modified=2026-01-07 00:58:26.967934
+================================================================================
+/**
+ * Utility functions for formatting data throughout the application
+ */
+
+/**
+ * Formats a number as USD currency
+ * @param amount - The amount to format
+ * @param options - Intl.NumberFormat options
+ * @returns Formatted currency string
+ */
+export const formatCurrency = (
+  amount: number,
+  options?: Intl.NumberFormatOptions,
+): string => {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+    ...options,
+  }).format(amount);
+};
+
+/**
+ * Formats a number with thousands separators
+ * @param num - The number to format
+ * @returns Formatted number string
+ */
+export const formatNumber = (num: number): string => {
+  return new Intl.NumberFormat('en-US').format(num);
+};
+
+/**
+ * Formats a date string to a human-readable format
+ * @param dateString - ISO date string
+ * @param options - Intl.DateTimeFormat options
+ * @returns Formatted date string
+ */
+export const formatDate = (
+  dateString: string,
+  options?: Intl.DateTimeFormatOptions,
+): string => {
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    ...options,
+  }).format(date);
+};
+
+/**
+ * Truncates text to a specified length with ellipsis
+ * @param text - The text to truncate
+ * @param maxLength - Maximum length before truncation
+ * @returns Truncated text with ellipsis if needed
+ */
+export const truncateText = (text: string, maxLength: number): string => {
+  if (text.length <= maxLength) return text;
+  return `${text.slice(0, maxLength)}...`;
+};
+
+/**
+ * Generates initials from a name
+ * @param name - Full name
+ * @returns Initials string
+ */
+export const getInitials = (name: string): string => {
+  return name
+    .split(' ')
+    .map((part) => part[0])
+    .join('')
+    .toUpperCase()
+    .slice(0, 2);
+};
+
+/**
+ * Slugifies a string for URLs
+ * @param text - The text to slugify
+ * @returns URL-safe slug string
+ */
+export const slugify = (text: string): string => {
+  return text
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/--+/g, '-')
+    .trim();
+};
+
+
+[FILE_END: utils\formatters.ts]
+################################################################################
+
+================================================================================
 FILE_BEGIN: utils\imageOptimization.ts
-METADATA: Size=5253 bytes | Last_Modified=2026-01-05 22:39:02.269274
+METADATA: Size=5349 bytes | Last_Modified=2026-01-07 07:17:56.820341
 ================================================================================
 /**
  * Image Optimization Utilities
@@ -1376,8 +1427,10 @@ export class LazyImageLoader {
   }
 
   private loadImage(img: HTMLImageElement): void {
-    const src = img.dataset.src;
-    const srcset = img.dataset.srcset;
+    // eslint-disable-next-line dot-notation
+    const src = img.dataset['src'];
+    // eslint-disable-next-line dot-notation
+    const srcset = img.dataset['srcset'];
 
     if (src) {
       img.src = src;
@@ -1451,19 +1504,29 @@ export const generateBlurPlaceholder = (): string =>
 
 ================================================================================
 FILE_BEGIN: vite.config.ts
-METADATA: Size=4119 bytes | Last_Modified=2026-01-05 23:07:34.521387
+METADATA: Size=4325 bytes | Last_Modified=2026-01-07 08:48:51.869571
 ================================================================================
 import path from 'path';
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 
+interface EnvVariables {
+  [key: string]: string;
+}
+
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, '.', '');
+  const env = loadEnv(mode, '.', '') as EnvVariables;
 
   // GitHub Pages configuration
   const isProduction = mode === 'production';
-  const repositoryName = env.VITE_REPOSITORY_NAME || '';
-  const base = isProduction ? `/${repositoryName}/` : '/';
+  // eslint-disable-next-line dot-notation
+  const repositoryName = env['VITE_REPOSITORY_NAME'] || '';
+  // For custom domain (CNAME), use root path; for github.io pages, use repository path
+  const base = isProduction
+    ? repositoryName
+      ? `/${repositoryName}/`
+      : '/'
+    : '/';
 
   return {
     base,
@@ -1553,7 +1616,6 @@ export default defineConfig(({ mode }) => {
       terserOptions: {
         compress: {
           drop_console: mode === 'production',
-          drop_: mode === 'production',
           pure_funcs:
             mode === 'production'
               ? ['console.log', 'console.info', 'console.debug']
