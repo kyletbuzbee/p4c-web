@@ -146,7 +146,15 @@ export default defineConfig(({ mode }) => {
       coverage: {
         provider: 'v8',
         reporter: ['text', 'json', 'html'],
-        exclude: ['node_modules/', 'src/test/', '**/*.d.ts', '**/*.config.*'],
+        include: ['src/**/*.ts', 'src/**/*.tsx'],
+        exclude: [
+          'src/**/*.test.ts',
+          'src/types.ts',
+          'node_modules/',
+          'src/test/',
+          '**/*.d.ts',
+          '**/*.config.*',
+        ],
       },
     },
   };
