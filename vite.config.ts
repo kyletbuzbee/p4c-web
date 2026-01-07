@@ -4,6 +4,8 @@ import react from '@vitejs/plugin-react';
 
 interface EnvVariables {
   [key: string]: string;
+  VITE_REPOSITORY_NAME?: string;
+  VITE_USE_CUSTOM_DOMAIN?: string;
 }
 
 export default defineConfig(({ mode }) => {
@@ -13,11 +15,12 @@ export default defineConfig(({ mode }) => {
   const isProduction = mode === 'production';
   // eslint-disable-next-line dot-notation
   const repositoryName = env['VITE_REPOSITORY_NAME'] || '';
-  // For custom domain (CNAME), use root path; for github.io pages, use repository path
+  const useCustomDomain = env.VITE_USE_CUSTOM_DOMAIN === 'true';
+  // For custom domain (CNAME), use root path '/'; for github.io pages, use repository path
   const base = isProduction
-    ? repositoryName
-      ? `/${repositoryName}/`
-      : '/'
+    ? useCustomDomain || !repositoryName
+      ? '/'
+      : `/${repositoryName}/`
     : '/';
 
   return {

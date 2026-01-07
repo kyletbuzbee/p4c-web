@@ -1,53 +1,47 @@
-# Dependencies
-/node_modules
-/.pnp
-.pnp.js
-
-# Testing
-/coverage
-
-# Next.js
-/.next/
-/out/
-
-# Vite / Standard Build Output
-/dist
-/build
-
-# Production
-/build
-
-# Misc
-.DS_Store
-*.pem
-
-# Debug logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-.pnpm-debug.log*
-
-# Local Environment Variables (Never commit these!)
+# --- P4C Project Specifics ---
+# Never commit environment variables containing AI keys or backend URLs
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
-.env*.local
 
-# Vercel
-.vercel
+# Build artifacts (Vite/dist)
+dist/
+dist-ssr/
+*.local
 
-# TypeScript
-*.tsbuildinfo
-next-env.d.ts
+# --- Dependencies ---
+# Standard Node.js dependencies
+node_modules/
+jspm_packages/
 
-# Editor directories and files
-.idea
-.vscode
+# --- AI & Data Processing ---
+# Local logs and temporary AI processing files
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- Testing & Coverage ---
+# Exclude test coverage reports to keep the repo clean
+coverage/
+.nyc_output/
+
+# --- IDE & System Files ---
+# Remove clutter from local development environments
+.vscode/
+.idea/
+.DS_Store
 *.suo
-*.ntvs
+*.ntvs*
 *.njsproj
 *.sln
-*.sw?
+*.swp
+
+# --- Deployment Specifics ---
+# If using a local server for testing
+server/logs/
+server/node_modules/
