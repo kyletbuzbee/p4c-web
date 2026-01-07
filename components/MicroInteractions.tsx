@@ -337,7 +337,7 @@ export const LoadingDots: React.FC<LoadingDotsProps> = ({
       {[0, 1, 2].map((i) => (
         <div
           key={i}
-            /* eslint-disable security/detect-object-injection */
+          /* eslint-disable security/detect-object-injection */
           className={`${sizeClasses[size]} ${color} rounded-full animate-bounce`}
           /* eslint-enable security/detect-object-injection */
           style={{
