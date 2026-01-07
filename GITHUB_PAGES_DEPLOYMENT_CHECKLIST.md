@@ -268,6 +268,6 @@ git push origin main
 - 🌐 DNS Configuration: **_/_** items completed
 - ✅ Post-Deployment: **_/_** items completed
 
-**Deployment Date:** ******\_\_\_******
-**Deployed By:** ******\_\_\_******
-**Notes:** **********\_\_\_\_**********
+**Deployment Date:** **\*\***\_\_\_**\*\***
+**Deployed By:** **\*\***\_\_\_**\*\***
+**Notes:** ****\*\*****\_\_\_\_****\*\*****

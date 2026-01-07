@@ -3,7 +3,16 @@
     "collect": {
       "staticDistDir": "./dist",
       "settings": {
-        "staticFileExtensions": [".html", ".js", ".css", ".png", ".svg", ".webp", ".ico", ".json"]
+        "staticFileExtensions": [
+          ".html",
+          ".js",
+          ".css",
+          ".png",
+          ".svg",
+          ".webp",
+          ".ico",
+          ".json"
+        ]
       }
     },
     "assert": {

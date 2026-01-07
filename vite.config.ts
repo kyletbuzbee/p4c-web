@@ -56,11 +56,16 @@ export default defineConfig(({ mode }) => {
       // PWA configuration for installability and service worker
       VitePWA({
         registerType: 'autoUpdate',
-        includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+        includeAssets: [
+          'favicon.ico',
+          'apple-touch-icon.png',
+          'masked-icon.svg',
+        ],
         manifest: {
           name: 'Properties 4 Creation',
           short_name: 'P4C',
-          description: 'Housing solutions for veterans and families in East Texas',
+          description:
+            'Housing solutions for veterans and families in East Texas',
           theme_color: '#0B1120',
           background_color: '#0B1120',
           display: 'standalone',

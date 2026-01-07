@@ -6,7 +6,7 @@ import {
 // Initialize Google Generative AI with API key
 // eslint-disable-next-line dot-notation
 const apiKey =
-  (import.meta.env as Record<string, string>)['VITE_GEMINI_API_KEY'] ||
+  (import.meta.env as Record<string, string>).VITE_GEMINI_API_KEY ||
   // eslint-disable-next-line dot-notation
   process.env['VITE_GEMINI_API_KEY'];
 
