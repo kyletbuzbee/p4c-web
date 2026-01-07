@@ -1,0 +1,28 @@
+{
+  "ci": {
+    "collect": {
+      "staticDistDir": "./dist",
+      "settings": {
+        "staticFileExtensions": [".html", ".js", ".css", ".png", ".svg", ".webp", ".ico", ".json"]
+      }
+    },
+    "assert": {
+      "assertions": {
+        "csp-xss": "warning",
+        "installable-manifest": "on",
+        "service-worker": "on",
+        "apple-touch-icon": "on",
+        "icon-size-192": "on",
+        "icon-size-512": "on",
+        "content-width": "warning",
+        "html-has-lang": "on",
+        "document-title": "on",
+        "meta-viewport": "on",
+        "duplicate-id": "on"
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}

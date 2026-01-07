@@ -233,6 +233,7 @@ const Navbar: React.FC = () => {
               onClick={() => handleNavClick('/admin')}
               className="text-gray-400 hover:text-p4c-gold p-2 rounded-full"
               title="Staff Dashboard"
+              aria-label="Staff Dashboard - Access admin area"
             >
               <LayoutDashboard className="w-4 h-4" />
             </button>
@@ -251,6 +252,7 @@ const Navbar: React.FC = () => {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-gray-300 hover:text-white p-2"
+              aria-label={isOpen ? 'Close mobile menu' : 'Open mobile menu'}
             >
               {isOpen ? (
                 <X className="h-6 w-6" />

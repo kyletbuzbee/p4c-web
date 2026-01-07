@@ -35,7 +35,7 @@ const ImpactDashboard: React.FC = () => (
             <div className="text-5xl font-bold font-serif text-white mb-2">
               {stat.value}
             </div>
-            <div className="text-p4c-gold uppercase tracking-widest text-sm font-semibold">
+            <div className="text-[#A68030] uppercase tracking-widest text-sm font-semibold">
               {stat.label}
             </div>
           </div>
