@@ -23,7 +23,9 @@
     "deploy": "gh-pages -d dist",
     "deploy:github": "npm run build && gh-pages -d dist",
     "format": "prettier . --write",
-    "format:check": "prettier . --check"
+    "format:check": "prettier . --check",
+    "server": "node server/index.js",
+    "dev:all": "npm run server & npm run dev"
   },
   "dependencies": {
     "@google/genai": "^1.34.0",

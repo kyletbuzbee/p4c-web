@@ -309,6 +309,21 @@ const Home: React.FC = () => {
                 afterImage={IMAGES.RENOVATION.LIVING_ROOM.AFTER}
                 label="Living Room"
               />
+              <div className="mt-8">
+                <div className="mb-4 text-center text-sm text-gray-500 italic">
+                  Watch our team in action
+                </div>
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full rounded-xl shadow-lg"
+                  aria-label="Timelapse video of our team assembling a kitchen"
+                >
+                  <source src={IMAGES.VIDEOS.HERO_WORK} type="video/mp4" />
+                </video>
+              </div>
             </div>
           </div>
         </div>
