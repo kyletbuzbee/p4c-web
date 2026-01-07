@@ -8,6 +8,7 @@ import {
   Flag,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { IMAGES } from '../constants/images';
 
 const Footer: React.FC = () => (
   <footer className="bg-gray-900 text-white pt-16 pb-8 border-t border-gray-800">
@@ -16,12 +17,11 @@ const Footer: React.FC = () => (
         {/* 1. Brand & Mission */}
         <div className="col-span-1">
           <div className="flex items-center gap-2 mb-4">
-            <div className="bg-p4c-gold p-1.5 rounded-full">
-              <Home className="text-p4c-navy w-5 h-5" />
-            </div>
-            <span className="font-serif text-xl font-bold text-p4c-beige">
-              Properties 4 Creation
-            </span>
+            <img
+              src={IMAGES.LOGO.PNG}
+              alt="Properties 4 Creation Logo"
+              className="h-10 w-auto object-contain"
+            />
           </div>
           <p className="text-gray-400 text-sm leading-relaxed mb-6">
             Breaking the stigma of affordable housing in East Texas. We restore

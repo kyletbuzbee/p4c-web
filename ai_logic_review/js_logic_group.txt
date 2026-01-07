@@ -1,0 +1,4253 @@
+
+================================================================================
+FILE_BEGIN: public\sw.js
+METADATA: Size=7243 bytes | Last_Modified=2026-01-06 08:06:36.378257
+================================================================================
+/**
+ * Service Worker for Properties 4 Creation
+ * Provides offline functionality and caching strategies
+ */
+
+const CACHE_NAME = 'p4c-v2.0.0';
+const STATIC_CACHE = 'p4c-static-v2.0.0';
+const DYNAMIC_CACHE = 'p4c-dynamic-v2.0.0';
+const IMAGE_CACHE = 'p4c-images-v2.0.0';
+
+// Assets to cache immediately
+const STATIC_ASSETS = [
+  '/',
+  '/index.html',
+  '/manifest.json',
+  // Add other static assets here
+];
+
+// Cache strategies
+const CACHE_STRATEGIES = {
+  CACHE_FIRST: 'cache-first',
+  NETWORK_FIRST: 'network-first',
+  STALE_WHILE_REVALIDATE: 'stale-while-revalidate',
+};
+
+// Install event - cache static assets
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches
+      .open(STATIC_CACHE)
+      .then((cache) => {
+
+        return cache.addAll(STATIC_ASSETS);
+      })
+      .then(() => {
+
+        return self.skipWaiting();
+      })
+      .catch((error) => {
+        console.error("[SW] Failed to cache static assets:", error);
+      }),
+  );
+});
+
+// Activate event - clean up old caches
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches
+      .keys()
+      .then((cacheNames) =>
+        Promise.all(
+          cacheNames.map((cacheName) => {
+            // Delete old caches
+            if (
+              cacheName !== STATIC_CACHE &&
+              cacheName !== DYNAMIC_CACHE &&
+              cacheName !== IMAGE_CACHE
+            ) {
+
+              return caches.delete(cacheName);
+            }
+          }),
+        ),
+      )
+      .then(() => {
+
+        return self.clients.claim();
+      }),
+  );
+});
+
+// Fetch event - handle requests with appropriate strategies
+self.addEventListener("fetch", (event) => {
+  const { request } = event;
+  const url = new URL(request.url);
+
+  // Skip non-GET requests
+  if (request.method !== "GET") {
+    return;
+  }
+
+  // Skip API requests (let them go to the server)
+  if (url.pathname.startsWith("/api/")) {
+    return;
+  }
+
+  // Handle different types of requests
+  if (isImageRequest(request)) {
+    event.respondWith(handleImageRequest(request));
+  } else if (isStaticAsset(request)) {
+    event.respondWith(handleStaticAsset(request));
+  } else if (isNavigationRequest(request)) {
+    event.respondWith(handleNavigationRequest(request));
+  } else {
+    event.respondWith(handleDynamicRequest(request));
+  }
+});
+
+// Check if request is for an image
+function isImageRequest(request) {
+  const url = new URL(request.url);
+  return /\.(png|jpg|jpeg|gif|svg|webp|ico)$/i.test(url.pathname);
+}
+
+// Check if request is for a static asset
+function isStaticAsset(request) {
+  const url = new URL(request.url);
+  return (
+    STATIC_ASSETS.some((asset) => url.pathname === asset) ||
+    /\.(css|js|woff|woff2|ttf|otf)$/i.test(url.pathname)
+  );
+}
+
+// Check if request is for navigation
+function isNavigationRequest(request) {
+  return request.mode === "navigate";
+}
+
+// Cache-first strategy for images
+async function handleImageRequest(request) {
+  try {
+    const cachedResponse = await caches.match(request);
+    if (cachedResponse) {
+      return cachedResponse;
+    }
+
+    const networkResponse = await fetch(request);
+    if (networkResponse.ok) {
+      const cache = await caches.open(IMAGE_CACHE);
+      cache.put(request, networkResponse.clone());
+    }
+
+    return networkResponse;
+  } catch (error) {
+    console.error("[SW] Image request failed:", error);
+
+    // Return a fallback image if available
+    const fallbackResponse = await caches.match("/images/fallback.png");
+    return (
+      fallbackResponse || new Response("Image not available", { status: 404 })
+    );
+  }
+}
+
+// Cache-first strategy for static assets
+async function handleStaticAsset(request) {
+  try {
+    const cachedResponse = await caches.match(request);
+    if (cachedResponse) {
+      return cachedResponse;
+    }
+
+    const networkResponse = await fetch(request);
+    if (networkResponse.ok) {
+      const cache = await caches.open(STATIC_CACHE);
+      cache.put(request, networkResponse.clone());
+    }
+
+    return networkResponse;
+  } catch (error) {
+    console.error("[SW] Static asset request failed:", error);
+    return new Response("Asset not available", { status: 404 });
+  }
+}
+
+// Network-first strategy for navigation requests
+async function handleNavigationRequest(request) {
+  try {
+    const networkResponse = await fetch(request);
+
+    // Cache successful responses
+    if (networkResponse.ok) {
+      const cache = await caches.open(DYNAMIC_CACHE);
+      cache.put(request, networkResponse.clone());
+    }
+
+    return networkResponse;
+  } catch (error) {
+    console.error("[SW] Navigation request failed, trying cache:", error);
+
+    // Fallback to cached version
+    const cachedResponse = await caches.match(request);
+    if (cachedResponse) {
+      return cachedResponse;
+    }
+
+    // Final fallback to index.html for SPA routing
+    const fallbackResponse = await caches.match("/index.html");
+    return (
+      fallbackResponse || new Response("Page not available", { status: 404 })
+    );
+  }
+}
+
+// Stale-while-revalidate strategy for dynamic content
+async function handleDynamicRequest(request) {
+  try {
+    const cachedResponse = await caches.match(request);
+
+    // Fetch from network in background
+    const networkResponsePromise = fetch(request)
+      .then((networkResponse) => {
+        if (networkResponse.ok) {
+          const cache = caches.open(DYNAMIC_CACHE);
+          cache.then((c) => c.put(request, networkResponse.clone()));
+        }
+        return networkResponse;
+      })
+      .catch((error) => {
+        console.error("[SW] Network request failed:", error);
+        return null;
+      });
+
+    // Return cached response immediately if available
+    if (cachedResponse) {
+      // Update cache in background
+      networkResponsePromise;
+      return cachedResponse;
+    }
+
+    // Wait for network if no cache
+    const networkResponse = await networkResponsePromise;
+    return (
+      networkResponse || new Response("Content not available", { status: 404 })
+    );
+  } catch (error) {
+    console.error("[SW] Dynamic request failed:", error);
+
+    const cachedResponse = await caches.match(request);
+    return (
+      cachedResponse || new Response("Content not available", { status: 404 })
+    );
+  }
+}
+
+// Background sync for offline actions
+self.addEventListener("sync", (event) => {
+  if (event.tag === "background-sync") {
+
+    event.waitUntil(performBackgroundSync());
+  }
+});
+
+// Handle background sync
+async function performBackgroundSync() {
+  try {
+    // Sync any pending data when connection is restored
+
+    // Add your background sync logic here
+  } catch (error) {
+    console.error("[SW] Background sync failed:", error);
+  }
+}
+
+// Push notifications (if needed in future)
+self.addEventListener("push", (event) => {
+  const options = {
+    body: event.data ? event.data.text() : "New notification",
+    icon: "/icon-192x192.png",
+    badge: "/badge-72x72.png",
+    tag: "p4c-notification",
+    requireInteraction: true,
+  };
+
+  event.waitUntil(
+    self.registration.showNotification("Properties 4 Creation", options),
+  );
+});
+
+// Handle notification clicks
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+
+  event.waitUntil(clients.openWindow("/"));
+});
+
+[FILE_END: public\sw.js]
+################################################################################
+
+================================================================================
+FILE_BEGIN: server\index.js
+METADATA: Size=10290 bytes | Last_Modified=2026-01-06 08:07:54.090497
+================================================================================
+/**
+ * Enterprise Security Proxy Server
+ * Eliminates API key exposure by handling all sensitive operations server-side
+ */
+
+const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
+const dotenv = require('dotenv');
+const {
+  createEnhancedSecurityHeadersMiddleware,
+  applyEnhancedSecurityHeaders,
+  handleCSPViolation,
+  applyAPISecurityHeaders,
+  generateSecurityHeadersReport,
+} = require('./middleware/enhancedSecurityHeaders');
+
+// Import comprehensive security middleware
+const {
+  createAdvancedRateLimiter,
+  createInputValidation,
+  createSizeLimiter,
+  createDynamicSecurityHeaders,
+  createAPIKeyValidator,
+  createSecurityLogger,
+  createSecurityErrorHandler,
+} = require('./middleware/comprehensiveSecurity');
+
+// Import performance monitoring
+const {
+  createPerformanceMonitor,
+  createPerformanceEndpoints,
+  metricsAggregator,
+} = require('./middleware/performanceMonitoring');
+
+// Load environment variables
+dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT || 3001;
+
+// Enhanced Security middleware
+app.use(
+  createEnhancedSecurityHeadersMiddleware({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          'https://fonts.googleapis.com',
+          'https://cdn.jsdelivr.net',
+        ],
+        scriptSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "'unsafe-eval'",
+          'https://apis.google.com',
+          'https://cdn.jsdelivr.net',
+        ],
+        imgSrc: [
+          "'self'",
+          'data:',
+          'https:',
+          'blob:',
+          'https://*.googleusercontent.com',
+        ],
+        fontSrc: [
+          "'self'",
+          'https://fonts.gstatic.com',
+          'https://cdn.jsdelivr.net',
+        ],
+        connectSrc: [
+          "'self'",
+          'https://generativelanguage.googleapis.com',
+          'https://api.gemini.google.com',
+        ],
+        frameSrc: ["'self'"],
+        objectSrc: ["'none'"],
+        mediaSrc: ["'self'", 'https:', 'blob:'],
+        workerSrc: ["'self'", 'blob:'],
+        childSrc: ["'self'"],
+        formAction: ["'self'"],
+        frameAncestors: ["'none'"],
+        baseUri: ["'self'"],
+        manifestSrc: ["'self'"],
+        reportUri: '/api/security/csp-violation',
+      },
+    },
+  }),
+);
+
+// Performance monitoring middleware
+app.use(createPerformanceMonitor());
+
+// Apply additional security headers for all routes
+app.use(applyEnhancedSecurityHeaders);
+
+app.use(
+  cors({
+    origin: process.env.ALLOWED_ORIGINS?.split(',') || [
+      'http://localhost:3000',
+    ],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  }),
+);
+
+// Comprehensive security middleware
+app.use(
+  createAdvancedRateLimiter({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // limit each IP to 100 requests per windowMs
+    skipSuccessfulRequests: false,
+    skipFailedRequests: false,
+    standardHeaders: true,
+    legacyHeaders: false,
+  }),
+);
+
+// Input validation and sanitization
+app.use(createInputValidation());
+
+// Request size limiting
+app.use(
+  createSizeLimiter({
+    limit: '10mb',
+  }),
+);
+
+// Security logging
+app.use(createSecurityLogger());
+
+// API key validation for protected endpoints
+app.use('/api/', createAPIKeyValidator());
+
+// Input validation middleware
+const validateInput = (req, res, next) => {
+  const sanitizeString = (str) => {
+    if (typeof str !== 'string') return '';
+    return str.replace(/[<>\"'&]/g, (match) => {
+      const entities = {
+        '<': '<',
+        '>': '>',
+        '"': '"',
+        "'": '&#x27;',
+        '&': '&',
+      };
+      return entities[match];
+    });
+  };
+
+  // Sanitize request body
+  if (req.body) {
+    for (const key in req.body) {
+      if (typeof req.body[key] === 'string') {
+        req.body[key] = sanitizeString(req.body[key]);
+      }
+    }
+  }
+
+  next();
+};
+
+app.use(express.json({ limit: '10mb' }));
+app.use(validateInput);
+
+// Initialize Gemini AI (server-side only)
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
+// Middleware to verify API key presence
+const verifyApiKey = (req, res, next) => {
+  if (!process.env.GEMINI_API_KEY) {
+    console.error('GEMINI_API_KEY not configured');
+    return res.status(500).json({
+      error: 'Server configuration error',
+      code: 'API_KEY_MISSING',
+    });
+  }
+  next();
+};
+
+// CSP violation reporting endpoint
+app.post('/api/security/csp-violation', handleCSPViolation);
+
+// Performance monitoring endpoints
+createPerformanceEndpoints(app);
+
+// Apply API-specific security headers for all API routes
+app.use('/api/', applyAPISecurityHeaders);
+
+// Proxy endpoint for image editing
+app.post('/api/ai/edit-image', verifyApiKey, async (req, res) => {
+  try {
+    const { base64Image, mimeType, prompt } = req.body;
+
+    // Input validation
+    if (!base64Image || !mimeType || !prompt) {
+      return res.status(400).json({
+        error: 'Missing required fields',
+        code: 'VALIDATION_ERROR',
+        details: ['base64Image', 'mimeType', 'prompt'],
+      });
+    }
+
+    // Validate base64 format
+    const base64Regex = /^[A-Za-z0-9+/]*={0,2}$/;
+    if (!base64Regex.test(base64Image)) {
+      return res.status(400).json({
+        error: 'Invalid image format',
+        code: 'INVALID_IMAGE_FORMAT',
+      });
+    }
+
+    // Validate MIME type
+    const allowedMimeTypes = [
+      'image/jpeg',
+      'image/jpg',
+      'image/png',
+      'image/webp',
+    ];
+    if (!allowedMimeTypes.includes(mimeType)) {
+      return res.status(400).json({
+        error: 'Unsupported image format',
+        code: 'UNSUPPORTED_FORMAT',
+        allowedFormats: allowedMimeTypes,
+      });
+    }
+
+    // Validate prompt length
+    if (prompt.length > 1000) {
+      return res.status(400).json({
+        error: 'Prompt too long',
+        code: 'PROMPT_TOO_LONG',
+        maxLength: 1000,
+      });
+    }
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-image' });
+
+    const result = await model.generateContent({
+      contents: {
+        parts: [
+          {
+            inlineData: {
+              data: base64Image,
+              mimeType,
+            },
+          },
+          {
+            text: `Edit this image: ${prompt}. Return only the visual result.`,
+          },
+        ],
+      },
+    });
+
+    for (const part of result.response.candidates?.[0]?.content?.parts || []) {
+      if (part.inlineData) {
+
+        return res.json({
+          success: true,
+          data: `data:image/png;base64,${part.inlineData.data}`,
+          timestamp: new Date().toISOString(),
+        });
+      }
+    }
+
+    console.warn('No image data returned from AI service');
+    res.status(500).json({
+      error: 'Failed to process image',
+      code: 'PROCESSING_FAILED',
+    });
+  } catch (error) {
+    console.error('Image edit proxy error:', error);
+
+    // Don't expose internal error details
+    res.status(500).json({
+      error: 'Internal server error',
+      code: 'INTERNAL_ERROR',
+      timestamp: new Date().toISOString(),
+    });
+  }
+});
+
+// Proxy endpoint for chat
+app.post('/api/ai/chat', verifyApiKey, async (req, res) => {
+  try {
+    const { message, history } = req.body;
+
+    // Input validation
+    if (!message || typeof message !== 'string') {
+      return res.status(400).json({
+        error: 'Message is required',
+        code: 'VALIDATION_ERROR',
+      });
+    }
+
+    if (message.length > 4000) {
+      return res.status(400).json({
+        error: 'Message too long',
+        code: 'MESSAGE_TOO_LONG',
+        maxLength: 4000,
+      });
+    }
+    const model = genAI.getGenerativeModel({
+      systemInstruction: `You are 'Patriot', the AI Concierge for Properties 4 Creation (P4C).
+      P4C is a veteran-owned company in East Texas that provides high-quality affordable housing.
+
+      Key Information:
+      - We accept Section 8, HUD-VASH, and Rapid Rehousing vouchers.
+      - We prioritize veterans.
+      - We use quartz countertops and LVP flooring (high quality).
+      - We do NOT charge application fees.
+      - Contact email: support@p4c-homes.com.
+      - Location: Tyler, TX.
+
+      Tone: Warm, professional, dignified, and helpful. Keep answers concise (under 3 sentences when possible).
+      Do not make up specific property availability, just say check the 'Homes' page.`,
+    });
+
+    const chat = model.startChat({
+      history: Array.isArray(history) ? history : [],
+    });
+
+    const result = await chat.sendMessage(message);
+
+    const response =
+      result.response.text() ||
+      "I'm sorry, I couldn't process that request right now.";
+    res.json({
+      success: true,
+      message: response,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    console.error('Chat proxy error:', error);
+
+    // Don't expose internal error details
+    res.status(500).json({
+      error: 'Failed to process chat request',
+      code: 'CHAT_PROCESSING_FAILED',
+      timestamp: new Date().toISOString(),
+    });
+  }
+});
+
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+    version: '1.0.0',
+    services: {
+      api: !!process.env.GEMINI_API_KEY,
+      cors: true,
+      security: true,
+    },
+  });
+});
+
+// Comprehensive security error handling
+app.use(createSecurityErrorHandler());
+
+// 404 handler
+app.use('*', (req, res) => {
+  res.status(404).json({
+    error: 'Endpoint not found',
+    code: 'NOT_FOUND',
+    path: req.originalUrl,
+    method: req.method,
+  });
+});
+
+app.listen(PORT, () => {
+  console.log(
+    `🚀 Server running on port ${PORT}`,
+  );
+  console.log(
+    `🌍 CORS configured for: ${process.env.ALLOWED_ORIGINS || 'http://localhost:3000'}`,
+  );
+
+  if (!process.env.GEMINI_API_KEY) {
+    console.warn(
+      '⚠️  WARNING: GEMINI_API_KEY not configured in environment variables',
+    );
+  }
+});
+
+// Graceful shutdown
+process.on('SIGTERM', () => {
+
+  process.exit(0);
+});
+
+process.on('SIGINT', () => {
+
+  process.exit(0);
+});
+
+module.exports = app;
+
+
+[FILE_END: server\index.js]
+################################################################################
+
+================================================================================
+FILE_BEGIN: server\middleware\comprehensiveSecurity.js
+METADATA: Size=9119 bytes | Last_Modified=2026-01-06 08:10:40.964359
+================================================================================
+/**
+ * Comprehensive Security Middleware
+ * Implements rate limiting, input validation, and advanced security measures
+ */
+
+const rateLimit = require('express-rate-limit');
+const mongoSanitize = require('express-mongo-sanitize');
+const xss = require('xss');
+const helmet = require('helmet');
+
+/**
+ * Enhanced rate limiting configuration
+ */
+const createAdvancedRateLimiter = (options = {}) => {
+  const {
+    windowMs = 15 * 60 * 1000, // 15 minutes
+    max = 100,
+    skipSuccessfulRequests = false,
+    skipFailedRequests = false,
+    standardHeaders = true,
+    legacyHeaders = false,
+    message = {
+      error: 'Too many requests from this IP, please try again later.',
+      retryAfter: Math.ceil(windowMs / 1000),
+      limit: max,
+    },
+    keyGenerator = (req) => {
+      // Use multiple factors for rate limiting
+      const ip = req.ip || req.connection.remoteAddress;
+      const userAgent = req.get('User-Agent') || 'unknown';
+      const userId = req.user?.id || 'anonymous';
+
+      // Create a composite key
+      return `${ip}:${userAgent}:${userId}`;
+    },
+    skip = (req) => {
+      // Skip rate limiting for trusted IPs or internal requests
+      const trustedIPs = process.env.TRUSTED_IPS?.split(',') || [];
+      return trustedIPs.includes(req.ip);
+    },
+  } = options;
+
+  return rateLimit({
+    windowMs,
+    max,
+    skipSuccessfulRequests,
+    skipFailedRequests,
+    standardHeaders,
+    legacyHeaders,
+    message,
+    keyGenerator,
+    skip,
+    handler: (req, res) => {
+      console.warn(
+        `Rate limit exceeded for IP: ${req.ip}, User-Agent: ${req.get('User-Agent')}`,
+      );
+      res.status(429).json({
+        error: 'Rate limit exceeded',
+        message: message.error,
+        retryAfter: message.retryAfter,
+        timestamp: new Date().toISOString(),
+      });
+    },
+  });
+};
+
+/**
+ * Input validation and sanitization middleware
+ */
+const createInputValidation = () => (req, res, next) => {
+  // Sanitize request body
+  if (req.body && typeof req.body === "object") {
+    sanitizeObject(req.body);
+  }
+
+  // Sanitize query parameters
+  if (req.query && typeof req.query === "object") {
+    sanitizeObject(req.query);
+  }
+
+  // Sanitize URL parameters
+  if (req.params && typeof req.params === "object") {
+    sanitizeObject(req.params);
+  }
+
+  next();
+};
+
+/**
+ * Deep sanitization function
+ */
+const sanitizeObject = (obj) => {
+  for (const key in obj) {
+    if (typeof obj[key] === 'string') {
+      // Apply XSS protection
+      obj[key] = xss(obj[key], {
+        whiteList: {}, // No HTML tags allowed
+        stripIgnoreTag: true, // Remove unknown tags
+        stripIgnoreTagBody: ['script'], // Remove script tag contents
+      });
+
+      // Apply MongoDB injection protection
+      obj[key] = mongoSanitize.sanitize(obj[key]);
+
+      // Additional sanitization for common attack vectors
+      obj[key] = obj[key]
+        .replace(/[<>\"'&]/g, (match) => {
+          const entities = {
+            '<': '<',
+            '>': '>',
+            '"': '"',
+            "'": "'",
+            '&': '&',
+          };
+          return entities[match];
+        })
+        .trim()
+        .substring(0, 10000); // Limit length to prevent DoS
+    } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+      sanitizeObject(obj[key]);
+    }
+  }
+};
+
+/**
+ * Request size limiting middleware
+ */
+const createSizeLimiter = (options = {}) => {
+  const {
+    limit = '10mb',
+    type = ['json', 'urlencoded', 'text'],
+    message = 'Request entity too large',
+    statusCode = 413,
+  } = options;
+
+  return (req, res, next) => {
+    const contentLength = parseInt(req.get('content-length') || '0', 10);
+    const maxBytes = parseBytes(limit);
+
+    if (contentLength > maxBytes) {
+      console.warn(
+        `Request size limit exceeded: ${contentLength} bytes > ${maxBytes} bytes`,
+      );
+      return res.status(statusCode).json({
+        error: message,
+        maxSize: limit,
+        actualSize: `${contentLength} bytes`,
+        timestamp: new Date().toISOString(),
+      });
+    }
+
+    next();
+  };
+};
+
+/**
+ * Parse bytes from string (e.g., '10mb' -> 10485760)
+ */
+const parseBytes = (sizeStr) => {
+  const match = sizeStr.match(/^(\d+(?:\.\d+)?)(b|kb|mb|gb|tb)$/i);
+  if (!match) return parseInt(sizeStr, 10);
+
+  const num = parseFloat(match[1]);
+  const unit = match[2].toLowerCase();
+
+  const multipliers = {
+    b: 1,
+    kb: 1024,
+    mb: 1024 * 1024,
+    gb: 1024 * 1024 * 1024,
+    tb: 1024 * 1024 * 1024 * 1024,
+  };
+
+  return Math.floor(num * multipliers[unit]);
+};
+
+/**
+ * Security headers middleware with dynamic CSP
+ */
+const createDynamicSecurityHeaders = () => (req, res, next) => {
+  // Generate nonce for CSP
+  const crypto = require("crypto");
+  const nonce = crypto.randomBytes(16).toString("base64");
+
+  // Set dynamic CSP based on route
+  let cspDirective = "default-src 'self'";
+
+  if (req.path.startsWith("/api/")) {
+    cspDirective =
+      "default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self'; font-src 'self'";
+  } else {
+    cspDirective = [
+      "default-src 'self'",
+      `'script-src 'self' 'nonce-${nonce}' 'unsafe-inline' 'unsafe-eval'`,
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+      "img-src 'self' data: https: blob:",
+      "font-src 'self' https://fonts.gstatic.com",
+      "connect-src 'self' https://generativelanguage.googleapis.com",
+      "frame-src 'self'",
+      "object-src 'none'",
+      "base-uri 'self'",
+      "form-action 'self'",
+    ].join("; ");
+  }
+
+  res.setHeader("Content-Security-Policy", cspDirective);
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("X-Frame-Options", "DENY");
+  res.setHeader("X-XSS-Protection", "1; mode=block");
+  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+  res.setHeader(
+    "Permissions-Policy",
+    "camera=(), microphone=(), geolocation=()",
+  );
+
+  // Add nonce to response for use in templates
+  res.locals.nonce = nonce;
+
+  next();
+};
+
+/**
+ * API key validation middleware
+ */
+const createAPIKeyValidator = () => (req, res, next) => {
+  // Skip validation for public endpoints
+  const publicEndpoints = ["/api/health", "/api/security/status"];
+  if (publicEndpoints.includes(req.path)) {
+    return next();
+  }
+
+  // Check for API key in headers
+  const apiKey = req.get("X-API-Key") || req.get("Authorization");
+
+  if (!apiKey) {
+    return res.status(401).json({
+      error: "API key required",
+      code: "MISSING_API_KEY",
+      message: "Please provide a valid API key in the request headers",
+      timestamp: new Date().toISOString(),
+    });
+  }
+
+  // In production, validate against stored keys
+  const expectedKey = process.env.API_KEY;
+  if (expectedKey && apiKey !== expectedKey) {
+    console.warn(`Invalid API key attempt: ${req.ip}`);
+    return res.status(403).json({
+      error: "Invalid API key",
+      code: "INVALID_API_KEY",
+      timestamp: new Date().toISOString(),
+    });
+  }
+
+  next();
+};
+
+/**
+ * Request logging middleware with security context
+ */
+const createSecurityLogger = () => (req, res, next) => {
+  const startTime = Date.now();
+
+  // Log request details
+  const logData = {
+    timestamp: new Date().toISOString(),
+    method: req.method,
+    path: req.path,
+    ip: req.ip,
+    userAgent: req.get("User-Agent"),
+    referer: req.get("Referer"),
+    contentType: req.get("Content-Type"),
+    contentLength: req.get("Content-Length"),
+    userId: req.user?.id || "anonymous",
+  };
+  console.log("Request:", JSON.stringify(logData, null, 2));
+
+  // Override res.end to log response
+  const originalEnd = res.end;
+  res.end = function (...args) {
+    const duration = Date.now() - startTime;
+    const responseLog = {
+      ...logData,
+      statusCode: res.statusCode,
+      responseTime: `${duration}ms`,
+      responseSize: res.get("Content-Length") || "unknown",
+    };
+
+    console.log("Response:", JSON.stringify(responseLog, null, 2));
+    originalEnd.apply(this, args);
+  };
+
+  next();
+};
+
+/**
+ * Error handling middleware with security considerations
+ */
+const createSecurityErrorHandler = () => (err, req, res, next) => {
+  // Log error details (without exposing sensitive information)
+  console.error("Security Error:", {
+    timestamp: new Date().toISOString(),
+    path: req.path,
+    method: req.method,
+    ip: req.ip,
+    userAgent: req.get("User-Agent"),
+    error: err.message,
+    stack: err.stack?.split("\n").slice(0, 5).join("\n"), // Limit stack trace
+  });
+
+  // Don't expose internal error details to client
+  const statusCode = err.status || err.statusCode || 500;
+  const message = statusCode === 500 ? "Internal server error" : err.message;
+
+  res.status(statusCode).json({
+    error: message,
+    code: err.code || "INTERNAL_ERROR",
+    timestamp: new Date().toISOString(),
+    requestId:
+      req.get("X-Request-ID") || Math.random().toString(36).substr(2, 9),
+  });
+};
+
+module.exports = {
+  createAdvancedRateLimiter,
+  createInputValidation,
+  createSizeLimiter,
+  createDynamicSecurityHeaders,
+  createAPIKeyValidator,
+  createSecurityLogger,
+  createSecurityErrorHandler,
+};
+
+
+[FILE_END: server\middleware\comprehensiveSecurity.js]
+################################################################################
+
+================================================================================
+FILE_BEGIN: server\middleware\enhancedSecurityHeaders.js
+METADATA: Size=8903 bytes | Last_Modified=2026-01-05 21:16:38.753096
+================================================================================
+/**
+ * Enhanced Security Headers Middleware
+ * Implements comprehensive security headers for enterprise-grade protection
+ * Includes CSP, HSTS, XSS protection, and advanced security measures
+ */
+
+const helmet = require('helmet');
+const crypto = require('crypto');
+
+/**
+ * Generate secure nonce for CSP headers
+ * @returns {string} Base64 encoded nonce
+ */
+const generateNonce = () => crypto.randomBytes(16).toString("base64");
+
+/**
+ * Creates comprehensive security headers configuration
+ * @param {Object} options - Configuration options
+ * @returns {Function} Express middleware function
+ */
+const createEnhancedSecurityHeadersMiddleware = (options = {}) => {
+  const {
+    contentSecurityPolicy = {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: [
+          "'self'",
+          "'unsafe-inline'", // Required for React/Vite development
+          "'unsafe-eval'", // Required for Vite dev server
+          "https://apis.google.com",
+          "https://cdn.jsdelivr.net",
+          "https://www.googletagmanager.com",
+        ],
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'", // Required for Tailwind CSS
+          "https://fonts.googleapis.com",
+          "https://cdn.jsdelivr.net",
+        ],
+        fontSrc: [
+          "'self'",
+          "https://fonts.gstatic.com",
+          "https://cdn.jsdelivr.net",
+        ],
+        imgSrc: [
+          "'self'",
+          "data:",
+          "https:",
+          "blob:",
+          "https://*.googleusercontent.com",
+          "https://*.gstatic.com",
+        ],
+        connectSrc: [
+          "'self'",
+          "https://generativelanguage.googleapis.com",
+          "https://api.gemini.google.com",
+          "https://www.google-analytics.com",
+          "https://analytics.google.com",
+        ],
+        frameSrc: [
+          "'self'",
+          "https://www.youtube.com",
+          "https://player.vimeo.com",
+        ],
+        objectSrc: ["'none'"],
+        mediaSrc: ["'self'", "https:", "blob:"],
+        workerSrc: ["'self'", "blob:"],
+        childSrc: ["'self'", "blob:"],
+        formAction: ["'self'"],
+        frameAncestors: ["'none'"],
+        baseUri: ["'self'"],
+        manifestSrc: ["'self'"],
+        prefetchSrc: ["'self'"],
+        navigateTo: ["'self'"],
+      },
+      reportUri: '/api/security/csp-violation',
+    },
+    referrerPolicy = { policy: "strict-origin-when-cross-origin" },
+    crossOriginEmbedderPolicy = false, // Disable for API compatibility
+    hsts = {
+      maxAge: 31536000, // 1 year
+      includeSubDomains: true,
+      preload: true,
+    },
+    noSniff = true,
+    xssFilter = true,
+    noOpen = true,
+    originAgentCluster = true,
+    permittedCrossDomainPolicies = false,
+    forceHTTPSRedirect = true,
+    excludeErrorPages = false,
+    featurePolicy = {
+      features: {
+        fullscreen: ["'self'"],
+        payment: ["'none'"],
+        syncXhr: ["'none'"],
+        accelerometer: ["'none'"],
+        gyroscope: ["'none'"],
+        magnetometer: ["'none'"],
+        camera: ["'none'"],
+        microphone: ["'none'"],
+        geolocation: ["'none'"],
+        notifications: ["'self'"],
+        push: ["'self'"],
+        midi: ["'none'"],
+        encryptedMedia: ["'none'"],
+        usb: ["'none'"],
+        serial: ["'none'"],
+        screenWakeLock: ["'none'"],
+        clipboardRead: ["'none'"],
+        clipboardWrite: ["'none'"],
+        displayCapture: ["'none'"],
+      },
+    },
+  } = options;
+
+  return helmet({
+    contentSecurityPolicy,
+    crossOriginEmbedderPolicy,
+    crossOriginOpenerPolicy: { policy: "same-origin" },
+    crossOriginResourcePolicy: { policy: "same-origin" },
+    dnsPrefetchControl: { allow: false },
+    frameguard: { action: "deny" },
+    hsts,
+    ieNoOpen: noOpen,
+    noSniff,
+    originAgentCluster,
+    permittedCrossDomainPolicies,
+    referrerPolicy,
+    xssFilter,
+    // Additional security headers
+    hidePoweredBy: true,
+    noSniff: true,
+    featurePolicy,
+  });
+};
+
+/**
+ * Apply enhanced security headers with CSP for specific routes
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next function
+ */
+const applyEnhancedSecurityHeaders = (req, res, next) => {
+  // Generate nonce for CSP
+  const nonce = generateNonce();
+
+  // Add additional security headers not covered by helmet
+  res.setHeader('X-Permitted-Cross-Domain-Policies', 'none');
+  res.setHeader('X-Download-Options', 'noopen');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader(
+    'Permissions-Policy',
+    [
+      'accelerometer=()',
+      'autoplay=()',
+      'camera=()',
+      'clipboard-read=()',
+      'clipboard-write=()',
+      'display-capture=()',
+      'encrypted-media=()',
+      'fullscreen=(self)',
+      'geolocation=()',
+      'gyroscope=()',
+      'magnetometer=()',
+      'microphone=()',
+      'midi=()',
+      'payment=()',
+      'picture-in-picture=()',
+      'publickey-credentials-get=(self)',
+      'screen-wake-lock=()',
+      'serial=()',
+      'usb=()',
+      'vr=()',
+      'xr-spatial-tracking=()',
+    ].join(', '),
+  );
+
+  // Add security headers for modern browsers
+  res.setHeader(
+    'Strict-Transport-Security',
+    'max-age=31536000; includeSubDomains; preload',
+  );
+  res.setHeader('Expect-CT', 'max-age=86400, enforce');
+  res.setHeader('Server', 'Secure Server'); // Hide server information
+
+  // Add CSP nonce to response locals for use in templates
+  res.locals.cspNonce = nonce;
+
+  next();
+};
+
+/**
+ * CSP violation reporting endpoint with enhanced security
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
+const handleCSPViolation = async (req, res) => {
+  try {
+    const violationReport = {
+      timestamp: new Date().toISOString(),
+      documentURI: req.body['document-uri'],
+      blockedURI: req.body['blocked-uri'],
+      violatedDirective: req.body['violated-directive'],
+      effectiveDirective: req.body['effective-directive'],
+      originalPolicy: req.body['original-policy'],
+      sourceFile: req.body['source-file'],
+      lineNumber: req.body['line-number'],
+      columnNumber: req.body['column-number'],
+      userAgent: req.headers['user-agent'],
+      ip: req.ip,
+      method: req.method,
+      path: req.path,
+    };
+
+    // Log violation for monitoring
+    console.warn(
+      'CSP Violation Detected:',
+      JSON.stringify(violationReport, null, 2),
+    );
+
+    // In production, you might want to:
+    // 1. Send to security monitoring system (Sentry, DataDog, etc.)
+    // 2. Block requests from suspicious sources
+    // 3. Alert security team
+    // 4. Implement rate limiting for repeat offenders
+
+    // For now, just log and respond
+    res.status(204).end();
+  } catch (error) {
+    console.error('Error processing CSP violation:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+/**
+ * Security headers for API endpoints
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next function
+ */
+const applyAPISecurityHeaders = (req, res, next) => {
+  // API-specific security headers
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader(
+    'Content-Security-Policy',
+    "default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'",
+  );
+  res.setHeader('Referrer-Policy', 'no-referrer');
+  res.setHeader(
+    'Strict-Transport-Security',
+    'max-age=31536000; includeSubDomains; preload',
+  );
+
+  next();
+};
+
+/**
+ * Generate security headers report for monitoring
+ * @returns {Object} Security headers status report
+ */
+const generateSecurityHeadersReport = () => ({
+  timestamp: new Date().toISOString(),
+  securityHeaders: {
+    hsts: "Enabled with preload",
+    csp: "Comprehensive policy with reporting",
+    xssProtection: "Enabled with blocking",
+    contentTypeOptions: "nosniff enabled",
+    frameOptions: "DENY",
+    referrerPolicy: "strict-origin-when-cross-origin",
+    permissionsPolicy: "Restrictive permissions",
+    featurePolicy: "Restrictive features",
+  },
+  recommendations: [
+    "Monitor CSP violations regularly",
+    "Review and update CSP directives periodically",
+    "Consider adding additional security headers as needed",
+  ],
+});
+
+module.exports = {
+  createEnhancedSecurityHeadersMiddleware,
+  applyEnhancedSecurityHeaders,
+  handleCSPViolation,
+  applyAPISecurityHeaders,
+  generateSecurityHeadersReport,
+  generateNonce,
+};
+
+
+[FILE_END: server\middleware\enhancedSecurityHeaders.js]
+################################################################################
+
+================================================================================
+FILE_BEGIN: server\middleware\imageOptimization.js
+METADATA: Size=10348 bytes | Last_Modified=2026-01-06 09:13:57.257953
+================================================================================
+/**
+ * Advanced Image Optimization Middleware with WebP/AVIF Support
+ * Implements smart format detection, compression, and delivery optimization
+ */
+
+const sharp = require("sharp");
+const path = require("path");
+const fs = require("fs").promises;
+const crypto = require("crypto");
+
+// Modern browser support detection
+const SUPPORTED_FORMATS = {
+  avif: { quality: 50, speed: 3 },
+  webp: { quality: 80, speed: 6 },
+  jpeg: { quality: 85, speed: 6 },
+  png: { quality: 100, speed: 6 },
+};
+
+// Cache configuration
+const CACHE_CONFIG = {
+  headers: {
+    "Cache-Control": "public, max-age=31536000, immutable",
+    Vary: "Accept",
+    "Access-Control-Allow-Origin": "*",
+  },
+  ttl: 365 * 24 * 60 * 60 * 1000, // 1 year
+};
+
+class ImageOptimizationService {
+  constructor() {
+    this.cache = new Map();
+    this.stats = {
+      requests: 0,
+      cacheHits: 0,
+      formats: { avif: 0, webp: 0, jpeg: 0, png: 0 },
+      averageResponseTime: 0,
+    };
+  }
+
+  /**
+   * Detect best image format based on Accept header
+   */
+  detectBestFormat(acceptHeader) {
+    if (!acceptHeader) return "jpeg";
+
+    const preferences = acceptHeader
+      .split(",")
+      .map((item) => item.trim().toLowerCase())
+      .filter((item) => item.startsWith('image/'))
+      .map((item) => item.split(';')[0]);
+
+    // Priority order: AVIF > WebP > JPEG > PNG
+    for (const format of ["image/avif", "image/webp"]) {
+      if (preferences.some((pref) => pref.includes(format.split("/")[1]))) {
+        return format.split("/")[1];
+      }
+    }
+
+    return "jpeg";
+  }
+
+  /**
+   * Generate cache key for image processing
+   */
+  generateCacheKey(imagePath, options) {
+    const keyData = {
+      path: imagePath,
+      ...options,
+    };
+    return crypto
+      .createHash("md5")
+      .update(JSON.stringify(keyData))
+      .digest("hex");
+  }
+
+  /**
+   * Apply intelligent compression based on content analysis
+   */
+  async analyzeImageComplexity(buffer) {
+    try {
+      const metadata = await sharp(buffer).metadata();
+
+      // Simple complexity scoring based on file size and dimensions
+      const size = buffer.length;
+      const dimensions = metadata.width * metadata.height;
+      const ratio = size / dimensions;
+
+      // High complexity = larger file size relative to dimensions
+      if (ratio > 0.8) return "high";
+      if (ratio > 0.4) return "medium";
+      return "low";
+    } catch (error) {
+      console.error("Error analyzing image complexity:", error);
+      return "medium";
+    }
+  }
+
+  /**
+   * Optimize image with format-specific settings
+   */
+  async optimizeImage(buffer, format, options = {}) {
+    const {
+      width,
+      height,
+      quality: requestedQuality,
+      compression = "auto",
+      progressive = true,
+      lossless = false,
+    } = options;
+
+    let sharpness = sharp(buffer);
+
+    // Resize if dimensions specified
+    if (width || height) {
+      sharpness = sharpness.resize({
+        width: width || null,
+        height: height || null,
+        fit: "inside",
+        withoutEnlargement: true,
+        fastShrinkOnLoad: true,
+      });
+    }
+
+    // Analyze image complexity for adaptive quality
+    const complexity = await this.analyzeImageComplexity(buffer);
+    let quality = requestedQuality;
+
+    if (compression === "auto") {
+      const formatConfig = SUPPORTED_FORMATS[format] || SUPPORTED_FORMATS.jpeg;
+
+      if (complexity === "high") {
+        quality = Math.max(formatConfig.quality - 10, 30);
+      } else if (complexity === "low") {
+        quality = Math.min(formatConfig.quality + 5, 100);
+      } else {
+        quality = formatConfig.quality;
+      }
+    }
+
+    // Apply format-specific optimizations
+    switch (format) {
+      case "avif":
+        return await sharpness
+          .avif({
+            quality,
+            effort: formatConfig?.speed || 3,
+            chromaSubsampling: "4:2:0",
+          })
+          .toBuffer();
+
+      case "webp":
+        return await sharpness
+          .webp({
+            quality,
+            effort: formatConfig?.speed || 6,
+            alphaQuality: quality,
+            lossless: lossless || complexity === "low",
+          })
+          .toBuffer();
+
+      case "jpeg":
+        return await sharpness
+          .jpeg({
+            quality,
+            progressive,
+            chromaSubsampling: "4:2:0",
+            mozjpeg: true,
+          })
+          .toBuffer();
+
+      case "png":
+        return await sharpness
+          .png({
+            quality,
+            progressive,
+            compressionLevel: 9,
+            adaptiveFiltering: true,
+          })
+          .toBuffer();
+
+      default:
+        return await sharpness.toBuffer();
+    }
+  }
+
+  /**
+   * Generate responsive image variants
+   */
+  async generateResponsiveVariants(imagePath, baseBuffer) {
+    const breakpoints = [400, 800, 1200, 1600, 2400];
+    const variants = {};
+
+    for (const breakpoint of breakpoints) {
+      try {
+        const optimizedBuffer = await this.optimizeImage(baseBuffer, "webp", {
+          width: breakpoint,
+          compression: "auto",
+        });
+
+        variants[`${breakpoint}w`] = {
+          buffer: optimizedBuffer,
+          contentType: "image/webp",
+          size: optimizedBuffer.length,
+        };
+      } catch (error) {
+        console.error(`Error generating ${breakpoint}w variant:`, error);
+      }
+    }
+
+    return variants;
+  }
+
+  /**
+   * Main middleware function
+   */
+  async imageOptimizationMiddleware(req, res, next) {
+    const startTime = Date.now();
+    this.stats.requests++;
+
+    try {
+      const imagePath = req.path;
+      const acceptFormat = this.detectBestFormat(req.headers.accept);
+
+      // Check cache first
+      const cacheKey = this.generateCacheKey(imagePath, {
+        format: acceptFormat,
+        width: req.query.width,
+        height: req.query.height,
+        quality: req.query.quality,
+      });
+
+      if (this.cache.has(cacheKey)) {
+        this.stats.cacheHits++;
+        const cached = this.cache.get(cacheKey);
+
+        res.set({
+          "Content-Type": `image/${acceptFormat}`,
+          ...CACHE_CONFIG.headers,
+          "X-Cache": "HIT",
+        });
+
+        return res.send(cached);
+      }
+
+      // Load original image
+      const fullPath = path.join(process.cwd(), "public", imagePath);
+      const originalBuffer = await fs.readFile(fullPath);
+
+      // Optimize image
+      const optimizedBuffer = await this.optimizeImage(
+        originalBuffer,
+        acceptFormat,
+        {
+          width: req.query.width ? parseInt(req.query.width) : undefined,
+          height: req.query.height ? parseInt(req.query.height) : undefined,
+          quality: req.query.quality ? parseInt(req.query.quality) : undefined,
+          compression: req.query.compression || "auto",
+        },
+      );
+
+      // Cache the result
+      this.cache.set(cacheKey, optimizedBuffer);
+
+      // Update stats
+      this.stats.formats[acceptFormat] =
+        (this.stats.formats[acceptFormat] || 0) + 1;
+      const responseTime = Date.now() - startTime;
+      this.stats.averageResponseTime =
+        (this.stats.averageResponseTime + responseTime) / 2;
+
+      // Set headers
+      res.set({
+        "Content-Type": `image/${acceptFormat}`,
+        ...CACHE_CONFIG.headers,
+        "X-Cache": "MISS",
+        "X-Original-Size": originalBuffer.length,
+        "X-Optimized-Size": optimizedBuffer.length,
+        "X-Compression-Ratio": (
+          optimizedBuffer.length / originalBuffer.length
+        ).toFixed(2),
+        "X-Response-Time": `${responseTime}ms`,
+      });
+
+      return res.send(optimizedBuffer);
+    } catch (error) {
+      console.error("Image optimization error:", error);
+
+      // Fallback to original image
+      if (req.path.startsWith("/images/")) {
+        const fullPath = path.join(process.cwd(), "public", req.path);
+        if (
+          await fs
+            .access(fullPath)
+            .then(() => true)
+            .catch(() => false)
+        ) {
+          const originalBuffer = await fs.readFile(fullPath);
+          res.set("Content-Type", "image/jpeg");
+          return res.send(originalBuffer);
+        }
+      }
+
+      return res.status(500).json({ error: "Image processing failed" });
+    }
+  }
+
+  /**
+   * Generate image metadata endpoint
+   */
+  async generateImageMetadata(req, res) {
+    try {
+      const imagePath = req.query.path;
+      if (!imagePath) {
+        return res.status(400).json({ error: "Image path required" });
+      }
+
+      const fullPath = path.join(process.cwd(), "public", imagePath);
+      const buffer = await fs.readFile(fullPath);
+      const metadata = await sharp(buffer).metadata();
+
+      const variants = await this.generateResponsiveVariants(imagePath, buffer);
+
+      res.json({
+        original: {
+          width: metadata.width,
+          height: metadata.height,
+          format: metadata.format,
+          size: buffer.length,
+        },
+        variants: Object.keys(variants).reduce((acc, key) => {
+          acc[key] = {
+            contentType: variants[key].contentType,
+            size: variants[key].size,
+          };
+          return acc;
+        }, {}),
+        supportedFormats: Object.keys(SUPPORTED_FORMATS),
+        bestFormat: this.detectBestFormat(req.headers.accept),
+      });
+    } catch (error) {
+      console.error("Metadata generation error:", error);
+      res.status(500).json({ error: "Metadata generation failed" });
+    }
+  }
+
+  /**
+   * Get optimization statistics
+   */
+  getStats() {
+    return {
+      ...this.stats,
+      cacheSize: this.cache.size,
+      cacheHitRate:
+        this.stats.requests > 0
+          ? `${(this.stats.cacheHits / this.stats.requests * 100).toFixed(2)}%`
+          : '0%',
+    };
+  }
+
+  /**
+   * Clear optimization cache
+   */
+  clearCache() {
+    this.cache.clear();
+    return { message: "Cache cleared", size: 0 };
+  }
+}
+
+// Export middleware instance
+const imageOptimizationService = new ImageOptimizationService();
+
+// Middleware export
+module.exports = (req, res, next) => {
+  // Only process images
+  if (
+    req.path.startsWith("/images/") ||
+    req.path.match(/\.(jpg|jpeg|png|gif|webp|avif)$/i)
+  ) {
+    return imageOptimizationService.imageOptimizationMiddleware(req, res, next);
+  }
+  next();
+};
+
+module.exports.imageOptimizationService = imageOptimizationService;
+module.exports.SUPPORTED_FORMATS = SUPPORTED_FORMATS;
+
+
+[FILE_END: server\middleware\imageOptimization.js]
+################################################################################
+
+================================================================================
+FILE_BEGIN: server\middleware\inputValidation.js
+METADATA: Size=15340 bytes | Last_Modified=2026-01-05 21:16:38.753096
+================================================================================
+const { body, param, query, validationResult } = require('express-validator');
+
+// Custom validators for enhanced security
+const customValidators = {
+  // Sanitize HTML to prevent XSS
+  sanitizeHTML: (value) => {
+    if (typeof value !== 'string') return value;
+
+    // Remove dangerous HTML tags and attributes
+    return value
+      .replace(
+        /<(?:script|iframe|object|embed|form|link|meta|base|input|textarea|select|button)[\s\S]*?<\/(?:script|iframe|object|embed|form|link|meta|base|input|textarea|select|button)>/gi,
+        '',
+      )
+      .replace(
+        /<[^>]*(?:on\w+|href|src|data|action|formaction|style)[^>]*>/gi,
+        '',
+      )
+      .replace(/(?:javascript|vbscript|data|file|ftp):/gi, '')
+      .replace(/[\r\n\t]+/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  },
+
+  // Validate and sanitize email
+  isSecureEmail: (value) => {
+    const emailRegex =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+
+    if (!emailRegex.test(value)) {
+      throw new Error('Invalid email format');
+    }
+
+    // Convert to lowercase and trim
+    return value.toLowerCase().trim();
+  },
+
+  // Validate password strength
+  isStrongPassword: (value) => {
+    const minLength = 12;
+    const hasUpper = /[A-Z]/.test(value);
+    const hasLower = /[a-z]/.test(value);
+    const hasNumber = /\d/.test(value);
+    const hasSpecial = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(value);
+    const hasNoSpaces = !/\s/.test(value);
+
+    if (value.length < minLength) {
+      throw new Error(`Password must be at least ${minLength} characters long`);
+    }
+
+    if (!hasUpper) {
+      throw new Error('Password must contain at least one uppercase letter');
+    }
+
+    if (!hasLower) {
+      throw new Error('Password must contain at least one lowercase letter');
+    }
+
+    if (!hasNumber) {
+      throw new Error('Password must contain at least one number');
+    }
+
+    if (!hasSpecial) {
+      throw new Error('Password must contain at least one special character');
+    }
+
+    if (!hasNoSpaces) {
+      throw new Error('Password cannot contain spaces');
+    }
+
+    // Check for common patterns
+    const commonPatterns = [
+      /123456/,
+      /password/i,
+      /qwerty/i,
+      /abc123/i,
+      /password123/i,
+    ];
+
+    if (commonPatterns.some((pattern) => pattern.test(value))) {
+      throw new Error('Password contains common patterns and is not secure');
+    }
+
+    return value;
+  },
+
+  // Validate and sanitize phone number
+  isSecurePhone: (value) => {
+    if (!value) return value;
+
+    // Remove all non-digits
+    const cleaned = value.replace(/\D/g, "");
+
+    // Check if it's a valid US phone number (10 or 11 digits)
+    if (cleaned.length === 10) {
+      return cleaned;
+    } else if (cleaned.length === 11 && cleaned.startsWith("1")) {
+      return cleaned;
+    }
+    throw new Error("Invalid phone number format");
+  },
+
+  // Validate and sanitize ZIP code
+  isSecureZipCode: (value) => {
+    if (!value) return value;
+
+    const zipRegex = /^\d{5}(-\d{4})?$/;
+    if (!zipRegex.test(value)) {
+      throw new Error('Invalid ZIP code format');
+    }
+
+    return value.toUpperCase();
+  },
+
+  // Sanitize filename to prevent path traversal
+  sanitizeFilename: (value) => {
+    if (!value) return value;
+
+    return value
+      .replace(/[^\w\-_.]/g, '') // Remove special characters except underscore, hyphen, period
+      .replace(/\.\./g, '') // Remove double dots
+      .substring(0, 255); // Limit length
+  },
+
+  // Validate file size (in bytes)
+  isValidFileSize: (maxSize) => (value) => {
+    if (value && value.size > maxSize) {
+      throw new Error(`File size exceeds maximum limit of ${maxSize} bytes`);
+    }
+    return true;
+  },
+
+  // Validate file type
+  isValidFileType: (allowedTypes) => (value) => {
+    if (value && !allowedTypes.includes(value.mimetype)) {
+      throw new Error(`File type ${value.mimetype} is not allowed`);
+    }
+    return true;
+  },
+};
+
+// Validation middleware factory
+const createValidationMiddleware = (validations) => async (req, res, next) => {
+  try {
+    await Promise.all(validations.map((validation) => validation.run(req)));
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        success: false,
+        error: "Validation failed",
+        details: errors.array().map((err) => ({
+          field: err.param,
+          message: err.msg,
+          value: err.value,
+        })),
+      });
+    }
+
+    next();
+  } catch (error) {
+    console.error("Validation middleware error:", error);
+    res.status(500).json({
+      success: false,
+      error: "Validation system error",
+    });
+  }
+};
+
+// Common validation schemas
+const schemas = {
+  // User registration
+  userRegistration: [
+    body('email')
+      .isEmail()
+      .normalizeEmail()
+      .withMessage('Valid email is required'),
+    body('password')
+      .custom(customValidators.isStrongPassword)
+      .withMessage('Password does not meet security requirements'),
+    body('firstName')
+      .trim()
+      .isLength({ min: 1, max: 50 })
+      .matches(/^[a-zA-Z\s'-]+$/)
+      .withMessage(
+        'First name must be 1-50 characters and contain only letters, spaces, hyphens, and apostrophes',
+      ),
+    body('lastName')
+      .trim()
+      .isLength({ min: 1, max: 50 })
+      .matches(/^[a-zA-Z\s'-]+$/)
+      .withMessage(
+        'Last name must be 1-50 characters and contain only letters, spaces, hyphens, and apostrophes',
+      ),
+    body('phone')
+      .optional()
+      .custom(customValidators.isSecurePhone)
+      .withMessage('Invalid phone number format'),
+  ],
+
+  // User login
+  userLogin: [
+    body('email')
+      .isEmail()
+      .normalizeEmail()
+      .withMessage('Valid email is required'),
+    body('password').isLength({ min: 1 }).withMessage('Password is required'),
+  ],
+
+  // Property search
+  propertySearch: [
+    query('location')
+      .optional()
+      .trim()
+      .isLength({ max: 100 })
+      .withMessage('Location must be less than 100 characters'),
+    query('minPrice')
+      .optional()
+      .isInt({ min: 0, max: 10000000 })
+      .withMessage('Minimum price must be between 0 and 10,000,000'),
+    query('maxPrice')
+      .optional()
+      .isInt({ min: 0, max: 10000000 })
+      .withMessage('Maximum price must be between 0 and 10,000,000'),
+    query('bedrooms')
+      .optional()
+      .isInt({ min: 0, max: 20 })
+      .withMessage('Bedrooms must be between 0 and 20'),
+    query('bathrooms')
+      .optional()
+      .isFloat({ min: 0, max: 20 })
+      .withMessage('Bathrooms must be between 0 and 20'),
+    query('propertyType')
+      .optional()
+      .isIn(['apartment', 'house', 'condo', 'townhouse', 'studio'])
+      .withMessage('Invalid property type'),
+    query('page')
+      .optional()
+      .isInt({ min: 1, max: 1000 })
+      .withMessage('Page must be between 1 and 1000'),
+    query('limit')
+      .optional()
+      .isInt({ min: 1, max: 100 })
+      .withMessage('Limit must be between 1 and 100'),
+  ],
+
+  // Property ID parameter
+  propertyId: [
+    param('id')
+      .isInt({ min: 1 })
+      .withMessage('Property ID must be a positive integer'),
+  ],
+
+  // Contact form
+  contactForm: [
+    body('name')
+      .trim()
+      .isLength({ min: 1, max: 100 })
+      .matches(/^[a-zA-Z\s'-]+$/)
+      .withMessage(
+        'Name must be 1-100 characters and contain only letters, spaces, hyphens, and apostrophes',
+      ),
+    body('email')
+      .isEmail()
+      .normalizeEmail()
+      .withMessage('Valid email is required'),
+    body('phone')
+      .optional()
+      .custom(customValidators.isSecurePhone)
+      .withMessage('Invalid phone number format'),
+    body('subject')
+      .trim()
+      .isLength({ min: 1, max: 200 })
+      .withMessage('Subject must be 1-200 characters'),
+    body('message')
+      .trim()
+      .isLength({ min: 10, max: 2000 })
+      .custom(customValidators.sanitizeHTML)
+      .withMessage('Message must be 10-2000 characters'),
+    body('propertyId')
+      .optional()
+      .isInt({ min: 1 })
+      .withMessage('Property ID must be a positive integer'),
+  ],
+
+  // Application form
+  applicationForm: [
+    body('applicant.firstName')
+      .trim()
+      .isLength({ min: 1, max: 50 })
+      .matches(/^[a-zA-Z\s'-]+$/)
+      .withMessage('First name is required and must be valid'),
+    body('applicant.lastName')
+      .trim()
+      .isLength({ min: 1, max: 50 })
+      .matches(/^[a-zA-Z\s'-]+$/)
+      .withMessage('Last name is required and must be valid'),
+    body('applicant.email')
+      .isEmail()
+      .normalizeEmail()
+      .withMessage('Valid email is required'),
+    body('applicant.phone')
+      .optional()
+      .custom(customValidators.isSecurePhone)
+      .withMessage('Invalid phone number format'),
+    body('applicant.dateOfBirth')
+      .isISO8601()
+      .withMessage('Valid date of birth is required'),
+    body('applicant.ssn')
+      .optional()
+      .matches(/^\d{3}-?\d{2}-?\d{4}$/)
+      .withMessage('Invalid SSN format'),
+    body('employment.employer')
+      .optional()
+      .trim()
+      .isLength({ max: 100 })
+      .withMessage('Employer name must be less than 100 characters'),
+    body('employment.position')
+      .optional()
+      .trim()
+      .isLength({ max: 100 })
+      .withMessage('Position must be less than 100 characters'),
+    body('employment.monthlyIncome')
+      .optional()
+      .isInt({ min: 0, max: 1000000 })
+      .withMessage('Monthly income must be between 0 and 1,000,000'),
+    body('references[0].name')
+      .optional()
+      .trim()
+      .isLength({ min: 1, max: 100 })
+      .withMessage('Reference name must be 1-100 characters'),
+    body('references[0].phone')
+      .optional()
+      .custom(customValidators.isSecurePhone)
+      .withMessage('Invalid reference phone number'),
+    body('references[0].relationship')
+      .optional()
+      .trim()
+      .isLength({ max: 50 })
+      .withMessage('Relationship must be less than 50 characters'),
+  ],
+
+  // File upload
+  fileUpload: [
+    body('fileName')
+      .custom(customValidators.sanitizeFilename)
+      .withMessage('Invalid file name'),
+    body('fileSize')
+      .isInt({ min: 1, max: 10 * 1024 * 1024 }) // 10MB max
+      .withMessage('File size must be between 1 byte and 10MB'),
+  ],
+
+  // Newsletter subscription
+  newsletterSubscription: [
+    body('email')
+      .isEmail()
+      .normalizeEmail()
+      .withMessage('Valid email is required'),
+    body('preferences')
+      .optional()
+      .isArray()
+      .withMessage('Preferences must be an array'),
+    body('preferences.*')
+      .optional()
+      .isIn(['property-updates', 'market-insights', 'community-events'])
+      .withMessage('Invalid preference value'),
+  ],
+
+  // Admin user management
+  adminUserUpdate: [
+    body('email')
+      .optional()
+      .isEmail()
+      .normalizeEmail()
+      .withMessage('Valid email is required'),
+    body('firstName')
+      .optional()
+      .trim()
+      .isLength({ min: 1, max: 50 })
+      .matches(/^[a-zA-Z\s'-]+$/)
+      .withMessage('First name must be valid'),
+    body('lastName')
+      .optional()
+      .trim()
+      .isLength({ min: 1, max: 50 })
+      .matches(/^[a-zA-Z\s'-]+$/)
+      .withMessage('Last name must be valid'),
+    body('role')
+      .optional()
+      .isIn(['user', 'admin', 'moderator'])
+      .withMessage('Invalid role'),
+    body('isActive')
+      .optional()
+      .isBoolean()
+      .withMessage('isActive must be a boolean'),
+  ],
+
+  // Property creation/update
+  propertyManagement: [
+    body('title')
+      .trim()
+      .isLength({ min: 1, max: 200 })
+      .withMessage('Title is required and must be less than 200 characters'),
+    body('description')
+      .trim()
+      .isLength({ min: 10, max: 2000 })
+      .custom(customValidators.sanitizeHTML)
+      .withMessage('Description must be 10-2000 characters'),
+    body('address.street')
+      .trim()
+      .isLength({ min: 1, max: 100 })
+      .withMessage('Street address is required'),
+    body('address.city')
+      .trim()
+      .isLength({ min: 1, max: 50 })
+      .matches(/^[a-zA-Z\s'-]+$/)
+      .withMessage('City must be valid'),
+    body('address.state')
+      .trim()
+      .isLength({ min: 2, max: 2 })
+      .matches(/^[A-Z]{2}$/)
+      .withMessage('State must be a 2-letter code'),
+    body('address.zipCode')
+      .custom(customValidators.isSecureZipCode)
+      .withMessage('Invalid ZIP code'),
+    body('price')
+      .isInt({ min: 1, max: 10000000 })
+      .withMessage('Price must be between 1 and 10,000,000'),
+    body('bedrooms')
+      .isInt({ min: 0, max: 20 })
+      .withMessage('Bedrooms must be between 0 and 20'),
+    body('bathrooms')
+      .isFloat({ min: 0, max: 20 })
+      .withMessage('Bathrooms must be between 0 and 20'),
+    body('squareFeet')
+      .optional()
+      .isInt({ min: 1, max: 50000 })
+      .withMessage('Square feet must be between 1 and 50,000'),
+    body('propertyType')
+      .isIn(['apartment', 'house', 'condo', 'townhouse', 'studio'])
+      .withMessage('Invalid property type'),
+    body('amenities')
+      .optional()
+      .isArray()
+      .withMessage('Amenities must be an array'),
+    body('amenities.*')
+      .optional()
+      .trim()
+      .isLength({ max: 50 })
+      .withMessage('Each amenity must be less than 50 characters'),
+  ],
+};
+
+// Sanitization middleware
+const sanitizeInput = (req, res, next) => {
+  const sanitizeObject = (obj) => {
+    if (typeof obj === 'string') {
+      return customValidators.sanitizeHTML(obj);
+    }
+
+    if (Array.isArray(obj)) {
+      return obj.map(sanitizeObject);
+    }
+
+    if (obj && typeof obj === 'object') {
+      const sanitized = {};
+      for (const [key, value] of Object.entries(obj)) {
+        // Only allow alphanumeric, underscore, hyphen keys
+        if (/^[a-zA-Z0-9_-]+$/.test(key)) {
+          sanitized[key] = sanitizeObject(value);
+        }
+      }
+      return sanitized;
+    }
+
+    return obj;
+  };
+
+  try {
+    if (req.body) {
+      req.body = sanitizeObject(req.body);
+    }
+
+    if (req.query) {
+      req.query = sanitizeObject(req.query);
+    }
+
+    if (req.params) {
+      req.params = sanitizeObject(req.params);
+    }
+
+    next();
+  } catch (error) {
+    console.error('Sanitization error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Input sanitization failed',
+    });
+  }
+};
+
+// Rate limiting for validation endpoints
+const validationRateLimit = (req, res, next) => {
+  // Simple in-memory rate limiting (in production, use Redis)
+  const now = Date.now();
+  const windowMs = 15 * 60 * 1000; // 15 minutes
+  const maxRequests = 100; // per window
+
+  if (!req.rateLimit) {
+    req.rateLimit = {
+      count: 1,
+      resetTime: now + windowMs,
+    };
+  } else {
+    if (now > req.rateLimit.resetTime) {
+      req.rateLimit = {
+        count: 1,
+        resetTime: now + windowMs,
+      };
+    } else {
+      req.rateLimit.count++;
+    }
+  }
+
+  if (req.rateLimit.count > maxRequests) {
+    return res.status(429).json({
+      success: false,
+      error: 'Too many validation requests',
+      retryAfter: Math.ceil((req.rateLimit.resetTime - now) / 1000),
+    });
+  }
+
+  next();
+};
+
+module.exports = {
+  schemas,
+  createValidationMiddleware,
+  sanitizeInput,
+  validationRateLimit,
+  customValidators,
+};
+
+
+[FILE_END: server\middleware\inputValidation.js]
+################################################################################
+
+================================================================================
+FILE_BEGIN: server\middleware\logging.js
+METADATA: Size=9737 bytes | Last_Modified=2026-01-05 21:16:38.753096
+================================================================================
+const winston = require('winston');
+const DailyRotateFile = require('winston-daily-rotate-file');
+const { combine, timestamp, errors, printf, colorize, json } = winston.format;
+const LokiTransport = require('winston-loki');
+const {
+  createMetrics,
+  collectDefaultMetrics,
+  register,
+} = require('prom-client');
+
+// Initialize metrics collection
+const startMetricsCollection = () => {
+  collectDefaultMetrics({ prefix: 'app_' });
+
+  // Custom metrics
+  const httpRequestDuration = new Histogram({
+    name: 'http_request_duration_seconds',
+    help: 'Duration of HTTP requests in seconds',
+    labelNames: ['method', 'route', 'status_code'],
+  });
+
+  const httpRequestsTotal = new Counter({
+    name: 'http_requests_total',
+    help: 'Total number of HTTP requests',
+    labelNames: ['method', 'route', 'status_code'],
+  });
+
+  const activeConnections = new Gauge({
+    name: 'active_connections',
+    help: 'Number of active connections',
+  });
+
+  const databaseQueryDuration = new Histogram({
+    name: 'database_query_duration_seconds',
+    help: 'Duration of database queries in seconds',
+    labelNames: ['query_type', 'table'],
+  });
+
+  const cacheHitRatio = new Gauge({
+    name: 'cache_hit_ratio',
+    help: 'Cache hit ratio',
+    labelNames: ['cache_type'],
+  });
+
+  return {
+    httpRequestDuration,
+    httpRequestsTotal,
+    activeConnections,
+    databaseQueryDuration,
+    cacheHitRatio,
+  };
+};
+
+// Configure Winston logger
+const logger = winston.createLogger({
+  level: process.env.LOG_LEVEL || 'info',
+  format: combine(timestamp(), errors({ stack: true }), json()),
+  defaultMeta: {
+    service: 'properties-app',
+    version: process.env.npm_package_version || '1.0.0',
+    environment: process.env.NODE_ENV || 'development',
+  },
+  transports: [
+    // Console logging
+    new winston.transports.Console({
+      format: combine(
+        colorize(),
+        timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+        printf(
+          ({ timestamp, level, message, ...meta }) =>
+            `${timestamp} [${level}]: ${message} ${Object.keys(meta).length ? JSON.stringify(meta, null, 2) : ""}`,
+        ),
+      ),
+    }),
+  ],
+});
+
+// Add file transports for production
+if (process.env.NODE_ENV === 'production') {
+  // Error log file
+  logger.add(
+    new DailyRotateFile({
+      filename: 'logs/error-%DATE%.log',
+      datePattern: 'YYYY-MM-DD',
+      level: 'error',
+      format: combine(timestamp(), errors({ stack: true }), json()),
+      maxSize: '20m',
+      maxFiles: '14d',
+    }),
+  );
+
+  // Combined log file
+  logger.add(
+    new DailyRotateFile({
+      filename: 'logs/combined-%DATE%.log',
+      datePattern: 'YYYY-MM-DD',
+      format: combine(timestamp(), errors({ stack: true }), json()),
+      maxSize: '20m',
+      maxFiles: '30d',
+    }),
+  );
+
+  // Security events log
+  logger.add(
+    new DailyRotateFile({
+      filename: 'logs/security-%DATE%.log',
+      datePattern: 'YYYY-MM-DD',
+      level: 'warn',
+      format: combine(timestamp(), json()),
+      maxSize: '20m',
+      maxFiles: '90d',
+    }),
+  );
+
+  // Add Loki transport if configured
+  if (process.env.LOKI_URL) {
+    logger.add(
+      new LokiTransport({
+        host: process.env.LOKI_URL,
+        basicAuth: process.env.LOKI_USERNAME
+          ? {
+              username: process.env.LOKI_USERNAME,
+              password: process.env.LOKI_PASSWORD,
+            }
+          : undefined,
+        labels: {
+          service: 'properties-app',
+          environment: process.env.NODE_ENV,
+        },
+        format: winston.format.json(),
+        level: 'info',
+      }),
+    );
+  }
+}
+
+// Security event logger
+const securityLogger = (event, details) => {
+  logger.warn('Security Event', {
+    event,
+    details,
+    timestamp: new Date().toISOString(),
+    ip: details.ip || 'unknown',
+    userAgent: details.userAgent || 'unknown',
+    userId: details.userId || 'anonymous',
+  });
+};
+
+// Performance logger
+const performanceLogger = (operation, duration, metadata = {}) => {
+  logger.info('Performance Metric', {
+    operation,
+    duration,
+    ...metadata,
+    timestamp: new Date().toISOString(),
+  });
+};
+
+// Database query logger
+const databaseLogger = (query, duration, success, metadata = {}) => {
+  const level = success ? 'debug' : 'error';
+  logger.log(level, 'Database Query', {
+    query: query.substring(0, 200), // Truncate for privacy
+    duration,
+    success,
+    ...metadata,
+    timestamp: new Date().toISOString(),
+  });
+};
+
+// API request logger
+const apiLogger = (req, res, duration) => {
+  const logData = {
+    method: req.method,
+    url: req.originalUrl,
+    statusCode: res.statusCode,
+    duration,
+    ip: req.ip,
+    userAgent: req.get('User-Agent'),
+    userId: req.user?.id,
+    timestamp: new Date().toISOString(),
+  };
+
+  if (res.statusCode >= 400) {
+    logger.warn('API Request Failed', logData);
+  } else {
+    logger.info('API Request', logData);
+  }
+};
+
+// Error logger with context
+const errorLogger = (error, context = {}) => {
+  logger.error('Application Error', {
+    message: error.message,
+    stack: error.stack,
+    context,
+    timestamp: new Date().toISOString(),
+  });
+};
+
+// User activity logger
+const userActivityLogger = (userId, action, details = {}) => {
+  logger.info('User Activity', {
+    userId,
+    action,
+    details,
+    timestamp: new Date().toISOString(),
+  });
+};
+
+// Authentication logger
+const authLogger = (event, userId, ip, success, details = {}) => {
+  const level = success ? 'info' : 'warn';
+  logger.log(level, 'Authentication Event', {
+    event,
+    userId,
+    ip,
+    success,
+    details,
+    timestamp: new Date().toISOString(),
+  });
+
+  // Log security events separately
+  if (!success && event === 'login_failed') {
+    securityLogger('authentication_failure', {
+      userId,
+      ip,
+      event,
+      ...details,
+    });
+  }
+};
+
+// Health check logger
+const healthLogger = (status, checks = {}) => {
+  logger.info('Health Check', {
+    status,
+    checks,
+    timestamp: new Date().toISOString(),
+  });
+};
+
+// Metrics collection
+class MetricsCollector {
+  constructor() {
+    this.metrics = startMetricsCollection();
+  }
+
+  recordHttpRequest(method, route, statusCode, duration) {
+    this.metrics.httpRequestDuration
+      .labels(method, route, statusCode.toString())
+      .observe(duration / 1000);
+
+    this.metrics.httpRequestsTotal
+      .labels(method, route, statusCode.toString())
+      .inc();
+  }
+
+  recordDatabaseQuery(queryType, table, duration, success) {
+    this.metrics.databaseQueryDuration
+      .labels(queryType, table)
+      .observe(duration / 1000);
+  }
+
+  updateCacheHitRatio(cacheType, hitRatio) {
+    this.metrics.cacheHitRatio.labels(cacheType).set(hitRatio);
+  }
+
+  updateActiveConnections(count) {
+    this.metrics.activeConnections.set(count);
+  }
+
+  getMetrics() {
+    return register.metrics();
+  }
+
+  getMetricsSummary() {
+    return register.getMetricsAsJSON();
+  }
+}
+
+// Initialize metrics collector
+const metricsCollector = new MetricsCollector();
+
+// Middleware for automatic request logging
+const requestLogger = (req, res, next) => {
+  const startTime = Date.now();
+
+  // Add request ID for tracing
+  req.requestId = require('crypto').randomUUID();
+  res.setHeader('X-Request-ID', req.requestId);
+
+  // Log request start
+  logger.debug('Request Started', {
+    requestId: req.requestId,
+    method: req.method,
+    url: req.originalUrl,
+    ip: req.ip,
+    userAgent: req.get('User-Agent'),
+  });
+
+  // Override res.end to log response
+  const originalEnd = res.end;
+  res.end = function (...args) {
+    const duration = Date.now() - startTime;
+
+    // Record metrics
+    metricsCollector.recordHttpRequest(
+      req.method,
+      req.route?.path || req.path,
+      res.statusCode,
+      duration,
+    );
+
+    // Log response
+    logger.debug('Request Completed', {
+      requestId: req.requestId,
+      method: req.method,
+      url: req.originalUrl,
+      statusCode: res.statusCode,
+      duration,
+      contentLength: res.get('content-length'),
+    });
+
+    // Call original end method
+    originalEnd.apply(this, args);
+  };
+
+  next();
+};
+
+// Error handling middleware
+const errorHandler = (err, req, res, next) => {
+  const duration = Date.now() - (req.startTime || Date.now());
+
+  errorLogger(err, {
+    requestId: req.requestId,
+    method: req.method,
+    url: req.originalUrl,
+    ip: req.ip,
+    userAgent: req.get('User-Agent'),
+    duration,
+  });
+
+  // Don't leak error details in production
+  const message =
+    process.env.NODE_ENV === 'production'
+      ? 'Internal Server Error'
+      : err.message;
+
+  res.status(err.status || 500).json({
+    error: message,
+    requestId: req.requestId,
+    timestamp: new Date().toISOString(),
+  });
+};
+
+// Performance monitoring middleware
+const performanceMonitor =
+  (threshold = 1000) =>
+  (req, res, next) => {
+    const startTime = Date.now();
+
+    res.on("finish", () => {
+      const duration = Date.now() - startTime;
+
+      if (duration > threshold) {
+        logger.warn("Slow Request Detected", {
+          method: req.method,
+          url: req.originalUrl,
+          duration,
+          threshold,
+          statusCode: res.statusCode,
+        });
+      }
+    });
+
+    next();
+  };
+
+// Health check endpoint data
+const healthCheckData = {
+  uptime: process.uptime(),
+  timestamp: Date.now(),
+  version: process.env.npm_package_version || '1.0.0',
+  environment: process.env.NODE_ENV || 'development',
+  memory: process.memoryUsage(),
+  cpu: process.cpuUsage(),
+};
+
+module.exports = {
+  logger,
+  securityLogger,
+  performanceLogger,
+  databaseLogger,
+  apiLogger,
+  errorLogger,
+  userActivityLogger,
+  authLogger,
+  healthLogger,
+  metricsCollector,
+  requestLogger,
+  errorHandler,
+  performanceMonitor,
+  healthCheckData,
+};
+
+
+[FILE_END: server\middleware\logging.js]
+################################################################################
+
+================================================================================
+FILE_BEGIN: server\middleware\performanceMonitoring.js
+METADATA: Size=6575 bytes | Last_Modified=2026-01-05 21:16:38.753096
+================================================================================
+/**
+ * Performance Monitoring Middleware
+ * Tracks application performance metrics and provides monitoring endpoints
+ */
+
+const os = require('os');
+const process = require('process');
+
+/**
+ * Performance monitoring middleware
+ */
+const createPerformanceMonitor = () => (req, res, next) => {
+  const startTime = process.hrtime.bigint();
+  const startMemory = process.memoryUsage();
+
+  // Store start time for later use
+  req.performanceStart = {
+    time: startTime,
+    memory: startMemory,
+  };
+
+  // Override res.end to capture end metrics
+  const originalEnd = res.end;
+  res.end = function (...args) {
+    const endTime = process.hrtime.bigint();
+    const endMemory = process.memoryUsage();
+
+    // Calculate metrics
+    const responseTime = Number(endTime - startTime) / 1e6; // Convert to milliseconds
+    const memoryDelta = {
+      rss: endMemory.rss - startMemory.rss,
+      heapUsed: endMemory.heapUsed - startMemory.heapUsed,
+      heapTotal: endMemory.heapTotal - startMemory.heapTotal,
+      external: endMemory.external - startMemory.external,
+    };
+
+    // Log performance metrics
+    const performanceLog = {
+      timestamp: new Date().toISOString(),
+      method: req.method,
+      path: req.path,
+      statusCode: res.statusCode,
+      responseTime,
+      memoryDelta,
+      userAgent: req.get("User-Agent"),
+      ip: req.ip,
+      contentLength: res.get("Content-Length"),
+      contentType: res.get("Content-Type"),
+    };
+
+    // Log based on response time thresholds
+    if (responseTime > 1000) {
+      console.warn(
+        "Performance Alert - Slow Response:",
+        JSON.stringify(performanceLog),
+      );
+    } else if (responseTime > 500) {
+      console.log(
+        "Performance Notice - Moderate Response:",
+        JSON.stringify(performanceLog),
+      );
+    }
+
+    // Add performance headers (optional)
+    res.setHeader("X-Response-Time", `${responseTime.toFixed(2)}ms`);
+    res.setHeader(
+      "X-Memory-Usage",
+      `${(endMemory.heapUsed / 1024 / 1024).toFixed(2)}MB`,
+    );
+
+    // Store metrics for potential further processing
+    req.performanceMetrics = performanceLog;
+
+    originalEnd.apply(this, args);
+  };
+
+  next();
+};
+
+/**
+ * System health monitoring
+ */
+const getSystemHealth = () => {
+  const memUsage = process.memoryUsage();
+  const cpuUsage = process.cpuUsage();
+  const loadAvg = os.loadavg();
+  const freeMem = os.freemem();
+  const totalMem = os.totalmem();
+
+  return {
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    memory: {
+      rss: memUsage.rss,
+      heapTotal: memUsage.heapTotal,
+      heapUsed: memUsage.heapUsed,
+      external: memUsage.external,
+      free: freeMem,
+      total: totalMem,
+      usagePercent: ((totalMem - freeMem) / totalMem) * 100,
+    },
+    cpu: {
+      user: cpuUsage.user,
+      system: cpuUsage.system,
+      loadAverage: {
+        '1min': loadAvg[0],
+        '5min': loadAvg[1],
+        '15min': loadAvg[2],
+      },
+    },
+    platform: os.platform(),
+    nodeVersion: process.version,
+    pid: process.pid,
+  };
+};
+
+/**
+ * Request metrics aggregation
+ */
+class MetricsAggregator {
+  constructor() {
+    this.metrics = {
+      totalRequests: 0,
+      totalResponseTime: 0,
+      avgResponseTime: 0,
+      minResponseTime: Infinity,
+      maxResponseTime: 0,
+      statusCodeCounts: {},
+      pathCounts: {},
+      errorCount: 0,
+      slowRequests: 0,
+    };
+
+    this.samplingRate = 0.1; // Sample 10% of requests for detailed metrics
+  }
+
+  recordRequest(metrics) {
+    this.metrics.totalRequests++;
+    this.metrics.totalResponseTime += metrics.responseTime;
+
+    // Update min/max
+    if (metrics.responseTime < this.metrics.minResponseTime) {
+      this.metrics.minResponseTime = metrics.responseTime;
+    }
+    if (metrics.responseTime > this.metrics.maxResponseTime) {
+      this.metrics.maxResponseTime = metrics.responseTime;
+    }
+
+    // Count status codes
+    this.metrics.statusCodeCounts[metrics.statusCode] =
+      (this.metrics.statusCodeCounts[metrics.statusCode] || 0) + 1;
+
+    // Count paths
+    this.metrics.pathCounts[metrics.path] =
+      (this.metrics.pathCounts[metrics.path] || 0) + 1;
+
+    // Count errors
+    if (metrics.statusCode >= 400) {
+      this.metrics.errorCount++;
+    }
+
+    // Count slow requests
+    if (metrics.responseTime > 1000) {
+      this.metrics.slowRequests++;
+    }
+
+    // Update average
+    this.metrics.avgResponseTime =
+      this.metrics.totalResponseTime / this.metrics.totalRequests;
+  }
+
+  getMetrics() {
+    return {
+      ...this.metrics,
+      avgResponseTime: this.metrics.avgResponseTime,
+      errorRate: (this.metrics.errorCount / this.metrics.totalRequests) * 100,
+      slowRequestRate:
+        (this.metrics.slowRequests / this.metrics.totalRequests) * 100,
+      samplingRate: this.samplingRate,
+    };
+  }
+
+  reset() {
+    this.metrics = {
+      totalRequests: 0,
+      totalResponseTime: 0,
+      avgResponseTime: 0,
+      minResponseTime: Infinity,
+      maxResponseTime: 0,
+      statusCodeCounts: {},
+      pathCounts: {},
+      errorCount: 0,
+      slowRequests: 0,
+    };
+  }
+}
+
+const metricsAggregator = new MetricsAggregator();
+
+/**
+ * Performance monitoring endpoints
+ */
+const createPerformanceEndpoints = (app) => {
+  // Health check with detailed metrics
+  app.get('/api/performance/health', (req, res) => {
+    const health = getSystemHealth();
+    const metrics = metricsAggregator.getMetrics();
+
+    res.json({
+      status: 'healthy',
+      timestamp: new Date().toISOString(),
+      system: health,
+      application: metrics,
+    });
+  });
+
+  // Performance metrics endpoint
+  app.get('/api/performance/metrics', (req, res) => {
+    const metrics = metricsAggregator.getMetrics();
+    res.json(metrics);
+  });
+
+  // Reset metrics endpoint (for testing)
+  app.post('/api/performance/reset', (req, res) => {
+    metricsAggregator.reset();
+    res.json({
+      message: 'Metrics reset successfully',
+      timestamp: new Date().toISOString(),
+    });
+  });
+
+  // Real-time performance endpoint
+  app.get('/api/performance/realtime', (req, res) => {
+    const currentMetrics = {
+      timestamp: new Date().toISOString(),
+      memory: process.memoryUsage(),
+      cpu: process.cpuUsage(),
+      uptime: process.uptime(),
+      load: os.loadavg(),
+      activeHandles: process._getActiveHandles().length,
+      activeRequests: process._getActiveRequests().length,
+    };
+
+    res.json(currentMetrics);
+  });
+};
+
+module.exports = {
+  createPerformanceMonitor,
+  getSystemHealth,
+  MetricsAggregator,
+  createPerformanceEndpoints,
+  metricsAggregator,
+};
+
+
+[FILE_END: server\middleware\performanceMonitoring.js]
+################################################################################
+
+================================================================================
+FILE_BEGIN: server\middleware\rateLimiting.js
+METADATA: Size=9403 bytes | Last_Modified=2026-01-05 21:16:38.754096
+================================================================================
+const Redis = require('redis');
+const rateLimit = require('express-rate-limit');
+const slowDown = require('express-slow-down');
+
+/**
+ * Rate Limiting Middleware Configuration
+ * Implements comprehensive rate limiting with Redis support
+ */
+
+// Initialize Redis client (optional)
+let redisClient = null;
+if (process.env.REDIS_URL || process.env.REDIS_HOST) {
+  try {
+    redisClient = Redis.createClient({
+      url:
+        process.env.REDIS_URL ||
+        `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT || 6379}`,
+      password: process.env.REDIS_PASSWORD,
+      retry_strategy: (options) => {
+        if (options.error && options.error.code === 'ECONNREFUSED') {
+          return new Error('Redis server connection refused');
+        }
+        if (options.total_retry_time > 1000 * 60 * 60) {
+          return new Error('Retry time exhausted');
+        }
+        if (options.attempt > 10) {
+          return undefined;
+        }
+        return Math.min(options.attempt * 100, 3000);
+      },
+    });
+
+    redisClient.on('error', (err) => {
+      console.warn('Redis client error:', err);
+      redisClient = null; // Fall back to memory store
+    });
+
+    redisClient.connect().catch((err) => {
+      console.warn('Failed to connect to Redis:', err);
+      redisClient = null;
+    });
+  } catch (err) {
+    console.warn('Failed to initialize Redis client:', err);
+    redisClient = null;
+  }
+}
+
+/**
+ * Create rate limiter with configuration
+ */
+function createRateLimiter(options = {}) {
+  const defaultOptions = {
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per windowMs
+    message: {
+      error: 'Too many requests from this IP, please try again later',
+      retryAfter: null,
+      limit: null,
+    },
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+    store: redisClient
+      ? {
+          sendCommand: (...args) => redisClient.sendCommand(args),
+        }
+      : undefined,
+    keyGenerator: (req) =>
+      // Use IP address and user agent for more granular rate limiting
+      `${req.ip}:${req.get("User-Agent")?.substring(0, 100) || "unknown"}`,
+    handler: (req, res) => {
+      const retryAfter = Math.round(options.windowMs / 1000);
+      res.status(429).json({
+        error: 'Too many requests',
+        message: options.message?.error || 'Rate limit exceeded',
+        retryAfter,
+        limit: options.max,
+        timestamp: new Date().toISOString(),
+      });
+    },
+    skip: (req) => {
+      // Skip rate limiting for health checks and admin IPs
+      const skipPaths = ['/health', '/api/health', '/api/status'];
+      const adminIPs = process.env.ADMIN_IPS
+        ? process.env.ADMIN_IPS.split(',')
+        : [];
+
+      return (
+        skipPaths.includes(req.path) ||
+        adminIPs.includes(req.ip) ||
+        req.path.startsWith('/webhook')
+      );
+    },
+  };
+
+  return rateLimit({
+    ...defaultOptions,
+    ...options,
+  });
+}
+
+/**
+ * Create speed limiter (slows down requests instead of blocking)
+ */
+function createSpeedLimiter(options = {}) {
+  const defaultOptions = {
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    delayAfter: 50, // Allow 50 requests per windowMs without delay
+    delayMs: 500, // Add 500ms delay per request after delayAfter
+    maxDelayMs: 10000, // Maximum delay of 10 seconds
+    store: redisClient
+      ? {
+          sendCommand: (...args) => redisClient.sendCommand(args),
+        }
+      : undefined,
+    keyGenerator: (req) => req.ip,
+    skip: (req) => {
+      // Skip speed limiting for certain paths
+      const skipPaths = ['/health', '/api/health'];
+      return skipPaths.includes(req.path);
+    },
+  };
+
+  return slowDown({
+    ...defaultOptions,
+    ...options,
+  });
+}
+
+/**
+ * Create advanced rate limiter with different tiers
+ */
+function createTieredRateLimiter() {
+  const tiers = {
+    free: {
+      windowMs: 60 * 1000, // 1 minute
+      max: 20, // 20 requests per minute
+      skipSuccessfulRequests: false,
+    },
+    basic: {
+      windowMs: 60 * 1000, // 1 minute
+      max: 100, // 100 requests per minute
+      skipSuccessfulRequests: false,
+    },
+    premium: {
+      windowMs: 60 * 1000, // 1 minute
+      max: 500, // 500 requests per minute
+      skipSuccessfulRequests: false,
+    },
+    admin: {
+      windowMs: 60 * 1000, // 1 minute
+      max: 1000, // 1000 requests per minute
+      skipSuccessfulRequests: true,
+    },
+  };
+
+  return (req, res, next) => {
+    // Determine user tier (implement your logic here)
+    const userTier = req.user?.tier || 'free';
+    const limiter = createRateLimiter(tiers[userTier] || tiers.free);
+
+    return limiter(req, res, next);
+  };
+}
+
+/**
+ * Rate limiter for sensitive operations
+ */
+const sensitiveOperationsLimiter = createRateLimiter({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // Only 5 attempts per 15 minutes
+  message: {
+    error: 'Too many sensitive operation attempts',
+    retryAfter: 900,
+  },
+  skipSuccessfulRequests: true,
+});
+
+/**
+ * Rate limiter for authentication endpoints
+ */
+const authLimiter = createRateLimiter({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // 5 login attempts per 15 minutes
+  message: {
+    error: 'Too many authentication attempts',
+    retryAfter: 900,
+  },
+  skipSuccessfulRequests: true,
+});
+
+/**
+ * Rate limiter for API endpoints
+ */
+const apiLimiter = createRateLimiter({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 1000, // 1000 requests per 15 minutes
+  message: {
+    error: 'API rate limit exceeded',
+    retryAfter: 900,
+  },
+});
+
+/**
+ * Rate limiter for search endpoints
+ */
+const searchLimiter = createRateLimiter({
+  windowMs: 60 * 1000, // 1 minute
+  max: 30, // 30 searches per minute
+  message: {
+    error: 'Search rate limit exceeded',
+    retryAfter: 60,
+  },
+});
+
+/**
+ * Rate limiter for file uploads
+ */
+const uploadLimiter = createRateLimiter({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 10, // 10 uploads per hour
+  message: {
+    error: 'Upload rate limit exceeded',
+    retryAfter: 3600,
+  },
+});
+
+/**
+ * Rate limiter for contact forms
+ */
+const contactLimiter = createRateLimiter({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 5, // 5 submissions per hour
+  message: {
+    error: 'Contact form submission rate limit exceeded',
+    retryAfter: 3600,
+  },
+});
+
+/**
+ * Rate limiter for password reset
+ */
+const passwordResetLimiter = createRateLimiter({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 3, // 3 password reset attempts per hour
+  message: {
+    error: 'Password reset rate limit exceeded',
+    retryAfter: 3600,
+  },
+});
+
+/**
+ * Rate limiter for email verification
+ */
+const emailVerificationLimiter = createRateLimiter({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 5, // 5 verification attempts per hour
+  message: {
+    error: 'Email verification rate limit exceeded',
+    retryAfter: 3600,
+  },
+});
+
+/**
+ * Global rate limiter (catch-all)
+ */
+const globalLimiter = createRateLimiter({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 2000, // 2000 requests per 15 minutes
+  message: {
+    error: 'Global rate limit exceeded',
+    retryAfter: 900,
+  },
+});
+
+/**
+ * Speed limiter for general API requests
+ */
+const apiSpeedLimiter = createSpeedLimiter({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  delayAfter: 100, // Allow 100 requests without delay
+  delayMs: 200, // Add 200ms delay per request after delayAfter
+});
+
+/**
+ * Get current rate limit status for an IP
+ */
+async function getRateLimitStatus(ip) {
+  if (!redisClient) {
+    return {
+      success: false,
+      error: 'Redis not available',
+    };
+  }
+
+  try {
+    const key = `rate-limit:${ip}`;
+    const current = await redisClient.get(key);
+    const ttl = await redisClient.ttl(key);
+
+    return {
+      success: true,
+      current: parseInt(current) || 0,
+      ttl: ttl || 0,
+      windowMs: 15 * 60 * 1000, // 15 minutes
+    };
+  } catch (error) {
+    console.error('Error getting rate limit status:', error);
+    return {
+      success: false,
+      error: error.message,
+    };
+  }
+}
+
+/**
+ * Reset rate limit for an IP (admin function)
+ */
+async function resetRateLimit(ip) {
+  if (!redisClient) {
+    return {
+      success: false,
+      error: 'Redis not available',
+    };
+  }
+
+  try {
+    const keys = [
+      `rate-limit:${ip}`,
+      `slow-down:${ip}`,
+      `auth-limit:${ip}`,
+      `search-limit:${ip}`,
+    ];
+
+    await Promise.all(keys.map((key) => redisClient.del(key)));
+
+    return {
+      success: true,
+      message: `Rate limit reset for IP: ${ip}`,
+    };
+  } catch (error) {
+    console.error('Error resetting rate limit:', error);
+    return {
+      success: false,
+      error: error.message,
+    };
+  }
+}
+
+/**
+ * Clean up Redis connection on shutdown
+ */
+function cleanup() {
+  if (redisClient) {
+    redisClient.quit();
+  }
+}
+
+// Handle process shutdown
+process.on('SIGINT', cleanup);
+process.on('SIGTERM', cleanup);
+
+module.exports = {
+  // Basic rate limiters
+  rateLimit: createRateLimiter,
+  speedLimit: createSpeedLimiter,
+  tieredRateLimiter: createTieredRateLimiter,
+
+  // Specific purpose limiters
+  authLimiter,
+  apiLimiter,
+  searchLimiter,
+  uploadLimiter,
+  contactLimiter,
+  passwordResetLimiter,
+  emailVerificationLimiter,
+  sensitiveOperationsLimiter,
+  globalLimiter,
+  apiSpeedLimiter,
+
+  // Utility functions
+  getRateLimitStatus,
+  resetRateLimit,
+
+  // Cleanup
+  cleanup,
+};
+
+
+[FILE_END: server\middleware\rateLimiting.js]
+################################################################################
+
+================================================================================
+FILE_BEGIN: server\middleware\securityHeaders.js
+METADATA: Size=4711 bytes | Last_Modified=2026-01-05 21:16:38.754096
+================================================================================
+/**
+ * Security Headers Middleware
+ * Implements comprehensive security headers for enterprise-grade protection
+ */
+
+const helmet = require('helmet');
+
+/**
+ * Creates comprehensive security headers configuration
+ * @param {Object} options - Configuration options
+ * @returns {Function} Express middleware function
+ */
+const createSecurityHeadersMiddleware = (options = {}) => {
+  const {
+    contentSecurityPolicy = {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: [
+          "'self'",
+          "'unsafe-inline'", // Required for React/Vite development
+          "'unsafe-eval'", // Required for Vite dev server
+          "https://apis.google.com",
+          "https://cdn.jsdelivr.net",
+        ],
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'", // Required for Tailwind CSS
+          "https://fonts.googleapis.com",
+        ],
+        fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+        imgSrc: ["'self'", 'data:', 'https:', 'blob:'],
+        connectSrc: [
+          "'self'",
+          "https://generativelanguage.googleapis.com",
+          "https://api.gemini.google.com",
+        ],
+        frameSrc: ["'self'"],
+        objectSrc: ["'none'"],
+        mediaSrc: ["'self'"],
+        workerSrc: ["'self'", "blob:"],
+        childSrc: ["'self'"],
+        formAction: ["'self'"],
+        frameAncestors: ["'none'"],
+        baseUri: ["'self'"],
+      },
+    },
+    referrerPolicy = { policy: "no-referrer-when-downgrade" },
+    crossOriginEmbedderPolicy = false, // Disable for API compatibility
+    hsts = {
+      maxAge: 31536000,
+      includeSubDomains: true,
+      preload: true,
+    },
+    noSniff = true,
+    xssFilter = true,
+    noOpen = true,
+    originAgentCluster = true,
+    permittedCrossDomainPolicies = false,
+    forceHTTPSRedirect = true,
+    excludeErrorPages = false,
+  } = options;
+
+  return helmet({
+    contentSecurityPolicy,
+    crossOriginEmbedderPolicy,
+    crossOriginOpenerPolicy: { policy: "same-origin" },
+    crossOriginResourcePolicy: { policy: "same-origin" },
+    dnsPrefetchControl: { allow: false },
+    frameguard: { action: "deny" },
+    hsts,
+    ieNoOpen: noOpen,
+    noSniff,
+    originAgentCluster,
+    permittedCrossDomainPolicies,
+    referrerPolicy,
+    xssFilter,
+    // Additional security headers
+    hidePoweredBy: true,
+    noSniff: true,
+  });
+};
+
+/**
+ * Apply security headers with CSP for specific routes
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next function
+ */
+const applySecurityHeaders = (req, res, next) => {
+  // Add additional security headers not covered by helmet
+  res.setHeader('X-Permitted-Cross-Domain-Policies', 'none');
+  res.setHeader('X-Download-Options', 'noopen');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader(
+    'Permissions-Policy',
+    [
+      'accelerometer=()',
+      'autoplay=()',
+      'camera=()',
+      'clipboard-read=()',
+      'clipboard-write=()',
+      'display-capture=()',
+      'encrypted-media=()',
+      'fullscreen=()',
+      'geolocation=()',
+      'gyroscope=()',
+      'magnetometer=()',
+      'microphone=()',
+      'midi=()',
+      'payment=()',
+      'picture-in-picture=()',
+      'publickey-credentials-get=(self)',
+      'screen-wake-lock=()',
+      'serial=()',
+      'usb=()',
+    ].join(', '),
+  );
+
+  next();
+};
+
+/**
+ * CSP violation reporting endpoint
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
+const handleCSPViolation = (req, res) => {
+  const violationReport = {
+    timestamp: new Date().toISOString(),
+    documentURI: req.body['document-uri'],
+    blockedURI: req.body['blocked-uri'],
+    violatedDirective: req.body['violated-directive'],
+    effectiveDirective: req.body['effective-directive'],
+    originalPolicy: req.body['original-policy'],
+    sourceFile: req.body['source-file'],
+    lineNumber: req.body['line-number'],
+    columnNumber: req.body['column-number'],
+    userAgent: req.headers['user-agent'],
+    ip: req.ip,
+  };
+
+  // Log violation for monitoring (in production, send to security monitoring system)
+  console.warn('CSP Violation Detected:', violationReport);
+
+  // In production, you might want to:
+  // 1. Send to security monitoring system (Sentry, DataDog, etc.)
+  // 2. Block requests from suspicious sources
+  // 3. Alert security team
+
+  res.status(204).end();
+};
+
+module.exports = {
+  createSecurityHeadersMiddleware,
+  applySecurityHeaders,
+  handleCSPViolation,
+};
+
+
+[FILE_END: server\middleware\securityHeaders.js]
+################################################################################
+
+================================================================================
+FILE_BEGIN: server\middleware\validation.js
+METADATA: Size=12778 bytes | Last_Modified=2026-01-05 21:16:38.755146
+================================================================================
+const rateLimit = require('express-rate-limit');
+const slowDown = require('express-slow-down');
+const { body, param, query, validationResult } = require('express-validator');
+const crypto = require('crypto');
+const { logSecurityEvent } = require('./logging');
+
+// Rate limiting configurations
+const createRateLimiter = (options = {}) =>
+  rateLimit({
+    windowMs: options.windowMs || 15 * 60 * 1000, // 15 minutes
+    max: options.max || 100, // limit each IP to 100 requests per windowMs
+    message: {
+      error: "Too many requests",
+      retryAfter: options.windowMs || 900000,
+    },
+    standardHeaders: true,
+    legacyHeaders: false,
+    handler: (req, res) => {
+      logSecurityEvent(
+        "rate_limit_exceeded",
+        "medium",
+        "Rate limit exceeded",
+        req,
+        {
+          ip: req.ip,
+          attempts: req.rateLimit?.totalHits || 0,
+        },
+      );
+      res.status(429).json({
+        error: "Too many requests",
+        retryAfter: req.rateLimit?.resetTime,
+      });
+    },
+    skip: (req) =>
+      // Skip rate limiting for health checks
+      req.path === '/health' || req.path === '/metrics',
+  });
+
+// Stricter rate limiter for authentication endpoints
+const authRateLimiter = createRateLimiter({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // 5 attempts per window
+  message: 'Too many authentication attempts',
+});
+
+// General API rate limiter
+const apiRateLimiter = createRateLimiter({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+});
+
+// Upload rate limiter (stricter for file uploads)
+const uploadRateLimiter = createRateLimiter({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 10, // 10 uploads per hour
+});
+
+// Speed limiter to slow down repeated requests
+const speedLimiter = slowDown({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  delayAfter: 50, // allow 50 requests per 15 minutes at full speed
+  delayMs: 500, // add 500ms delay per request after delayAfter
+});
+
+// Request validation rules
+const validate = {
+  // User validation
+  createUser: [
+    body('email')
+      .isEmail()
+      .normalizeEmail()
+      .isLength({ max: 255 })
+      .withMessage('Valid email is required'),
+    body('password')
+      .isLength({ min: 8, max: 128 })
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
+      )
+      .withMessage(
+        'Password must be 8-128 characters with uppercase, lowercase, number, and special character',
+      ),
+    body('firstName')
+      .trim()
+      .isLength({ min: 1, max: 50 })
+      .matches(/^[a-zA-Z\s]+$/)
+      .withMessage(
+        'First name must contain only letters and be 1-50 characters',
+      ),
+    body('lastName')
+      .trim()
+      .isLength({ min: 1, max: 50 })
+      .matches(/^[a-zA-Z\s]+$/)
+      .withMessage(
+        'Last name must contain only letters and be 1-50 characters',
+      ),
+    body('phone')
+      .optional()
+      .isMobilePhone('any')
+      .withMessage('Valid phone number is required'),
+    body('role')
+      .isIn(['tenant', 'landlord', 'admin'])
+      .withMessage('Role must be tenant, landlord, or admin'),
+  ],
+
+  // Property validation
+  createProperty: [
+    body('title')
+      .trim()
+      .isLength({ min: 1, max: 200 })
+      .withMessage('Title is required and must be less than 200 characters'),
+    body('description')
+      .trim()
+      .isLength({ min: 1, max: 2000 })
+      .withMessage(
+        'Description is required and must be less than 2000 characters',
+      ),
+    body('address.street')
+      .trim()
+      .isLength({ min: 1, max: 100 })
+      .withMessage('Street address is required'),
+    body('address.city')
+      .trim()
+      .isLength({ min: 1, max: 50 })
+      .matches(/^[a-zA-Z\s]+$/)
+      .withMessage('City must contain only letters'),
+    body('address.state')
+      .trim()
+      .isLength({ min: 2, max: 2 })
+      .matches(/^[A-Z]{2}$/)
+      .withMessage('State must be 2-letter code'),
+    body('address.zipCode')
+      .trim()
+      .isPostalCode('US')
+      .withMessage('Valid ZIP code is required'),
+    body('price')
+      .isFloat({ min: 0 })
+      .withMessage('Price must be a positive number'),
+    body('bedrooms')
+      .isInt({ min: 0, max: 20 })
+      .withMessage('Bedrooms must be between 0 and 20'),
+    body('bathrooms')
+      .isFloat({ min: 0, max: 20 })
+      .withMessage('Bathrooms must be between 0 and 20'),
+    body('squareFeet')
+      .isInt({ min: 1, max: 50000 })
+      .withMessage('Square feet must be between 1 and 50000'),
+    body('propertyType')
+      .isIn(['apartment', 'house', 'condo', 'townhouse', 'studio'])
+      .withMessage('Invalid property type'),
+  ],
+
+  // Query validation
+  validateQuery: [
+    query('page')
+      .optional()
+      .isInt({ min: 1, max: 1000 })
+      .withMessage('Page must be between 1 and 1000'),
+    query('limit')
+      .optional()
+      .isInt({ min: 1, max: 100 })
+      .withMessage('Limit must be between 1 and 100'),
+    query('sortBy')
+      .optional()
+      .isIn(['price', 'createdAt', 'updatedAt', 'title'])
+      .withMessage('Invalid sort field'),
+    query('sortOrder')
+      .optional()
+      .isIn(['asc', 'desc'])
+      .withMessage('Sort order must be asc or desc'),
+  ],
+
+  // Parameter validation
+  validateId: [param('id').isUUID().withMessage('Valid UUID is required')],
+
+  // Contact form validation
+  contactForm: [
+    body('name')
+      .trim()
+      .isLength({ min: 1, max: 100 })
+      .matches(/^[a-zA-Z\s]+$/)
+      .withMessage('Name must contain only letters and be 1-100 characters'),
+    body('email')
+      .isEmail()
+      .normalizeEmail()
+      .withMessage('Valid email is required'),
+    body('phone')
+      .optional()
+      .isMobilePhone('any')
+      .withMessage('Valid phone number is required'),
+    body('subject')
+      .trim()
+      .isLength({ min: 1, max: 200 })
+      .withMessage('Subject is required and must be less than 200 characters'),
+    body('message')
+      .trim()
+      .isLength({ min: 1, max: 2000 })
+      .withMessage('Message is required and must be less than 2000 characters'),
+  ],
+};
+
+// Request sanitization middleware
+const sanitizeRequest = (req, res, next) => {
+  // Remove potentially dangerous characters
+  const sanitizeString = (str) => {
+    if (typeof str !== 'string') return str;
+    return str
+      .replace(
+        /<(?:script|iframe|object|embed|form|link|meta|base|input|textarea|select|button)[\s\S]*?<\/(?:script|iframe|object|embed|form|link|meta|base|input|textarea|select|button)>/gi,
+        '',
+      ) // Remove dangerous HTML tags
+      .replace(
+        /<[^>]*(?:on\w+|href|src|data|action|formaction|style)[^>]*>/gi,
+        '',
+      ) // Remove event handlers and dangerous attributes
+      .replace(/(?:javascript|vbscript|data|file|ftp):/gi, '') // Remove dangerous protocols
+      .replace(/[\r\n\t]+/g, ' ') // Normalize whitespace
+      .replace(/\s+/g, ' ') // Collapse multiple spaces
+      .trim();
+  };
+
+  // Sanitize request body
+  if (req.body && typeof req.body === 'object') {
+    req.body = sanitizeObject(req.body, sanitizeString);
+  }
+
+  // Sanitize query parameters
+  if (req.query && typeof req.query === 'object') {
+    req.query = sanitizeObject(req.query, sanitizeString);
+  }
+
+  next();
+};
+
+const sanitizeObject = (obj, sanitizeFn) => {
+  if (Array.isArray(obj)) {
+    return obj.map((item) => sanitizeObject(item, sanitizeFn));
+  }
+
+  if (obj && typeof obj === 'object') {
+    const sanitized = {};
+    for (const [key, value] of Object.entries(obj)) {
+      sanitized[key] = sanitizeObject(value, sanitizeFn);
+    }
+    return sanitized;
+  }
+
+  return typeof obj === 'string' ? sanitizeFn(obj) : obj;
+};
+
+// SQL injection prevention
+const preventSQLInjection = (req, res, next) => {
+  const sqlPatterns = [
+    /(\b(SELECT|INSERT|UPDATE|DELETE|DROP|CREATE|ALTER|EXEC|UNION|SCRIPT)\b)/gi,
+    /('|(\\x27)|(\\x2D)|(\\x2D)|(\\x23)|(\\x3A))/gi,
+    /(\b(OR|AND)\b\s*['"]?\d+['"]?\s*=\s*['"]?\d+['"]?)/gi,
+    /(\b(OR|AND)\b\s*['"]?\w+['"]?\s*=\s*['"]?\w+['"]?)/gi,
+    /https?:\/\/[^\/]*@/gi, // URL scheme validation - prevent user:pass@host
+    /file:\/\//gi, // Block file:// protocol
+    /data:\/\//gi, // Block data: protocol
+  ];
+
+  const checkForSQL = (obj) => {
+    for (const [key, value] of Object.entries(obj)) {
+      if (typeof value === 'string') {
+        for (const pattern of sqlPatterns) {
+          if (pattern.test(value)) {
+            logSecurityEvent(
+              'sql_injection_attempt',
+              'high',
+              'SQL injection attempt detected',
+              req,
+              {
+                key,
+                value,
+                pattern: pattern.source,
+              },
+            );
+            return true;
+          }
+        }
+      }
+      if (typeof value === 'object' && value !== null) {
+        if (checkForSQL(value)) return true;
+      }
+    }
+    return false;
+  };
+
+  if (checkForSQL(req.body) || checkForSQL(req.query)) {
+    return res.status(400).json({
+      error: 'Invalid input detected',
+    });
+  }
+
+  next();
+};
+
+// File upload validation
+const validateFileUpload = (req, res, next) => {
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return next();
+  }
+
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+  const maxSize = 5 * 1024 * 1024; // 5MB
+
+  for (const fieldName in req.files) {
+    const file = req.files[fieldName];
+    const files = Array.isArray(file) ? file : [file];
+
+    for (const uploadedFile of files) {
+      if (!allowedTypes.includes(uploadedFile.mimetype)) {
+        logSecurityEvent(
+          'invalid_file_type',
+          'medium',
+          'Invalid file type uploaded',
+          req,
+          {
+            fieldName,
+            mimetype: uploadedFile.mimetype,
+            filename: uploadedFile.name,
+          },
+        );
+        return res.status(400).json({
+          error: `Invalid file type. Allowed types: ${allowedTypes.join(', ')}`,
+        });
+      }
+
+      if (uploadedFile.size > maxSize) {
+        logSecurityEvent('file_too_large', 'medium', 'File too large', req, {
+          fieldName,
+          size: uploadedFile.size,
+          maxSize,
+        });
+        return res.status(400).json({
+          error: `File too large. Maximum size: ${maxSize / 1024 / 1024}MB`,
+        });
+      }
+    }
+  }
+
+  next();
+};
+
+// XSS prevention
+const preventXSS = (req, res, next) => {
+  const xssPatterns = [
+    /<(?:script|iframe|object|embed|form|link|meta|base|input|textarea|select|button)[\s\S]*?<\/(?:script|iframe|object|embed|form|link|meta|base|input|textarea|select|button)>/gi,
+    /<[^>]*(?:on\w+|href|src|data|action|formaction|style)[^>]*>/gi,
+    /(?:javascript|vbscript|data|file|ftp):/gi,
+    /[\r\n\t]+/g,
+    /<[^>]*>/g,
+  ];
+
+  const checkForXSS = (obj) => {
+    for (const [key, value] of Object.entries(obj)) {
+      if (typeof value === 'string') {
+        for (const pattern of xssPatterns) {
+          if (pattern.test(value)) {
+            logSecurityEvent(
+              'xss_attempt',
+              'high',
+              'XSS attempt detected',
+              req,
+              {
+                key,
+                value: value.substring(0, 100), // Log first 100 chars
+                pattern: pattern.source,
+              },
+            );
+            return true;
+          }
+        }
+      }
+      if (typeof value === 'object' && value !== null) {
+        if (checkForXSS(value)) return true;
+      }
+    }
+    return false;
+  };
+
+  if (checkForXSS(req.body) || checkForXSS(req.query)) {
+    return res.status(400).json({
+      error: 'Potentially dangerous content detected',
+    });
+  }
+
+  next();
+};
+
+// Request size validation
+const validateRequestSize = (req, res, next) => {
+  const contentLength = req.headers['content-length'];
+  const maxSize = 10 * 1024 * 1024; // 10MB
+
+  if (contentLength && parseInt(contentLength) > maxSize) {
+    logSecurityEvent('request_too_large', 'medium', 'Request too large', req, {
+      contentLength,
+      maxSize,
+    });
+    return res.status(413).json({
+      error: 'Request payload too large',
+    });
+  }
+
+  next();
+};
+
+// Validation error handler
+const handleValidationErrors = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    logSecurityEvent(
+      'validation_error',
+      'low',
+      'Request validation failed',
+      req,
+      {
+        errors: errors.array(),
+      },
+    );
+    return res.status(400).json({
+      error: 'Validation failed',
+      details: errors.array(),
+    });
+  }
+  next();
+};
+
+module.exports = {
+  createRateLimiter,
+  authRateLimiter,
+  apiRateLimiter,
+  uploadRateLimiter,
+  speedLimiter,
+  validate,
+  sanitizeRequest,
+  preventSQLInjection,
+  validateFileUpload,
+  preventXSS,
+  validateRequestSize,
+  handleValidationErrors,
+};
+
+
+[FILE_END: server\middleware\validation.js]
+################################################################################
+
+================================================================================
+FILE_BEGIN: server\utils\logger.js
+METADATA: Size=5104 bytes | Last_Modified=2026-01-05 21:16:38.753096
+================================================================================
+const winston = require('winston');
+const path = require('path');
+
+// Custom log format
+const logFormat = winston.format.combine(
+  winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+  winston.format.errors({ stack: true }),
+  winston.format.json(),
+  winston.format.printf(({ timestamp, level, message, stack, ...meta }) => {
+    let log = `${timestamp} [${level.toUpperCase()}]: ${message}`;
+    if (stack) {
+      log += `\n${stack}`;
+    }
+    if (Object.keys(meta).length > 0) {
+      log += `\n${JSON.stringify(meta, null, 2)}`;
+    }
+    return log;
+  }),
+);
+
+// Create logger instance
+const logger = winston.createLogger({
+  level: process.env.LOG_LEVEL || 'info',
+  format: logFormat,
+  defaultMeta: {
+    service: 'properties-website',
+    version: process.env.npm_package_version || '1.0.0',
+  },
+  transports: [
+    // Console transport
+    new winston.transports.Console({
+      format: winston.format.combine(
+        winston.format.colorize(),
+        winston.format.simple(),
+      ),
+    }),
+
+    // File transport for all logs
+    new winston.transports.File({
+      filename: path.join('logs', 'combined.log'),
+      maxsize: 10485760, // 10MB
+      maxFiles: 5,
+      tailable: true,
+    }),
+
+    // Separate file for error logs
+    new winston.transports.File({
+      filename: path.join('logs', 'error.log'),
+      level: 'error',
+      maxsize: 10485760, // 10MB
+      maxFiles: 5,
+      tailable: true,
+    }),
+  ],
+
+  // Handle uncaught exceptions
+  exceptionHandlers: [
+    new winston.transports.File({
+      filename: path.join('logs', 'exceptions.log'),
+      maxsize: 10485760,
+      maxFiles: 3,
+    }),
+  ],
+
+  // Handle unhandled promise rejections
+  rejectionHandlers: [
+    new winston.transports.File({
+      filename: path.join('logs', 'rejections.log'),
+      maxsize: 10485760,
+      maxFiles: 3,
+    }),
+  ],
+});
+
+// Performance logger for monitoring
+const performanceLogger = winston.createLogger({
+  level: 'info',
+  format: logFormat,
+  defaultMeta: {
+    service: 'properties-website',
+    type: 'performance',
+  },
+  transports: [
+    new winston.transports.File({
+      filename: path.join('logs', 'performance.log'),
+      maxsize: 52428800, // 50MB
+      maxFiles: 10,
+      tailable: true,
+    }),
+  ],
+});
+
+// Security logger for tracking security events
+const securityLogger = winston.createLogger({
+  level: 'info',
+  format: logFormat,
+  defaultMeta: {
+    service: 'properties-website',
+    type: 'security',
+  },
+  transports: [
+    new winston.transports.File({
+      filename: path.join('logs', 'security.log'),
+      maxsize: 52428800, // 50MB
+      maxFiles: 10,
+      tailable: true,
+    }),
+  ],
+});
+
+// API logger for tracking API requests
+const apiLogger = winston.createLogger({
+  level: 'info',
+  format: logFormat,
+  defaultMeta: {
+    service: 'properties-website',
+    type: 'api',
+  },
+  transports: [
+    new winston.transports.File({
+      filename: path.join('logs', 'api.log'),
+      maxsize: 52428800, // 50MB
+      maxFiles: 10,
+      tailable: true,
+    }),
+  ],
+});
+
+// Create logs directory if it doesn't exist
+const fs = require('fs');
+const logsDir = path.join(__dirname, '..', 'logs');
+if (!fs.existsSync(logsDir)) {
+  fs.mkdirSync(logsDir, { recursive: true });
+}
+
+// Helper functions for different log types
+const loggers = {
+  main: logger,
+  performance: performanceLogger,
+  security: securityLogger,
+  api: apiLogger,
+
+  // Request logging middleware
+  requestMiddleware: (req, res, next) => {
+    const start = Date.now();
+
+    res.on('finish', () => {
+      const duration = Date.now() - start;
+      const logData = {
+        method: req.method,
+        url: req.originalUrl,
+        status: res.statusCode,
+        duration,
+        ip: req.ip || req.connection.remoteAddress,
+        userAgent: req.get('User-Agent'),
+        contentLength: res.get('Content-Length') || 0,
+      };
+
+      apiLogger.info('API Request', logData);
+
+      // Log slow requests (>2s) as warnings
+      if (duration > 2000) {
+        performanceLogger.warn('Slow Request', logData);
+      }
+    });
+
+    next();
+  },
+
+  // Error logging middleware
+  errorMiddleware: (err, req, res, next) => {
+    const errorData = {
+      error: {
+        message: err.message,
+        stack: err.stack,
+        name: err.name,
+      },
+      request: {
+        method: req.method,
+        url: req.originalUrl,
+        headers: req.headers,
+        body: req.body,
+        ip: req.ip || req.connection.remoteAddress,
+        userAgent: req.get('User-Agent'),
+      },
+      timestamp: new Date().toISOString(),
+    };
+
+    logger.error('Unhandled Error', errorData);
+    next(err);
+  },
+
+  // Security event logging
+  logSecurityEvent: (event, data) => {
+    securityLogger.info('Security Event', {
+      event,
+      ...data,
+      timestamp: new Date().toISOString(),
+    });
+  },
+
+  // Performance monitoring
+  logPerformance: (metric, value, tags = {}) => {
+    performanceLogger.info('Performance Metric', {
+      metric,
+      value,
+      tags,
+      timestamp: new Date().toISOString(),
+    });
+  },
+};
+
+module.exports = loggers;
+
+
+[FILE_END: server\utils\logger.js]
+################################################################################
+
+================================================================================
+FILE_BEGIN: tailwind.config.js
+METADATA: Size=1265 bytes | Last_Modified=2026-01-05 23:20:22.738925
+================================================================================
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    './index.html',
+    './src/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
+    './pages/**/*.{js,ts,jsx,tsx}',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        p4c: {
+          navy: 'var(--color-navy)',
+          beige: 'var(--color-beige)',
+          gold: 'var(--color-gold)',
+          goldHover: 'var(--color-gold-hover)',
+          slate: 'var(--color-slate)',
+        },
+      },
+      fontFamily: {
+        serif: ['Merriweather', 'serif'],
+        sans: ['Inter', 'sans-serif'],
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.5s ease-out forwards',
+        'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
+        'slide-in': 'slideIn 0.3s ease-out forwards',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        fadeInUp: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        slideIn: {
+          '0%': { transform: 'translateX(100%)', opacity: '0' },
+          '100%': { transform: 'translateX(0)', opacity: '1' },
+        },
+      },
+    },
+  },
+  plugins: [],
+};
+
+
+[FILE_END: tailwind.config.js]
+################################################################################

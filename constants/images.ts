@@ -110,5 +110,6 @@ export const IMAGES = {
   VIDEOS: {
     HERO_PROPERTIES: '/images/videos/hero-properties-banner.mp4',
     HERO_WORK: '/images/videos/hero-our-work-banner.mp4',
+    SUCCESS_STORY: '/images/videos/success-story.mp4',
   },
 } as const;

@@ -20,6 +20,7 @@ import {
   Scale,
   Accessibility,
 } from 'lucide-react';
+import { IMAGES } from '../constants/images';
 
 interface NavItem {
   label: string;
@@ -163,17 +164,11 @@ const Navbar: React.FC = () => {
             to="/"
             className="flex-shrink-0 flex items-center gap-3 hover:opacity-90 transition-opacity"
           >
-            <div className="bg-p4c-gold p-2 rounded-full">
-              <Home className="text-p4c-navy w-6 h-6" />
-            </div>
-            <div className="text-left">
-              <span className="font-serif text-xl md:text-2xl font-bold tracking-tight text-p4c-beige block leading-none">
-                Properties 4 Creation
-              </span>
-              <p className="text-[10px] text-gray-400 uppercase tracking-widest hidden md:block mt-1">
-                Veteran Owned & Operated
-              </p>
-            </div>
+            <img
+              src={IMAGES.LOGO.PNG}
+              alt="Properties 4 Creation Logo"
+              className="h-14 w-auto object-contain"
+            />
           </Link>
 
           {/* Desktop Navigation */}

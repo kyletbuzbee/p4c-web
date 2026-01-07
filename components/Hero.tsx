@@ -4,13 +4,19 @@ import { IMAGES } from '../constants/images';
 
 const Hero: React.FC = () => (
   <div className="relative h-[85vh] w-full overflow-hidden flex items-center justify-center">
-    {/* Image Background */}
-    <div className="absolute top-0 left-0 w-full h-full z-0">
-      <img
-        src={IMAGES.BANNERS.HERO_HOME}
-        alt="Hero background"
+    {/* Video Background */}
+    <div className="absolute top-0 left-0 w-full h-full z-0 overflow-hidden">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        poster={IMAGES.BANNERS.HERO_HOME}
         className="object-cover w-full h-full"
-      />
+        aria-label="Hero background video showcasing renovated properties"
+      >
+        <source src={IMAGES.VIDEOS.SUCCESS_STORY} type="video/mp4" />
+      </video>
       {/* Enhanced overlay for readability */}
       <div className="absolute top-0 left-0 w-full h-full hero-overlay-primary" />
       <div className="absolute top-0 left-0 w-full h-full hero-overlay-secondary" />
