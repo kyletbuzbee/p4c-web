@@ -4,7 +4,7 @@ interface SkeletonProps {
   className?: string;
 }
 
-const Skeleton: React.FC<SkeletonProps> = ({ className = "" }) => (
+const Skeleton: React.FC<SkeletonProps> = ({ className = '' }) => (
   <div className={`animate-pulse bg-gray-200 rounded-lg ${className}`} />
 );
 

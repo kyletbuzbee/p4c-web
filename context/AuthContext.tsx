@@ -84,7 +84,7 @@ const validateStoredUser = (storedUser: string): User | null => {
 // Secure session validation with backend
 const validateSessionWithBackend = async (
   userId: string,
-  sessionToken: string,
+  sessionToken: string
 ): Promise<boolean> => {
   try {
     const response = await fetch('/api/auth/validate-session', {
@@ -110,8 +110,8 @@ const generateSecureUserId = (): string => {
   if (typeof window !== 'undefined' && window.crypto) {
     const array = new Uint8Array(16);
     window.crypto.getRandomValues(array);
-    return Array.from(array, (byte) => byte.toString(16).padStart(2, "0")).join(
-      "",
+    return Array.from(array, (byte) => byte.toString(16).padStart(2, '0')).join(
+      ''
     );
   }
   // Fallback for older browsers
@@ -139,7 +139,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
             // Verify session with backend
             const isValidSession = await validateSessionWithBackend(
               validatedUser.id,
-              sessionToken,
+              sessionToken
             );
 
             if (isValidSession) {
@@ -305,7 +305,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       // Check specific permissions
       return user.permissions.includes(permission);
     },
-    [user],
+    [user]
   );
 
   return (

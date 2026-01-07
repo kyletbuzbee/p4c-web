@@ -67,8 +67,8 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
           generateResponsiveSrcset(
             baseUrl,
             responsiveImageConfig.breakpoints,
-            'avif',
-          ),
+            'avif'
+          )
         );
       } else if (format === 'webp' && imageFormatSupport.webp) {
         sources.set(
@@ -76,8 +76,8 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
           generateResponsiveSrcset(
             baseUrl,
             responsiveImageConfig.breakpoints,
-            'webp',
-          ),
+            'webp'
+          )
         );
       } else if (format === 'jpeg') {
         sources.set(
@@ -85,8 +85,8 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
           generateResponsiveSrcset(
             baseUrl,
             responsiveImageConfig.breakpoints,
-            'jpeg',
-          ),
+            'jpeg'
+          )
         );
       }
     });

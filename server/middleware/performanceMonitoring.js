@@ -42,30 +42,30 @@ const createPerformanceMonitor = () => (req, res, next) => {
       statusCode: res.statusCode,
       responseTime,
       memoryDelta,
-      userAgent: req.get("User-Agent"),
+      userAgent: req.get('User-Agent'),
       ip: req.ip,
-      contentLength: res.get("Content-Length"),
-      contentType: res.get("Content-Type"),
+      contentLength: res.get('Content-Length'),
+      contentType: res.get('Content-Type'),
     };
 
     // Log based on response time thresholds
     if (responseTime > 1000) {
       console.warn(
-        "Performance Alert - Slow Response:",
-        JSON.stringify(performanceLog),
+        'Performance Alert - Slow Response:',
+        JSON.stringify(performanceLog)
       );
     } else if (responseTime > 500) {
       console.log(
-        "Performance Notice - Moderate Response:",
-        JSON.stringify(performanceLog),
+        'Performance Notice - Moderate Response:',
+        JSON.stringify(performanceLog)
       );
     }
 
     // Add performance headers (optional)
-    res.setHeader("X-Response-Time", `${responseTime.toFixed(2)}ms`);
+    res.setHeader('X-Response-Time', `${responseTime.toFixed(2)}ms`);
     res.setHeader(
-      "X-Memory-Usage",
-      `${(endMemory.heapUsed / 1024 / 1024).toFixed(2)}MB`,
+      'X-Memory-Usage',
+      `${(endMemory.heapUsed / 1024 / 1024).toFixed(2)}MB`
     );
 
     // Store metrics for potential further processing

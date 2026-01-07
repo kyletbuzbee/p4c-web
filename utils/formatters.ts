@@ -10,7 +10,7 @@
  */
 export const formatCurrency = (
   amount: number,
-  options?: Intl.NumberFormatOptions,
+  options?: Intl.NumberFormatOptions
 ): string => {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -38,7 +38,7 @@ export const formatNumber = (num: number): string => {
  */
 export const formatDate = (
   dateString: string,
-  options?: Intl.DateTimeFormatOptions,
+  options?: Intl.DateTimeFormatOptions
 ): string => {
   const date = new Date(dateString);
   return new Intl.DateTimeFormat('en-US', {

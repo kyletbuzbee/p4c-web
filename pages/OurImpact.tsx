@@ -30,7 +30,7 @@ const OurImpact: React.FC = () => {
         setMetrics(metricsData);
         setFinancials(financialData);
       } catch (error) {
-        addToast("Unable to load impact data.", "error");
+        addToast('Unable to load impact data.', 'error');
       } finally {
         setLoading(false);
       }

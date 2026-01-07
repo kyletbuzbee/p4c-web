@@ -22,7 +22,7 @@ const AIChatbot: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const AIChatbot: React.FC = () => {
         }
         if (e.key === 'Tab' && chatContainerRef.current) {
           const focusableElements = chatContainerRef.current.querySelectorAll(
-            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
           );
           const firstElement = focusableElements[0] as HTMLElement;
           const lastElement = focusableElements[
@@ -74,7 +74,7 @@ const AIChatbot: React.FC = () => {
 
     const userMessage = input;
     setInput('');
-    setMessages((prev) => [...prev, { role: "user", text: userMessage }]);
+    setMessages((prev) => [...prev, { role: 'user', text: userMessage }]);
     setIsLoading(true);
 
     try {
@@ -86,12 +86,12 @@ const AIChatbot: React.FC = () => {
       }));
 
       const response = await sendChatMessage(userMessage, history);
-      setMessages((prev) => [...prev, { role: "model", text: response }]);
+      setMessages((prev) => [...prev, { role: 'model', text: response }]);
     } catch (error) {
       setMessages((prev) => [
         ...prev,
         {
-          role: "model",
+          role: 'model',
           text: "I'm having trouble connecting to the server. Please try again later.",
         },
       ]);

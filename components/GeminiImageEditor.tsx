@@ -21,7 +21,7 @@ const GeminiImageEditor: React.FC = () => {
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > 5 * 1024 * 1024) {
-        setError("Image size too large. Please use an image under 5MB.");
+        setError('Image size too large. Please use an image under 5MB.');
         return;
       }
 
@@ -50,7 +50,7 @@ const GeminiImageEditor: React.FC = () => {
       setGeneratedImage(result);
     } catch (err) {
       setError(
-        'Failed to process image. Please try again with a different prompt.',
+        'Failed to process image. Please try again with a different prompt.'
       );
     } finally {
       setLoading(false);

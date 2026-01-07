@@ -68,8 +68,8 @@ const logger = winston.createLogger({
         timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
         printf(
           ({ timestamp, level, message, ...meta }) =>
-            `${timestamp} [${level}]: ${message} ${Object.keys(meta).length ? JSON.stringify(meta, null, 2) : ""}`,
-        ),
+            `${timestamp} [${level}]: ${message} ${Object.keys(meta).length ? JSON.stringify(meta, null, 2) : ''}`
+        )
       ),
     }),
   ],
@@ -86,7 +86,7 @@ if (process.env.NODE_ENV === 'production') {
       format: combine(timestamp(), errors({ stack: true }), json()),
       maxSize: '20m',
       maxFiles: '14d',
-    }),
+    })
   );
 
   // Combined log file
@@ -97,7 +97,7 @@ if (process.env.NODE_ENV === 'production') {
       format: combine(timestamp(), errors({ stack: true }), json()),
       maxSize: '20m',
       maxFiles: '30d',
-    }),
+    })
   );
 
   // Security events log
@@ -109,7 +109,7 @@ if (process.env.NODE_ENV === 'production') {
       format: combine(timestamp(), json()),
       maxSize: '20m',
       maxFiles: '90d',
-    }),
+    })
   );
 
   // Add Loki transport if configured
@@ -129,7 +129,7 @@ if (process.env.NODE_ENV === 'production') {
         },
         format: winston.format.json(),
         level: 'info',
-      }),
+      })
     );
   }
 }
@@ -309,7 +309,7 @@ const requestLogger = (req, res, next) => {
       req.method,
       req.route?.path || req.path,
       res.statusCode,
-      duration,
+      duration
     );
 
     // Log response
@@ -361,11 +361,11 @@ const performanceMonitor =
   (req, res, next) => {
     const startTime = Date.now();
 
-    res.on("finish", () => {
+    res.on('finish', () => {
       const duration = Date.now() - startTime;
 
       if (duration > threshold) {
-        logger.warn("Slow Request Detected", {
+        logger.warn('Slow Request Detected', {
           method: req.method,
           url: req.originalUrl,
           duration,

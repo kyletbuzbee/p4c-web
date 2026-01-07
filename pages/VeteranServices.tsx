@@ -50,33 +50,33 @@ const VeteranServices: React.FC = () => (
           {[
             {
               icon: Home,
-              title: "Priority Housing",
-              text: "Veterans receive priority placement for all available units. We hold units for up to 7 days for VASH voucher processing.",
+              title: 'Priority Housing',
+              text: 'Veterans receive priority placement for all available units. We hold units for up to 7 days for VASH voucher processing.',
             },
             {
               icon: Shield,
-              title: "Deposit Assistance",
-              text: "We partner with local non-profits like CampV to help cover security deposits and move-in costs.",
+              title: 'Deposit Assistance',
+              text: 'We partner with local non-profits like CampV to help cover security deposits and move-in costs.',
             },
             {
               icon: Users,
-              title: "Community Connection",
-              text: "Regular meetups and a network of veteran residents to foster camaraderie and combat isolation.",
+              title: 'Community Connection',
+              text: 'Regular meetups and a network of veteran residents to foster camaraderie and combat isolation.',
             },
             {
               icon: Briefcase,
-              title: "Employment Support",
-              text: "Direct hiring pipeline for Properties 4 Creation renovation projects and referrals to veteran-friendly local employers.",
+              title: 'Employment Support',
+              text: 'Direct hiring pipeline for Properties 4 Creation renovation projects and referrals to veteran-friendly local employers.',
             },
             {
               icon: Users,
-              title: "Benefits Navigation",
-              text: "Our staff is trained to help you navigate VA paperwork and connect with County Service Officers.",
+              title: 'Benefits Navigation',
+              text: 'Our staff is trained to help you navigate VA paperwork and connect with County Service Officers.',
             },
             {
               icon: Phone,
-              title: "24/7 Support Line",
-              text: "Dedicated maintenance and support line for veteran residents to ensure your needs are met promptly.",
+              title: '24/7 Support Line',
+              text: 'Dedicated maintenance and support line for veteran residents to ensure your needs are met promptly.',
             },
           ].map((service, i) => (
             <div
@@ -157,24 +157,24 @@ const VeteranServices: React.FC = () => (
           <div className="space-y-4">
             {[
               {
-                name: "CampV Tyler",
-                desc: "Holistic veteran support campus.",
-                phone: "(903) 566-1010",
+                name: 'CampV Tyler',
+                desc: 'Holistic veteran support campus.',
+                phone: '(903) 566-1010',
               },
               {
-                name: "Texas Veterans Commission",
-                desc: "Claims representation and employment services.",
-                phone: "(512) 463-6564",
+                name: 'Texas Veterans Commission',
+                desc: 'Claims representation and employment services.',
+                phone: '(512) 463-6564',
               },
               {
-                name: "Smith County VSO",
-                desc: "Local assistance with VA claims.",
-                phone: "(903) 590-2930",
+                name: 'Smith County VSO',
+                desc: 'Local assistance with VA claims.',
+                phone: '(903) 590-2930',
               },
               {
-                name: "VA Clinic - Tyler",
-                desc: "Primary care and mental health services.",
-                phone: "(903) 590-3050",
+                name: 'VA Clinic - Tyler',
+                desc: 'Primary care and mental health services.',
+                phone: '(903) 590-3050',
               },
             ].map((res, i) => (
               <div
@@ -189,7 +189,7 @@ const VeteranServices: React.FC = () => (
                 </div>
                 <div className="mt-4 sm:mt-0">
                   <a
-                    href={`tel:${res.phone.replace(/\D/g, "")}`}
+                    href={`tel:${res.phone.replace(/\D/g, '')}`}
                     className="text-p4c-gold font-bold hover:underline flex items-center gap-2"
                   >
                     <Phone className="w-4 h-4" /> {res.phone}

@@ -56,9 +56,9 @@ const Employment: React.FC = () => (
             <ul className="space-y-3">
               {[
                 'Priority hiring for Veterans and spouses',
-                "Weekly pay schedules",
+                'Weekly pay schedules',
                 'Tools and safety gear allowance',
-                "Skills training and certification support",
+                'Skills training and certification support',
               ].map((item, i) => (
                 <li key={i} className="flex items-center text-gray-700">
                   <CheckCircle2 className="w-5 h-5 text-p4c-gold mr-3" />
@@ -83,28 +83,28 @@ const Employment: React.FC = () => (
           <div className="space-y-4">
             {[
               {
-                title: "Lead Carpenter",
-                type: "Full-Time",
-                location: "Tyler, TX",
-                salary: "$25 - $35/hr",
+                title: 'Lead Carpenter',
+                type: 'Full-Time',
+                location: 'Tyler, TX',
+                salary: '$25 - $35/hr',
               },
               {
-                title: "HVAC Technician",
-                type: "Contract",
-                location: "Longview, TX",
-                salary: "Project Based",
+                title: 'HVAC Technician',
+                type: 'Contract',
+                location: 'Longview, TX',
+                salary: 'Project Based',
               },
               {
-                title: "Property Manager",
-                type: "Full-Time",
-                location: "East Texas Area",
-                salary: "$45k - $55k/yr",
+                title: 'Property Manager',
+                type: 'Full-Time',
+                location: 'East Texas Area',
+                salary: '$45k - $55k/yr',
               },
               {
-                title: "General Laborer",
-                type: "Part-Time",
-                location: "Various Sites",
-                salary: "$18/hr",
+                title: 'General Laborer',
+                type: 'Part-Time',
+                location: 'Various Sites',
+                salary: '$18/hr',
               },
             ].map((job, index) => (
               <div

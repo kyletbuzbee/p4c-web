@@ -49,7 +49,7 @@ const About: React.FC = () => (
           </h2>
           <div className="w-20 h-1 bg-p4c-gold mb-8" />
           <p className="text-gray-700 leading-relaxed mb-6 text-lg">
-            Properties 4 Creation was founded with a simple but radical idea:{" "}
+            Properties 4 Creation was founded with a simple but radical idea:{' '}
             <strong>Affordable housing shouldn't mean lower standards.</strong>
           </p>
           <p className="text-gray-700 leading-relaxed mb-6">

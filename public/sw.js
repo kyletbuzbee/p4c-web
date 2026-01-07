@@ -24,26 +24,24 @@ const CACHE_STRATEGIES = {
 };
 
 // Install event - cache static assets
-self.addEventListener("install", (event) => {
+self.addEventListener('install', (event) => {
   event.waitUntil(
     caches
       .open(STATIC_CACHE)
       .then((cache) => {
-
         return cache.addAll(STATIC_ASSETS);
       })
       .then(() => {
-
         return self.skipWaiting();
       })
       .catch((error) => {
-        console.error("[SW] Failed to cache static assets:", error);
-      }),
+        console.error('[SW] Failed to cache static assets:', error);
+      })
   );
 });
 
 // Activate event - clean up old caches
-self.addEventListener("activate", (event) => {
+self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches
       .keys()
@@ -56,31 +54,29 @@ self.addEventListener("activate", (event) => {
               cacheName !== DYNAMIC_CACHE &&
               cacheName !== IMAGE_CACHE
             ) {
-
               return caches.delete(cacheName);
             }
-          }),
-        ),
+          })
+        )
       )
       .then(() => {
-
         return self.clients.claim();
-      }),
+      })
   );
 });
 
 // Fetch event - handle requests with appropriate strategies
-self.addEventListener("fetch", (event) => {
+self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
   // Skip non-GET requests
-  if (request.method !== "GET") {
+  if (request.method !== 'GET') {
     return;
   }
 
   // Skip API requests (let them go to the server)
-  if (url.pathname.startsWith("/api/")) {
+  if (url.pathname.startsWith('/api/')) {
     return;
   }
 
@@ -113,7 +109,7 @@ function isStaticAsset(request) {
 
 // Check if request is for navigation
 function isNavigationRequest(request) {
-  return request.mode === "navigate";
+  return request.mode === 'navigate';
 }
 
 // Cache-first strategy for images
@@ -132,12 +128,12 @@ async function handleImageRequest(request) {
 
     return networkResponse;
   } catch (error) {
-    console.error("[SW] Image request failed:", error);
+    console.error('[SW] Image request failed:', error);
 
     // Return a fallback image if available
-    const fallbackResponse = await caches.match("/images/fallback.png");
+    const fallbackResponse = await caches.match('/images/fallback.png');
     return (
-      fallbackResponse || new Response("Image not available", { status: 404 })
+      fallbackResponse || new Response('Image not available', { status: 404 })
     );
   }
 }
@@ -158,8 +154,8 @@ async function handleStaticAsset(request) {
 
     return networkResponse;
   } catch (error) {
-    console.error("[SW] Static asset request failed:", error);
-    return new Response("Asset not available", { status: 404 });
+    console.error('[SW] Static asset request failed:', error);
+    return new Response('Asset not available', { status: 404 });
   }
 }
 
@@ -176,7 +172,7 @@ async function handleNavigationRequest(request) {
 
     return networkResponse;
   } catch (error) {
-    console.error("[SW] Navigation request failed, trying cache:", error);
+    console.error('[SW] Navigation request failed, trying cache:', error);
 
     // Fallback to cached version
     const cachedResponse = await caches.match(request);
@@ -185,9 +181,9 @@ async function handleNavigationRequest(request) {
     }
 
     // Final fallback to index.html for SPA routing
-    const fallbackResponse = await caches.match("/index.html");
+    const fallbackResponse = await caches.match('/index.html');
     return (
-      fallbackResponse || new Response("Page not available", { status: 404 })
+      fallbackResponse || new Response('Page not available', { status: 404 })
     );
   }
 }
@@ -207,7 +203,7 @@ async function handleDynamicRequest(request) {
         return networkResponse;
       })
       .catch((error) => {
-        console.error("[SW] Network request failed:", error);
+        console.error('[SW] Network request failed:', error);
         return null;
       });
 
@@ -221,22 +217,21 @@ async function handleDynamicRequest(request) {
     // Wait for network if no cache
     const networkResponse = await networkResponsePromise;
     return (
-      networkResponse || new Response("Content not available", { status: 404 })
+      networkResponse || new Response('Content not available', { status: 404 })
     );
   } catch (error) {
-    console.error("[SW] Dynamic request failed:", error);
+    console.error('[SW] Dynamic request failed:', error);
 
     const cachedResponse = await caches.match(request);
     return (
-      cachedResponse || new Response("Content not available", { status: 404 })
+      cachedResponse || new Response('Content not available', { status: 404 })
     );
   }
 }
 
 // Background sync for offline actions
-self.addEventListener("sync", (event) => {
-  if (event.tag === "background-sync") {
-
+self.addEventListener('sync', (event) => {
+  if (event.tag === 'background-sync') {
     event.waitUntil(performBackgroundSync());
   }
 });
@@ -245,31 +240,30 @@ self.addEventListener("sync", (event) => {
 async function performBackgroundSync() {
   try {
     // Sync any pending data when connection is restored
-
     // Add your background sync logic here
   } catch (error) {
-    console.error("[SW] Background sync failed:", error);
+    console.error('[SW] Background sync failed:', error);
   }
 }
 
 // Push notifications (if needed in future)
-self.addEventListener("push", (event) => {
+self.addEventListener('push', (event) => {
   const options = {
-    body: event.data ? event.data.text() : "New notification",
-    icon: "/icon-192x192.png",
-    badge: "/badge-72x72.png",
-    tag: "p4c-notification",
+    body: event.data ? event.data.text() : 'New notification',
+    icon: '/icon-192x192.png',
+    badge: '/badge-72x72.png',
+    tag: 'p4c-notification',
     requireInteraction: true,
   };
 
   event.waitUntil(
-    self.registration.showNotification("Properties 4 Creation", options),
+    self.registration.showNotification('Properties 4 Creation', options)
   );
 });
 
 // Handle notification clicks
-self.addEventListener("notificationclick", (event) => {
+self.addEventListener('notificationclick', (event) => {
   event.notification.close();
 
-  event.waitUntil(clients.openWindow("/"));
+  event.waitUntil(clients.openWindow('/'));
 });

@@ -71,17 +71,17 @@ const Home: React.FC = () => {
 
         // Badge Filter (Must have ALL selected badges)
         const matchesBadges = selectedBadges.every((badge) =>
-          property.badges.includes(badge),
+          property.badges.includes(badge)
         );
 
         return matchesSearch && matchesPrice && matchesBeds && matchesBadges;
       }),
-    [properties, searchQuery, maxPrice, minBeds, selectedBadges],
+    [properties, searchQuery, maxPrice, minBeds, selectedBadges]
   );
 
   const toggleBadge = (badge: string) => {
     setSelectedBadges((prev) =>
-      prev.includes(badge) ? prev.filter((b) => b !== badge) : [...prev, badge],
+      prev.includes(badge) ? prev.filter((b) => b !== badge) : [...prev, badge]
     );
   };
 

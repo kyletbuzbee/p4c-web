@@ -40,7 +40,7 @@ const LazyImage = memo(
         }
         inViewRef(node);
       },
-      [inViewRef],
+      [inViewRef]
     );
 
     useEffect(() => {
@@ -100,7 +100,7 @@ const LazyImage = memo(
         />
       </div>
     );
-  },
+  }
 );
 
 LazyImage.displayName = 'LazyImage';
@@ -146,13 +146,13 @@ const PropertyCard = memo<PropertyCardProps>(
     // Optimize price display
     const formatPrice = useCallback(
       (price: number) =>
-        new Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency: "USD",
+        new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD',
           minimumFractionDigits: 0,
           maximumFractionDigits: 0,
         }).format(price),
-      [],
+      []
     );
 
     return (
@@ -228,7 +228,7 @@ const PropertyCard = memo<PropertyCardProps>(
         </div>
       </div>
     );
-  },
+  }
 );
 
 PropertyCard.displayName = 'PropertyCard';

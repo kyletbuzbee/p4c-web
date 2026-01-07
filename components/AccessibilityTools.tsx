@@ -76,7 +76,7 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
     if (!audioAssistance) {
       // Announce feature activation
       const utterance = new SpeechSynthesisUtterance(
-        'Audio assistance activated. Use keyboard shortcuts for navigation.',
+        'Audio assistance activated. Use keyboard shortcuts for navigation.'
       );
       speechSynthesis.speak(utterance);
     }

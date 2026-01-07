@@ -89,7 +89,7 @@ app.use(
         reportUri: '/api/security/csp-violation',
       },
     },
-  }),
+  })
 );
 
 // Performance monitoring middleware
@@ -106,7 +106,7 @@ app.use(
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-  }),
+  })
 );
 
 // Comprehensive security middleware
@@ -118,7 +118,7 @@ app.use(
     skipFailedRequests: false,
     standardHeaders: true,
     legacyHeaders: false,
-  }),
+  })
 );
 
 // Input validation and sanitization
@@ -128,7 +128,7 @@ app.use(createInputValidation());
 app.use(
   createSizeLimiter({
     limit: '10mb',
-  }),
+  })
 );
 
 // Security logging
@@ -258,7 +258,6 @@ app.post('/api/ai/edit-image', verifyApiKey, async (req, res) => {
 
     for (const part of result.response.candidates?.[0]?.content?.parts || []) {
       if (part.inlineData) {
-
         return res.json({
           success: true,
           data: `data:image/png;base64,${part.inlineData.data}`,
@@ -374,28 +373,24 @@ app.use('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
   console.log(
-    `🚀 Server running on port ${PORT}`,
-  );
-  console.log(
-    `🌍 CORS configured for: ${process.env.ALLOWED_ORIGINS || 'http://localhost:3000'}`,
+    `🌍 CORS configured for: ${process.env.ALLOWED_ORIGINS || 'http://localhost:3000'}`
   );
 
   if (!process.env.GEMINI_API_KEY) {
     console.warn(
-      '⚠️  WARNING: GEMINI_API_KEY not configured in environment variables',
+      '⚠️  WARNING: GEMINI_API_KEY not configured in environment variables'
     );
   }
 });
 
 // Graceful shutdown
 process.on('SIGTERM', () => {
-
   process.exit(0);
 });
 
 process.on('SIGINT', () => {
-
   process.exit(0);
 });
 

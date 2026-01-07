@@ -21,7 +21,7 @@ import PropertyDetailsSkeleton from '../components/PropertyDetailsSkeleton';
 const PropertyDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [property, setProperty] = useState<ExtendedProperty | undefined>(
-    undefined,
+    undefined
   );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

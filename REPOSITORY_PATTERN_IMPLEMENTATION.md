@@ -32,6 +32,7 @@ The Properties-4-Creation website has successfully implemented a **Repository Pa
 ### How This Prepares for Backend Integration
 
 The implementation creates a **data abstraction layer** that:
+
 - Eliminates the need to modify components when switching to real backend
 - Provides consistent error handling across all data operations
 - Supports both development and production environments simultaneously
@@ -44,6 +45,7 @@ The implementation creates a **data abstraction layer** that:
 ### 1. Updated services/api.ts
 
 **Key Features:**
+
 - Environment-based configuration (`VITE_API_URL`)
 - Automatic mode detection (backend vs mock data)
 - Centralized API client with error handling
@@ -51,6 +53,7 @@ The implementation creates a **data abstraction layer** that:
 - Simulated latency for realistic development experience
 
 **Implementation Structure:**
+
 ```typescript
 const API_CONFIG = {
   baseUrl: import.meta.env['VITE_API_URL'] || '',
@@ -59,19 +62,22 @@ const API_CONFIG = {
   },
   getEndpointUrl(endpoint: string): string {
     return `${this.baseUrl.replace(/\/$/, '')}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
-  }
+  },
 };
 ```
 
 ### 2. Component Updates
 
 #### Home.tsx
+
 **Before:** Direct import from data file
+
 ```typescript
 import { properties } from '../data/properties';
 ```
 
 **After:** Centralized API call
+
 ```typescript
 import { api } from '../services/api';
 
@@ -80,25 +86,31 @@ const propertiesData = await api.properties.getAll();
 ```
 
 #### PropertyDetails.tsx
+
 **Before:** Direct data access
+
 ```typescript
 import { getPropertyById } from '../data/properties';
 const property = getPropertyById(id);
 ```
 
 **After:** API abstraction
+
 ```typescript
 import { api } from '../services/api';
 const propertyData = await api.properties.getById(id);
 ```
 
 #### AdminDashboard.tsx
+
 **Before:** Direct import
+
 ```typescript
 import { properties } from '../data/properties';
 ```
 
 **After:** API service
+
 ```typescript
 import { api } from '../services/api';
 const propertiesData = await api.properties.getAll();
@@ -107,12 +119,14 @@ const propertiesData = await api.properties.getAll();
 ### 3. Environment Variables Setup
 
 **Development Mode (Default):**
+
 ```bash
 VITE_API_URL=
 # Uses mock data with simulated latency
 ```
 
 **Production Mode:**
+
 ```bash
 VITE_API_URL=https://api.yourdomain.com
 # Connects to real backend automatically
@@ -121,12 +135,14 @@ VITE_API_URL=https://api.yourdomain.com
 ### 4. Loading States and Error Handling
 
 All components now include:
+
 - Loading states during API calls
 - Error handling with user-friendly messages
 - Graceful fallbacks when data is unavailable
 - Proper cleanup in useEffect hooks
 
 **Example Error Handling:**
+
 ```typescript
 try {
   setLoading(true);
@@ -145,22 +161,26 @@ try {
 ## Architecture Changes
 
 ### Before: Direct Data Access
+
 ```
 Components → data/properties.ts (Direct Import)
 ```
 
 **Problems:**
+
 - Tight coupling between components and data source
 - Difficult to switch to backend
 - No centralized error handling
 - Mock data scattered throughout components
 
 ### After: Repository Pattern
+
 ```
 Components → services/api.ts → [Backend API OR Mock Data]
 ```
 
 **Benefits:**
+
 - Complete abstraction from data sources
 - Single point of configuration
 - Centralized error handling
@@ -170,6 +190,7 @@ Components → services/api.ts → [Backend API OR Mock Data]
 ### Component Isolation
 
 **Components are now "data-blind":**
+
 - No knowledge of data source (mock vs backend)
 - Consistent interfaces regardless of environment
 - Easy testing with mocked APIs
@@ -195,6 +216,7 @@ Components → services/api.ts → [Backend API OR Mock Data]
 ### How to Add New API Endpoints
 
 1. **Update services/api.ts:**
+
 ```typescript
 export const api = {
   // ... existing modules
@@ -210,14 +232,15 @@ export const api = {
       }
 
       // Fallback to mock data
-      await new Promise(resolve => setTimeout(resolve, SIMULATED_LATENCY));
+      await new Promise((resolve) => setTimeout(resolve, SIMULATED_LATENCY));
       return mockDataArray;
-    }
-  }
+    },
+  },
 };
 ```
 
 2. **Add mock data structure:**
+
 ```typescript
 const mockDataArray: YourType[] = [
   // Your mock data here
@@ -231,11 +254,13 @@ const mockDataArray: YourType[] = [
 #### Supabase Integration - Complete Implementation
 
 **Step 1: Install Supabase Client**
+
 ```bash
 npm install @supabase/supabase-js
 ```
 
 **Step 2: Enhanced services/api.ts with Supabase**
+
 ```typescript
 import { createClient } from '@supabase/supabase-js';
 
@@ -250,9 +275,7 @@ export const api = {
     getAll: async (): Promise<ExtendedProperty[]> => {
       try {
         if (API_CONFIG.isBackendMode) {
-          const { data, error } = await supabase
-            .from('properties')
-            .select(`
+          const { data, error } = await supabase.from('properties').select(`
               id,
               title,
               address,
@@ -277,7 +300,7 @@ export const api = {
           }
 
           // Transform data to match ExtendedProperty interface
-          return data.map(property => ({
+          return data.map((property) => ({
             id: property.id,
             title: property.title,
             address: property.address,
@@ -293,7 +316,7 @@ export const api = {
             schoolDistrict: property.school_district,
             neighborhood: property.neighborhood,
             availabilityDate: property.availability_date,
-            coordinates: property.coordinates
+            coordinates: property.coordinates,
           }));
         }
       } catch (error) {
@@ -301,7 +324,7 @@ export const api = {
       }
 
       // Fallback to mock data
-      await new Promise(resolve => setTimeout(resolve, SIMULATED_LATENCY));
+      await new Promise((resolve) => setTimeout(resolve, SIMULATED_LATENCY));
       return properties;
     },
 
@@ -319,31 +342,33 @@ export const api = {
             throw error;
           }
 
-          return data ? {
-            id: data.id,
-            title: data.title,
-            address: data.address,
-            price: data.price,
-            beds: data.beds,
-            baths: data.baths,
-            sqft: data.sqft,
-            imageUrl: data.image_url,
-            badges: data.badges || [],
-            description: data.description,
-            amenities: data.amenities || [],
-            accessibilityFeatures: data.accessibility_features || [],
-            schoolDistrict: data.school_district,
-            neighborhood: data.neighborhood,
-            availabilityDate: data.availability_date,
-            coordinates: data.coordinates
-          } : null;
+          return data
+            ? {
+                id: data.id,
+                title: data.title,
+                address: data.address,
+                price: data.price,
+                beds: data.beds,
+                baths: data.baths,
+                sqft: data.sqft,
+                imageUrl: data.image_url,
+                badges: data.badges || [],
+                description: data.description,
+                amenities: data.amenities || [],
+                accessibilityFeatures: data.accessibility_features || [],
+                schoolDistrict: data.school_district,
+                neighborhood: data.neighborhood,
+                availabilityDate: data.availability_date,
+                coordinates: data.coordinates,
+              }
+            : null;
         }
       } catch (error) {
         console.warn('Backend getById failed, using mock data:', error);
       }
 
       // Fallback to mock data
-      await new Promise(resolve => setTimeout(resolve, SIMULATED_LATENCY));
+      await new Promise((resolve) => setTimeout(resolve, SIMULATED_LATENCY));
       const property = getPropertyById(id);
       return property || null;
     },
@@ -386,7 +411,7 @@ export const api = {
             throw error;
           }
 
-          return data.map(property => ({
+          return data.map((property) => ({
             id: property.id,
             title: property.title,
             address: property.address,
@@ -402,7 +427,7 @@ export const api = {
             schoolDistrict: property.school_district,
             neighborhood: property.neighborhood,
             availabilityDate: property.availability_date,
-            coordinates: property.coordinates
+            coordinates: property.coordinates,
           }));
         }
       } catch (error) {
@@ -410,23 +435,36 @@ export const api = {
       }
 
       // Fallback to mock data
-      await new Promise(resolve => setTimeout(resolve, SIMULATED_LATENCY));
+      await new Promise((resolve) => setTimeout(resolve, SIMULATED_LATENCY));
 
-      return properties.filter(property => {
-        if (criteria.minPrice && property.price < criteria.minPrice) return false;
-        if (criteria.maxPrice && property.price > criteria.maxPrice) return false;
+      return properties.filter((property) => {
+        if (criteria.minPrice && property.price < criteria.minPrice)
+          return false;
+        if (criteria.maxPrice && property.price > criteria.maxPrice)
+          return false;
         if (criteria.beds && property.beds < criteria.beds) return false;
         if (criteria.baths && property.baths < criteria.baths) return false;
-        if (criteria.neighborhood && !property.neighborhood.toLowerCase().includes(criteria.neighborhood.toLowerCase())) return false;
-        if (criteria.schoolDistrict && property.schoolDistrict !== criteria.schoolDistrict) return false;
+        if (
+          criteria.neighborhood &&
+          !property.neighborhood
+            .toLowerCase()
+            .includes(criteria.neighborhood.toLowerCase())
+        )
+          return false;
+        if (
+          criteria.schoolDistrict &&
+          property.schoolDistrict !== criteria.schoolDistrict
+        )
+          return false;
         return true;
       });
-    }
-  }
+    },
+  },
 };
 ```
 
 **Step 3: Supabase Database Schema**
+
 ```sql
 -- Enable UUID extension
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
@@ -474,11 +512,13 @@ CREATE POLICY "Properties are editable by authenticated users" ON properties
 #### Firebase Integration - Complete Implementation
 
 **Step 1: Install Firebase SDK**
+
 ```bash
 npm install firebase
 ```
 
 **Step 2: Firebase Configuration**
+
 ```typescript
 // firebase/config.ts
 import { initializeApp } from 'firebase/app';
@@ -491,7 +531,7 @@ const firebaseConfig = {
   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);
@@ -500,6 +540,7 @@ export const auth = getAuth(app);
 ```
 
 **Step 3: Enhanced services/api.ts with Firebase**
+
 ```typescript
 import { db } from '../firebase/config';
 import {
@@ -511,7 +552,7 @@ import {
   where,
   orderBy,
   limit,
-  QueryConstraint
+  QueryConstraint,
 } from 'firebase/firestore';
 
 export const api = {
@@ -522,9 +563,9 @@ export const api = {
           const propertiesCollection = collection(db, 'properties');
           const querySnapshot = await getDocs(propertiesCollection);
 
-          const properties = querySnapshot.docs.map(doc => ({
+          const properties = querySnapshot.docs.map((doc) => ({
             id: doc.id,
-            ...doc.data()
+            ...doc.data(),
           })) as ExtendedProperty[];
 
           return properties;
@@ -534,7 +575,7 @@ export const api = {
       }
 
       // Fallback to mock data
-      await new Promise(resolve => setTimeout(resolve, SIMULATED_LATENCY));
+      await new Promise((resolve) => setTimeout(resolve, SIMULATED_LATENCY));
       return properties;
     },
 
@@ -554,7 +595,7 @@ export const api = {
       }
 
       // Fallback to mock data
-      await new Promise(resolve => setTimeout(resolve, SIMULATED_LATENCY));
+      await new Promise((resolve) => setTimeout(resolve, SIMULATED_LATENCY));
       const property = getPropertyById(id);
       return property || null;
     },
@@ -590,19 +631,23 @@ export const api = {
           const q = query(collection(db, 'properties'), ...constraints);
           const querySnapshot = await getDocs(q);
 
-          let properties = querySnapshot.docs.map(doc => ({
+          let properties = querySnapshot.docs.map((doc) => ({
             id: doc.id,
-            ...doc.data()
+            ...doc.data(),
           })) as ExtendedProperty[];
 
           // Client-side filtering for fields that don't support queries
           if (criteria.neighborhood) {
-            properties = properties.filter(p =>
-              p.neighborhood.toLowerCase().includes(criteria.neighborhood!.toLowerCase())
+            properties = properties.filter((p) =>
+              p.neighborhood
+                .toLowerCase()
+                .includes(criteria.neighborhood!.toLowerCase())
             );
           }
           if (criteria.schoolDistrict) {
-            properties = properties.filter(p => p.schoolDistrict === criteria.schoolDistrict);
+            properties = properties.filter(
+              (p) => p.schoolDistrict === criteria.schoolDistrict
+            );
           }
 
           return properties;
@@ -612,25 +657,38 @@ export const api = {
       }
 
       // Fallback to mock data
-      await new Promise(resolve => setTimeout(resolve, SIMULATED_LATENCY));
+      await new Promise((resolve) => setTimeout(resolve, SIMULATED_LATENCY));
 
-      return properties.filter(property => {
-        if (criteria.minPrice && property.price < criteria.minPrice) return false;
-        if (criteria.maxPrice && property.price > criteria.maxPrice) return false;
+      return properties.filter((property) => {
+        if (criteria.minPrice && property.price < criteria.minPrice)
+          return false;
+        if (criteria.maxPrice && property.price > criteria.maxPrice)
+          return false;
         if (criteria.beds && property.beds < criteria.beds) return false;
         if (criteria.baths && property.baths < criteria.baths) return false;
-        if (criteria.neighborhood && !property.neighborhood.toLowerCase().includes(criteria.neighborhood.toLowerCase())) return false;
-        if (criteria.schoolDistrict && property.schoolDistrict !== criteria.schoolDistrict) return false;
+        if (
+          criteria.neighborhood &&
+          !property.neighborhood
+            .toLowerCase()
+            .includes(criteria.neighborhood.toLowerCase())
+        )
+          return false;
+        if (
+          criteria.schoolDistrict &&
+          property.schoolDistrict !== criteria.schoolDistrict
+        )
+          return false;
         return true;
       });
-    }
-  }
+    },
+  },
 };
 ```
 
 #### Node.js/Express Backend Integration
 
 **Step 1: Express Server Setup**
+
 ```javascript
 // server.js
 const express = require('express');
@@ -641,10 +699,12 @@ require('dotenv').config();
 const app = express();
 
 // Middleware
-app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // Database connection
@@ -668,17 +728,19 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({
     error: 'Something went wrong!',
-    message: process.env.NODE_ENV === 'development' ? err.message : 'Internal server error'
+    message:
+      process.env.NODE_ENV === 'development'
+        ? err.message
+        : 'Internal server error',
   });
 });
 
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-
-});
+app.listen(PORT, () => {});
 ```
 
 **Step 2: Property Routes Implementation**
+
 ```javascript
 // routes/properties.js
 const express = require('express');
@@ -718,7 +780,8 @@ router.get('/:id', async (req, res) => {
 // POST /api/properties/search
 router.post('/search', async (req, res) => {
   try {
-    const { minPrice, maxPrice, beds, baths, neighborhood, schoolDistrict } = req.body;
+    const { minPrice, maxPrice, beds, baths, neighborhood, schoolDistrict } =
+      req.body;
 
     let query = { isActive: true };
 
@@ -756,7 +819,7 @@ router.get('/badge/:badge', async (req, res) => {
 
     const properties = await Property.find({
       isActive: true,
-      badges: { $in: [new RegExp(badge, 'i')] }
+      badges: { $in: [new RegExp(badge, 'i')] },
     }).lean();
 
     res.json(properties);
@@ -770,86 +833,96 @@ module.exports = router;
 ```
 
 **Step 3: Mongoose Model**
+
 ```javascript
 // models/Property.js
 const mongoose = require('mongoose');
 
-const propertySchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  address: {
-    type: String,
-    required: true
-  },
-  price: {
-    type: Number,
-    required: true,
-    min: 0
-  },
-  beds: {
-    type: Number,
-    required: true,
-    min: 0
-  },
-  baths: {
-    type: Number,
-    required: true,
-    min: 0
-  },
-  sqft: {
-    type: Number,
-    required: true,
-    min: 0
-  },
-  imageUrl: {
-    type: String,
-    default: ''
-  },
-  badges: [{
-    type: String
-  }],
-  description: {
-    type: String,
-    required: true
-  },
-  amenities: [{
-    type: String
-  }],
-  accessibilityFeatures: [{
-    type: String
-  }],
-  schoolDistrict: {
-    type: String,
-    required: true
-  },
-  neighborhood: {
-    type: String,
-    required: true
-  },
-  availabilityDate: {
-    type: String,
-    required: true
-  },
-  coordinates: {
-    lat: {
-      type: Number,
-      required: true
+const propertySchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+      trim: true,
     },
-    lng: {
+    address: {
+      type: String,
+      required: true,
+    },
+    price: {
       type: Number,
-      required: true
-    }
+      required: true,
+      min: 0,
+    },
+    beds: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+    baths: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+    sqft: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+    imageUrl: {
+      type: String,
+      default: '',
+    },
+    badges: [
+      {
+        type: String,
+      },
+    ],
+    description: {
+      type: String,
+      required: true,
+    },
+    amenities: [
+      {
+        type: String,
+      },
+    ],
+    accessibilityFeatures: [
+      {
+        type: String,
+      },
+    ],
+    schoolDistrict: {
+      type: String,
+      required: true,
+    },
+    neighborhood: {
+      type: String,
+      required: true,
+    },
+    availabilityDate: {
+      type: String,
+      required: true,
+    },
+    coordinates: {
+      lat: {
+        type: Number,
+        required: true,
+      },
+      lng: {
+        type: Number,
+        required: true,
+      },
+    },
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
   },
-  isActive: {
-    type: Boolean,
-    default: true
+  {
+    timestamps: true,
   }
-}, {
-  timestamps: true
-});
+);
 
 // Indexes for better query performance
 propertySchema.index({ price: 1 });
@@ -864,6 +937,7 @@ module.exports = mongoose.model('Property', propertySchema);
 ### Environment Variable Configuration
 
 **Required Variables:**
+
 ```bash
 # Backend API URL (for production)
 VITE_API_URL=https://your-backend-api.com
@@ -878,6 +952,7 @@ VITE_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
 ```
 
 **Optional Variables:**
+
 ```bash
 # Development settings
 VITE_ENABLE_MOCK_DATA=true
@@ -901,13 +976,16 @@ VITE_LOG_LEVEL=debug
 ### Step-by-Step Process for Switching to Real Backend
 
 #### Phase 1: Backend Development
+
 1. **Create backend endpoints** that match the expected API structure
 2. **Ensure CORS configuration** allows frontend domain
 3. **Implement authentication** if required
 4. **Test endpoints** with tools like Postman or curl
 
 #### Phase 2: Environment Configuration
+
 1. **Update .env file:**
+
 ```bash
 # Development with backend
 VITE_API_URL=http://localhost:3001/api
@@ -919,6 +997,7 @@ VITE_API_URL=https://api.yourdomain.com
 2. **Remove or update mock data** in services/api.ts if no longer needed
 
 #### Phase 3: Deployment
+
 1. **Deploy backend first**
 2. **Update frontend environment variables** for production
 3. **Test production deployment**
@@ -928,21 +1007,22 @@ VITE_API_URL=https://api.yourdomain.com
 
 **Required Endpoints for Current Implementation:**
 
-| Endpoint | Method | Purpose | Response Type |
-|----------|--------|---------|---------------|
-| `/api/impact/metrics` | GET | Dashboard statistics | `StatMetric[]` |
-| `/api/impact/financial-breakdown` | GET | Financial data | `FinancialBreakdown[]` |
-| `/api/transparency/standards` | GET | Renovation standards | `RenovationStandard[]` |
-| `/api/properties` | GET | All properties | `ExtendedProperty[]` |
-| `/api/properties/:id` | GET | Single property | `ExtendedProperty` |
-| `/api/properties/search` | POST | Property search | `ExtendedProperty[]` |
-| `/api/properties/badge/:badge` | GET | Properties by badge | `ExtendedProperty[]` |
+| Endpoint                          | Method | Purpose              | Response Type          |
+| --------------------------------- | ------ | -------------------- | ---------------------- |
+| `/api/impact/metrics`             | GET    | Dashboard statistics | `StatMetric[]`         |
+| `/api/impact/financial-breakdown` | GET    | Financial data       | `FinancialBreakdown[]` |
+| `/api/transparency/standards`     | GET    | Renovation standards | `RenovationStandard[]` |
+| `/api/properties`                 | GET    | All properties       | `ExtendedProperty[]`   |
+| `/api/properties/:id`             | GET    | Single property      | `ExtendedProperty`     |
+| `/api/properties/search`          | POST   | Property search      | `ExtendedProperty[]`   |
+| `/api/properties/badge/:badge`    | GET    | Properties by badge  | `ExtendedProperty[]`   |
 
 ### Configuration Changes Needed
 
 #### Complete Backend Implementation Examples
 
 **Express.js with MongoDB Implementation:**
+
 ```javascript
 // Complete server implementation with all endpoints
 const express = require('express');
@@ -1231,6 +1311,7 @@ app.listen(PORT, () => {
 ```
 
 **Environment Configuration for Backend:**
+
 ```bash
 # .env for backend server
 NODE_ENV=development
@@ -1256,6 +1337,7 @@ UPLOAD_DIR=./uploads
 ```
 
 #### Database Schema Requirements
+
 ```sql
 -- Properties table
 CREATE TABLE properties (
@@ -1285,6 +1367,7 @@ CREATE TABLE properties (
 ### Before/After Component Changes
 
 #### Home Component - Before
+
 ```typescript
 import { properties } from '../data/properties';
 
@@ -1295,6 +1378,7 @@ const Home: React.FC = () => {
 ```
 
 #### Home Component - After
+
 ```typescript
 import { api } from '../services/api';
 
@@ -1323,6 +1407,7 @@ const Home: React.FC = () => {
 ### Environment Configuration Examples
 
 #### Development (.env)
+
 ```bash
 # Use mock data
 VITE_API_URL=
@@ -1331,6 +1416,7 @@ VITE_API_TIMEOUT=10000
 ```
 
 #### Staging (.env.staging)
+
 ```bash
 # Connect to staging backend
 VITE_API_URL=https://staging-api.p4c.com
@@ -1339,6 +1425,7 @@ VITE_API_TIMEOUT=15000
 ```
 
 #### Production (.env.production)
+
 ```bash
 # Connect to production backend
 VITE_API_URL=https://api.p4c.com
@@ -1349,6 +1436,7 @@ VITE_API_TIMEOUT=5000
 ### API Endpoint Structure
 
 #### Backend Response Format
+
 ```json
 {
   "data": [
@@ -1377,6 +1465,7 @@ VITE_API_TIMEOUT=5000
 ### Error Handling Patterns
 
 #### Comprehensive Error Handling
+
 ```typescript
 const fetchProperties = async () => {
   try {
@@ -1408,27 +1497,32 @@ const fetchProperties = async () => {
 ## Best Practices
 
 ### 1. Data Consistency
+
 - Maintain identical data structures between mock and backend
 - Use TypeScript interfaces for type safety
 - Document expected data formats
 
 ### 2. Performance Optimization
+
 - Implement caching strategies for frequently accessed data
 - Use React Query or SWR for advanced caching
 - Optimize images and implement lazy loading
 
 ### 3. Error Resilience
+
 - Always provide fallback data
 - Implement retry mechanisms for failed requests
 - Log errors appropriately for debugging
 
 ### 4. Security Considerations
+
 - Validate all environment variables
 - Implement proper authentication for protected endpoints
 - Use HTTPS in production
 - Sanitize user inputs
 
 ### 5. Testing Strategy
+
 ```typescript
 // Example test for API service
 describe('api.properties', () => {
@@ -1447,6 +1541,7 @@ describe('api.properties', () => {
 ```
 
 ### 6. Monitoring and Logging
+
 ```typescript
 // Enhanced error logging
 const logError = (endpoint: string, error: Error, context: any) => {
@@ -1455,7 +1550,7 @@ const logError = (endpoint: string, error: Error, context: any) => {
     stack: error.stack,
     context,
     timestamp: new Date().toISOString(),
-    userAgent: navigator.userAgent
+    userAgent: navigator.userAgent,
   });
 
   // Could send to error tracking service
@@ -1468,22 +1563,26 @@ const logError = (endpoint: string, error: Error, context: any) => {
 #### Common Issues and Solutions
 
 **Issue: CORS Errors**
+
 ```javascript
 // Problem: Cross-origin requests blocked
 // Solution: Proper CORS configuration
-app.use(cors({
-  origin: [
-    'http://localhost:5173', // Vite dev server
-    'http://localhost:3000', // React dev server
-    'https://your-domain.com' // Production domain
-  ],
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+app.use(
+  cors({
+    origin: [
+      'http://localhost:5173', // Vite dev server
+      'http://localhost:3000', // React dev server
+      'https://your-domain.com', // Production domain
+    ],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  })
+);
 ```
 
 **Issue: Environment Variables Not Loading**
+
 ```bash
 # Problem: VITE_API_URL undefined in production
 # Solution: Ensure environment variables are prefixed with VITE_
@@ -1493,11 +1592,15 @@ VITE_SUPABASE_URL=https://your-project.supabase.co
 ```
 
 **Issue: Mock Data Not Falling Back**
+
 ```typescript
 // Problem: API calls failing without fallback
 // Solution: Enhanced error handling with timeout
 class ApiClient {
-  private async makeRequest<T>(endpoint: string, options?: RequestInit): Promise<T> {
+  private async makeRequest<T>(
+    endpoint: string,
+    options?: RequestInit
+  ): Promise<T> {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
 
@@ -1527,7 +1630,10 @@ class ApiClient {
       if (error instanceof Error && error.name === 'AbortError') {
         throw new Error('Request timeout - using mock data');
       }
-      console.warn(`Backend request failed for ${endpoint}, falling back to mock data:`, error);
+      console.warn(
+        `Backend request failed for ${endpoint}, falling back to mock data:`,
+        error
+      );
       throw error;
     }
   }
@@ -1535,6 +1641,7 @@ class ApiClient {
 ```
 
 **Issue: Database Connection Problems**
+
 ```javascript
 // MongoDB connection with retry logic
 const connectDB = async () => {
@@ -1545,9 +1652,8 @@ const connectDB = async () => {
       maxPoolSize: 10, // Maintain up to 10 socket connections
       serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
       socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
-      family: 4 // Use IPv4, skip trying IPv6
+      family: 4, // Use IPv4, skip trying IPv6
     });
-
   } catch (error) {
     console.error('❌ MongoDB connection error:', error);
     // Retry connection after 5 seconds
@@ -1555,18 +1661,15 @@ const connectDB = async () => {
   }
 };
 
-mongoose.connection.on('disconnected', () => {
+mongoose.connection.on('disconnected', () => {});
 
-});
-
-mongoose.connection.on('reconnected', () => {
-
-});
+mongoose.connection.on('reconnected', () => {});
 ```
 
 #### Performance Optimization Examples
 
 **Caching with Redis:**
+
 ```javascript
 const redis = require('redis');
 const client = redis.createClient(process.env.REDIS_URL);
@@ -1613,25 +1716,26 @@ app.get('/api/properties', async (req, res) => {
 ```
 
 **Database Indexing Strategy:**
+
 ```javascript
 // Advanced indexing for better query performance
 propertySchema.index({
   price: 1,
   beds: 1,
-  isActive: 1
+  isActive: 1,
 }); // Compound index for price/bed queries
 
 propertySchema.index({
   neighborhood: 1,
-  schoolDistrict: 1
+  schoolDistrict: 1,
 }); // Compound index for location queries
 
 propertySchema.index({
-  badges: 1
+  badges: 1,
 }); // Text index for badge searches
 
 propertySchema.index({
-  coordinates: '2dsphere'
+  coordinates: '2dsphere',
 }); // Geospatial index for location-based searches
 
 // TTL index for temporary data (like view counts)
@@ -1641,6 +1745,7 @@ viewSchema.index({ createdAt: 1 }, { expireAfterSeconds: 3600 }); // Expire afte
 #### Deployment Examples
 
 **Docker Configuration:**
+
 ```dockerfile
 # Dockerfile for backend
 FROM node:18-alpine
@@ -1671,6 +1776,7 @@ CMD ["npm", "start"]
 ```
 
 **Docker Compose for Full Stack:**
+
 ```yaml
 # docker-compose.yml
 version: '3.8'
@@ -1680,7 +1786,7 @@ services:
   frontend:
     build: ./frontend
     ports:
-      - "5173:5173"
+      - '5173:5173'
     environment:
       - VITE_API_URL=http://backend:3001/api
     depends_on:
@@ -1693,7 +1799,7 @@ services:
   backend:
     build: ./backend
     ports:
-      - "3001:3001"
+      - '3001:3001'
     environment:
       - NODE_ENV=production
       - MONGODB_URI=mongodb://mongo:27017/p4c
@@ -1709,7 +1815,7 @@ services:
   mongo:
     image: mongo:6
     ports:
-      - "27017:27017"
+      - '27017:27017'
     volumes:
       - mongo_data:/data/db
     environment:
@@ -1720,7 +1826,7 @@ services:
   redis:
     image: redis:7-alpine
     ports:
-      - "6379:6379"
+      - '6379:6379'
     volumes:
       - redis_data:/data
 
@@ -1730,13 +1836,14 @@ volumes:
 ```
 
 **GitHub Actions CI/CD:**
+
 ```yaml
 # .github/workflows/deploy.yml
 name: Deploy to Production
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   test:
@@ -1821,7 +1928,7 @@ This implementation follows industry best practices while maintaining the specif
 
 ---
 
-*For questions or support regarding this implementation, please refer to the project documentation or contact the development team.*
+_For questions or support regarding this implementation, please refer to the project documentation or contact the development team._
 
 ---
 
@@ -1830,6 +1937,7 @@ This implementation follows industry best practices while maintaining the specif
 ### Testing Examples
 
 #### Component Testing with Mock API
+
 ```typescript
 // __tests__/Home.test.tsx
 import { render, screen, waitFor } from '@testing-library/react';
@@ -1909,6 +2017,7 @@ describe('Home Component', () => {
 ```
 
 #### API Service Testing
+
 ```typescript
 // __tests__/api.test.ts
 import { describe, it, expect, beforeEach, vi } from 'vitest';
@@ -1941,7 +2050,7 @@ describe('API Service', () => {
       const mockData = [{ id: '1', title: 'Backend Property' }];
       mockFetch.mockResolvedValueOnce({
         ok: true,
-        json: () => Promise.resolve(mockData)
+        json: () => Promise.resolve(mockData),
       });
 
       const properties = await api.properties.getAll();
@@ -1951,8 +2060,8 @@ describe('API Service', () => {
         expect.objectContaining({
           method: 'GET',
           headers: expect.objectContaining({
-            'Content-Type': 'application/json'
-          })
+            'Content-Type': 'application/json',
+          }),
         })
       );
 
@@ -1976,10 +2085,11 @@ describe('API Service', () => {
     it('should handle timeout errors', async () => {
       import.meta.env.VITE_API_URL = 'https://api.test.com';
 
-      mockFetch.mockImplementationOnce(() =>
-        new Promise((_, reject) =>
-          setTimeout(() => reject(new Error('Timeout')), 100)
-        )
+      mockFetch.mockImplementationOnce(
+        () =>
+          new Promise((_, reject) =>
+            setTimeout(() => reject(new Error('Timeout')), 100)
+          )
       );
 
       const properties = await api.properties.getAll();
@@ -1994,6 +2104,7 @@ describe('API Service', () => {
 ### API Documentation
 
 #### OpenAPI/Swagger Specification
+
 ```yaml
 # api-docs.yaml
 openapi: 3.0.0
@@ -2178,16 +2289,21 @@ components:
 ### Performance Monitoring
 
 #### Analytics Integration
+
 ```typescript
 // utils/analytics.ts
-export const trackAPICall = (endpoint: string, duration: number, success: boolean) => {
+export const trackAPICall = (
+  endpoint: string,
+  duration: number,
+  success: boolean
+) => {
   // Google Analytics 4
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('event', 'api_call', {
       endpoint,
       duration,
       success,
-      custom_parameter_1: endpoint.split('/')[2] // Extract resource name
+      custom_parameter_1: endpoint.split('/')[2], // Extract resource name
     });
   }
 
@@ -2196,14 +2312,17 @@ export const trackAPICall = (endpoint: string, duration: number, success: boolea
     window.analytics.track('API Call', {
       endpoint,
       duration,
-      success
+      success,
     });
   }
 };
 
 // Enhanced API client with monitoring
 class MonitoredApiClient {
-  private async makeRequest<T>(endpoint: string, options?: RequestInit): Promise<T> {
+  private async makeRequest<T>(
+    endpoint: string,
+    options?: RequestInit
+  ): Promise<T> {
     const startTime = Date.now();
     let success = false;
 
@@ -2222,6 +2341,7 @@ class MonitoredApiClient {
 ### Security Best Practices
 
 #### Input Validation and Sanitization
+
 ```typescript
 // middleware/validation.ts
 import Joi from 'joi';
@@ -2234,7 +2354,7 @@ const propertySchema = Joi.object({
   baths: Joi.number().min(0).max(10).required(),
   description: Joi.string().max(2000).allow(''),
   neighborhood: Joi.string().max(255).allow(''),
-  schoolDistrict: Joi.string().max(255).allow('')
+  schoolDistrict: Joi.string().max(255).allow(''),
 });
 
 const validateProperty = (req: any, res: any, next: any) => {
@@ -2243,7 +2363,7 @@ const validateProperty = (req: any, res: any, next: any) => {
   if (error) {
     return res.status(400).json({
       error: 'Validation failed',
-      details: error.details.map(detail => detail.message)
+      details: error.details.map((detail) => detail.message),
     });
   }
 
@@ -2258,10 +2378,10 @@ const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100, // limit each IP to 100 requests per windowMs
   message: {
-    error: 'Too many API requests, please try again later.'
+    error: 'Too many API requests, please try again later.',
   },
   standardHeaders: true,
-  legacyHeaders: false
+  legacyHeaders: false,
 });
 ```
 

@@ -57,7 +57,7 @@ const sanitizeInput = (input: string): string => {
 export const editImageWithGemini = async (
   base64Image: string,
   mimeType: string,
-  prompt: string,
+  prompt: string
 ): Promise<string> => {
   try {
     // Input validation - CRITICAL for security
@@ -113,7 +113,7 @@ export const editImageWithGemini = async (
     // Provide user-friendly error messages
     if (error instanceof TypeError && error.message.includes('fetch')) {
       throw new Error(
-        'Unable to connect to AI service. Please try again later.',
+        'Unable to connect to AI service. Please try again later.'
       );
     }
 
@@ -130,7 +130,7 @@ export const editImageWithGemini = async (
  */
 export const sendChatMessage = async (
   message: string,
-  history: ChatMessage[] = [],
+  history: ChatMessage[] = []
 ): Promise<string> => {
   try {
     // Input validation
@@ -185,7 +185,7 @@ export const sendChatMessage = async (
     // Provide user-friendly error messages
     if (error instanceof TypeError && error.message.includes('fetch')) {
       throw new Error(
-        'Unable to connect to AI service. Please try again later.',
+        'Unable to connect to AI service. Please try again later.'
       );
     }
 

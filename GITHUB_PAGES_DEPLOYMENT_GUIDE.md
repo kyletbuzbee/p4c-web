@@ -5,6 +5,7 @@
 This guide provides step-by-step instructions to deploy **Properties 4 Creation** (www.properties4creations.com) to GitHub Pages using the configured GitHub Actions workflow.
 
 **Project Details:**
+
 - **Domain**: www.properties4creations.com
 - **Tech Stack**: React 19 + Vite + TypeScript + Tailwind CSS
 - **Current Status**: GitHub Actions workflow already configured
@@ -23,12 +24,14 @@ Before starting deployment:
 ## 🎯 Quick Start (5-Minute Deployment)
 
 ### Step 1: Enable GitHub Pages
+
 1. Go to your repository on GitHub
 2. Click **Settings** → **Pages**
 3. Under **Source**, select **GitHub Actions**
 4. Click **Save**
 
 ### Step 2: Configure Custom Domain
+
 1. In the same **Pages** settings page
 2. Scroll to **Custom domain**
 3. Enter: `www.properties4creations.com`
@@ -36,6 +39,7 @@ Before starting deployment:
 5. Click **Save**
 
 ### Step 3: Configure DNS (Domain Registrar)
+
 Add these DNS records at your domain registrar:
 
 ```bash
@@ -50,6 +54,7 @@ Type: CNAME| Name: www   | Value: kyletbuzbee.github.io
 ```
 
 ### Step 4: Trigger Deployment
+
 ```bash
 # Push to main branch to trigger deployment
 git add .
@@ -58,11 +63,13 @@ git push origin main
 ```
 
 ### Step 5: Monitor Deployment
+
 1. Go to **Actions** tab in your repository
 2. Watch the "Deploy to GitHub Pages" workflow
 3. Check **Settings** → **Pages** for deployment status
 
 **Expected Timeline:**
+
 - DNS propagation: 5 minutes to 48 hours
 - GitHub Pages deployment: 2-5 minutes
 - SSL certificate: 10-30 minutes
@@ -72,7 +79,9 @@ git push origin main
 ### Phase 1: Repository Setup
 
 #### 1.1 Verify Repository Configuration
+
 Ensure your repository has these key files:
+
 - ✅ `.github/workflows/deploy.yml` (GitHub Actions workflow)
 - ✅ `CNAME` (custom domain configuration)
 - ✅ `404.html` (SPA fallback)
@@ -80,6 +89,7 @@ Ensure your repository has these key files:
 - ✅ `package.json` (build scripts)
 
 #### 1.2 Check GitHub Actions Workflow
+
 Your workflow (`.github/workflows/deploy.yml`) should contain:
 
 ```yaml
@@ -87,9 +97,9 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   deploy:
@@ -132,12 +142,14 @@ jobs:
 ### Phase 2: GitHub Pages Configuration
 
 #### 2.1 Enable GitHub Pages
+
 1. Navigate to repository → **Settings** → **Pages**
 2. Under **Source**, select **GitHub Actions**
 3. This enables automatic deployment from your workflow
 4. GitHub will show the deployment URL once active
 
 #### 2.2 Configure Custom Domain
+
 1. In **Settings** → **Pages**, scroll to **Custom domain**
 2. Enter your domain: `www.properties4creations.com`
 3. Enable **Enforce HTTPS** (GitHub will automatically provision SSL)
@@ -145,6 +157,7 @@ jobs:
 5. GitHub will create/verify the CNAME file in your repository
 
 #### 2.3 SSL Certificate
+
 - GitHub automatically provisions SSL certificates for custom domains
 - Certificate status appears in **Settings** → **Pages**
 - May take 10-30 minutes to activate after domain verification
@@ -152,9 +165,11 @@ jobs:
 ### Phase 3: DNS Configuration
 
 #### 3.1 Domain Registrar Setup
+
 Access your domain registrar (GoDaddy, Namecheap, etc.) and add these records:
 
 **A Records (for root domain):**
+
 ```
 Type: A
 Host/Name: @ (or leave blank)
@@ -184,6 +199,7 @@ TTL: 3600 (1 hour)
 ```
 
 **CNAME Record (for www subdomain):**
+
 ```
 Type: CNAME
 Host/Name: www
@@ -192,7 +208,9 @@ TTL: 3600 (1 hour)
 ```
 
 #### 3.2 DNS Verification
+
 Verify your DNS configuration:
+
 ```bash
 # Check A records
 nslookup properties4creations.com
@@ -202,15 +220,18 @@ nslookup www.properties4creations.com
 ```
 
 Expected results:
+
 - A records should resolve to GitHub's IP addresses
 - CNAME should point to `kyletbuzbee.github.io`
 
 ### Phase 4: Application Configuration
 
 #### 4.1 Verify HashRouter Setup
+
 Your application should use HashRouter for GitHub Pages compatibility:
 
 **File**: `App.tsx`
+
 ```typescript
 import { HashRouter, Routes, Route } from 'react-router-dom';
 
@@ -226,11 +247,14 @@ function App() {
 ```
 
 **URL Structure:**
+
 - Main page: `https://www.properties4creations.com/`
 - Internal pages: `https://www.properties4creations.com/#/about`
 
 #### 4.2 Verify Build Configuration
+
 **File**: `vite.config.ts`
+
 ```typescript
 export default defineConfig(({ mode }) => {
   const isProduction = mode === 'production';
@@ -245,7 +269,9 @@ export default defineConfig(({ mode }) => {
 ```
 
 #### 4.3 Verify Package Scripts
+
 **File**: `package.json`
+
 ```json
 {
   "scripts": {
@@ -260,7 +286,9 @@ export default defineConfig(({ mode }) => {
 ### Phase 5: Testing & Validation
 
 #### 5.1 Local Testing
+
 Before deployment, test locally:
+
 ```bash
 # Build the application
 npm run build
@@ -275,6 +303,7 @@ npm run preview
 ```
 
 #### 5.2 Post-Deployment Testing
+
 After deployment, verify:
 
 1. **Main Domain**: https://www.properties4creations.com loads correctly
@@ -285,7 +314,9 @@ After deployment, verify:
 6. **Mobile**: Responsive design works on mobile devices
 
 #### 5.3 Performance Validation
+
 Use browser developer tools to verify:
+
 - First Contentful Paint (FCP) < 1.5s
 - Largest Contentful Paint (LCP) < 2.5s
 - All resources load successfully (no 404s)
@@ -293,6 +324,7 @@ Use browser developer tools to verify:
 ## 🔧 GitHub Actions Workflow Documentation
 
 ### Workflow Structure
+
 The GitHub Actions workflow (`.github/workflows/deploy.yml`) performs these steps:
 
 1. **Trigger**: Runs on push/PR to `main` branch
@@ -305,15 +337,19 @@ The GitHub Actions workflow (`.github/workflows/deploy.yml`) performs these step
 8. **Deploy**: Pushes to GitHub Pages with deployment URL
 
 ### Environment Variables
+
 - `VITE_REPOSITORY_NAME`: Automatically set from GitHub context
 - `GITHUB_TOKEN`: Automatically provided by GitHub
 - Build artifacts: Uploaded to `./dist` directory
 
 ### Deployment Branch
+
 GitHub Pages uses a special branch (typically `gh-pages`) that's managed automatically by the deployment action.
 
 ### Build Process
+
 The workflow builds your application using:
+
 - TypeScript compilation (`tsc`)
 - Vite build process (`vite build`)
 - Production optimizations (minification, code splitting)
@@ -324,24 +360,30 @@ The workflow builds your application using:
 ### Common Issues & Solutions
 
 #### Issue 1: 404 Errors After Deployment
+
 **Symptoms**: Pages show 404, routes don't work
 **Solutions**:
+
 1. Verify HashRouter is being used (not BrowserRouter)
 2. Check `vite.config.ts` base path configuration
 3. Ensure `404.html` exists in repository root
 4. Verify CNAME file is in repository root
 
 #### Issue 2: Assets Not Loading
+
 **Symptoms**: CSS, images, or JavaScript files show 404
 **Solutions**:
+
 1. Check base path in `vite.config.ts`
 2. Verify file paths in components
 3. Ensure assets are in correct directories
 4. Check browser console for specific 404 URLs
 
 #### Issue 3: Custom Domain Not Working
+
 **Symptoms**: Domain doesn't resolve or shows GitHub Pages default
 **Solutions**:
+
 1. Verify DNS records are correct and propagated
 2. Check GitHub Pages custom domain setting
 3. Ensure CNAME file matches your domain
@@ -349,8 +391,10 @@ The workflow builds your application using:
 5. Verify HTTPS enforcement is working
 
 #### Issue 4: Build Failures
+
 **Symptoms**: GitHub Actions workflow fails
 **Solutions**:
+
 1. Check GitHub Actions logs for specific errors
 2. Verify all dependencies are in package.json
 3. Check for TypeScript compilation errors
@@ -358,8 +402,10 @@ The workflow builds your application using:
 5. Verify environment variables are set correctly
 
 #### Issue 5: HTTPS Not Working
+
 **Symptoms**: SSL certificate errors or HTTP instead of HTTPS
 **Solutions**:
+
 1. Ensure "Enforce HTTPS" is checked in GitHub Pages settings
 2. Wait for SSL certificate to be provisioned (up to 30 minutes)
 3. Verify custom domain is configured correctly
@@ -378,6 +424,7 @@ The workflow builds your application using:
    - Verify custom domain configuration
 
 3. **Test DNS Configuration**:
+
    ```bash
    # Check domain resolution
    nslookup www.properties4creations.com
@@ -394,11 +441,13 @@ The workflow builds your application using:
 ### Getting Help
 
 #### GitHub Pages Resources
+
 - [GitHub Pages Documentation](https://docs.github.com/en/pages)
 - [Custom Domain Setup Guide](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site)
 - [Troubleshooting GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/troubleshooting-github-pages)
 
 #### React & Vite Resources
+
 - [React Router HashRouter](https://reactrouter.com/en/main/router-components/hash-router)
 - [Vite Build Configuration](https://vitejs.dev/guide/build.html)
 - [GitHub Pages Deployment](https://vitejs.dev/guide/static-deploy.html#github-pages)
@@ -406,6 +455,7 @@ The workflow builds your application using:
 ## 📋 Deployment Checklist
 
 ### Pre-Deployment
+
 - [ ] GitHub repository is public
 - [ ] GitHub Actions workflow exists and is correct
 - [ ] CNAME file is configured
@@ -414,18 +464,21 @@ The workflow builds your application using:
 - [ ] All dependencies are installed
 
 ### Repository Configuration
+
 - [ ] GitHub Pages enabled in repository settings
 - [ ] Custom domain configured in GitHub Pages settings
 - [ ] HTTPS enforcement enabled
 - [ ] Deployment workflow is active
 
 ### DNS Configuration
+
 - [ ] A records point to GitHub IP addresses
 - [ ] CNAME record points to GitHub Pages
 - [ ] DNS changes have propagated (wait 24-48 hours)
 - [ ] Domain resolves correctly
 
 ### Post-Deployment Validation
+
 - [ ] Main domain loads correctly
 - [ ] HTTPS is active and secure
 - [ ] All routes work with hash URLs
@@ -437,12 +490,14 @@ The workflow builds your application using:
 ## 🔄 Maintenance & Updates
 
 ### Regular Monitoring
+
 - Check GitHub Pages status weekly
 - Monitor SSL certificate expiration
 - Review deployment logs for errors
 - Test all routes periodically
 
 ### Update Process
+
 ```bash
 # Standard update workflow:
 git add .
@@ -452,6 +507,7 @@ git push origin main
 ```
 
 ### Performance Optimization
+
 - Monitor bundle size with each deployment
 - Review Lighthouse scores regularly
 - Optimize images and assets
@@ -460,11 +516,13 @@ git push origin main
 ## 📞 Support
 
 ### GitHub Pages Support
+
 - [GitHub Community Forum](https://github.community/c/github-actions/41)
 - [GitHub Support](https://support.github.com/)
 - [GitHub Pages Documentation](https://docs.github.com/en/pages)
 
 ### Application Support
+
 - Check browser developer tools for errors
 - Review GitHub Actions logs for deployment issues
 - Verify DNS configuration with your domain registrar

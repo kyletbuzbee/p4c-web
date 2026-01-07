@@ -36,7 +36,7 @@ const TenantLogin: React.FC = () => {
       navigate(from === '/admin' ? '/' : from); // Tenants can't go to admin
     } else {
       setError(
-        'Invalid credentials. Try (admin@p4c.com / admin) or (demo@p4c.com / demo)',
+        'Invalid credentials. Try (admin@p4c.com / admin) or (demo@p4c.com / demo)'
       );
     }
   };

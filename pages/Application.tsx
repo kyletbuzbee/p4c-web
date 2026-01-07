@@ -39,7 +39,7 @@ const Application: React.FC = () => {
 
   const validateField = (
     name: keyof ApplicationForm,
-    value: string,
+    value: string
   ): string | undefined => {
     if (!value.trim()) {
       switch (name) {
@@ -68,7 +68,7 @@ const Application: React.FC = () => {
   };
 
   const handleBlur = (
-    e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>,
+    e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     const fieldName = name as keyof ApplicationForm;
@@ -79,7 +79,7 @@ const Application: React.FC = () => {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     const fieldName = name as keyof ApplicationForm;
@@ -122,7 +122,7 @@ const Application: React.FC = () => {
 
     if (isValid) {
       alert(
-        'Success! Application pre-check complete. Proceeding to background check integration...',
+        'Success! Application pre-check complete. Proceeding to background check integration...'
       );
     }
   };
@@ -130,7 +130,7 @@ const Application: React.FC = () => {
   const getInputClassName = (fieldName: keyof ApplicationForm) => {
     const hasError = touched[fieldName] && errors[fieldName];
     const baseClasses =
-      "w-full rounded-lg shadow-sm p-3.5 border transition-all duration-200 outline-none";
+      'w-full rounded-lg shadow-sm p-3.5 border transition-all duration-200 outline-none';
 
     if (hasError) {
       return `${baseClasses} border-red-500 bg-red-50 text-red-900 focus:border-red-500 focus:ring-2 focus:ring-red-200`;
@@ -177,8 +177,8 @@ const Application: React.FC = () => {
             <div className="absolute top-1/2 left-0 w-full h-1 bg-gray-100 -z-10 -translate-y-1/2 rounded-full" />
 
             {[
-              { icon: UserCheck, label: "About You", active: true },
-              { icon: FileText, label: "History", active: false },
+              { icon: UserCheck, label: 'About You', active: true },
+              { icon: FileText, label: 'History', active: false },
               { icon: Key, label: 'Preferences', active: false },
             ].map((step, i) => (
               <div key={i} className="flex flex-col items-center bg-white px-4">

@@ -66,7 +66,7 @@ function createRateLimiter(options = {}) {
       : undefined,
     keyGenerator: (req) =>
       // Use IP address and user agent for more granular rate limiting
-      `${req.ip}:${req.get("User-Agent")?.substring(0, 100) || "unknown"}`,
+      `${req.ip}:${req.get('User-Agent')?.substring(0, 100) || 'unknown'}`,
     handler: (req, res) => {
       const retryAfter = Math.round(options.windowMs / 1000);
       res.status(429).json({

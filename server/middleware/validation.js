@@ -10,24 +10,24 @@ const createRateLimiter = (options = {}) =>
     windowMs: options.windowMs || 15 * 60 * 1000, // 15 minutes
     max: options.max || 100, // limit each IP to 100 requests per windowMs
     message: {
-      error: "Too many requests",
+      error: 'Too many requests',
       retryAfter: options.windowMs || 900000,
     },
     standardHeaders: true,
     legacyHeaders: false,
     handler: (req, res) => {
       logSecurityEvent(
-        "rate_limit_exceeded",
-        "medium",
-        "Rate limit exceeded",
+        'rate_limit_exceeded',
+        'medium',
+        'Rate limit exceeded',
         req,
         {
           ip: req.ip,
           attempts: req.rateLimit?.totalHits || 0,
-        },
+        }
       );
       res.status(429).json({
-        error: "Too many requests",
+        error: 'Too many requests',
         retryAfter: req.rateLimit?.resetTime,
       });
     },
@@ -74,24 +74,24 @@ const validate = {
     body('password')
       .isLength({ min: 8, max: 128 })
       .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/
       )
       .withMessage(
-        'Password must be 8-128 characters with uppercase, lowercase, number, and special character',
+        'Password must be 8-128 characters with uppercase, lowercase, number, and special character'
       ),
     body('firstName')
       .trim()
       .isLength({ min: 1, max: 50 })
       .matches(/^[a-zA-Z\s]+$/)
       .withMessage(
-        'First name must contain only letters and be 1-50 characters',
+        'First name must contain only letters and be 1-50 characters'
       ),
     body('lastName')
       .trim()
       .isLength({ min: 1, max: 50 })
       .matches(/^[a-zA-Z\s]+$/)
       .withMessage(
-        'Last name must contain only letters and be 1-50 characters',
+        'Last name must contain only letters and be 1-50 characters'
       ),
     body('phone')
       .optional()
@@ -112,7 +112,7 @@ const validate = {
       .trim()
       .isLength({ min: 1, max: 2000 })
       .withMessage(
-        'Description is required and must be less than 2000 characters',
+        'Description is required and must be less than 2000 characters'
       ),
     body('address.street')
       .trim()
@@ -206,11 +206,11 @@ const sanitizeRequest = (req, res, next) => {
     return str
       .replace(
         /<(?:script|iframe|object|embed|form|link|meta|base|input|textarea|select|button)[\s\S]*?<\/(?:script|iframe|object|embed|form|link|meta|base|input|textarea|select|button)>/gi,
-        '',
+        ''
       ) // Remove dangerous HTML tags
       .replace(
         /<[^>]*(?:on\w+|href|src|data|action|formaction|style)[^>]*>/gi,
-        '',
+        ''
       ) // Remove event handlers and dangerous attributes
       .replace(/(?:javascript|vbscript|data|file|ftp):/gi, '') // Remove dangerous protocols
       .replace(/[\r\n\t]+/g, ' ') // Normalize whitespace
@@ -273,7 +273,7 @@ const preventSQLInjection = (req, res, next) => {
                 key,
                 value,
                 pattern: pattern.source,
-              },
+              }
             );
             return true;
           }
@@ -319,7 +319,7 @@ const validateFileUpload = (req, res, next) => {
             fieldName,
             mimetype: uploadedFile.mimetype,
             filename: uploadedFile.name,
-          },
+          }
         );
         return res.status(400).json({
           error: `Invalid file type. Allowed types: ${allowedTypes.join(', ')}`,
@@ -366,7 +366,7 @@ const preventXSS = (req, res, next) => {
                 key,
                 value: value.substring(0, 100), // Log first 100 chars
                 pattern: pattern.source,
-              },
+              }
             );
             return true;
           }
@@ -417,7 +417,7 @@ const handleValidationErrors = (req, res, next) => {
       req,
       {
         errors: errors.array(),
-      },
+      }
     );
     return res.status(400).json({
       error: 'Validation failed',

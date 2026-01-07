@@ -34,7 +34,7 @@ const ImageOptimizer: React.FC<ImageOptimizerProps> = ({
   // Generate optimized image URLs
   const generateOptimizedSrc = (
     originalSrc: string,
-    format: string = 'webp',
+    format: string = 'webp'
   ) => {
     // In a real implementation, this would call an image optimization service
     // For now, we'll simulate format conversion and responsive sizing
@@ -44,7 +44,7 @@ const ImageOptimizer: React.FC<ImageOptimizerProps> = ({
     if (extension === format) return originalSrc;
 
     // Simulate format conversion (in production, use Cloudinary, Imgix, etc.)
-    const baseName = originalSrc.replace(/\.[^/.]+$/, "");
+    const baseName = originalSrc.replace(/\.[^/.]+$/, '');
     return `${baseName}.${format}`;
   };
 
@@ -59,16 +59,16 @@ const ImageOptimizer: React.FC<ImageOptimizerProps> = ({
   // Check browser WebP/AVIF support
   const checkFormatSupport = () =>
     new Promise<string>((resolve) => {
-      const canvas = document.createElement("canvas");
+      const canvas = document.createElement('canvas');
       canvas.width = 1;
       canvas.height = 1;
 
       // Test AVIF support
-      canvas.toDataURL("image/avif").startsWith("data:image/avif")
-        ? resolve("avif")
-        : canvas.toDataURL("image/webp").startsWith("data:image/webp")
-          ? resolve("webp")
-          : resolve("jpeg");
+      canvas.toDataURL('image/avif').startsWith('data:image/avif')
+        ? resolve('avif')
+        : canvas.toDataURL('image/webp').startsWith('data:image/webp')
+          ? resolve('webp')
+          : resolve('jpeg');
     });
 
   useEffect(() => {
@@ -135,7 +135,7 @@ const ImageOptimizer: React.FC<ImageOptimizerProps> = ({
         {
           rootMargin: '50px', // Load 50px before entering viewport
           threshold: 0.01,
-        },
+        }
       );
 
       if (imgRef.current) {

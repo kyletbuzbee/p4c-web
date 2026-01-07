@@ -1,13 +1,12 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --color-navy: #0B1120;
-  --color-beige: #F5F5F0;
-  --color-gold: #C5A059;
-  --color-gold-hover: #B08D48;
+  --color-navy: #0b1120;
+  --color-beige: #f5f5f0;
+  --color-gold: #c5a059;
+  --color-gold-hover: #b08d48;
   --color-slate: #334155;
 }
 
@@ -249,7 +248,11 @@
   /* PWA install button */
   .install-button {
     @apply bg-p4c-gold text-p4c-navy px-6 py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300;
-    background: linear-gradient(135deg, var(--color-gold), var(--color-gold-hover));
+    background: linear-gradient(
+      135deg,
+      var(--color-gold),
+      var(--color-gold-hover)
+    );
   }
 
   .install-button:hover {
@@ -259,25 +262,32 @@
 
   /* Hero Banner Enhancement Utilities */
   .hero-overlay-primary {
-    background: linear-gradient(180deg, rgba(11, 17, 32, 0.9) 0%, rgba(11, 17, 32, 0.6) 50%, rgba(11, 17, 32, 0.85) 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(11, 17, 32, 0.9) 0%,
+      rgba(11, 17, 32, 0.6) 50%,
+      rgba(11, 17, 32, 0.85) 100%
+    );
     mix-blend-mode: multiply;
   }
 
   .hero-overlay-secondary {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.15) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.3) 0%,
+      rgba(0, 0, 0, 0.15) 100%
+    );
   }
 
   .hero-text-contrast {
-    text-shadow:
-      0px 0px 6px rgba(255, 255, 255, 0.4);
+    text-shadow: 0px 0px 6px rgba(255, 255, 255, 0.4);
     color: #ffffff;
     letter-spacing: 0.02em;
     line-height: 1.2;
   }
 
   .hero-text-enhanced {
-    text-shadow:
-      0px 0px 4px rgba(255, 255, 255, 0.3);
+    text-shadow: 0px 0px 4px rgba(255, 255, 255, 0.3);
     color: #ffffff;
     letter-spacing: 0.02em;
     line-height: 1.3;

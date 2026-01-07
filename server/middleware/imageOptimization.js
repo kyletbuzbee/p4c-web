@@ -3,10 +3,10 @@
  * Implements smart format detection, compression, and delivery optimization
  */
 
-const sharp = require("sharp");
-const path = require("path");
-const fs = require("fs").promises;
-const crypto = require("crypto");
+const sharp = require('sharp');
+const path = require('path');
+const fs = require('fs').promises;
+const crypto = require('crypto');
 
 // Modern browser support detection
 const SUPPORTED_FORMATS = {
@@ -19,9 +19,9 @@ const SUPPORTED_FORMATS = {
 // Cache configuration
 const CACHE_CONFIG = {
   headers: {
-    "Cache-Control": "public, max-age=31536000, immutable",
-    Vary: "Accept",
-    "Access-Control-Allow-Origin": "*",
+    'Cache-Control': 'public, max-age=31536000, immutable',
+    Vary: 'Accept',
+    'Access-Control-Allow-Origin': '*',
   },
   ttl: 365 * 24 * 60 * 60 * 1000, // 1 year
 };
@@ -41,22 +41,22 @@ class ImageOptimizationService {
    * Detect best image format based on Accept header
    */
   detectBestFormat(acceptHeader) {
-    if (!acceptHeader) return "jpeg";
+    if (!acceptHeader) return 'jpeg';
 
     const preferences = acceptHeader
-      .split(",")
+      .split(',')
       .map((item) => item.trim().toLowerCase())
       .filter((item) => item.startsWith('image/'))
       .map((item) => item.split(';')[0]);
 
     // Priority order: AVIF > WebP > JPEG > PNG
-    for (const format of ["image/avif", "image/webp"]) {
-      if (preferences.some((pref) => pref.includes(format.split("/")[1]))) {
-        return format.split("/")[1];
+    for (const format of ['image/avif', 'image/webp']) {
+      if (preferences.some((pref) => pref.includes(format.split('/')[1]))) {
+        return format.split('/')[1];
       }
     }
 
-    return "jpeg";
+    return 'jpeg';
   }
 
   /**
@@ -68,9 +68,9 @@ class ImageOptimizationService {
       ...options,
     };
     return crypto
-      .createHash("md5")
+      .createHash('md5')
       .update(JSON.stringify(keyData))
-      .digest("hex");
+      .digest('hex');
   }
 
   /**
@@ -86,12 +86,12 @@ class ImageOptimizationService {
       const ratio = size / dimensions;
 
       // High complexity = larger file size relative to dimensions
-      if (ratio > 0.8) return "high";
-      if (ratio > 0.4) return "medium";
-      return "low";
+      if (ratio > 0.8) return 'high';
+      if (ratio > 0.4) return 'medium';
+      return 'low';
     } catch (error) {
-      console.error("Error analyzing image complexity:", error);
-      return "medium";
+      console.error('Error analyzing image complexity:', error);
+      return 'medium';
     }
   }
 
@@ -103,7 +103,7 @@ class ImageOptimizationService {
       width,
       height,
       quality: requestedQuality,
-      compression = "auto",
+      compression = 'auto',
       progressive = true,
       lossless = false,
     } = options;
@@ -115,7 +115,7 @@ class ImageOptimizationService {
       sharpness = sharpness.resize({
         width: width || null,
         height: height || null,
-        fit: "inside",
+        fit: 'inside',
         withoutEnlargement: true,
         fastShrinkOnLoad: true,
       });
@@ -125,12 +125,12 @@ class ImageOptimizationService {
     const complexity = await this.analyzeImageComplexity(buffer);
     let quality = requestedQuality;
 
-    if (compression === "auto") {
+    if (compression === 'auto') {
       const formatConfig = SUPPORTED_FORMATS[format] || SUPPORTED_FORMATS.jpeg;
 
-      if (complexity === "high") {
+      if (complexity === 'high') {
         quality = Math.max(formatConfig.quality - 10, 30);
-      } else if (complexity === "low") {
+      } else if (complexity === 'low') {
         quality = Math.min(formatConfig.quality + 5, 100);
       } else {
         quality = formatConfig.quality;
@@ -139,36 +139,36 @@ class ImageOptimizationService {
 
     // Apply format-specific optimizations
     switch (format) {
-      case "avif":
+      case 'avif':
         return await sharpness
           .avif({
             quality,
             effort: formatConfig?.speed || 3,
-            chromaSubsampling: "4:2:0",
+            chromaSubsampling: '4:2:0',
           })
           .toBuffer();
 
-      case "webp":
+      case 'webp':
         return await sharpness
           .webp({
             quality,
             effort: formatConfig?.speed || 6,
             alphaQuality: quality,
-            lossless: lossless || complexity === "low",
+            lossless: lossless || complexity === 'low',
           })
           .toBuffer();
 
-      case "jpeg":
+      case 'jpeg':
         return await sharpness
           .jpeg({
             quality,
             progressive,
-            chromaSubsampling: "4:2:0",
+            chromaSubsampling: '4:2:0',
             mozjpeg: true,
           })
           .toBuffer();
 
-      case "png":
+      case 'png':
         return await sharpness
           .png({
             quality,
@@ -192,14 +192,14 @@ class ImageOptimizationService {
 
     for (const breakpoint of breakpoints) {
       try {
-        const optimizedBuffer = await this.optimizeImage(baseBuffer, "webp", {
+        const optimizedBuffer = await this.optimizeImage(baseBuffer, 'webp', {
           width: breakpoint,
-          compression: "auto",
+          compression: 'auto',
         });
 
         variants[`${breakpoint}w`] = {
           buffer: optimizedBuffer,
-          contentType: "image/webp",
+          contentType: 'image/webp',
           size: optimizedBuffer.length,
         };
       } catch (error) {
@@ -234,16 +234,16 @@ class ImageOptimizationService {
         const cached = this.cache.get(cacheKey);
 
         res.set({
-          "Content-Type": `image/${acceptFormat}`,
+          'Content-Type': `image/${acceptFormat}`,
           ...CACHE_CONFIG.headers,
-          "X-Cache": "HIT",
+          'X-Cache': 'HIT',
         });
 
         return res.send(cached);
       }
 
       // Load original image
-      const fullPath = path.join(process.cwd(), "public", imagePath);
+      const fullPath = path.join(process.cwd(), 'public', imagePath);
       const originalBuffer = await fs.readFile(fullPath);
 
       // Optimize image
@@ -254,8 +254,8 @@ class ImageOptimizationService {
           width: req.query.width ? parseInt(req.query.width) : undefined,
           height: req.query.height ? parseInt(req.query.height) : undefined,
           quality: req.query.quality ? parseInt(req.query.quality) : undefined,
-          compression: req.query.compression || "auto",
-        },
+          compression: req.query.compression || 'auto',
+        }
       );
 
       // Cache the result
@@ -270,24 +270,24 @@ class ImageOptimizationService {
 
       // Set headers
       res.set({
-        "Content-Type": `image/${acceptFormat}`,
+        'Content-Type': `image/${acceptFormat}`,
         ...CACHE_CONFIG.headers,
-        "X-Cache": "MISS",
-        "X-Original-Size": originalBuffer.length,
-        "X-Optimized-Size": optimizedBuffer.length,
-        "X-Compression-Ratio": (
+        'X-Cache': 'MISS',
+        'X-Original-Size': originalBuffer.length,
+        'X-Optimized-Size': optimizedBuffer.length,
+        'X-Compression-Ratio': (
           optimizedBuffer.length / originalBuffer.length
         ).toFixed(2),
-        "X-Response-Time": `${responseTime}ms`,
+        'X-Response-Time': `${responseTime}ms`,
       });
 
       return res.send(optimizedBuffer);
     } catch (error) {
-      console.error("Image optimization error:", error);
+      console.error('Image optimization error:', error);
 
       // Fallback to original image
-      if (req.path.startsWith("/images/")) {
-        const fullPath = path.join(process.cwd(), "public", req.path);
+      if (req.path.startsWith('/images/')) {
+        const fullPath = path.join(process.cwd(), 'public', req.path);
         if (
           await fs
             .access(fullPath)
@@ -295,12 +295,12 @@ class ImageOptimizationService {
             .catch(() => false)
         ) {
           const originalBuffer = await fs.readFile(fullPath);
-          res.set("Content-Type", "image/jpeg");
+          res.set('Content-Type', 'image/jpeg');
           return res.send(originalBuffer);
         }
       }
 
-      return res.status(500).json({ error: "Image processing failed" });
+      return res.status(500).json({ error: 'Image processing failed' });
     }
   }
 
@@ -311,10 +311,10 @@ class ImageOptimizationService {
     try {
       const imagePath = req.query.path;
       if (!imagePath) {
-        return res.status(400).json({ error: "Image path required" });
+        return res.status(400).json({ error: 'Image path required' });
       }
 
-      const fullPath = path.join(process.cwd(), "public", imagePath);
+      const fullPath = path.join(process.cwd(), 'public', imagePath);
       const buffer = await fs.readFile(fullPath);
       const metadata = await sharp(buffer).metadata();
 
@@ -338,8 +338,8 @@ class ImageOptimizationService {
         bestFormat: this.detectBestFormat(req.headers.accept),
       });
     } catch (error) {
-      console.error("Metadata generation error:", error);
-      res.status(500).json({ error: "Metadata generation failed" });
+      console.error('Metadata generation error:', error);
+      res.status(500).json({ error: 'Metadata generation failed' });
     }
   }
 
@@ -352,7 +352,7 @@ class ImageOptimizationService {
       cacheSize: this.cache.size,
       cacheHitRate:
         this.stats.requests > 0
-          ? `${(this.stats.cacheHits / this.stats.requests * 100).toFixed(2)}%`
+          ? `${((this.stats.cacheHits / this.stats.requests) * 100).toFixed(2)}%`
           : '0%',
     };
   }
@@ -362,7 +362,7 @@ class ImageOptimizationService {
    */
   clearCache() {
     this.cache.clear();
-    return { message: "Cache cleared", size: 0 };
+    return { message: 'Cache cleared', size: 0 };
   }
 }
 
@@ -373,7 +373,7 @@ const imageOptimizationService = new ImageOptimizationService();
 module.exports = (req, res, next) => {
   // Only process images
   if (
-    req.path.startsWith("/images/") ||
+    req.path.startsWith('/images/') ||
     req.path.match(/\.(jpg|jpeg|png|gif|webp|avif)$/i)
   ) {
     return imageOptimizationService.imageOptimizationMiddleware(req, res, next);

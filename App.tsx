@@ -28,7 +28,7 @@ const TenantLogin = React.lazy(() => import('./pages/TenantLogin'));
 const Privacy = React.lazy(() => import('./pages/Privacy'));
 const Terms = React.lazy(() => import('./pages/Terms'));
 const AccessibilityStatement = React.lazy(
-  () => import('./pages/AccessibilityStatement'),
+  () => import('./pages/AccessibilityStatement')
 );
 const EqualHousing = React.lazy(() => import('./pages/EqualHousing'));
 const SuccessStories = React.lazy(() => import('./pages/SuccessStories'));

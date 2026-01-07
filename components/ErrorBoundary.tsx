@@ -46,7 +46,7 @@ class ErrorBoundary extends Component<Props, State> {
   private logErrorToService = async (
     error: Error,
     errorInfo: ErrorInfo,
-    errorId: string,
+    errorId: string
   ) => {
     // Only log if enabled (security consideration)
     if (!this.props.enableLogging) {
@@ -66,7 +66,7 @@ class ErrorBoundary extends Component<Props, State> {
         // Stack trace - only include filename and line numbers, not full paths
         stack: this.sanitizeStackTrace(error.stack || ''),
         componentStack: this.sanitizeComponentStack(
-          errorInfo.componentStack || '',
+          errorInfo.componentStack || ''
         ),
       };
 
@@ -90,11 +90,11 @@ class ErrorBoundary extends Component<Props, State> {
     message
       .replace(
         /api[_-]?key["\s]*[:=]["\s]*[a-zA-Z0-9\-_]+/gi,
-        "api_key: [REDACTED]",
+        'api_key: [REDACTED]'
       )
-      .replace(/token["\s]*[:=]["\s]*[a-zA-Z0-9\-_]+/gi, "token: [REDACTED]")
-      .replace(/password["\s]*[:=]["\s]*[^,\s]+/gi, "password: [REDACTED]")
-      .replace(/email["\s]*[:=]["\s]*[^,\s]+@[^,\s]+/gi, "email: [REDACTED]")
+      .replace(/token["\s]*[:=]["\s]*[a-zA-Z0-9\-_]+/gi, 'token: [REDACTED]')
+      .replace(/password["\s]*[:=]["\s]*[^,\s]+/gi, 'password: [REDACTED]')
+      .replace(/email["\s]*[:=]["\s]*[^,\s]+@[^,\s]+/gi, 'email: [REDACTED]')
       .substring(0, 500); // Limit length
 
   private sanitizeStackTrace = (stack: string): string => {
@@ -194,7 +194,7 @@ class ErrorBoundary extends Component<Props, State> {
       });
 
       alert(
-        'Error report submitted successfully. Thank you for your feedback!',
+        'Error report submitted successfully. Thank you for your feedback!'
       );
     } catch (error) {
       alert('Failed to submit error report. Please try again later.');

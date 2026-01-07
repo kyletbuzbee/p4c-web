@@ -15,7 +15,7 @@ const logFormat = winston.format.combine(
       log += `\n${JSON.stringify(meta, null, 2)}`;
     }
     return log;
-  }),
+  })
 );
 
 // Create logger instance
@@ -31,7 +31,7 @@ const logger = winston.createLogger({
     new winston.transports.Console({
       format: winston.format.combine(
         winston.format.colorize(),
-        winston.format.simple(),
+        winston.format.simple()
       ),
     }),
 

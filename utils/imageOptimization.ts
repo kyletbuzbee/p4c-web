@@ -53,7 +53,7 @@ const checkAVIFSupport = (): boolean => {
 
 // Get optimal image format based on browser support
 export const getOptimalImageFormat = (
-  formats: ImageFormat,
+  formats: ImageFormat
 ): 'avif' | 'webp' | 'jpeg' => {
   if (formats.avif) return 'avif';
   if (formats.webp) return 'webp';
@@ -64,7 +64,7 @@ export const getOptimalImageFormat = (
 export const generateResponsiveSrcset = (
   baseUrl: string,
   widths: number[],
-  format: 'avif' | 'webp' | 'jpeg' = 'webp',
+  format: 'avif' | 'webp' | 'jpeg' = 'webp'
 ): string =>
   widths
     .map((width) => {
@@ -82,7 +82,7 @@ export const generateOptimizedImageUrl = (
     quality?: number;
     format?: 'avif' | 'webp' | 'jpeg';
     blur?: boolean;
-  } = {},
+  } = {}
 ): string => {
   const {
     width,
@@ -109,7 +109,7 @@ export class LazyImageLoader {
 
   constructor(
     callback?: (entries: IntersectionObserverEntry[]) => void,
-    config: IntersectionObserverInit = {},
+    config: IntersectionObserverInit = {}
   ) {
     this.config = {
       rootMargin: '50px',
@@ -119,7 +119,7 @@ export class LazyImageLoader {
 
     this.observer = new IntersectionObserver(
       callback || this.handleIntersection.bind(this),
-      this.config,
+      this.config
     );
   }
 

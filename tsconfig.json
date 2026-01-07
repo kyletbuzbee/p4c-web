@@ -3,12 +3,7 @@
     /* Enhanced Target and Module Configuration */
     "target": "ES2022",
     "module": "ESNext",
-    "lib": [
-      "ES2022",
-      "DOM",
-      "DOM.Iterable",
-      "WebWorker"
-    ],
+    "lib": ["ES2022", "DOM", "DOM.Iterable", "WebWorker"],
     "allowJs": true,
     "checkJs": false,
     "jsx": "react-jsx",
@@ -63,12 +58,7 @@
     },
 
     /* Enhanced Type Definitions */
-    "types": [
-      "node",
-      "react",
-      "react-dom",
-      "vite/client"
-    ],
+    "types": ["node", "react", "react-dom", "vite/client"],
 
     /* Enhanced Output Configuration */
     "removeComments": true,
@@ -103,12 +93,7 @@
   ],
 
   /* Enhanced Exclude Patterns */
-  "exclude": [
-    "node_modules",
-    "dist",
-    "build",
-    "coverage"
-  ],
+  "exclude": ["node_modules", "dist", "build", "coverage"],
 
   /* Enhanced File Watching */
   "watchOptions": {

@@ -28,9 +28,9 @@ const ImpactDashboard: React.FC = () => (
             className="bg-white/5 border border-white/10 p-8 rounded-2xl flex flex-col items-center text-center hover:bg-white/10 transition-colors duration-300"
           >
             <div className="bg-p4c-gold p-4 rounded-full mb-6 text-p4c-navy">
-              {stat.icon === "home" && <Home className="w-8 h-8" />}
-              {stat.icon === "users" && <Users className="w-8 h-8" />}
-              {stat.icon === "hammer" && <Hammer className="w-8 h-8" />}
+              {stat.icon === 'home' && <Home className="w-8 h-8" />}
+              {stat.icon === 'users' && <Users className="w-8 h-8" />}
+              {stat.icon === 'hammer' && <Hammer className="w-8 h-8" />}
             </div>
             <div className="text-5xl font-bold font-serif text-white mb-2">
               {stat.value}

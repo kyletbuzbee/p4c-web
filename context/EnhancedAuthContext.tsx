@@ -40,7 +40,7 @@ interface AuthContextType {
   verifyMFA: (code: string) => Promise<boolean>;
   changePassword: (
     currentPassword: string,
-    newPassword: string,
+    newPassword: string
   ) => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
   lockAccount: (reason?: string) => void;
@@ -60,7 +60,7 @@ export const useAuth = () => {
 
 // Enhanced password policy validator
 const validatePasswordPolicy = (
-  password: string,
+  password: string
 ): { isValid: boolean; errors: string[] } => {
   const errors: string[] = [];
 
@@ -126,8 +126,8 @@ class SessionManager {
       const array = new Uint8Array(16);
       window.crypto.getRandomValues(array);
       return Array.from(array, (byte) =>
-        byte.toString(16).padStart(2, "0"),
-      ).join("");
+        byte.toString(16).padStart(2, '0')
+      ).join('');
     }
     return Math.random().toString(36).substring(2) + Date.now().toString(36);
   }
@@ -137,8 +137,8 @@ class SessionManager {
     if (typeof window !== 'undefined' && window.crypto) {
       window.crypto.getRandomValues(array);
       return Array.from(array, (byte) =>
-        byte.toString(16).padStart(2, "0"),
-      ).join("");
+        byte.toString(16).padStart(2, '0')
+      ).join('');
     }
     return btoa(String.fromCharCode(...array));
   }
@@ -181,10 +181,10 @@ class SessionManager {
     lockoutRemaining?: number;
   } {
     const attempts = parseInt(
-      localStorage.getItem(`login_attempts_${email}`) || '0',
+      localStorage.getItem(`login_attempts_${email}`) || '0'
     );
     const lockoutUntil = parseInt(
-      localStorage.getItem(`lockout_${email}`) || '0',
+      localStorage.getItem(`lockout_${email}`) || '0'
     );
     const now = Date.now();
 
@@ -279,7 +279,7 @@ const validateUserData = (userData: any): User | null => {
 // Enhanced backend session validation
 const validateSessionWithBackend = async (
   userId: string,
-  sessionToken: string,
+  sessionToken: string
 ): Promise<boolean> => {
   try {
     const response = await fetch('/api/auth/validate-session', {
@@ -315,7 +315,6 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
 
   // Session timeout handler
   const handleSessionTimeout = useCallback(() => {
-
     logout();
     addToast('Your session has expired. Please log in again.', 'info');
   }, [addToast]);
@@ -324,7 +323,7 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
   const handleSessionWarning = useCallback(() => {
     addToast(
       'Your session will expire in 5 minutes. Please save your work.',
-      'info',
+      'info'
     );
   }, [addToast]);
 
@@ -365,7 +364,7 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
       if (SessionManager.shouldShowWarning(user)) {
         warningTimeoutRef.current = setTimeout(
           handleSessionWarning,
-          remaining - 5 * 60 * 1000,
+          remaining - 5 * 60 * 1000
         );
       }
 
@@ -420,11 +419,10 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
           if (validatedUser && SessionManager.validateSession(validatedUser)) {
             const isValidSession = await validateSessionWithBackend(
               validatedUser.id,
-              sessionToken,
+              sessionToken
             );
 
             if (isValidSession) {
-
               setUser(validatedUser);
             } else {
               console.warn('Invalid session detected, clearing storage');
@@ -462,7 +460,7 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
         if (attemptCheck.lockoutRemaining) {
           const minutes = Math.ceil(attemptCheck.lockoutRemaining / 60000);
           throw new Error(
-            `Account temporarily locked. Try again in ${minutes} minutes.`,
+            `Account temporarily locked. Try again in ${minutes} minutes.`
           );
         }
         throw new Error('Account temporarily locked. Please try again later.');
@@ -588,7 +586,6 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
       if (response.ok) {
         const { token } = await response.json();
         localStorage.setItem('p4c_session_token', token);
-
       } else {
         console.warn('Token refresh failed, logging out');
         logout();
@@ -650,12 +647,12 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
   // Password management
   const changePassword = async (
     currentPassword: string,
-    newPassword: string,
+    newPassword: string
   ) => {
     const validation = validatePasswordPolicy(newPassword);
     if (!validation.isValid) {
       throw new Error(
-        `Password policy violations: ${validation.errors.join(', ')}`,
+        `Password policy violations: ${validation.errors.join(', ')}`
       );
     }
 
@@ -718,7 +715,7 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
       // Check specific permissions
       return user.permissions.includes(permission);
     },
-    [user, isLocked],
+    [user, isLocked]
   );
 
   return (

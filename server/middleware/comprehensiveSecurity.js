@@ -52,7 +52,7 @@ const createAdvancedRateLimiter = (options = {}) => {
     skip,
     handler: (req, res) => {
       console.warn(
-        `Rate limit exceeded for IP: ${req.ip}, User-Agent: ${req.get('User-Agent')}`,
+        `Rate limit exceeded for IP: ${req.ip}, User-Agent: ${req.get('User-Agent')}`
       );
       res.status(429).json({
         error: 'Rate limit exceeded',
@@ -69,17 +69,17 @@ const createAdvancedRateLimiter = (options = {}) => {
  */
 const createInputValidation = () => (req, res, next) => {
   // Sanitize request body
-  if (req.body && typeof req.body === "object") {
+  if (req.body && typeof req.body === 'object') {
     sanitizeObject(req.body);
   }
 
   // Sanitize query parameters
-  if (req.query && typeof req.query === "object") {
+  if (req.query && typeof req.query === 'object') {
     sanitizeObject(req.query);
   }
 
   // Sanitize URL parameters
-  if (req.params && typeof req.params === "object") {
+  if (req.params && typeof req.params === 'object') {
     sanitizeObject(req.params);
   }
 
@@ -139,7 +139,7 @@ const createSizeLimiter = (options = {}) => {
 
     if (contentLength > maxBytes) {
       console.warn(
-        `Request size limit exceeded: ${contentLength} bytes > ${maxBytes} bytes`,
+        `Request size limit exceeded: ${contentLength} bytes > ${maxBytes} bytes`
       );
       return res.status(statusCode).json({
         error: message,
@@ -179,13 +179,13 @@ const parseBytes = (sizeStr) => {
  */
 const createDynamicSecurityHeaders = () => (req, res, next) => {
   // Generate nonce for CSP
-  const crypto = require("crypto");
-  const nonce = crypto.randomBytes(16).toString("base64");
+  const crypto = require('crypto');
+  const nonce = crypto.randomBytes(16).toString('base64');
 
   // Set dynamic CSP based on route
   let cspDirective = "default-src 'self'";
 
-  if (req.path.startsWith("/api/")) {
+  if (req.path.startsWith('/api/')) {
     cspDirective =
       "default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self'; font-src 'self'";
   } else {
@@ -200,17 +200,17 @@ const createDynamicSecurityHeaders = () => (req, res, next) => {
       "object-src 'none'",
       "base-uri 'self'",
       "form-action 'self'",
-    ].join("; ");
+    ].join('; ');
   }
 
-  res.setHeader("Content-Security-Policy", cspDirective);
-  res.setHeader("X-Content-Type-Options", "nosniff");
-  res.setHeader("X-Frame-Options", "DENY");
-  res.setHeader("X-XSS-Protection", "1; mode=block");
-  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+  res.setHeader('Content-Security-Policy', cspDirective);
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
   res.setHeader(
-    "Permissions-Policy",
-    "camera=(), microphone=(), geolocation=()",
+    'Permissions-Policy',
+    'camera=(), microphone=(), geolocation=()'
   );
 
   // Add nonce to response for use in templates
@@ -224,19 +224,19 @@ const createDynamicSecurityHeaders = () => (req, res, next) => {
  */
 const createAPIKeyValidator = () => (req, res, next) => {
   // Skip validation for public endpoints
-  const publicEndpoints = ["/api/health", "/api/security/status"];
+  const publicEndpoints = ['/api/health', '/api/security/status'];
   if (publicEndpoints.includes(req.path)) {
     return next();
   }
 
   // Check for API key in headers
-  const apiKey = req.get("X-API-Key") || req.get("Authorization");
+  const apiKey = req.get('X-API-Key') || req.get('Authorization');
 
   if (!apiKey) {
     return res.status(401).json({
-      error: "API key required",
-      code: "MISSING_API_KEY",
-      message: "Please provide a valid API key in the request headers",
+      error: 'API key required',
+      code: 'MISSING_API_KEY',
+      message: 'Please provide a valid API key in the request headers',
       timestamp: new Date().toISOString(),
     });
   }
@@ -246,8 +246,8 @@ const createAPIKeyValidator = () => (req, res, next) => {
   if (expectedKey && apiKey !== expectedKey) {
     console.warn(`Invalid API key attempt: ${req.ip}`);
     return res.status(403).json({
-      error: "Invalid API key",
-      code: "INVALID_API_KEY",
+      error: 'Invalid API key',
+      code: 'INVALID_API_KEY',
       timestamp: new Date().toISOString(),
     });
   }
@@ -267,13 +267,13 @@ const createSecurityLogger = () => (req, res, next) => {
     method: req.method,
     path: req.path,
     ip: req.ip,
-    userAgent: req.get("User-Agent"),
-    referer: req.get("Referer"),
-    contentType: req.get("Content-Type"),
-    contentLength: req.get("Content-Length"),
-    userId: req.user?.id || "anonymous",
+    userAgent: req.get('User-Agent'),
+    referer: req.get('Referer'),
+    contentType: req.get('Content-Type'),
+    contentLength: req.get('Content-Length'),
+    userId: req.user?.id || 'anonymous',
   };
-  console.log("Request:", JSON.stringify(logData, null, 2));
+  console.log('Request:', JSON.stringify(logData, null, 2));
 
   // Override res.end to log response
   const originalEnd = res.end;
@@ -283,10 +283,10 @@ const createSecurityLogger = () => (req, res, next) => {
       ...logData,
       statusCode: res.statusCode,
       responseTime: `${duration}ms`,
-      responseSize: res.get("Content-Length") || "unknown",
+      responseSize: res.get('Content-Length') || 'unknown',
     };
 
-    console.log("Response:", JSON.stringify(responseLog, null, 2));
+    console.log('Response:', JSON.stringify(responseLog, null, 2));
     originalEnd.apply(this, args);
   };
 
@@ -298,26 +298,26 @@ const createSecurityLogger = () => (req, res, next) => {
  */
 const createSecurityErrorHandler = () => (err, req, res, next) => {
   // Log error details (without exposing sensitive information)
-  console.error("Security Error:", {
+  console.error('Security Error:', {
     timestamp: new Date().toISOString(),
     path: req.path,
     method: req.method,
     ip: req.ip,
-    userAgent: req.get("User-Agent"),
+    userAgent: req.get('User-Agent'),
     error: err.message,
-    stack: err.stack?.split("\n").slice(0, 5).join("\n"), // Limit stack trace
+    stack: err.stack?.split('\n').slice(0, 5).join('\n'), // Limit stack trace
   });
 
   // Don't expose internal error details to client
   const statusCode = err.status || err.statusCode || 500;
-  const message = statusCode === 500 ? "Internal server error" : err.message;
+  const message = statusCode === 500 ? 'Internal server error' : err.message;
 
   res.status(statusCode).json({
     error: message,
-    code: err.code || "INTERNAL_ERROR",
+    code: err.code || 'INTERNAL_ERROR',
     timestamp: new Date().toISOString(),
     requestId:
-      req.get("X-Request-ID") || Math.random().toString(36).substr(2, 9),
+      req.get('X-Request-ID') || Math.random().toString(36).substr(2, 9),
   });
 };
 

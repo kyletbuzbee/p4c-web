@@ -1,4 +1,5 @@
 # Enterprise Code Improvement Examples
+
 **Concrete implementations for critical issues identified in the audit**
 
 ---
@@ -6,6 +7,7 @@
 ## 1. SECURITY FIXES - Server-Side API Proxy
 
 ### NEW FILE: server/api-proxy.js
+
 This would run on a Node.js server (Express.js recommended)
 
 ```javascript
@@ -19,28 +21,34 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Security middleware
-app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      scriptSrc: ["'self'"],
-      imgSrc: ["'self'", "data:", "https:"],
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        scriptSrc: ["'self'"],
+        imgSrc: ["'self'", 'data:', 'https:'],
+      },
     },
-  },
-  crossOriginEmbedderPolicy: false
-}));
+    crossOriginEmbedderPolicy: false,
+  })
+);
 
-app.use(cors({
-  origin: process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:3000'],
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: process.env.ALLOWED_ORIGINS?.split(',') || [
+      'http://localhost:3000',
+    ],
+    credentials: true,
+  })
+);
 
 // Rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100, // limit each IP to 100 requests per windowMs
-  message: 'Too many requests from this IP'
+  message: 'Too many requests from this IP',
 });
 app.use('/api/', limiter);
 
@@ -77,7 +85,7 @@ app.post('/api/ai/edit-image', async (req, res) => {
       if (part.inlineData) {
         return res.json({
           success: true,
-          data: `data:image/png;base64,${part.inlineData.data}`
+          data: `data:image/png;base64,${part.inlineData.data}`,
         });
       }
     }
@@ -96,7 +104,7 @@ app.post('/api/ai/chat', async (req, res) => {
 
     const model = genAI.getGenerativeModel({
       systemInstruction: `You are 'Patriot', the AI Concierge for Properties 4 Creation.
-      P4C is a veteran-owned company in East Texas that provides high-quality affordable housing.`
+      P4C is a veteran-owned company in East Texas that provides high-quality affordable housing.`,
     });
 
     const chat = model.startChat({
@@ -106,7 +114,7 @@ app.post('/api/ai/chat', async (req, res) => {
     const result = await chat.sendMessage(message);
     res.json({
       success: true,
-      message: result.response.text()
+      message: result.response.text(),
     });
   } catch (error) {
     console.error('Chat Proxy Error:', error);
@@ -114,9 +122,7 @@ app.post('/api/ai/chat', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-
-});
+app.listen(PORT, () => {});
 ```
 
 ---
@@ -769,8 +775,8 @@ import { vi } from 'vitest';
 vi.stubGlobal('process', {
   env: {
     API_KEY: 'test-api-key',
-    NODE_ENV: 'test'
-  }
+    NODE_ENV: 'test',
+  },
 });
 
 // Mock IntersectionObserver
@@ -1051,4 +1057,4 @@ export default usePerformanceMonitor;
 
 ---
 
-*These code examples provide concrete implementation patterns for the critical issues identified in the enterprise code review. Each example demonstrates modern best practices for security, performance, testing, and maintainability.*
+_These code examples provide concrete implementation patterns for the critical issues identified in the enterprise code review. Each example demonstrates modern best practices for security, performance, testing, and maintainability._

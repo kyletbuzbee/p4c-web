@@ -157,5 +157,5 @@ export const properties: ExtendedProperty[] = [
 ];
 
 export const getPropertyById = (
-  id: string | undefined,
+  id: string | undefined
 ): ExtendedProperty | undefined => properties.find((p) => p.id === id);

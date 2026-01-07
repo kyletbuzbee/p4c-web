@@ -1,12 +1,7 @@
 {
   "compilerOptions": {
-    /* Language and Environment */
     "target": "ES2022",
-    "lib": [
-      "ES2022",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -14,7 +9,6 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-/n    /* Modules */
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
@@ -31,22 +25,18 @@
     "rootDir": ".",
     "rootDirs": [".", "src"],
     "typeRoots": ["./node_modules/@types", "./src/types"],
-/n    /* JavaScript Support */
     "allowJs": true,
     "checkJs": true,
-/n    /* Emit */
     "declaration": true,
     "declarationMap": true,
     "outDir": "./dist",
     "removeComments": true,
     "preserveConstEnums": true,
     "downlevelIteration": true,
-/n    /* Interop Constraints */
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "verbatimModuleSyntax": false,
-/n    /* Type Checking */
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -64,23 +54,33 @@
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": false,
-/n    /* Completeness */
     "skipLibCheck": false,
-/n    /* Advanced */
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "allowUmdGlobalAccess": true,
     "resolvePackageJsonExports": true,
     "resolvePackageJsonImports": true,
     "allowArbitraryExtensions": true,
-/n    /* Source Map Options */
     "sourceMap": true,
     "inlineSourceMap": false,
     "inlineSources": false,
     "sourceRoot": "",
     "mapRoot": "",
+    "skipDefaultLibCheck": true,
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules"
+      },
+      {
+        "name": "typescript-plugin-styled-components"
+      }
+    ]
+  },
+  "include": ["src/**/*", "server/**/*", "**/*.ts", "**/*.tsx"],
+  "exclude": [
+    "mapRoot": "",
     "inlineSourceMap": false,
-/n    /* Advanced Options */
+    "//": " Advanced Options */
     "skipDefaultLibCheck": true,
     "plugins": [
       {

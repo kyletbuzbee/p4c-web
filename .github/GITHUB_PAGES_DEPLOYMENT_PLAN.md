@@ -11,6 +11,7 @@
 ## 📋 Current State Analysis
 
 ### ✅ Already Configured
+
 - **CNAME file**: Properly configured for `www.properties4creations.com`
 - **Vite configuration**: GitHub Pages base path setup (`vite.config.ts`)
 - **Package.json scripts**: Deployment scripts ready (`deploy:github`, `predeploy`, `deploy`)
@@ -18,6 +19,7 @@
 - **Build dependencies**: `gh-pages` package installed
 
 ### ⚠️ Issues Identified
+
 - **Routing**: Currently using `BrowserRouter` - needs conversion to `HashRouter` for GitHub Pages
 - **Missing GitHub Actions**: No automated deployment workflow
 - **Environment variables**: API keys exposed in `.env.local` (security issue)
@@ -44,6 +46,7 @@ graph TD
 ### Phase 1: Prerequisites & Repository Setup
 
 #### 1.1 Repository Configuration
+
 ```bash
 # If repository doesn't exist, create and push
 git init
@@ -55,6 +58,7 @@ git push -u origin main
 ```
 
 #### 1.2 GitHub Repository Settings
+
 - **Repository visibility**: Public (required for free GitHub Pages)
 - **Default branch**: `main`
 - **Branch protection**: Enable for `main` branch
@@ -63,19 +67,23 @@ git push -u origin main
 ### Phase 2: Fix Application Configuration
 
 #### 2.1 Convert Router to HashRouter
+
 **File**: `App.tsx`
 
 Replace:
+
 ```typescript
 import { Routes, Route } from 'react-router-dom';
 ```
 
 With:
+
 ```typescript
 import { HashRouter, Routes, Route } from 'react-router-dom';
 ```
 
 Wrap the entire routing structure:
+
 ```typescript
 <HashRouter>
   <div className="font-sans antialiased text-p4c-navy bg-p4c-beige min-h-screen flex flex-col">
@@ -85,14 +93,17 @@ Wrap the entire routing structure:
 ```
 
 **Why HashRouter?**
+
 - GitHub Pages doesn't support server-side routing
 - HashRouter uses URL fragments (`#`) for client-side routing
 - URLs will look like: `https://www.properties4creations.com/#/about`
 
 #### 2.2 Environment Variables Security Fix
+
 **File**: `.env.local` → **Remove sensitive data**
 
 Create `.env.production` template:
+
 ```env
 # DO NOT COMMIT THIS FILE
 # Use GitHub Secrets for production environment variables
@@ -101,27 +112,32 @@ Create `.env.production` template:
 ```
 
 **Remove from repository**:
+
 - Delete `.env.local` from Git
 - Add `.env*` to `.gitignore`
 
 ### Phase 3: GitHub Pages Configuration
 
 #### 3.1 Enable GitHub Pages
+
 1. Go to repository → **Settings** → **Pages**
 2. Under **Source**, select **GitHub Actions**
 3. Save settings
 4. Note: This enables automatic deployment from Actions
 
 #### 3.2 Custom Domain Configuration
+
 1. In **Settings** → **Pages**, scroll to **Custom domain**
 2. Enter: `www.properties4creations.com`
 3. Check **Enforce HTTPS** (GitHub will automatically provision SSL certificate)
 4. Save
 
 #### 3.3 DNS Configuration (External)
+
 **For domain registrar (e.g., GoDaddy, Namecheap):**
 
 Add these DNS records:
+
 ```
 Type: CNAME
 Name: www
@@ -160,6 +176,7 @@ TTL: 3600
 ### Phase 4: GitHub Actions Workflow
 
 #### 4.1 Create Deployment Workflow
+
 **File**: `.github/workflows/deploy.yml`
 
 ```yaml
@@ -167,9 +184,9 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   deploy:
@@ -211,6 +228,7 @@ jobs:
 ```
 
 #### 4.2 Alternative: Using gh-pages Action
+
 If you prefer the `gh-pages` package approach:
 
 ```yaml
@@ -218,7 +236,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   deploy:
@@ -251,9 +269,11 @@ jobs:
 ### Phase 5: Production Build Optimization
 
 #### 5.1 Vite Configuration Updates
+
 **File**: `vite.config.ts`
 
 Add production-specific optimizations:
+
 ```typescript
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '');
@@ -277,24 +297,25 @@ export default defineConfig(({ mode }) => {
             vendor: ['react', 'react-dom'],
             router: ['react-router-dom'],
             ui: ['lucide-react'],
-            utils: ['react-helmet-async']
-          }
-        }
+            utils: ['react-helmet-async'],
+          },
+        },
       },
       // Enable minification
       minify: 'terser',
       terserOptions: {
         compress: {
           drop_console: true,
-          drop_: true
-        }
-      }
-    }
+          drop_: true,
+        },
+      },
+    },
   };
 });
 ```
 
 #### 5.2 Performance Optimizations
+
 - **Image optimization**: Pre-optimize all images in `/images/` directory
 - **Bundle analysis**: Run `npm run build -- --mode production` and analyze bundle size
 - **Code splitting**: Ensure lazy loading is working for all routes
@@ -302,6 +323,7 @@ export default defineConfig(({ mode }) => {
 ### Phase 6: Testing & Validation
 
 #### 6.1 Pre-Deployment Checklist
+
 - [ ] HashRouter conversion completed
 - [ ] GitHub repository created and populated
 - [ ] GitHub Pages enabled in repository settings
@@ -314,6 +336,7 @@ export default defineConfig(({ mode }) => {
 #### 6.2 Testing Procedures
 
 **Local Testing:**
+
 ```bash
 # Test build process
 npm run build
@@ -328,6 +351,7 @@ npm run preview
 ```
 
 **Post-Deployment Testing:**
+
 ```bash
 # After deployment, test:
 # 1. Main domain works: https://www.properties4creations.com
@@ -339,6 +363,7 @@ npm run preview
 ```
 
 #### 6.3 Validation Steps
+
 1. **GitHub Pages Status**: Check deployment status in repository → Settings → Pages
 2. **SSL Certificate**: Verify HTTPS is working and certificate is valid
 3. **Domain Propagation**: Wait 24-48 hours for DNS changes to propagate
@@ -348,12 +373,14 @@ npm run preview
 ### Phase 7: Post-Deployment Maintenance
 
 #### 7.1 Monitoring
+
 - **GitHub Actions**: Monitor deployment workflows
 - **GitHub Pages**: Check deployment status regularly
 - **Domain**: Monitor SSL certificate expiration
 - **Performance**: Regular performance audits
 
 #### 7.2 Update Process
+
 ```bash
 # Standard deployment workflow:
 git add .
@@ -397,6 +424,7 @@ git push origin main
 5. **`.gitignore`** - Ensure environment files are ignored
 
 ### Files Already Configured:
+
 - ✅ `CNAME` - Custom domain setup
 - ✅ `404.html` - SPA fallback
 - ✅ `package.json` - Build scripts
@@ -425,15 +453,18 @@ git push origin main
 ## 📞 Support & Resources
 
 ### GitHub Pages Documentation
+
 - [GitHub Pages User Guide](https://docs.github.com/en/pages)
 - [Custom Domains](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site)
 - [GitHub Actions for Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/automatically-building-and-deploying-your-github-pages-site-with-github-actions)
 
 ### React Router Documentation
+
 - [HashRouter vs BrowserRouter](https://reactrouter.com/en/main/router-components/hash-router)
 - [GitHub Pages Deployment Guide](https://create-react-app.dev/docs/deployment/#github-pages)
 
 ### Domain Configuration
+
 - [GitHub Pages DNS Records](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site#configuring-a-records-and-an-apex-domain)
 - [SSL Certificate Management](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/securing-your-github-pages-site-with-https)
 

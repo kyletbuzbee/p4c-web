@@ -10,11 +10,11 @@ const customValidators = {
     return value
       .replace(
         /<(?:script|iframe|object|embed|form|link|meta|base|input|textarea|select|button)[\s\S]*?<\/(?:script|iframe|object|embed|form|link|meta|base|input|textarea|select|button)>/gi,
-        '',
+        ''
       )
       .replace(
         /<[^>]*(?:on\w+|href|src|data|action|formaction|style)[^>]*>/gi,
-        '',
+        ''
       )
       .replace(/(?:javascript|vbscript|data|file|ftp):/gi, '')
       .replace(/[\r\n\t]+/g, ' ')
@@ -89,15 +89,15 @@ const customValidators = {
     if (!value) return value;
 
     // Remove all non-digits
-    const cleaned = value.replace(/\D/g, "");
+    const cleaned = value.replace(/\D/g, '');
 
     // Check if it's a valid US phone number (10 or 11 digits)
     if (cleaned.length === 10) {
       return cleaned;
-    } else if (cleaned.length === 11 && cleaned.startsWith("1")) {
+    } else if (cleaned.length === 11 && cleaned.startsWith('1')) {
       return cleaned;
     }
-    throw new Error("Invalid phone number format");
+    throw new Error('Invalid phone number format');
   },
 
   // Validate and sanitize ZIP code
@@ -148,7 +148,7 @@ const createValidationMiddleware = (validations) => async (req, res, next) => {
     if (!errors.isEmpty()) {
       return res.status(400).json({
         success: false,
-        error: "Validation failed",
+        error: 'Validation failed',
         details: errors.array().map((err) => ({
           field: err.param,
           message: err.msg,
@@ -159,10 +159,10 @@ const createValidationMiddleware = (validations) => async (req, res, next) => {
 
     next();
   } catch (error) {
-    console.error("Validation middleware error:", error);
+    console.error('Validation middleware error:', error);
     res.status(500).json({
       success: false,
-      error: "Validation system error",
+      error: 'Validation system error',
     });
   }
 };
@@ -183,14 +183,14 @@ const schemas = {
       .isLength({ min: 1, max: 50 })
       .matches(/^[a-zA-Z\s'-]+$/)
       .withMessage(
-        'First name must be 1-50 characters and contain only letters, spaces, hyphens, and apostrophes',
+        'First name must be 1-50 characters and contain only letters, spaces, hyphens, and apostrophes'
       ),
     body('lastName')
       .trim()
       .isLength({ min: 1, max: 50 })
       .matches(/^[a-zA-Z\s'-]+$/)
       .withMessage(
-        'Last name must be 1-50 characters and contain only letters, spaces, hyphens, and apostrophes',
+        'Last name must be 1-50 characters and contain only letters, spaces, hyphens, and apostrophes'
       ),
     body('phone')
       .optional()
@@ -258,7 +258,7 @@ const schemas = {
       .isLength({ min: 1, max: 100 })
       .matches(/^[a-zA-Z\s'-]+$/)
       .withMessage(
-        'Name must be 1-100 characters and contain only letters, spaces, hyphens, and apostrophes',
+        'Name must be 1-100 characters and contain only letters, spaces, hyphens, and apostrophes'
       ),
     body('email')
       .isEmail()

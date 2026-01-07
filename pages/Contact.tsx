@@ -33,24 +33,24 @@ const Contact: React.FC = () => {
 
   const validateField = (
     name: keyof ContactForm,
-    value: string,
+    value: string
   ): string | undefined => {
     if (!value.trim()) {
       switch (name) {
         case 'name':
-          return "Please enter your full name.";
+          return 'Please enter your full name.';
         case 'email':
-          return "Email address is required.";
+          return 'Email address is required.';
         case 'subject':
-          return "Please select a subject.";
+          return 'Please select a subject.';
         case 'message':
-          return "Please enter a message.";
+          return 'Please enter a message.';
         default:
-          return "This field is required.";
+          return 'This field is required.';
       }
     }
     if (name === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-      return "Please enter a valid email address (e.g., name@example.com).";
+      return 'Please enter a valid email address (e.g., name@example.com).';
     }
     return undefined;
   };
@@ -58,7 +58,7 @@ const Contact: React.FC = () => {
   const handleBlur = (
     e: React.FocusEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
+    >
   ) => {
     const { name, value } = e.target;
     const fieldName = name as keyof ContactForm;
@@ -71,7 +71,7 @@ const Contact: React.FC = () => {
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
+    >
   ) => {
     const { name, value } = e.target;
     const fieldName = name as keyof ContactForm;
@@ -138,7 +138,7 @@ const Contact: React.FC = () => {
   const getInputClassName = (fieldName: keyof ContactForm) => {
     const hasError = touched[fieldName] && errors[fieldName];
     const baseClasses =
-      "w-full rounded-md shadow-sm p-3 border focus:ring transition-colors duration-200";
+      'w-full rounded-md shadow-sm p-3 border focus:ring transition-colors duration-200';
 
     if (hasError) {
       return `${baseClasses} border-red-500 focus:border-red-500 focus:ring-red-200 bg-red-50`;

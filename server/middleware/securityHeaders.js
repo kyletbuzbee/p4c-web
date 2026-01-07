@@ -19,32 +19,32 @@ const createSecurityHeadersMiddleware = (options = {}) => {
           "'self'",
           "'unsafe-inline'", // Required for React/Vite development
           "'unsafe-eval'", // Required for Vite dev server
-          "https://apis.google.com",
-          "https://cdn.jsdelivr.net",
+          'https://apis.google.com',
+          'https://cdn.jsdelivr.net',
         ],
         styleSrc: [
           "'self'",
           "'unsafe-inline'", // Required for Tailwind CSS
-          "https://fonts.googleapis.com",
+          'https://fonts.googleapis.com',
         ],
         fontSrc: ["'self'", 'https://fonts.gstatic.com'],
         imgSrc: ["'self'", 'data:', 'https:', 'blob:'],
         connectSrc: [
           "'self'",
-          "https://generativelanguage.googleapis.com",
-          "https://api.gemini.google.com",
+          'https://generativelanguage.googleapis.com',
+          'https://api.gemini.google.com',
         ],
         frameSrc: ["'self'"],
         objectSrc: ["'none'"],
         mediaSrc: ["'self'"],
-        workerSrc: ["'self'", "blob:"],
+        workerSrc: ["'self'", 'blob:'],
         childSrc: ["'self'"],
         formAction: ["'self'"],
         frameAncestors: ["'none'"],
         baseUri: ["'self'"],
       },
     },
-    referrerPolicy = { policy: "no-referrer-when-downgrade" },
+    referrerPolicy = { policy: 'no-referrer-when-downgrade' },
     crossOriginEmbedderPolicy = false, // Disable for API compatibility
     hsts = {
       maxAge: 31536000,
@@ -63,10 +63,10 @@ const createSecurityHeadersMiddleware = (options = {}) => {
   return helmet({
     contentSecurityPolicy,
     crossOriginEmbedderPolicy,
-    crossOriginOpenerPolicy: { policy: "same-origin" },
-    crossOriginResourcePolicy: { policy: "same-origin" },
+    crossOriginOpenerPolicy: { policy: 'same-origin' },
+    crossOriginResourcePolicy: { policy: 'same-origin' },
     dnsPrefetchControl: { allow: false },
-    frameguard: { action: "deny" },
+    frameguard: { action: 'deny' },
     hsts,
     ieNoOpen: noOpen,
     noSniff,
@@ -116,7 +116,7 @@ const applySecurityHeaders = (req, res, next) => {
       'screen-wake-lock=()',
       'serial=()',
       'usb=()',
-    ].join(', '),
+    ].join(', ')
   );
 
   next();

@@ -14,6 +14,7 @@ This guide provides step-by-step instructions for deploying the Properties-4-Cre
 ### 1. Repository Setup
 
 1. **Create or navigate to your GitHub repository**
+
    ```bash
    # If creating a new repository
    git init
@@ -33,12 +34,14 @@ This guide provides step-by-step instructions for deploying the Properties-4-Cre
 ### 2. Environment Configuration
 
 1. **Set Repository Name (Optional)**
+
    ```bash
    # Set your repository name for proper base path
    export VITE_REPOSITORY_NAME=your-repository-name
    ```
 
 2. **Configure Environment Variables (Optional)**
+
    ```bash
    # Copy the example environment file
    cp .env.example .env
@@ -52,11 +55,13 @@ This guide provides step-by-step instructions for deploying the Properties-4-Cre
 #### Option A: Manual Deployment
 
 1. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 2. **Install gh-pages (if not already installed)**
+
    ```bash
    npm install --save-dev gh-pages
    ```
@@ -69,13 +74,14 @@ This guide provides step-by-step instructions for deploying the Properties-4-Cre
 #### Option B: Automatic Deployment with GitHub Actions
 
 1. **Create GitHub Actions workflow**
+
    ```yaml
    # .github/workflows/deploy.yml
    name: Deploy to GitHub Pages
 
    on:
      push:
-       branches: [ main ]
+       branches: [main]
 
    jobs:
      deploy:
@@ -175,6 +181,7 @@ root.render(
 ```
 
 **Benefits of HashRouter for GitHub Pages:**
+
 - No server-side routing configuration required
 - Works with any hosting provider
 - URLs look like: `https://yourusername.github.io/repo/#/path`
@@ -182,6 +189,7 @@ root.render(
 ### Environment Variables
 
 **For GitHub Pages deployment:**
+
 ```env
 # Leave empty to use mock data (recommended)
 VITE_API_URL=
@@ -195,6 +203,7 @@ VITE_API_URL=
 If you want to use a custom domain:
 
 1. **Create CNAME file**
+
    ```bash
    echo "yourdomain.com" > public/CNAME
    ```
@@ -225,21 +234,25 @@ dist/
 ### Common Issues
 
 **1. Page shows "404 - File not found"**
+
 - Ensure GitHub Pages is enabled in repository settings
 - Check that the repository name is set correctly
 - Verify the base path in `vite.config.ts`
 
 **2. Assets not loading (CSS/JS/images)**
+
 - Check that paths are relative (start with `./` or without `/`)
 - Ensure `vite.config.ts` has correct `base` configuration
 - Verify build completed successfully
 
 **3. Routing not working**
+
 - Confirm HashRouter is being used (not BrowserRouter)
 - Check that routes are relative paths
 - Test with `npm run preview` before deploying
 
 **4. Environment variables not working**
+
 - Ensure variables start with `VITE_`
 - Check `.env` file is not committed to git
 - Verify variables are available during build
@@ -247,12 +260,14 @@ dist/
 ### Debug Steps
 
 1. **Test locally first**
+
    ```bash
    npm run build
    npm run preview
    ```
 
 2. **Check build output**
+
    ```bash
    ls -la dist/
    ```

@@ -70,7 +70,8 @@ const CustomVideoPlayer: React.FC<CustomVideoPlayerProps> = ({
       >
         <source src={src} type="video/mp4" />
         <p className="text-white p-4">
-          Your browser does not support the video tag. Please upgrade your browser.
+          Your browser does not support the video tag. Please upgrade your
+          browser.
         </p>
       </video>
 
@@ -82,7 +83,10 @@ const CustomVideoPlayer: React.FC<CustomVideoPlayerProps> = ({
             className="w-20 h-20 rounded-full bg-p4c-gold hover:bg-p4c-goldHover flex items-center justify-center shadow-xl transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-4 focus:ring-p4c-gold/50"
             aria-label="Play video"
           >
-            <Play className="w-10 h-10 text-p4c-navy ml-1" fill="currentColor" />
+            <Play
+              className="w-10 h-10 text-p4c-navy ml-1"
+              fill="currentColor"
+            />
           </button>
         </div>
       )}
@@ -140,14 +144,16 @@ const SuccessStories: React.FC = () => {
       id: 1,
       name: 'Marcus Thompson',
       location: 'Tyler, TX',
-      quote: 'Properties 4 Creation gave me and my family a fresh start. After serving overseas, coming home to a place we could truly call our own was everything.',
+      quote:
+        'Properties 4 Creation gave me and my family a fresh start. After serving overseas, coming home to a place we could truly call our own was everything.',
       videoLabel: 'Marcus Thompson success story - Tyler veteran housing',
     },
     {
       id: 2,
       name: 'Sarah Martinez',
       location: 'Longview, TX',
-      quote: 'The attention to detail in every renovation shows how much they care about the community. Our home is more than just a house—it is a home for our children.',
+      quote:
+        'The attention to detail in every renovation shows how much they care about the community. Our home is more than just a house—it is a home for our children.',
       videoLabel: 'Sarah Martinez family success story - Longview',
     },
   ];
@@ -155,7 +161,9 @@ const SuccessStories: React.FC = () => {
   return (
     <div className="min-h-screen bg-p4c-beige">
       <Helmet>
-        <title>Success Stories | Properties 4 Creation - East Texas Veteran Housing</title>
+        <title>
+          Success Stories | Properties 4 Creation - East Texas Veteran Housing
+        </title>
         <meta
           name="description"
           content="Hear from veterans and families whose lives have been transformed by Properties 4 Creation in Tyler, Longview, and across East Texas."
@@ -183,8 +191,9 @@ const SuccessStories: React.FC = () => {
               Stories of <span className="text-p4c-gold">Hope & Home</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-200 font-light max-w-2xl mx-auto leading-relaxed">
-              Real stories from veterans and families who found dignity, comfort,
-              and community in East Texas through Properties 4 Creation.
+              Real stories from veterans and families who found dignity,
+              comfort, and community in East Texas through Properties 4
+              Creation.
             </p>
           </div>
         </div>
@@ -221,7 +230,9 @@ const SuccessStories: React.FC = () => {
                 </blockquote>
                 <footer className="border-t border-p4c-gold/30 pt-6">
                   <cite className="not-italic">
-                    <p className="font-bold text-p4c-navy text-lg">{story.name}</p>
+                    <p className="font-bold text-p4c-navy text-lg">
+                      {story.name}
+                    </p>
                     <p className="text-gray-600">{story.location}</p>
                   </cite>
                 </footer>
@@ -238,9 +249,9 @@ const SuccessStories: React.FC = () => {
             Ready to Write Your Success Story?
           </h2>
           <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
-            Whether you are a veteran seeking a place to call home or a family looking
-            for quality housing in Tyler, Longview, or across East Texas—we are here
-            to help you find your perfect home.
+            Whether you are a veteran seeking a place to call home or a family
+            looking for quality housing in Tyler, Longview, or across East
+            Texas—we are here to help you find your perfect home.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a

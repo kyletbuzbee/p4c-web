@@ -11,7 +11,7 @@ const crypto = require('crypto');
  * Generate secure nonce for CSP headers
  * @returns {string} Base64 encoded nonce
  */
-const generateNonce = () => crypto.randomBytes(16).toString("base64");
+const generateNonce = () => crypto.randomBytes(16).toString('base64');
 
 /**
  * Creates comprehensive security headers configuration
@@ -27,45 +27,45 @@ const createEnhancedSecurityHeadersMiddleware = (options = {}) => {
           "'self'",
           "'unsafe-inline'", // Required for React/Vite development
           "'unsafe-eval'", // Required for Vite dev server
-          "https://apis.google.com",
-          "https://cdn.jsdelivr.net",
-          "https://www.googletagmanager.com",
+          'https://apis.google.com',
+          'https://cdn.jsdelivr.net',
+          'https://www.googletagmanager.com',
         ],
         styleSrc: [
           "'self'",
           "'unsafe-inline'", // Required for Tailwind CSS
-          "https://fonts.googleapis.com",
-          "https://cdn.jsdelivr.net",
+          'https://fonts.googleapis.com',
+          'https://cdn.jsdelivr.net',
         ],
         fontSrc: [
           "'self'",
-          "https://fonts.gstatic.com",
-          "https://cdn.jsdelivr.net",
+          'https://fonts.gstatic.com',
+          'https://cdn.jsdelivr.net',
         ],
         imgSrc: [
           "'self'",
-          "data:",
-          "https:",
-          "blob:",
-          "https://*.googleusercontent.com",
-          "https://*.gstatic.com",
+          'data:',
+          'https:',
+          'blob:',
+          'https://*.googleusercontent.com',
+          'https://*.gstatic.com',
         ],
         connectSrc: [
           "'self'",
-          "https://generativelanguage.googleapis.com",
-          "https://api.gemini.google.com",
-          "https://www.google-analytics.com",
-          "https://analytics.google.com",
+          'https://generativelanguage.googleapis.com',
+          'https://api.gemini.google.com',
+          'https://www.google-analytics.com',
+          'https://analytics.google.com',
         ],
         frameSrc: [
           "'self'",
-          "https://www.youtube.com",
-          "https://player.vimeo.com",
+          'https://www.youtube.com',
+          'https://player.vimeo.com',
         ],
         objectSrc: ["'none'"],
-        mediaSrc: ["'self'", "https:", "blob:"],
-        workerSrc: ["'self'", "blob:"],
-        childSrc: ["'self'", "blob:"],
+        mediaSrc: ["'self'", 'https:', 'blob:'],
+        workerSrc: ["'self'", 'blob:'],
+        childSrc: ["'self'", 'blob:'],
         formAction: ["'self'"],
         frameAncestors: ["'none'"],
         baseUri: ["'self'"],
@@ -75,7 +75,7 @@ const createEnhancedSecurityHeadersMiddleware = (options = {}) => {
       },
       reportUri: '/api/security/csp-violation',
     },
-    referrerPolicy = { policy: "strict-origin-when-cross-origin" },
+    referrerPolicy = { policy: 'strict-origin-when-cross-origin' },
     crossOriginEmbedderPolicy = false, // Disable for API compatibility
     hsts = {
       maxAge: 31536000, // 1 year
@@ -117,10 +117,10 @@ const createEnhancedSecurityHeadersMiddleware = (options = {}) => {
   return helmet({
     contentSecurityPolicy,
     crossOriginEmbedderPolicy,
-    crossOriginOpenerPolicy: { policy: "same-origin" },
-    crossOriginResourcePolicy: { policy: "same-origin" },
+    crossOriginOpenerPolicy: { policy: 'same-origin' },
+    crossOriginResourcePolicy: { policy: 'same-origin' },
     dnsPrefetchControl: { allow: false },
-    frameguard: { action: "deny" },
+    frameguard: { action: 'deny' },
     hsts,
     ieNoOpen: noOpen,
     noSniff,
@@ -176,13 +176,13 @@ const applyEnhancedSecurityHeaders = (req, res, next) => {
       'usb=()',
       'vr=()',
       'xr-spatial-tracking=()',
-    ].join(', '),
+    ].join(', ')
   );
 
   // Add security headers for modern browsers
   res.setHeader(
     'Strict-Transport-Security',
-    'max-age=31536000; includeSubDomains; preload',
+    'max-age=31536000; includeSubDomains; preload'
   );
   res.setHeader('Expect-CT', 'max-age=86400, enforce');
   res.setHeader('Server', 'Secure Server'); // Hide server information
@@ -219,7 +219,7 @@ const handleCSPViolation = async (req, res) => {
     // Log violation for monitoring
     console.warn(
       'CSP Violation Detected:',
-      JSON.stringify(violationReport, null, 2),
+      JSON.stringify(violationReport, null, 2)
     );
 
     // In production, you might want to:
@@ -249,12 +249,12 @@ const applyAPISecurityHeaders = (req, res, next) => {
   res.setHeader('X-XSS-Protection', '1; mode=block');
   res.setHeader(
     'Content-Security-Policy',
-    "default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'",
+    "default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'"
   );
   res.setHeader('Referrer-Policy', 'no-referrer');
   res.setHeader(
     'Strict-Transport-Security',
-    'max-age=31536000; includeSubDomains; preload',
+    'max-age=31536000; includeSubDomains; preload'
   );
 
   next();
@@ -267,19 +267,19 @@ const applyAPISecurityHeaders = (req, res, next) => {
 const generateSecurityHeadersReport = () => ({
   timestamp: new Date().toISOString(),
   securityHeaders: {
-    hsts: "Enabled with preload",
-    csp: "Comprehensive policy with reporting",
-    xssProtection: "Enabled with blocking",
-    contentTypeOptions: "nosniff enabled",
-    frameOptions: "DENY",
-    referrerPolicy: "strict-origin-when-cross-origin",
-    permissionsPolicy: "Restrictive permissions",
-    featurePolicy: "Restrictive features",
+    hsts: 'Enabled with preload',
+    csp: 'Comprehensive policy with reporting',
+    xssProtection: 'Enabled with blocking',
+    contentTypeOptions: 'nosniff enabled',
+    frameOptions: 'DENY',
+    referrerPolicy: 'strict-origin-when-cross-origin',
+    permissionsPolicy: 'Restrictive permissions',
+    featurePolicy: 'Restrictive features',
   },
   recommendations: [
-    "Monitor CSP violations regularly",
-    "Review and update CSP directives periodically",
-    "Consider adding additional security headers as needed",
+    'Monitor CSP violations regularly',
+    'Review and update CSP directives periodically',
+    'Consider adding additional security headers as needed',
   ],
 });
 

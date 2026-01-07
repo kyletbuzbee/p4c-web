@@ -33,7 +33,7 @@ const SIMULATED_LATENCY = 800; // ms
 const API_CONFIG = {
   // Get API URL from environment variable, fallback to empty string for mock data
   // eslint-disable-next-line dot-notation
-  baseUrl: import.meta.env['VITE_API_URL'] || "",
+  baseUrl: import.meta.env['VITE_API_URL'] || '',
 
   // Check if we're in backend mode (has API URL) or mock mode (no API URL)
   get isBackendMode() {
@@ -53,7 +53,7 @@ const API_CONFIG = {
 class ApiClient {
   private async makeRequest<T>(
     endpoint: string,
-    options?: RequestInit,
+    options?: RequestInit
   ): Promise<T> {
     if (!API_CONFIG.isBackendMode) {
       throw new Error('Backend mode disabled - using mock data');
@@ -77,7 +77,7 @@ class ApiClient {
     } catch (error) {
       console.warn(
         `Backend request failed for endpoint ${endpoint}, falling back to mock data:`,
-        error,
+        error
       );
       throw new Error('Backend unavailable - using mock data');
     }
@@ -165,14 +165,14 @@ export const api = {
         // Try backend first if in backend mode
         if (API_CONFIG.isBackendMode) {
           const data = await apiClient.get<FinancialBreakdown[]>(
-            '/api/impact/financial-breakdown',
+            '/api/impact/financial-breakdown'
           );
           return data;
         }
       } catch (error) {
         console.warn(
           'Backend financial breakdown request failed, using mock data:',
-          error,
+          error
         );
       }
 
@@ -198,14 +198,14 @@ export const api = {
         // Try backend first if in backend mode
         if (API_CONFIG.isBackendMode) {
           const data = await apiClient.get<RenovationStandard[]>(
-            '/api/transparency/standards',
+            '/api/transparency/standards'
           );
           return data;
         }
       } catch (error) {
         console.warn(
           'Backend standards request failed, using mock data:',
-          error,
+          error
         );
       }
 
@@ -262,7 +262,7 @@ export const api = {
       } catch (error) {
         console.warn(
           'Backend properties request failed, using mock data:',
-          error,
+          error
         );
       }
 
@@ -280,14 +280,14 @@ export const api = {
         // Try backend first if in backend mode
         if (API_CONFIG.isBackendMode) {
           const data = await apiClient.get<ExtendedProperty>(
-            `/api/properties/${id}`,
+            `/api/properties/${id}`
           );
           return data;
         }
       } catch (error) {
         console.warn(
           'Backend property by ID request failed, using mock data:',
-          error,
+          error
         );
       }
 
@@ -314,14 +314,14 @@ export const api = {
         if (API_CONFIG.isBackendMode) {
           const data = await apiClient.post<ExtendedProperty[]>(
             '/api/properties/search',
-            criteria,
+            criteria
           );
           return data;
         }
       } catch (error) {
         console.warn(
           'Backend property search request failed, using mock data:',
-          error,
+          error
         );
       }
 
@@ -360,14 +360,14 @@ export const api = {
         // Try backend first if in backend mode
         if (API_CONFIG.isBackendMode) {
           const data = await apiClient.get<ExtendedProperty[]>(
-            `/api/properties/badge/${encodeURIComponent(badge)}`,
+            `/api/properties/badge/${encodeURIComponent(badge)}`
           );
           return data;
         }
       } catch (error) {
         console.warn(
           'Backend property by badge request failed, using mock data:',
-          error,
+          error
         );
       }
 
@@ -376,8 +376,8 @@ export const api = {
 
       return properties.filter((property) =>
         property.badges.some((propertyBadge) =>
-          propertyBadge.toLowerCase().includes(badge.toLowerCase()),
-        ),
+          propertyBadge.toLowerCase().includes(badge.toLowerCase())
+        )
       );
     },
   },

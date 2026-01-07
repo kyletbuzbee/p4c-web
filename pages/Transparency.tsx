@@ -26,8 +26,8 @@ const Transparency: React.FC = () => {
         setStandards(data);
       } catch (error) {
         addToast(
-          "Failed to load transparency data. Please try again.",
-          "error",
+          'Failed to load transparency data. Please try again.',
+          'error'
         );
       } finally {
         setLoading(false);
