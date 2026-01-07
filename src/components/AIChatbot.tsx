@@ -106,7 +106,7 @@ const AIChatbot: React.FC = () => {
       setMessages([
         {
           role: 'model',
-          text: "Chat cleared! How can I help you today?",
+          text: 'Chat cleared! How can I help you today?',
           timestamp: new Date(),
         },
       ]);
@@ -117,7 +117,7 @@ const AIChatbot: React.FC = () => {
   };
 
   const formatTime = (date: Date) =>
-    date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
   return (
     <>

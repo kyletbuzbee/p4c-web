@@ -238,7 +238,7 @@ app.post('/api/ai/edit-image', verifyApiKey, async (req, res) => {
         maxLength: 1000,
       });
     }
-/n    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-image' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-image' });
 
     const result = await model.generateContent({
       contents: {
@@ -304,7 +304,7 @@ app.post('/api/ai/chat', verifyApiKey, async (req, res) => {
         maxLength: 4000,
       });
     }
-/n    const model = genAI.getGenerativeModel({
+    const model = genAI.getGenerativeModel({
       systemInstruction: `You are 'Patriot', the AI Concierge for Properties 4 Creation (P4C).
       P4C is a veteran-owned company in East Texas that provides high-quality affordable housing.
 
@@ -329,7 +329,7 @@ app.post('/api/ai/chat', verifyApiKey, async (req, res) => {
     const response =
       result.response.text() ||
       "I'm sorry, I couldn't process that request right now.";
-/n    res.json({
+    res.json({
       success: true,
       message: response,
       timestamp: new Date().toISOString(),
@@ -374,7 +374,9 @@ app.use('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-/n");
+  console.log(
+    `🚀 Server running on port ${PORT}`,
+  );
   console.log(
     `🌍 CORS configured for: ${process.env.ALLOWED_ORIGINS || 'http://localhost:3000'}`,
   );

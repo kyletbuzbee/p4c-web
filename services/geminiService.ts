@@ -79,7 +79,7 @@ export const editImageWithGemini = async (
 
     // Sanitize inputs
     const sanitizedPrompt = sanitizeInput(prompt);
-/n    const response = await fetch(`${API_BASE_URL}/ai/edit-image`, {
+    const response = await fetch(`${API_BASE_URL}/ai/edit-image`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -106,7 +106,7 @@ export const editImageWithGemini = async (
     if (!result.success || !result.data) {
       throw new Error(result.error || 'Image processing failed');
     }
-/n    return result.data;
+    return result.data;
   } catch (error) {
     console.error('Image edit error:', error);
 
@@ -149,7 +149,7 @@ export const sendChatMessage = async (
 
     // Sanitize message
     const sanitizedMessage = sanitizeInput(message);
-/n    const response = await fetch(`${API_BASE_URL}/ai/chat`, {
+    const response = await fetch(`${API_BASE_URL}/ai/chat`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -178,7 +178,7 @@ export const sendChatMessage = async (
     if (!result.success || !result.message) {
       throw new Error(result.error || 'Chat processing failed');
     }
-/n    return result.message;
+    return result.message;
   } catch (error) {
     console.error('Chat error:', error);
 

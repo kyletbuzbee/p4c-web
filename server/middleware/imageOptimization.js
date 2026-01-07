@@ -352,7 +352,8 @@ class ImageOptimizationService {
       cacheSize: this.cache.size,
       cacheHitRate:
         this.stats.requests > 0
-        `${(this.stats.cacheHits / this.stats.requests * 100).toFixed(2)  }%` : '0%'
+          ? `${(this.stats.cacheHits / this.stats.requests * 100).toFixed(2)}%`
+          : '0%',
     };
   }
 

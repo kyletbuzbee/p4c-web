@@ -8,7 +8,7 @@ const apiKey =
 if (!apiKey) {
   // eslint-disable-next-line no-console
   console.warn(
-    'Gemini API key not found. Set VITE_GEMINI_API_KEY in your environment variables.',
+    'Gemini API key not found. Set VITE_GEMINI_API_KEY in your environment variables.'
   );
 }
 
@@ -68,7 +68,6 @@ class GeminiService {
 
       this.isInitialized = true;
       // eslint-disable-next-line no-console
-
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error('Failed to initialize Gemini service:', error);
@@ -124,7 +123,7 @@ class GeminiService {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _imageData: string,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _prompt: string,
+    _prompt: string
   ): Promise<string> {
     try {
       if (!this.isInitialized) {

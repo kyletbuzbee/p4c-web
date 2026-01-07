@@ -149,7 +149,7 @@ class ErrorBoundary extends Component<Props, State> {
   };
 
   private handleReload = () => {
-/n    // Clear any corrupted state
+    // Clear any corrupted state
     this.setState({
       hasError: false,
       error: null,
@@ -162,7 +162,7 @@ class ErrorBoundary extends Component<Props, State> {
   };
 
   private handleReset = () => {
-/n    // Clear any corrupted state and try to recover
+    // Clear any corrupted state and try to recover
     this.setState({
       hasError: false,
       error: null,

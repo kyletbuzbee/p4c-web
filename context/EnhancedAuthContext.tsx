@@ -467,7 +467,7 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
         }
         throw new Error('Account temporarily locked. Please try again later.');
       }
-/n      const response = await fetch('/api/auth/login', {
+      const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -521,7 +521,7 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
       localStorage.setItem('p4c_session_token', token);
 
       setUser(cleanUser);
-/n      addToast(`Welcome back, ${cleanUser.name}`, 'success');
+      addToast(`Welcome back, ${cleanUser.name}`, 'success');
     } catch (error) {
       console.error('Login error:', error);
       const errorMessage =
@@ -537,7 +537,7 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
 
   // Enhanced logout function
   const logout = useCallback(() => {
-/n    // Clear state immediately
+    // Clear state immediately
     setUser(null);
     setLoginAttempts(0);
     setIsLocked(false);

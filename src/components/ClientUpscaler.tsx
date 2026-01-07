@@ -63,7 +63,7 @@ const ClientUpscaler: React.FC = () => {
       };
       reader.readAsDataURL(file);
     },
-    [],
+    []
   );
 
   const handleUpscale = useCallback(async () => {

@@ -25,7 +25,7 @@ const CACHE_STRATEGIES = {
 
 // Install event - cache static assets
 self.addEventListener("install", (event) => {
-/n  event.waitUntil(
+  event.waitUntil(
     caches
       .open(STATIC_CACHE)
       .then((cache) => {
@@ -44,7 +44,7 @@ self.addEventListener("install", (event) => {
 
 // Activate event - clean up old caches
 self.addEventListener("activate", (event) => {
-/n  event.waitUntil(
+  event.waitUntil(
     caches
       .keys()
       .then((cacheNames) =>
@@ -254,7 +254,7 @@ async function performBackgroundSync() {
 
 // Push notifications (if needed in future)
 self.addEventListener("push", (event) => {
-/n  const options = {
+  const options = {
     body: event.data ? event.data.text() : "New notification",
     icon: "/icon-192x192.png",
     badge: "/badge-72x72.png",
@@ -269,8 +269,7 @@ self.addEventListener("push", (event) => {
 
 // Handle notification clicks
 self.addEventListener("notificationclick", (event) => {
-/n  event.notification.close();
+  event.notification.close();
 
   event.waitUntil(clients.openWindow("/"));
 });
-/n
