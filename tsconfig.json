@@ -58,7 +58,7 @@
     },
 
     /* Enhanced Type Definitions */
-    "types": ["node", "react", "react-dom", "vite/client"],
+    "types": ["node", "react", "react-dom", "vite/client", "vitest/globals"],
 
     /* Enhanced Output Configuration */
     "removeComments": true,
