@@ -32,7 +32,9 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
       </button>
       <div
         id={`faq-content-${question.replace(/\s+/g, '-').toLowerCase()}`}
-        className="accordion-content"
+        className={`accordion-content overflow-hidden transition-all duration-300 ease-out ${
+          isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        }`}
         role="region"
         aria-label={question}
       >

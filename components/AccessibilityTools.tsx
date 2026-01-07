@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 interface AccessibilityToolsProps {
   className?: string;
@@ -13,6 +13,26 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
   const [readingMode, setReadingMode] = useState(false);
   const [focusMode, setFocusMode] = useState(false);
   const [audioAssistance, setAudioAssistance] = useState(false);
+
+  // Use refs for stable access in event listeners
+  const stateRef = useRef({
+    fontSize,
+    contrast,
+    readingMode,
+    focusMode,
+    audioAssistance,
+  });
+
+  // Keep refs synced with state
+  useEffect(() => {
+    stateRef.current = {
+      fontSize,
+      contrast,
+      readingMode,
+      focusMode,
+      audioAssistance,
+    };
+  }, [fontSize, contrast, readingMode, focusMode, audioAssistance]);
 
   // Apply styles to document
   useEffect(() => {
@@ -47,81 +67,92 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
     }
   }, [fontSize, contrast, readingMode, focusMode]);
 
-  const increaseFontSize = () => {
-    if (fontSize < 150) setFontSize((prev) => prev + 10);
-  };
+  const increaseFontSize = useCallback(() => {
+    setFontSize((prev) => Math.min(prev + 10, 150));
+  }, []);
 
-  const decreaseFontSize = () => {
-    if (fontSize > 80) setFontSize((prev) => prev - 10);
-  };
+  const decreaseFontSize = useCallback(() => {
+    setFontSize((prev) => Math.max(prev - 10, 80));
+  }, []);
 
-  const toggleContrast = () => {
+  const toggleContrast = useCallback(() => {
     setContrast((prev) => {
       if (prev === 'normal') return 'high';
       if (prev === 'high') return 'dark-high';
       return 'normal';
     });
-  };
+  }, []);
 
-  const toggleReadingMode = () => {
-    setReadingMode(!readingMode);
-  };
+  const toggleReadingMode = useCallback(() => {
+    setReadingMode((prev) => !prev);
+  }, []);
 
-  const toggleFocusMode = () => {
-    setFocusMode(!focusMode);
-  };
+  const toggleFocusMode = useCallback(() => {
+    setFocusMode((prev) => !prev);
+  }, []);
 
-  const toggleAudioAssistance = () => {
-    setAudioAssistance(!audioAssistance);
-    if (!audioAssistance) {
-      // Announce feature activation
-      const utterance = new SpeechSynthesisUtterance(
-        'Audio assistance activated. Use keyboard shortcuts for navigation.'
-      );
-      speechSynthesis.speak(utterance);
-    }
-  };
+  const toggleAudioAssistance = useCallback(() => {
+    setAudioAssistance((prev) => {
+      const newValue = !prev;
+      if (newValue) {
+        // Announce feature activation
+        const utterance = new SpeechSynthesisUtterance(
+          'Audio assistance activated. Use keyboard shortcuts for navigation.'
+        );
+        speechSynthesis.speak(utterance);
+      }
+      return newValue;
+    });
+  }, []);
 
-  // Keyboard shortcuts
+  // Keyboard shortcuts - stable event listener
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.ctrlKey || e.metaKey) {
-        switch (e.key) {
-          case '+':
-            e.preventDefault();
-            increaseFontSize();
-            break;
-          case '-':
-            e.preventDefault();
-            decreaseFontSize();
-            break;
-          case '0':
-            e.preventDefault();
-            setFontSize(100);
-            break;
-          case 'k':
-            e.preventDefault();
-            toggleContrast();
-            break;
-          case 'r':
-            e.preventDefault();
-            toggleReadingMode();
-            break;
-          case 'f':
-            e.preventDefault();
-            toggleFocusMode();
-            break;
-          case 'm':
-            e.preventDefault();
-            toggleAudioAssistance();
-            break;
-        }
+      const { ctrlKey, metaKey } = e;
+      if (!ctrlKey && !metaKey) return;
+
+      switch (e.key) {
+        case '+':
+          e.preventDefault();
+          increaseFontSize();
+          break;
+        case '-':
+          e.preventDefault();
+          decreaseFontSize();
+          break;
+        case '0':
+          e.preventDefault();
+          setFontSize(100);
+          break;
+        case 'k':
+          e.preventDefault();
+          toggleContrast();
+          break;
+        case 'r':
+          e.preventDefault();
+          toggleReadingMode();
+          break;
+        case 'f':
+          e.preventDefault();
+          toggleFocusMode();
+          break;
+        case 'm':
+          e.preventDefault();
+          toggleAudioAssistance();
+          break;
       }
     };
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [fontSize, contrast, readingMode, focusMode, audioAssistance]);
+  }, [
+    increaseFontSize,
+    decreaseFontSize,
+    toggleContrast,
+    toggleReadingMode,
+    toggleFocusMode,
+    toggleAudioAssistance,
+  ]);
 
   return (
     <>

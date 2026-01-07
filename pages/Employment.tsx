@@ -40,7 +40,7 @@ const Employment: React.FC = () => (
           </div>
           <p className="text-gray-700 leading-relaxed mb-6">
             At Properties 4 Creation, we believe that the hands that built our
-            nation are best suited to build our communities. We aren't just
+            nation are best suited to build our communities. We aren&apos;t just
             renovating houses; we are restoring dignity.
           </p>
           <p className="text-gray-700 leading-relaxed mb-8">
@@ -133,7 +133,9 @@ const Employment: React.FC = () => (
           </div>
 
           <div className="mt-8 bg-p4c-navy text-white p-6 rounded-xl text-center">
-            <h4 className="font-bold text-lg mb-2">Don't see your trade?</h4>
+            <h4 className="font-bold text-lg mb-2">
+              Don&apos;t see your trade?
+            </h4>
             <p className="text-gray-300 text-sm mb-4">
               We are always looking for skilled plumbers, electricians, and
               roofers.

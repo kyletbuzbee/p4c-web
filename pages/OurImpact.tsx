@@ -79,7 +79,7 @@ const OurImpact: React.FC = () => {
             More Than Just Rentals.
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            We measure our bottom line differently. It's not just about ROI—it's
+            We measure our bottom line differently. It&apos;s not just about
             about the tangible difference we make in the lives of veterans and
             the fabric of our neighborhoods.
           </p>

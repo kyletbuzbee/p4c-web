@@ -185,9 +185,10 @@ const Contact: React.FC = () => {
                 Contact Information
               </h2>
               <p className="text-gray-700 leading-relaxed">
-                Whether you are a veteran looking for housing, an investor
-                interested in our mission, or a skilled tradesperson wanting to
-                join our team, we want to hear from you.
+                Whether you are a veteran looking for housing, a family needing
+                a place to call home, an investor interested in our mission, or
+                a skilled tradesperson wanting to join our team, we want to hear
+                from you.
               </p>
             </div>
 
@@ -203,7 +204,7 @@ const Contact: React.FC = () => {
                   <p className="text-gray-600">
                     123 Veteran Way
                     <br />
-                    Tyler, TX 75701
+                    Longview, TX 75776
                   </p>
                 </div>
               </div>
@@ -214,7 +215,7 @@ const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-p4c-navy text-lg">Phone</h3>
-                  <p className="text-gray-600">(903) 555-0123</p>
+                  <p className="text-gray-600">(936) 707-8460</p>
                   <p className="text-sm text-gray-500 mt-1">
                     Mon-Fri, 9am - 5pm CST
                   </p>
@@ -227,7 +228,9 @@ const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-p4c-navy text-lg">Email</h3>
-                  <p className="text-gray-600">support@p4c-homes.com</p>
+                  <p className="text-gray-600">
+                    Richard@properties4creation.com
+                  </p>
                 </div>
               </div>
             </div>
@@ -244,7 +247,7 @@ const Contact: React.FC = () => {
                   Message Sent!
                 </h3>
                 <p className="text-gray-600">
-                  We'll get back to you within 24 hours.
+                  We&apos;ll get back to you within 24 hours.
                 </p>
               </div>
             )}
