@@ -18,7 +18,7 @@ export const IMAGES = {
   // Page Hero Banners
   BANNERS: {
     // Home Page
-    HERO_HOME: '/images/banners/hero-home-banner-400ww.webp',
+    HERO_HOME: '/images/banners/hero-home-banner.webp',
     HERO_HOME_640: '/images/banners/hero-home-banner-640.webp',
     HERO_HOME_960: '/images/banners/hero-home-banner-960.webp',
     HERO_HOME_1280: '/images/banners/hero-home-banner-1280.webp',
@@ -93,8 +93,10 @@ export const IMAGES = {
     HERO_SUCCESS_STORY: '/images/banners/hero-get-started-banner.webp',
     HERO_SUCCESS_STORY_640: '/images/banners/hero-get-started-banner-640.webp',
     HERO_SUCCESS_STORY_960: '/images/banners/hero-get-started-banner-960.webp',
-    HERO_SUCCESS_STORY_1280: '/images/banners/hero-get-started-banner-1280.webp',
-    HERO_SUCCESS_STORY_1920: '/images/banners/hero-get-started-banner-1920.webp',
+    HERO_SUCCESS_STORY_1280:
+      '/images/banners/hero-get-started-banner-1280.webp',
+    HERO_SUCCESS_STORY_1920:
+      '/images/banners/hero-get-started-banner-1920.webp',
 
     // Deprecated: Get Started renamed to Success Story
     HERO_GET_STARTED: '/images/banners/hero-get-started-banner.webp',
@@ -144,8 +146,7 @@ export const IMAGES = {
     KITCHEN: {
       BEFORE:
         '/images/before-after-comparison/projects-before-kitchen-800w.webp',
-      AFTER:
-        '/images/before-after-comparison/projects-after-kitchen-800w.webp',
+      AFTER: '/images/before-after-comparison/projects-after-kitchen-800w.webp',
     },
     LIVING_ROOM: {
       BEFORE:
