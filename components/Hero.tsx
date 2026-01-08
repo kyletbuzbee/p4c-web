@@ -2,21 +2,33 @@ import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { IMAGES } from '../constants/images';
 
-const Hero: React.FC = () => (
+interface HeroProps {
+  variant?: 'image' | 'video';
+}
+
+const Hero: React.FC<HeroProps> = ({ variant = 'image' }) => (
   <div className="relative h-[85vh] w-full overflow-hidden flex items-center justify-center">
-    {/* Video Background */}
+    {/* Background - Image or Video */}
     <div className="absolute top-0 left-0 w-full h-full z-0 overflow-hidden">
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        poster={IMAGES.BANNERS.HERO_HOME}
-        className="object-cover w-full h-full"
-        aria-label="Hero background video showcasing renovated properties"
-      >
-        <source src={IMAGES.VIDEOS.HOME} type="video/mp4" />
-      </video>
+      {variant === 'video' ? (
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster={IMAGES.BANNERS.HERO_PROJECTS}
+          className="object-cover w-full h-full"
+          aria-label="Hero background video showcasing renovated properties"
+        >
+          <source src={IMAGES.VIDEOS.HERO_PROJECTS} type="video/mp4" />
+        </video>
+      ) : (
+        <img
+          src={IMAGES.BANNERS.HERO_HOME}
+          alt="Beautifully renovated home in East Texas"
+          className="object-cover w-full h-full"
+        />
+      )}
       {/* Enhanced overlay for readability */}
       <div className="absolute top-0 left-0 w-full h-full hero-overlay-primary" />
       <div className="absolute top-0 left-0 w-full h-full hero-overlay-secondary" />

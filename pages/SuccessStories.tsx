@@ -182,7 +182,7 @@ const SuccessStories: React.FC = () => {
           className="absolute top-0 left-0 w-full h-full object-cover"
           aria-label="Success stories hero background video"
         >
-          <source src={IMAGES.VIDEOS.HERO_PROPERTIES} type="video/mp4" />
+          <source src={IMAGES.VIDEOS.HERO_PROJECTS} type="video/mp4" />
         </video>
         <div className="absolute top-0 left-0 w-full h-full hero-overlay-primary" />
 
@@ -217,7 +217,7 @@ const SuccessStories: React.FC = () => {
               {/* Video Section */}
               <div className="w-full lg:w-1/2">
                 <CustomVideoPlayer
-                  src={IMAGES.VIDEOS.HERO_PROPERTIES}
+                  src={IMAGES.VIDEOS.HERO_PROJECTS}
                   poster={IMAGES.BANNERS.HERO_IMPACT}
                   ariaLabel={story.videoLabel}
                 />

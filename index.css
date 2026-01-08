@@ -278,12 +278,35 @@
     mix-blend-mode: multiply;
   }
 
+  /* Mobile: Reduce overlay opacity for better readability */
+  @media (max-width: 640px) {
+    .hero-overlay-primary {
+      background: linear-gradient(
+        180deg,
+        rgba(11, 17, 32, 0.6) 0%,
+        rgba(11, 17, 32, 0.4) 50%,
+        rgba(11, 17, 32, 0.5) 100%
+      );
+    }
+  }
+
   .hero-overlay-secondary {
     background: linear-gradient(
       135deg,
       rgba(0, 0, 0, 0.3) 0%,
       rgba(0, 0, 0, 0.15) 100%
     );
+  }
+
+  /* Mobile: Reduce secondary overlay */
+  @media (max-width: 640px) {
+    .hero-overlay-secondary {
+      background: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.15) 0%,
+        rgba(0, 0, 0, 0.05) 100%
+      );
+    }
   }
 
   .hero-text-contrast {
