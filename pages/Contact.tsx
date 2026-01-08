@@ -161,7 +161,7 @@ const Contact: React.FC = () => {
         <div className="absolute top-0 left-0 w-full h-full z-0">
           <img
             src={IMAGES.BANNERS.HERO_CONTACT}
-            alt="People working together and connecting"
+            alt="Mailbox with letters representing contact"
             className="w-full h-full object-cover"
           />
           <div className="absolute top-0 left-0 w-full h-full bg-p4c-navy/80 mix-blend-multiply" />
@@ -187,7 +187,7 @@ const Contact: React.FC = () => {
               <p className="text-gray-700 leading-relaxed">
                 Whether you are a veteran looking for housing, a family needing
                 a place to call home, an investor interested in our mission, or
-                a skilled tradesperson wanting to join our team, we want to hear
+                have a trade and are wanting to join our team, we want to hear
                 from you.
               </p>
             </div>
