@@ -133,6 +133,7 @@ export const IMAGES = {
   TEAM: {
     OWNER: '/images/about/about-us-team-owner.png',
     HEADSHOT: '/images/about/about-us-team-headshot.png',
+    ONSITE: '/images/about/about-us-team-onsite.png',
   },
 
   // Renovation Showcase (Before/After)

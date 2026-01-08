@@ -251,6 +251,23 @@ const About: React.FC = () => (
           </div>
         </div>
       </div>
+
+      {/* On Site Team Photo */}
+      <div className="mt-16">
+        <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+          <img
+            src={IMAGES.TEAM.ONSITE}
+            alt="Properties 4 Creation team working on site"
+            loading="lazy"
+            className="w-full h-auto object-cover max-h-[600px]"
+          />
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-p4c-navy/90 to-transparent p-8 pt-24">
+            <p className="text-white text-xl font-medium italic">
+              Hands-on leadership means we&apos;re always where the work happens.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 );
