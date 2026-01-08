@@ -34,8 +34,7 @@ const VeteranServices: React.FC = () => (
           Serving Those Who Served
         </h1>
         <p className="text-xl text-gray-200 hero-text-enhanced">
-          We don't just provide housing; we provide a home base for your next
-          chapter.
+          We don&apos;t just provide housing; we provide a home base for your next chapter.
         </p>
       </div>
     </div>

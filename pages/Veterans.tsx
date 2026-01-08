@@ -24,7 +24,7 @@ const Veterans: React.FC = () => (
           Serving Those Who Served
         </h1>
         <p className="text-xl text-gray-200">
-          Housing is a human right, but for veterans, it's a promise we keep.
+          Housing is a human right, but for veterans, it&apos;s a promise we keep.
         </p>
       </div>
     </div>
@@ -133,13 +133,13 @@ const Veterans: React.FC = () => (
             </h3>
             <ul className="space-y-3 text-sm text-blue-600 underline">
               <li>
-                <a href="#">CampV Tyler</a>
+                <a href="https://www.campv.org/tyler" target="_blank" rel="noopener noreferrer">CampV Tyler</a>
               </li>
               <li>
-                <a href="#">Texas Veterans Commission</a>
+                <a href="https://www.tvc.texas.gov" target="_blank" rel="noopener noreferrer">Texas Veterans Commission</a>
               </li>
               <li>
-                <a href="#">East Texas Food Bank</a>
+                <a href="https://www.easttexasfoodbank.org" target="_blank" rel="noopener noreferrer">East Texas Food Bank</a>
               </li>
             </ul>
           </div>

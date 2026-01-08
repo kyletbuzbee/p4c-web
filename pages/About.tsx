@@ -59,10 +59,10 @@ const About: React.FC = () => (
             saw risk, we saw potential for revitalization.
           </p>
           <p className="text-gray-700 leading-relaxed">
-            Today, we buy distressed properties, renovate them to "homeowner
-            standards," and rent them affordably to the people who need them
-            most—families utilizing Section 8 vouchers and veterans in the
-            HUD-VASH program.
+            Today, we buy distressed properties, renovate them to
+            {'"'}homeowner standards,{'"'} and rent them affordably to the
+            people who need them most—families utilizing Section 8 vouchers
+            and veterans in the HUD-VASH program.
           </p>
         </div>
         <div className="relative group">
@@ -176,8 +176,8 @@ const About: React.FC = () => (
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="w-5 h-5 text-p4c-gold flex-shrink-0 mt-0.5" />
                   <span className="text-gray-600 text-sm">
-                    <strong>Revitalizing Streets</strong> by fixing the "worst
-                    house on the block."
+                    <strong>Revitalizing Streets</strong> by fixing the
+                    "worst house on the block."
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
@@ -221,9 +221,9 @@ const About: React.FC = () => (
               property management.
             </p>
             <p className="text-gray-300 leading-relaxed">
-              We don't cut corners, and we don't leave anyone behind. That's the
-              pledge we made in service, and it's the pledge we keep in
-              business.
+              We don't cut corners, and we don't leave anyone behind.
+              That's the pledge we made in service, and it's the
+              pledge we keep in business.
             </p>
           </div>
         </div>
