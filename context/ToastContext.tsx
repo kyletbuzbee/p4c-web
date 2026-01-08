@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback, useRef, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { X, CheckCircle, AlertCircle, Info } from 'lucide-react';
 
@@ -29,14 +29,28 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
+  // Track timeout IDs for proper cleanup
+  const timeoutIdsRef = useRef<Set<number>>(new Set());
+
+  // Cleanup all timeouts on unmount
+  useEffect(() => {
+    return () => {
+      timeoutIdsRef.current.forEach((timeoutId) => {
+        clearTimeout(timeoutId);
+      });
+      timeoutIdsRef.current.clear();
+    };
+  }, []);
 
   const addToast = useCallback((message: string, type: ToastType) => {
     const id = Date.now();
     setToasts((prev) => [...prev, { id, message, type }]);
-    // Auto remove after 5 seconds
-    setTimeout(() => {
+    // Auto remove after 5 seconds with proper cleanup
+    const timeoutId = window.setTimeout(() => {
       setToasts((prev) => prev.filter((t) => t.id !== id));
+      timeoutIdsRef.current.delete(timeoutId);
     }, 5000);
+    timeoutIdsRef.current.add(timeoutId);
   }, []);
 
   const removeToast = useCallback((id: number) => {

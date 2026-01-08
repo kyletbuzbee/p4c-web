@@ -6,6 +6,7 @@ import PropertyCard from '../components/PropertyCard';
 import BeforeAfterSlider from '../components/BeforeAfterSlider';
 import GeminiImageEditor from '../components/GeminiImageEditor';
 import { api } from '../services/api';
+import { logError } from '../services/errorBoundaryService';
 import type { ExtendedProperty } from '../types';
 import { IMAGES } from '../constants/images';
 import {
@@ -36,7 +37,11 @@ const Home: React.FC = () => {
         const propertiesData = await api.properties.getAll();
         setProperties(propertiesData);
       } catch (error) {
-        console.error('Failed to fetch properties:', error);
+        logError('Failed to fetch properties', {
+          error: error instanceof Error ? error : new Error(String(error)),
+          component: 'Home',
+          severity: 'high',
+        });
       } finally {
         setLoading(false);
       }
