@@ -66,23 +66,31 @@ const OurImpact: React.FC = () => {
       </Helmet>
 
       {/* Hero */}
-      <div className="bg-p4c-navy text-white pt-20 pb-32 relative overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img
-            src={IMAGES.BANNERS.HERO_IMPACT}
-            alt="Impact Banner"
-            className="w-full h-full object-cover opacity-20"
-          />
-        </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <h1 className="text-4xl md:text-6xl font-serif font-bold mb-6">
-            More Than Just Rentals.
-          </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            We measure our bottom line differently. It&apos;s not just about
-            about the tangible difference we make in the lives of veterans and
-            the fabric of our neighborhoods.
-          </p>
+      <div className="relative h-[60vh] min-h-[400px] w-full overflow-hidden">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster={IMAGES.BANNERS.HERO_PROJECTS}
+          className="absolute top-0 left-0 w-full h-full object-cover"
+          aria-label="Impact hero background video showcasing our projects"
+        >
+          <source src={IMAGES.VIDEOS.HERO_PROJECTS} type="video/mp4" />
+        </video>
+        <div className="absolute top-0 left-0 w-full h-full hero-overlay-primary" />
+        <div className="absolute top-0 left-0 w-full h-full hero-overlay-secondary" />
+        <div className="relative z-10 h-full flex items-center justify-center px-4">
+          <div className="text-center max-w-4xl animate-fade-in-up">
+            <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">
+              More Than Just Rentals.
+            </h1>
+            <p className="text-lg md:text-xl text-gray-200 font-light max-w-2xl mx-auto leading-relaxed">
+              We measure our bottom line differently. It&apos;s not just about
+              about the tangible difference we make in the lives of veterans and
+              the fabric of our neighborhoods.
+            </p>
+          </div>
         </div>
       </div>
 
