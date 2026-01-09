@@ -110,7 +110,10 @@ export const editImageWithGemini = async (
     }
     return result.data;
   } catch (error) {
-    logError('Image edit error', { error: error as Error, component: 'geminiService' });
+    logError('Image edit error', {
+      error: error as Error,
+      component: 'geminiService',
+    });
 
     // Provide user-friendly error messages
     if (error instanceof TypeError && error.message.includes('fetch')) {
@@ -182,7 +185,10 @@ export const sendChatMessage = async (
     }
     return result.message;
   } catch (error) {
-    logError('Chat error', { error: error as Error, component: 'geminiService' });
+    logError('Chat error', {
+      error: error as Error,
+      component: 'geminiService',
+    });
 
     // Provide user-friendly error messages
     if (error instanceof TypeError && error.message.includes('fetch')) {
@@ -215,7 +221,10 @@ export const checkAiServiceHealth = async (): Promise<boolean> => {
     const data = await response.json();
     return data.status === 'healthy';
   } catch (error) {
-    logError('Health check failed', { error: error as Error, component: 'geminiService' });
+    logError('Health check failed', {
+      error: error as Error,
+      component: 'geminiService',
+    });
     return false;
   }
 };

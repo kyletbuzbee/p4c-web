@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """
-AI-Optimized Code Review & Analysis Tool
+AI-Optimized Code Review & Analysis Tool for Properties 4 Creation (P4C)
 Produces structured, comprehensive code reviews for AI processing.
+
+P4C MISSION: Housing veterans and families with dignity.
+This analyzer enforces "Dignity-First" UI patterns and architectural standards.
 """
 
 import os
@@ -11,7 +14,7 @@ import ast
 import re
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Tuple, Optional, Any
+from typing import Dict, List, Tuple, Optional, Any, Set
 from dataclasses import dataclass, field, asdict
 from collections import defaultdict
 
@@ -40,22 +43,73 @@ class FileAnalysis:
 
 
 @dataclass
+class ProjectManifest:
+    """Project manifest providing global context for AI analysis."""
+    project_name: str
+    mission_statement: str = "Housing veterans and families with dignity"
+    architecture_patterns: Dict[str, str] = field(default_factory=dict)
+    component_relationships: Dict[str, List[str]] = field(default_factory=dict)
+    service_dependencies: Dict[str, List[str]] = field(default_factory=dict)
+    high_stakes_components: List[str] = field(default_factory=list)
+    brand_colors: Dict[str, str] = field(default_factory=dict)
+    accessibility_standards: List[str] = field(default_factory=list)
+
+
+@dataclass
 class ProjectAnalysis:
     """Complete project analysis results."""
     project_name: str
     timestamp: str
+    manifest: Dict[str, Any] = field(default_factory=dict)
     summary: Dict[str, Any] = field(default_factory=dict)
     file_analyses: List[FileAnalysis] = field(default_factory=list)
     architectural_issues: List[FileIssue] = field(default_factory=list)
     security_issues: List[FileIssue] = field(default_factory=list)
     performance_issues: List[FileIssue] = field(default_factory=list)
+    accessibility_issues: List[FileIssue] = field(default_factory=list)
+    dignity_first_violations: List[FileIssue] = field(default_factory=list)
     total_issues: int = 0
     quality_score: int = 0
     recommendations: List[str] = field(default_factory=list)
 
 
 class CodeReviewAnalyzer:
-    """Comprehensive code review analyzer for AI processing."""
+    """Comprehensive code review analyzer for P4C with dignity-first heuristics."""
+
+    # P4C Brand Colors - Must use these instead of random hex codes
+    P4C_BRAND_COLORS = {
+        'navy': '#0B1120',
+        'gold': '#C5A059',
+        'navy_light': '#1E293B',
+        'gold_light': '#D4B47C',
+        'white': '#FFFFFF',
+        'gray_100': '#F1F5F9',
+        'gray_200': '#E2E8F0',
+        'gray_600': '#475569',
+        'gray_900': '#0F172A',
+    }
+
+    # P4C High-Stakes Components (must use ToastContext and AuthContext)
+    HIGH_STAKES_COMPONENTS = [
+        'Application.tsx',
+        'AdminDashboard.tsx',
+        'TenantLogin.tsx',
+        'PropertyDetails.tsx',
+        'VeteranServices.tsx',
+    ]
+
+    # P4C Mission Prompt for AI Context
+    P4C_MISSION = """
+    P4C MISSION: Housing veterans and families with dignity.
+    
+    As an AI reviewing P4C code, you must prioritize:
+    - TRUST: Veterans depend on this platform for stable housing. Code must be reliable.
+    - TRANSPARENCY: Clear error messages and feedback are essential.
+    - ACCESSIBILITY: Many veterans have disabilities. WCAG 2.1 AA compliance is mandatory.
+    - DIGNITY: Avoid "slumlord patterns" - cheap-looking UI that undermines trust.
+    
+    Quality is not just syntax—it's about serving those who served us.
+    """
 
     def __init__(self, source_folder: str):
         self.source_folder = Path(source_folder)
@@ -63,6 +117,9 @@ class CodeReviewAnalyzer:
             project_name=source_folder.split('/')[-1] or source_folder.split('\\')[-1],
             timestamp=datetime.now().isoformat()
         )
+        
+        # Generate project manifest for AI context
+        self.manifest = self._generate_project_manifest()
         
         # Language handlers with extensions and patterns
         self.language_handlers = {
@@ -130,11 +187,79 @@ class CodeReviewAnalyzer:
 
         # Architecture patterns
         self.architecture_patterns = [
-            (r'import\s+.*\s+from\s+[\'"]\.\.?/data/', 'HIGH', 'architecture', 'Direct data imports violate data access layer pattern'),
-            (r'import\s+.*\s+from\s+[\'"]\.\.?/components/', 'MEDIUM', 'architecture', 'Check if component imports follow proper patterns'),
+            (r'import\s+.*\s+from\s+[\'"]\.{1,2}/data/', 'HIGH', 'architecture', 'Direct data imports violate data access layer pattern'),
+            (r'import\s+.*\s+from\s+[\'"]\.{1,2}/components/', 'MEDIUM', 'architecture', 'Check if component imports follow proper patterns'),
             (r'export\s+default\s+function', 'LOW', 'architecture', 'Prefer named exports for better tree-shaking'),
             (r'React\.Component', 'MEDIUM', 'architecture', 'Use functional components with hooks instead of class components'),
         ]
+
+        # P4C-specific Dignity-First UI Heuristics
+        self.dignity_first_patterns = [
+            # Direct AI imports instead of geminiService
+            (r'import\s+.*\s+from\s+[\'"]@google/generative-ai[\'"]', 'MEDIUM', 'architecture', 
+             'Use geminiService.ts instead of direct AI imports for consistent error handling'),
+        ]
+
+        # Accessibility patterns for Veterans
+        self.accessibility_patterns = [
+            (r'<button(?!.*aria-label)', 'HIGH', 'accessibility', 
+             'Button lacks aria-label - required for veteran accessibility (may have disabilities)'),
+            (r'<input(?!.*aria-label)(?!.*type="(hidden|submit|button)")', 'HIGH', 'accessibility', 
+             'Input lacks aria-label - required for veteran accessibility'),
+            (r'<a(?!.*aria-label)(?!.*title)', 'MEDIUM', 'accessibility', 
+             'Link lacks aria-label or title - affects screen reader users'),
+            (r'<img(?!.*alt)', 'HIGH', 'accessibility', 
+             'Image missing alt attribute - required for accessibility'),
+        ]
+
+        # Gemini Service Technical Requirements
+        self.gemini_service_patterns = [
+            # Check for missing try/catch around API calls
+            (r'(?:\.generateContent|\.generateContentStream|\.countTokens|\.embedContent)\s*\(', 'HIGH', 'gemini-service', 
+             'Gemini API call must be wrapped in try/catch with errorBoundaryService'),
+            
+            # Missing exponential backoff (simplified pattern without variable-width lookbehind)
+            (r'[^a-zA-Z_](?:sleep|backoff|retry|exponential)[^a-zA-Z_]', 'MEDIUM', 'gemini-service', 
+             'AI service should implement exponential backoff for resilience'),
+        ]
+
+        # Context usage patterns for high-stakes components
+        self.context_patterns = [
+            (r'useContext\s*\(\s*ToastContext', 'MEDIUM', 'context-usage', 
+             'High-stakes component should use ToastContext for user feedback'),
+            (r'useContext\s*\(\s*(AuthContext|EnhancedAuthContext)', 'MEDIUM', 'context-usage', 
+             'Component should use AuthContext for secure veteran applications'),
+        ]
+
+    def _generate_project_manifest(self) -> Dict[str, Any]:
+        """Generate project manifest with P4C-specific context for AI analysis."""
+        return {
+            'mission_statement': 'Housing veterans and families with dignity',
+            'mission_prompt': self.P4C_MISSION,
+            'architecture_patterns': {
+                'data_access_layer': 'All data fetching must go through services/api.ts',
+                'ui_components': 'Components must remain blind to data source',
+                'error_handling': 'All async operations must use errorBoundaryService',
+            },
+            'component_relationships': {
+                'pages/': ['Should import from services/api.ts for data', 'Should use ToastContext for feedback'],
+                'components/': ['Atomic design - UI only, no data logic'],
+                'services/': ['Data access layer - can import from data/'],
+                'context/': ['Global state management - AuthContext, ToastContext'],
+            },
+            'service_dependencies': {
+                'geminiService.ts': ['errorBoundaryService for error handling', 'exponential backoff for retries'],
+                'api.ts': ['Single source for data fetching', 'Centralized error handling'],
+            },
+            'high_stakes_components': self.HIGH_STAKES_COMPONENTS,
+            'brand_colors': self.P4C_BRAND_COLORS,
+            'accessibility_standards': [
+                'WCAG 2.1 AA compliance required',
+                'All interactive elements must have aria-labels',
+                'Images must have alt attributes',
+                'Links must have aria-labels or titles',
+            ],
+        }
 
     def detect_language(self, file_path: Path) -> str:
         """Detect the programming language of a file."""
@@ -233,6 +358,10 @@ class CodeReviewAnalyzer:
             (self.performance_patterns, 'performance'),
             (self.typescript_patterns, 'type-safety'),
             (self.architecture_patterns, 'architecture'),
+            (self.accessibility_patterns, 'accessibility'),
+            (self.dignity_first_patterns, 'dignity-first'),
+            (self.gemini_service_patterns, 'gemini-service'),
+            (self.context_patterns, 'context-usage'),
         ]
 
         for patterns, category in all_patterns:
@@ -256,30 +385,65 @@ class CodeReviewAnalyzer:
         return analysis
 
     def check_imports_for_architecture(self, file_path: Path, content: str) -> List[FileIssue]:
-        """Check imports for architectural violations."""
+        """Check imports for architectural violations with path-aware enforcement."""
         issues = []
+        file_path_str = str(file_path)
         
-        # Check for direct data imports (violation of data access layer)
+        # Check for direct data imports (CRITICAL violation in pages/components)
         if re.search(r'import\s+.*\s+from\s+[\'"]\.{1,2}/data/', content):
-            issues.append(FileIssue(
-                severity='HIGH',
-                category='architecture',
-                file=str(file_path),
-                line=None,
-                message='Direct data import from /data folder',
-                suggestion='Use the API service layer instead: import { api } from "../services/api"'
-            ))
+            # Determine severity based on location
+            if file_path_str.startswith(('pages/', 'components/')):
+                severity = 'CRITICAL'
+                message = 'CRITICAL: Direct data import from /data folder in UI component'
+            elif file_path_str.startswith('services/'):
+                severity = 'LOW'  # Allowed in services
+                message = 'Data import allowed in services layer'
+            else:
+                severity = 'HIGH'
+                message = 'Direct data import from /data folder'
+            
+            if severity != 'LOW':
+                issues.append(FileIssue(
+                    severity=severity,
+                    category='architecture',
+                    file=file_path_str,
+                    line=None,
+                    message=message,
+                    suggestion='Use the API service layer instead: import { api } from "../services/api"'
+                ))
 
         # Check for proper API service usage in pages/components
-        if str(file_path).startswith(('pages/', 'components/')) and 'services/api' not in content:
-            if not content.startswith('import'):
+        if file_path_str.startswith(('pages/', 'components/')) and 'services/api' not in content:
+            if content.startswith('import'):
                 issues.append(FileIssue(
                     severity='MEDIUM',
                     category='architecture',
-                    file=str(file_path),
+                    file=file_path_str,
                     line=None,
                     message='Missing API service import in UI component',
                     suggestion='Data fetching should go through services/api.ts'
+                ))
+
+        # Check high-stakes components for context usage
+        filename = file_path.name
+        if filename in self.HIGH_STAKES_COMPONENTS:
+            if 'ToastContext' not in content:
+                issues.append(FileIssue(
+                    severity='MEDIUM',
+                    category='context-usage',
+                    file=file_path_str,
+                    line=None,
+                    message=f'High-stakes component {filename} should use ToastContext',
+                    suggestion='Import and use ToastContext for user feedback'
+                ))
+            if 'AuthContext' not in content and 'EnhancedAuthContext' not in content:
+                issues.append(FileIssue(
+                    severity='MEDIUM',
+                    category='context-usage',
+                    file=file_path_str,
+                    line=None,
+                    message=f'High-stakes component {filename} should use AuthContext',
+                    suggestion='Import and use AuthContext for secure veteran applications'
                 ))
 
         return issues
@@ -313,19 +477,25 @@ class CodeReviewAnalyzer:
 
         # Generate recommendations
         if critical_issues > 0:
-            recommendations.append(f'🔴 CRITICAL: Fix {critical_issues} critical security issues immediately')
+            recommendations.append(f'🔴 CRITICAL: Fix {critical_issues} critical architectural violations immediately')
         if high_issues > 0:
-            recommendations.append(f'🟠 HIGH: Address {high_issues} high-priority architectural issues')
+            recommendations.append(f'🟠 HIGH: Address {high_issues} high-priority issues')
         if medium_issues > 0:
             recommendations.append(f'🟡 MEDIUM: Consider fixing {medium_issues} medium-priority issues')
         if ts_count == 0:
             recommendations.append('ℹ️ Consider using TypeScript for better type safety')
+
+        # P4C-specific recommendations
+        accessibility_issues = sum(1 for a in analyses for i in a.issues if i.category == 'accessibility')
+        if accessibility_issues > 0:
+            recommendations.append(f'♿ ACCESSIBILITY: {accessibility_issues} issues found - veterans may have disabilities')
 
         return score, recommendations
 
     def run_analysis(self) -> ProjectAnalysis:
         """Run complete project analysis."""
         print(f"🔍 Analyzing project: {self.project_analysis.project_name}")
+        print(f"📋 P4C Mission: {self.manifest['mission_statement']}")
         
         # Collect files
         extensions = []
@@ -369,6 +539,10 @@ class CodeReviewAnalyzer:
                     self.project_analysis.performance_issues.append(issue)
                 elif issue.category == 'architecture':
                     self.project_analysis.architectural_issues.append(issue)
+                elif issue.category == 'accessibility':
+                    self.project_analysis.accessibility_issues.append(issue)
+                elif issue.category == 'dignity-first':
+                    self.project_analysis.dignity_first_violations.append(issue)
 
         # Calculate summary
         total_loc = sum(a.lines_of_code for a in all_analyses)
@@ -387,6 +561,9 @@ class CodeReviewAnalyzer:
         for a in all_analyses:
             self.project_analysis.summary['files_by_language'][a.language] += 1
 
+        # Store manifest
+        self.project_analysis.manifest = self.manifest
+
         # Calculate quality score
         self.project_analysis.quality_score, self.project_analysis.recommendations = \
             self.calculate_quality_score(all_analyses)
@@ -396,12 +573,12 @@ class CodeReviewAnalyzer:
         return self.project_analysis
 
     def generate_ai_report(self) -> str:
-        """Generate a comprehensive AI-readable report."""
+        """Generate a comprehensive AI-readable report with P4C context."""
         analysis = self.run_analysis()
         
         report = []
         report.append("=" * 80)
-        report.append("AI CODE REVIEW REPORT")
+        report.append("🤝 P4C CODE REVIEW REPORT")
         report.append("=" * 80)
         report.append(f"\n📊 PROJECT SUMMARY")
         report.append(f"   Project: {analysis.project_name}")
@@ -410,6 +587,13 @@ class CodeReviewAnalyzer:
         report.append(f"   Total Issues: {analysis.total_issues}")
         report.append(f"   Files Analyzed: {analysis.summary['total_files']}")
         report.append(f"   Lines of Code: {analysis.summary['total_lines_of_code']}")
+        
+        report.append("\n" + "=" * 80)
+        report.append("🎖️ P4C MISSION CONTEXT")
+        report.append("=" * 80)
+        report.append(f"   Mission: {self.manifest['mission_statement']}")
+        report.append(f"   High-Stakes Components: {', '.join(self.HIGH_STAKES_COMPONENTS)}")
+        report.append(f"   Brand Colors: Navy (#0B1120), Gold (#C5A059)")
         
         report.append("\n" + "=" * 80)
         report.append("📈 QUALITY METRICS")
@@ -440,6 +624,16 @@ class CodeReviewAnalyzer:
         if analysis.performance_issues:
             report.append("\n⚡ PERFORMANCE ISSUES:")
             for issue in analysis.performance_issues:
+                report.append(f"   [{issue.severity}] {issue.file}:{issue.line or 'N/A'} - {issue.message}")
+
+        if analysis.accessibility_issues:
+            report.append("\n♿ ACCESSIBILITY ISSUES (Veteran Support):")
+            for issue in analysis.accessibility_issues:
+                report.append(f"   [{issue.severity}] {issue.file}:{issue.line or 'N/A'} - {issue.message}")
+
+        if analysis.dignity_first_violations:
+            report.append("\n✨ DIGNITY-FIRST VIOLATIONS:")
+            for issue in analysis.dignity_first_violations:
                 report.append(f"   [{issue.severity}] {issue.file}:{issue.line or 'N/A'} - {issue.message}")
 
         report.append("\n" + "=" * 80)
@@ -486,7 +680,7 @@ if __name__ == "__main__":
         sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
         sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
     
-    parser = argparse.ArgumentParser(description='AI-Optimized Code Review Tool')
+    parser = argparse.ArgumentParser(description='P4C AI-Optimized Code Review Tool')
     parser.add_argument('source', nargs='?', default='.', help='Source folder to analyze')
     parser.add_argument('--json', action='store_true', help='Output as JSON')
     parser.add_argument('--output', '-o', help='Output file path')

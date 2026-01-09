@@ -36,64 +36,76 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
-  // Track timeout IDs for proper cleanup
   const timeoutIdsRef = useRef<Set<number>>(new Set());
 
-  // Cleanup all timeouts on unmount
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       timeoutIdsRef.current.forEach((timeoutId) => {
         clearTimeout(timeoutId);
       });
       timeoutIdsRef.current.clear();
-    };
-  }, []);
-
-  const addToast = useCallback((message: string, type: ToastType) => {
-    const id = Date.now();
-    setToasts((prev) => [...prev, { id, message, type }]);
-    // Auto remove after 5 seconds with proper cleanup
-    const timeoutId = window.setTimeout(() => {
-      setToasts((prev) => prev.filter((t) => t.id !== id));
-      timeoutIdsRef.current.delete(timeoutId);
-    }, 5000);
-    timeoutIdsRef.current.add(timeoutId);
-  }, []);
+    },
+    []
+  );
 
   const removeToast = useCallback((id: number) => {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   }, []);
 
+  const addToast = useCallback(
+    (message: string, type: ToastType) => {
+      const id = Date.now();
+      setToasts((prev) => [...prev, { id, message, type }]);
+
+      const timeoutId = window.setTimeout(() => {
+        removeToast(id);
+        timeoutIdsRef.current.delete(timeoutId);
+      }, 5000);
+
+      timeoutIdsRef.current.add(timeoutId);
+    },
+    [removeToast]
+  );
+
   return (
     <ToastContext.Provider value={{ addToast, removeToast }}>
       {children}
       <div
-        className="fixed bottom-4 right-4 z-50 flex flex-col gap-2"
+        className="fixed bottom-6 right-6 z-[60] flex flex-col gap-3"
         role="region"
-        aria-label="Notifications"
+        aria-label="System Notifications"
         aria-live="polite"
       >
         {toasts.map((toast) => (
           <div
             key={toast.id}
             role="alert"
-            className={`min-w-[300px] max-w-sm p-4 rounded-lg shadow-xl flex items-start gap-3 animate-slide-in-from-bottom text-white ${
+            className={`min-w-[320px] max-w-md p-4 rounded-xl shadow-2xl flex items-start gap-3 animate-slide-in-from-bottom border-l-4 text-white ${
               toast.type === 'success'
-                ? 'bg-green-600'
+                ? 'bg-green-700 border-green-400'
                 : toast.type === 'error'
-                  ? 'bg-red-600'
-                  : 'bg-blue-600'
+                  ? 'bg-red-700 border-red-400'
+                  : 'bg-p4c-navy border-p4c-gold'
             }`}
           >
-            <div className="mt-0.5">
-              {toast.type === 'success' && <CheckCircle className="w-5 h-5" />}
-              {toast.type === 'error' && <AlertCircle className="w-5 h-5" />}
-              {toast.type === 'info' && <Info className="w-5 h-5" />}
+            <div className="mt-0.5 shrink-0">
+              {toast.type === 'success' && (
+                <CheckCircle className="w-5 h-5 text-green-200" />
+              )}
+              {toast.type === 'error' && (
+                <AlertCircle className="w-5 h-5 text-red-200" />
+              )}
+              {toast.type === 'info' && (
+                <Info className="w-5 h-5 text-p4c-gold" />
+              )}
             </div>
-            <p className="flex-1 text-sm font-medium">{toast.message}</p>
+            <p className="flex-1 text-sm font-semibold leading-snug">
+              {toast.message}
+            </p>
             <button
               onClick={() => removeToast(toast.id)}
-              className="hover:opacity-80"
+              className="hover:bg-white/10 p-1 rounded-xl transition-colors"
+              aria-label="Dismiss notification"
             >
               <X className="w-4 h-4" />
             </button>

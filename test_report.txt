@@ -1,0 +1,520 @@
+================================================================================
+🤝 P4C CODE REVIEW REPORT
+================================================================================
+
+📊 PROJECT SUMMARY
+   Project: .
+   Timestamp: 2026-01-08T23:03:31.686821
+   Quality Score: 0/100
+   Total Issues: 359
+   Files Analyzed: 91
+   Lines of Code: 29135
+
+================================================================================
+🎖️ P4C MISSION CONTEXT
+================================================================================
+   Mission: Housing veterans and families with dignity
+   High-Stakes Components: Application.tsx, AdminDashboard.tsx, TenantLogin.tsx, PropertyDetails.tsx, VeteranServices.tsx
+   Brand Colors: Navy (#0B1120), Gold (#C5A059)
+
+================================================================================
+📈 QUALITY METRICS
+================================================================================
+   🔴 Critical: 0
+   🟠 High: 125
+   🟡 Medium: 73
+   🟢 Low: 161
+
+📁 FILES BY LANGUAGE:
+   config: 3 files
+   css: 1 files
+   html: 3 files
+   javascript: 15 files
+   json: 8 files
+   python: 2 files
+   typescript: 59 files
+
+================================================================================
+🚨 ISSUES BY CATEGORY
+================================================================================
+
+🔒 SECURITY ISSUES:
+   [MEDIUM] code-review.py:169 - Insecure HTTP protocol - use HTTPS
+   [LOW] components\ErrorBoundary.tsx:29 - Use cryptographically secure random values
+   [LOW] context\AuthContext.tsx:118 - Use cryptographically secure random values
+   [LOW] context\EnhancedAuthContext.tsx:132 - Use cryptographically secure random values
+   [LOW] p4c_full_picture_review.json:177 - Use cryptographically secure random values
+   [MEDIUM] server\index.js:104 - Insecure HTTP protocol - use HTTPS
+   [MEDIUM] server\index.js:378 - Insecure HTTP protocol - use HTTPS
+   [LOW] server\middleware\comprehensiveSecurity.js:183 - Use cryptographically secure random values
+   [LOW] server\middleware\comprehensiveSecurity.js:320 - Use cryptographically secure random values
+   [LOW] server\middleware\enhancedSecurityHeaders.js:14 - Use cryptographically secure random values
+   [MEDIUM] utils\imageOptimization.ts:210 - Insecure HTTP protocol - use HTTPS
+   [MEDIUM] vite.config.ts:48 - Insecure HTTP protocol - use HTTPS
+
+🏗️ ARCHITECTURAL ISSUES:
+   [MEDIUM] App.tsx:4 - Check if component imports follow proper patterns
+   [MEDIUM] App.tsx:5 - Check if component imports follow proper patterns
+   [MEDIUM] App.tsx:6 - Check if component imports follow proper patterns
+   [MEDIUM] App.tsx:7 - Check if component imports follow proper patterns
+   [MEDIUM] App.tsx:8 - Check if component imports follow proper patterns
+   [MEDIUM] App.tsx:12 - Check if component imports follow proper patterns
+   [MEDIUM] App.tsx:13 - Check if component imports follow proper patterns
+   [MEDIUM] App.tsx:14 - Check if component imports follow proper patterns
+   [LOW] components\ScrollToTop.tsx:4 - Prefer named exports for better tree-shaking
+   [HIGH] p4c_full_picture_review.json:520 - Direct data imports violate data access layer pattern
+   [MEDIUM] p4c_full_picture_review.json:85 - Check if component imports follow proper patterns
+   [MEDIUM] p4c_full_picture_review.json:362 - Check if component imports follow proper patterns
+   [MEDIUM] p4c_full_picture_review.json:422 - Check if component imports follow proper patterns
+   [MEDIUM] p4c_full_picture_review.json:455 - Check if component imports follow proper patterns
+   [MEDIUM] p4c_full_picture_review.json:563 - Check if component imports follow proper patterns
+   [LOW] p4c_full_picture_review.json:272 - Prefer named exports for better tree-shaking
+   [MEDIUM] p4c_full_picture_review.json:573 - Use geminiService.ts instead of direct AI imports for consistent error handling
+   [HIGH] p4c_full_picture_review.json:N/A - Direct data import from /data folder
+   [MEDIUM] pages\AdminDashboard.tsx:4 - Check if component imports follow proper patterns
+   [MEDIUM] pages\Home.tsx:3 - Check if component imports follow proper patterns
+   [MEDIUM] pages\Home.tsx:4 - Check if component imports follow proper patterns
+   [MEDIUM] pages\Home.tsx:5 - Check if component imports follow proper patterns
+   [MEDIUM] pages\Home.tsx:6 - Check if component imports follow proper patterns
+   [MEDIUM] pages\Home.tsx:7 - Check if component imports follow proper patterns
+   [MEDIUM] pages\PropertyDetails.tsx:19 - Check if component imports follow proper patterns
+   [HIGH] services\api.ts:7 - Direct data imports violate data access layer pattern
+   [HIGH] services\api.ts:N/A - Direct data import from /data folder
+   [MEDIUM] src\pages\Tools.tsx:2 - Check if component imports follow proper patterns
+
+⚡ PERFORMANCE ISSUES:
+   [LOW] components\ErrorBoundary.tsx:142 - Consider validating JSON before parsing
+   [LOW] components\ImageOptimizer.tsx:128 - forEach creates unnecessary function overhead
+   [LOW] components\OptimizedImage.tsx:63 - forEach creates unnecessary function overhead
+   [LOW] context\AuthContext.tsx:46 - Consider validating JSON before parsing
+   [LOW] context\DarkModeContext.tsx:34 - Consider validating JSON before parsing
+   [LOW] context\EnhancedAuthContext.tsx:381 - forEach creates unnecessary function overhead
+   [LOW] context\EnhancedAuthContext.tsx:386 - forEach creates unnecessary function overhead
+   [LOW] context\ToastContext.tsx:45 - forEach creates unnecessary function overhead
+   [LOW] p4c_full_picture_review.json:309 - Consider validating JSON before parsing
+   [LOW] pages\Application.tsx:108 - forEach creates unnecessary function overhead
+   [LOW] pages\Contact.tsx:93 - forEach creates unnecessary function overhead
+   [LOW] pages\Home.tsx:56 - forEach creates unnecessary function overhead
+   [LOW] pages\Home.tsx:56 - forEach creates unnecessary function overhead
+   [LOW] utils\imageOptimization.ts:139 - forEach creates unnecessary function overhead
+   [LOW] utils\imageOptimization.ts:195 - forEach creates unnecessary function overhead
+
+♿ ACCESSIBILITY ISSUES (Veteran Support):
+   [MEDIUM] 404.html:59 - Link lacks aria-label or title - affects screen reader users
+   [HIGH] components\AccessibilityTools.tsx:160 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\AccessibilityTools.tsx:177 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\AccessibilityTools.tsx:193 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\AccessibilityTools.tsx:201 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\AccessibilityTools.tsx:218 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\AccessibilityTools.tsx:228 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\AccessibilityTools.tsx:238 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\AccessibilityTools.tsx:253 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\AccessibilityTools.tsx:274 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\AccessibilityTools.tsx:295 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [MEDIUM] components\AdminDashboardSkeleton.tsx:8 - Link lacks aria-label or title - affects screen reader users
+   [HIGH] components\AIChatbot.tsx:127 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\AIChatbot.tsx:180 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\AIChatbot.tsx:193 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\AIChatbot.tsx:172 - Input lacks aria-label - required for veteran accessibility
+   [HIGH] components\BeforeAfterSlider.tsx:67 - Input lacks aria-label - required for veteran accessibility
+   [HIGH] components\BeforeAfterSlider.tsx:25 - Image missing alt attribute - required for accessibility
+   [HIGH] components\BeforeAfterSlider.tsx:40 - Image missing alt attribute - required for accessibility
+   [HIGH] components\CookieConsent.tsx:55 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\CookieConsent.tsx:61 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [MEDIUM] components\CookieConsent.tsx:44 - Link lacks aria-label or title - affects screen reader users
+   [HIGH] components\DarkModeToggle.tsx:12 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\ErrorBoundary.tsx:240 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\ErrorBoundary.tsx:246 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\ErrorBoundary.tsx:253 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [MEDIUM] components\ErrorBoundary.tsx:265 - Link lacks aria-label or title - affects screen reader users
+   [MEDIUM] components\Footer.tsx:32 - Link lacks aria-label or title - affects screen reader users
+   [MEDIUM] components\Footer.tsx:40 - Link lacks aria-label or title - affects screen reader users
+   [MEDIUM] components\Footer.tsx:48 - Link lacks aria-label or title - affects screen reader users
+   [HIGH] components\Footer.tsx:20 - Image missing alt attribute - required for accessibility
+   [HIGH] components\GeminiImageEditor.tsx:107 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\GeminiImageEditor.tsx:137 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\GeminiImageEditor.tsx:89 - Input lacks aria-label - required for veteran accessibility
+   [HIGH] components\GeminiImageEditor.tsx:129 - Input lacks aria-label - required for veteran accessibility
+   [HIGH] components\GeminiImageEditor.tsx:102 - Image missing alt attribute - required for accessibility
+   [HIGH] components\GeminiImageEditor.tsx:164 - Image missing alt attribute - required for accessibility
+   [HIGH] components\Hero.tsx:50 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\Hero.tsx:53 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\Hero.tsx:26 - Image missing alt attribute - required for accessibility
+   [HIGH] components\ImageOptimizer.tsx:163 - Image missing alt attribute - required for accessibility
+   [HIGH] components\ImageOptimizer.tsx:196 - Image missing alt attribute - required for accessibility
+   [HIGH] components\MicroInteractions.tsx:77 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\MicroInteractions.tsx:149 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [MEDIUM] components\MicroInteractions.tsx:253 - Link lacks aria-label or title - affects screen reader users
+   [HIGH] components\Navbar.tsx:190 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\Navbar.tsx:206 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\Navbar.tsx:233 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\Navbar.tsx:243 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\Navbar.tsx:253 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\Navbar.tsx:263 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\Navbar.tsx:289 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\Navbar.tsx:302 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\Navbar.tsx:308 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] components\Navbar.tsx:174 - Image missing alt attribute - required for accessibility
+   [HIGH] components\OptimizedImage.tsx:157 - Image missing alt attribute - required for accessibility
+   [HIGH] components\OptimizedImage.tsx:196 - Image missing alt attribute - required for accessibility
+   [HIGH] components\PropertyCard.tsx:88 - Image missing alt attribute - required for accessibility
+   [HIGH] components\SkipLink.tsx:62 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [MEDIUM] components\SkipLink.tsx:53 - Link lacks aria-label or title - affects screen reader users
+   [HIGH] context\ToastContext.tsx:94 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] p4c_full_picture_review.json:411 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [MEDIUM] p4c_full_picture_review.json:122 - Link lacks aria-label or title - affects screen reader users
+   [HIGH] pages\About.tsx:248 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] pages\About.tsx:17 - Image missing alt attribute - required for accessibility
+   [HIGH] pages\About.tsx:70 - Image missing alt attribute - required for accessibility
+   [HIGH] pages\About.tsx:258 - Image missing alt attribute - required for accessibility
+   [HIGH] pages\AdminDashboard.tsx:55 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] pages\AdminDashboard.tsx:58 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] pages\AdminDashboard.tsx:61 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] pages\AdminDashboard.tsx:64 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] pages\AdminDashboard.tsx:79 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] pages\AdminDashboard.tsx:95 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] pages\AdminDashboard.tsx:149 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] pages\AdminDashboard.tsx:201 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] pages\AdminDashboard.tsx:204 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [MEDIUM] pages\AdminDashboard.tsx:46 - Link lacks aria-label or title - affects screen reader users
+   [HIGH] pages\AdminDashboard.tsx:175 - Image missing alt attribute - required for accessibility
+   [HIGH] pages\Application.tsx:344 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] pages\Application.tsx:212 - Input lacks aria-label - required for veteran accessibility
+   [HIGH] pages\Application.tsx:237 - Input lacks aria-label - required for veteran accessibility
+   [HIGH] pages\Application.tsx:265 - Input lacks aria-label - required for veteran accessibility
+   [HIGH] pages\Application.tsx:290 - Input lacks aria-label - required for veteran accessibility
+   [HIGH] pages\Application.tsx:149 - Image missing alt attribute - required for accessibility
+   [HIGH] pages\Contact.tsx:375 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] pages\Contact.tsx:267 - Input lacks aria-label - required for veteran accessibility
+   [HIGH] pages\Contact.tsx:294 - Input lacks aria-label - required for veteran accessibility
+   [HIGH] pages\Contact.tsx:162 - Image missing alt attribute - required for accessibility
+   [HIGH] pages\Employment.tsx:128 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] pages\Employment.tsx:11 - Image missing alt attribute - required for accessibility
+   [HIGH] pages\FAQ.tsx:19 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] pages\Home.tsx:181 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] pages\Home.tsx:198 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] pages\Home.tsx:253 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] pages\Home.tsx:369 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] pages\Home.tsx:137 - Input lacks aria-label - required for veteran accessibility
+   [HIGH] pages\OurImpact.tsx:207 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [MEDIUM] pages\Privacy.tsx:100 - Link lacks aria-label or title - affects screen reader users
+   [HIGH] pages\PropertyDetails.tsx:68 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] pages\PropertyDetails.tsx:293 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] pages\PropertyDetails.tsx:120 - Image missing alt attribute - required for accessibility
+   [HIGH] pages\SuccessStories.tsx:82 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] pages\SuccessStories.tsx:98 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] pages\SuccessStories.tsx:120 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] pages\SuccessStories.tsx:110 - Input lacks aria-label - required for veteran accessibility
+   [MEDIUM] pages\SuccessStories.tsx:211 - Link lacks aria-label or title - affects screen reader users
+   [MEDIUM] pages\SuccessStories.tsx:258 - Link lacks aria-label or title - affects screen reader users
+   [MEDIUM] pages\SuccessStories.tsx:264 - Link lacks aria-label or title - affects screen reader users
+   [HIGH] pages\TenantLogin.tsx:139 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] pages\TenantLogin.tsx:162 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] pages\TenantLogin.tsx:119 - Input lacks aria-label - required for veteran accessibility
+   [HIGH] pages\TenantLogin.tsx:150 - Input lacks aria-label - required for veteran accessibility
+   [MEDIUM] pages\Terms.tsx:91 - Link lacks aria-label or title - affects screen reader users
+   [HIGH] pages\Transparency.tsx:52 - Image missing alt attribute - required for accessibility
+   [HIGH] pages\Transparency.tsx:171 - Image missing alt attribute - required for accessibility
+   [MEDIUM] pages\Veterans.tsx:137 - Link lacks aria-label or title - affects screen reader users
+   [MEDIUM] pages\Veterans.tsx:146 - Link lacks aria-label or title - affects screen reader users
+   [MEDIUM] pages\Veterans.tsx:155 - Link lacks aria-label or title - affects screen reader users
+   [HIGH] pages\Veterans.tsx:10 - Image missing alt attribute - required for accessibility
+   [MEDIUM] pages\VeteranServices.tsx:191 - Link lacks aria-label or title - affects screen reader users
+   [MEDIUM] pages\VeteranServices.tsx:209 - Link lacks aria-label or title - affects screen reader users
+   [HIGH] pages\VeteranServices.tsx:19 - Image missing alt attribute - required for accessibility
+   [MEDIUM] public\images\about\index.html:416 - Link lacks aria-label or title - affects screen reader users
+   [MEDIUM] public\images\about\index.html:417 - Link lacks aria-label or title - affects screen reader users
+   [HIGH] public\images\about\index.html:226 - Image missing alt attribute - required for accessibility
+   [HIGH] public\images\about\index.html:337 - Image missing alt attribute - required for accessibility
+   [HIGH] public\images\about\index.html:355 - Image missing alt attribute - required for accessibility
+   [HIGH] public\images\about\index.html:372 - Image missing alt attribute - required for accessibility
+   [HIGH] public\images\about\index.html:388 - Image missing alt attribute - required for accessibility
+   [HIGH] src\components\AIChatbot.tsx:126 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] src\components\AIChatbot.tsx:159 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] src\components\AIChatbot.tsx:166 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] src\components\AIChatbot.tsx:254 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] src\components\AIChatbot.tsx:244 - Input lacks aria-label - required for veteran accessibility
+   [HIGH] src\components\ClientUpscaler.tsx:179 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] src\components\ClientUpscaler.tsx:264 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] src\components\ClientUpscaler.tsx:292 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] src\components\ClientUpscaler.tsx:161 - Input lacks aria-label - required for veteran accessibility
+   [HIGH] src\components\ClientUpscaler.tsx:248 - Image missing alt attribute - required for accessibility
+   [HIGH] src\components\ClientUpscaler.tsx:284 - Image missing alt attribute - required for accessibility
+   [HIGH] src\pages\Tools.tsx:66 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] src\pages\Tools.tsx:72 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+   [HIGH] src\pages\Tools.tsx:104 - Button lacks aria-label - required for veteran accessibility (may have disabilities)
+
+================================================================================
+💡 RECOMMENDATIONS
+================================================================================
+   🟠 HIGH: Address 125 high-priority issues
+   🟡 MEDIUM: Consider fixing 73 medium-priority issues
+   ♿ ACCESSIBILITY: 143 issues found - veterans may have disabilities
+
+================================================================================
+📋 DETAILED FILE ANALYSIS
+================================================================================
+
+📄 context\AuthContext.tsx
+   Issues: 25 | LOC: 274
+   [LOW] Use cryptographically secure random values
+      💡 Review line 118 for security issue
+   [LOW] Consider validating JSON before parsing
+      💡 Review line 46 for performance issue
+   [LOW] Remove debug console statements in production code
+      💡 Review line 50 for style issue
+   [LOW] Remove debug console statements in production code
+      💡 Review line 57 for style issue
+   [LOW] Remove debug console statements in production code
+      💡 Review line 63 for style issue
+
+📄 context\EnhancedAuthContext.tsx
+   Issues: 23 | LOC: 633
+   [LOW] Use cryptographically secure random values
+      💡 Review line 132 for security issue
+   [LOW] forEach creates unnecessary function overhead
+      💡 Review line 381 for performance issue
+   [LOW] forEach creates unnecessary function overhead
+      💡 Review line 386 for performance issue
+   [MEDIUM] Avoid using `any` type - use specific types or `unknown`
+      💡 Review line 237 for type-safety issue
+   [MEDIUM] Avoid using `any` type - use specific types or `unknown`
+      💡 Review line 773 for type-safety issue
+
+📄 p4c_full_picture_review.json
+   Issues: 21 | LOC: 571
+   [LOW] Use cryptographically secure random values
+      💡 Review line 177 for security issue
+   [LOW] Consider validating JSON before parsing
+      💡 Review line 309 for performance issue
+   [LOW] Remove debug console statements in production code
+      💡 Review line 362 for style issue
+   [LOW] Remove debug console statements in production code
+      💡 Review line 525 for style issue
+   [LOW] Remove debug console statements in production code
+      💡 Review line 573 for style issue
+
+📄 pages\AdminDashboard.tsx
+   Issues: 15 | LOC: 207
+   [LOW] Remove debug console statements in production code
+      💡 Review line 30 for style issue
+   [LOW] Catch clause should type the error as `unknown` before handling
+      💡 Review line 29 for type-safety issue
+   [MEDIUM] Check if component imports follow proper patterns
+      💡 Review line 4 for architecture issue
+   [HIGH] Button lacks aria-label - required for veteran accessibility (may have disabilities)
+      💡 Review line 55 for accessibility issue
+   [HIGH] Button lacks aria-label - required for veteran accessibility (may have disabilities)
+      💡 Review line 58 for accessibility issue
+
+📄 pages\Home.tsx
+   Issues: 13 | LOC: 332
+   [LOW] forEach creates unnecessary function overhead
+      💡 Review line 56 for performance issue
+   [LOW] forEach creates unnecessary function overhead
+      💡 Review line 56 for performance issue
+   [LOW] Catch clause should type the error as `unknown` before handling
+      💡 Review line 39 for type-safety issue
+   [MEDIUM] Check if component imports follow proper patterns
+      💡 Review line 3 for architecture issue
+   [MEDIUM] Check if component imports follow proper patterns
+      💡 Review line 4 for architecture issue
+
+📄 public\sw.js
+   Issues: 12 | LOC: 199
+   [LOW] Remove debug console statements in production code
+      💡 Review line 38 for style issue
+   [LOW] Remove debug console statements in production code
+      💡 Review line 131 for style issue
+   [LOW] Remove debug console statements in production code
+      💡 Review line 157 for style issue
+   [LOW] Remove debug console statements in production code
+      💡 Review line 175 for style issue
+   [LOW] Remove debug console statements in production code
+      💡 Review line 206 for style issue
+
+📄 server\index.js
+   Issues: 12 | LOC: 53
+   [MEDIUM] Insecure HTTP protocol - use HTTPS
+      💡 Review line 104 for security issue
+   [MEDIUM] Insecure HTTP protocol - use HTTPS
+      💡 Review line 378 for security issue
+   [LOW] Remove debug console statements in production code
+      💡 Review line 177 for style issue
+   [LOW] Remove debug console statements in production code
+      💡 Review line 269 for style issue
+   [LOW] Remove debug console statements in production code
+      💡 Review line 275 for style issue
+
+📄 src\services\geminiService.ts
+   Issues: 12 | LOC: 140
+   [LOW] Remove debug console statements in production code
+      💡 Review line 19 for style issue
+   [LOW] Remove debug console statements in production code
+      💡 Review line 78 for style issue
+   [LOW] Remove debug console statements in production code
+      💡 Review line 105 for style issue
+   [LOW] Remove debug console statements in production code
+      💡 Review line 138 for style issue
+   [LOW] Remove debug console statements in production code
+      💡 Review line 158 for style issue
+
+📄 components\AccessibilityTools.tsx
+   Issues: 10 | LOC: 289
+   [HIGH] Button lacks aria-label - required for veteran accessibility (may have disabilities)
+      💡 Review line 160 for accessibility issue
+   [HIGH] Button lacks aria-label - required for veteran accessibility (may have disabilities)
+      💡 Review line 177 for accessibility issue
+   [HIGH] Button lacks aria-label - required for veteran accessibility (may have disabilities)
+      💡 Review line 193 for accessibility issue
+   [HIGH] Button lacks aria-label - required for veteran accessibility (may have disabilities)
+      💡 Review line 201 for accessibility issue
+   [HIGH] Button lacks aria-label - required for veteran accessibility (may have disabilities)
+      💡 Review line 218 for accessibility issue
+
+📄 components\Navbar.tsx
+   Issues: 10 | LOC: 295
+   [HIGH] Button lacks aria-label - required for veteran accessibility (may have disabilities)
+      💡 Review line 190 for accessibility issue
+   [HIGH] Button lacks aria-label - required for veteran accessibility (may have disabilities)
+      💡 Review line 206 for accessibility issue
+   [HIGH] Button lacks aria-label - required for veteran accessibility (may have disabilities)
+      💡 Review line 233 for accessibility issue
+   [HIGH] Button lacks aria-label - required for veteran accessibility (may have disabilities)
+      💡 Review line 243 for accessibility issue
+   [HIGH] Button lacks aria-label - required for veteran accessibility (may have disabilities)
+      💡 Review line 253 for accessibility issue
+
+📄 components\ErrorBoundary.tsx
+   Issues: 9 | LOC: 233
+   [LOW] Use cryptographically secure random values
+      💡 Review line 29 for security issue
+   [LOW] Consider validating JSON before parsing
+      💡 Review line 142 for performance issue
+   [LOW] Remove debug console statements in production code
+      💡 Review line 84 for style issue
+   [LOW] Catch clause should type the error as `unknown` before handling
+      💡 Review line 82 for type-safety issue
+   [LOW] Catch clause should type the error as `unknown` before handling
+      💡 Review line 199 for type-safety issue
+
+📄 src\components\AIChatbot.tsx
+   Issues: 9 | LOC: 241
+   [LOW] Remove debug console statements in production code
+      💡 Review line 74 for style issue
+   [LOW] Remove debug console statements in production code
+      💡 Review line 114 for style issue
+   [LOW] Catch clause should type the error as `unknown` before handling
+      💡 Review line 73 for type-safety issue
+   [LOW] Catch clause should type the error as `unknown` before handling
+      💡 Review line 113 for type-safety issue
+   [HIGH] Button lacks aria-label - required for veteran accessibility (may have disabilities)
+      💡 Review line 126 for accessibility issue
+
+📄 App.tsx
+   Issues: 8 | LOC: 95
+   [MEDIUM] Check if component imports follow proper patterns
+      💡 Review line 4 for architecture issue
+   [MEDIUM] Check if component imports follow proper patterns
+      💡 Review line 5 for architecture issue
+   [MEDIUM] Check if component imports follow proper patterns
+      💡 Review line 6 for architecture issue
+   [MEDIUM] Check if component imports follow proper patterns
+      💡 Review line 7 for architecture issue
+   [MEDIUM] Check if component imports follow proper patterns
+      💡 Review line 8 for architecture issue
+
+📄 pages\Application.tsx
+   Issues: 8 | LOC: 326
+   [LOW] forEach creates unnecessary function overhead
+      💡 Review line 108 for performance issue
+   [HIGH] Button lacks aria-label - required for veteran accessibility (may have disabilities)
+      💡 Review line 344 for accessibility issue
+   [HIGH] Input lacks aria-label - required for veteran accessibility
+      💡 Review line 212 for accessibility issue
+   [HIGH] Input lacks aria-label - required for veteran accessibility
+      💡 Review line 237 for accessibility issue
+   [HIGH] Input lacks aria-label - required for veteran accessibility
+      💡 Review line 265 for accessibility issue
+
+📄 pages\PropertyDetails.tsx
+   Issues: 8 | LOC: 301
+   [LOW] Remove debug console statements in production code
+      💡 Review line 44 for style issue
+   [LOW] Catch clause should type the error as `unknown` before handling
+      💡 Review line 42 for type-safety issue
+   [MEDIUM] Check if component imports follow proper patterns
+      💡 Review line 19 for architecture issue
+   [HIGH] Button lacks aria-label - required for veteran accessibility (may have disabilities)
+      💡 Review line 68 for accessibility issue
+   [HIGH] Button lacks aria-label - required for veteran accessibility (may have disabilities)
+      💡 Review line 293 for accessibility issue
+
+📄 server\middleware\comprehensiveSecurity.js
+   Issues: 8 | LOC: 243
+   [LOW] Use cryptographically secure random values
+      💡 Review line 183 for security issue
+   [LOW] Use cryptographically secure random values
+      💡 Review line 320 for security issue
+   [LOW] Remove debug console statements in production code
+      💡 Review line 54 for style issue
+   [LOW] Remove debug console statements in production code
+      💡 Review line 141 for style issue
+   [LOW] Remove debug console statements in production code
+      💡 Review line 247 for style issue
+
+📄 server\middleware\imageOptimization.js
+   Issues: 8 | LOC: 286
+   [LOW] Remove debug console statements in production code
+      💡 Review line 93 for style issue
+   [LOW] Remove debug console statements in production code
+      💡 Review line 206 for style issue
+   [LOW] Remove debug console statements in production code
+      💡 Review line 286 for style issue
+   [LOW] Remove debug console statements in production code
+      💡 Review line 341 for style issue
+   [LOW] Catch clause should type the error as `unknown` before handling
+      💡 Review line 92 for type-safety issue
+
+📄 server\middleware\rateLimiting.js
+   Issues: 8 | LOC: 289
+   [LOW] Remove debug console statements in production code
+      💡 Review line 34 for style issue
+   [LOW] Remove debug console statements in production code
+      💡 Review line 39 for style issue
+   [LOW] Remove debug console statements in production code
+      💡 Review line 43 for style issue
+   [LOW] Remove debug console statements in production code
+      💡 Review line 307 for style issue
+   [LOW] Remove debug console statements in production code
+      💡 Review line 341 for style issue
+
+📄 src\components\ClientUpscaler.tsx
+   Issues: 8 | LOC: 247
+   [LOW] Remove debug console statements in production code
+      💡 Review line 111 for style issue
+   [LOW] Catch clause should type the error as `unknown` before handling
+      💡 Review line 110 for type-safety issue
+   [HIGH] Button lacks aria-label - required for veteran accessibility (may have disabilities)
+      💡 Review line 179 for accessibility issue
+   [HIGH] Button lacks aria-label - required for veteran accessibility (may have disabilities)
+      💡 Review line 264 for accessibility issue
+   [HIGH] Button lacks aria-label - required for veteran accessibility (may have disabilities)
+      💡 Review line 292 for accessibility issue
+
+📄 components\GeminiImageEditor.tsx
+   Issues: 7 | LOC: 174
+   [LOW] Catch clause should type the error as `unknown` before handling
+      💡 Review line 51 for type-safety issue
+   [HIGH] Button lacks aria-label - required for veteran accessibility (may have disabilities)
+      💡 Review line 107 for accessibility issue
+   [HIGH] Button lacks aria-label - required for veteran accessibility (may have disabilities)
+      💡 Review line 137 for accessibility issue
+   [HIGH] Input lacks aria-label - required for veteran accessibility
+      💡 Review line 89 for accessibility issue
+   [HIGH] Input lacks aria-label - required for veteran accessibility
+      💡 Review line 129 for accessibility issue
+
+================================================================================
+END OF REPORT
+================================================================================
