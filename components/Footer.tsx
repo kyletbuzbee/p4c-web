@@ -18,7 +18,7 @@ const Footer: React.FC = () => (
         <div className="col-span-1">
           <div className="flex items-center gap-2 mb-4">
             <img
-              src={IMAGES.LOGO.SVG}
+              src={IMAGES.LOGO.WHITE_GOLD}
               alt="Properties 4 Creation Logo"
               className="h-10 w-auto object-contain"
             />

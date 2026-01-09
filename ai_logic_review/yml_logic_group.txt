@@ -1,7 +1,8 @@
 
 ================================================================================
 FILE_BEGIN: .github\workflows\ci.yml
-METADATA: Size=4715 bytes | Last_Modified=2026-01-07 10:57:01.949649
+TYPE: YML
+SIZE: 4715 bytes
 ================================================================================
 name: CI/CD Pipeline
 
@@ -216,7 +217,8 @@ jobs:
 
 ================================================================================
 FILE_BEGIN: .github\workflows\deploy.yml
-METADATA: Size=1074 bytes | Last_Modified=2026-01-07 10:57:01.948648
+TYPE: YML
+SIZE: 1074 bytes
 ================================================================================
 name: Deploy to GitHub Pages
 

@@ -1,7 +1,8 @@
 
 ================================================================================
 FILE_BEGIN: App.tsx
-METADATA: Size=4452 bytes | Last_Modified=2026-01-07 11:50:33.532006
+TYPE: TSX
+SIZE: 4620 bytes
 ================================================================================
 import React, { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
@@ -38,6 +39,9 @@ const AccessibilityStatement = React.lazy(
 );
 const EqualHousing = React.lazy(() => import('./pages/EqualHousing'));
 const SuccessStories = React.lazy(() => import('./pages/SuccessStories'));
+const HomeownerSolutions = React.lazy(
+  () => import('./pages/HomeownerSolutions')
+);
 const AdminDashboard = React.lazy(() => import('./pages/AdminDashboard'));
 const Faq = React.lazy(() => import('./pages/FAQ'));
 
@@ -57,6 +61,7 @@ const StandardLayout = () => (
         <Routes>
           {/* Find a Home (Transactional) */}
           <Route path="/" element={<Home />} />
+          <Route path="/homeowner-solutions" element={<HomeownerSolutions />} />
           <Route path="/properties/:id" element={<PropertyDetails />} />
           <Route path="/apply" element={<Application />} />
           <Route path="/equal-housing" element={<EqualHousing />} />
@@ -120,9 +125,10 @@ export default App;
 
 ================================================================================
 FILE_BEGIN: components\AccessibilityTools.tsx
-METADATA: Size=10131 bytes | Last_Modified=2026-01-07 10:13:28.761943
+TYPE: TSX
+SIZE: 10796 bytes
 ================================================================================
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 interface AccessibilityToolsProps {
   className?: string;
@@ -137,6 +143,26 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
   const [readingMode, setReadingMode] = useState(false);
   const [focusMode, setFocusMode] = useState(false);
   const [audioAssistance, setAudioAssistance] = useState(false);
+
+  // Use refs for stable access in event listeners
+  const stateRef = useRef({
+    fontSize,
+    contrast,
+    readingMode,
+    focusMode,
+    audioAssistance,
+  });
+
+  // Keep refs synced with state
+  useEffect(() => {
+    stateRef.current = {
+      fontSize,
+      contrast,
+      readingMode,
+      focusMode,
+      audioAssistance,
+    };
+  }, [fontSize, contrast, readingMode, focusMode, audioAssistance]);
 
   // Apply styles to document
   useEffect(() => {
@@ -171,100 +197,111 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
     }
   }, [fontSize, contrast, readingMode, focusMode]);
 
-  const increaseFontSize = () => {
-    if (fontSize < 150) setFontSize((prev) => prev + 10);
-  };
+  const increaseFontSize = useCallback(() => {
+    setFontSize((prev) => Math.min(prev + 10, 150));
+  }, []);
 
-  const decreaseFontSize = () => {
-    if (fontSize > 80) setFontSize((prev) => prev - 10);
-  };
+  const decreaseFontSize = useCallback(() => {
+    setFontSize((prev) => Math.max(prev - 10, 80));
+  }, []);
 
-  const toggleContrast = () => {
+  const toggleContrast = useCallback(() => {
     setContrast((prev) => {
       if (prev === 'normal') return 'high';
       if (prev === 'high') return 'dark-high';
       return 'normal';
     });
-  };
+  }, []);
 
-  const toggleReadingMode = () => {
-    setReadingMode(!readingMode);
-  };
+  const toggleReadingMode = useCallback(() => {
+    setReadingMode((prev) => !prev);
+  }, []);
 
-  const toggleFocusMode = () => {
-    setFocusMode(!focusMode);
-  };
+  const toggleFocusMode = useCallback(() => {
+    setFocusMode((prev) => !prev);
+  }, []);
 
-  const toggleAudioAssistance = () => {
-    setAudioAssistance(!audioAssistance);
-    if (!audioAssistance) {
-      // Announce feature activation
-      const utterance = new SpeechSynthesisUtterance(
-        'Audio assistance activated. Use keyboard shortcuts for navigation.'
-      );
-      speechSynthesis.speak(utterance);
-    }
-  };
+  const toggleAudioAssistance = useCallback(() => {
+    setAudioAssistance((prev) => {
+      const newValue = !prev;
+      if (newValue) {
+        // Announce feature activation
+        const utterance = new SpeechSynthesisUtterance(
+          'Audio assistance activated. Use keyboard shortcuts for navigation.'
+        );
+        speechSynthesis.speak(utterance);
+      }
+      return newValue;
+    });
+  }, []);
 
-  // Keyboard shortcuts
+  // Keyboard shortcuts - stable event listener
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.ctrlKey || e.metaKey) {
-        switch (e.key) {
-          case '+':
-            e.preventDefault();
-            increaseFontSize();
-            break;
-          case '-':
-            e.preventDefault();
-            decreaseFontSize();
-            break;
-          case '0':
-            e.preventDefault();
-            setFontSize(100);
-            break;
-          case 'k':
-            e.preventDefault();
-            toggleContrast();
-            break;
-          case 'r':
-            e.preventDefault();
-            toggleReadingMode();
-            break;
-          case 'f':
-            e.preventDefault();
-            toggleFocusMode();
-            break;
-          case 'm':
-            e.preventDefault();
-            toggleAudioAssistance();
-            break;
-        }
+      const { ctrlKey, metaKey } = e;
+      if (!ctrlKey && !metaKey) return;
+
+      switch (e.key) {
+        case '+':
+          e.preventDefault();
+          increaseFontSize();
+          break;
+        case '-':
+          e.preventDefault();
+          decreaseFontSize();
+          break;
+        case '0':
+          e.preventDefault();
+          setFontSize(100);
+          break;
+        case 'k':
+          e.preventDefault();
+          toggleContrast();
+          break;
+        case 'r':
+          e.preventDefault();
+          toggleReadingMode();
+          break;
+        case 'f':
+          e.preventDefault();
+          toggleFocusMode();
+          break;
+        case 'm':
+          e.preventDefault();
+          toggleAudioAssistance();
+          break;
       }
     };
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [fontSize, contrast, readingMode, focusMode, audioAssistance]);
+  }, [
+    increaseFontSize,
+    decreaseFontSize,
+    toggleContrast,
+    toggleReadingMode,
+    toggleFocusMode,
+    toggleAudioAssistance,
+  ]);
 
   return (
     <>
       {/* Floating Accessibility Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-6 right-6 bg-p4c-navy text-white p-4 rounded-full shadow-lg hover:bg-p4c-gold hover:text-p4c-navy transition-all duration-300 z-50 focus:outline-none focus:ring-2 focus:ring-p4c-gold focus:ring-offset-2 ${className}`}
+        className={`fixed bottom-6 left-6 bg-p4c-navy text-white p-4 rounded-full shadow-lg hover:bg-p4c-gold hover:text-p4c-navy transition-all duration-300 z-50 focus:outline-none focus:ring-2 focus:ring-p4c-gold focus:ring-offset-2 ${className}`}
         aria-label="Accessibility Tools"
         title="Accessibility Tools (Ctrl/Cmd + K for contrast, + and - for font size)"
       >
         <span className="text-lg">⚙️</span>
         {isOpen && (
-          <span className="absolute -top-2 -right-2 w-3 h-3 bg-red-500 rounded-full" />
+          <span className="absolute -top-2 -left-2 w-3 h-3 bg-red-500 rounded-full" />
         )}
       </button>
 
       {/* Accessibility Panel */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 bg-white border border-gray-200 rounded-lg shadow-xl p-4 w-80 z-50 animate-in slide-in-from-bottom-2 duration-200">
+        <div className="fixed bottom-24 left-6 bg-white border border-gray-200 rounded-lg shadow-xl p-4 w-80 z-50 animate-in slide-in-from-bottom-2 duration-200">
           <div className="flex justify-between items-center mb-3">
             <h3 className="font-semibold text-gray-800">Accessibility Tools</h3>
             <button
@@ -279,9 +316,9 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
           <div className="space-y-4">
             {/* Font Size Control */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <span className="block text-sm font-medium text-gray-700 mb-2">
                 Font Size: {fontSize}%
-              </label>
+              </span>
               <div className="flex gap-2">
                 <button
                   onClick={decreaseFontSize}
@@ -304,9 +341,9 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
 
             {/* Contrast Control */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <span className="block text-sm font-medium text-gray-700 mb-2">
                 Contrast Mode
-              </label>
+              </span>
               <div className="flex gap-2">
                 <button
                   onClick={() => setContrast('normal')}
@@ -431,7 +468,8 @@ export default AccessibilityTools;
 
 ================================================================================
 FILE_BEGIN: components\AdminDashboardSkeleton.tsx
-METADATA: Size=3382 bytes | Last_Modified=2026-01-07 13:38:27.995984
+TYPE: TSX
+SIZE: 3382 bytes
 ================================================================================
 import React from 'react';
 
@@ -544,11 +582,13 @@ export default AdminDashboardSkeleton;
 
 ================================================================================
 FILE_BEGIN: components\AIChatbot.tsx
-METADATA: Size=7826 bytes | Last_Modified=2026-01-07 10:13:28.780866
+TYPE: TSX
+SIZE: 7885 bytes
 ================================================================================
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, X, Send, Loader2, Bot } from 'lucide-react';
 import { sendChatMessage } from '../services/geminiService';
+import { logError } from '../services/errorBoundaryService';
 
 interface Message {
   role: 'user' | 'model';
@@ -577,12 +617,9 @@ const AIChatbot: React.FC = () => {
     scrollToBottom();
   }, [messages, isOpen]);
 
-  // Accessibility: Focus Trap & Escape Key
   useEffect((): (() => void) | void => {
     if (isOpen) {
-      // Focus input on open
       setTimeout(() => inputRef.current?.focus(), 100);
-
       const handleKeyDown = (e: KeyboardEvent): void => {
         if (e.key === 'Escape') {
           setIsOpen(false);
@@ -626,21 +663,18 @@ const AIChatbot: React.FC = () => {
     setIsLoading(true);
 
     try {
-      // Create history snapshot excluding the message we just added (since state updates are async/batched)
-      // and formatting it for the API.
-      const history = messages.map((m) => ({
-        role: m.role,
-        parts: [{ text: m.text }],
-      }));
-
-      const response = await sendChatMessage(userMessage, history);
+      const response = await sendChatMessage(userMessage);
       setMessages((prev) => [...prev, { role: 'model', text: response }]);
     } catch (error) {
+      logError('Chat failure', {
+        error: error as Error,
+        component: 'AIChatbot',
+      });
       setMessages((prev) => [
         ...prev,
         {
           role: 'model',
-          text: "I'm having trouble connecting to the server. Please try again later.",
+          text: "I'm having trouble connecting. Please try again later.",
         },
       ]);
     } finally {
@@ -650,41 +684,42 @@ const AIChatbot: React.FC = () => {
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end pointer-events-none">
-      {/* Chat Window */}
       {isOpen && (
         <div
           ref={chatContainerRef}
           className="bg-white w-[350px] h-[500px] rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden mb-4 pointer-events-auto animate-fade-in-up ring-1 ring-black/5"
           role="dialog"
-          aria-label="Properties 4 Creation Concierge Chat"
+          aria-label="Patriot: P4C Virtual Concierge"
         >
-          {/* Header */}
           <div className="bg-p4c-navy p-4 flex justify-between items-center text-white">
             <div className="flex items-center gap-2">
               <div className="bg-p4c-gold p-1.5 rounded-full shadow-md">
-                <Bot className="w-4 h-4 text-p4c-navy" />
+                <Bot className="w-4 h-4 text-p4c-navy" aria-hidden="true" />
               </div>
               <div>
                 <h3 className="font-bold text-sm font-serif">
-                  Properties 4 Creation Concierge
+                  Patriot Concierge
                 </h3>
                 <div className="flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                  <p className="text-xs text-gray-300">Online</p>
+                  <p className="text-xs text-gray-300">Available to help</p>
                 </div>
               </div>
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="hover:bg-white/10 p-1.5 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-p4c-gold"
-              aria-label="Close Chat"
+              className="hover:bg-white/10 p-1.5 rounded-xl transition-colors focus:outline-none focus:ring-2 focus:ring-p4c-gold"
+              aria-label="Close concierge chat"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
 
-          {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
+          <div
+            className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50"
+            aria-live="polite"
+            aria-relevant="additions"
+          >
             {messages.map((msg, idx) => (
               <div
                 key={idx}
@@ -697,6 +732,9 @@ const AIChatbot: React.FC = () => {
                       : 'bg-white border border-gray-100 text-gray-800 rounded-bl-sm'
                   }`}
                 >
+                  <span className="sr-only">
+                    {msg.role === 'user' ? 'You:' : 'Patriot:'}
+                  </span>
                   {msg.text}
                 </div>
               </div>
@@ -705,8 +743,8 @@ const AIChatbot: React.FC = () => {
               <div className="flex justify-start">
                 <div className="bg-white border border-gray-200 p-3 rounded-2xl rounded-bl-sm shadow-sm flex items-center gap-2">
                   <Loader2 className="w-4 h-4 animate-spin text-p4c-gold" />
-                  <span className="text-xs text-gray-500 font-medium">
-                    Patriot is typing...
+                  <span className="text-xs text-gray-500 font-medium italic">
+                    Patriot is searching listings...
                   </span>
                 </div>
               </div>
@@ -714,7 +752,6 @@ const AIChatbot: React.FC = () => {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input */}
           <form
             onSubmit={handleSubmit}
             className="p-3 bg-white border-t border-gray-100 flex gap-2"
@@ -724,14 +761,15 @@ const AIChatbot: React.FC = () => {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask about availability..."
-              className="flex-1 border border-gray-200 rounded-full px-4 py-2.5 text-sm focus:outline-none focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold/20 transition-all bg-gray-50 focus:bg-white"
+              placeholder="Ask about availability in Tyler..."
+              aria-label="Message Patriot"
+              className="flex-1 border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold/20 transition-all bg-gray-50 focus:bg-white"
             />
             <button
               type="submit"
               disabled={isLoading || !input.trim()}
-              className="bg-p4c-gold text-p4c-navy p-2.5 rounded-full hover:bg-p4c-goldHover disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm hover:shadow-md active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-p4c-gold"
-              aria-label="Send Message"
+              className="bg-p4c-gold text-p4c-navy p-2.5 rounded-xl hover:bg-p4c-goldHover disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm hover:shadow-md active:scale-95 focus:outline-none focus:ring-2 focus:ring-p4c-gold"
+              aria-label="Send message to concierge"
             >
               <Send className="w-4 h-4" />
             </button>
@@ -739,17 +777,20 @@ const AIChatbot: React.FC = () => {
         </div>
       )}
 
-      {/* Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="bg-p4c-navy text-white p-4 rounded-full shadow-xl hover:bg-p4c-slate transition-all duration-300 hover:scale-105 pointer-events-auto border-2 border-p4c-gold group focus:outline-none focus:ring-4 focus:ring-p4c-gold/50"
-        aria-label="Toggle Support Chat"
+        aria-label={
+          isOpen
+            ? 'Close assistance chat'
+            : 'Chat with Patriot for housing assistance'
+        }
         aria-expanded={isOpen}
       >
         {isOpen ? (
           <X className="w-7 h-7" />
         ) : (
-          <MessageSquare className="w-7 h-7 group-hover:animate-bounce" />
+          <MessageSquare className="w-7 h-7" />
         )}
       </button>
     </div>
@@ -764,7 +805,8 @@ export default AIChatbot;
 
 ================================================================================
 FILE_BEGIN: components\BeforeAfterSlider.tsx
-METADATA: Size=2843 bytes | Last_Modified=2026-01-05 21:05:53.876867
+TYPE: TSX
+SIZE: 2843 bytes
 ================================================================================
 import React, { useState, useRef } from 'react';
 import { ArrowLeftRight } from 'lucide-react';
@@ -856,7 +898,8 @@ export default BeforeAfterSlider;
 
 ================================================================================
 FILE_BEGIN: components\CookieConsent.tsx
-METADATA: Size=2556 bytes | Last_Modified=2026-01-07 11:11:14.869000
+TYPE: TSX
+SIZE: 2556 bytes
 ================================================================================
 import React, { useState, useEffect } from 'react';
 import { Cookie } from 'lucide-react';
@@ -938,7 +981,8 @@ export default CookieConsent;
 
 ================================================================================
 FILE_BEGIN: components\DarkModeToggle.tsx
-METADATA: Size=2433 bytes | Last_Modified=2026-01-05 21:05:53.876867
+TYPE: TSX
+SIZE: 2433 bytes
 ================================================================================
 import React from 'react';
 import { useDarkMode } from '../context/DarkModeContext';
@@ -1018,7 +1062,8 @@ export default DarkModeToggle;
 
 ================================================================================
 FILE_BEGIN: components\ErrorBoundary.tsx
-METADATA: Size=8781 bytes | Last_Modified=2026-01-07 10:13:28.823042
+TYPE: TSX
+SIZE: 8781 bytes
 ================================================================================
 import { Component } from 'react';
 import type { ErrorInfo, ReactNode } from 'react';
@@ -1309,7 +1354,8 @@ export default ErrorBoundary;
 
 ================================================================================
 FILE_BEGIN: components\Footer.tsx
-METADATA: Size=6956 bytes | Last_Modified=2026-01-07 15:38:17.085569
+TYPE: TSX
+SIZE: 6956 bytes
 ================================================================================
 import React from 'react';
 import {
@@ -1533,7 +1579,8 @@ export default Footer;
 
 ================================================================================
 FILE_BEGIN: components\GeminiImageEditor.tsx
-METADATA: Size=7772 bytes | Last_Modified=2026-01-07 10:13:28.850563
+TYPE: TSX
+SIZE: 7772 bytes
 ================================================================================
 import React, { useState, useRef } from 'react';
 import {
@@ -1739,57 +1786,76 @@ export default GeminiImageEditor;
 
 ================================================================================
 FILE_BEGIN: components\Hero.tsx
-METADATA: Size=2504 bytes | Last_Modified=2026-01-07 14:06:37.756655
+TYPE: TSX
+SIZE: 2978 bytes
 ================================================================================
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { IMAGES } from '../constants/images';
 
-const Hero: React.FC = () => (
+interface HeroProps {
+  variant?: 'image' | 'video';
+}
+
+const Hero: React.FC<HeroProps> = ({ variant = 'image' }) => (
   <div className="relative h-[85vh] w-full overflow-hidden flex items-center justify-center">
-    {/* Video Background */}
-    <div className="absolute top-0 left-0 w-full h-full z-0 overflow-hidden">
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        poster={IMAGES.BANNERS.HERO_HOME}
-        className="object-cover w-full h-full"
-        aria-label="Hero background video showcasing renovated properties"
-      >
-        <source src={IMAGES.VIDEOS.HOME} type="video/mp4" />
-      </video>
-      {/* Enhanced overlay for readability */}
-      <div className="absolute top-0 left-0 w-full h-full hero-overlay-primary" />
-      <div className="absolute top-0 left-0 w-full h-full hero-overlay-secondary" />
+    <div
+      className="absolute top-0 left-0 w-full h-full z-0 overflow-hidden"
+      aria-hidden="true"
+    >
+      {variant === 'video' ? (
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster={IMAGES.BANNERS.HERO_PROJECTS}
+          className="object-cover w-full h-full"
+        >
+          <source src={IMAGES.VIDEOS.HERO_PROJECTS} type="video/mp4" />
+        </video>
+      ) : (
+        <img
+          src={IMAGES.BANNERS.HERO_HOME}
+          alt="Clean, restored P4C property in Tyler, Texas"
+          className="object-cover w-full h-full"
+        />
+      )}
+      <div className="absolute top-0 left-0 w-full h-full hero-overlay-primary bg-p4c-navy/40" />
+      <div className="absolute top-0 left-0 w-full h-full hero-overlay-secondary bg-gradient-to-b from-transparent to-p4c-navy/60" />
     </div>
 
-    {/* Content */}
     <div className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-fade-in-up">
-      <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight hero-text-contrast tracking-wide">
+      <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight tracking-wide">
         Dignity in Every Detail. <br />
         <span className="text-p4c-gold">Welcome Home.</span>
       </h1>
-      <p className="text-lg md:text-xl text-gray-200 mb-10 font-light max-w-2xl mx-auto leading-relaxed hero-text-enhanced tracking-normal">
+      <p className="text-lg md:text-xl text-gray-100 mb-10 font-light max-w-2xl mx-auto leading-relaxed">
         We transform distressed properties into premium, affordable homes for
-        East Texas families and veterans. Experience the Properties 4 Creation
-        difference.
+        East Texas families and veterans. Experience the P4C difference.
       </p>
 
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
-        <button className="bg-p4c-gold text-p4c-navy hover:bg-p4c-goldHover px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 shadow-xl flex items-center justify-center gap-2 transform hover:-translate-y-1">
+        <button
+          className="bg-p4c-gold text-p4c-navy hover:bg-p4c-goldHover px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-xl flex items-center justify-center gap-2 transform hover:-translate-y-1 focus:ring-4 focus:ring-p4c-gold/50"
+          aria-label="Find Your Home: Browse available property listings"
+        >
           Find Your Home <ArrowRight className="w-5 h-5" />
         </button>
-        <button className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-p4c-navy px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 flex items-center justify-center">
+        <button
+          className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-p4c-navy px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 flex items-center justify-center focus:ring-4 focus:ring-white/50"
+          aria-label="Our Standards: View our renovation quality guarantees"
+        >
           Our Standards
         </button>
       </div>
     </div>
 
-    {/* Scroll indicator */}
-    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-white/70">
-      <span className="text-sm uppercase tracking-widest">
+    <div
+      className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-white/70"
+      aria-hidden="true"
+    >
+      <span className="text-sm uppercase tracking-widest font-medium">
         Scroll to Discover
       </span>
     </div>
@@ -1804,7 +1870,8 @@ export default Hero;
 
 ================================================================================
 FILE_BEGIN: components\ImageOptimizer.tsx
-METADATA: Size=5995 bytes | Last_Modified=2026-01-07 10:13:28.868498
+TYPE: TSX
+SIZE: 5995 bytes
 ================================================================================
 import React, { useState, useEffect, useRef } from 'react';
 
@@ -2027,7 +2094,8 @@ export default ImageOptimizer;
 
 ================================================================================
 FILE_BEGIN: components\ImpactDashboard.tsx
-METADATA: Size=1915 bytes | Last_Modified=2026-01-07 11:04:17.846463
+TYPE: TSX
+SIZE: 1915 bytes
 ================================================================================
 import React from 'react';
 import type { StatMetric } from '../types';
@@ -2084,7 +2152,8 @@ export default ImpactDashboard;
 
 ================================================================================
 FILE_BEGIN: components\MicroInteractions.tsx
-METADATA: Size=9547 bytes | Last_Modified=2026-01-07 11:27:30.922838
+TYPE: TSX
+SIZE: 9547 bytes
 ================================================================================
 import React, { useState, useEffect, useRef } from 'react';
 
@@ -2448,7 +2517,8 @@ export default AnimatedButton;
 
 ================================================================================
 FILE_BEGIN: components\Navbar.tsx
-METADATA: Size=10745 bytes | Last_Modified=2026-01-07 14:02:15.077956
+TYPE: TSX
+SIZE: 10752 bytes
 ================================================================================
 import React, { useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -2624,7 +2694,7 @@ const Navbar: React.FC = () => {
             className="flex-shrink-0 flex items-center gap-3 hover:opacity-90 transition-opacity"
           >
             <img
-              src={IMAGES.LOGO.PNG}
+              src={IMAGES.LOGO.WHITE_GOLD}
               alt="Properties 4 Creation Logo"
               className="h-14 w-auto object-contain"
             />
@@ -2779,7 +2849,8 @@ export default Navbar;
 
 ================================================================================
 FILE_BEGIN: components\OptimizedImage.tsx
-METADATA: Size=6881 bytes | Last_Modified=2026-01-07 10:13:28.929273
+TYPE: TSX
+SIZE: 6881 bytes
 ================================================================================
 /**
  * Optimized Image Component
@@ -3050,7 +3121,8 @@ export default OptimizedImage;
 
 ================================================================================
 FILE_BEGIN: components\PropertyCard.tsx
-METADATA: Size=7694 bytes | Last_Modified=2026-01-07 11:04:34.694728
+TYPE: TSX
+SIZE: 7722 bytes
 ================================================================================
 import { useState, useRef, useEffect, useCallback, memo } from 'react';
 import type { Property } from '../types';
@@ -3190,7 +3262,7 @@ const PropertyCard = memo<PropertyCardProps>(
           {property.badges.map((badge, index) => (
             <span
               key={`${badge}-${index}`}
-              className="bg-p4c-navy text-white text-xs font-bold px-2 py-1 rounded-md uppercase tracking-wide shadow-sm"
+              className="bg-p4c-navy text-white text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wide shadow-sm ring-1 ring-white/20"
             >
               {badge}
             </span>
@@ -3213,7 +3285,7 @@ const PropertyCard = memo<PropertyCardProps>(
 
     return (
       <div
-        className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 ring-1 ring-gray-900/5 flex flex-col h-full group transform hover:-translate-y-1"
+        className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 ring-1 ring-gray-900/5 flex flex-col h-full group transform hover:-translate-y-1"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -3252,21 +3324,21 @@ const PropertyCard = memo<PropertyCardProps>(
           </p>
 
           {/* Property Stats */}
-          <div className="mt-auto pt-4 border-t border-gray-100 grid grid-cols-3 gap-2 text-center">
-            <div className="flex flex-col items-center justify-center p-2 bg-gray-50 rounded-lg">
-              <Bed className="w-4 h-4 text-p4c-slate mb-1" />
+          <div className="mt-auto pt-4 border-t border-gray-100 grid grid-cols-3 gap-3 text-center">
+            <div className="flex flex-col items-center justify-center p-3 bg-gray-50 rounded-lg">
+              <Bed className="w-5 h-5 text-p4c-slate mb-1.5" />
               <span className="text-xs font-semibold text-p4c-navy">
                 {property.beds} Bed
               </span>
             </div>
-            <div className="flex flex-col items-center justify-center p-2 bg-gray-50 rounded-lg">
-              <Bath className="w-4 h-4 text-p4c-slate mb-1" />
+            <div className="flex flex-col items-center justify-center p-3 bg-gray-50 rounded-lg">
+              <Bath className="w-5 h-5 text-p4c-slate mb-1.5" />
               <span className="text-xs font-semibold text-p4c-navy">
                 {property.baths} Bath
               </span>
             </div>
-            <div className="flex flex-col items-center justify-center p-2 bg-gray-50 rounded-lg">
-              <Move className="w-4 h-4 text-p4c-slate mb-1" />
+            <div className="flex flex-col items-center justify-center p-3 bg-gray-50 rounded-lg">
+              <Move className="w-5 h-5 text-p4c-slate mb-1.5" />
               <span className="text-xs font-semibold text-p4c-navy">
                 {property.sqft.toLocaleString()} sqft
               </span>
@@ -3297,7 +3369,8 @@ export default PropertyCard;
 
 ================================================================================
 FILE_BEGIN: components\PropertyDetailsSkeleton.tsx
-METADATA: Size=2331 bytes | Last_Modified=2026-01-05 21:05:53.876867
+TYPE: TSX
+SIZE: 2331 bytes
 ================================================================================
 import React from 'react';
 import Skeleton from './Skeleton';
@@ -3363,7 +3436,8 @@ export default PropertyDetailsSkeleton;
 
 ================================================================================
 FILE_BEGIN: components\ProtectedRoute.tsx
-METADATA: Size=1069 bytes | Last_Modified=2026-01-05 21:05:53.876867
+TYPE: TSX
+SIZE: 1069 bytes
 ================================================================================
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
@@ -3411,7 +3485,8 @@ export default ProtectedRoute;
 
 ================================================================================
 FILE_BEGIN: components\ScrollToTop.tsx
-METADATA: Size=246 bytes | Last_Modified=2026-01-05 21:05:53.876867
+TYPE: TSX
+SIZE: 246 bytes
 ================================================================================
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -3432,7 +3507,8 @@ export default function ScrollToTop() {
 
 ================================================================================
 FILE_BEGIN: components\Skeleton.tsx
-METADATA: Size=250 bytes | Last_Modified=2026-01-07 10:13:28.980753
+TYPE: TSX
+SIZE: 404 bytes
 ================================================================================
 import React from 'react';
 
@@ -3440,8 +3516,15 @@ interface SkeletonProps {
   className?: string;
 }
 
+/**
+ * Standardized P4C Skeleton Loader
+ * Enforces rounded-xl standard to maintain brand dignity during loading states.
+ */
 const Skeleton: React.FC<SkeletonProps> = ({ className = '' }) => (
-  <div className={`animate-pulse bg-gray-200 rounded-lg ${className}`} />
+  <div
+    className={`animate-pulse bg-gray-200 rounded-xl ${className}`}
+    aria-hidden="true"
+  />
 );
 
 export default Skeleton;
@@ -3452,7 +3535,8 @@ export default Skeleton;
 
 ================================================================================
 FILE_BEGIN: components\SkipLink.tsx
-METADATA: Size=2262 bytes | Last_Modified=2026-01-07 13:33:10.081783
+TYPE: TSX
+SIZE: 2262 bytes
 ================================================================================
 import React, { useEffect, useState, useCallback } from 'react';
 import { ArrowRight, X } from 'lucide-react';
@@ -3540,7 +3624,8 @@ export default SkipLink;
 
 ================================================================================
 FILE_BEGIN: context\AuthContext.tsx
-METADATA: Size=9476 bytes | Last_Modified=2026-01-07 10:13:29.051584
+TYPE: TSX
+SIZE: 9476 bytes
 ================================================================================
 /* eslint-disable */
 import React, {
@@ -3896,7 +3981,8 @@ const getDefaultPermissions = (role: UserRole): string[] => {
 
 ================================================================================
 FILE_BEGIN: context\DarkModeContext.tsx
-METADATA: Size=2980 bytes | Last_Modified=2026-01-07 10:13:29.060031
+TYPE: TSX
+SIZE: 2980 bytes
 ================================================================================
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
@@ -4015,7 +4101,8 @@ export const DarkModeProvider: React.FC<DarkModeProviderProps> = ({
 
 ================================================================================
 FILE_BEGIN: context\EnhancedAuthContext.tsx
-METADATA: Size=22014 bytes | Last_Modified=2026-01-07 10:13:29.100844
+TYPE: TSX
+SIZE: 22014 bytes
 ================================================================================
 import React, {
   createContext,
@@ -4806,9 +4893,17 @@ const throttle = (func: Function, limit: number) => {
 
 ================================================================================
 FILE_BEGIN: context\ToastContext.tsx
-METADATA: Size=2598 bytes | Last_Modified=2026-01-07 13:32:40.502044
+TYPE: TSX
+SIZE: 3300 bytes
 ================================================================================
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useRef,
+  useEffect,
+} from 'react';
 import type { ReactNode } from 'react';
 import { X, CheckCircle, AlertCircle, Info } from 'lucide-react';
 
@@ -4839,50 +4934,76 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
+  const timeoutIdsRef = useRef<Set<number>>(new Set());
 
-  const addToast = useCallback((message: string, type: ToastType) => {
-    const id = Date.now();
-    setToasts((prev) => [...prev, { id, message, type }]);
-    // Auto remove after 5 seconds
-    setTimeout(() => {
-      setToasts((prev) => prev.filter((t) => t.id !== id));
-    }, 5000);
-  }, []);
+  useEffect(
+    () => () => {
+      timeoutIdsRef.current.forEach((timeoutId) => {
+        clearTimeout(timeoutId);
+      });
+      timeoutIdsRef.current.clear();
+    },
+    []
+  );
 
   const removeToast = useCallback((id: number) => {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   }, []);
 
+  const addToast = useCallback(
+    (message: string, type: ToastType) => {
+      const id = Date.now();
+      setToasts((prev) => [...prev, { id, message, type }]);
+
+      const timeoutId = window.setTimeout(() => {
+        removeToast(id);
+        timeoutIdsRef.current.delete(timeoutId);
+      }, 5000);
+
+      timeoutIdsRef.current.add(timeoutId);
+    },
+    [removeToast]
+  );
+
   return (
     <ToastContext.Provider value={{ addToast, removeToast }}>
       {children}
       <div
-        className="fixed bottom-4 right-4 z-50 flex flex-col gap-2"
+        className="fixed bottom-6 right-6 z-[60] flex flex-col gap-3"
         role="region"
-        aria-label="Notifications"
+        aria-label="System Notifications"
         aria-live="polite"
       >
         {toasts.map((toast) => (
           <div
             key={toast.id}
             role="alert"
-            className={`min-w-[300px] max-w-sm p-4 rounded-lg shadow-xl flex items-start gap-3 animate-slide-in-from-bottom text-white ${
+            className={`min-w-[320px] max-w-md p-4 rounded-xl shadow-2xl flex items-start gap-3 animate-slide-in-from-bottom border-l-4 text-white ${
               toast.type === 'success'
-                ? 'bg-green-600'
+                ? 'bg-green-700 border-green-400'
                 : toast.type === 'error'
-                  ? 'bg-red-600'
-                  : 'bg-blue-600'
+                  ? 'bg-red-700 border-red-400'
+                  : 'bg-p4c-navy border-p4c-gold'
             }`}
           >
-            <div className="mt-0.5">
-              {toast.type === 'success' && <CheckCircle className="w-5 h-5" />}
-              {toast.type === 'error' && <AlertCircle className="w-5 h-5" />}
-              {toast.type === 'info' && <Info className="w-5 h-5" />}
+            <div className="mt-0.5 shrink-0">
+              {toast.type === 'success' && (
+                <CheckCircle className="w-5 h-5 text-green-200" />
+              )}
+              {toast.type === 'error' && (
+                <AlertCircle className="w-5 h-5 text-red-200" />
+              )}
+              {toast.type === 'info' && (
+                <Info className="w-5 h-5 text-p4c-gold" />
+              )}
             </div>
-            <p className="flex-1 text-sm font-medium">{toast.message}</p>
+            <p className="flex-1 text-sm font-semibold leading-snug">
+              {toast.message}
+            </p>
             <button
               onClick={() => removeToast(toast.id)}
-              className="hover:opacity-80"
+              className="hover:bg-white/10 p-1 rounded-xl transition-colors"
+              aria-label="Dismiss notification"
             >
               <X className="w-4 h-4" />
             </button>
@@ -4899,7 +5020,8 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({
 
 ================================================================================
 FILE_BEGIN: index.tsx
-METADATA: Size=456 bytes | Last_Modified=2026-01-07 10:13:31.573877
+TYPE: TSX
+SIZE: 456 bytes
 ================================================================================
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -4927,7 +5049,8 @@ root.render(
 
 ================================================================================
 FILE_BEGIN: pages\About.tsx
-METADATA: Size=12639 bytes | Last_Modified=2026-01-07 10:13:31.651499
+TYPE: TSX
+SIZE: 13347 bytes
 ================================================================================
 import React from 'react';
 import {
@@ -4990,10 +5113,10 @@ const About: React.FC = () => (
             saw risk, we saw potential for revitalization.
           </p>
           <p className="text-gray-700 leading-relaxed">
-            Today, we buy distressed properties, renovate them to "homeowner
-            standards," and rent them affordably to the people who need them
-            most—families utilizing Section 8 vouchers and veterans in the
-            HUD-VASH program.
+            Today, we buy distressed properties, renovate them to
+            {'"'}homeowner standards,{'"'} and rent them affordably to the
+            people who need them most—families utilizing Section 8 vouchers and
+            veterans in the HUD-VASH program.
           </p>
         </div>
         <div className="relative group">
@@ -5182,6 +5305,24 @@ const About: React.FC = () => (
           </div>
         </div>
       </div>
+
+      {/* On Site Team Photo */}
+      <div className="mt-16">
+        <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+          <img
+            src={IMAGES.TEAM.ONSITE}
+            alt="Properties 4 Creation team working on site"
+            loading="lazy"
+            className="w-full h-auto object-cover max-h-[600px]"
+          />
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-p4c-navy/90 to-transparent p-8 pt-24">
+            <p className="text-white text-xl font-medium italic">
+              Hands-on leadership means we&apos;re always where the work
+              happens.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 );
@@ -5194,7 +5335,8 @@ export default About;
 
 ================================================================================
 FILE_BEGIN: pages\AccessibilityStatement.tsx
-METADATA: Size=3136 bytes | Last_Modified=2026-01-05 21:05:53.876867
+TYPE: TSX
+SIZE: 3136 bytes
 ================================================================================
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -5281,7 +5423,8 @@ export default AccessibilityStatement;
 
 ================================================================================
 FILE_BEGIN: pages\AdminDashboard.tsx
-METADATA: Size=8886 bytes | Last_Modified=2026-01-07 13:36:50.088053
+TYPE: TSX
+SIZE: 8886 bytes
 ================================================================================
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -5512,7 +5655,8 @@ export default AdminDashboard;
 
 ================================================================================
 FILE_BEGIN: pages\Application.tsx
-METADATA: Size=12428 bytes | Last_Modified=2026-01-07 11:44:21.932503
+TYPE: TSX
+SIZE: 12428 bytes
 ================================================================================
 import React, { useState } from 'react';
 import {
@@ -5880,7 +6024,8 @@ export default Application;
 
 ================================================================================
 FILE_BEGIN: pages\Contact.tsx
-METADATA: Size=13816 bytes | Last_Modified=2026-01-07 10:13:31.704680
+TYPE: TSX
+SIZE: 13930 bytes
 ================================================================================
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, AlertCircle, Check } from 'lucide-react';
@@ -6045,7 +6190,7 @@ const Contact: React.FC = () => {
         <div className="absolute top-0 left-0 w-full h-full z-0">
           <img
             src={IMAGES.BANNERS.HERO_CONTACT}
-            alt="People working together and connecting"
+            alt="Mailbox with letters representing contact"
             className="w-full h-full object-cover"
           />
           <div className="absolute top-0 left-0 w-full h-full bg-p4c-navy/80 mix-blend-multiply" />
@@ -6069,9 +6214,10 @@ const Contact: React.FC = () => {
                 Contact Information
               </h2>
               <p className="text-gray-700 leading-relaxed">
-                Whether you are a veteran looking for housing, an investor
-                interested in our mission, or a skilled tradesperson wanting to
-                join our team, we want to hear from you.
+                Whether you are a veteran looking for housing, a family needing
+                a place to call home, an investor interested in our mission, or
+                have a trade and are wanting to join our team, we want to hear
+                from you.
               </p>
             </div>
 
@@ -6087,7 +6233,7 @@ const Contact: React.FC = () => {
                   <p className="text-gray-600">
                     123 Veteran Way
                     <br />
-                    Tyler, TX 75701
+                    Longview, TX 75776
                   </p>
                 </div>
               </div>
@@ -6098,7 +6244,7 @@ const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-p4c-navy text-lg">Phone</h3>
-                  <p className="text-gray-600">(903) 555-0123</p>
+                  <p className="text-gray-600">(936) 707-8460</p>
                   <p className="text-sm text-gray-500 mt-1">
                     Mon-Fri, 9am - 5pm CST
                   </p>
@@ -6111,7 +6257,9 @@ const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-p4c-navy text-lg">Email</h3>
-                  <p className="text-gray-600">support@p4c-homes.com</p>
+                  <p className="text-gray-600">
+                    Richard@properties4creation.com
+                  </p>
                 </div>
               </div>
             </div>
@@ -6128,7 +6276,7 @@ const Contact: React.FC = () => {
                   Message Sent!
                 </h3>
                 <p className="text-gray-600">
-                  We'll get back to you within 24 hours.
+                  We&apos;ll get back to you within 24 hours.
                 </p>
               </div>
             )}
@@ -6283,7 +6431,8 @@ export default Contact;
 
 ================================================================================
 FILE_BEGIN: pages\Employment.tsx
-METADATA: Size=6016 bytes | Last_Modified=2026-01-07 10:13:31.712868
+TYPE: TSX
+SIZE: 6054 bytes
 ================================================================================
 import React from 'react';
 import { HardHat, Briefcase, CheckCircle2 } from 'lucide-react';
@@ -6327,7 +6476,7 @@ const Employment: React.FC = () => (
           </div>
           <p className="text-gray-700 leading-relaxed mb-6">
             At Properties 4 Creation, we believe that the hands that built our
-            nation are best suited to build our communities. We aren't just
+            nation are best suited to build our communities. We aren&apos;t just
             renovating houses; we are restoring dignity.
           </p>
           <p className="text-gray-700 leading-relaxed mb-8">
@@ -6420,7 +6569,9 @@ const Employment: React.FC = () => (
           </div>
 
           <div className="mt-8 bg-p4c-navy text-white p-6 rounded-xl text-center">
-            <h4 className="font-bold text-lg mb-2">Don't see your trade?</h4>
+            <h4 className="font-bold text-lg mb-2">
+              Don&apos;t see your trade?
+            </h4>
             <p className="text-gray-300 text-sm mb-4">
               We are always looking for skilled plumbers, electricians, and
               roofers.
@@ -6446,7 +6597,8 @@ export default Employment;
 
 ================================================================================
 FILE_BEGIN: pages\EqualHousing.tsx
-METADATA: Size=2277 bytes | Last_Modified=2026-01-05 21:05:53.876867
+TYPE: TSX
+SIZE: 2277 bytes
 ================================================================================
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -6512,7 +6664,8 @@ export default EqualHousing;
 
 ================================================================================
 FILE_BEGIN: pages\FAQ.tsx
-METADATA: Size=3778 bytes | Last_Modified=2026-01-07 13:34:22.674228
+TYPE: TSX
+SIZE: 3910 bytes
 ================================================================================
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -6548,7 +6701,9 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
       </button>
       <div
         id={`faq-content-${question.replace(/\s+/g, '-').toLowerCase()}`}
-        className="accordion-content"
+        className={`accordion-content overflow-hidden transition-all duration-300 ease-out ${
+          isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        }`}
         role="region"
         aria-label={question}
       >
@@ -6627,7 +6782,8 @@ export default FAQ;
 
 ================================================================================
 FILE_BEGIN: pages\Home.tsx
-METADATA: Size=15125 bytes | Last_Modified=2026-01-07 14:07:08.956043
+TYPE: TSX
+SIZE: 15918 bytes
 ================================================================================
 import React, { useState, useMemo, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -6637,15 +6793,10 @@ import PropertyCard from '../components/PropertyCard';
 import BeforeAfterSlider from '../components/BeforeAfterSlider';
 import GeminiImageEditor from '../components/GeminiImageEditor';
 import { api } from '../services/api';
+import { logError } from '../services/errorBoundaryService';
 import type { ExtendedProperty } from '../types';
 import { IMAGES } from '../constants/images';
-import {
-  CheckCircle2,
-  Shield,
-  Search,
-  SlidersHorizontal,
-  X,
-} from 'lucide-react';
+import { Search, SlidersHorizontal, X, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
@@ -6667,7 +6818,11 @@ const Home: React.FC = () => {
         const propertiesData = await api.properties.getAll();
         setProperties(propertiesData);
       } catch (error) {
-        console.error('Failed to fetch properties:', error);
+        logError('Failed to fetch properties', {
+          error: error instanceof Error ? error : new Error(String(error)),
+          component: 'Home',
+          severity: 'high',
+        });
       } finally {
         setLoading(false);
       }
@@ -6755,15 +6910,15 @@ const Home: React.FC = () => {
         </div>
 
         {/* Search & Filter Bar */}
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 mb-10">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+        <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6 mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
             {/* Search Input */}
             <div className="md:col-span-5 relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
                 type="text"
                 placeholder="Search by city, address, or keyword..."
-                className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-p4c-gold focus:border-p4c-gold transition-all"
+                className="w-full pl-11 pr-4 py-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-p4c-gold focus:border-p4c-gold transition-all"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 aria-label="Search properties"
@@ -6773,7 +6928,7 @@ const Home: React.FC = () => {
             {/* Price Dropdown */}
             <div className="md:col-span-3">
               <select
-                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-p4c-gold focus:border-p4c-gold bg-white"
+                className="w-full px-4 py-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-p4c-gold focus:border-p4c-gold bg-white cursor-pointer"
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(Number(e.target.value))}
                 aria-label="Filter by Maximum Price"
@@ -6789,7 +6944,7 @@ const Home: React.FC = () => {
             {/* Beds Dropdown */}
             <div className="md:col-span-3">
               <select
-                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-p4c-gold focus:border-p4c-gold bg-white"
+                className="w-full px-4 py-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-p4c-gold focus:border-p4c-gold bg-white cursor-pointer"
                 value={minBeds}
                 onChange={(e) => setMinBeds(Number(e.target.value))}
                 aria-label="Filter by Minimum Bedrooms"
@@ -6802,33 +6957,35 @@ const Home: React.FC = () => {
               </select>
             </div>
 
-            {/* Clear Button (Mobile only or Icon) */}
+            {/* Clear Button */}
             <div className="md:col-span-1 flex justify-center">
               <button
                 onClick={clearFilters}
-                className="text-gray-400 hover:text-red-500 transition-colors p-2 rounded-full hover:bg-gray-100"
+                className="text-gray-400 hover:text-red-500 transition-colors p-2.5 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-red-200"
                 title="Clear Filters"
+                aria-label="Clear all filters"
               >
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5" />
               </button>
             </div>
           </div>
 
           {/* Badges / Amenities Filter */}
-          <div className="mt-6 pt-4 border-t border-gray-100">
-            <div className="flex items-center gap-2 mb-3 text-sm font-bold text-gray-500 uppercase tracking-wide">
+          <div className="mt-6 pt-5 border-t border-gray-100">
+            <div className="flex items-center gap-2.5 mb-4 text-sm font-bold text-gray-500 uppercase tracking-wide">
               <SlidersHorizontal className="w-4 h-4" /> Filter by Features:
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2.5">
               {allBadges.map((badge) => (
                 <button
                   key={badge}
                   onClick={() => toggleBadge(badge)}
-                  className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 border ${
+                  className={`px-3.5 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 border-2 ${
                     selectedBadges.includes(badge)
                       ? 'bg-p4c-navy text-white border-p4c-navy shadow-md'
-                      : 'bg-white text-gray-600 border-gray-200 hover:border-p4c-gold hover:text-p4c-navy'
+                      : 'bg-white text-gray-700 border-gray-200 hover:border-p4c-gold hover:text-p4c-navy'
                   }`}
+                  aria-pressed={selectedBadges.includes(badge)}
                 >
                   {badge}
                 </button>
@@ -6843,14 +7000,14 @@ const Home: React.FC = () => {
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <div
                 key={i}
-                className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100"
+                className="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100"
               >
                 <div className="h-64 bg-gray-200 animate-pulse" />
                 <div className="p-6">
                   <div className="h-6 bg-gray-200 rounded animate-pulse mb-2" />
                   <div className="h-4 bg-gray-200 rounded animate-pulse mb-4" />
                   <div className="h-4 bg-gray-200 rounded animate-pulse mb-6" />
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-3 gap-3">
                     <div className="h-12 bg-gray-200 rounded animate-pulse" />
                     <div className="h-12 bg-gray-200 rounded animate-pulse" />
                     <div className="h-12 bg-gray-200 rounded animate-pulse" />
@@ -6886,49 +7043,60 @@ const Home: React.FC = () => {
         )}
       </section>
 
+      {/* Impact Section - We Buy Houses */}
+      <section className="py-20 bg-p4c-navy">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl">
+              <img
+                src={IMAGES.PROPERTIES.KEMP_TOWNHOME}
+                alt="Kemp Townhome with American flag"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-p4c-navy/30 mix-blend-multiply" />
+            </div>
+            <div className="text-white">
+              <div className="inline-flex items-center gap-2 bg-p4c-gold/20 px-4 py-2 rounded-full text-p4c-gold text-sm font-bold uppercase tracking-wider mb-4 border border-p4c-gold/30">
+                We Buy Houses
+              </div>
+              <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6">
+                We Buy Houses: Any Price, Any Condition.
+              </h2>
+              <p className="text-gray-300 text-lg mb-8 leading-relaxed">
+                We specialize in transforming neglected properties into safe,
+                stable housing for our community and those who served.
+              </p>
+              <button
+                onClick={() => navigate('/homeowner-solutions')}
+                className="bg-p4c-gold text-p4c-navy hover:bg-white hover:text-p4c-navy px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
+              >
+                Explore Homeowner Solutions
+                <ArrowRight className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Transformation Showcase */}
-      <section id="transparency" className="py-20 bg-white">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
-              <div className="inline-flex items-center gap-2 bg-p4c-beige px-3 py-1 rounded-full text-p4c-navy text-xs font-bold uppercase tracking-wider mb-4 border border-gray-200">
-                <Shield className="w-4 h-4" /> Transparency Hub
-              </div>
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-6">
-                We Install Quality, <br />
-                <span className="text-p4c-gold">Not Cheap Fixes.</span>
+                See the Transformation
               </h2>
               <p className="text-gray-600 mb-8 leading-relaxed">
-                Many landlords cut corners. We don&apos;t. At Properties 4
-                Creation, we use homeowner-grade materials like Quartz
-                countertops, luxury vinyl plank flooring, and high-efficiency
-                HVAC systems. Why? Because you deserve a home that lasts and
-                feels proud to live in.
+                From distressed to dream home. Watch our renovation process turn
+                neglected properties into high-quality, affordable housing.
               </p>
-
-              <ul className="space-y-4 mb-8">
-                <li className="flex items-start">
-                  <CheckCircle2 className="w-6 h-6 text-p4c-gold mr-3 flex-shrink-0" />
-                  <span className="text-gray-700">
-                    <strong>Quartz Countertops:</strong> Durable, hygienic, and
-                    beautiful.
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <CheckCircle2 className="w-6 h-6 text-p4c-gold mr-3 flex-shrink-0" />
-                  <span className="text-gray-700">
-                    <strong>LVP Flooring:</strong> Waterproof and
-                    scratch-resistant.
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <CheckCircle2 className="w-6 h-6 text-p4c-gold mr-3 flex-shrink-0" />
-                  <span className="text-gray-700">
-                    <strong>Energy Efficient:</strong> Lower utility bills for
-                    our tenants.
-                  </span>
-                </li>
-              </ul>
+              <a
+                href="/transparency"
+                className="inline-flex items-center gap-2 text-p4c-gold font-bold hover:underline"
+              >
+                View Our Renovation Standards
+                <ArrowRight className="w-4 h-4" />
+              </a>
             </div>
 
             <div className="w-full">
@@ -7011,8 +7179,374 @@ export default Home;
 ################################################################################
 
 ================================================================================
+FILE_BEGIN: pages\HomeownerSolutions.tsx
+TYPE: TSX
+SIZE: 14011 bytes
+================================================================================
+import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { IMAGES } from '../constants/images';
+import { ArrowRight, CheckCircle2, Phone, MapPin, User } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+
+interface FormData {
+  name: string;
+  address: string;
+  phone: string;
+}
+
+interface FormErrors {
+  name?: string;
+  address?: string;
+  phone?: string;
+}
+
+const HomeownerSolutions: React.FC = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState<FormData>({
+    name: '',
+    address: '',
+    phone: '',
+  });
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required';
+    }
+
+    if (!formData.address.trim()) {
+      newErrors.address = 'Property address is required';
+    }
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone number is required';
+    } else if (!/^[\d\s\-()]+$/.test(formData.phone)) {
+      newErrors.phone = 'Please enter a valid phone number';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name as keyof FormErrors]) {
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error('Form submission error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="bg-p4c-beige min-h-screen">
+      <Helmet>
+        <title>Homeowner Solutions | Properties 4 Creation</title>
+        <meta
+          name="description"
+          content="We buy houses in any condition to create high-quality homes for Veterans and families. Get a fair cash offer today."
+        />
+        <meta
+          name="keywords"
+          content="Veteran owned house buyers, sell my house as-is, Section 8 property investment, buy houses any condition"
+        />
+      </Helmet>
+
+      {/* Hero Section */}
+      <div className="relative h-[85vh] w-full overflow-hidden flex items-center justify-center">
+        <div className="absolute top-0 left-0 w-full h-full z-0">
+          <img
+            src={IMAGES.PROPERTIES.JEFFERSON_RIVER}
+            alt="Jefferson Riverfront Property"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute top-0 left-0 w-full h-full hero-overlay-primary bg-p4c-navy/50" />
+          <div className="absolute top-0 left-0 w-full h-full hero-overlay-secondary bg-gradient-to-b from-transparent via-transparent to-p4c-navy/60" />
+        </div>
+
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-fade-in-up">
+          <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight tracking-wide">
+            Give Your Property a{' '}
+            <span className="text-p4c-gold">New Mission.</span>
+          </h1>
+          <p className="text-lg md:text-xl text-gray-100 mb-10 font-light max-w-2xl mx-auto leading-relaxed">
+            We buy houses in any condition to create high-quality homes for
+            Veterans and families.
+          </p>
+        </div>
+      </div>
+
+      {/* Video Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-4">
+              From Distressed to Dream Home
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Our Renovation Strategy in Action
+            </p>
+          </div>
+          <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full aspect-video object-cover"
+              aria-label="Transformation video showing property renovation process"
+            >
+              <source src={IMAGES.VIDEOS.HERO_IMPACT} type="video/mp4" />
+            </video>
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits Section */}
+      <section className="py-20 bg-p4c-beige">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white p-8 rounded-2xl shadow-lg text-center">
+              <div className="bg-p4c-navy/5 p-4 rounded-full inline-block mb-4">
+                <CheckCircle2 className="w-10 h-10 text-p4c-gold" />
+              </div>
+              <h3 className="text-xl font-serif font-bold text-p4c-navy mb-3">
+                Any Condition
+              </h3>
+              <p className="text-gray-600">
+                We buy houses as-is. No repairs needed, no cleaning required.
+              </p>
+            </div>
+            <div className="bg-white p-8 rounded-2xl shadow-lg text-center">
+              <div className="bg-p4c-navy/5 p-4 rounded-full inline-block mb-4">
+                <CheckCircle2 className="w-10 h-10 text-p4c-gold" />
+              </div>
+              <h3 className="text-xl font-serif font-bold text-p4c-navy mb-3">
+                Fair Cash Offer
+              </h3>
+              <p className="text-gray-600">
+                Competitive offers based on market value, not lowball prices.
+              </p>
+            </div>
+            <div className="bg-white p-8 rounded-2xl shadow-lg text-center">
+              <div className="bg-p4c-navy/5 p-4 rounded-full inline-block mb-4">
+                <CheckCircle2 className="w-10 h-10 text-p4c-gold" />
+              </div>
+              <h3 className="text-xl font-serif font-bold text-p4c-navy mb-3">
+                Quick Closing
+              </h3>
+              <p className="text-gray-600">
+                Close in as little as 7 days. Your timeline, your choice.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Inquiry Form Section */}
+      <section className="py-20 bg-p4c-navy">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+            <div className="p-8 md:p-10">
+              <div className="text-center mb-8">
+                <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-3">
+                  Request a Discreet Property Consultation
+                </h2>
+                <p className="text-gray-600">
+                  Tell us about your property and we'll get back to you within
+                  24 hours.
+                </p>
+              </div>
+
+              {isSubmitted ? (
+                <div className="text-center py-10">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
+                    <CheckCircle2 className="w-8 h-8 text-green-600" />
+                  </div>
+                  <h3 className="text-2xl font-serif font-bold text-p4c-navy mb-2">
+                    Thank You!
+                  </h3>
+                  <p className="text-gray-600 mb-6">
+                    We've received your request and will be in touch shortly.
+                  </p>
+                  <button
+                    onClick={() => {
+                      setIsSubmitted(false);
+                      setFormData({ name: '', address: '', phone: '' });
+                    }}
+                    className="text-p4c-gold font-semibold hover:underline"
+                  >
+                    Submit another inquiry
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-semibold text-gray-700 mb-2"
+                    >
+                      Your Name
+                    </label>
+                    <div className="relative">
+                      <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="John Smith"
+                        className={`w-full pl-12 pr-4 py-4 rounded-xl border-2 focus:outline-none transition-all ${
+                          errors.name
+                            ? 'border-red-300 focus:border-red-500'
+                            : 'border-gray-200 focus:border-p4c-gold'
+                        }`}
+                      />
+                    </div>
+                    {errors.name && (
+                      <p className="mt-1 text-sm text-red-500">{errors.name}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="address"
+                      className="block text-sm font-semibold text-gray-700 mb-2"
+                    >
+                      Property Address
+                    </label>
+                    <div className="relative">
+                      <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                      <input
+                        type="text"
+                        id="address"
+                        name="address"
+                        value={formData.address}
+                        onChange={handleChange}
+                        placeholder="123 Main Street, City, TX 757XX"
+                        className={`w-full pl-12 pr-4 py-4 rounded-xl border-2 focus:outline-none transition-all ${
+                          errors.address
+                            ? 'border-red-300 focus:border-red-500'
+                            : 'border-gray-200 focus:border-p4c-gold'
+                        }`}
+                      />
+                    </div>
+                    {errors.address && (
+                      <p className="mt-1 text-sm text-red-500">
+                        {errors.address}
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="phone"
+                      className="block text-sm font-semibold text-gray-700 mb-2"
+                    >
+                      Phone Number
+                    </label>
+                    <div className="relative">
+                      <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                      <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        placeholder="(555) 123-4567"
+                        className={`w-full pl-12 pr-4 py-4 rounded-xl border-2 focus:outline-none transition-all ${
+                          errors.phone
+                            ? 'border-red-300 focus:border-red-500'
+                            : 'border-gray-200 focus:border-p4c-gold'
+                        }`}
+                      />
+                    </div>
+                    {errors.phone && (
+                      <p className="mt-1 text-sm text-red-500">
+                        {errors.phone}
+                      </p>
+                    )}
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-p4c-gold text-p4c-navy hover:bg-p4c-goldHover py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <div className="w-5 h-5 border-2 border-p4c-navy border-t-transparent rounded-full animate-spin" />
+                        Submitting...
+                      </>
+                    ) : (
+                      <>
+                        Request Consultation
+                        <ArrowRight className="w-5 h-5" />
+                      </>
+                    )}
+                  </button>
+                </form>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-6">
+            Ready to See More Properties?
+          </h2>
+          <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
+            Browse our available homes and see how we're transforming
+            neighborhoods one property at a time.
+          </p>
+          <button
+            onClick={() => navigate('/#homes')}
+            className="bg-p4c-navy text-white hover:bg-p4c-slate px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+          >
+            Browse Available Homes
+          </button>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default HomeownerSolutions;
+
+
+[FILE_END: pages\HomeownerSolutions.tsx]
+################################################################################
+
+================================================================================
 FILE_BEGIN: pages\OurImpact.tsx
-METADATA: Size=8533 bytes | Last_Modified=2026-01-07 10:13:31.762996
+TYPE: TSX
+SIZE: 9003 bytes
 ================================================================================
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -7026,6 +7560,7 @@ import {
   Heart,
   Loader2,
   ArrowUpRight,
+  ArrowRight,
 } from 'lucide-react';
 import { useToast } from '../context/ToastContext';
 import { IMAGES } from '../constants/images';
@@ -7082,23 +7617,31 @@ const OurImpact: React.FC = () => {
       </Helmet>
 
       {/* Hero */}
-      <div className="bg-p4c-navy text-white pt-20 pb-32 relative overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img
-            src={IMAGES.BANNERS.HERO_IMPACT}
-            alt="Impact Banner"
-            className="w-full h-full object-cover opacity-20"
-          />
-        </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <h1 className="text-4xl md:text-6xl font-serif font-bold mb-6">
-            More Than Just Rentals.
-          </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            We measure our bottom line differently. It's not just about ROI—it's
-            about the tangible difference we make in the lives of veterans and
-            the fabric of our neighborhoods.
-          </p>
+      <div className="relative h-[60vh] min-h-[400px] w-full overflow-hidden">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster={IMAGES.BANNERS.HERO_PROJECTS}
+          className="absolute top-0 left-0 w-full h-full object-cover"
+          aria-label="Impact hero background video showcasing our projects"
+        >
+          <source src={IMAGES.VIDEOS.HERO_PROJECTS} type="video/mp4" />
+        </video>
+        <div className="absolute top-0 left-0 w-full h-full hero-overlay-primary" />
+        <div className="absolute top-0 left-0 w-full h-full hero-overlay-secondary" />
+        <div className="relative z-10 h-full flex items-center justify-center px-4">
+          <div className="text-center max-w-4xl animate-fade-in-up">
+            <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">
+              More Than Just Rentals.
+            </h1>
+            <p className="text-lg md:text-xl text-gray-200 font-light max-w-2xl mx-auto leading-relaxed">
+              We measure our bottom line differently. It&apos;s not just about
+              about the tangible difference we make in the lives of veterans and
+              the fabric of our neighborhoods.
+            </p>
+          </div>
         </div>
       </div>
 
@@ -7231,7 +7774,8 @@ export default OurImpact;
 
 ================================================================================
 FILE_BEGIN: pages\Privacy.tsx
-METADATA: Size=4673 bytes | Last_Modified=2026-01-05 21:05:53.876867
+TYPE: TSX
+SIZE: 4673 bytes
 ================================================================================
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -7354,7 +7898,8 @@ export default Privacy;
 
 ================================================================================
 FILE_BEGIN: pages\PropertyDetails.tsx
-METADATA: Size=12390 bytes | Last_Modified=2026-01-07 13:31:51.707555
+TYPE: TSX
+SIZE: 12390 bytes
 ================================================================================
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
@@ -7685,11 +8230,12 @@ export default PropertyDetails;
 
 ================================================================================
 FILE_BEGIN: pages\SuccessStories.tsx
-METADATA: Size=10105 bytes | Last_Modified=2026-01-07 11:12:06.767994
+TYPE: TSX
+SIZE: 18998 bytes
 ================================================================================
 import React, { useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Play, Pause, Volume2, VolumeX, Quote } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, Quote, Home, Hammer, DollarSign, TrendingUp } from 'lucide-react';
 import { IMAGES } from '../constants/images';
 
 /**
@@ -7871,7 +8417,7 @@ const SuccessStories: React.FC = () => {
           className="absolute top-0 left-0 w-full h-full object-cover"
           aria-label="Success stories hero background video"
         >
-          <source src={IMAGES.VIDEOS.HERO_PROPERTIES} type="video/mp4" />
+          <source src={IMAGES.VIDEOS.HERO_PROJECTS} type="video/mp4" />
         </video>
         <div className="absolute top-0 left-0 w-full h-full hero-overlay-primary" />
 
@@ -7906,7 +8452,7 @@ const SuccessStories: React.FC = () => {
               {/* Video Section */}
               <div className="w-full lg:w-1/2">
                 <CustomVideoPlayer
-                  src={IMAGES.VIDEOS.HERO_PROPERTIES}
+                  src={IMAGES.VIDEOS.HERO_PROJECTS}
                   poster={IMAGES.BANNERS.HERO_IMPACT}
                   ariaLabel={story.videoLabel}
                 />
@@ -7929,6 +8475,183 @@ const SuccessStories: React.FC = () => {
               </div>
             </article>
           ))}
+        </div>
+      </section>
+
+      {/* Project Spotlight: BRRR Cycle Breakdown */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-4">
+              Project Spotlight: The BRRRR Cycle in Action
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+              See how we transform distressed properties into quality Section 8 housing through our proven 4-step process.
+            </p>
+          </div>
+
+          {/* 4-Step Process Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Step 1: Buy (As-Is) */}
+            <div className="group bg-p4c-beige rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={IMAGES.PROPERTIES.LINDALE_COTTAGE}
+                  alt="Distressed Lindale cottage before renovation - any condition purchase"
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-p4c-navy/40 mix-blend-multiply" />
+                <div className="absolute top-4 left-4 bg-p4c-gold text-p4c-navy px-3 py-1 rounded-full text-sm font-bold">
+                  Step 1
+                </div>
+              </div>
+              <div className="p-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <Home className="w-6 h-6 text-p4c-gold" />
+                  <h3 className="text-xl font-serif font-bold text-p4c-navy">
+                    Buy (As-Is)
+                  </h3>
+                </div>
+                <p className="text-gray-600 text-sm mb-4">
+                  We purchase properties in any condition. No repairs needed, no cleaning required.
+                </p>
+                <ul className="space-y-2 text-sm text-gray-600">
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-p4c-gold rounded-full" />
+                    Cash offers
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-p4c-gold rounded-full" />
+                    Quick closing
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-p4c-gold rounded-full" />
+                    Any condition
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Step 2: Rehab */}
+            <div className="group bg-p4c-beige rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={IMAGES.GALLERY.FRAMING}
+                  alt="Active rehabilitation work on property framing and construction"
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-p4c-navy/40 mix-blend-multiply" />
+                <div className="absolute top-4 left-4 bg-p4c-gold text-p4c-navy px-3 py-1 rounded-full text-sm font-bold">
+                  Step 2
+                </div>
+              </div>
+              <div className="p-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <Hammer className="w-6 h-6 text-p4c-gold" />
+                  <h3 className="text-xl font-serif font-bold text-p4c-navy">
+                    Rehab
+                  </h3>
+                </div>
+                <p className="text-gray-600 text-sm mb-4">
+                  Full renovation using premium materials. Every detail matters.
+                </p>
+                <ul className="space-y-2 text-sm text-gray-600">
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-p4c-gold rounded-full" />
+                    Quartz countertops
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-p4c-gold rounded-full" />
+                    LVP flooring
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-p4c-gold rounded-full" />
+                    Energy efficient HVAC
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Step 3: Rent */}
+            <div className="group bg-p4c-beige rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={IMAGES.TEAM.ONSITE}
+                  alt="Team onsite managing property rental operations"
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-p4c-navy/40 mix-blend-multiply" />
+                <div className="absolute top-4 left-4 bg-p4c-gold text-p4c-navy px-3 py-1 rounded-full text-sm font-bold">
+                  Step 3
+                </div>
+              </div>
+              <div className="p-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <DollarSign className="w-6 h-6 text-p4c-gold" />
+                  <h3 className="text-xl font-serif font-bold text-p4c-navy">
+                    Rent
+                  </h3>
+                </div>
+                <p className="text-gray-600 text-sm mb-4">
+                  Quality tenants through careful screening. Veterans and families first.
+                </p>
+                <ul className="space-y-2 text-sm text-gray-600">
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-p4c-gold rounded-full" />
+                    Veteran preference
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-p4c-gold rounded-full" />
+                    Housing vouchers
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-p4c-gold rounded-full" />
+                    Responsive maintenance
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Step 4: Refinance */}
+            <div className="group bg-p4c-beige rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={IMAGES.RENOVATION.LIVING_ROOM.AFTER}
+                  alt="Completed modern living room after renovation - high-quality Section 8 housing"
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-p4c-navy/40 mix-blend-multiply" />
+                <div className="absolute top-4 left-4 bg-p4c-gold text-p4c-navy px-3 py-1 rounded-full text-sm font-bold">
+                  Step 4
+                </div>
+              </div>
+              <div className="p-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <TrendingUp className="w-6 h-6 text-p4c-gold" />
+                  <h3 className="text-xl font-serif font-bold text-p4c-navy">
+                    Refinance
+                  </h3>
+                </div>
+                <p className="text-gray-600 text-sm mb-4">
+                  Long-term sustainability through smart financing and equity building.
+                </p>
+                <ul className="space-y-2 text-sm text-gray-600">
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-p4c-gold rounded-full" />
+                    Lower mortgage
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-p4c-gold rounded-full" />
+                    Community investment
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-p4c-gold rounded-full" />
+                    Sustainable returns
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -7971,7 +8694,8 @@ export default SuccessStories;
 
 ================================================================================
 FILE_BEGIN: pages\TenantLogin.tsx
-METADATA: Size=7364 bytes | Last_Modified=2026-01-07 10:13:31.804005
+TYPE: TSX
+SIZE: 7643 bytes
 ================================================================================
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -8081,7 +8805,10 @@ const TenantLogin: React.FC = () => {
 
           <form onSubmit={handleLogin} className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Email Address
               </label>
               <div className="relative">
@@ -8089,6 +8816,7 @@ const TenantLogin: React.FC = () => {
                   <User className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
+                  id="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -8101,18 +8829,25 @@ const TenantLogin: React.FC = () => {
 
             <div>
               <div className="flex justify-between items-center mb-1">
-                <label className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Password
                 </label>
-                <a href="#" className="text-xs text-p4c-navy hover:underline">
+                <button
+                  type="button"
+                  className="text-xs text-p4c-navy hover:underline cursor-pointer"
+                >
                   Forgot password?
-                </a>
+                </button>
               </div>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Lock className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
+                  id="password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -8162,7 +8897,8 @@ export default TenantLogin;
 
 ================================================================================
 FILE_BEGIN: pages\Terms.tsx
-METADATA: Size=4334 bytes | Last_Modified=2026-01-05 21:05:53.876867
+TYPE: TSX
+SIZE: 4334 bytes
 ================================================================================
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -8276,7 +9012,8 @@ export default Terms;
 
 ================================================================================
 FILE_BEGIN: pages\Transparency.tsx
-METADATA: Size=7738 bytes | Last_Modified=2026-01-07 10:13:31.828753
+TYPE: TSX
+SIZE: 10039 bytes
 ================================================================================
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -8288,6 +9025,7 @@ import {
   HardHat,
   TrendingUp,
   Loader2,
+  CheckCircle2,
 } from 'lucide-react';
 import { api } from '../services/api';
 import type { RenovationStandard } from '../types';
@@ -8416,6 +9154,52 @@ const Transparency: React.FC = () => {
           )}
         </div>
 
+        {/* Quality Standards Section - Moved from Home Page */}
+        <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-20 border border-gray-100">
+          <div className="p-8 border-b border-gray-100 bg-gray-50">
+            <div className="inline-flex items-center gap-2 bg-p4c-beige px-3 py-1 rounded-full text-p4c-navy text-xs font-bold uppercase tracking-wider mb-4 border border-gray-200">
+              <Shield className="w-4 h-4" /> Quality Standards
+            </div>
+            <h2 className="text-2xl font-serif font-bold text-p4c-navy">
+              We Install Quality, Not Cheap Fixes
+            </h2>
+            <p className="text-gray-600 mt-2">
+              Many landlords cut corners. We don&apos;t. At Properties 4
+              Creation, we use homeowner-grade materials.
+            </p>
+          </div>
+          <div className="p-8">
+            <p className="text-gray-700 leading-relaxed mb-8">
+              We use homeowner-grade materials like Quartz countertops, luxury
+              vinyl plank flooring, and high-efficiency HVAC systems. Why?
+              Because you deserve a home that lasts and feels proud to live in.
+            </p>
+            <ul className="space-y-4">
+              <li className="flex items-start">
+                <CheckCircle2 className="w-6 h-6 text-p4c-gold mr-3 flex-shrink-0" />
+                <span className="text-gray-700">
+                  <strong>Quartz Countertops:</strong> Durable, hygienic, and
+                  beautiful.
+                </span>
+              </li>
+              <li className="flex items-start">
+                <CheckCircle2 className="w-6 h-6 text-p4c-gold mr-3 flex-shrink-0" />
+                <span className="text-gray-700">
+                  <strong>LVP Flooring:</strong> Waterproof and
+                  scratch-resistant.
+                </span>
+              </li>
+              <li className="flex items-start">
+                <CheckCircle2 className="w-6 h-6 text-p4c-gold mr-3 flex-shrink-0" />
+                <span className="text-gray-700">
+                  <strong>Energy Efficient:</strong> Lower utility bills for our
+                  tenants.
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
         {/* Workflow Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
           <div>
@@ -8475,7 +9259,8 @@ export default Transparency;
 
 ================================================================================
 FILE_BEGIN: pages\Veterans.tsx
-METADATA: Size=6261 bytes | Last_Modified=2026-01-05 21:05:53.876867
+TYPE: TSX
+SIZE: 6805 bytes
 ================================================================================
 import React from 'react';
 import { HeartHandshake, Phone, Home, Flag } from 'lucide-react';
@@ -8503,7 +9288,8 @@ const Veterans: React.FC = () => (
           Serving Those Who Served
         </h1>
         <p className="text-xl text-gray-200">
-          Housing is a human right, but for veterans, it's a promise we keep.
+          Housing is a human right, but for veterans, it&apos;s a promise we
+          keep.
         </p>
       </div>
     </div>
@@ -8612,13 +9398,31 @@ const Veterans: React.FC = () => (
             </h3>
             <ul className="space-y-3 text-sm text-blue-600 underline">
               <li>
-                <a href="#">CampV Tyler</a>
+                <a
+                  href="https://www.campv.org/tyler"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  CampV Tyler
+                </a>
               </li>
               <li>
-                <a href="#">Texas Veterans Commission</a>
+                <a
+                  href="https://www.tvc.texas.gov"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Texas Veterans Commission
+                </a>
               </li>
               <li>
-                <a href="#">East Texas Food Bank</a>
+                <a
+                  href="https://www.easttexasfoodbank.org"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  East Texas Food Bank
+                </a>
               </li>
             </ul>
           </div>
@@ -8636,7 +9440,8 @@ export default Veterans;
 
 ================================================================================
 FILE_BEGIN: pages\VeteranServices.tsx
-METADATA: Size=9201 bytes | Last_Modified=2026-01-07 10:13:31.845210
+TYPE: TSX
+SIZE: 9206 bytes
 ================================================================================
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -8674,8 +9479,8 @@ const VeteranServices: React.FC = () => (
           Serving Those Who Served
         </h1>
         <p className="text-xl text-gray-200 hero-text-enhanced">
-          We don't just provide housing; we provide a home base for your next
-          chapter.
+          We don&apos;t just provide housing; we provide a home base for your
+          next chapter.
         </p>
       </div>
     </div>
@@ -8869,7 +9674,8 @@ export default VeteranServices;
 
 ================================================================================
 FILE_BEGIN: src\components\AIChatbot.tsx
-METADATA: Size=9490 bytes | Last_Modified=2026-01-05 23:21:13.063041
+TYPE: TSX
+SIZE: 9490 bytes
 ================================================================================
 import React, { useState, useRef, useEffect } from 'react';
 import { X, Send, Bot, Loader2, Sparkles, User } from 'lucide-react';
@@ -9159,7 +9965,8 @@ export default AIChatbot;
 
 ================================================================================
 FILE_BEGIN: src\components\ClientUpscaler.tsx
-METADATA: Size=11200 bytes | Last_Modified=2026-01-05 23:21:13.063041
+TYPE: TSX
+SIZE: 11200 bytes
 ================================================================================
 import React, { useState, useRef, useCallback } from 'react';
 import {
@@ -9509,7 +10316,8 @@ export default ClientUpscaler;
 
 ================================================================================
 FILE_BEGIN: src\pages\Tools.tsx
-METADATA: Size=7055 bytes | Last_Modified=2026-01-05 21:05:53.876867
+TYPE: TSX
+SIZE: 7055 bytes
 ================================================================================
 import React from 'react';
 import ClientUpscaler from '../components/ClientUpscaler';

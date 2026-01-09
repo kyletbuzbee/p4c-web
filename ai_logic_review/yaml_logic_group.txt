@@ -1,7 +1,8 @@
 
 ================================================================================
 FILE_BEGIN: .github\.dependabot.yaml
-METADATA: Size=523 bytes | Last_Modified=2026-01-07 10:13:28.393404
+TYPE: YAML
+SIZE: 523 bytes
 ================================================================================
 # To get started with Dependabot version updates, you'll need to specify which
 # package ecosystems to update and where the package manifests are located.

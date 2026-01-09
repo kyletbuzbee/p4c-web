@@ -1,7 +1,8 @@
 
 ================================================================================
 FILE_BEGIN: public\sw.js
-METADATA: Size=7233 bytes | Last_Modified=2026-01-07 10:13:31.878625
+TYPE: JS
+SIZE: 7233 bytes
 ================================================================================
 /**
  * Service Worker for Properties 4 Creation
@@ -279,7 +280,8 @@ self.addEventListener('notificationclick', (event) => {
 
 ================================================================================
 FILE_BEGIN: server\index.js
-METADATA: Size=10272 bytes | Last_Modified=2026-01-07 10:13:32.107661
+TYPE: JS
+SIZE: 10272 bytes
 ================================================================================
 /**
  * Enterprise Security Proxy Server
@@ -685,7 +687,8 @@ module.exports = app;
 
 ================================================================================
 FILE_BEGIN: server\middleware\comprehensiveSecurity.js
-METADATA: Size=9116 bytes | Last_Modified=2026-01-07 10:13:32.124341
+TYPE: JS
+SIZE: 9116 bytes
 ================================================================================
 /**
  * Comprehensive Security Middleware
@@ -1026,7 +1029,8 @@ module.exports = {
 
 ================================================================================
 FILE_BEGIN: server\middleware\enhancedSecurityHeaders.js
-METADATA: Size=8898 bytes | Last_Modified=2026-01-07 10:13:32.132484
+TYPE: JS
+SIZE: 8898 bytes
 ================================================================================
 /**
  * Enhanced Security Headers Middleware
@@ -1328,7 +1332,8 @@ module.exports = {
 
 ================================================================================
 FILE_BEGIN: server\middleware\imageOptimization.js
-METADATA: Size=10349 bytes | Last_Modified=2026-01-07 10:13:32.149181
+TYPE: JS
+SIZE: 10349 bytes
 ================================================================================
 /**
  * Advanced Image Optimization Middleware with WebP/AVIF Support
@@ -1722,7 +1727,8 @@ module.exports.SUPPORTED_FORMATS = SUPPORTED_FORMATS;
 
 ================================================================================
 FILE_BEGIN: server\middleware\inputValidation.js
-METADATA: Size=15335 bytes | Last_Modified=2026-01-07 10:13:32.173683
+TYPE: JS
+SIZE: 15335 bytes
 ================================================================================
 const { body, param, query, validationResult } = require('express-validator');
 
@@ -2273,7 +2279,8 @@ module.exports = {
 
 ================================================================================
 FILE_BEGIN: server\middleware\logging.js
-METADATA: Size=9730 bytes | Last_Modified=2026-01-07 10:13:32.198231
+TYPE: JS
+SIZE: 9730 bytes
 ================================================================================
 const winston = require('winston');
 const DailyRotateFile = require('winston-daily-rotate-file');
@@ -2688,7 +2695,8 @@ module.exports = {
 
 ================================================================================
 FILE_BEGIN: server\middleware\performanceMonitoring.js
-METADATA: Size=6572 bytes | Last_Modified=2026-01-07 10:13:32.206342
+TYPE: JS
+SIZE: 6572 bytes
 ================================================================================
 /**
  * Performance Monitoring Middleware
@@ -2951,7 +2959,8 @@ module.exports = {
 
 ================================================================================
 FILE_BEGIN: server\middleware\rateLimiting.js
-METADATA: Size=9403 bytes | Last_Modified=2026-01-07 10:13:32.223003
+TYPE: JS
+SIZE: 9403 bytes
 ================================================================================
 const Redis = require('redis');
 const rateLimit = require('express-rate-limit');
@@ -3346,7 +3355,8 @@ module.exports = {
 
 ================================================================================
 FILE_BEGIN: server\middleware\securityHeaders.js
-METADATA: Size=4710 bytes | Last_Modified=2026-01-07 10:13:32.223003
+TYPE: JS
+SIZE: 4710 bytes
 ================================================================================
 /**
  * Security Headers Middleware
@@ -3515,7 +3525,8 @@ module.exports = {
 
 ================================================================================
 FILE_BEGIN: server\middleware\validation.js
-METADATA: Size=12766 bytes | Last_Modified=2026-01-07 10:13:32.239480
+TYPE: JS
+SIZE: 12766 bytes
 ================================================================================
 const rateLimit = require('express-rate-limit');
 const slowDown = require('express-slow-down');
@@ -3967,7 +3978,8 @@ module.exports = {
 
 ================================================================================
 FILE_BEGIN: server\utils\logger.js
-METADATA: Size=5102 bytes | Last_Modified=2026-01-07 10:13:32.256348
+TYPE: JS
+SIZE: 5102 bytes
 ================================================================================
 const winston = require('winston');
 const path = require('path');
@@ -4189,7 +4201,8 @@ module.exports = loggers;
 
 ================================================================================
 FILE_BEGIN: tailwind.config.js
-METADATA: Size=1265 bytes | Last_Modified=2026-01-05 23:20:22.738925
+TYPE: JS
+SIZE: 1265 bytes
 ================================================================================
 /** @type {import('tailwindcss').Config} */
 module.exports = {
