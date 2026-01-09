@@ -8,6 +8,7 @@ import {
   HardHat,
   TrendingUp,
   Loader2,
+  CheckCircle2,
 } from 'lucide-react';
 import { api } from '../services/api';
 import type { RenovationStandard } from '../types';
@@ -134,6 +135,52 @@ const Transparency: React.FC = () => {
               </table>
             </div>
           )}
+        </div>
+
+        {/* Quality Standards Section - Moved from Home Page */}
+        <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-20 border border-gray-100">
+          <div className="p-8 border-b border-gray-100 bg-gray-50">
+            <div className="inline-flex items-center gap-2 bg-p4c-beige px-3 py-1 rounded-full text-p4c-navy text-xs font-bold uppercase tracking-wider mb-4 border border-gray-200">
+              <Shield className="w-4 h-4" /> Quality Standards
+            </div>
+            <h2 className="text-2xl font-serif font-bold text-p4c-navy">
+              We Install Quality, Not Cheap Fixes
+            </h2>
+            <p className="text-gray-600 mt-2">
+              Many landlords cut corners. We don&apos;t. At Properties 4
+              Creation, we use homeowner-grade materials.
+            </p>
+          </div>
+          <div className="p-8">
+            <p className="text-gray-700 leading-relaxed mb-8">
+              We use homeowner-grade materials like Quartz countertops, luxury
+              vinyl plank flooring, and high-efficiency HVAC systems. Why?
+              Because you deserve a home that lasts and feels proud to live in.
+            </p>
+            <ul className="space-y-4">
+              <li className="flex items-start">
+                <CheckCircle2 className="w-6 h-6 text-p4c-gold mr-3 flex-shrink-0" />
+                <span className="text-gray-700">
+                  <strong>Quartz Countertops:</strong> Durable, hygienic, and
+                  beautiful.
+                </span>
+              </li>
+              <li className="flex items-start">
+                <CheckCircle2 className="w-6 h-6 text-p4c-gold mr-3 flex-shrink-0" />
+                <span className="text-gray-700">
+                  <strong>LVP Flooring:</strong> Waterproof and
+                  scratch-resistant.
+                </span>
+              </li>
+              <li className="flex items-start">
+                <CheckCircle2 className="w-6 h-6 text-p4c-gold mr-3 flex-shrink-0" />
+                <span className="text-gray-700">
+                  <strong>Energy Efficient:</strong> Lower utility bills for our
+                  tenants.
+                </span>
+              </li>
+            </ul>
+          </div>
         </div>
 
         {/* Workflow Section */}

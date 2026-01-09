@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Play, Pause, Volume2, VolumeX, Quote } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, Quote, Home, Hammer, DollarSign, TrendingUp } from 'lucide-react';
 import { IMAGES } from '../constants/images';
 
 /**
@@ -240,6 +240,183 @@ const SuccessStories: React.FC = () => {
               </div>
             </article>
           ))}
+        </div>
+      </section>
+
+      {/* Project Spotlight: BRRR Cycle Breakdown */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-4">
+              Project Spotlight: The BRRRR Cycle in Action
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+              See how we transform distressed properties into quality Section 8 housing through our proven 4-step process.
+            </p>
+          </div>
+
+          {/* 4-Step Process Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Step 1: Buy (As-Is) */}
+            <div className="group bg-p4c-beige rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={IMAGES.PROPERTIES.LINDALE_COTTAGE}
+                  alt="Distressed Lindale cottage before renovation - any condition purchase"
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-p4c-navy/40 mix-blend-multiply" />
+                <div className="absolute top-4 left-4 bg-p4c-gold text-p4c-navy px-3 py-1 rounded-full text-sm font-bold">
+                  Step 1
+                </div>
+              </div>
+              <div className="p-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <Home className="w-6 h-6 text-p4c-gold" />
+                  <h3 className="text-xl font-serif font-bold text-p4c-navy">
+                    Buy (As-Is)
+                  </h3>
+                </div>
+                <p className="text-gray-600 text-sm mb-4">
+                  We purchase properties in any condition. No repairs needed, no cleaning required.
+                </p>
+                <ul className="space-y-2 text-sm text-gray-600">
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-p4c-gold rounded-full" />
+                    Cash offers
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-p4c-gold rounded-full" />
+                    Quick closing
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-p4c-gold rounded-full" />
+                    Any condition
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Step 2: Rehab */}
+            <div className="group bg-p4c-beige rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={IMAGES.GALLERY.FRAMING}
+                  alt="Active rehabilitation work on property framing and construction"
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-p4c-navy/40 mix-blend-multiply" />
+                <div className="absolute top-4 left-4 bg-p4c-gold text-p4c-navy px-3 py-1 rounded-full text-sm font-bold">
+                  Step 2
+                </div>
+              </div>
+              <div className="p-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <Hammer className="w-6 h-6 text-p4c-gold" />
+                  <h3 className="text-xl font-serif font-bold text-p4c-navy">
+                    Rehab
+                  </h3>
+                </div>
+                <p className="text-gray-600 text-sm mb-4">
+                  Full renovation using premium materials. Every detail matters.
+                </p>
+                <ul className="space-y-2 text-sm text-gray-600">
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-p4c-gold rounded-full" />
+                    Quartz countertops
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-p4c-gold rounded-full" />
+                    LVP flooring
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-p4c-gold rounded-full" />
+                    Energy efficient HVAC
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Step 3: Rent */}
+            <div className="group bg-p4c-beige rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={IMAGES.TEAM.ONSITE}
+                  alt="Team onsite managing property rental operations"
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-p4c-navy/40 mix-blend-multiply" />
+                <div className="absolute top-4 left-4 bg-p4c-gold text-p4c-navy px-3 py-1 rounded-full text-sm font-bold">
+                  Step 3
+                </div>
+              </div>
+              <div className="p-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <DollarSign className="w-6 h-6 text-p4c-gold" />
+                  <h3 className="text-xl font-serif font-bold text-p4c-navy">
+                    Rent
+                  </h3>
+                </div>
+                <p className="text-gray-600 text-sm mb-4">
+                  Quality tenants through careful screening. Veterans and families first.
+                </p>
+                <ul className="space-y-2 text-sm text-gray-600">
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-p4c-gold rounded-full" />
+                    Veteran preference
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-p4c-gold rounded-full" />
+                    Housing vouchers
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-p4c-gold rounded-full" />
+                    Responsive maintenance
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Step 4: Refinance */}
+            <div className="group bg-p4c-beige rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={IMAGES.RENOVATION.LIVING_ROOM.AFTER}
+                  alt="Completed modern living room after renovation - high-quality Section 8 housing"
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-p4c-navy/40 mix-blend-multiply" />
+                <div className="absolute top-4 left-4 bg-p4c-gold text-p4c-navy px-3 py-1 rounded-full text-sm font-bold">
+                  Step 4
+                </div>
+              </div>
+              <div className="p-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <TrendingUp className="w-6 h-6 text-p4c-gold" />
+                  <h3 className="text-xl font-serif font-bold text-p4c-navy">
+                    Refinance
+                  </h3>
+                </div>
+                <p className="text-gray-600 text-sm mb-4">
+                  Long-term sustainability through smart financing and equity building.
+                </p>
+                <ul className="space-y-2 text-sm text-gray-600">
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-p4c-gold rounded-full" />
+                    Lower mortgage
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-p4c-gold rounded-full" />
+                    Community investment
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-p4c-gold rounded-full" />
+                    Sustainable returns
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

@@ -9,13 +9,7 @@ import { api } from '../services/api';
 import { logError } from '../services/errorBoundaryService';
 import type { ExtendedProperty } from '../types';
 import { IMAGES } from '../constants/images';
-import {
-  CheckCircle2,
-  Shield,
-  Search,
-  SlidersHorizontal,
-  X,
-} from 'lucide-react';
+import { Search, SlidersHorizontal, X, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
@@ -262,49 +256,60 @@ const Home: React.FC = () => {
         )}
       </section>
 
+      {/* Impact Section - We Buy Houses */}
+      <section className="py-20 bg-p4c-navy">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl">
+              <img
+                src={IMAGES.PROPERTIES.KEMP_TOWNHOME}
+                alt="Kemp Townhome with American flag"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-p4c-navy/30 mix-blend-multiply" />
+            </div>
+            <div className="text-white">
+              <div className="inline-flex items-center gap-2 bg-p4c-gold/20 px-4 py-2 rounded-full text-p4c-gold text-sm font-bold uppercase tracking-wider mb-4 border border-p4c-gold/30">
+                We Buy Houses
+              </div>
+              <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6">
+                We Buy Houses: Any Price, Any Condition.
+              </h2>
+              <p className="text-gray-300 text-lg mb-8 leading-relaxed">
+                We specialize in transforming neglected properties into safe,
+                stable housing for our community and those who served.
+              </p>
+              <button
+                onClick={() => navigate('/homeowner-solutions')}
+                className="bg-p4c-gold text-p4c-navy hover:bg-white hover:text-p4c-navy px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
+              >
+                Explore Homeowner Solutions
+                <ArrowRight className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Transformation Showcase */}
-      <section id="transparency" className="py-20 bg-white">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
-              <div className="inline-flex items-center gap-2 bg-p4c-beige px-3 py-1 rounded-full text-p4c-navy text-xs font-bold uppercase tracking-wider mb-4 border border-gray-200">
-                <Shield className="w-4 h-4" /> Transparency Hub
-              </div>
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-6">
-                We Install Quality, <br />
-                <span className="text-p4c-gold">Not Cheap Fixes.</span>
+                See the Transformation
               </h2>
               <p className="text-gray-600 mb-8 leading-relaxed">
-                Many landlords cut corners. We don&apos;t. At Properties 4
-                Creation, we use homeowner-grade materials like Quartz
-                countertops, luxury vinyl plank flooring, and high-efficiency
-                HVAC systems. Why? Because you deserve a home that lasts and
-                feels proud to live in.
+                From distressed to dream home. Watch our renovation process turn
+                neglected properties into high-quality, affordable housing.
               </p>
-
-              <ul className="space-y-4 mb-8">
-                <li className="flex items-start">
-                  <CheckCircle2 className="w-6 h-6 text-p4c-gold mr-3 flex-shrink-0" />
-                  <span className="text-gray-700">
-                    <strong>Quartz Countertops:</strong> Durable, hygienic, and
-                    beautiful.
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <CheckCircle2 className="w-6 h-6 text-p4c-gold mr-3 flex-shrink-0" />
-                  <span className="text-gray-700">
-                    <strong>LVP Flooring:</strong> Waterproof and
-                    scratch-resistant.
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <CheckCircle2 className="w-6 h-6 text-p4c-gold mr-3 flex-shrink-0" />
-                  <span className="text-gray-700">
-                    <strong>Energy Efficient:</strong> Lower utility bills for
-                    our tenants.
-                  </span>
-                </li>
-              </ul>
+              <a
+                href="/transparency"
+                className="inline-flex items-center gap-2 text-p4c-gold font-bold hover:underline"
+              >
+                View Our Renovation Standards
+                <ArrowRight className="w-4 h-4" />
+              </a>
             </div>
 
             <div className="w-full">

@@ -10,6 +10,7 @@ import {
   Heart,
   Loader2,
   ArrowUpRight,
+  ArrowRight,
 } from 'lucide-react';
 import { useToast } from '../context/ToastContext';
 import { IMAGES } from '../constants/images';
