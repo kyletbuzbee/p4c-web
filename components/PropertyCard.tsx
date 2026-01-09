@@ -136,7 +136,7 @@ const PropertyCard = memo<PropertyCardProps>(
           {property.badges.map((badge, index) => (
             <span
               key={`${badge}-${index}`}
-              className="bg-p4c-navy text-white text-xs font-bold px-2 py-1 rounded-md uppercase tracking-wide shadow-sm"
+              className="bg-p4c-navy text-white text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wide shadow-sm ring-1 ring-white/20"
             >
               {badge}
             </span>
@@ -159,7 +159,7 @@ const PropertyCard = memo<PropertyCardProps>(
 
     return (
       <div
-        className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 ring-1 ring-gray-900/5 flex flex-col h-full group transform hover:-translate-y-1"
+        className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 ring-1 ring-gray-900/5 flex flex-col h-full group transform hover:-translate-y-1"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -198,21 +198,21 @@ const PropertyCard = memo<PropertyCardProps>(
           </p>
 
           {/* Property Stats */}
-          <div className="mt-auto pt-4 border-t border-gray-100 grid grid-cols-3 gap-2 text-center">
-            <div className="flex flex-col items-center justify-center p-2 bg-gray-50 rounded-lg">
-              <Bed className="w-4 h-4 text-p4c-slate mb-1" />
+          <div className="mt-auto pt-4 border-t border-gray-100 grid grid-cols-3 gap-3 text-center">
+            <div className="flex flex-col items-center justify-center p-3 bg-gray-50 rounded-lg">
+              <Bed className="w-5 h-5 text-p4c-slate mb-1.5" />
               <span className="text-xs font-semibold text-p4c-navy">
                 {property.beds} Bed
               </span>
             </div>
-            <div className="flex flex-col items-center justify-center p-2 bg-gray-50 rounded-lg">
-              <Bath className="w-4 h-4 text-p4c-slate mb-1" />
+            <div className="flex flex-col items-center justify-center p-3 bg-gray-50 rounded-lg">
+              <Bath className="w-5 h-5 text-p4c-slate mb-1.5" />
               <span className="text-xs font-semibold text-p4c-navy">
                 {property.baths} Bath
               </span>
             </div>
-            <div className="flex flex-col items-center justify-center p-2 bg-gray-50 rounded-lg">
-              <Move className="w-4 h-4 text-p4c-slate mb-1" />
+            <div className="flex flex-col items-center justify-center p-3 bg-gray-50 rounded-lg">
+              <Move className="w-5 h-5 text-p4c-slate mb-1.5" />
               <span className="text-xs font-semibold text-p4c-navy">
                 {property.sqft.toLocaleString()} sqft
               </span>

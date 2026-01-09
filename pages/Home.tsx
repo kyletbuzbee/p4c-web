@@ -129,15 +129,15 @@ const Home: React.FC = () => {
         </div>
 
         {/* Search & Filter Bar */}
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 mb-10">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+        <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6 mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
             {/* Search Input */}
             <div className="md:col-span-5 relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
                 type="text"
                 placeholder="Search by city, address, or keyword..."
-                className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-p4c-gold focus:border-p4c-gold transition-all"
+                className="w-full pl-11 pr-4 py-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-p4c-gold focus:border-p4c-gold transition-all"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 aria-label="Search properties"
@@ -147,7 +147,7 @@ const Home: React.FC = () => {
             {/* Price Dropdown */}
             <div className="md:col-span-3">
               <select
-                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-p4c-gold focus:border-p4c-gold bg-white"
+                className="w-full px-4 py-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-p4c-gold focus:border-p4c-gold bg-white cursor-pointer"
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(Number(e.target.value))}
                 aria-label="Filter by Maximum Price"
@@ -163,7 +163,7 @@ const Home: React.FC = () => {
             {/* Beds Dropdown */}
             <div className="md:col-span-3">
               <select
-                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-p4c-gold focus:border-p4c-gold bg-white"
+                className="w-full px-4 py-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-p4c-gold focus:border-p4c-gold bg-white cursor-pointer"
                 value={minBeds}
                 onChange={(e) => setMinBeds(Number(e.target.value))}
                 aria-label="Filter by Minimum Bedrooms"
@@ -176,33 +176,35 @@ const Home: React.FC = () => {
               </select>
             </div>
 
-            {/* Clear Button (Mobile only or Icon) */}
+            {/* Clear Button */}
             <div className="md:col-span-1 flex justify-center">
               <button
                 onClick={clearFilters}
-                className="text-gray-400 hover:text-red-500 transition-colors p-2 rounded-full hover:bg-gray-100"
+                className="text-gray-400 hover:text-red-500 transition-colors p-2.5 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-red-200"
                 title="Clear Filters"
+                aria-label="Clear all filters"
               >
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5" />
               </button>
             </div>
           </div>
 
           {/* Badges / Amenities Filter */}
-          <div className="mt-6 pt-4 border-t border-gray-100">
-            <div className="flex items-center gap-2 mb-3 text-sm font-bold text-gray-500 uppercase tracking-wide">
+          <div className="mt-6 pt-5 border-t border-gray-100">
+            <div className="flex items-center gap-2.5 mb-4 text-sm font-bold text-gray-500 uppercase tracking-wide">
               <SlidersHorizontal className="w-4 h-4" /> Filter by Features:
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2.5">
               {allBadges.map((badge) => (
                 <button
                   key={badge}
                   onClick={() => toggleBadge(badge)}
-                  className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 border ${
+                  className={`px-3.5 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 border-2 ${
                     selectedBadges.includes(badge)
                       ? 'bg-p4c-navy text-white border-p4c-navy shadow-md'
-                      : 'bg-white text-gray-600 border-gray-200 hover:border-p4c-gold hover:text-p4c-navy'
+                      : 'bg-white text-gray-700 border-gray-200 hover:border-p4c-gold hover:text-p4c-navy'
                   }`}
+                  aria-pressed={selectedBadges.includes(badge)}
                 >
                   {badge}
                 </button>
@@ -217,14 +219,14 @@ const Home: React.FC = () => {
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <div
                 key={i}
-                className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100"
+                className="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100"
               >
                 <div className="h-64 bg-gray-200 animate-pulse" />
                 <div className="p-6">
                   <div className="h-6 bg-gray-200 rounded animate-pulse mb-2" />
                   <div className="h-4 bg-gray-200 rounded animate-pulse mb-4" />
                   <div className="h-4 bg-gray-200 rounded animate-pulse mb-6" />
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-3 gap-3">
                     <div className="h-12 bg-gray-200 rounded animate-pulse" />
                     <div className="h-12 bg-gray-200 rounded animate-pulse" />
                     <div className="h-12 bg-gray-200 rounded animate-pulse" />
