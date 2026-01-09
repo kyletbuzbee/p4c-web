@@ -44,7 +44,8 @@ const sanitizeInput = (input: string): string => {
       "'": '&#x27;',
       '&': '&',
     };
-    return entities[match] || '';
+    // Type assertion: match is guaranteed to be a key of entities due to regex
+    return entities[match as keyof typeof entities] || '';
   });
 };
 
