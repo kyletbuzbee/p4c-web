@@ -13,12 +13,20 @@
   --animation-duration-normal: 300ms;
   --animation-duration-slow: 500ms;
   --animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
+  /* Accessibility font size */
+  --accessibility-font-size: 100%;
 }
 
 @layer base {
   body {
     background-color: var(--color-beige);
     color: var(--color-navy);
+    font-size: var(--accessibility-font-size);
+  }
+
+  /* Apply accessibility font size to all text elements */
+  html {
+    font-size: var(--accessibility-font-size);
   }
 
   /* Custom focus styles for accessibility */

@@ -1,6 +1,16 @@
 import React, { useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Play, Pause, Volume2, VolumeX, Quote, Home, Hammer, DollarSign, TrendingUp } from 'lucide-react';
+import {
+  Play,
+  Pause,
+  Volume2,
+  VolumeX,
+  Quote,
+  Home,
+  Hammer,
+  DollarSign,
+  TrendingUp,
+} from 'lucide-react';
 import { IMAGES } from '../constants/images';
 
 /**
@@ -251,7 +261,8 @@ const SuccessStories: React.FC = () => {
               Project Spotlight: The BRRRR Cycle in Action
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-              See how we transform distressed properties into quality Section 8 housing through our proven 4-step process.
+              See how we transform distressed properties into quality Section 8
+              housing through our proven 4-step process.
             </p>
           </div>
 
@@ -278,7 +289,8 @@ const SuccessStories: React.FC = () => {
                   </h3>
                 </div>
                 <p className="text-gray-600 text-sm mb-4">
-                  We purchase properties in any condition. No repairs needed, no cleaning required.
+                  We purchase properties in any condition. No repairs needed, no
+                  cleaning required.
                 </p>
                 <ul className="space-y-2 text-sm text-gray-600">
                   <li className="flex items-center gap-2">
@@ -358,7 +370,8 @@ const SuccessStories: React.FC = () => {
                   </h3>
                 </div>
                 <p className="text-gray-600 text-sm mb-4">
-                  Quality tenants through careful screening. Veterans and families first.
+                  Quality tenants through careful screening. Veterans and
+                  families first.
                 </p>
                 <ul className="space-y-2 text-sm text-gray-600">
                   <li className="flex items-center gap-2">
@@ -398,7 +411,8 @@ const SuccessStories: React.FC = () => {
                   </h3>
                 </div>
                 <p className="text-gray-600 text-sm mb-4">
-                  Long-term sustainability through smart financing and equity building.
+                  Long-term sustainability through smart financing and equity
+                  building.
                 </p>
                 <ul className="space-y-2 text-sm text-gray-600">
                   <li className="flex items-center gap-2">
