@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, X, Send, Loader2, Bot } from 'lucide-react';
 import geminiService from '../services/geminiService';
+import errorBoundaryService from '../services/errorBoundaryService';
 
 interface Message {
   role: 'user' | 'model';
@@ -81,6 +82,10 @@ const AIChatbot: React.FC = () => {
       const response = await geminiService.sendChatMessage(userMessage);
       setMessages((prev) => [...prev, { role: 'model', text: response }]);
     } catch (error) {
+      errorBoundaryService.logError(error, {
+        component: 'AIChatbot',
+        action: 'sendChatMessage',
+      });
       setMessages((prev) => [
         ...prev,
         {

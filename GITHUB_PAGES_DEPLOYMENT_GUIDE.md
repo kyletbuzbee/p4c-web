@@ -2,7 +2,9 @@
 
 ## 🚀 Overview
 
-This guide provides step-by-step instructions to deploy **Properties 4 Creation** (www.properties4creations.com) to GitHub Pages using the configured GitHub Actions workflow.
+This guide provides step-by-step instructions to deploy **Properties 4
+Creation** (www.properties4creations.com) to GitHub Pages using the configured
+GitHub Actions workflow.
 
 **Project Details:**
 
@@ -325,7 +327,8 @@ Use browser developer tools to verify:
 
 ### Workflow Structure
 
-The GitHub Actions workflow (`.github/workflows/deploy.yml`) performs these steps:
+The GitHub Actions workflow (`.github/workflows/deploy.yml`) performs these
+steps:
 
 1. **Trigger**: Runs on push/PR to `main` branch
 2. **Checkout**: Gets latest code from repository
@@ -344,7 +347,8 @@ The GitHub Actions workflow (`.github/workflows/deploy.yml`) performs these step
 
 ### Deployment Branch
 
-GitHub Pages uses a special branch (typically `gh-pages`) that's managed automatically by the deployment action.
+GitHub Pages uses a special branch (typically `gh-pages`) that's managed
+automatically by the deployment action.
 
 ### Build Process
 
@@ -361,8 +365,7 @@ The workflow builds your application using:
 
 #### Issue 1: 404 Errors After Deployment
 
-**Symptoms**: Pages show 404, routes don't work
-**Solutions**:
+**Symptoms**: Pages show 404, routes don't work **Solutions**:
 
 1. Verify HashRouter is being used (not BrowserRouter)
 2. Check `vite.config.ts` base path configuration
@@ -371,8 +374,7 @@ The workflow builds your application using:
 
 #### Issue 2: Assets Not Loading
 
-**Symptoms**: CSS, images, or JavaScript files show 404
-**Solutions**:
+**Symptoms**: CSS, images, or JavaScript files show 404 **Solutions**:
 
 1. Check base path in `vite.config.ts`
 2. Verify file paths in components
@@ -392,8 +394,7 @@ The workflow builds your application using:
 
 #### Issue 4: Build Failures
 
-**Symptoms**: GitHub Actions workflow fails
-**Solutions**:
+**Symptoms**: GitHub Actions workflow fails **Solutions**:
 
 1. Check GitHub Actions logs for specific errors
 2. Verify all dependencies are in package.json
@@ -403,8 +404,7 @@ The workflow builds your application using:
 
 #### Issue 5: HTTPS Not Working
 
-**Symptoms**: SSL certificate errors or HTTP instead of HTTPS
-**Solutions**:
+**Symptoms**: SSL certificate errors or HTTP instead of HTTPS **Solutions**:
 
 1. Ensure "Enforce HTTPS" is checked in GitHub Pages settings
 2. Wait for SSL certificate to be provisioned (up to 30 minutes)
@@ -529,4 +529,5 @@ git push origin main
 
 ---
 
-**Next Steps**: Follow the Quick Start section above for immediate deployment, or use the detailed sections for comprehensive setup and troubleshooting.
+**Next Steps**: Follow the Quick Start section above for immediate deployment,
+or use the detailed sections for comprehensive setup and troubleshooting.

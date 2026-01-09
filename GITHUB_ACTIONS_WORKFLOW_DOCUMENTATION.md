@@ -2,10 +2,10 @@
 
 ## 📋 Workflow Overview
 
-**File**: `.github/workflows/deploy.yml`
-**Purpose**: Automated deployment to GitHub Pages with custom domain `www.properties4creations.com`
-**Triggers**: Push and pull request to `main` branch
-**Runtime**: Ubuntu Latest (GitHub-hosted runner)
+**File**: `.github/workflows/deploy.yml` **Purpose**: Automated deployment to
+GitHub Pages with custom domain `www.properties4creations.com` **Triggers**:
+Push and pull request to `main` branch **Runtime**: Ubuntu Latest (GitHub-hosted
+runner)
 
 ## 🔧 Workflow Configuration
 
@@ -39,8 +39,7 @@ jobs:
   uses: actions/checkout@v4
 ```
 
-**Purpose**: Downloads the repository code to the runner
-**Details**:
+**Purpose**: Downloads the repository code to the runner **Details**:
 
 - Uses latest checkout action (v4)
 - Includes Git history for proper deployment
@@ -109,8 +108,7 @@ jobs:
   uses: actions/configure-pages@v4
 ```
 
-**Purpose**: Configures GitHub Pages deployment environment
-**Details**:
+**Purpose**: Configures GitHub Pages deployment environment **Details**:
 
 - Validates Pages configuration
 - Prepares deployment artifacts
@@ -125,8 +123,7 @@ jobs:
     path: ./dist
 ```
 
-**Purpose**: Packages built files for deployment
-**Details**:
+**Purpose**: Packages built files for deployment **Details**:
 
 - Uploads entire `/dist` directory
 - Creates deployment artifact
@@ -141,8 +138,7 @@ jobs:
   uses: actions/deploy-pages@v4
 ```
 
-**Purpose**: Final deployment to GitHub Pages
-**Details**:
+**Purpose**: Final deployment to GitHub Pages **Details**:
 
 - Deploys uploaded artifacts
 - Updates GitHub Pages site
@@ -210,7 +206,8 @@ dist/
 
 ### Deployment Branch
 
-GitHub Pages automatically creates and manages a special branch (typically `gh-pages`) that contains:
+GitHub Pages automatically creates and manages a special branch (typically
+`gh-pages`) that contains:
 
 - All compiled application files
 - Custom domain configuration
@@ -364,4 +361,6 @@ env:
 
 ---
 
-**Next Steps**: Use the deployment checklist to verify all configuration is correct, then follow the troubleshooting guide if issues arise during deployment.
+**Next Steps**: Use the deployment checklist to verify all configuration is
+correct, then follow the troubleshooting guide if issues arise during
+deployment.

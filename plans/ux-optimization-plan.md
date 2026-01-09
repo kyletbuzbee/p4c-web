@@ -2,7 +2,9 @@
 
 ## Overview
 
-This plan addresses UX improvements including accessibility fixes, data access layer violations, animation enhancements, and component improvements for the Properties 4 Creation website.
+This plan addresses UX improvements including accessibility fixes, data access
+layer violations, animation enhancements, and component improvements for the
+Properties 4 Creation website.
 
 ---
 
@@ -10,20 +12,27 @@ This plan addresses UX improvements including accessibility fixes, data access l
 
 ### Problem
 
-Three files import `ExtendedProperty` type directly from `data/properties.ts`, violating the architectural rule that UI components should remain blind to data sources.
+Three files import `ExtendedProperty` type directly from `data/properties.ts`,
+violating the architectural rule that UI components should remain blind to data
+sources.
 
 ### Files Affected
 
-- [`pages/Home.tsx`](pages/Home.tsx:9) - `import type { ExtendedProperty } from '../data/properties';`
-- [`pages/PropertyDetails.tsx`](pages/PropertyDetails.tsx:4) - `import type { ExtendedProperty } from '../data/properties';`
-- [`pages/AdminDashboard.tsx`](pages/AdminDashboard.tsx:15) - `import type { ExtendedProperty } from '../data/properties';`
-- [`services/api.ts`](services/api.ts:6) - Also imports `ExtendedProperty` from data
+- [`pages/Home.tsx`](pages/Home.tsx:9) -
+  `import type { ExtendedProperty } from '../data/properties';`
+- [`pages/PropertyDetails.tsx`](pages/PropertyDetails.tsx:4) -
+  `import type { ExtendedProperty } from '../data/properties';`
+- [`pages/AdminDashboard.tsx`](pages/AdminDashboard.tsx:15) -
+  `import type { ExtendedProperty } from '../data/properties';`
+- [`services/api.ts`](services/api.ts:6) - Also imports `ExtendedProperty` from
+  data
 
 ### Solution
 
 1. Move `ExtendedProperty` interface from `data/properties.ts` to `types.ts`
 2. Update imports in all affected files to use `types.ts`
-3. Remove type export from `data/properties.ts` (keep the data export for API service)
+3. Remove type export from `data/properties.ts` (keep the data export for API
+   service)
 
 ---
 
@@ -41,7 +50,8 @@ Three files import `ExtendedProperty` type directly from `data/properties.ts`, v
 ### Solution
 
 1. Replace `animate-slide-in` with existing `slide-in-from-bottom` animation
-2. Add `role="alert"` and `aria-live="polite"` to toast container for accessibility
+2. Add `role="alert"` and `aria-live="polite"` to toast container for
+   accessibility
 3. Ensure proper focus management when toasts appear/disappear
 
 ---
@@ -93,7 +103,9 @@ Current animations don't properly respect `prefers-reduced-motion`:
 
 ### Problem
 
-The FAQ accordion uses JavaScript-based `maxHeight` calculations which can cause janky animations. Better to use CSS-based approach with `grid-template-rows` for smooth animations.
+The FAQ accordion uses JavaScript-based `maxHeight` calculations which can cause
+janky animations. Better to use CSS-based approach with `grid-template-rows` for
+smooth animations.
 
 ### Files Affected
 
@@ -111,7 +123,8 @@ The FAQ accordion uses JavaScript-based `maxHeight` calculations which can cause
 
 ### Problem
 
-The AdminDashboard currently uses inline skeleton loading states instead of a reusable skeleton component.
+The AdminDashboard currently uses inline skeleton loading states instead of a
+reusable skeleton component.
 
 ### Files Affected
 
@@ -130,7 +143,8 @@ The AdminDashboard currently uses inline skeleton loading states instead of a re
 
 ## Implementation Order
 
-1. **Fix Data Access Layer** - Move ExtendedProperty type to types.ts and update imports
+1. **Fix Data Access Layer** - Move ExtendedProperty type to types.ts and update
+   imports
 2. **Fix ToastContext** - Add ARIA support and fix animation class
 3. **Improve SkipLink** - Add Escape key dismissal and better accessibility
 4. **Add Reduced-Motion CSS** - Update index.css with better animation controls

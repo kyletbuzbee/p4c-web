@@ -1057,4 +1057,6 @@ export default usePerformanceMonitor;
 
 ---
 
-_These code examples provide concrete implementation patterns for the critical issues identified in the enterprise code review. Each example demonstrates modern best practices for security, performance, testing, and maintainability._
+_These code examples provide concrete implementation patterns for the critical
+issues identified in the enterprise code review. Each example demonstrates
+modern best practices for security, performance, testing, and maintainability._

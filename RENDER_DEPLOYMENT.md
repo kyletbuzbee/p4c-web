@@ -24,17 +24,12 @@
    - Select this repository (`properties-4-creation/Website`)
    - Click "Connect"
 
-3. **Configure Service:**
-   | Setting | Value |
-   |---------|-------|
-   | Name | `p4c-backend` |
-   | Environment | `Node` |
-   | Build Command | `npm install` |
-   | Start Command | `node server/index.js` |
-   | Plan | `Free` |
+3. **Configure Service:** | Setting | Value | |---------|-------| | Name |
+   `p4c-backend` | | Environment | `Node` | | Build Command | `npm install` | |
+   Start Command | `node server/index.js` | | Plan | `Free` |
 
-4. **Add Environment Variables:**
-   Click "Advanced" → "Add Environment Variables":
+4. **Add Environment Variables:** Click "Advanced" → "Add Environment
+   Variables":
 
    ```
    GEMINI_API_KEY=your_gemini_api_key_here
@@ -53,8 +48,7 @@
 
 ### Step 2: Update Frontend
 
-1. **Edit `.env.local`:**
-   Replace `YOUR_BACKEND_URL` with your Render URL:
+1. **Edit `.env.local`:** Replace `YOUR_BACKEND_URL` with your Render URL:
 
    ```
    VITE_API_URL=https://p4c-backend.onrender.com/api
@@ -72,8 +66,8 @@
 
 ### Step 3: Test Everything
 
-1. **Test Backend Health:**
-   Visit: `https://YOUR_RENDER_APP.onrender.com/api/health`
+1. **Test Backend Health:** Visit:
+   `https://YOUR_RENDER_APP.onrender.com/api/health`
 
    Expected response:
 
@@ -84,8 +78,8 @@
    }
    ```
 
-2. **Test Chatbot:**
-   Visit https://www.properties4creations.com and try the AI chatbot
+2. **Test Chatbot:** Visit https://www.properties4creations.com and try the AI
+   chatbot
 
 ## Troubleshooting
 

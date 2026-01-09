@@ -4,6 +4,8 @@
  * This eliminates API key exposure vulnerabilities
  */
 
+import { logError } from './errorBoundaryService';
+
 interface ApiResponse<T> {
   success: boolean;
   data?: T;
@@ -108,7 +110,7 @@ export const editImageWithGemini = async (
     }
     return result.data;
   } catch (error) {
-    console.error('Image edit error:', error);
+    logError('Image edit error', { error: error as Error, component: 'geminiService' });
 
     // Provide user-friendly error messages
     if (error instanceof TypeError && error.message.includes('fetch')) {
@@ -180,7 +182,7 @@ export const sendChatMessage = async (
     }
     return result.message;
   } catch (error) {
-    console.error('Chat error:', error);
+    logError('Chat error', { error: error as Error, component: 'geminiService' });
 
     // Provide user-friendly error messages
     if (error instanceof TypeError && error.message.includes('fetch')) {
@@ -213,7 +215,7 @@ export const checkAiServiceHealth = async (): Promise<boolean> => {
     const data = await response.json();
     return data.status === 'healthy';
   } catch (error) {
-    console.error('Health check failed:', error);
+    logError('Health check failed', { error: error as Error, component: 'geminiService' });
     return false;
   }
 };

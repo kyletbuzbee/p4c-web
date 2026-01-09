@@ -1,4 +1,11 @@
-import React, { createContext, useContext, useState, useCallback, useRef, useEffect } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useRef,
+  useEffect,
+} from 'react';
 import type { ReactNode } from 'react';
 import { X, CheckCircle, AlertCircle, Info } from 'lucide-react';
 

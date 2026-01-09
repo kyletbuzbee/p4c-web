@@ -1,6 +1,7 @@
 # GitHub Pages Deployment Guide
 
-This guide provides step-by-step instructions for deploying the Properties-4-Creation website to GitHub Pages.
+This guide provides step-by-step instructions for deploying the
+Properties-4-Creation website to GitHub Pages.
 
 ## 📋 Prerequisites
 
@@ -341,4 +342,7 @@ If you encounter issues:
 
 ---
 
-**Note:** This project is configured to use mock data by default, which means it will work immediately on GitHub Pages without any backend setup. The website will function fully with sample data until you decide to connect a real backend API.
+**Note:** This project is configured to use mock data by default, which means it
+will work immediately on GitHub Pages without any backend setup. The website
+will function fully with sample data until you decide to connect a real backend
+API.

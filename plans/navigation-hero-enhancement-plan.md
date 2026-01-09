@@ -2,24 +2,31 @@
 
 ## Executive Summary
 
-Enhance website navigation and hero banner readability through improved contrast and visual consistency while preserving the existing glassmorphism aesthetic.
+Enhance website navigation and hero banner readability through improved contrast
+and visual consistency while preserving the existing glassmorphism aesthetic.
 
 ## Current State Analysis
 
 ### Navigation Bar (Navbar.tsx)
 
-- **Current**: `bg-p4c-navy/80 backdrop-blur-md` - Already has glassmorphism but could be enhanced
+- **Current**: `bg-p4c-navy/80 backdrop-blur-md` - Already has glassmorphism but
+  could be enhanced
 - **Issues**: Could benefit from stronger contrast for better visibility
 
 ### Hero Banner Implementations Found
 
-1. **Home (components/Hero.tsx)**: Video background, `bg-p4c-navy/60` + `bg-black/30` overlays
+1. **Home (components/Hero.tsx)**: Video background, `bg-p4c-navy/60` +
+   `bg-black/30` overlays
 2. **About (pages/About.tsx)**: Image background, `bg-p4c-navy/90` overlay
 3. **Contact (pages/Contact.tsx)**: Image background, `bg-p4c-navy/80` overlay
-4. **Employment (pages/Employment.tsx)**: Image background, `bg-p4c-navy/80` overlay
-5. **Application (pages/Application.tsx)**: Image background, `bg-p4c-navy/80` overlay
-6. **VeteranServices (pages/VeteranServices.tsx)**: Image background, `bg-p4c-navy/80` overlay
-7. **Transparency (pages/Transparency.tsx)**: Image background, `bg-p4c-navy/90` overlay
+4. **Employment (pages/Employment.tsx)**: Image background, `bg-p4c-navy/80`
+   overlay
+5. **Application (pages/Application.tsx)**: Image background, `bg-p4c-navy/80`
+   overlay
+6. **VeteranServices (pages/VeteranServices.tsx)**: Image background,
+   `bg-p4c-navy/80` overlay
+7. **Transparency (pages/Transparency.tsx)**: Image background, `bg-p4c-navy/90`
+   overlay
 
 ### Identified Issues
 
@@ -35,7 +42,8 @@ Enhance website navigation and hero banner readability through improved contrast
 
 - **Current**: `bg-p4c-navy/80 backdrop-blur-md`
 - **Enhanced**: `bg-p4c-navy/90 backdrop-blur-xl border border-white/20`
-- **Benefits**: Better contrast, enhanced glassmorphism effect, improved readability
+- **Benefits**: Better contrast, enhanced glassmorphism effect, improved
+  readability
 
 ### 2. Consistent Hero Banner Overlay Strategy
 
@@ -49,7 +57,8 @@ Enhance website navigation and hero banner readability through improved contrast
 
 **Goal**: Add text strokes/outlines for improved readability
 
-- **Primary Method**: CSS `text-shadow` technique (better browser support than `text-stroke`)
+- **Primary Method**: CSS `text-shadow` technique (better browser support than
+  `text-stroke`)
 - **Implementation**: `text-shadow: 2px 2px 4px rgba(0,0,0,0.8)`
 - **Application**: All hero banner headings and descriptive text
 

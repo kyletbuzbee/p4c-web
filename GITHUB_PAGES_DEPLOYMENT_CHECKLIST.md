@@ -7,7 +7,8 @@
 - [ ] GitHub repository is public (required for free GitHub Pages)
 - [ ] You have admin access to the repository
 - [ ] All code changes are committed and pushed to `main` branch
-- [ ] GitHub Actions workflow (`.github/workflows/deploy.yml`) exists and is correct
+- [ ] GitHub Actions workflow (`.github/workflows/deploy.yml`) exists and is
+      correct
 - [ ] CNAME file exists with correct domain (`properties4creations.com`)
 - [ ] 404.html file exists for SPA fallback
 - [ ] HashRouter is implemented in App.tsx (not BrowserRouter)
@@ -268,6 +269,5 @@ git push origin main
 - 🌐 DNS Configuration: **_/_** items completed
 - ✅ Post-Deployment: **_/_** items completed
 
-**Deployment Date:** **\*\***\_\_\_**\*\***
-**Deployed By:** **\*\***\_\_\_**\*\***
-**Notes:** \***\*\*\*\*\***\_\_\_\_\***\*\*\*\*\***
+**Deployment Date:** **\*\***\_\_\_**\*\*** **Deployed By:**
+**\*\***\_\_\_**\*\*** **Notes:** \***\*\*\*\*\***\_\_\_\_\***\*\*\*\*\***
