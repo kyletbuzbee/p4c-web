@@ -130,6 +130,109 @@ const OurImpact: React.FC = () => {
           </div>
         )}
 
+        {/* Project Spotlight - BRRR Cycle Breakdown */}
+        <div className="mb-16">
+          <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 ring-1 ring-gray-900/5">
+            <div className="p-8 border-b border-gray-100 bg-gray-50">
+              <h2 className="text-2xl font-serif font-bold text-p4c-navy">
+                Project Spotlight: Our BRRR Cycle
+              </h2>
+              <p className="text-gray-600 mt-2">
+                How we transform distressed properties into dream homes
+              </p>
+            </div>
+            <div className="p-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {/* Buy (As-Is) */}
+                <div className="text-center">
+                  <div className="relative h-48 rounded-lg overflow-hidden mb-4 shadow-lg">
+                    <img
+                      src={IMAGES.GALLERY.LINDALE_COTTAGE}
+                      alt="Distressed property before renovation"
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                      <span className="bg-p4c-navy text-white px-3 py-1 rounded-full text-xs font-bold">
+                        STEP 1: BUY AS-IS
+                      </span>
+                    </div>
+                  </div>
+                  <h3 className="font-bold text-p4c-navy mb-2">Buy (As-Is)</h3>
+                  <p className="text-sm text-gray-600">
+                    We purchase properties in any condition, giving homeowners a
+                    fair cash offer without the hassle of repairs.
+                  </p>
+                </div>
+
+                {/* Rehab */}
+                <div className="text-center">
+                  <div className="relative h-48 rounded-lg overflow-hidden mb-4 shadow-lg">
+                    <img
+                      src={IMAGES.GALLERY.WORK_FRAMING_DOOR}
+                      alt="Property under renovation with framing and door installation"
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                      <span className="bg-p4c-navy text-white px-3 py-1 rounded-full text-xs font-bold">
+                        STEP 2: REHAB
+                      </span>
+                    </div>
+                  </div>
+                  <h3 className="font-bold text-p4c-navy mb-2">Rehab</h3>
+                  <p className="text-sm text-gray-600">
+                    Our team transforms the property with quality materials and
+                    craftsmanship, creating a safe and modern home.
+                  </p>
+                </div>
+
+                {/* Rent/Refinance */}
+                <div className="text-center">
+                  <div className="relative h-48 rounded-lg overflow-hidden mb-4 shadow-lg">
+                    <img
+                      src={IMAGES.GALLERY.PROJECTS_AFTER_LIVING_ROOM}
+                      alt="Beautifully renovated living room ready for tenants"
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                      <span className="bg-p4c-navy text-white px-3 py-1 rounded-full text-xs font-bold">
+                        STEP 3: RENT/REFINANCE
+                      </span>
+                    </div>
+                  </div>
+                  <h3 className="font-bold text-p4c-navy mb-2">
+                    Rent/Refinance
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    The renovated property becomes a high-quality home for
+                    veterans and families, proving Section 8 housing can be
+                    exceptional.
+                  </p>
+                </div>
+
+                {/* Repeat */}
+                <div className="text-center">
+                  <div className="relative h-48 rounded-lg overflow-hidden mb-4 shadow-lg bg-gradient-to-br from-p4c-gold to-p4c-navy flex items-center justify-center">
+                    <div className="text-center text-white">
+                      <ArrowUpRight className="w-12 h-12 mx-auto mb-2" />
+                      <span className="text-2xl font-bold">BRRR</span>
+                    </div>
+                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                      <span className="bg-p4c-navy text-white px-3 py-1 rounded-full text-xs font-bold">
+                        STEP 4: REPEAT
+                      </span>
+                    </div>
+                  </div>
+                  <h3 className="font-bold text-p4c-navy mb-2">Repeat</h3>
+                  <p className="text-sm text-gray-600">
+                    We reinvest profits to acquire more properties, creating a
+                    sustainable cycle of community revitalization.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Narrative Section & Financial Visualization */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2 space-y-8">

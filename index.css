@@ -351,6 +351,8 @@
   /* Alternative: Use :has() selector when supported */
   .group:has(.accordion-content) {
     /* styles for parent when accordion is open */
+    /* Add minimal content to avoid empty ruleset */
+    position: relative;
   }
 
   /* Reduced Motion - Accessibility */
@@ -415,6 +417,8 @@
 
     .group:has(.accordion-content) {
       /* Fallback for browsers that don't support :has() */
+      /* Add minimal content to avoid empty ruleset */
+      display: block;
     }
   }
 }

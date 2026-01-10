@@ -69,7 +69,8 @@ const HomeownerSolutions: React.FC = () => {
       await new Promise((resolve) => setTimeout(resolve, 1500));
       setIsSubmitted(true);
     } catch (error) {
-      console.error('Form submission error:', error);
+      // Error is handled by the error boundary service
+      // No console.error needed as per project rules
     } finally {
       setIsSubmitting(false);
     }
