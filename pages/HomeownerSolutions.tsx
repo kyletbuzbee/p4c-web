@@ -191,8 +191,8 @@ const HomeownerSolutions: React.FC = () => {
                   Request a Discreet Property Consultation
                 </h2>
                 <p className="text-gray-600">
-                  Tell us about your property and we'll get back to you within
-                  24 hours.
+                  Tell us about your property and we'll get back to you{' '}
+                  within 24 hours.
                 </p>
               </div>
 

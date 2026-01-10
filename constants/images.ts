@@ -173,6 +173,7 @@ export const IMAGES = {
     PAINTING: '/images/our-work-gallery/our-work-painting-dog-800w.webp',
     MEASURING: '/images/our-work-gallery/our-work-detailed-measuring-800w.webp',
     REMODELING: '/images/our-work-gallery/our-work-remodeling-400w.webp',
+    BUY_AS_IS: '/images/our-work-gallery/our-impact-buy-as-is.webp',
   },
 
   // Videos

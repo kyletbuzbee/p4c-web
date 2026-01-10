@@ -226,11 +226,21 @@ const SuccessStories: React.FC = () => {
             >
               {/* Video Section */}
               <div className="w-full lg:w-1/2">
-                <CustomVideoPlayer
-                  src={IMAGES.VIDEOS.HERO_IMPACT}
-                  poster={IMAGES.BANNERS.HERO_IMPACT}
-                  ariaLabel={story.videoLabel}
-                />
+                {index === 1 ? (
+                  <div className="relative rounded-xl overflow-hidden bg-p4c-navy shadow-2xl">
+                    <img
+                      src={IMAGES.GALLERY.BUY_AS_IS}
+                      alt="Buy As-Is property before renovation"
+                      className="w-full aspect-video object-cover"
+                    />
+                  </div>
+                ) : (
+                  <CustomVideoPlayer
+                    src={IMAGES.VIDEOS.HERO_IMPACT}
+                    poster={IMAGES.BANNERS.HERO_IMPACT}
+                    ariaLabel={story.videoLabel}
+                  />
+                )}
               </div>
 
               {/* Story Content */}
