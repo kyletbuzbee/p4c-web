@@ -68,3 +68,5 @@ SECURITY_FIXES_SUMMARY.md
 SECURITY_VULNERABILITY_REPORT.md
 plans
 ai_logic_review/
+*.md
+*.txt

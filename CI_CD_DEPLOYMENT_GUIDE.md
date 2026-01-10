@@ -1,6 +1,7 @@
 # CI/CD Pipeline Deployment Guide
 
-This guide explains how to use the GitHub Actions CI/CD pipeline to build and deploy your Properties 4 Creation website.
+This guide explains how to use the GitHub Actions CI/CD pipeline to build and
+deploy your Properties 4 Creation website.
 
 ## Quick Start
 
@@ -23,7 +24,8 @@ The CI/CD pipeline will automatically trigger when you:
 
 After a successful build and deployment:
 
-- **GitHub Pages**: Visit your GitHub Pages URL (usually `username.github.io/repository-name`)
+- **GitHub Pages**: Visit your GitHub Pages URL (usually
+  `username.github.io/repository-name`)
 - **Custom Domain**: Visit your configured custom domain
 - **Staging**: Check your staging environment (if configured)
 
@@ -67,7 +69,8 @@ The pipeline performs the following steps:
 
 ### Adding Staging Deployment
 
-To deploy to a custom staging environment, edit the `deploy-staging` job in `ci-build.yml`:
+To deploy to a custom staging environment, edit the `deploy-staging` job in
+`ci-build.yml`:
 
 ```yaml
 - name: Deploy to staging
@@ -104,17 +107,21 @@ Add additional build steps to the `build-and-test` job:
 ### Common Issues
 
 #### Build Failures
-- **Dependency Issues**: Run `npm install` locally and commit `package-lock.json`
+
+- **Dependency Issues**: Run `npm install` locally and commit
+  `package-lock.json`
 - **TypeScript Errors**: Fix type errors in your code
 - **Test Failures**: Review and fix failing tests
 - **ESLint Errors**: Fix linting issues or update `.eslintrc.cjs`
 
 #### Deployment Issues
+
 - **GitHub Pages Not Enabled**: Enable GitHub Pages in repository settings
 - **404 Errors**: Check that `dist/index.html` exists and is properly configured
 - **Custom Domain Issues**: Verify CNAME file and DNS settings
 
 #### Performance Issues
+
 - **Slow Builds**: Enable caching and optimize dependencies
 - **Large Bundle Size**: Review bundle analysis and optimize imports
 
@@ -122,24 +129,29 @@ Add additional build steps to the `build-and-test` job:
 
 1. **Check Workflow Logs**: Review detailed logs in GitHub Actions
 2. **Local Testing**: Test build process locally with `npm run build`
-3. **Validate Configuration**: Use the validation script: `./scripts/validate-ci.sh`
-4. **Review Documentation**: Check `.github/README_WORKFLOWS.md` for detailed information
+3. **Validate Configuration**: Use the validation script:
+   `./scripts/validate-ci.sh`
+4. **Review Documentation**: Check `.github/README_WORKFLOWS.md` for detailed
+   information
 
 ## Best Practices
 
 ### Code Quality
+
 - Maintain high test coverage
 - Follow ESLint rules consistently
 - Use TypeScript for type safety
 - Regular dependency updates
 
 ### Deployment
+
 - Use feature branches for development
 - Test thoroughly before merging to main
 - Monitor deployment status
 - Keep deployment configuration in version control
 
 ### Security
+
 - Never commit secrets to the repository
 - Use GitHub Secrets for sensitive data
 - Regularly audit dependencies
@@ -148,12 +160,14 @@ Add additional build steps to the `build-and-test` job:
 ## Monitoring and Maintenance
 
 ### Regular Tasks
+
 - Review and update dependencies monthly
 - Monitor GitHub Actions usage
 - Check deployment status regularly
 - Review and update workflow configurations
 
 ### Performance Monitoring
+
 - Monitor build times
 - Track bundle size
 - Review GitHub Pages analytics
@@ -176,4 +190,5 @@ For additional help:
 4. **Optimize**: Fine-tune build and deployment settings
 5. **Monitor**: Set up monitoring and alerting for deployments
 
-Your CI/CD pipeline is now ready to automatically build and deploy your website whenever you push changes to your repository!
+Your CI/CD pipeline is now ready to automatically build and deploy your website
+whenever you push changes to your repository!

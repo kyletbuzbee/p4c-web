@@ -13,7 +13,7 @@ jobs:
       contents: read
       pages: write
       id-token: write
-    
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -22,7 +22,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Fetch full history for better caching
+          fetch-depth: 0 # Fetch full history for better caching
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -81,10 +81,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-and-deploy
     if: github.ref == 'refs/heads/main'
-    
+
     steps:
       - name: Wait for deployment
-        run: sleep 30  # Wait for GitHub Pages to process the deployment
+        run: sleep 30 # Wait for GitHub Pages to process the deployment
 
       - name: Check deployment status
         run: |

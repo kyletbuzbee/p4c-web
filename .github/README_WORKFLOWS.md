@@ -1,18 +1,22 @@
 # GitHub Actions CI/CD Pipeline
 
-This project uses GitHub Actions for continuous integration and deployment. The pipeline ensures code quality, runs tests, builds the application, and deploys it to GitHub Pages.
+This project uses GitHub Actions for continuous integration and deployment. The
+pipeline ensures code quality, runs tests, builds the application, and deploys
+it to GitHub Pages.
 
 ## Workflow Overview
 
 ### 1. Build and Test Workflow (`.github/workflows/ci-build.yml`)
 
 **Triggers:**
+
 - Push to `main` or `develop` branches
 - Pull requests to `main` branch
 
 **Jobs:**
 
 #### `build-and-test`
+
 - **Purpose**: Validates code quality and builds the application
 - **Steps**:
   1. Checkout code with full history
@@ -27,6 +31,7 @@ This project uses GitHub Actions for continuous integration and deployment. The 
   10. Upload build artifacts
 
 #### `deploy-github-pages`
+
 - **Purpose**: Deploys to GitHub Pages (production)
 - **Triggers**: Only on push to `main` branch
 - **Steps**:
@@ -37,15 +42,20 @@ This project uses GitHub Actions for continuous integration and deployment. The 
   5. Notify deployment status
 
 #### `deploy-staging`
+
 - **Purpose**: Deploys to staging environment
 - **Triggers**: Only on push to `develop` branch
-- **Note**: Currently outputs deployment message, customize for your staging environment
+- **Note**: Currently outputs deployment message, customize for your staging
+  environment
 
 ### 2. Legacy CI Workflow (`.github/workflows/ci.yml`)
 
-**Note**: This workflow contains additional features like performance testing and comprehensive security scanning. It can be used for more advanced CI/CD needs.
+**Note**: This workflow contains additional features like performance testing
+and comprehensive security scanning. It can be used for more advanced CI/CD
+needs.
 
 **Jobs:**
+
 - `security-scan`: Runs security audits and vulnerability checks
 - `test`: Comprehensive test suite including unit, integration, and E2E tests
 - `build`: Application build with artifact upload
@@ -55,9 +65,11 @@ This project uses GitHub Actions for continuous integration and deployment. The 
 
 ### 3. GitHub Pages Deployment (`.github/workflows/deploy.yml`)
 
-**Purpose**: Dedicated workflow for GitHub Pages deployment with enhanced validation
+**Purpose**: Dedicated workflow for GitHub Pages deployment with enhanced
+validation
 
 **Features:**
+
 - Manual trigger support (`workflow_dispatch`)
 - Build verification with health checks
 - Deployment validation job
@@ -67,7 +79,8 @@ This project uses GitHub Actions for continuous integration and deployment. The 
 
 The build process uses the following environment variables:
 
-- `VITE_USE_CUSTOM_DOMAIN=true`: Configures the build for custom domain deployment
+- `VITE_USE_CUSTOM_DOMAIN=true`: Configures the build for custom domain
+  deployment
 - `NODE_VERSION=20`: Specifies Node.js version for builds
 
 ## Build Process
@@ -96,11 +109,13 @@ Edit the `deploy-staging` job in `ci-build.yml`:
 
 ### For Additional Environments
 
-Add new jobs to the workflow or create separate workflow files for different environments.
+Add new jobs to the workflow or create separate workflow files for different
+environments.
 
 ### For Performance Testing
 
-The legacy CI workflow includes Lighthouse CI for performance testing. Enable it by:
+The legacy CI workflow includes Lighthouse CI for performance testing. Enable it
+by:
 
 1. Adding Lighthouse configuration
 2. Installing Lighthouse CI in the build process
@@ -119,7 +134,8 @@ The legacy CI workflow includes Lighthouse CI for performance testing. Enable it
 
 1. **GitHub Pages**: Ensure GitHub Pages is enabled in repository settings
 2. **Custom Domain**: Verify CNAME file and DNS settings
-3. **Build Artifacts**: Check that `dist` directory is created and contains files
+3. **Build Artifacts**: Check that `dist` directory is created and contains
+   files
 
 ### Security Issues
 
@@ -129,11 +145,13 @@ The legacy CI workflow includes Lighthouse CI for performance testing. Enable it
 
 ## Best Practices
 
-1. **Keep Dependencies Updated**: Regularly update dependencies and run security audits
+1. **Keep Dependencies Updated**: Regularly update dependencies and run security
+   audits
 2. **Test Coverage**: Maintain good test coverage for critical functionality
 3. **Build Caching**: Use npm caching to speed up builds
 4. **Error Handling**: Implement proper error handling and notifications
-5. **Environment Separation**: Use separate environments for staging and production
+5. **Environment Separation**: Use separate environments for staging and
+   production
 
 ## Monitoring
 

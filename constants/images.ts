@@ -176,7 +176,8 @@ export const IMAGES = {
     BUY_AS_IS: '/images/our-work-gallery/our-impact-buy-as-is.webp',
     LINDALE_COTTAGE: '/images/our-work-gallery/lindale-cottage-before.webp',
     WORK_FRAMING_DOOR: '/images/our-work-gallery/work-framing-door.webp',
-    PROJECTS_AFTER_LIVING_ROOM: '/images/our-work-gallery/projects-after-living-room.webp',
+    PROJECTS_AFTER_LIVING_ROOM:
+      '/images/our-work-gallery/projects-after-living-room.webp',
   },
 
   // Videos

@@ -5,9 +5,13 @@ import {
   Key,
   ShieldCheck,
   AlertCircle,
+  ArrowLeft,
+  ArrowRight,
+  CheckCircle,
 } from 'lucide-react';
 import { IMAGES } from '../constants/images';
 import { useToast } from '../context/ToastContext';
+import { Helmet } from 'react-helmet-async';
 
 interface ApplicationForm {
   firstName: string;
@@ -15,34 +19,188 @@ interface ApplicationForm {
   email: string;
   phone: string;
   voucherType: string;
+  // Step 2 - History
+  hasCriminalHistory: string;
+  hasEvictionHistory: string;
+  rentalHistory: string;
+  employmentStatus: string;
+  incomeSource: string;
+  monthlyIncome: string;
+  // Step 3 - Preferences
+  preferredBedrooms: string;
+  preferredBathrooms: string;
+  maxRent: string;
+  petPolicy: string;
+  moveInTimeline: string;
+  additionalNotes: string;
 }
+
+type Step = 'about' | 'history' | 'preferences';
 
 const Application: React.FC = () => {
   const { addToast } = useToast();
+  const [currentStep, setCurrentStep] = useState<Step>('about');
   const [formData, setFormData] = useState<ApplicationForm>({
     firstName: '',
     lastName: '',
     email: '',
     phone: '',
     voucherType: 'No, I am looking for market rate',
+    // Step 2 - History
+    hasCriminalHistory: 'No',
+    hasEvictionHistory: 'No',
+    rentalHistory: '',
+    employmentStatus: 'Employed',
+    incomeSource: 'Employment',
+    monthlyIncome: '',
+    // Step 3 - Preferences
+    preferredBedrooms: '2',
+    preferredBathrooms: '1',
+    maxRent: '',
+    petPolicy: 'Yes',
+    moveInTimeline: '1-2 months',
+    additionalNotes: '',
   });
 
-  const [touched, setTouched] = useState<
-    Record<keyof ApplicationForm, boolean>
-  >({
+  const [touched, setTouched] = useState<Record<keyof ApplicationForm, boolean>>({
     firstName: false,
     lastName: false,
     email: false,
     phone: false,
     voucherType: false,
+    hasCriminalHistory: false,
+    hasEvictionHistory: false,
+    rentalHistory: false,
+    employmentStatus: false,
+    incomeSource: false,
+    monthlyIncome: false,
+    preferredBedrooms: false,
+    preferredBathrooms: false,
+    maxRent: false,
+    petPolicy: false,
+    moveInTimeline: false,
+    additionalNotes: false,
   });
 
   const [errors, setErrors] = useState<Partial<ApplicationForm>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const validateField = (
-    name: keyof ApplicationForm,
-    value: string
-  ): string | undefined => {
+  const validateStep = (step: Step): boolean => {
+    const newErrors: Partial<ApplicationForm> = {};
+    let isValid = true;
+
+    if (step === 'about') {
+      const fieldsToCheck: (keyof ApplicationForm)[] = [
+        'firstName',
+        'lastName',
+        'email',
+        'phone',
+      ];
+
+      fieldsToCheck.forEach((key) => {
+        const value = formData[key];
+        if (!value.trim()) {
+          newErrors[key] = `${getFieldLabel(key)} is required`;
+          isValid = false;
+        } else if (key === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          newErrors[key] = 'Please enter a valid email address';
+          isValid = false;
+        } else if (key === 'phone' && !/^[\d\-\s]{10,}$/.test(value)) {
+          newErrors[key] = 'Please enter a valid phone number';
+          isValid = false;
+        }
+      });
+    }
+
+    if (step === 'history') {
+      const fieldsToCheck: (keyof ApplicationForm)[] = [
+        'hasCriminalHistory',
+        'hasEvictionHistory',
+        'rentalHistory',
+        'employmentStatus',
+        'incomeSource',
+        'monthlyIncome',
+      ];
+
+      fieldsToCheck.forEach((key) => {
+        const value = formData[key];
+        if (!value.trim()) {
+          newErrors[key] = `${getFieldLabel(key)} is required`;
+          isValid = false;
+        }
+      });
+
+      // Validate monthly income if provided
+      if (formData.monthlyIncome && !/^\d+$/.test(formData.monthlyIncome.replace(/[^0-9]/g, ''))) {
+        newErrors.monthlyIncome = 'Please enter a valid monthly income';
+        isValid = false;
+      }
+    }
+
+    if (step === 'preferences') {
+      const fieldsToCheck: (keyof ApplicationForm)[] = [
+        'preferredBedrooms',
+        'preferredBathrooms',
+        'maxRent',
+        'petPolicy',
+        'moveInTimeline',
+      ];
+
+      fieldsToCheck.forEach((key) => {
+        const value = formData[key];
+        if (!value.trim()) {
+          newErrors[key] = `${getFieldLabel(key)} is required`;
+          isValid = false;
+        }
+      });
+
+      // Validate max rent if provided
+      if (formData.maxRent && !/^\d+$/.test(formData.maxRent.replace(/[^0-9]/g, ''))) {
+        newErrors.maxRent = 'Please enter a valid maximum rent';
+        isValid = false;
+      }
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
+  const getFieldLabel = (fieldName: keyof ApplicationForm): string => {
+    const labels: Record<keyof ApplicationForm, string> = {
+      firstName: 'First Name',
+      lastName: 'Last Name',
+      email: 'Email',
+      phone: 'Phone',
+      voucherType: 'Voucher Type',
+      hasCriminalHistory: 'Criminal History',
+      hasEvictionHistory: 'Eviction History',
+      rentalHistory: 'Rental History',
+      employmentStatus: 'Employment Status',
+      incomeSource: 'Income Source',
+      monthlyIncome: 'Monthly Income',
+      preferredBedrooms: 'Preferred Bedrooms',
+      preferredBathrooms: 'Preferred Bathrooms',
+      maxRent: 'Maximum Rent',
+      petPolicy: 'Pet Policy',
+      moveInTimeline: 'Move-in Timeline',
+      additionalNotes: 'Additional Notes',
+    };
+    return labels[fieldName] || fieldName;
+  };
+
+  const handleBlur = (
+    e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    const fieldName = name as keyof ApplicationForm;
+    setTouched((prev) => ({ ...prev, [fieldName]: true }));
+
+    // Validate individual field on blur
+    const error = validateField(fieldName, value);
+    setErrors((prev) => ({ ...prev, [fieldName]: error }));
+  };
+
+  const validateField = (name: keyof ApplicationForm, value: string): string | undefined => {
     if (!value.trim()) {
       switch (name) {
         case 'firstName':
@@ -53,6 +211,12 @@ const Application: React.FC = () => {
           return 'Email is required';
         case 'phone':
           return 'Phone number is required';
+        case 'rentalHistory':
+          return 'Rental history is required';
+        case 'monthlyIncome':
+          return 'Monthly income is required';
+        case 'maxRent':
+          return 'Maximum rent is required';
         default:
           return undefined;
       }
@@ -66,22 +230,19 @@ const Application: React.FC = () => {
       return 'Please enter a valid phone number';
     }
 
+    if (name === 'monthlyIncome' && !/^\d+$/.test(value.replace(/[^0-9]/g, ''))) {
+      return 'Please enter a valid monthly income';
+    }
+
+    if (name === 'maxRent' && !/^\d+$/.test(value.replace(/[^0-9]/g, ''))) {
+      return 'Please enter a valid maximum rent';
+    }
+
     return undefined;
   };
 
-  const handleBlur = (
-    e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    const fieldName = name as keyof ApplicationForm;
-
-    setTouched((prev) => ({ ...prev, [fieldName]: true }));
-    const error = validateField(fieldName, value);
-    setErrors((prev) => ({ ...prev, [fieldName]: error }));
-  };
-
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     const fieldName = name as keyof ApplicationForm;
@@ -95,38 +256,74 @@ const Application: React.FC = () => {
   };
 
   const handleNextStep = () => {
-    const newErrors: Partial<ApplicationForm> = {};
-    let isValid = true;
+    const isValid = validateStep(currentStep);
+    
+    if (!isValid) {
+      addToast('Please fix the errors before proceeding', 'error');
+      return;
+    }
 
-    const fieldsToCheck: (keyof ApplicationForm)[] = [
-      'firstName',
-      'lastName',
-      'email',
-      'phone',
-    ];
+    if (currentStep === 'about') {
+      setCurrentStep('history');
+      addToast('Step 1 complete! Proceeding to background history.', 'success');
+    } else if (currentStep === 'history') {
+      setCurrentStep('preferences');
+      addToast('Step 2 complete! Proceeding to housing preferences.', 'success');
+    } else if (currentStep === 'preferences') {
+      handleSubmit();
+    }
+  };
 
-    fieldsToCheck.forEach((key) => {
-      const error = validateField(key, formData[key]);
-      if (error) {
-        newErrors[key] = error;
-        isValid = false;
-      }
-    });
+  const handlePrevStep = () => {
+    if (currentStep === 'history') {
+      setCurrentStep('about');
+    } else if (currentStep === 'preferences') {
+      setCurrentStep('history');
+    }
+  };
 
-    setErrors(newErrors);
-    setTouched((prev) => ({
-      ...prev,
-      firstName: true,
-      lastName: true,
-      email: true,
-      phone: true,
-    }));
+  const handleSubmit = async () => {
+    const isValid = validateStep('preferences');
+    
+    if (!isValid) {
+      addToast('Please fix the errors before submitting', 'error');
+      return;
+    }
 
-    if (isValid) {
-      addToast(
-        'Success! Application pre-check complete. Proceeding to background check integration...',
-        'success'
-      );
+    setIsSubmitting(true);
+
+    try {
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      
+      addToast('Application submitted successfully! We will contact you within 24 hours.', 'success');
+      
+      // Reset form after successful submission
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        voucherType: 'No, I am looking for market rate',
+        hasCriminalHistory: 'No',
+        hasEvictionHistory: 'No',
+        rentalHistory: '',
+        employmentStatus: 'Employed',
+        incomeSource: 'Employment',
+        monthlyIncome: '',
+        preferredBedrooms: '2',
+        preferredBathrooms: '1',
+        maxRent: '',
+        petPolicy: 'Yes',
+        moveInTimeline: '1-2 months',
+        additionalNotes: '',
+      });
+      
+      setCurrentStep('about');
+    } catch (error) {
+      addToast('Something went wrong. Please try again.', 'error');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -141,8 +338,497 @@ const Application: React.FC = () => {
     return `${baseClasses} border-gray-300 focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold/20 hover:border-gray-400`;
   };
 
+  const getStepProgress = () => {
+    if (currentStep === 'about') return 0;
+    if (currentStep === 'history') return 1;
+    if (currentStep === 'preferences') return 2;
+    return 0;
+  };
+
+  const renderStep1 = () => (
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label
+            htmlFor="firstName"
+            className="block text-sm font-bold text-p4c-navy mb-1.5"
+          >
+            First Name
+          </label>
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={getInputClassName('firstName')}
+            placeholder="Jane"
+            aria-invalid={!!errors.firstName}
+          />
+          {touched.firstName && errors.firstName && (
+            <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+              <AlertCircle className="w-3 h-3 mr-1" />
+              {errors.firstName}
+            </div>
+          )}
+        </div>
+        <div>
+          <label
+            htmlFor="lastName"
+            className="block text-sm font-bold text-p4c-navy mb-1.5"
+          >
+            Last Name
+          </label>
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={getInputClassName('lastName')}
+            placeholder="Doe"
+            aria-invalid={!!errors.lastName}
+          />
+          {touched.lastName && errors.lastName && (
+            <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+              <AlertCircle className="w-3 h-3 mr-1" />
+              {errors.lastName}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label
+            htmlFor="email"
+            className="block text-sm font-bold text-p4c-navy mb-1.5"
+          >
+            Email Address
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={getInputClassName('email')}
+            placeholder="jane@example.com"
+            aria-invalid={!!errors.email}
+          />
+          {touched.email && errors.email && (
+            <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+              <AlertCircle className="w-3 h-3 mr-1" />
+              {errors.email}
+            </div>
+          )}
+        </div>
+        <div>
+          <label
+            htmlFor="phone"
+            className="block text-sm font-bold text-p4c-navy mb-1.5"
+          >
+            Phone Number
+          </label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={getInputClassName('phone')}
+            placeholder="(903) 555-0123"
+            aria-invalid={!!errors.phone}
+          />
+          {touched.phone && errors.phone && (
+            <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+              <AlertCircle className="w-3 h-3 mr-1" />
+              {errors.phone}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div>
+        <label
+          htmlFor="voucherType"
+          className="block text-sm font-bold text-p4c-navy mb-1.5"
+        >
+          Do you currently have a housing voucher?
+        </label>
+        <select
+          id="voucherType"
+          name="voucherType"
+          value={formData.voucherType}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          className={`${getInputClassName('voucherType')} bg-white`}
+        >
+          <option>No, I am looking for market rate</option>
+          <option>Yes, Section 8 (HCV)</option>
+          <option>Yes, HUD-VASH</option>
+          <option>Yes, Rapid Rehousing</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div className="bg-blue-50 p-5 rounded-xl flex gap-4 items-start border border-blue-100">
+        <ShieldCheck className="text-p4c-navy w-6 h-6 flex-shrink-0 mt-0.5" />
+        <p className="text-sm text-p4c-navy leading-relaxed">
+          <strong>Privacy Guarantee:</strong> We value your privacy. Your
+          information is encrypted using 256-bit SSL and is never sold. We
+          only use this data to match you with available homes and
+          pre-qualify your application.
+        </p>
+      </div>
+    </div>
+  );
+
+  const renderStep2 = () => (
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label
+            htmlFor="hasCriminalHistory"
+            className="block text-sm font-bold text-p4c-navy mb-1.5"
+          >
+            Do you have any criminal history?
+          </label>
+          <select
+            id="hasCriminalHistory"
+            name="hasCriminalHistory"
+            value={formData.hasCriminalHistory}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={`${getInputClassName('hasCriminalHistory')} bg-white`}
+          >
+            <option>No</option>
+            <option>Yes</option>
+          </select>
+          {touched.hasCriminalHistory && errors.hasCriminalHistory && (
+            <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+              <AlertCircle className="w-3 h-3 mr-1" />
+              {errors.hasCriminalHistory}
+            </div>
+          )}
+        </div>
+        <div>
+          <label
+            htmlFor="hasEvictionHistory"
+            className="block text-sm font-bold text-p4c-navy mb-1.5"
+          >
+            Do you have any eviction history?
+          </label>
+          <select
+            id="hasEvictionHistory"
+            name="hasEvictionHistory"
+            value={formData.hasEvictionHistory}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={`${getInputClassName('hasEvictionHistory')} bg-white`}
+          >
+            <option>No</option>
+            <option>Yes</option>
+          </select>
+          {touched.hasEvictionHistory && errors.hasEvictionHistory && (
+            <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+              <AlertCircle className="w-3 h-3 mr-1" />
+              {errors.hasEvictionHistory}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div>
+        <label
+          htmlFor="rentalHistory"
+          className="block text-sm font-bold text-p4c-navy mb-1.5"
+        >
+          Brief rental history (last 3 years)
+        </label>
+        <textarea
+          id="rentalHistory"
+          name="rentalHistory"
+          value={formData.rentalHistory}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          rows={4}
+          className={getInputClassName('rentalHistory')}
+          placeholder="Please describe your rental history over the past 3 years..."
+        />
+        {touched.rentalHistory && errors.rentalHistory && (
+          <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+            <AlertCircle className="w-3 h-3 mr-1" />
+            {errors.rentalHistory}
+          </div>
+        )}
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label
+            htmlFor="employmentStatus"
+            className="block text-sm font-bold text-p4c-navy mb-1.5"
+          >
+            Current employment status
+          </label>
+          <select
+            id="employmentStatus"
+            name="employmentStatus"
+            value={formData.employmentStatus}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={`${getInputClassName('employmentStatus')} bg-white`}
+          >
+            <option>Employed</option>
+            <option>Self-employed</option>
+            <option>Unemployed</option>
+            <option>Retired</option>
+            <option>Student</option>
+            <option>Disabled</option>
+          </select>
+          {touched.employmentStatus && errors.employmentStatus && (
+            <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+              <AlertCircle className="w-3 h-3 mr-1" />
+              {errors.employmentStatus}
+            </div>
+          )}
+        </div>
+        <div>
+          <label
+            htmlFor="incomeSource"
+            className="block text-sm font-bold text-p4c-navy mb-1.5"
+          >
+            Primary income source
+          </label>
+          <select
+            id="incomeSource"
+            name="incomeSource"
+            value={formData.incomeSource}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={`${getInputClassName('incomeSource')} bg-white`}
+          >
+            <option>Employment</option>
+            <option>Self-employment</option>
+            <option>Disability</option>
+            <option>Social Security</option>
+            <option>Unemployment</option>
+            <option>Retirement</option>
+            <option>Other</option>
+          </select>
+          {touched.incomeSource && errors.incomeSource && (
+            <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+              <AlertCircle className="w-3 h-3 mr-1" />
+              {errors.incomeSource}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div>
+        <label
+          htmlFor="monthlyIncome"
+          className="block text-sm font-bold text-p4c-navy mb-1.5"
+        >
+          Approximate monthly income
+        </label>
+        <input
+          type="text"
+          id="monthlyIncome"
+          name="monthlyIncome"
+          value={formData.monthlyIncome}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          className={getInputClassName('monthlyIncome')}
+          placeholder="$3,500"
+        />
+        {touched.monthlyIncome && errors.monthlyIncome && (
+          <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+            <AlertCircle className="w-3 h-3 mr-1" />
+            {errors.monthlyIncome}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
+  const renderStep3 = () => (
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label
+            htmlFor="preferredBedrooms"
+            className="block text-sm font-bold text-p4c-navy mb-1.5"
+          >
+            Preferred number of bedrooms
+          </label>
+          <select
+            id="preferredBedrooms"
+            name="preferredBedrooms"
+            value={formData.preferredBedrooms}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={`${getInputClassName('preferredBedrooms')} bg-white`}
+          >
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4+</option>
+          </select>
+          {touched.preferredBedrooms && errors.preferredBedrooms && (
+            <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+              <AlertCircle className="w-3 h-3 mr-1" />
+              {errors.preferredBedrooms}
+            </div>
+          )}
+        </div>
+        <div>
+          <label
+            htmlFor="preferredBathrooms"
+            className="block text-sm font-bold text-p4c-navy mb-1.5"
+          >
+            Preferred number of bathrooms
+          </label>
+          <select
+            id="preferredBathrooms"
+            name="preferredBathrooms"
+            value={formData.preferredBathrooms}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={`${getInputClassName('preferredBathrooms')} bg-white`}
+          >
+            <option>1</option>
+            <option>1.5</option>
+            <option>2</option>
+            <option>2.5</option>
+            <option>3+</option>
+          </select>
+          {touched.preferredBathrooms && errors.preferredBathrooms && (
+            <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+              <AlertCircle className="w-3 h-3 mr-1" />
+              {errors.preferredBathrooms}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div>
+        <label
+          htmlFor="maxRent"
+          className="block text-sm font-bold text-p4c-navy mb-1.5"
+        >
+          Maximum rent you can afford per month
+        </label>
+        <input
+          type="text"
+          id="maxRent"
+          name="maxRent"
+          value={formData.maxRent}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          className={getInputClassName('maxRent')}
+          placeholder="$1,200"
+        />
+        {touched.maxRent && errors.maxRent && (
+          <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+            <AlertCircle className="w-3 h-3 mr-1" />
+            {errors.maxRent}
+          </div>
+        )}
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label
+            htmlFor="petPolicy"
+            className="block text-sm font-bold text-p4c-navy mb-1.5"
+          >
+            Do you have pets?
+          </label>
+          <select
+            id="petPolicy"
+            name="petPolicy"
+            value={formData.petPolicy}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={`${getInputClassName('petPolicy')} bg-white`}
+          >
+            <option>Yes</option>
+            <option>No</option>
+            <option>Maybe</option>
+          </select>
+          {touched.petPolicy && errors.petPolicy && (
+            <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+              <AlertCircle className="w-3 h-3 mr-1" />
+              {errors.petPolicy}
+            </div>
+          )}
+        </div>
+        <div>
+          <label
+            htmlFor="moveInTimeline"
+            className="block text-sm font-bold text-p4c-navy mb-1.5"
+          >
+            When would you like to move in?
+          </label>
+          <select
+            id="moveInTimeline"
+            name="moveInTimeline"
+            value={formData.moveInTimeline}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={`${getInputClassName('moveInTimeline')} bg-white`}
+          >
+            <option>Immediately</option>
+            <option>1-2 months</option>
+            <option>3-6 months</option>
+            <option>6+ months</option>
+          </select>
+          {touched.moveInTimeline && errors.moveInTimeline && (
+            <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+              <AlertCircle className="w-3 h-3 mr-1" />
+              {errors.moveInTimeline}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div>
+        <label
+          htmlFor="additionalNotes"
+          className="block text-sm font-bold text-p4c-navy mb-1.5"
+        >
+          Additional notes or requirements
+        </label>
+        <textarea
+          id="additionalNotes"
+          name="additionalNotes"
+          value={formData.additionalNotes}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          rows={4}
+          className={getInputClassName('additionalNotes')}
+          placeholder="Any additional information about your housing needs..."
+        />
+      </div>
+    </div>
+  );
+
   return (
     <div className="bg-p4c-beige min-h-screen">
+      <Helmet>
+        <title>The Dignity Application | Properties 4 Creation</title>
+        <meta
+          name="description"
+          content="Complete our 3-step application process to find your new home with Properties 4 Creation."
+        />
+      </Helmet>
+
       {/* Hero Banner */}
       <div className="relative h-[300px] w-full overflow-hidden flex items-center justify-center">
         <div className="absolute top-0 left-0 w-full h-full z-0">
@@ -168,10 +854,10 @@ const Application: React.FC = () => {
         <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-gray-100">
           <div className="text-center mb-10">
             <h2 className="text-2xl font-serif font-bold text-p4c-navy">
-              Start Your Journey
+              Complete Your Application
             </h2>
             <p className="text-gray-500 mt-2">
-              Complete these 3 simple steps to get pre-approved.
+              Progress through {currentStep === 'about' ? 'Step 1' : currentStep === 'history' ? 'Step 2' : 'Step 3'} of 3 steps
             </p>
           </div>
 
@@ -180,18 +866,28 @@ const Application: React.FC = () => {
             <div className="absolute top-1/2 left-0 w-full h-1 bg-gray-100 -z-10 -translate-y-1/2 rounded-full" />
 
             {[
-              { icon: UserCheck, label: 'About You', active: true },
-              { icon: FileText, label: 'History', active: false },
-              { icon: Key, label: 'Preferences', active: false },
+              { icon: UserCheck, label: 'About You', step: 'about' },
+              { icon: FileText, label: 'History', step: 'history' },
+              { icon: Key, label: 'Preferences', step: 'preferences' },
             ].map((step, i) => (
               <div key={i} className="flex flex-col items-center bg-white px-4">
                 <div
-                  className={`w-12 h-12 rounded-full flex items-center justify-center mb-2 border-2 transition-all ${step.active ? 'bg-p4c-gold border-p4c-gold text-p4c-navy shadow-lg scale-110' : 'bg-white border-gray-200 text-gray-400'}`}
+                  className={`w-12 h-12 rounded-full flex items-center justify-center mb-2 border-2 transition-all ${
+                    getStepProgress() >= i
+                      ? 'bg-p4c-gold border-p4c-gold text-p4c-navy shadow-lg scale-110'
+                      : 'bg-white border-gray-200 text-gray-400'
+                  }`}
                 >
-                  <step.icon className="w-5 h-5" />
+                  {getStepProgress() >= i ? (
+                    <CheckCircle className="w-5 h-5" />
+                  ) : (
+                    <step.icon className="w-5 h-5" />
+                  )}
                 </div>
                 <span
-                  className={`text-xs font-bold uppercase tracking-wide ${step.active ? 'text-p4c-navy' : 'text-gray-400'}`}
+                  className={`text-xs font-bold uppercase tracking-wide ${
+                    getStepProgress() >= i ? 'text-p4c-navy' : 'text-gray-400'
+                  }`}
                 >
                   {step.label}
                 </span>
@@ -199,154 +895,50 @@ const Application: React.FC = () => {
             ))}
           </div>
 
-          {/* Form Area */}
+          {/* Step Content */}
           <form className="space-y-6" noValidate>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label
-                  htmlFor="firstName"
-                  className="block text-sm font-bold text-p4c-navy mb-1.5"
-                >
-                  First Name
-                </label>
-                <input
-                  type="text"
-                  id="firstName"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={getInputClassName('firstName')}
-                  placeholder="Jane"
-                  aria-invalid={!!errors.firstName}
-                />
-                {touched.firstName && errors.firstName && (
-                  <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
-                    <AlertCircle className="w-3 h-3 mr-1" />
-                    {errors.firstName}
-                  </div>
-                )}
-              </div>
-              <div>
-                <label
-                  htmlFor="lastName"
-                  className="block text-sm font-bold text-p4c-navy mb-1.5"
-                >
-                  Last Name
-                </label>
-                <input
-                  type="text"
-                  id="lastName"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={getInputClassName('lastName')}
-                  placeholder="Doe"
-                  aria-invalid={!!errors.lastName}
-                />
-                {touched.lastName && errors.lastName && (
-                  <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
-                    <AlertCircle className="w-3 h-3 mr-1" />
-                    {errors.lastName}
-                  </div>
-                )}
-              </div>
-            </div>
+            {currentStep === 'about' && renderStep1()}
+            {currentStep === 'history' && renderStep2()}
+            {currentStep === 'preferences' && renderStep3()}
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-bold text-p4c-navy mb-1.5"
-                >
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={getInputClassName('email')}
-                  placeholder="jane@example.com"
-                  aria-invalid={!!errors.email}
-                />
-                {touched.email && errors.email && (
-                  <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
-                    <AlertCircle className="w-3 h-3 mr-1" />
-                    {errors.email}
-                  </div>
-                )}
-              </div>
-              <div>
-                <label
-                  htmlFor="phone"
-                  className="block text-sm font-bold text-p4c-navy mb-1.5"
-                >
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={getInputClassName('phone')}
-                  placeholder="(903) 555-0123"
-                  aria-invalid={!!errors.phone}
-                />
-                {touched.phone && errors.phone && (
-                  <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
-                    <AlertCircle className="w-3 h-3 mr-1" />
-                    {errors.phone}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <div>
-              <label
-                htmlFor="voucherType"
-                className="block text-sm font-bold text-p4c-navy mb-1.5"
+            {/* Navigation Buttons */}
+            <div className="flex justify-between pt-8 border-t border-gray-100">
+              <button
+                type="button"
+                onClick={handlePrevStep}
+                disabled={currentStep === 'about'}
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all ${
+                  currentStep === 'about'
+                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                    : 'bg-p4c-navy text-white hover:bg-p4c-slate'
+                }`}
               >
-                Do you currently have a housing voucher?
-              </label>
-              <select
-                id="voucherType"
-                name="voucherType"
-                value={formData.voucherType}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                className={`${getInputClassName('voucherType')} bg-white`}
-              >
-                <option>No, I am looking for market rate</option>
-                <option>Yes, Section 8 (HCV)</option>
-                <option>Yes, HUD-VASH</option>
-                <option>Yes, Rapid Rehousing</option>
-                <option>Other</option>
-              </select>
-            </div>
+                <ArrowLeft className="w-4 h-4" />
+                Previous
+              </button>
 
-            <div className="bg-blue-50 p-5 rounded-xl flex gap-4 items-start border border-blue-100">
-              <ShieldCheck className="text-p4c-navy w-6 h-6 flex-shrink-0 mt-0.5" />
-              <p className="text-sm text-p4c-navy leading-relaxed">
-                <strong>Privacy Guarantee:</strong> We value your privacy. Your
-                information is encrypted using 256-bit SSL and is never sold. We
-                only use this data to match you with available homes and
-                pre-qualify your application.
-              </p>
-            </div>
-
-            <div className="pt-4">
               <button
                 type="button"
                 onClick={handleNextStep}
-                className="w-full bg-p4c-navy text-white hover:bg-p4c-slate py-4 rounded-xl font-bold text-lg transition-all shadow-lg hover:shadow-xl hover:-translate-y-1"
+                disabled={isSubmitting}
+                className="flex items-center gap-2 bg-p4c-navy text-white hover:bg-p4c-slate py-3 px-6 rounded-xl font-bold transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                Continue to Step 2
+                {isSubmitting ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Processing...
+                  </>
+                ) : currentStep === 'preferences' ? (
+                  <>
+                    Submit Application
+                    <CheckCircle className="w-4 h-4" />
+                  </>
+                ) : (
+                  <>
+                    Continue
+                    <ArrowRight className="w-4 h-4" />
+                  </>
+                )}
               </button>
             </div>
           </form>

@@ -2,7 +2,7 @@
 ================================================================================
 FILE_BEGIN: index.css
 TYPE: CSS
-SIZE: 8574 bytes
+SIZE: 8962 bytes
 ================================================================================
 @tailwind base;
 @tailwind components;
@@ -19,12 +19,20 @@ SIZE: 8574 bytes
   --animation-duration-normal: 300ms;
   --animation-duration-slow: 500ms;
   --animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
+  /* Accessibility font size */
+  --accessibility-font-size: 100%;
 }
 
 @layer base {
   body {
     background-color: var(--color-beige);
     color: var(--color-navy);
+    font-size: var(--accessibility-font-size);
+  }
+
+  /* Apply accessibility font size to all text elements */
+  html {
+    font-size: var(--accessibility-font-size);
   }
 
   /* Custom focus styles for accessibility */
@@ -349,6 +357,8 @@ SIZE: 8574 bytes
   /* Alternative: Use :has() selector when supported */
   .group:has(.accordion-content) {
     /* styles for parent when accordion is open */
+    /* Add minimal content to avoid empty ruleset */
+    position: relative;
   }
 
   /* Reduced Motion - Accessibility */
@@ -413,6 +423,8 @@ SIZE: 8574 bytes
 
     .group:has(.accordion-content) {
       /* Fallback for browsers that don't support :has() */
+      /* Add minimal content to avoid empty ruleset */
+      display: block;
     }
   }
 }
