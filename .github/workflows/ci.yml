@@ -122,6 +122,15 @@ jobs:
       - name: Build application
         run: npm run build
 
+      - name: Verify build output
+        run: |
+          if [ ! -d "dist" ]; then
+            echo "Build failed: dist directory not found"
+            exit 1
+          fi
+          echo "Build successful: dist directory exists"
+          ls -la dist/
+
       - name: Optimize images
         run: npm run optimize:images
 

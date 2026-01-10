@@ -191,8 +191,8 @@ const HomeownerSolutions: React.FC = () => {
                   Request a Discreet Property Consultation
                 </h2>
                 <p className="text-gray-600">
-                  Tell us about your property and we&apos;ll get back to you
-                  within 24 hours.
+                  Tell us about your property and we'll get back to you within
+                  24 hours.
                 </p>
               </div>
 
@@ -205,8 +205,7 @@ const HomeownerSolutions: React.FC = () => {
                     Thank You!
                   </h3>
                   <p className="text-gray-600 mb-6">
-                    We&apos;ve received your request and will be in touch
-                    shortly.
+                    We've received your request and will be in touch shortly.
                   </p>
                   <button
                     onClick={() => {
@@ -339,7 +338,7 @@ const HomeownerSolutions: React.FC = () => {
             Ready to See More Properties?
           </h2>
           <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-            Browse our available homes and see how we&apos;re transforming
+            Browse our available homes and see how we're transforming
             neighborhoods one property at a time.
           </p>
           <button
