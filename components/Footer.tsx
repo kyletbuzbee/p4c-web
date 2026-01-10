@@ -20,7 +20,7 @@ const Footer: React.FC = () => (
             <img
               src={IMAGES.LOGO.WHITE_GOLD}
               alt="Properties 4 Creation Logo"
-              className="h-10 w-auto object-contain"
+              className="h-24 w-auto object-contain"
             />
           </div>
           <p className="text-gray-400 text-sm leading-relaxed mb-6">
