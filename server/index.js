@@ -240,7 +240,7 @@ app.post('/api/ai/edit-image', verifyApiKey, async (req, res) => {
         maxLength: 1000,
       });
     }
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-pro-3' });
 
     const result = await model.generateContent({
       contents: {
@@ -306,7 +306,7 @@ app.post('/api/ai/chat', verifyApiKey, async (req, res) => {
       });
     }
     const model = genAI.getGenerativeModel({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-pro-3',
       systemInstruction: `You are 'Patriot', the AI Concierge for Properties 4 Creation (P4C).
       P4C is a veteran-owned company in East Texas that provides high-quality affordable housing.
 

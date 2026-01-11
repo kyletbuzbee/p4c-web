@@ -1,6 +1,6 @@
 /**
  * P4C Content Balance Auditor
- * Version: 1.0.0
+ *  * Version: 1.0.0
  * Purpose: Analyzes the semantic weight of content to ensure a 50/50 balance
  * between Veteran and Family outreach.
  */
