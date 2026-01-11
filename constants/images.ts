@@ -87,7 +87,7 @@ export const IMAGES = {
     HERO_APPLICATION: '/images/banners/hero-application-banner.webp',
 
     // FAQ Page
-    HERO_FAQ: '/images/banners/hero-faq-banner.png',
+    HERO_FAQ: '/images/banners/hero-faq-banner.webp',
 
     // Get Started / Success Story Page
     HERO_SUCCESS_STORY: '/images/banners/hero-get-started-banner.webp',
@@ -162,6 +162,8 @@ export const IMAGES = {
         '/images/before-after-comparison/projects-after-front-porch-800w.webp',
     },
     BRICK_PATIO: {
+      BEFORE:
+        '/images/before-after-comparison/projects-before-brick-patio-400w.webp',
       AFTER:
         '/images/before-after-comparison/projects-after-brick-patio-400w.webp',
     },

@@ -174,7 +174,7 @@ const Navbar: React.FC = () => {
             <img
               src={IMAGES.LOGO.WHITE_GOLD}
               alt="Properties 4 Creation Logo"
-              className="h-24 w-auto object-contain"
+              className="h-20 w-auto object-contain"
             />
           </Link>
 

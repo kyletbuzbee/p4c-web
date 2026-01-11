@@ -169,11 +169,13 @@ app.use(express.json({ limit: '10mb' }));
 app.use(validateInput);
 
 // Initialize Gemini AI (server-side only)
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+// Temporary hardcode for testing - in production this should come from environment variables
+const geminiApiKey = process.env.GEMINI_API_KEY || 'AIzaSyC_kiP0QYvxf6CXNQUi6eQC41F825LNjlw';
+const genAI = new GoogleGenerativeAI(geminiApiKey);
 
 // Middleware to verify API key presence
 const verifyApiKey = (req, res, next) => {
-  if (!process.env.GEMINI_API_KEY) {
+  if (!process.env.GEMINI_API_KEY && !geminiApiKey) {
     console.error('GEMINI_API_KEY not configured');
     return res.status(500).json({
       error: 'Server configuration error',
@@ -238,7 +240,7 @@ app.post('/api/ai/edit-image', verifyApiKey, async (req, res) => {
         maxLength: 1000,
       });
     }
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-image' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
     const result = await model.generateContent({
       contents: {
@@ -304,6 +306,7 @@ app.post('/api/ai/chat', verifyApiKey, async (req, res) => {
       });
     }
     const model = genAI.getGenerativeModel({
+      model: 'gemini-1.5-flash',
       systemInstruction: `You are 'Patriot', the AI Concierge for Properties 4 Creation (P4C).
       P4C is a veteran-owned company in East Texas that provides high-quality affordable housing.
 

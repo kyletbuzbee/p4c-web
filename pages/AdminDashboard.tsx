@@ -27,7 +27,10 @@ const AdminDashboard: React.FC = () => {
         const propertiesData = await api.properties.getAll();
         setProperties(propertiesData);
       } catch (error) {
-        console.error('Failed to fetch properties:', error);
+        // Log error to error boundary service instead of console
+        import('../services/errorBoundaryService').then(({ logError }) => {
+          logError('Failed to fetch properties', error);
+        });
       } finally {
         setLoading(false);
       }

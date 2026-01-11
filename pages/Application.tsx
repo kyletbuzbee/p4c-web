@@ -62,7 +62,9 @@ const Application: React.FC = () => {
     additionalNotes: '',
   });
 
-  const [touched, setTouched] = useState<Record<keyof ApplicationForm, boolean>>({
+  const [touched, setTouched] = useState<
+    Record<keyof ApplicationForm, boolean>
+  >({
     firstName: false,
     lastName: false,
     email: false,
@@ -98,15 +100,21 @@ const Application: React.FC = () => {
       ];
 
       fieldsToCheck.forEach((key) => {
-        const value = formData[key];
+        const value = formData[key as keyof ApplicationForm];
         if (!value.trim()) {
-          newErrors[key] = `${getFieldLabel(key)} is required`;
+          newErrors[key as keyof ApplicationForm] =
+            `${getFieldLabel(key)} is required`;
           isValid = false;
-        } else if (key === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-          newErrors[key] = 'Please enter a valid email address';
+        } else if (
+          key === 'email' &&
+          !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+        ) {
+          newErrors[key as keyof ApplicationForm] =
+            'Please enter a valid email address';
           isValid = false;
         } else if (key === 'phone' && !/^[\d\-\s]{10,}$/.test(value)) {
-          newErrors[key] = 'Please enter a valid phone number';
+          newErrors[key as keyof ApplicationForm] =
+            'Please enter a valid phone number';
           isValid = false;
         }
       });
@@ -123,15 +131,19 @@ const Application: React.FC = () => {
       ];
 
       fieldsToCheck.forEach((key) => {
-        const value = formData[key];
+        const value = formData[key as keyof ApplicationForm];
         if (!value.trim()) {
-          newErrors[key] = `${getFieldLabel(key)} is required`;
+          newErrors[key as keyof ApplicationForm] =
+            `${getFieldLabel(key)} is required`;
           isValid = false;
         }
       });
 
       // Validate monthly income if provided
-      if (formData.monthlyIncome && !/^\d+$/.test(formData.monthlyIncome.replace(/[^0-9]/g, ''))) {
+      if (
+        formData.monthlyIncome &&
+        !/^\d+$/.test(formData.monthlyIncome.replace(/[^0-9]/g, ''))
+      ) {
         newErrors.monthlyIncome = 'Please enter a valid monthly income';
         isValid = false;
       }
@@ -147,15 +159,19 @@ const Application: React.FC = () => {
       ];
 
       fieldsToCheck.forEach((key) => {
-        const value = formData[key];
+        const value = formData[key as keyof ApplicationForm];
         if (!value.trim()) {
-          newErrors[key] = `${getFieldLabel(key)} is required`;
+          newErrors[key as keyof ApplicationForm] =
+            `${getFieldLabel(key)} is required`;
           isValid = false;
         }
       });
 
       // Validate max rent if provided
-      if (formData.maxRent && !/^\d+$/.test(formData.maxRent.replace(/[^0-9]/g, ''))) {
+      if (
+        formData.maxRent &&
+        !/^\d+$/.test(formData.maxRent.replace(/[^0-9]/g, ''))
+      ) {
         newErrors.maxRent = 'Please enter a valid maximum rent';
         isValid = false;
       }
@@ -185,11 +201,13 @@ const Application: React.FC = () => {
       moveInTimeline: 'Move-in Timeline',
       additionalNotes: 'Additional Notes',
     };
-    return labels[fieldName] || fieldName;
+    return labels[fieldName as keyof ApplicationForm] || fieldName;
   };
 
   const handleBlur = (
-    e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    e: React.FocusEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ) => {
     const { name, value } = e.target;
     const fieldName = name as keyof ApplicationForm;
@@ -200,7 +218,10 @@ const Application: React.FC = () => {
     setErrors((prev) => ({ ...prev, [fieldName]: error }));
   };
 
-  const validateField = (name: keyof ApplicationForm, value: string): string | undefined => {
+  const validateField = (
+    name: keyof ApplicationForm,
+    value: string
+  ): string | undefined => {
     if (!value.trim()) {
       switch (name) {
         case 'firstName':
@@ -230,7 +251,10 @@ const Application: React.FC = () => {
       return 'Please enter a valid phone number';
     }
 
-    if (name === 'monthlyIncome' && !/^\d+$/.test(value.replace(/[^0-9]/g, ''))) {
+    if (
+      name === 'monthlyIncome' &&
+      !/^\d+$/.test(value.replace(/[^0-9]/g, ''))
+    ) {
       return 'Please enter a valid monthly income';
     }
 
@@ -242,14 +266,16 @@ const Application: React.FC = () => {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ) => {
     const { name, value } = e.target;
     const fieldName = name as keyof ApplicationForm;
 
     setFormData((prev) => ({ ...prev, [fieldName]: value }));
 
-    if (touched[fieldName]) {
+    if (touched[fieldName as keyof ApplicationForm]) {
       const error = validateField(fieldName, value);
       setErrors((prev) => ({ ...prev, [fieldName]: error }));
     }
@@ -257,7 +283,7 @@ const Application: React.FC = () => {
 
   const handleNextStep = () => {
     const isValid = validateStep(currentStep);
-    
+
     if (!isValid) {
       addToast('Please fix the errors before proceeding', 'error');
       return;
@@ -268,7 +294,10 @@ const Application: React.FC = () => {
       addToast('Step 1 complete! Proceeding to background history.', 'success');
     } else if (currentStep === 'history') {
       setCurrentStep('preferences');
-      addToast('Step 2 complete! Proceeding to housing preferences.', 'success');
+      addToast(
+        'Step 2 complete! Proceeding to housing preferences.',
+        'success'
+      );
     } else if (currentStep === 'preferences') {
       handleSubmit();
     }
@@ -284,7 +313,7 @@ const Application: React.FC = () => {
 
   const handleSubmit = async () => {
     const isValid = validateStep('preferences');
-    
+
     if (!isValid) {
       addToast('Please fix the errors before submitting', 'error');
       return;
@@ -295,9 +324,12 @@ const Application: React.FC = () => {
     try {
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      
-      addToast('Application submitted successfully! We will contact you within 24 hours.', 'success');
-      
+
+      addToast(
+        'Application submitted successfully! We will contact you within 24 hours.',
+        'success'
+      );
+
       // Reset form after successful submission
       setFormData({
         firstName: '',
@@ -318,7 +350,7 @@ const Application: React.FC = () => {
         moveInTimeline: '1-2 months',
         additionalNotes: '',
       });
-      
+
       setCurrentStep('about');
     } catch (error) {
       addToast('Something went wrong. Please try again.', 'error');
@@ -480,9 +512,9 @@ const Application: React.FC = () => {
         <ShieldCheck className="text-p4c-navy w-6 h-6 flex-shrink-0 mt-0.5" />
         <p className="text-sm text-p4c-navy leading-relaxed">
           <strong>Privacy Guarantee:</strong> We value your privacy. Your
-          information is encrypted using 256-bit SSL and is never sold. We
-          only use this data to match you with available homes and
-          pre-qualify your application.
+          information is encrypted using 256-bit SSL and is never sold. We only
+          use this data to match you with available homes and pre-qualify your
+          application.
         </p>
       </div>
     </div>
@@ -857,7 +889,13 @@ const Application: React.FC = () => {
               Complete Your Application
             </h2>
             <p className="text-gray-500 mt-2">
-              Progress through {currentStep === 'about' ? 'Step 1' : currentStep === 'history' ? 'Step 2' : 'Step 3'} of 3 steps
+              Progress through{' '}
+              {currentStep === 'about'
+                ? 'Step 1'
+                : currentStep === 'history'
+                  ? 'Step 2'
+                  : 'Step 3'}{' '}
+              of 3 steps
             </p>
           </div>
 
