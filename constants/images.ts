@@ -10,7 +10,7 @@
 // Brand Assets
 export const IMAGES = {
   LOGO: {
-    PNG: '/images/logo/brand-logo.png',
+    PNG: '/images/logo/brand-logo.webp',
     SVG: '/images/logo/brand-logo.svg',
     WHITE_GOLD: '/images/logo/brand-logo-white-gold.svg',
   },
@@ -131,9 +131,9 @@ export const IMAGES = {
 
   // Team & About
   TEAM: {
-    OWNER: '/images/about/about-us-team-owner.png',
-    HEADSHOT: '/images/about/about-us-team-headshot.png',
-    ONSITE: '/images/about/about-us-team-onsite.png',
+    OWNER: '/images/about/about-us-team-owner.webp',
+    HEADSHOT: '/images/about/about-us-team-headshot.webp',
+    ONSITE: '/images/about/about-us-team-onsite.webp',
   },
 
   // Renovation Showcase (Before/After)

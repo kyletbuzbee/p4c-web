@@ -29,7 +29,14 @@ const AdminDashboard: React.FC = () => {
       } catch (error) {
         // Log error to error boundary service instead of console
         import('../services/errorBoundaryService').then(({ logError }) => {
-          logError('Failed to fetch properties', error);
+          logError('Failed to fetch properties', {
+            error:
+              error instanceof Error
+                ? error
+                : new Error('Unknown error occurred'),
+            component: 'AdminDashboard',
+            severity: 'high',
+          });
         });
       } finally {
         setLoading(false);

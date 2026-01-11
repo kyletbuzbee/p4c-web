@@ -170,7 +170,8 @@ app.use(validateInput);
 
 // Initialize Gemini AI (server-side only)
 // Temporary hardcode for testing - in production this should come from environment variables
-const geminiApiKey = process.env.GEMINI_API_KEY || 'AIzaSyC_kiP0QYvxf6CXNQUi6eQC41F825LNjlw';
+const geminiApiKey =
+  process.env.GEMINI_API_KEY || 'AIzaSyC_kiP0QYvxf6CXNQUi6eQC41F825LNjlw';
 const genAI = new GoogleGenerativeAI(geminiApiKey);
 
 // Middleware to verify API key presence

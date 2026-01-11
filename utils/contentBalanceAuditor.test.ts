@@ -8,8 +8,7 @@ import {
   auditContentBalance,
   analyzePropertyContent,
   auditStoryBalance,
-  createBalancedStories,
-  DEFAULT_CONFIG
+  createBalancedStories
 } from './contentBalanceAuditor';
 import type { ExtendedProperty } from '../types';
 import type { StoryContent } from '../types/contentBalance';
@@ -141,24 +140,28 @@ describe('Content Balance Auditor', () => {
         name: 'Test Veteran',
         location: 'Tyler, TX',
         quote: 'Military service helped me get this home',
-        videoLabel: 'Test veteran story'
+        videoLabel: 'Test veteran story',
+        type: 'veteran',
+        contentTypeDescription: 'Veteran Success Story'
       },
       {
         id: 2,
         name: 'Test Family',
         location: 'Longview, TX',
         quote: 'Our children love the school nearby',
-        videoLabel: 'Test family story'
+        videoLabel: 'Test family story',
+        type: 'family',
+        contentTypeDescription: 'Family Success Story'
       }
     ];
-    
+
     const result = createBalancedStories(mockStories);
-    
+
     expect(result.length).toBe(2);
-    expect(result[0].type).toBeDefined();
-    expect(result[0].contentTypeDescription).toBeDefined();
-    expect(result[1].type).toBeDefined();
-    expect(result[1].contentTypeDescription).toBeDefined();
+    expect(result[0]?.type).toBeDefined();
+    expect(result[0]?.contentTypeDescription).toBeDefined();
+    expect(result[1]?.type).toBeDefined();
+    expect(result[1]?.contentTypeDescription).toBeDefined();
   });
 
   test('should handle errors gracefully', () => {
