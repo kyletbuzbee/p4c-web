@@ -2,7 +2,7 @@
 ================================================================================
 FILE_BEGIN: .github\workflows\ci-build.yml
 TYPE: YML
-SIZE: 3489 bytes
+SIZE: 3343 bytes
 ================================================================================
 name: Build and Deploy
 
@@ -22,7 +22,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: read
-    
+
     strategy:
       matrix:
         node-version: [20]
@@ -83,7 +83,7 @@ jobs:
       contents: read
       pages: write
       id-token: write
-    
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -144,6 +144,7 @@ jobs:
           # Add your staging deployment commands here
           # For example, deploy to a staging server or service
           echo "Staging deployment completed"
+
 
 [FILE_END: .github\workflows\ci-build.yml]
 ################################################################################
@@ -376,7 +377,7 @@ jobs:
 ================================================================================
 FILE_BEGIN: .github\workflows\deploy.yml
 TYPE: YML
-SIZE: 2593 bytes
+SIZE: 2583 bytes
 ================================================================================
 name: Deploy to GitHub Pages
 
@@ -393,7 +394,7 @@ jobs:
       contents: read
       pages: write
       id-token: write
-    
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -402,7 +403,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Fetch full history for better caching
+          fetch-depth: 0 # Fetch full history for better caching
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -461,10 +462,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-and-deploy
     if: github.ref == 'refs/heads/main'
-    
+
     steps:
       - name: Wait for deployment
-        run: sleep 30  # Wait for GitHub Pages to process the deployment
+        run: sleep 30 # Wait for GitHub Pages to process the deployment
 
       - name: Check deployment status
         run: |

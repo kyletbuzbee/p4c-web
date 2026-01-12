@@ -8,7 +8,7 @@ import {
   auditContentBalance,
   analyzePropertyContent,
   auditStoryBalance,
-  createBalancedStories
+  createBalancedStories,
 } from './contentBalanceAuditor';
 import type { ExtendedProperty } from '../types';
 import type { StoryContent } from '../types/contentBalance';
@@ -20,7 +20,6 @@ vi.mock('../services/errorBoundaryService', () => ({
 
 // Test Data
 describe('Content Balance Auditor', () => {
-  
   // Mock properties for testing
   const mockProperties: ExtendedProperty[] = [
     {
@@ -39,7 +38,7 @@ describe('Content Balance Auditor', () => {
       schoolDistrict: 'Test ISD',
       neighborhood: 'Test',
       availabilityDate: 'Available Now',
-      coordinates: { lat: 0, lng: 0 }
+      coordinates: { lat: 0, lng: 0 },
     },
     {
       id: '2',
@@ -57,28 +56,28 @@ describe('Content Balance Auditor', () => {
       schoolDistrict: 'Test ISD',
       neighborhood: 'Test',
       availabilityDate: 'Available Now',
-      coordinates: { lat: 0, lng: 0 }
-    }
+      coordinates: { lat: 0, lng: 0 },
+    },
   ];
 
   // Mock routes for testing
   const mockRoutes = [
     { path: '/veterans' },
     { path: '/family-resources' },
-    { path: '/apply' }
+    { path: '/apply' },
   ];
 
   test('should analyze property content correctly', () => {
     const veteranResult = analyzePropertyContent(mockProperties[0]!);
     const familyResult = analyzePropertyContent(mockProperties[1]!);
-    
+
     expect(veteranResult).toBe('veteran');
     expect(familyResult).toBe('family');
   });
 
   test('should audit content balance with correct scoring', () => {
     const result = auditContentBalance(mockRoutes, mockProperties);
-    
+
     expect(result.veteranWeight).toBeGreaterThan(0);
     expect(result.familyWeight).toBeGreaterThan(0);
     expect(result.veteranPerc + result.familyPerc).toBe(100);
@@ -87,7 +86,7 @@ describe('Content Balance Auditor', () => {
 
   test('should handle empty inputs gracefully', () => {
     const result = auditContentBalance([], []);
-    
+
     expect(result.veteranWeight).toBe(0);
     expect(result.familyWeight).toBe(0);
     expect(result.veteranPerc).toBe(0);
@@ -98,7 +97,7 @@ describe('Content Balance Auditor', () => {
     // Create heavily veteran-biased content
     const veteranProperties = Array(10).fill(mockProperties[0]);
     const result = auditContentBalance(mockRoutes, veteranProperties);
-    
+
     if (result.veteranPerc > 60) {
       expect(result.recommendations).toContain('High Veteran Tilt detected');
     }
@@ -113,7 +112,7 @@ describe('Content Balance Auditor', () => {
         quote: 'Great experience as a veteran',
         videoLabel: 'Veteran story',
         type: 'veteran',
-        contentTypeDescription: 'Veteran Success Story'
+        contentTypeDescription: 'Veteran Success Story',
       },
       {
         id: 2,
@@ -122,12 +121,12 @@ describe('Content Balance Auditor', () => {
         quote: 'Perfect for our family',
         videoLabel: 'Family story',
         type: 'family',
-        contentTypeDescription: 'Family Success Story'
-      }
+        contentTypeDescription: 'Family Success Story',
+      },
     ];
-    
+
     const result = auditStoryBalance(mockStories);
-    
+
     expect(result.veteranWeight).toBe(10);
     expect(result.familyWeight).toBe(10);
     expect(result.ratio).toBe('50% Veteran / 50% Family');
@@ -142,7 +141,7 @@ describe('Content Balance Auditor', () => {
         quote: 'Military service helped me get this home',
         videoLabel: 'Test veteran story',
         type: 'veteran',
-        contentTypeDescription: 'Veteran Success Story'
+        contentTypeDescription: 'Veteran Success Story',
       },
       {
         id: 2,
@@ -151,8 +150,8 @@ describe('Content Balance Auditor', () => {
         quote: 'Our children love the school nearby',
         videoLabel: 'Test family story',
         type: 'family',
-        contentTypeDescription: 'Family Success Story'
-      }
+        contentTypeDescription: 'Family Success Story',
+      },
     ];
 
     const result = createBalancedStories(mockStories);
@@ -167,14 +166,14 @@ describe('Content Balance Auditor', () => {
   test('should handle errors gracefully', () => {
     // This should not throw, but return a safe default
     const result = auditContentBalance([], []);
-    
+
     expect(result).toBeDefined();
     expect(result.recommendations).toBeInstanceOf(Array);
   });
 
   test('should use default configuration when none provided', () => {
     const result = auditContentBalance([], []);
-    
+
     // Should complete without errors using default config
     expect(result).toBeDefined();
   });
@@ -182,7 +181,6 @@ describe('Content Balance Auditor', () => {
 
 // Integration test
 describe('Content Balance Auditor Integration', () => {
-  
   test('should work with real-world property data structure', () => {
     const realProperty: ExtendedProperty = {
       id: 'test',
@@ -200,9 +198,9 @@ describe('Content Balance Auditor Integration', () => {
       schoolDistrict: 'Test ISD',
       neighborhood: 'Test Neighborhood',
       availabilityDate: 'Available Now',
-      coordinates: { lat: 32.3513, lng: -95.3011 }
+      coordinates: { lat: 32.3513, lng: -95.3011 },
     };
-    
+
     // Should not throw with real property structure
     const result = analyzePropertyContent(realProperty);
     expect(['veteran', 'family', 'neutral']).toContain(result);

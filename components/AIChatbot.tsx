@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, X, Send, Loader2, Bot } from 'lucide-react';
-import { sendChatMessage } from '../services/geminiService';
+import { sendChatMessage } from '../services/botpressService';
 import { logError } from '../services/errorBoundaryService';
 
 interface Message {

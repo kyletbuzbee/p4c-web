@@ -11,8 +11,8 @@ import {
 } from 'lucide-react';
 import {
   sendChatMessage,
-  checkAiServiceHealth,
-} from '../services/geminiService';
+  checkBotpressHealth,
+} from '../services/botpressService';
 import { logError } from '../services/errorBoundaryService';
 
 interface Message {
@@ -45,7 +45,7 @@ const AIChatbotEnhanced: React.FC = () => {
   useEffect(() => {
     const checkConnection = async () => {
       try {
-        const isHealthy = await checkAiServiceHealth();
+        const isHealthy = await checkBotpressHealth();
         setConnectionStatus(isHealthy ? 'online' : 'offline');
         setRetryCount(0);
       } catch (error) {
@@ -115,7 +115,7 @@ const AIChatbotEnhanced: React.FC = () => {
     setRetryCount((prev) => prev + 1);
 
     try {
-      const isHealthy = await checkAiServiceHealth();
+      const isHealthy = await checkBotpressHealth();
       if (isHealthy) {
         setConnectionStatus('online');
         setRetryCount(0);

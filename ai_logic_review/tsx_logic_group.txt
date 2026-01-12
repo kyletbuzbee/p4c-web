@@ -583,11 +583,11 @@ export default AdminDashboardSkeleton;
 ================================================================================
 FILE_BEGIN: components\AIChatbot.tsx
 TYPE: TSX
-SIZE: 7885 bytes
+SIZE: 7887 bytes
 ================================================================================
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, X, Send, Loader2, Bot } from 'lucide-react';
-import { sendChatMessage } from '../services/geminiService';
+import { sendChatMessage } from '../services/botpressService';
 import { logError } from '../services/errorBoundaryService';
 
 interface Message {
@@ -801,6 +801,426 @@ export default AIChatbot;
 
 
 [FILE_END: components\AIChatbot.tsx]
+################################################################################
+
+================================================================================
+FILE_BEGIN: components\AIChatbotEnhanced.tsx
+TYPE: TSX
+SIZE: 14087 bytes
+================================================================================
+import React, { useState, useRef, useEffect } from 'react';
+import {
+  MessageSquare,
+  X,
+  Send,
+  Loader2,
+  Bot,
+  Wifi,
+  WifiOff,
+  RefreshCw,
+} from 'lucide-react';
+import {
+  sendChatMessage,
+  checkBotpressHealth,
+} from '../services/botpressService';
+import { logError } from '../services/errorBoundaryService';
+
+interface Message {
+  role: 'user' | 'model';
+  text: string;
+  timestamp: Date;
+}
+
+type ConnectionState = 'checking' | 'online' | 'offline' | 'error';
+
+const AIChatbotEnhanced: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      role: 'model',
+      text: "Welcome to Properties 4 Creation! I'm Patriot, your virtual concierge. How can I help you find your home today?",
+      timestamp: new Date(),
+    },
+  ]);
+  const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [connectionStatus, setConnectionStatus] =
+    useState<ConnectionState>('checking');
+  const [retryCount, setRetryCount] = useState(0);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Connection status monitoring
+  useEffect(() => {
+    const checkConnection = async () => {
+      try {
+        const isHealthy = await checkBotpressHealth();
+        setConnectionStatus(isHealthy ? 'online' : 'offline');
+        setRetryCount(0);
+      } catch (error) {
+        setConnectionStatus('error');
+        logError('Connection check failed', {
+          error: error as Error,
+          component: 'AIChatbotEnhanced',
+        });
+      }
+    };
+
+    // Initial check
+    checkConnection();
+
+    // Set up periodic checks
+    const interval = setInterval(checkConnection, 30000); // Check every 30 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, isOpen]);
+
+  useEffect((): (() => void) | void => {
+    if (isOpen) {
+      setTimeout(() => inputRef.current?.focus(), 100);
+      const handleKeyDown = (e: KeyboardEvent): void => {
+        if (e.key === 'Escape') {
+          setIsOpen(false);
+          return;
+        }
+        if (e.key === 'Tab' && chatContainerRef.current) {
+          const focusableElements = chatContainerRef.current.querySelectorAll(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          );
+          const firstElement = focusableElements[0] as HTMLElement;
+          const lastElement = focusableElements[
+            focusableElements.length - 1
+          ] as HTMLElement;
+
+          if (e.shiftKey) {
+            if (document.activeElement === firstElement) {
+              lastElement.focus();
+              e.preventDefault();
+            }
+          } else {
+            if (document.activeElement === lastElement) {
+              firstElement.focus();
+              e.preventDefault();
+            }
+          }
+        }
+      };
+
+      document.addEventListener('keydown', handleKeyDown);
+      return () => document.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [isOpen]);
+
+  const handleRetryConnection = async () => {
+    setConnectionStatus('checking');
+    setRetryCount((prev) => prev + 1);
+
+    try {
+      const isHealthy = await checkBotpressHealth();
+      if (isHealthy) {
+        setConnectionStatus('online');
+        setRetryCount(0);
+
+        // Add a success message
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: 'model',
+            text: "Connection restored! I'm ready to help you again.",
+            timestamp: new Date(),
+          },
+        ]);
+      } else {
+        setConnectionStatus('offline');
+      }
+    } catch (error) {
+      setConnectionStatus('error');
+      logError('Manual connection retry failed', {
+        error: error as Error,
+        component: 'AIChatbotEnhanced',
+      });
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!input.trim() || isLoading || connectionStatus !== 'online') return;
+
+    const userMessage = input;
+    setInput('');
+    setIsLoading(true);
+
+    // Add user message immediately
+    setMessages((prev) => [
+      ...prev,
+      {
+        role: 'user',
+        text: userMessage,
+        timestamp: new Date(),
+      },
+    ]);
+
+    try {
+      const response = await sendChatMessage(userMessage);
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: 'model',
+          text: response,
+          timestamp: new Date(),
+        },
+      ]);
+    } catch (error) {
+      logError('Chat failure', {
+        error: error as Error,
+        component: 'AIChatbotEnhanced',
+      });
+
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: 'model',
+          text: "I'm having trouble connecting to the AI service. Please try again in a moment or check your internet connection.",
+          timestamp: new Date(),
+        },
+      ]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const getConnectionStatusColor = () => {
+    switch (connectionStatus) {
+      case 'online':
+        return 'text-green-500 bg-green-100';
+      case 'offline':
+        return 'text-yellow-500 bg-yellow-100';
+      case 'error':
+        return 'text-red-500 bg-red-100';
+      case 'checking':
+        return 'text-blue-500 bg-blue-100';
+      default:
+        return 'text-gray-500 bg-gray-100';
+    }
+  };
+
+  const getConnectionStatusIcon = () => {
+    switch (connectionStatus) {
+      case 'online':
+        return <Wifi className="w-3 h-3 animate-pulse" />;
+      case 'offline':
+        return <WifiOff className="w-3 h-3" />;
+      case 'error':
+        return <WifiOff className="w-3 h-3" />;
+      case 'checking':
+        return <Loader2 className="w-3 h-3 animate-spin" />;
+      default:
+        return <WifiOff className="w-3 h-3" />;
+    }
+  };
+
+  const canSendMessage = connectionStatus === 'online' && !isLoading;
+
+  return (
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end pointer-events-none">
+      {isOpen && (
+        <div
+          ref={chatContainerRef}
+          className="bg-white w-[380px] h-[550px] rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden mb-4 pointer-events-auto animate-fade-in-up ring-1 ring-black/5"
+          role="dialog"
+          aria-label="Patriot: P4C Virtual Concierge"
+        >
+          {/* Header with connection status */}
+          <div className="bg-p4c-navy p-4 flex justify-between items-center text-white">
+            <div className="flex items-center gap-3">
+              <div className="bg-p4c-gold p-1.5 rounded-full shadow-md">
+                <Bot className="w-4 h-4 text-p4c-navy" aria-hidden="true" />
+              </div>
+              <div>
+                <h3 className="font-bold text-sm font-serif">
+                  Patriot Concierge
+                </h3>
+                <div className="flex items-center gap-2">
+                  <span
+                    className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${getConnectionStatusColor()}`}
+                  >
+                    {getConnectionStatusIcon()}
+                    {connectionStatus === 'online' && 'Connected'}
+                    {connectionStatus === 'offline' && 'Offline'}
+                    {connectionStatus === 'error' && 'Error'}
+                    {connectionStatus === 'checking' && 'Checking...'}
+                  </span>
+                  {connectionStatus === 'error' && (
+                    <button
+                      onClick={handleRetryConnection}
+                      className="flex items-center gap-1 text-xs text-white hover:text-p4c-gold transition-colors"
+                      aria-label="Retry connection"
+                    >
+                      <RefreshCw className="w-3 h-3" />
+                      Retry
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="hover:bg-white/10 p-1.5 rounded-xl transition-colors focus:outline-none focus:ring-2 focus:ring-p4c-gold"
+              aria-label="Close concierge chat"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          {/* Connection warning banner */}
+          {connectionStatus !== 'online' && (
+            <div className="bg-yellow-50 border-b border-yellow-200 p-3">
+              <div className="flex items-start gap-2">
+                <span className="text-yellow-600 mt-0.5">⚠️</span>
+                <div className="text-sm text-yellow-800">
+                  <strong>Service Status:</strong>
+                  {connectionStatus === 'checking' && ' Checking connection...'}
+                  {connectionStatus === 'offline' &&
+                    ' AI service is currently offline. Messages cannot be sent.'}
+                  {connectionStatus === 'error' &&
+                    ' Connection error detected. Please check your internet or try again.'}
+                  {retryCount > 0 && ` (Retry attempt: ${retryCount})`}
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div
+            className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50"
+            aria-live="polite"
+            aria-relevant="additions"
+          >
+            {messages.map((msg, idx) => (
+              <div
+                key={idx}
+                className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+              >
+                <div
+                  className={`max-w-[85%] p-3.5 rounded-2xl text-sm leading-relaxed shadow-sm ${
+                    msg.role === 'user'
+                      ? 'bg-p4c-navy text-white rounded-br-sm'
+                      : 'bg-white border border-gray-100 text-gray-800 rounded-bl-sm'
+                  }`}
+                >
+                  <span className="sr-only">
+                    {msg.role === 'user' ? 'You:' : 'Patriot:'}
+                  </span>
+                  <div className="opacity-80 text-xs mb-1">
+                    {msg.timestamp.toLocaleTimeString()}
+                  </div>
+                  {msg.text}
+                </div>
+              </div>
+            ))}
+            {isLoading && (
+              <div className="flex justify-start">
+                <div className="bg-white border border-gray-200 p-3 rounded-2xl rounded-bl-sm shadow-sm flex items-center gap-2">
+                  <Loader2 className="w-4 h-4 animate-spin text-p4c-gold" />
+                  <span className="text-xs text-gray-500 font-medium italic">
+                    Patriot is searching listings...
+                  </span>
+                </div>
+              </div>
+            )}
+            <div ref={messagesEndRef} />
+          </div>
+
+          <form
+            onSubmit={handleSubmit}
+            className="p-3 bg-white border-t border-gray-100 flex gap-2"
+          >
+            <input
+              ref={inputRef}
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder={
+                connectionStatus === 'online'
+                  ? 'Ask about availability in Tyler...'
+                  : 'Service unavailable - please wait for connection...'
+              }
+              disabled={!canSendMessage}
+              aria-label="Message Patriot"
+              className={`flex-1 border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold/20 transition-all bg-gray-50 focus:bg-white ${
+                !canSendMessage ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
+            />
+            <button
+              type="submit"
+              disabled={!canSendMessage}
+              className={`p-2.5 rounded-xl transition-all shadow-sm hover:shadow-md active:scale-95 focus:outline-none focus:ring-2 ${
+                canSendMessage
+                  ? 'bg-p4c-gold text-p4c-navy hover:bg-p4c-goldHover'
+                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              }`}
+              aria-label="Send message to concierge"
+            >
+              <Send className="w-4 h-4" />
+            </button>
+          </form>
+
+          {/* Footer info */}
+          <div className="px-3 py-2 bg-gray-50 text-xs text-gray-500 border-t border-gray-100 text-center">
+            {connectionStatus === 'online'
+              ? 'Secure connection active • Messages are encrypted'
+              : 'Please wait for service to come online'}
+          </div>
+        </div>
+      )}
+
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="bg-p4c-navy text-white p-4 rounded-full shadow-xl hover:bg-p4c-slate transition-all duration-300 hover:scale-105 pointer-events-auto border-2 border-p4c-gold group focus:outline-none focus:ring-4 focus:ring-p4c-gold/50 relative"
+        aria-label={
+          isOpen
+            ? 'Close assistance chat'
+            : 'Chat with Patriot for housing assistance'
+        }
+        aria-expanded={isOpen}
+      >
+        {/* Connection status indicator */}
+        <div
+          className={`absolute -top-1 -right-1 w-3 h-3 rounded-full border-2 border-white ${
+            connectionStatus === 'online'
+              ? 'bg-green-500'
+              : connectionStatus === 'checking'
+                ? 'bg-blue-500 animate-pulse'
+                : 'bg-red-500'
+          }`}
+        >
+          {connectionStatus === 'checking' && (
+            <Loader2 className="w-2 h-2 animate-spin mx-auto my-0.5" />
+          )}
+        </div>
+
+        {isOpen ? (
+          <X className="w-7 h-7" />
+        ) : (
+          <MessageSquare className="w-7 h-7" />
+        )}
+      </button>
+    </div>
+  );
+};
+
+export default AIChatbotEnhanced;
+
+
+[FILE_END: components\AIChatbotEnhanced.tsx]
 ################################################################################
 
 ================================================================================
@@ -1379,7 +1799,7 @@ const Footer: React.FC = () => (
             <img
               src={IMAGES.LOGO.WHITE_GOLD}
               alt="Properties 4 Creation Logo"
-              className="h-24 w-auto object-contain"
+              className="h-20 w-auto object-contain"
             />
           </div>
           <p className="text-gray-400 text-sm leading-relaxed mb-6">
@@ -2696,7 +3116,7 @@ const Navbar: React.FC = () => {
             <img
               src={IMAGES.LOGO.WHITE_GOLD}
               alt="Properties 4 Creation Logo"
-              className="h-24 w-auto object-contain"
+              className="h-20 w-auto object-contain"
             />
           </Link>
 
@@ -3437,7 +3857,7 @@ export default PropertyDetailsSkeleton;
 ================================================================================
 FILE_BEGIN: components\ProtectedRoute.tsx
 TYPE: TSX
-SIZE: 1069 bytes
+SIZE: 1062 bytes
 ================================================================================
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
@@ -3474,7 +3894,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     return <Navigate to="/" replace />;
   }
 
-  return <>{children}</>;
+  return children;
 };
 
 export default ProtectedRoute;
@@ -5424,7 +5844,7 @@ export default AccessibilityStatement;
 ================================================================================
 FILE_BEGIN: pages\AdminDashboard.tsx
 TYPE: TSX
-SIZE: 8886 bytes
+SIZE: 9250 bytes
 ================================================================================
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -5455,7 +5875,17 @@ const AdminDashboard: React.FC = () => {
         const propertiesData = await api.properties.getAll();
         setProperties(propertiesData);
       } catch (error) {
-        console.error('Failed to fetch properties:', error);
+        // Log error to error boundary service instead of console
+        import('../services/errorBoundaryService').then(({ logError }) => {
+          logError('Failed to fetch properties', {
+            error:
+              error instanceof Error
+                ? error
+                : new Error('Unknown error occurred'),
+            component: 'AdminDashboard',
+            severity: 'high',
+          });
+        });
       } finally {
         setLoading(false);
       }
@@ -5656,7 +6086,7 @@ export default AdminDashboard;
 ================================================================================
 FILE_BEGIN: pages\Application.tsx
 TYPE: TSX
-SIZE: 12428 bytes
+SIZE: 32096 bytes
 ================================================================================
 import React, { useState } from 'react';
 import {
@@ -5665,9 +6095,13 @@ import {
   Key,
   ShieldCheck,
   AlertCircle,
+  ArrowLeft,
+  ArrowRight,
+  CheckCircle,
 } from 'lucide-react';
 import { IMAGES } from '../constants/images';
 import { useToast } from '../context/ToastContext';
+import { Helmet } from 'react-helmet-async';
 
 interface ApplicationForm {
   firstName: string;
@@ -5675,16 +6109,47 @@ interface ApplicationForm {
   email: string;
   phone: string;
   voucherType: string;
+  // Step 2 - History
+  hasCriminalHistory: string;
+  hasEvictionHistory: string;
+  rentalHistory: string;
+  employmentStatus: string;
+  incomeSource: string;
+  monthlyIncome: string;
+  // Step 3 - Preferences
+  preferredBedrooms: string;
+  preferredBathrooms: string;
+  maxRent: string;
+  petPolicy: string;
+  moveInTimeline: string;
+  additionalNotes: string;
 }
+
+type Step = 'about' | 'history' | 'preferences';
 
 const Application: React.FC = () => {
   const { addToast } = useToast();
+  const [currentStep, setCurrentStep] = useState<Step>('about');
   const [formData, setFormData] = useState<ApplicationForm>({
     firstName: '',
     lastName: '',
     email: '',
     phone: '',
     voucherType: 'No, I am looking for market rate',
+    // Step 2 - History
+    hasCriminalHistory: 'No',
+    hasEvictionHistory: 'No',
+    rentalHistory: '',
+    employmentStatus: 'Employed',
+    incomeSource: 'Employment',
+    monthlyIncome: '',
+    // Step 3 - Preferences
+    preferredBedrooms: '2',
+    preferredBathrooms: '1',
+    maxRent: '',
+    petPolicy: 'Yes',
+    moveInTimeline: '1-2 months',
+    additionalNotes: '',
   });
 
   const [touched, setTouched] = useState<
@@ -5695,9 +6160,153 @@ const Application: React.FC = () => {
     email: false,
     phone: false,
     voucherType: false,
+    hasCriminalHistory: false,
+    hasEvictionHistory: false,
+    rentalHistory: false,
+    employmentStatus: false,
+    incomeSource: false,
+    monthlyIncome: false,
+    preferredBedrooms: false,
+    preferredBathrooms: false,
+    maxRent: false,
+    petPolicy: false,
+    moveInTimeline: false,
+    additionalNotes: false,
   });
 
   const [errors, setErrors] = useState<Partial<ApplicationForm>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const validateStep = (step: Step): boolean => {
+    const newErrors: Partial<ApplicationForm> = {};
+    let isValid = true;
+
+    if (step === 'about') {
+      const fieldsToCheck: (keyof ApplicationForm)[] = [
+        'firstName',
+        'lastName',
+        'email',
+        'phone',
+      ];
+
+      fieldsToCheck.forEach((key) => {
+        const value = formData[key as keyof ApplicationForm];
+        if (!value.trim()) {
+          newErrors[key as keyof ApplicationForm] =
+            `${getFieldLabel(key)} is required`;
+          isValid = false;
+        } else if (
+          key === 'email' &&
+          !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+        ) {
+          newErrors[key as keyof ApplicationForm] =
+            'Please enter a valid email address';
+          isValid = false;
+        } else if (key === 'phone' && !/^[\d\-\s]{10,}$/.test(value)) {
+          newErrors[key as keyof ApplicationForm] =
+            'Please enter a valid phone number';
+          isValid = false;
+        }
+      });
+    }
+
+    if (step === 'history') {
+      const fieldsToCheck: (keyof ApplicationForm)[] = [
+        'hasCriminalHistory',
+        'hasEvictionHistory',
+        'rentalHistory',
+        'employmentStatus',
+        'incomeSource',
+        'monthlyIncome',
+      ];
+
+      fieldsToCheck.forEach((key) => {
+        const value = formData[key as keyof ApplicationForm];
+        if (!value.trim()) {
+          newErrors[key as keyof ApplicationForm] =
+            `${getFieldLabel(key)} is required`;
+          isValid = false;
+        }
+      });
+
+      // Validate monthly income if provided
+      if (
+        formData.monthlyIncome &&
+        !/^\d+$/.test(formData.monthlyIncome.replace(/[^0-9]/g, ''))
+      ) {
+        newErrors.monthlyIncome = 'Please enter a valid monthly income';
+        isValid = false;
+      }
+    }
+
+    if (step === 'preferences') {
+      const fieldsToCheck: (keyof ApplicationForm)[] = [
+        'preferredBedrooms',
+        'preferredBathrooms',
+        'maxRent',
+        'petPolicy',
+        'moveInTimeline',
+      ];
+
+      fieldsToCheck.forEach((key) => {
+        const value = formData[key as keyof ApplicationForm];
+        if (!value.trim()) {
+          newErrors[key as keyof ApplicationForm] =
+            `${getFieldLabel(key)} is required`;
+          isValid = false;
+        }
+      });
+
+      // Validate max rent if provided
+      if (
+        formData.maxRent &&
+        !/^\d+$/.test(formData.maxRent.replace(/[^0-9]/g, ''))
+      ) {
+        newErrors.maxRent = 'Please enter a valid maximum rent';
+        isValid = false;
+      }
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
+  const getFieldLabel = (fieldName: keyof ApplicationForm): string => {
+    const labels: Record<keyof ApplicationForm, string> = {
+      firstName: 'First Name',
+      lastName: 'Last Name',
+      email: 'Email',
+      phone: 'Phone',
+      voucherType: 'Voucher Type',
+      hasCriminalHistory: 'Criminal History',
+      hasEvictionHistory: 'Eviction History',
+      rentalHistory: 'Rental History',
+      employmentStatus: 'Employment Status',
+      incomeSource: 'Income Source',
+      monthlyIncome: 'Monthly Income',
+      preferredBedrooms: 'Preferred Bedrooms',
+      preferredBathrooms: 'Preferred Bathrooms',
+      maxRent: 'Maximum Rent',
+      petPolicy: 'Pet Policy',
+      moveInTimeline: 'Move-in Timeline',
+      additionalNotes: 'Additional Notes',
+    };
+    return labels[fieldName as keyof ApplicationForm] || fieldName;
+  };
+
+  const handleBlur = (
+    e: React.FocusEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
+    const { name, value } = e.target;
+    const fieldName = name as keyof ApplicationForm;
+    setTouched((prev) => ({ ...prev, [fieldName]: true }));
+
+    // Validate individual field on blur
+    const error = validateField(fieldName, value);
+    setErrors((prev) => ({ ...prev, [fieldName]: error }));
+  };
 
   const validateField = (
     name: keyof ApplicationForm,
@@ -5713,6 +6322,12 @@ const Application: React.FC = () => {
           return 'Email is required';
         case 'phone':
           return 'Phone number is required';
+        case 'rentalHistory':
+          return 'Rental history is required';
+        case 'monthlyIncome':
+          return 'Monthly income is required';
+        case 'maxRent':
+          return 'Maximum rent is required';
         default:
           return undefined;
       }
@@ -5726,67 +6341,111 @@ const Application: React.FC = () => {
       return 'Please enter a valid phone number';
     }
 
+    if (
+      name === 'monthlyIncome' &&
+      !/^\d+$/.test(value.replace(/[^0-9]/g, ''))
+    ) {
+      return 'Please enter a valid monthly income';
+    }
+
+    if (name === 'maxRent' && !/^\d+$/.test(value.replace(/[^0-9]/g, ''))) {
+      return 'Please enter a valid maximum rent';
+    }
+
     return undefined;
   };
 
-  const handleBlur = (
-    e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    const fieldName = name as keyof ApplicationForm;
-
-    setTouched((prev) => ({ ...prev, [fieldName]: true }));
-    const error = validateField(fieldName, value);
-    setErrors((prev) => ({ ...prev, [fieldName]: error }));
-  };
-
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ) => {
     const { name, value } = e.target;
     const fieldName = name as keyof ApplicationForm;
 
     setFormData((prev) => ({ ...prev, [fieldName]: value }));
 
-    if (touched[fieldName]) {
+    if (touched[fieldName as keyof ApplicationForm]) {
       const error = validateField(fieldName, value);
       setErrors((prev) => ({ ...prev, [fieldName]: error }));
     }
   };
 
   const handleNextStep = () => {
-    const newErrors: Partial<ApplicationForm> = {};
-    let isValid = true;
+    const isValid = validateStep(currentStep);
 
-    const fieldsToCheck: (keyof ApplicationForm)[] = [
-      'firstName',
-      'lastName',
-      'email',
-      'phone',
-    ];
+    if (!isValid) {
+      addToast('Please fix the errors before proceeding', 'error');
+      return;
+    }
 
-    fieldsToCheck.forEach((key) => {
-      const error = validateField(key, formData[key]);
-      if (error) {
-        newErrors[key] = error;
-        isValid = false;
-      }
-    });
-
-    setErrors(newErrors);
-    setTouched((prev) => ({
-      ...prev,
-      firstName: true,
-      lastName: true,
-      email: true,
-      phone: true,
-    }));
-
-    if (isValid) {
+    if (currentStep === 'about') {
+      setCurrentStep('history');
+      addToast('Step 1 complete! Proceeding to background history.', 'success');
+    } else if (currentStep === 'history') {
+      setCurrentStep('preferences');
       addToast(
-        'Success! Application pre-check complete. Proceeding to background check integration...',
+        'Step 2 complete! Proceeding to housing preferences.',
         'success'
       );
+    } else if (currentStep === 'preferences') {
+      handleSubmit();
+    }
+  };
+
+  const handlePrevStep = () => {
+    if (currentStep === 'history') {
+      setCurrentStep('about');
+    } else if (currentStep === 'preferences') {
+      setCurrentStep('history');
+    }
+  };
+
+  const handleSubmit = async () => {
+    const isValid = validateStep('preferences');
+
+    if (!isValid) {
+      addToast('Please fix the errors before submitting', 'error');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      addToast(
+        'Application submitted successfully! We will contact you within 24 hours.',
+        'success'
+      );
+
+      // Reset form after successful submission
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        voucherType: 'No, I am looking for market rate',
+        hasCriminalHistory: 'No',
+        hasEvictionHistory: 'No',
+        rentalHistory: '',
+        employmentStatus: 'Employed',
+        incomeSource: 'Employment',
+        monthlyIncome: '',
+        preferredBedrooms: '2',
+        preferredBathrooms: '1',
+        maxRent: '',
+        petPolicy: 'Yes',
+        moveInTimeline: '1-2 months',
+        additionalNotes: '',
+      });
+
+      setCurrentStep('about');
+    } catch (error) {
+      addToast('Something went wrong. Please try again.', 'error');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -5801,8 +6460,497 @@ const Application: React.FC = () => {
     return `${baseClasses} border-gray-300 focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold/20 hover:border-gray-400`;
   };
 
+  const getStepProgress = () => {
+    if (currentStep === 'about') return 0;
+    if (currentStep === 'history') return 1;
+    if (currentStep === 'preferences') return 2;
+    return 0;
+  };
+
+  const renderStep1 = () => (
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label
+            htmlFor="firstName"
+            className="block text-sm font-bold text-p4c-navy mb-1.5"
+          >
+            First Name
+          </label>
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={getInputClassName('firstName')}
+            placeholder="Jane"
+            aria-invalid={!!errors.firstName}
+          />
+          {touched.firstName && errors.firstName && (
+            <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+              <AlertCircle className="w-3 h-3 mr-1" />
+              {errors.firstName}
+            </div>
+          )}
+        </div>
+        <div>
+          <label
+            htmlFor="lastName"
+            className="block text-sm font-bold text-p4c-navy mb-1.5"
+          >
+            Last Name
+          </label>
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={getInputClassName('lastName')}
+            placeholder="Doe"
+            aria-invalid={!!errors.lastName}
+          />
+          {touched.lastName && errors.lastName && (
+            <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+              <AlertCircle className="w-3 h-3 mr-1" />
+              {errors.lastName}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label
+            htmlFor="email"
+            className="block text-sm font-bold text-p4c-navy mb-1.5"
+          >
+            Email Address
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={getInputClassName('email')}
+            placeholder="jane@example.com"
+            aria-invalid={!!errors.email}
+          />
+          {touched.email && errors.email && (
+            <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+              <AlertCircle className="w-3 h-3 mr-1" />
+              {errors.email}
+            </div>
+          )}
+        </div>
+        <div>
+          <label
+            htmlFor="phone"
+            className="block text-sm font-bold text-p4c-navy mb-1.5"
+          >
+            Phone Number
+          </label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={getInputClassName('phone')}
+            placeholder="(903) 555-0123"
+            aria-invalid={!!errors.phone}
+          />
+          {touched.phone && errors.phone && (
+            <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+              <AlertCircle className="w-3 h-3 mr-1" />
+              {errors.phone}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div>
+        <label
+          htmlFor="voucherType"
+          className="block text-sm font-bold text-p4c-navy mb-1.5"
+        >
+          Do you currently have a housing voucher?
+        </label>
+        <select
+          id="voucherType"
+          name="voucherType"
+          value={formData.voucherType}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          className={`${getInputClassName('voucherType')} bg-white`}
+        >
+          <option>No, I am looking for market rate</option>
+          <option>Yes, Section 8 (HCV)</option>
+          <option>Yes, HUD-VASH</option>
+          <option>Yes, Rapid Rehousing</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div className="bg-blue-50 p-5 rounded-xl flex gap-4 items-start border border-blue-100">
+        <ShieldCheck className="text-p4c-navy w-6 h-6 flex-shrink-0 mt-0.5" />
+        <p className="text-sm text-p4c-navy leading-relaxed">
+          <strong>Privacy Guarantee:</strong> We value your privacy. Your
+          information is encrypted using 256-bit SSL and is never sold. We only
+          use this data to match you with available homes and pre-qualify your
+          application.
+        </p>
+      </div>
+    </div>
+  );
+
+  const renderStep2 = () => (
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label
+            htmlFor="hasCriminalHistory"
+            className="block text-sm font-bold text-p4c-navy mb-1.5"
+          >
+            Do you have any criminal history?
+          </label>
+          <select
+            id="hasCriminalHistory"
+            name="hasCriminalHistory"
+            value={formData.hasCriminalHistory}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={`${getInputClassName('hasCriminalHistory')} bg-white`}
+          >
+            <option>No</option>
+            <option>Yes</option>
+          </select>
+          {touched.hasCriminalHistory && errors.hasCriminalHistory && (
+            <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+              <AlertCircle className="w-3 h-3 mr-1" />
+              {errors.hasCriminalHistory}
+            </div>
+          )}
+        </div>
+        <div>
+          <label
+            htmlFor="hasEvictionHistory"
+            className="block text-sm font-bold text-p4c-navy mb-1.5"
+          >
+            Do you have any eviction history?
+          </label>
+          <select
+            id="hasEvictionHistory"
+            name="hasEvictionHistory"
+            value={formData.hasEvictionHistory}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={`${getInputClassName('hasEvictionHistory')} bg-white`}
+          >
+            <option>No</option>
+            <option>Yes</option>
+          </select>
+          {touched.hasEvictionHistory && errors.hasEvictionHistory && (
+            <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+              <AlertCircle className="w-3 h-3 mr-1" />
+              {errors.hasEvictionHistory}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div>
+        <label
+          htmlFor="rentalHistory"
+          className="block text-sm font-bold text-p4c-navy mb-1.5"
+        >
+          Brief rental history (last 3 years)
+        </label>
+        <textarea
+          id="rentalHistory"
+          name="rentalHistory"
+          value={formData.rentalHistory}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          rows={4}
+          className={getInputClassName('rentalHistory')}
+          placeholder="Please describe your rental history over the past 3 years..."
+        />
+        {touched.rentalHistory && errors.rentalHistory && (
+          <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+            <AlertCircle className="w-3 h-3 mr-1" />
+            {errors.rentalHistory}
+          </div>
+        )}
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label
+            htmlFor="employmentStatus"
+            className="block text-sm font-bold text-p4c-navy mb-1.5"
+          >
+            Current employment status
+          </label>
+          <select
+            id="employmentStatus"
+            name="employmentStatus"
+            value={formData.employmentStatus}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={`${getInputClassName('employmentStatus')} bg-white`}
+          >
+            <option>Employed</option>
+            <option>Self-employed</option>
+            <option>Unemployed</option>
+            <option>Retired</option>
+            <option>Student</option>
+            <option>Disabled</option>
+          </select>
+          {touched.employmentStatus && errors.employmentStatus && (
+            <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+              <AlertCircle className="w-3 h-3 mr-1" />
+              {errors.employmentStatus}
+            </div>
+          )}
+        </div>
+        <div>
+          <label
+            htmlFor="incomeSource"
+            className="block text-sm font-bold text-p4c-navy mb-1.5"
+          >
+            Primary income source
+          </label>
+          <select
+            id="incomeSource"
+            name="incomeSource"
+            value={formData.incomeSource}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={`${getInputClassName('incomeSource')} bg-white`}
+          >
+            <option>Employment</option>
+            <option>Self-employment</option>
+            <option>Disability</option>
+            <option>Social Security</option>
+            <option>Unemployment</option>
+            <option>Retirement</option>
+            <option>Other</option>
+          </select>
+          {touched.incomeSource && errors.incomeSource && (
+            <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+              <AlertCircle className="w-3 h-3 mr-1" />
+              {errors.incomeSource}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div>
+        <label
+          htmlFor="monthlyIncome"
+          className="block text-sm font-bold text-p4c-navy mb-1.5"
+        >
+          Approximate monthly income
+        </label>
+        <input
+          type="text"
+          id="monthlyIncome"
+          name="monthlyIncome"
+          value={formData.monthlyIncome}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          className={getInputClassName('monthlyIncome')}
+          placeholder="$3,500"
+        />
+        {touched.monthlyIncome && errors.monthlyIncome && (
+          <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+            <AlertCircle className="w-3 h-3 mr-1" />
+            {errors.monthlyIncome}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
+  const renderStep3 = () => (
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label
+            htmlFor="preferredBedrooms"
+            className="block text-sm font-bold text-p4c-navy mb-1.5"
+          >
+            Preferred number of bedrooms
+          </label>
+          <select
+            id="preferredBedrooms"
+            name="preferredBedrooms"
+            value={formData.preferredBedrooms}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={`${getInputClassName('preferredBedrooms')} bg-white`}
+          >
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4+</option>
+          </select>
+          {touched.preferredBedrooms && errors.preferredBedrooms && (
+            <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+              <AlertCircle className="w-3 h-3 mr-1" />
+              {errors.preferredBedrooms}
+            </div>
+          )}
+        </div>
+        <div>
+          <label
+            htmlFor="preferredBathrooms"
+            className="block text-sm font-bold text-p4c-navy mb-1.5"
+          >
+            Preferred number of bathrooms
+          </label>
+          <select
+            id="preferredBathrooms"
+            name="preferredBathrooms"
+            value={formData.preferredBathrooms}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={`${getInputClassName('preferredBathrooms')} bg-white`}
+          >
+            <option>1</option>
+            <option>1.5</option>
+            <option>2</option>
+            <option>2.5</option>
+            <option>3+</option>
+          </select>
+          {touched.preferredBathrooms && errors.preferredBathrooms && (
+            <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+              <AlertCircle className="w-3 h-3 mr-1" />
+              {errors.preferredBathrooms}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div>
+        <label
+          htmlFor="maxRent"
+          className="block text-sm font-bold text-p4c-navy mb-1.5"
+        >
+          Maximum rent you can afford per month
+        </label>
+        <input
+          type="text"
+          id="maxRent"
+          name="maxRent"
+          value={formData.maxRent}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          className={getInputClassName('maxRent')}
+          placeholder="$1,200"
+        />
+        {touched.maxRent && errors.maxRent && (
+          <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+            <AlertCircle className="w-3 h-3 mr-1" />
+            {errors.maxRent}
+          </div>
+        )}
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label
+            htmlFor="petPolicy"
+            className="block text-sm font-bold text-p4c-navy mb-1.5"
+          >
+            Do you have pets?
+          </label>
+          <select
+            id="petPolicy"
+            name="petPolicy"
+            value={formData.petPolicy}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={`${getInputClassName('petPolicy')} bg-white`}
+          >
+            <option>Yes</option>
+            <option>No</option>
+            <option>Maybe</option>
+          </select>
+          {touched.petPolicy && errors.petPolicy && (
+            <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+              <AlertCircle className="w-3 h-3 mr-1" />
+              {errors.petPolicy}
+            </div>
+          )}
+        </div>
+        <div>
+          <label
+            htmlFor="moveInTimeline"
+            className="block text-sm font-bold text-p4c-navy mb-1.5"
+          >
+            When would you like to move in?
+          </label>
+          <select
+            id="moveInTimeline"
+            name="moveInTimeline"
+            value={formData.moveInTimeline}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={`${getInputClassName('moveInTimeline')} bg-white`}
+          >
+            <option>Immediately</option>
+            <option>1-2 months</option>
+            <option>3-6 months</option>
+            <option>6+ months</option>
+          </select>
+          {touched.moveInTimeline && errors.moveInTimeline && (
+            <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
+              <AlertCircle className="w-3 h-3 mr-1" />
+              {errors.moveInTimeline}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div>
+        <label
+          htmlFor="additionalNotes"
+          className="block text-sm font-bold text-p4c-navy mb-1.5"
+        >
+          Additional notes or requirements
+        </label>
+        <textarea
+          id="additionalNotes"
+          name="additionalNotes"
+          value={formData.additionalNotes}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          rows={4}
+          className={getInputClassName('additionalNotes')}
+          placeholder="Any additional information about your housing needs..."
+        />
+      </div>
+    </div>
+  );
+
   return (
     <div className="bg-p4c-beige min-h-screen">
+      <Helmet>
+        <title>The Dignity Application | Properties 4 Creation</title>
+        <meta
+          name="description"
+          content="Complete our 3-step application process to find your new home with Properties 4 Creation."
+        />
+      </Helmet>
+
       {/* Hero Banner */}
       <div className="relative h-[300px] w-full overflow-hidden flex items-center justify-center">
         <div className="absolute top-0 left-0 w-full h-full z-0">
@@ -5828,10 +6976,16 @@ const Application: React.FC = () => {
         <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-gray-100">
           <div className="text-center mb-10">
             <h2 className="text-2xl font-serif font-bold text-p4c-navy">
-              Start Your Journey
+              Complete Your Application
             </h2>
             <p className="text-gray-500 mt-2">
-              Complete these 3 simple steps to get pre-approved.
+              Progress through{' '}
+              {currentStep === 'about'
+                ? 'Step 1'
+                : currentStep === 'history'
+                  ? 'Step 2'
+                  : 'Step 3'}{' '}
+              of 3 steps
             </p>
           </div>
 
@@ -5840,18 +6994,28 @@ const Application: React.FC = () => {
             <div className="absolute top-1/2 left-0 w-full h-1 bg-gray-100 -z-10 -translate-y-1/2 rounded-full" />
 
             {[
-              { icon: UserCheck, label: 'About You', active: true },
-              { icon: FileText, label: 'History', active: false },
-              { icon: Key, label: 'Preferences', active: false },
+              { icon: UserCheck, label: 'About You', step: 'about' },
+              { icon: FileText, label: 'History', step: 'history' },
+              { icon: Key, label: 'Preferences', step: 'preferences' },
             ].map((step, i) => (
               <div key={i} className="flex flex-col items-center bg-white px-4">
                 <div
-                  className={`w-12 h-12 rounded-full flex items-center justify-center mb-2 border-2 transition-all ${step.active ? 'bg-p4c-gold border-p4c-gold text-p4c-navy shadow-lg scale-110' : 'bg-white border-gray-200 text-gray-400'}`}
+                  className={`w-12 h-12 rounded-full flex items-center justify-center mb-2 border-2 transition-all ${
+                    getStepProgress() >= i
+                      ? 'bg-p4c-gold border-p4c-gold text-p4c-navy shadow-lg scale-110'
+                      : 'bg-white border-gray-200 text-gray-400'
+                  }`}
                 >
-                  <step.icon className="w-5 h-5" />
+                  {getStepProgress() >= i ? (
+                    <CheckCircle className="w-5 h-5" />
+                  ) : (
+                    <step.icon className="w-5 h-5" />
+                  )}
                 </div>
                 <span
-                  className={`text-xs font-bold uppercase tracking-wide ${step.active ? 'text-p4c-navy' : 'text-gray-400'}`}
+                  className={`text-xs font-bold uppercase tracking-wide ${
+                    getStepProgress() >= i ? 'text-p4c-navy' : 'text-gray-400'
+                  }`}
                 >
                   {step.label}
                 </span>
@@ -5859,154 +7023,50 @@ const Application: React.FC = () => {
             ))}
           </div>
 
-          {/* Form Area */}
+          {/* Step Content */}
           <form className="space-y-6" noValidate>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label
-                  htmlFor="firstName"
-                  className="block text-sm font-bold text-p4c-navy mb-1.5"
-                >
-                  First Name
-                </label>
-                <input
-                  type="text"
-                  id="firstName"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={getInputClassName('firstName')}
-                  placeholder="Jane"
-                  aria-invalid={!!errors.firstName}
-                />
-                {touched.firstName && errors.firstName && (
-                  <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
-                    <AlertCircle className="w-3 h-3 mr-1" />
-                    {errors.firstName}
-                  </div>
-                )}
-              </div>
-              <div>
-                <label
-                  htmlFor="lastName"
-                  className="block text-sm font-bold text-p4c-navy mb-1.5"
-                >
-                  Last Name
-                </label>
-                <input
-                  type="text"
-                  id="lastName"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={getInputClassName('lastName')}
-                  placeholder="Doe"
-                  aria-invalid={!!errors.lastName}
-                />
-                {touched.lastName && errors.lastName && (
-                  <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
-                    <AlertCircle className="w-3 h-3 mr-1" />
-                    {errors.lastName}
-                  </div>
-                )}
-              </div>
-            </div>
+            {currentStep === 'about' && renderStep1()}
+            {currentStep === 'history' && renderStep2()}
+            {currentStep === 'preferences' && renderStep3()}
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-bold text-p4c-navy mb-1.5"
-                >
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={getInputClassName('email')}
-                  placeholder="jane@example.com"
-                  aria-invalid={!!errors.email}
-                />
-                {touched.email && errors.email && (
-                  <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
-                    <AlertCircle className="w-3 h-3 mr-1" />
-                    {errors.email}
-                  </div>
-                )}
-              </div>
-              <div>
-                <label
-                  htmlFor="phone"
-                  className="block text-sm font-bold text-p4c-navy mb-1.5"
-                >
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={getInputClassName('phone')}
-                  placeholder="(903) 555-0123"
-                  aria-invalid={!!errors.phone}
-                />
-                {touched.phone && errors.phone && (
-                  <div className="flex items-center mt-1.5 text-red-600 text-xs font-medium animate-fade-in">
-                    <AlertCircle className="w-3 h-3 mr-1" />
-                    {errors.phone}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <div>
-              <label
-                htmlFor="voucherType"
-                className="block text-sm font-bold text-p4c-navy mb-1.5"
+            {/* Navigation Buttons */}
+            <div className="flex justify-between pt-8 border-t border-gray-100">
+              <button
+                type="button"
+                onClick={handlePrevStep}
+                disabled={currentStep === 'about'}
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all ${
+                  currentStep === 'about'
+                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                    : 'bg-p4c-navy text-white hover:bg-p4c-slate'
+                }`}
               >
-                Do you currently have a housing voucher?
-              </label>
-              <select
-                id="voucherType"
-                name="voucherType"
-                value={formData.voucherType}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                className={`${getInputClassName('voucherType')} bg-white`}
-              >
-                <option>No, I am looking for market rate</option>
-                <option>Yes, Section 8 (HCV)</option>
-                <option>Yes, HUD-VASH</option>
-                <option>Yes, Rapid Rehousing</option>
-                <option>Other</option>
-              </select>
-            </div>
+                <ArrowLeft className="w-4 h-4" />
+                Previous
+              </button>
 
-            <div className="bg-blue-50 p-5 rounded-xl flex gap-4 items-start border border-blue-100">
-              <ShieldCheck className="text-p4c-navy w-6 h-6 flex-shrink-0 mt-0.5" />
-              <p className="text-sm text-p4c-navy leading-relaxed">
-                <strong>Privacy Guarantee:</strong> We value your privacy. Your
-                information is encrypted using 256-bit SSL and is never sold. We
-                only use this data to match you with available homes and
-                pre-qualify your application.
-              </p>
-            </div>
-
-            <div className="pt-4">
               <button
                 type="button"
                 onClick={handleNextStep}
-                className="w-full bg-p4c-navy text-white hover:bg-p4c-slate py-4 rounded-xl font-bold text-lg transition-all shadow-lg hover:shadow-xl hover:-translate-y-1"
+                disabled={isSubmitting}
+                className="flex items-center gap-2 bg-p4c-navy text-white hover:bg-p4c-slate py-3 px-6 rounded-xl font-bold transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                Continue to Step 2
+                {isSubmitting ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Processing...
+                  </>
+                ) : currentStep === 'preferences' ? (
+                  <>
+                    Submit Application
+                    <CheckCircle className="w-4 h-4" />
+                  </>
+                ) : (
+                  <>
+                    Continue
+                    <ArrowRight className="w-4 h-4" />
+                  </>
+                )}
               </button>
             </div>
           </form>
@@ -7181,7 +8241,7 @@ export default Home;
 ================================================================================
 FILE_BEGIN: pages\HomeownerSolutions.tsx
 TYPE: TSX
-SIZE: 14067 bytes
+SIZE: 14102 bytes
 ================================================================================
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -7376,8 +8436,8 @@ const HomeownerSolutions: React.FC = () => {
                   Request a Discreet Property Consultation
                 </h2>
                 <p className="text-gray-600">
-                  Tell us about your property and we'll get back to you within
-                  24 hours.
+                  Tell us about your property and we&apos;ll get back to you
+                  within 24 hours.
                 </p>
               </div>
 
@@ -7390,7 +8450,8 @@ const HomeownerSolutions: React.FC = () => {
                     Thank You!
                   </h3>
                   <p className="text-gray-600 mb-6">
-                    We've received your request and will be in touch shortly.
+                    We&apos;ve received your request and will be in touch
+                    shortly.
                   </p>
                   <button
                     onClick={() => {
@@ -7523,7 +8584,7 @@ const HomeownerSolutions: React.FC = () => {
             Ready to See More Properties?
           </h2>
           <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-            Browse our available homes and see how we're transforming
+            Browse our available homes and see how we&apos;re transforming
             neighborhoods one property at a time.
           </p>
           <button
@@ -10088,6 +11149,154 @@ export default AIChatbot;
 
 
 [FILE_END: src\components\AIChatbot.tsx]
+################################################################################
+
+================================================================================
+FILE_BEGIN: src\components\BotAatar.tsx
+TYPE: TSX
+SIZE: 2295 bytes
+================================================================================
+import React from 'react';
+
+interface BotAvatarProps {
+  className?: string;
+  size?: number;
+}
+
+const BotAvatar: React.FC<BotAvatarProps> = ({ className = '', size = 48 }) => {
+  // Brand Colors from index.css
+  const colors = {
+    navy: '#0B1120',
+    gold: '#C5A059',
+    white: '#FFFFFF',
+    beige: '#F5F5F0',
+  };
+
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 64 64"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={`block ${className}`}
+      aria-label="P4C Digital Architect Avatar"
+      role="img"
+    >
+      {/* 1. Background Container (Navy with Gold Ring) */}
+      <circle cx="32" cy="32" r="30" fill={colors.navy} />
+      <circle cx="32" cy="32" r="30" stroke={colors.gold} strokeWidth="2" />
+
+      {/* 2. The 'Structure' (House Outline) */}
+      {/* Represents Housing/Stability */}
+      <path
+        d="M32 14L15 27V50H49V27L32 14Z"
+        fill="none"
+        stroke={colors.gold}
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+
+      {/* 3. The 'Digital' Core (Internal Circuitry) */}
+      {/* Represents Intelligence/Analysis */}
+      <path
+        d="M32 24V34"
+        stroke={colors.gold}
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <circle cx="32" cy="38" r="3" fill={colors.gold} />
+
+      {/* Circuit Nodes connecting to the house frame */}
+      <path
+        d="M22 34H26"
+        stroke={colors.gold}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+      <path
+        d="M38 34H42"
+        stroke={colors.gold}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+
+      {/* 4. Subtle Glow/Highlight (Top Reflection) */}
+      <path
+        d="M32 4C47.464 4 60 16.536 60 32"
+        stroke="url(#glowGradient)"
+        strokeWidth="1"
+        strokeOpacity="0.4"
+        strokeLinecap="round"
+      />
+
+      <defs>
+        <linearGradient
+          id="glowGradient"
+          x1="32"
+          y1="4"
+          x2="60"
+          y2="32"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor={colors.white} />
+          <stop offset="1" stopColor={colors.white} stopOpacity="0" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+};
+
+export default BotAvatar;
+
+
+[FILE_END: src\components\BotAatar.tsx]
+################################################################################
+
+================================================================================
+FILE_BEGIN: src\components\BotToggle.tsx
+TYPE: TSX
+SIZE: 268 bytes
+================================================================================
+/* src/components/bot/BotToggle.tsx */
+import { MessageCircle } from 'lucide-react'; // Standard library import
+
+<button className="p4c-bot-toggle" aria-label="Open support chat">
+  <MessageCircle size={28} strokeWidth={2} /> {/* Clean, scalable vector */}
+</button>;
+
+
+[FILE_END: src\components\BotToggle.tsx]
+################################################################################
+
+================================================================================
+FILE_BEGIN: src\components\ChatHeader.tsx
+TYPE: TSX
+SIZE: 587 bytes
+================================================================================
+/* src/components/bot/ChatHeader.tsx */
+<div className="p4c-bot-header">
+  <div className="flex items-center gap-3">
+    {/* The Avatar */}
+    <div className="w-8 h-8 rounded-full bg-white/10 p-1 border border-p4c-gold overflow-hidden">
+      <img
+        src="/images/bot/digital-architect-avatar.webp"
+        alt="P4C Digital Architect"
+        className="w-full h-full object-cover"
+      />
+    </div>
+    <div>
+      <h3>Digital Architect</h3>
+      <span className="status-indicator">
+        <span className="status-dot"></span> Online
+      </span>
+    </div>
+  </div>
+</div>;
+
+
+[FILE_END: src\components\ChatHeader.tsx]
 ################################################################################
 
 ================================================================================

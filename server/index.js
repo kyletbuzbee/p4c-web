@@ -7,7 +7,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
-const { GoogleGenerativeAI } = require('@google/generative-ai');
+const axios = require('axios');
 const dotenv = require('dotenv');
 const {
   createEnhancedSecurityHeadersMiddleware,
@@ -168,11 +168,22 @@ const validateInput = (req, res, next) => {
 app.use(express.json({ limit: '10mb' }));
 app.use(validateInput);
 
-// Initialize Gemini AI (server-side only)
-// Temporary hardcode for testing - in production this should come from environment variables
-const geminiApiKey =
-  process.env.GEMINI_API_KEY || 'AIzaSyC_kiP0QYvxf6CXNQUi6eQC41F825LNjlw';
-const genAI = new GoogleGenerativeAI(geminiApiKey);
+// Initialize Botpress configuration
+// Botpress API configuration - using provided API key
+const BOTPRESS_API_URL =
+  process.env.BOTPRESS_API_URL || 'https://api.botpress.cloud';
+const BOTPRESS_API_KEY =
+  process.env.BOTPRESS_API_KEY || 'bp_bak_Vr4mQVS58PvsNUvx1VZXp4BBblxiBfCqDN0g';
+const BOTPRESS_BOT_ID = process.env.BOTPRESS_BOT_ID || 'your-bot-id'; // You'll need to get this from your Botpress dashboard
+
+// Initialize axios for Botpress API calls
+const botpressClient = axios.create({
+  baseURL: BOTPRESS_API_URL,
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${BOTPRESS_API_KEY}`,
+  },
+});
 
 // Middleware to verify API key presence
 const verifyApiKey = (req, res, next) => {
@@ -286,7 +297,7 @@ app.post('/api/ai/edit-image', verifyApiKey, async (req, res) => {
   }
 });
 
-// Proxy endpoint for chat
+// Proxy endpoint for chat (now using Botpress)
 app.post('/api/ai/chat', verifyApiKey, async (req, res) => {
   try {
     const { message, history } = req.body;
@@ -306,37 +317,84 @@ app.post('/api/ai/chat', verifyApiKey, async (req, res) => {
         maxLength: 4000,
       });
     }
-    const model = genAI.getGenerativeModel({
-      model: 'gemini-pro-3',
-      systemInstruction: `You are 'Patriot', the AI Concierge for Properties 4 Creation (P4C).
-      P4C is a veteran-owned company in East Texas that provides high-quality affordable housing.
 
-      Key Information:
-      - We accept Section 8, HUD-VASH, and Rapid Rehousing vouchers.
-      - We prioritize veterans.
-      - We use quartz countertops and LVP flooring (high quality).
-      - We do NOT charge application fees.
-      - Contact email: support@p4c-homes.com.
-      - Location: Tyler, TX.
+    // Validate Botpress configuration
+    if (!BOTPRESS_API_URL || !BOTPRESS_API_KEY || !BOTPRESS_BOT_ID) {
+      console.error('Botpress configuration incomplete');
+      return res.status(500).json({
+        error: 'Botpress service not configured',
+        code: 'BOTPRESS_CONFIG_ERROR',
+      });
+    }
 
-      Tone: Warm, professional, dignified, and helpful. Keep answers concise (under 3 sentences when possible).
-      Do not make up specific property availability, just say check the 'Homes' page.`,
-    });
+    try {
+      // Call Botpress API
+      const botpressResponse = await botpressClient.post(
+        `/api/v1/bots/${BOTPRESS_BOT_ID}/converse`,
+        {
+          type: 'text',
+          text: message,
+          // Botpress handles conversation context differently than Gemini
+          // For now, we'll start a new conversation each time
+          // In a production environment, you'd want to maintain session/thread ID
+        }
+      );
 
-    const chat = model.startChat({
-      history: Array.isArray(history) ? history : [],
-    });
+      // Extract the Botpress response
+      const botpressData = botpressResponse.data;
 
-    const result = await chat.sendMessage(message);
+      // Botpress response structure may vary based on version and configuration
+      // This is a basic mapping - you may need to adjust based on your Botpress setup
+      let botResponse = "I'm sorry, I couldn't process that request right now.";
 
-    const response =
-      result.response.text() ||
-      "I'm sorry, I couldn't process that request right now.";
-    res.json({
-      success: true,
-      message: response,
-      timestamp: new Date().toISOString(),
-    });
+      if (
+        botpressData &&
+        botpressData.responses &&
+        botpressData.responses.length > 0
+      ) {
+        // Find the first text response
+        const textResponse = botpressData.responses.find(
+          (r) => r.type === 'text'
+        );
+        if (textResponse && textResponse.text) {
+          botResponse = textResponse.text;
+        }
+      }
+
+      res.json({
+        success: true,
+        message: botResponse,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (botpressError) {
+      console.error('Botpress API error:', botpressError);
+
+      // Handle specific Botpress errors
+      if (botpressError.response) {
+        // Botpress returned an error response
+        console.error('Botpress error response:', botpressError.response.data);
+        res.status(botpressError.response.status || 500).json({
+          error: 'Botpress service error',
+          code: 'BOTPRESS_SERVICE_ERROR',
+          details: botpressError.response.data,
+          timestamp: new Date().toISOString(),
+        });
+      } else if (botpressError.request) {
+        // Request was made but no response received
+        res.status(500).json({
+          error: 'Botpress service unavailable',
+          code: 'BOTPRESS_UNAVAILABLE',
+          timestamp: new Date().toISOString(),
+        });
+      } else {
+        // Something happened in setting up the request
+        res.status(500).json({
+          error: 'Botpress configuration error',
+          code: 'BOTPRESS_CONFIG_ERROR',
+          timestamp: new Date().toISOString(),
+        });
+      }
+    }
   } catch (error) {
     console.error('Chat proxy error:', error);
 
@@ -349,18 +407,47 @@ app.post('/api/ai/chat', verifyApiKey, async (req, res) => {
   }
 });
 
-// Health check endpoint
-app.get('/api/health', (req, res) => {
-  res.json({
-    status: 'healthy',
-    timestamp: new Date().toISOString(),
-    version: '1.0.0',
-    services: {
-      api: !!process.env.GEMINI_API_KEY,
-      cors: true,
-      security: true,
-    },
-  });
+// Health check endpoint (updated for Botpress)
+app.get('/api/health', async (req, res) => {
+  try {
+    // Check Botpress configuration
+    const botpressConfigured = !!(
+      BOTPRESS_API_URL &&
+      BOTPRESS_API_KEY &&
+      BOTPRESS_BOT_ID
+    );
+
+    // Try to ping Botpress if configured
+    let botpressHealthy = false;
+    if (botpressConfigured) {
+      try {
+        await botpressClient.get('/api/health');
+        botpressHealthy = true;
+      } catch (error) {
+        console.warn('Botpress health check failed:', error.message);
+        botpressHealthy = false;
+      }
+    }
+
+    res.json({
+      status: 'healthy',
+      timestamp: new Date().toISOString(),
+      version: '1.0.0',
+      services: {
+        api: botpressConfigured,
+        botpress: botpressHealthy,
+        cors: true,
+        security: true,
+      },
+    });
+  } catch (error) {
+    console.error('Health check error:', error);
+    res.status(500).json({
+      status: 'unhealthy',
+      error: 'Health check failed',
+      timestamp: new Date().toISOString(),
+    });
+  }
 });
 
 // Comprehensive security error handling

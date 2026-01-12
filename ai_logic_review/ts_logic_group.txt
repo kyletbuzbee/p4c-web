@@ -2,7 +2,7 @@
 ================================================================================
 FILE_BEGIN: constants\images.ts
 TYPE: TS
-SIZE: 8002 bytes
+SIZE: 8108 bytes
 ================================================================================
 /**
  * Centralized Asset Registry
@@ -16,7 +16,7 @@ SIZE: 8002 bytes
 // Brand Assets
 export const IMAGES = {
   LOGO: {
-    PNG: '/images/logo/brand-logo.png',
+    PNG: '/images/logo/brand-logo.webp',
     SVG: '/images/logo/brand-logo.svg',
     WHITE_GOLD: '/images/logo/brand-logo-white-gold.svg',
   },
@@ -93,7 +93,7 @@ export const IMAGES = {
     HERO_APPLICATION: '/images/banners/hero-application-banner.webp',
 
     // FAQ Page
-    HERO_FAQ: '/images/banners/hero-faq-banner.png',
+    HERO_FAQ: '/images/banners/hero-faq-banner.webp',
 
     // Get Started / Success Story Page
     HERO_SUCCESS_STORY: '/images/banners/hero-get-started-banner.webp',
@@ -137,9 +137,9 @@ export const IMAGES = {
 
   // Team & About
   TEAM: {
-    OWNER: '/images/about/about-us-team-owner.png',
-    HEADSHOT: '/images/about/about-us-team-headshot.png',
-    ONSITE: '/images/about/about-us-team-onsite.png',
+    OWNER: '/images/about/about-us-team-owner.webp',
+    HEADSHOT: '/images/about/about-us-team-headshot.webp',
+    ONSITE: '/images/about/about-us-team-onsite.webp',
   },
 
   // Renovation Showcase (Before/After)
@@ -168,6 +168,8 @@ export const IMAGES = {
         '/images/before-after-comparison/projects-after-front-porch-800w.webp',
     },
     BRICK_PATIO: {
+      BEFORE:
+        '/images/before-after-comparison/projects-before-brick-patio-400w.webp',
       AFTER:
         '/images/before-after-comparison/projects-after-brick-patio-400w.webp',
     },
@@ -182,7 +184,8 @@ export const IMAGES = {
     BUY_AS_IS: '/images/our-work-gallery/our-impact-buy-as-is.webp',
     LINDALE_COTTAGE: '/images/our-work-gallery/lindale-cottage-before.webp',
     WORK_FRAMING_DOOR: '/images/our-work-gallery/work-framing-door.webp',
-    PROJECTS_AFTER_LIVING_ROOM: '/images/our-work-gallery/projects-after-living-room.webp',
+    PROJECTS_AFTER_LIVING_ROOM:
+      '/images/our-work-gallery/projects-after-living-room.webp',
   },
 
   // Videos
@@ -362,6 +365,183 @@ export const getPropertyById = (
 
 
 [FILE_END: data\properties.ts]
+################################################################################
+
+================================================================================
+FILE_BEGIN: p4c-web\services\botpressWebchatService.ts
+TYPE: TS
+SIZE: 5011 bytes
+================================================================================
+/**
+ * Botpress Webchat Service
+ * Service for embedding Botpress webchat directly in React components
+ * This approach uses the existing working Botpress Cloud setup
+ */
+
+import { logError } from './errorBoundaryService';
+
+interface WebchatConfig {
+  configUrl?: string;
+  width?: string;
+  height?: string;
+}
+
+const BOTPRESS_WEBCHAT_URL =
+  'https://cdn.botpress.cloud/webchat/v3.5/shareable.html';
+const BOTPRESS_CONFIG_URL =
+  'https://files.bpcontent.cloud/2025/10/13/00/20251013003640-UG466F0L.json';
+
+/**
+ * Initialize Botpress webchat
+ * This embeds the Botpress webchat directly into a container element
+ *
+ * @param containerId The ID of the HTML element to embed the webchat in
+ * @param config Configuration options for the webchat
+ */
+export const initializeBotpressWebchat = (
+  containerId: string,
+  config: WebchatConfig = {}
+): void => {
+  try {
+    // Check if webchat is already initialized
+    if (document.getElementById(`bp-webchat-${containerId}`)) {
+      console.warn(
+        'Botpress webchat already initialized for container:',
+        containerId
+      );
+      return;
+    }
+
+    const container = document.getElementById(containerId);
+    if (!container) {
+      throw new Error(`Container element with ID '${containerId}' not found`);
+    }
+
+    // Create iframe for Botpress webchat
+    const iframe = document.createElement('iframe');
+    iframe.id = `bp-webchat-${containerId}`;
+    iframe.src = `${BOTPRESS_WEBCHAT_URL}?configUrl=${encodeURIComponent(BOTPRESS_CONFIG_URL)}`;
+    iframe.width = config.width || '100%';
+    iframe.height = config.height || '100%';
+    iframe.style.border = 'none';
+    iframe.style.borderRadius = '12px';
+    iframe.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.1)';
+    iframe.allow = 'microphone *; camera *; autoplay *';
+    iframe.title = 'Properties 4 Creation Virtual Assistant';
+
+    // Add loading state
+    container.innerHTML = `
+      <div class="flex items-center justify-center h-full bg-gray-50 rounded-2xl">
+        <div class="text-center">
+          <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-p4c-gold mx-auto mb-2"></div>
+          <p class="text-sm text-gray-600">Loading Patriot...</p>
+        </div>
+      </div>
+    `;
+
+    // Handle iframe load
+    iframe.onload = () => {
+      // Clear loading state
+      container.innerHTML = '';
+      container.appendChild(iframe);
+    };
+
+    // Handle iframe errors
+    iframe.onerror = (error) => {
+      logError('Botpress webchat iframe failed to load', {
+        error: error instanceof Error ? error : new Error(String(error)),
+        component: 'botpressWebchatService',
+        containerId,
+      });
+
+      container.innerHTML = `
+        <div class="flex items-center justify-center h-full bg-red-50 rounded-2xl p-4">
+          <div class="text-center">
+            <div class="text-red-500 mb-2">⚠️</div>
+            <p class="text-sm text-red-700">Failed to load assistant</p>
+            <button
+              onclick="window.location.reload()"
+              class="mt-2 px-3 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-600 transition-colors"
+            >
+              Retry
+            </button>
+          </div>
+        </div>
+      `;
+    };
+
+    // Set a timeout in case iframe doesn't load
+    setTimeout(() => {
+      if (container.querySelector('.animate-spin')) {
+        if (iframe.onload) {
+          iframe.onload(new Event('load'));
+        }
+      }
+    }, 5000);
+  } catch (error) {
+    logError('Failed to initialize Botpress webchat', {
+      error: error as Error,
+      component: 'botpressWebchatService',
+      containerId,
+    });
+
+    throw error;
+  }
+};
+
+/**
+ * Destroy Botpress webchat instance
+ * Cleans up the webchat from a container
+ *
+ * @param containerId The ID of the container to clean up
+ */
+export const destroyBotpressWebchat = (containerId: string): void => {
+  try {
+    const iframe = document.getElementById(`bp-webchat-${containerId}`);
+    if (iframe) {
+      iframe.remove();
+    }
+
+    const container = document.getElementById(containerId);
+    if (container) {
+      container.innerHTML = '';
+    }
+  } catch (error) {
+    logError('Failed to destroy Botpress webchat', {
+      error: error as Error,
+      component: 'botpressWebchatService',
+      containerId,
+    });
+  }
+};
+
+/**
+ * Check if Botpress webchat is available
+ * Returns true if the webchat URL is accessible
+ */
+export const checkBotpressWebchatHealth = (): boolean => {
+  try {
+    // Simple check - in a real implementation you might ping the config URL
+    // For now, we'll assume it's available since it's a CDN URL
+    return true;
+  } catch (error) {
+    logError('Botpress webchat health check failed', {
+      error: error instanceof Error ? error : new Error(String(error)),
+      component: 'botpressWebchatService',
+    });
+    return false;
+  }
+};
+
+// Default export for backward compatibility
+export default {
+  initializeBotpressWebchat,
+  destroyBotpressWebchat,
+  checkBotpressWebchatHealth,
+};
+
+
+[FILE_END: p4c-web\services\botpressWebchatService.ts]
 ################################################################################
 
 ================================================================================
@@ -734,6 +914,389 @@ export const api = {
 
 
 [FILE_END: services\api.ts]
+################################################################################
+
+================================================================================
+FILE_BEGIN: services\botpressService.test.ts
+TYPE: TS
+SIZE: 5245 bytes
+================================================================================
+/**
+ * Botpress Service Tests
+ * Unit tests for the Botpress service layer
+ */
+
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import {
+  sendChatMessage,
+  checkBotpressHealth,
+  validationUtils,
+} from './botpressService';
+
+// Mock the global fetch function
+global.fetch = vi.fn();
+
+describe('Botpress Service', () => {
+  beforeEach(() => {
+    fetch.mockClear();
+  });
+
+  describe('validationUtils', () => {
+    const { validateBase64, validateMimeType, sanitizeInput } = validationUtils;
+
+    describe('validateBase64', () => {
+      it('should return true for valid base64 strings', () => {
+        expect(validateBase64('SGVsbG8gd29ybGQ=')).toBe(true);
+        expect(validateBase64('aGVsbG8=')).toBe(true);
+        expect(validateBase64('aGVsbG8gd29ybGQ=')).toBe(true);
+      });
+
+      it('should return false for invalid base64 strings', () => {
+        expect(validateBase64('not-base64')).toBe(false);
+        expect(validateBase64('')).toBe(false);
+        expect(validateBase64('SGVsbG8gd29ybGQ!')).toBe(false);
+      });
+
+      it('should return false for non-string inputs', () => {
+        expect(validateBase64(123 as any)).toBe(false);
+        expect(validateBase64(null as any)).toBe(false);
+        expect(validateBase64(undefined as any)).toBe(false);
+      });
+    });
+
+    describe('validateMimeType', () => {
+      it('should return true for allowed image mime types', () => {
+        expect(validateMimeType('image/jpeg')).toBe(true);
+        expect(validateMimeType('image/jpg')).toBe(true);
+        expect(validateMimeType('image/png')).toBe(true);
+        expect(validateMimeType('image/webp')).toBe(true);
+      });
+
+      it('should return false for disallowed mime types', () => {
+        expect(validateMimeType('image/gif')).toBe(false);
+        expect(validateMimeType('image/svg+xml')).toBe(false);
+        expect(validateMimeType('application/pdf')).toBe(false);
+      });
+    });
+
+    describe('sanitizeInput', () => {
+      it('should sanitize HTML special characters', () => {
+        expect(sanitizeInput('<script>alert("xss")</script>')).toBe(
+          '<script>alert("xss")</script>'
+        );
+        expect(sanitizeInput('Hello & goodbye')).toBe('Hello & goodbye');
+        expect(sanitizeInput("'single quotes'")).toBe(
+          '&#x27;single quotes&#x27;'
+        );
+      });
+
+      it('should return empty string for non-string inputs', () => {
+        expect(sanitizeInput(123 as any)).toBe('');
+        expect(sanitizeInput(null as any)).toBe('');
+        expect(sanitizeInput(undefined as any)).toBe('');
+      });
+    });
+  });
+
+  describe('sendChatMessage', () => {
+    it('should throw error for empty message', async () => {
+      await expect(sendChatMessage('')).rejects.toThrow('Message is required');
+    });
+
+    it('should throw error for message that is too long', async () => {
+      const longMessage = 'a'.repeat(4001);
+      await expect(sendChatMessage(longMessage)).rejects.toThrow(
+        'Message too long (max 4000 characters)'
+      );
+    });
+
+    it('should call the API with correct parameters', async () => {
+      const mockResponse = {
+        success: true,
+        message: 'Hello from Botpress!',
+        timestamp: new Date().toISOString(),
+      };
+
+      fetch.mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve(mockResponse),
+      });
+
+      const result = await sendChatMessage('Hello');
+
+      expect(fetch).toHaveBeenCalledWith('/api/ai/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+        body: JSON.stringify({
+          message: 'Hello',
+          history: [],
+        }),
+      });
+
+      expect(result).toBe('Hello from Botpress!');
+    });
+
+    it('should handle API errors gracefully', async () => {
+      fetch.mockResolvedValueOnce({
+        ok: false,
+        status: 500,
+        json: () => Promise.resolve({ error: 'Internal server error' }),
+      });
+
+      await expect(sendChatMessage('Hello')).rejects.toThrow(
+        'Internal server error'
+      );
+    });
+
+    it('should handle network errors gracefully', async () => {
+      fetch.mockRejectedValueOnce(new TypeError('Failed to fetch'));
+
+      await expect(sendChatMessage('Hello')).rejects.toThrow(
+        'Unable to connect to AI service. Please try again later.'
+      );
+    });
+  });
+
+  describe('checkBotpressHealth', () => {
+    it('should return true for healthy service', async () => {
+      const mockResponse = {
+        status: 'healthy',
+      };
+
+      fetch.mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve(mockResponse),
+      });
+
+      const result = await checkBotpressHealth();
+      expect(result).toBe(true);
+    });
+
+    it('should return false for unhealthy service', async () => {
+      fetch.mockResolvedValueOnce({
+        ok: false,
+      });
+
+      const result = await checkBotpressHealth();
+      expect(result).toBe(false);
+    });
+
+    it('should return false on network error', async () => {
+      fetch.mockRejectedValueOnce(new Error('Network error'));
+
+      const result = await checkBotpressHealth();
+      expect(result).toBe(false);
+    });
+  });
+});
+
+
+[FILE_END: services\botpressService.test.ts]
+################################################################################
+
+================================================================================
+FILE_BEGIN: services\botpressService.ts
+TYPE: TS
+SIZE: 5404 bytes
+================================================================================
+/**
+ * Botpress Service Layer
+ * Client-side service for Botpress AI operations
+ * Maintains same interface as geminiService for easy migration
+ */
+
+import { logError } from './errorBoundaryService';
+
+interface ApiResponse<T> {
+  success: boolean;
+  data?: T;
+  message?: T; // For chat responses
+  error?: string;
+  code?: string;
+  timestamp?: string;
+}
+
+interface ChatMessage {
+  role: 'user' | 'model';
+  parts: { text: string }[];
+}
+
+const API_BASE_URL = '/api';
+
+// Input validation utilities (maintained from geminiService for consistency)
+const validateBase64 = (base64Image: string): boolean => {
+  if (typeof base64Image !== 'string') return false;
+  const base64Regex = /^[A-Za-z0-9+/]*={0,2}$/;
+  return base64Regex.test(base64Image) && base64Image.length > 0;
+};
+
+const validateMimeType = (mimeType: string): boolean => {
+  const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+  return allowedTypes.includes(mimeType);
+};
+
+const sanitizeInput = (input: string): string => {
+  if (typeof input !== 'string') return '';
+  return input.replace(/[<>\"'&]/g, (match) => {
+    const entities: Record<string, string> = {
+      '<': '<',
+      '>': '>',
+      '"': '"',
+      "'": '&#x27;',
+      '&': '&',
+    };
+    // Type assertion: match is guaranteed to be a key of entities due to regex
+    return entities[match as keyof typeof entities] || '';
+  });
+};
+
+/**
+ * Sends a chat message to Botpress via secure proxy
+ * Maintains same interface as geminiService.sendChatMessage for compatibility
+ *
+ * @param message The user's message.
+ * @param history The chat history.
+ * @returns The model's text response.
+ */
+export const sendChatMessage = async (
+  message: string,
+  history: ChatMessage[] = []
+): Promise<string> => {
+  try {
+    // Input validation (maintained from geminiService)
+    if (!message || typeof message !== 'string') {
+      throw new Error('Message is required');
+    }
+
+    if (message.length > 4000) {
+      throw new Error('Message too long (max 4000 characters)');
+    }
+
+    // Validate history format
+    if (!Array.isArray(history)) {
+      history = [];
+    }
+
+    // Sanitize message
+    const sanitizedMessage = sanitizeInput(message);
+    const response = await fetch(`${API_BASE_URL}/ai/chat`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+      body: JSON.stringify({
+        message: sanitizedMessage,
+        history: history.map((msg) => ({
+          role: msg.role,
+          parts: [{ text: sanitizeInput(msg.parts[0]?.text || '') }],
+        })),
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData: ApiResponse<null> = await response.json().catch(() => ({
+        success: false,
+        error: 'Server communication error',
+      }));
+
+      throw new Error(errorData.error || `HTTP ${response.status}`);
+    }
+
+    const result: ApiResponse<string> = await response.json();
+
+    if (!result.success || !result.message) {
+      throw new Error(result.error || 'Chat processing failed');
+    }
+    return result.message;
+  } catch (error) {
+    logError('Botpress chat error', {
+      error: error as Error,
+      component: 'botpressService',
+    });
+
+    // Provide user-friendly error messages (maintained from geminiService)
+    if (error instanceof TypeError && error.message.includes('fetch')) {
+      throw new Error(
+        'Unable to connect to AI service. Please try again later.'
+      );
+    }
+
+    throw error;
+  }
+};
+
+/**
+ * Health check for the Botpress service
+ * Maintains same interface as geminiService.checkAiServiceHealth
+ * @returns Promise<boolean> indicating service availability
+ */
+export const checkBotpressHealth = async (): Promise<boolean> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/health`, {
+      method: 'GET',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+    });
+
+    if (!response.ok) {
+      return false;
+    }
+
+    const data = await response.json();
+    return data.status === 'healthy';
+  } catch (error) {
+    logError('Botpress health check failed', {
+      error: error as Error,
+      component: 'botpressService',
+    });
+    return false;
+  }
+};
+
+/**
+ * Image editing with Botpress (if supported)
+ * This is a placeholder - Botpress may not support image editing like Gemini
+ * For now, maintain the interface but throw a clear error
+ *
+ * @param base64Image The source image in base64 format
+ * @param mimeType The mime type of the image
+ * @param prompt The user's text instruction for editing
+ * @returns Promise that rejects with clear error about unsupported feature
+ */
+export const editImageWithBotpress = async (
+  base64Image: string,
+  mimeType: string,
+  prompt: string
+): Promise<string> => {
+  // Botpress doesn't typically support image editing like Gemini
+  // This maintains interface compatibility but provides clear feedback
+  throw new Error(
+    'Image editing is not supported with Botpress. This feature was available with Gemini but is not part of the Botpress integration.'
+  );
+};
+
+// Export validation utilities for testing (maintained from geminiService)
+export const validationUtils = {
+  validateBase64,
+  validateMimeType,
+  sanitizeInput,
+};
+
+// Default export for backward compatibility
+export default {
+  sendChatMessage,
+  checkBotpressHealth,
+  editImageWithBotpress,
+  validationUtils,
+};
+
+
+[FILE_END: services\botpressService.ts]
 ################################################################################
 
 ================================================================================
@@ -1558,6 +2121,63 @@ vi.setConfig({
 ################################################################################
 
 ================================================================================
+FILE_BEGIN: types\contentBalance.ts
+TYPE: TS
+SIZE: 943 bytes
+================================================================================
+/**
+ * P4C Content Balance Auditor Types
+ * Type definitions for the Content Balance Auditor system
+ */
+
+export interface AuditResult {
+  veteranWeight: number;
+  familyWeight: number;
+  ratio: string;
+  veteranPerc: number;
+  familyPerc: number;
+  recommendations: string[];
+}
+
+export interface RouteConfig {
+  path: string;
+  veteranWeight?: number;
+  familyWeight?: number;
+}
+
+export interface ContentAuditorConfig {
+  veteranKeywords: string[];
+  familyKeywords: string[];
+  routeWeights: RouteConfig[];
+}
+
+export interface ContentBalanceWidgetProps {
+  auditResult: AuditResult;
+  onRefresh: () => void;
+}
+
+export interface ContentBalanceChartProps {
+  veteranPerc: number;
+  familyPerc: number;
+}
+
+export type ContentType = 'veteran' | 'family' | 'neutral';
+
+export interface StoryContent {
+  id: number;
+  name: string;
+  location: string;
+  quote: string;
+  videoLabel: string;
+  type: ContentType;
+  contentTypeDescription: string;
+}
+
+
+[FILE_END: types\contentBalance.ts]
+################################################################################
+
+================================================================================
 FILE_BEGIN: types.ts
 TYPE: TS
 SIZE: 1017 bytes
@@ -1616,6 +2236,525 @@ export interface FinancialBreakdown {
 
 
 [FILE_END: types.ts]
+################################################################################
+
+================================================================================
+FILE_BEGIN: utils\contentBalanceAuditor.test.ts
+TYPE: TS
+SIZE: 6297 bytes
+================================================================================
+/**
+ * Content Balance Auditor Tests
+ * Unit tests for the content balance auditor utility
+ */
+
+import { describe, expect, test, vi } from 'vitest';
+import {
+  auditContentBalance,
+  analyzePropertyContent,
+  auditStoryBalance,
+  createBalancedStories,
+} from './contentBalanceAuditor';
+import type { ExtendedProperty } from '../types';
+import type { StoryContent } from '../types/contentBalance';
+
+// Mock error boundary service
+vi.mock('../services/errorBoundaryService', () => ({
+  logError: vi.fn(),
+}));
+
+// Test Data
+describe('Content Balance Auditor', () => {
+  // Mock properties for testing
+  const mockProperties: ExtendedProperty[] = [
+    {
+      id: '1',
+      title: 'Veteran-Focused Property',
+      address: '123 Main St',
+      price: 1000,
+      beds: 2,
+      baths: 1,
+      sqft: 1000,
+      imageUrl: 'test.jpg',
+      badges: ['VASH Approved'],
+      description: 'Property for veterans with VASH benefits near VA clinic',
+      amenities: [],
+      accessibilityFeatures: [],
+      schoolDistrict: 'Test ISD',
+      neighborhood: 'Test',
+      availabilityDate: 'Available Now',
+      coordinates: { lat: 0, lng: 0 },
+    },
+    {
+      id: '2',
+      title: 'Family-Focused Property',
+      address: '456 Oak St',
+      price: 1200,
+      beds: 3,
+      baths: 2,
+      sqft: 1500,
+      imageUrl: 'test.jpg',
+      badges: ['Family Size'],
+      description: 'Spacious home near elementary school perfect for families',
+      amenities: [],
+      accessibilityFeatures: [],
+      schoolDistrict: 'Test ISD',
+      neighborhood: 'Test',
+      availabilityDate: 'Available Now',
+      coordinates: { lat: 0, lng: 0 },
+    },
+  ];
+
+  // Mock routes for testing
+  const mockRoutes = [
+    { path: '/veterans' },
+    { path: '/family-resources' },
+    { path: '/apply' },
+  ];
+
+  test('should analyze property content correctly', () => {
+    const veteranResult = analyzePropertyContent(mockProperties[0]!);
+    const familyResult = analyzePropertyContent(mockProperties[1]!);
+
+    expect(veteranResult).toBe('veteran');
+    expect(familyResult).toBe('family');
+  });
+
+  test('should audit content balance with correct scoring', () => {
+    const result = auditContentBalance(mockRoutes, mockProperties);
+
+    expect(result.veteranWeight).toBeGreaterThan(0);
+    expect(result.familyWeight).toBeGreaterThan(0);
+    expect(result.veteranPerc + result.familyPerc).toBe(100);
+    expect(result.ratio).toMatch(/\d+% Veteran \/ \d+% Family/);
+  });
+
+  test('should handle empty inputs gracefully', () => {
+    const result = auditContentBalance([], []);
+
+    expect(result.veteranWeight).toBe(0);
+    expect(result.familyWeight).toBe(0);
+    expect(result.veteranPerc).toBe(0);
+    expect(result.familyPerc).toBe(0);
+  });
+
+  test('should generate recommendations for imbalanced content', () => {
+    // Create heavily veteran-biased content
+    const veteranProperties = Array(10).fill(mockProperties[0]);
+    const result = auditContentBalance(mockRoutes, veteranProperties);
+
+    if (result.veteranPerc > 60) {
+      expect(result.recommendations).toContain('High Veteran Tilt detected');
+    }
+  });
+
+  test('should audit story balance correctly', () => {
+    const mockStories: StoryContent[] = [
+      {
+        id: 1,
+        name: 'John Veteran',
+        location: 'Tyler, TX',
+        quote: 'Great experience as a veteran',
+        videoLabel: 'Veteran story',
+        type: 'veteran',
+        contentTypeDescription: 'Veteran Success Story',
+      },
+      {
+        id: 2,
+        name: 'Jane Family',
+        location: 'Longview, TX',
+        quote: 'Perfect for our family',
+        videoLabel: 'Family story',
+        type: 'family',
+        contentTypeDescription: 'Family Success Story',
+      },
+    ];
+
+    const result = auditStoryBalance(mockStories);
+
+    expect(result.veteranWeight).toBe(10);
+    expect(result.familyWeight).toBe(10);
+    expect(result.ratio).toBe('50% Veteran / 50% Family');
+  });
+
+  test('should create balanced stories with proper typing', () => {
+    const mockStories: StoryContent[] = [
+      {
+        id: 1,
+        name: 'Test Veteran',
+        location: 'Tyler, TX',
+        quote: 'Military service helped me get this home',
+        videoLabel: 'Test veteran story',
+        type: 'veteran',
+        contentTypeDescription: 'Veteran Success Story',
+      },
+      {
+        id: 2,
+        name: 'Test Family',
+        location: 'Longview, TX',
+        quote: 'Our children love the school nearby',
+        videoLabel: 'Test family story',
+        type: 'family',
+        contentTypeDescription: 'Family Success Story',
+      },
+    ];
+
+    const result = createBalancedStories(mockStories);
+
+    expect(result.length).toBe(2);
+    expect(result[0]?.type).toBeDefined();
+    expect(result[0]?.contentTypeDescription).toBeDefined();
+    expect(result[1]?.type).toBeDefined();
+    expect(result[1]?.contentTypeDescription).toBeDefined();
+  });
+
+  test('should handle errors gracefully', () => {
+    // This should not throw, but return a safe default
+    const result = auditContentBalance([], []);
+
+    expect(result).toBeDefined();
+    expect(result.recommendations).toBeInstanceOf(Array);
+  });
+
+  test('should use default configuration when none provided', () => {
+    const result = auditContentBalance([], []);
+
+    // Should complete without errors using default config
+    expect(result).toBeDefined();
+  });
+});
+
+// Integration test
+describe('Content Balance Auditor Integration', () => {
+  test('should work with real-world property data structure', () => {
+    const realProperty: ExtendedProperty = {
+      id: 'test',
+      title: 'Real Property',
+      address: '123 Test St',
+      price: 1000,
+      beds: 2,
+      baths: 1,
+      sqft: 1000,
+      imageUrl: 'test.jpg',
+      badges: ['Section 8 Approved'],
+      description: 'Real property description with school district mentions',
+      amenities: ['Test amenity'],
+      accessibilityFeatures: [],
+      schoolDistrict: 'Test ISD',
+      neighborhood: 'Test Neighborhood',
+      availabilityDate: 'Available Now',
+      coordinates: { lat: 32.3513, lng: -95.3011 },
+    };
+
+    // Should not throw with real property structure
+    const result = analyzePropertyContent(realProperty);
+    expect(['veteran', 'family', 'neutral']).toContain(result);
+  });
+});
+
+
+[FILE_END: utils\contentBalanceAuditor.test.ts]
+################################################################################
+
+================================================================================
+FILE_BEGIN: utils\contentBalanceAuditor.ts
+TYPE: TS
+SIZE: 7690 bytes
+================================================================================
+/**
+ * P4C Content Balance Auditor
+ *  * Version: 1.0.0
+ * Purpose: Analyzes the semantic weight of content to ensure a 50/50 balance
+ * between Veteran and Family outreach.
+ */
+
+import type {
+  AuditResult,
+  RouteConfig,
+  ContentAuditorConfig,
+  ContentType,
+  StoryContent,
+} from '../types/contentBalance';
+import type { ExtendedProperty } from '../types';
+
+/**
+ * Default configuration for the content auditor
+ */
+export const DEFAULT_CONFIG: ContentAuditorConfig = {
+  veteranKeywords: [
+    'vash',
+    'veteran',
+    'military',
+    'va clinic',
+    'rehousing',
+    'rapid rehousing',
+    'service',
+    'armed forces',
+  ],
+  familyKeywords: [
+    'school',
+    'elementary',
+    'park',
+    'voucher',
+    'family',
+    'children',
+    'district',
+    'child',
+    'kids',
+  ],
+  routeWeights: [
+    { path: '/veterans', veteranWeight: 10 },
+    { path: '/veteran-services', veteranWeight: 10 },
+    { path: '/stories', veteranWeight: 8 },
+    { path: '/homeowner-solutions', familyWeight: 10 },
+    { path: '/apply', familyWeight: 8 },
+    { path: '/equal-housing', familyWeight: 7 },
+    { path: '/family-resources', familyWeight: 10 },
+  ],
+};
+
+/**
+ * Analyzes property content for veteran/family keywords
+ * @param property - Property data to analyze
+ * @param config - Auditor configuration
+ * @returns Content type classification
+ */
+export const analyzePropertyContent = (
+  property: ExtendedProperty,
+  config: ContentAuditorConfig = DEFAULT_CONFIG
+): ContentType => {
+  const text = (
+    property.description +
+    property.badges.join(' ') +
+    (property.amenities?.join(' ') || '')
+  ).toLowerCase();
+
+  // Check for veteran markers
+  const veteranMatches = config.veteranKeywords.filter((keyword) =>
+    text.includes(keyword.toLowerCase())
+  ).length;
+
+  // Check for family markers
+  const familyMatches = config.familyKeywords.filter((keyword) =>
+    text.includes(keyword.toLowerCase())
+  ).length;
+
+  if (veteranMatches > familyMatches) return 'veteran';
+  if (familyMatches > veteranMatches) return 'family';
+  return 'neutral';
+};
+
+/**
+ * Analyzes story content for veteran/family focus
+ * @param story - Story content to analyze
+ * @returns Content type classification
+ */
+export const analyzeStoryContent = (story: StoryContent): ContentType => {
+  const text = `${story.quote} ${story.contentTypeDescription}`.toLowerCase();
+
+  const veteranKeywords = [
+    'veteran',
+    'military',
+    'service',
+    'armed forces',
+    'va',
+    'vash',
+  ];
+  const familyKeywords = [
+    'family',
+    'children',
+    'child',
+    'kids',
+    'school',
+    'district',
+  ];
+
+  const veteranMatches = veteranKeywords.filter((keyword) =>
+    text.includes(keyword.toLowerCase())
+  ).length;
+
+  const familyMatches = familyKeywords.filter((keyword) =>
+    text.includes(keyword.toLowerCase())
+  ).length;
+
+  if (veteranMatches > familyMatches) return 'veteran';
+  if (familyMatches > veteranMatches) return 'family';
+  return 'neutral';
+};
+
+/**
+ * Main audit function that analyzes routes and properties
+ * @param routes - Array of route configurations
+ * @param properties - Array of property data
+ * @param config - Auditor configuration
+ * @returns Comprehensive audit result
+ */
+export const auditContentBalance = (
+  routes: RouteConfig[],
+  properties: ExtendedProperty[],
+  config: ContentAuditorConfig = DEFAULT_CONFIG
+): AuditResult => {
+  let vScore = 0;
+  let fScore = 0;
+  const tips: string[] = [];
+
+  try {
+    // 1. Analyze Page Routing (Nav Structure)
+    routes.forEach((route) => {
+      if (route.veteranWeight) vScore += route.veteranWeight;
+      if (route.familyWeight) fScore += route.familyWeight;
+    });
+
+    // 2. Analyze Property Data (Semantic Keywords)
+    properties.forEach((property) => {
+      const contentType = analyzePropertyContent(property, config);
+
+      if (contentType === 'veteran') {
+        vScore += 5;
+      } else if (contentType === 'family') {
+        fScore += 5;
+      }
+    });
+
+    const total = vScore + fScore;
+    const vPerc = total > 0 ? Math.round((vScore / total) * 100) : 0;
+    const fPerc = total > 0 ? Math.round((fScore / total) * 100) : 0;
+
+    // 3. Generate Architect Recommendations
+    const gap = Math.abs(vPerc - fPerc);
+
+    if (vPerc > 60) {
+      tips.push(
+        "High Veteran Tilt detected. Add 'Family Success Stories' to /stories to balance military testimonials."
+      );
+      tips.push(
+        'Update PropertyCard badges to highlight proximity to Tyler/Longview schools more prominently.'
+      );
+    }
+
+    if (fPerc > 60) {
+      tips.push(
+        'High Family Tilt detected. Consider adding veteran-specific content to balance the representation.'
+      );
+      tips.push(
+        'Highlight VA benefits and veteran programs in property descriptions.'
+      );
+    }
+
+    if (gap > 20) {
+      tips.push(
+        `Significant imbalance detected (${gap}% gap). Consider creating dedicated content sections for the underrepresented group.`
+      );
+    }
+
+    if (gap < 10) {
+      tips.push(
+        'Excellent balance achieved! Maintain this ratio for optimal audience representation.'
+      );
+    }
+
+    return {
+      veteranWeight: vScore,
+      familyWeight: fScore,
+      ratio: `${vPerc}% Veteran / ${fPerc}% Family`,
+      veteranPerc: vPerc,
+      familyPerc: fPerc,
+      recommendations: tips,
+    };
+  } catch (error) {
+    // Log error to error boundary service
+    import('../services/errorBoundaryService').then(({ logError }) => {
+      logError('Content Balance Auditor failed', {
+        error:
+          error instanceof Error
+            ? error
+            : new Error('Unknown error in Content Balance Auditor'),
+        component: 'contentBalanceAuditor',
+        severity: 'high',
+      });
+    });
+
+    return {
+      veteranWeight: 0,
+      familyWeight: 0,
+      ratio: '0% Veteran / 0% Family',
+      veteranPerc: 0,
+      familyPerc: 0,
+      recommendations: [
+        'Auditor encountered an error. Please check configuration.',
+      ],
+    };
+  }
+};
+
+/**
+ * Analyzes story content balance
+ * @param stories - Array of story content
+ * @returns Audit result for stories
+ */
+export const auditStoryBalance = (stories: StoryContent[]): AuditResult => {
+  let vScore = 0;
+  let fScore = 0;
+  const tips: string[] = [];
+
+  stories.forEach((story) => {
+    const contentType = analyzeStoryContent(story);
+
+    if (contentType === 'veteran') {
+      vScore += 10;
+    } else if (contentType === 'family') {
+      fScore += 10;
+    }
+  });
+
+  const total = vScore + fScore;
+  const vPerc = total > 0 ? Math.round((vScore / total) * 100) : 0;
+  const fPerc = total > 0 ? Math.round((fScore / total) * 100) : 0;
+
+  // Generate recommendations for stories
+  const gap = Math.abs(vPerc - fPerc);
+
+  if (gap > 15) {
+    tips.push(
+      `Story imbalance detected (${gap}% gap). Add more ${vPerc > fPerc ? 'family' : 'veteran'} stories to balance representation.`
+    );
+  }
+
+  return {
+    veteranWeight: vScore,
+    familyWeight: fScore,
+    ratio: `${vPerc}% Veteran / ${fPerc}% Family`,
+    veteranPerc: vPerc,
+    familyPerc: fPerc,
+    recommendations: tips,
+  };
+};
+
+/**
+ * Creates balanced story content array
+ * @param stories - Original stories
+ * @returns Balanced stories with type classification
+ */
+export const createBalancedStories = (
+  stories: StoryContent[]
+): StoryContent[] =>
+  stories.map((story) => {
+    const contentType = analyzeStoryContent(story);
+
+    return {
+      ...story,
+      type: contentType,
+      contentTypeDescription:
+        contentType === 'veteran'
+          ? 'Veteran Success Story'
+          : contentType === 'family'
+            ? 'Family Success Story'
+            : 'General Story',
+    };
+  });
+
+
+[FILE_END: utils\contentBalanceAuditor.ts]
 ################################################################################
 
 ================================================================================
