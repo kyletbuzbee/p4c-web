@@ -129,7 +129,9 @@ describe('Botpress Service', () => {
     });
 
     it('should handle network errors gracefully', async () => {
-      vi.spyOn(global, 'fetch').mockRejectedValueOnce(new TypeError('Failed to fetch'));
+      vi.spyOn(global, 'fetch').mockRejectedValueOnce(
+        new TypeError('Failed to fetch')
+      );
 
       await expect(sendChatMessage('Hello')).rejects.toThrow(
         'Unable to connect to AI service. Please try again later.'
@@ -162,7 +164,9 @@ describe('Botpress Service', () => {
     });
 
     it('should return false on network error', async () => {
-      vi.spyOn(global, 'fetch').mockRejectedValueOnce(new Error('Network error'));
+      vi.spyOn(global, 'fetch').mockRejectedValueOnce(
+        new Error('Network error')
+      );
 
       const result = await checkBotpressHealth();
       expect(result).toBe(false);
