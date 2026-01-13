@@ -12,7 +12,8 @@
     <div>
       <h3>Digital Architect</h3>
       <span className="status-indicator">
-        <span className="status-dot"></span> Online
+        <span className="status-dot" />
+        Online
       </span>
     </div>
   </div>

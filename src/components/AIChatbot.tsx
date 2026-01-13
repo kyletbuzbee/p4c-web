@@ -71,7 +71,6 @@ const AIChatbot: React.FC = () => {
 
       setMessages((prev) => [...prev, aiMessageObj]);
     } catch (err) {
-      console.error('Chat error:', err);
       setError('Failed to send message. Please try again.');
 
       // Add fallback error message
@@ -111,7 +110,6 @@ const AIChatbot: React.FC = () => {
         },
       ]);
     } catch (err) {
-      console.error('Error clearing chat:', err);
       setError('Failed to clear chat history.');
     }
   };

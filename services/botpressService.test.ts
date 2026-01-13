@@ -15,7 +15,7 @@ global.fetch = vi.fn();
 
 describe('Botpress Service', () => {
   beforeEach(() => {
-    fetch.mockClear();
+    vi.clearAllMocks();
   });
 
   describe('validationUtils', () => {
@@ -94,10 +94,10 @@ describe('Botpress Service', () => {
         timestamp: new Date().toISOString(),
       };
 
-      fetch.mockResolvedValueOnce({
+      vi.spyOn(global, 'fetch').mockResolvedValueOnce({
         ok: true,
         json: () => Promise.resolve(mockResponse),
-      });
+      } as Response);
 
       const result = await sendChatMessage('Hello');
 
@@ -117,11 +117,11 @@ describe('Botpress Service', () => {
     });
 
     it('should handle API errors gracefully', async () => {
-      fetch.mockResolvedValueOnce({
+      vi.spyOn(global, 'fetch').mockResolvedValueOnce({
         ok: false,
         status: 500,
         json: () => Promise.resolve({ error: 'Internal server error' }),
-      });
+      } as Response);
 
       await expect(sendChatMessage('Hello')).rejects.toThrow(
         'Internal server error'
@@ -129,7 +129,7 @@ describe('Botpress Service', () => {
     });
 
     it('should handle network errors gracefully', async () => {
-      fetch.mockRejectedValueOnce(new TypeError('Failed to fetch'));
+      vi.spyOn(global, 'fetch').mockRejectedValueOnce(new TypeError('Failed to fetch'));
 
       await expect(sendChatMessage('Hello')).rejects.toThrow(
         'Unable to connect to AI service. Please try again later.'
@@ -143,26 +143,26 @@ describe('Botpress Service', () => {
         status: 'healthy',
       };
 
-      fetch.mockResolvedValueOnce({
+      vi.spyOn(global, 'fetch').mockResolvedValueOnce({
         ok: true,
         json: () => Promise.resolve(mockResponse),
-      });
+      } as Response);
 
       const result = await checkBotpressHealth();
       expect(result).toBe(true);
     });
 
     it('should return false for unhealthy service', async () => {
-      fetch.mockResolvedValueOnce({
+      vi.spyOn(global, 'fetch').mockResolvedValueOnce({
         ok: false,
-      });
+      } as Response);
 
       const result = await checkBotpressHealth();
       expect(result).toBe(false);
     });
 
     it('should return false on network error', async () => {
-      fetch.mockRejectedValueOnce(new Error('Network error'));
+      vi.spyOn(global, 'fetch').mockRejectedValueOnce(new Error('Network error'));
 
       const result = await checkBotpressHealth();
       expect(result).toBe(false);

@@ -31,10 +31,6 @@ export const initializeBotpressWebchat = (
   try {
     // Check if webchat is already initialized
     if (document.getElementById(`bp-webchat-${containerId}`)) {
-      console.warn(
-        'Botpress webchat already initialized for container:',
-        containerId
-      );
       return;
     }
 
@@ -67,6 +63,7 @@ export const initializeBotpressWebchat = (
 
     // Handle iframe load
     iframe.onload = () => {
+      // eslint-disable-line arrow-body-style
       // Clear loading state
       container.innerHTML = '';
       container.appendChild(iframe);
@@ -77,7 +74,7 @@ export const initializeBotpressWebchat = (
       logError('Botpress webchat iframe failed to load', {
         error: error instanceof Error ? error : new Error(String(error)),
         component: 'botpressWebchatService',
-        containerId,
+        metadata: { containerId },
       });
 
       container.innerHTML = `
@@ -95,20 +92,11 @@ export const initializeBotpressWebchat = (
         </div>
       `;
     };
-
-    // Set a timeout in case iframe doesn't load
-    setTimeout(() => {
-      if (container.querySelector('.animate-spin')) {
-        if (iframe.onload) {
-          iframe.onload(new Event('load'));
-        }
-      }
-    }, 5000);
   } catch (error) {
     logError('Failed to initialize Botpress webchat', {
       error: error as Error,
       component: 'botpressWebchatService',
-      containerId,
+      metadata: { containerId },
     });
 
     throw error;
@@ -136,7 +124,7 @@ export const destroyBotpressWebchat = (containerId: string): void => {
     logError('Failed to destroy Botpress webchat', {
       error: error as Error,
       component: 'botpressWebchatService',
-      containerId,
+      metadata: { containerId },
     });
   }
 };
@@ -145,19 +133,10 @@ export const destroyBotpressWebchat = (containerId: string): void => {
  * Check if Botpress webchat is available
  * Returns true if the webchat URL is accessible
  */
-export const checkBotpressWebchatHealth = (): boolean => {
-  try {
-    // Simple check - in a real implementation you might ping the config URL
-    // For now, we'll assume it's available since it's a CDN URL
-    return true;
-  } catch (error) {
-    logError('Botpress webchat health check failed', {
-      error: error instanceof Error ? error : new Error(String(error)),
-      component: 'botpressWebchatService',
-    });
-    return false;
-  }
-};
+export const checkBotpressWebchatHealth = (): boolean =>
+  // Simple check - in a real implementation you might ping the config URL
+  // For now, we'll assume it's available since it's a CDN URL
+  true;
 
 // Default export for backward compatibility
 export default {

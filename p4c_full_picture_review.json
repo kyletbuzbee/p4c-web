@@ -1,12 +1,7 @@
 {
   "context": {
     "mission": "Housing veterans and families with dignity and technical excellence.",
-    "brand_palette": [
-      "#0B1120",
-      "#C5A059",
-      "#F5F5F0",
-      "#334155"
-    ],
+    "brand_palette": ["#0B1120", "#C5A059", "#F5F5F0", "#334155"],
     "architecture_layers": {
       "data_access": "services/api.ts",
       "ai_logic": "services/geminiService.ts",
