@@ -70,3 +70,6 @@ plans
 ai_logic_review/
 *.md
 *.txt
+ai_site_report/
+*.csv
+*.py

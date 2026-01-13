@@ -1,0 +1,215 @@
+{
+  "summary": {
+    "total_pages": 19,
+    "average_seo_score": 42.89473684210526,
+    "pages_with_good_seo": 1,
+    "pages_needing_improvement": 18
+  },
+  "pages": {
+    "About": {
+      "name": "About",
+      "path": "pages\\About.tsx",
+      "title": "",
+      "description": "",
+      "keywords": [],
+      "word_count": 381,
+      "keyword_density": {},
+      "seo_score": 20
+    },
+    "AccessibilityStatement": {
+      "name": "AccessibilityStatement",
+      "path": "pages\\AccessibilityStatement.tsx",
+      "title": "Accessibility Statement | Properties 4 Creation",
+      "description": "",
+      "keywords": [],
+      "word_count": 203,
+      "keyword_density": {},
+      "seo_score": 30
+    },
+    "AdminDashboard": {
+      "name": "AdminDashboard",
+      "path": "pages\\AdminDashboard.tsx",
+      "title": "Admin Dashboard | Properties 4 Creation",
+      "description": "",
+      "keywords": [],
+      "word_count": 240,
+      "keyword_density": {},
+      "seo_score": 30
+    },
+    "Application": {
+      "name": "Application",
+      "path": "pages\\Application.tsx",
+      "title": "The Dignity Application | Properties 4 Creation",
+      "description": "Complete our 3-step application process to find your new home with Properties 4 Creation.",
+      "keywords": [],
+      "word_count": 1310,
+      "keyword_density": {},
+      "seo_score": 60
+    },
+    "Contact": {
+      "name": "Contact",
+      "path": "pages\\Contact.tsx",
+      "title": "Contact Us | Properties 4 Creation",
+      "description": "Contact Properties 4 Creation for housing inquiries, investor relations, or employment opportunities in East Texas.",
+      "keywords": [],
+      "word_count": 563,
+      "keyword_density": {},
+      "seo_score": 60
+    },
+    "Employment": {
+      "name": "Employment",
+      "path": "pages\\Employment.tsx",
+      "title": "",
+      "description": "",
+      "keywords": [],
+      "word_count": 216,
+      "keyword_density": {},
+      "seo_score": 10
+    },
+    "EqualHousing": {
+      "name": "EqualHousing",
+      "path": "pages\\EqualHousing.tsx",
+      "title": "Equal Housing Opportunity | Properties 4 Creation",
+      "description": "",
+      "keywords": [],
+      "word_count": 165,
+      "keyword_density": {},
+      "seo_score": 30
+    },
+    "FAQ": {
+      "name": "FAQ",
+      "path": "pages\\FAQ.tsx",
+      "title": "FAQ | Properties 4 Creation",
+      "description": "Frequently asked questions about applying for housing, Section 8, and veteran services at Properties 4 Creation.",
+      "keywords": [],
+      "word_count": 294,
+      "keyword_density": {},
+      "seo_score": 30
+    },
+    "Home": {
+      "name": "Home",
+      "path": "pages\\Home.tsx",
+      "title": "Properties 4 Creation | Veteran Owned Affordable Housing",
+      "description": "Properties 4 Creation buys distressed properties, renovates them to premium standards, and rents them affordably to veterans and families in East Texas.",
+      "keywords": [],
+      "word_count": 677,
+      "keyword_density": {},
+      "seo_score": 60
+    },
+    "HomeownerSolutions": {
+      "name": "HomeownerSolutions",
+      "path": "pages\\HomeownerSolutions.tsx",
+      "title": "Homeowner Solutions | Properties 4 Creation",
+      "description": "We buy houses in any condition to create high-quality homes for Veterans and families. Get a fair cash offer today.",
+      "keywords": [
+        "Veteran owned house buyers",
+        "sell my house as-is",
+        "Section 8 property investment",
+        "buy houses any condition"
+      ],
+      "word_count": 423,
+      "keyword_density": {
+        "veteran owned house buyers": 0.0,
+        "sell my house as-is": 0.0,
+        "section 8 property investment": 0.0,
+        "buy houses any condition": 0.0
+      },
+      "seo_score": 75
+    },
+    "OurImpact": {
+      "name": "OurImpact",
+      "path": "pages\\OurImpact.tsx",
+      "title": "Our Impact | Properties 4 Creation",
+      "description": "See the data behind our mission. Families housed, veterans served, and communities revitalized in East Texas.",
+      "keywords": [],
+      "word_count": 453,
+      "keyword_density": {},
+      "seo_score": 60
+    },
+    "Privacy": {
+      "name": "Privacy",
+      "path": "pages\\Privacy.tsx",
+      "title": "Privacy Policy | Properties 4 Creation",
+      "description": "Privacy policy and data protection standards for Properties 4 Creation applicants and residents.",
+      "keywords": [],
+      "word_count": 288,
+      "keyword_density": {},
+      "seo_score": 50
+    },
+    "PropertyDetails": {
+      "name": "PropertyDetails",
+      "path": "pages\\PropertyDetails.tsx",
+      "title": "Error Loading Property | Properties 4 Creation",
+      "description": "",
+      "keywords": [],
+      "word_count": 283,
+      "keyword_density": {},
+      "seo_score": 30
+    },
+    "SuccessStories": {
+      "name": "SuccessStories",
+      "path": "pages\\SuccessStories.tsx",
+      "title": "",
+      "description": "Hear from veterans and families whose lives have been transformed by Properties 4 Creation in Tyler, Longview, and across East Texas.",
+      "keywords": [],
+      "word_count": 528,
+      "keyword_density": {},
+      "seo_score": 40
+    },
+    "TenantLogin": {
+      "name": "TenantLogin",
+      "path": "pages\\TenantLogin.tsx",
+      "title": "Portal Login | Properties 4 Creation",
+      "description": "",
+      "keywords": [],
+      "word_count": 310,
+      "keyword_density": {},
+      "seo_score": 40
+    },
+    "Terms": {
+      "name": "Terms",
+      "path": "pages\\Terms.tsx",
+      "title": "Terms of Service | Properties 4 Creation",
+      "description": "Terms of service for using the Properties 4 Creation website and portal.",
+      "keywords": [],
+      "word_count": 304,
+      "keyword_density": {},
+      "seo_score": 60
+    },
+    "Transparency": {
+      "name": "Transparency",
+      "path": "pages\\Transparency.tsx",
+      "title": "Transparency & Standards | Properties 4 Creation",
+      "description": "View our open book policy on renovation standards. We compare typical landlord shortcuts with the Properties 4 Creation premium standard.",
+      "keywords": [],
+      "word_count": 301,
+      "keyword_density": {},
+      "seo_score": 60
+    },
+    "Veterans": {
+      "name": "Veterans",
+      "path": "pages\\Veterans.tsx",
+      "title": "",
+      "description": "",
+      "keywords": [],
+      "word_count": 203,
+      "keyword_density": {},
+      "seo_score": 10
+    },
+    "VeteranServices": {
+      "name": "VeteranServices",
+      "path": "pages\\VeteranServices.tsx",
+      "title": "Veteran Services | Properties 4 Creation",
+      "description": "Comprehensive housing and support services for veterans in East Texas. HUD-VASH, employment, and community integration.",
+      "keywords": [],
+      "word_count": 413,
+      "keyword_density": {},
+      "seo_score": 60
+    }
+  },
+  "recommendations": [
+    "Add proper title tags to 4 pages. Titles should be 30-60 characters and include primary keywords.",
+    "Add meta descriptions to 8 pages. Descriptions should be 50-160 characters and encourage clicks.",
+    "Improve SEO on 10 pages with scores below 50. Focus on title tags, meta descriptions, and keyword optimization."
+  ]
+}

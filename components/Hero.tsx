@@ -41,7 +41,7 @@ const Hero: React.FC<HeroProps> = ({ variant = 'image' }) => (
       </h1>
       <p className="text-lg md:text-xl text-gray-100 mb-10 font-light max-w-2xl mx-auto leading-relaxed">
         We transform distressed properties into premium, affordable homes for
-        East Texas families and veterans. Experience the P4C difference.
+        East Texas families and veterans.
       </p>
 
       <div className="flex flex-col sm:flex-row gap-4 justify-center">

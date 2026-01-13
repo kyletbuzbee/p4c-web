@@ -1,7 +1,12 @@
 {
   "context": {
     "mission": "Housing veterans and families with dignity and technical excellence.",
-    "brand_palette": ["#0B1120", "#C5A059", "#F5F5F0", "#334155"],
+    "brand_palette": [
+      "#0B1120",
+      "#C5A059",
+      "#F5F5F0",
+      "#334155"
+    ],
     "architecture_layers": {
       "data_access": "services/api.ts",
       "ai_logic": "services/geminiService.ts",
@@ -40,7 +45,6 @@
       "context\\EnhancedAuthContext.tsx": [],
       "context\\ToastContext.tsx": [],
       "data\\properties.ts": [],
-      "p4c-web\\services\\botpressWebchatService.ts": [],
       "pages\\About.tsx": [],
       "pages\\AccessibilityStatement.tsx": [],
       "pages\\AdminDashboard.tsx": [],
@@ -63,6 +67,7 @@
       "services\\api.ts": [],
       "services\\botpressService.test.ts": [],
       "services\\botpressService.ts": [],
+      "services\\botpressWebchatService.ts": [],
       "services\\errorBoundaryService.ts": [],
       "services\\geminiService.ts": [],
       "src\\components\\AIChatbot.tsx": [],
@@ -82,7 +87,7 @@
     }
   },
   "analysis": {
-    "timestamp": "2026-01-12T14:03:29.585243",
+    "timestamp": "2026-01-12T21:52:23.801106",
     "project_root": "K:\\Properties-4-Creation\\Website",
     "files": [
       {
@@ -336,17 +341,6 @@
         "summary": "import type { ExtendedProperty } from '../types';\nimport { IMAGES } from '../constants/images';\n\n// Re-export ExtendedProperty type for backward compatibility\nexport type { ExtendedProperty };\n\nexport const properties: ExtendedProperty[] = [\n  {\n    id: '1',\n    title: 'The Magnolia Residence',\n    address: '1245 Oakwood Dr, Tyler, TX',\n    price: 950,\n    beds: 3,\n    baths: 2,\n    sqft: 1450,\n    imageUrl: IMAGES.PROPERTIES.TYLER_RANCH,\n    badges: ['Section 8 Approved', 'Wheelchair Accessible'],\n    description:\n      'Fully renovated single-family home featuring quartz countertops, new HVAC, and a spacious fenced backyard perfect for families. Located within walking distance of Douglas Elementary School.',\n    amenities: [\n      'Quartz Countertops',\n      'Fenced Backyard',\n      'Central HVAC',\n      'Dishwasher',\n      'Washer/Dryer Hookups',\n    ],\n    accessibilityFeatures: [\n      'Wheelchair Ramp',\n      'Wide Doorways (36\")',\n      'Grab Bars in Bathroom',\n    ],\n    school"
       },
       {
-        "path": "p4c-web\\services\\botpressWebchatService.ts",
-        "mission_violations": [
-          {
-            "severity": "HIGH",
-            "type": "ACCESSIBILITY",
-            "message": "Missing ARIA label: Veterans with disabilities require screen-reader support."
-          }
-        ],
-        "summary": "/**\n * Botpress Webchat Service\n * Service for embedding Botpress webchat directly in React components\n * This approach uses the existing working Botpress Cloud setup\n */\n\nimport { logError } from './errorBoundaryService';\n\ninterface WebchatConfig {\n  configUrl?: string;\n  width?: string;\n  height?: string;\n}\n\nconst BOTPRESS_WEBCHAT_URL =\n  'https://cdn.botpress.cloud/webchat/v3.5/shareable.html';\nconst BOTPRESS_CONFIG_URL =\n  'https://files.bpcontent.cloud/2025/10/13/00/20251013003640-UG466F0L.json';\n\n/**\n * Initialize Botpress webchat\n * This embeds the Botpress webchat directly into a container element\n *\n * @param containerId The ID of the HTML element to embed the webchat in\n * @param config Configuration options for the webchat\n */\nexport const initializeBotpressWebchat = (\n  containerId: string,\n  config: WebchatConfig = {}\n): void => {\n  try {\n    // Check if webchat is already initialized\n    if (document.getElementById(`bp-webchat-${containerId}`)) {\n      console.warn(\n     "
-      },
-      {
         "path": "pages\\About.tsx",
         "mission_violations": [
           {
@@ -545,12 +539,23 @@
       {
         "path": "services\\botpressService.test.ts",
         "mission_violations": [],
-        "summary": "/**\n * Botpress Service Tests\n * Unit tests for the Botpress service layer\n */\n\nimport { describe, it, expect, vi, beforeEach } from 'vitest';\nimport {\n  sendChatMessage,\n  checkBotpressHealth,\n  validationUtils,\n} from './botpressService';\n\n// Mock the global fetch function\nglobal.fetch = vi.fn();\n\ndescribe('Botpress Service', () => {\n  beforeEach(() => {\n    fetch.mockClear();\n  });\n\n  describe('validationUtils', () => {\n    const { validateBase64, validateMimeType, sanitizeInput } = validationUtils;\n\n    describe('validateBase64', () => {\n      it('should return true for valid base64 strings', () => {\n        expect(validateBase64('SGVsbG8gd29ybGQ=')).toBe(true);\n        expect(validateBase64('aGVsbG8=')).toBe(true);\n        expect(validateBase64('aGVsbG8gd29ybGQ=')).toBe(true);\n      });\n\n      it('should return false for invalid base64 strings', () => {\n        expect(validateBase64('not-base64')).toBe(false);\n        expect(validateBase64('')).toBe(false);\n        expect(validate"
+        "summary": "/**\n * Botpress Service Tests\n * Unit tests for the Botpress service layer\n */\n\nimport { describe, it, expect, vi, beforeEach } from 'vitest';\nimport {\n  sendChatMessage,\n  checkBotpressHealth,\n  validationUtils,\n} from './botpressService';\n\n// Mock the global fetch function\nglobal.fetch = vi.fn();\n\ndescribe('Botpress Service', () => {\n  beforeEach(() => {\n    vi.clearAllMocks();\n  });\n\n  describe('validationUtils', () => {\n    const { validateBase64, validateMimeType, sanitizeInput } = validationUtils;\n\n    describe('validateBase64', () => {\n      it('should return true for valid base64 strings', () => {\n        expect(validateBase64('SGVsbG8gd29ybGQ=')).toBe(true);\n        expect(validateBase64('aGVsbG8=')).toBe(true);\n        expect(validateBase64('aGVsbG8gd29ybGQ=')).toBe(true);\n      });\n\n      it('should return false for invalid base64 strings', () => {\n        expect(validateBase64('not-base64')).toBe(false);\n        expect(validateBase64('')).toBe(false);\n        expect(validat"
       },
       {
         "path": "services\\botpressService.ts",
         "mission_violations": [],
         "summary": "/**\n * Botpress Service Layer\n * Client-side service for Botpress AI operations\n * Maintains same interface as geminiService for easy migration\n */\n\nimport { logError } from './errorBoundaryService';\n\ninterface ApiResponse<T> {\n  success: boolean;\n  data?: T;\n  message?: T; // For chat responses\n  error?: string;\n  code?: string;\n  timestamp?: string;\n}\n\ninterface ChatMessage {\n  role: 'user' | 'model';\n  parts: { text: string }[];\n}\n\nconst API_BASE_URL = '/api';\n\n// Input validation utilities (maintained from geminiService for consistency)\nconst validateBase64 = (base64Image: string): boolean => {\n  if (typeof base64Image !== 'string') return false;\n  const base64Regex = /^[A-Za-z0-9+/]*={0,2}$/;\n  return base64Regex.test(base64Image) && base64Image.length > 0;\n};\n\nconst validateMimeType = (mimeType: string): boolean => {\n  const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];\n  return allowedTypes.includes(mimeType);\n};\n\nconst sanitizeInput = (input: string): s"
+      },
+      {
+        "path": "services\\botpressWebchatService.ts",
+        "mission_violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Missing ARIA label: Veterans with disabilities require screen-reader support."
+          }
+        ],
+        "summary": "/**\n * Botpress Webchat Service\n * Service for embedding Botpress webchat directly in React components\n * This approach uses the existing working Botpress Cloud setup\n */\n\nimport { logError } from './errorBoundaryService';\n\ninterface WebchatConfig {\n  configUrl?: string;\n  width?: string;\n  height?: string;\n}\n\nconst BOTPRESS_WEBCHAT_URL =\n  'https://cdn.botpress.cloud/webchat/v3.5/shareable.html';\nconst BOTPRESS_CONFIG_URL =\n  'https://files.bpcontent.cloud/2025/10/13/00/20251013003640-UG466F0L.json';\n\n/**\n * Initialize Botpress webchat\n * This embeds the Botpress webchat directly into a container element\n *\n * @param containerId The ID of the HTML element to embed the webchat in\n * @param config Configuration options for the webchat\n */\nexport const initializeBotpressWebchat = (\n  containerId: string,\n  config: WebchatConfig = {}\n): void => {\n  try {\n    // Check if webchat is already initialized\n    if (document.getElementById(`bp-webchat-${containerId}`)) {\n      return;\n    }\n\n    "
       },
       {
         "path": "services\\errorBoundaryService.ts",
@@ -586,7 +591,7 @@
       {
         "path": "src\\components\\ChatHeader.tsx",
         "mission_violations": [],
-        "summary": "/* src/components/bot/ChatHeader.tsx */\n<div className=\"p4c-bot-header\">\n  <div className=\"flex items-center gap-3\">\n    {/* The Avatar */}\n    <div className=\"w-8 h-8 rounded-full bg-white/10 p-1 border border-p4c-gold overflow-hidden\">\n      <img\n        src=\"/images/bot/digital-architect-avatar.webp\"\n        alt=\"P4C Digital Architect\"\n        className=\"w-full h-full object-cover\"\n      />\n    </div>\n    <div>\n      <h3>Digital Architect</h3>\n      <span className=\"status-indicator\">\n        <span className=\"status-dot\"></span> Online\n      </span>\n    </div>\n  </div>\n</div>;\n"
+        "summary": "/* src/components/bot/ChatHeader.tsx */\n<div className=\"p4c-bot-header\">\n  <div className=\"flex items-center gap-3\">\n    {/* The Avatar */}\n    <div className=\"w-8 h-8 rounded-full bg-white/10 p-1 border border-p4c-gold overflow-hidden\">\n      <img\n        src=\"/images/bot/digital-architect-avatar.webp\"\n        alt=\"P4C Digital Architect\"\n        className=\"w-full h-full object-cover\"\n      />\n    </div>\n    <div>\n      <h3>Digital Architect</h3>\n      <span className=\"status-indicator\">\n        <span className=\"status-dot\" />\n        Online\n      </span>\n    </div>\n  </div>\n</div>;\n"
       },
       {
         "path": "src\\components\\ClientUpscaler.tsx",
