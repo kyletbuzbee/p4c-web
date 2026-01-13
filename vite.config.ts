@@ -93,7 +93,7 @@ export default defineConfig(({ mode }) => {
           ],
         },
         workbox: {
-          maximumFileSizeToCacheInBytes: 10485760, // 10 MB to accommodate large banner images
+          maximumFileSizeToCacheInBytes: 20971520, // 20 MB to accommodate large SVG files
           globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,woff2}'],
           runtimeCaching: [
             {

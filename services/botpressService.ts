@@ -172,7 +172,7 @@ export const editImageWithBotpress = async (
   // Botpress doesn't typically support image editing like Gemini
   // This maintains interface compatibility but provides clear feedback
   throw new Error(
-    'Image editing is not supported with Botpress. This feature was available with Gemini but is not part of the Botpress integration.'
+    `Image editing is not supported with Botpress. This feature was available with Gemini but is not part of the Botpress integration. Attempted to edit ${mimeType} image (${base64Image.length} bytes) with prompt: "${prompt}"`
   );
 };
 
