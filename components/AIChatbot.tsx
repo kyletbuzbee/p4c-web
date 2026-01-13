@@ -13,7 +13,7 @@ const AIChatbot: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'model',
-      text: "Welcome to Properties 4 Creation! I'm Patriot, your virtual concierge. How can I help you find your home today?",
+      text: "Welcome to P4C Housing Assistant. I can help you find a family home, access veteran services, or get a cash offer for your property. What are you interested in today?",
     },
   ]);
   const [input, setInput] = useState('');
@@ -102,7 +102,7 @@ const AIChatbot: React.FC = () => {
           ref={chatContainerRef}
           className="bg-white w-[350px] h-[500px] rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden mb-4 pointer-events-auto animate-fade-in-up ring-1 ring-black/5"
           role="dialog"
-          aria-label="Patriot: P4C Virtual Concierge"
+          aria-label="P4C Housing Assistant"
         >
           <div className="bg-p4c-navy p-4 flex justify-between items-center text-white">
             <div className="flex items-center gap-2">
@@ -111,7 +111,7 @@ const AIChatbot: React.FC = () => {
               </div>
               <div>
                 <h3 className="font-bold text-sm font-serif">
-                  Patriot Concierge
+                  P4C Housing Assistant
                 </h3>
                 <div className="flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
@@ -122,7 +122,7 @@ const AIChatbot: React.FC = () => {
             <button
               onClick={() => setIsOpen(false)}
               className="hover:bg-white/10 p-1.5 rounded-xl transition-colors focus:outline-none focus:ring-2 focus:ring-p4c-gold"
-              aria-label="Close concierge chat"
+              aria-label="Close housing assistant chat"
             >
               <X className="w-5 h-5" />
             </button>
@@ -146,7 +146,7 @@ const AIChatbot: React.FC = () => {
                   }`}
                 >
                   <span className="sr-only">
-                    {msg.role === 'user' ? 'You:' : 'Patriot:'}
+                    {msg.role === 'user' ? 'You:' : 'P4C Housing Assistant:'}
                   </span>
                   {msg.text}
                 </div>
@@ -157,7 +157,7 @@ const AIChatbot: React.FC = () => {
                 <div className="bg-white border border-gray-200 p-3 rounded-2xl rounded-bl-sm shadow-sm flex items-center gap-2">
                   <Loader2 className="w-4 h-4 animate-spin text-p4c-gold" />
                   <span className="text-xs text-gray-500 font-medium italic">
-                    Patriot is searching listings...
+                    P4C Housing Assistant is searching listings...
                   </span>
                 </div>
               </div>
@@ -175,14 +175,14 @@ const AIChatbot: React.FC = () => {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask about availability in Tyler..."
-              aria-label="Message Patriot"
+              aria-label="Message P4C Housing Assistant"
               className="flex-1 border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold/20 transition-all bg-gray-50 focus:bg-white"
             />
             <button
               type="submit"
               disabled={isLoading || !input.trim()}
               className="bg-p4c-gold text-p4c-navy p-2.5 rounded-xl hover:bg-p4c-goldHover disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm hover:shadow-md active:scale-95 focus:outline-none focus:ring-2 focus:ring-p4c-gold"
-              aria-label="Send message to concierge"
+              aria-label="Send message to P4C Housing Assistant"
             >
               <Send className="w-4 h-4" />
             </button>
@@ -196,7 +196,7 @@ const AIChatbot: React.FC = () => {
         aria-label={
           isOpen
             ? 'Close assistance chat'
-            : 'Chat with Patriot for housing assistance'
+            : 'Chat with P4C Housing Assistant for housing assistance'
         }
         aria-expanded={isOpen}
       >

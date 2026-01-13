@@ -243,16 +243,23 @@ const Navbar: React.FC = () => {
             <button
               onClick={() => handleNavClick('/admin')}
               className="text-gray-400 hover:text-p4c-gold p-2 rounded-full"
-              title="Staff Dashboard"
               aria-label="Staff Dashboard - Access admin area"
             >
               <LayoutDashboard className="w-4 h-4" />
             </button>
 
+            {/* Sell Your House CTA */}
+            <Link
+              to="/homeowner-solutions"
+              className="bg-p4c-gold text-p4c-navy px-6 py-3 rounded-xl font-bold hover:bg-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 mr-4"
+            >
+              Sell Your House Fast
+            </Link>
+
             {/* CTA Button */}
             <button
               onClick={() => handleNavClick('/apply')}
-              className="ml-4 bg-p4c-gold text-p4c-navy hover:bg-p4c-goldHover px-6 py-2.5 rounded-md font-bold text-sm transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              className="bg-p4c-navy text-white hover:bg-p4c-slate px-6 py-2.5 rounded-md font-bold text-sm transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             >
               Apply Now
             </button>
@@ -262,8 +269,9 @@ const Navbar: React.FC = () => {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-300 hover:text-white p-2"
+              className="text-gray-300 hover:text-white p-2 focus:outline-none focus:ring-2 focus:ring-p4c-gold"
               aria-label={isOpen ? 'Close mobile menu' : 'Open mobile menu'}
+              aria-expanded={isOpen}
             >
               {isOpen ? (
                 <X className="h-6 w-6" />

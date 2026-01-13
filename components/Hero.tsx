@@ -21,7 +21,7 @@ const Hero: React.FC<HeroProps> = ({ variant = 'image' }) => (
           poster={IMAGES.BANNERS.HERO_PROJECTS}
           className="object-cover w-full h-full"
         >
-          <source src={IMAGES.VIDEOS.HERO_PROJECTS} type="video/mp4" />
+          <source src={IMAGES.VIDEOS.HERO_SPOTLIGHT} type="video/mp4" />
         </video>
       ) : (
         <img
@@ -60,14 +60,7 @@ const Hero: React.FC<HeroProps> = ({ variant = 'image' }) => (
       </div>
     </div>
 
-    <div
-      className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-white/70"
-      aria-hidden="true"
-    >
-      <span className="text-sm uppercase tracking-widest font-medium">
-        Scroll to Discover
-      </span>
-    </div>
+
   </div>
 );
 

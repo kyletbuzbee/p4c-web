@@ -4,12 +4,11 @@ import Hero from '../components/Hero';
 import ImpactDashboard from '../components/ImpactDashboard';
 import PropertyCard from '../components/PropertyCard';
 import BeforeAfterSlider from '../components/BeforeAfterSlider';
-import GeminiImageEditor from '../components/GeminiImageEditor';
 import { api } from '../services/api';
 import { logError } from '../services/errorBoundaryService';
 import type { ExtendedProperty } from '../types';
 import { IMAGES } from '../constants/images';
-import { Search, SlidersHorizontal, X, ArrowRight } from 'lucide-react';
+import { Search, SlidersHorizontal, X, ArrowRight, HeartHandshake } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
@@ -101,9 +100,11 @@ const Home: React.FC = () => {
         />
       </Helmet>
 
-      <Hero />
+      <Hero variant="video" />
 
       <ImpactDashboard />
+
+
 
       {/* Featured Listings */}
       <section
@@ -256,6 +257,69 @@ const Home: React.FC = () => {
         )}
       </section>
 
+      {/* The Trinity Grid (3-Column Section) */}
+      <section
+        className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto -mt-10 relative z-20"
+        aria-label="Our Core Services"
+      >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+          {/* Card 1: For Families (50%) */}
+          <div className="bg-white p-8 rounded-2xl shadow-xl border-t-4 border-p4c-navy hover:shadow-2xl transition-shadow">
+            <div className="bg-p4c-beige w-14 h-14 rounded-xl flex items-center justify-center mb-6 text-p4c-navy">
+              <Search className="w-8 h-8" aria-hidden="true" />
+            </div>
+            <h3 className="font-serif text-2xl font-bold text-p4c-navy mb-4">
+              Safety & Stability First
+            </h3>
+            <p className="font-sans text-slate-600 leading-relaxed">
+              Every P4C home meets our Gold Standard for safety. Located in top-rated
+              school districts with renovated interiors, we build environments where
+              families thrive, not just survive.
+            </p>
+          </div>
+
+          {/* Card 2: For Veterans (30%) */}
+          <div className="bg-white p-8 rounded-2xl shadow-xl border-t-4 border-p4c-gold hover:shadow-2xl transition-shadow">
+            <div className="bg-p4c-navy w-14 h-14 rounded-xl flex items-center justify-center mb-6 text-p4c-gold">
+              <HeartHandshake className="w-8 h-8" aria-hidden="true" />
+            </div>
+            <h3 className="font-serif text-2xl font-bold text-p4c-navy mb-4">
+              Honoring Your Service
+            </h3>
+            <p className="font-sans text-slate-600 leading-relaxed">
+              We are VASH-voucher approved and ADA-conscious. From accessible entrances
+              to dedicated support, we ensure your transition to civilian housing is
+              seamless and respectful.
+            </p>
+          </div>
+
+          {/* Card 3: For Sellers (20%) */}
+          <div className="bg-white p-8 rounded-2xl shadow-xl border-t-4 border-slate-500 hover:shadow-2xl transition-shadow">
+            <div className="bg-slate-100 w-14 h-14 rounded-xl flex items-center justify-center mb-6 text-slate-700">
+              <ArrowRight className="w-8 h-8" aria-hidden="true" />
+            </div>
+            <h3 className="font-serif text-2xl font-bold text-p4c-navy mb-4">
+              Fair Offers, Zero Hassle
+            </h3>
+            <p className="font-sans text-slate-600 leading-relaxed">
+              Have a property in disrepair? We buy homes "As-Is" to transform them into
+              housing for local heroes. No fees, no repairs, and a closing date that works for you.
+            </p>
+            <div className="mt-6">
+               <button
+                 onClick={() => navigate('/homeowner-solutions')}
+                 className="text-p4c-gold font-bold hover:text-p4c-navy inline-flex items-center gap-1"
+                 aria-label="Get a cash offer for your home"
+               >
+                 Get a Cash Offer <ArrowRight className="w-4 h-4" />
+               </button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
       {/* Impact Section - We Buy Houses */}
       <section className="py-20 bg-p4c-navy">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -341,21 +405,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* AI Visualization Section */}
-      <section className="py-20 bg-p4c-beige border-y border-gray-200">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-4">
-              Design Your Future
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Curious what a renovation could look like? Use our AI tool to
-              apply styles to your own photos or visualize changes.
-            </p>
-          </div>
-          <GeminiImageEditor />
-        </div>
-      </section>
+
 
       {/* Call to Action */}
       <section

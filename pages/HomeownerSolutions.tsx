@@ -8,6 +8,8 @@ interface FormData {
   name: string;
   address: string;
   phone: string;
+  propertyType?: string;
+  timeline?: string;
 }
 
 interface FormErrors {
@@ -22,6 +24,8 @@ const HomeownerSolutions: React.FC = () => {
     name: '',
     address: '',
     phone: '',
+    propertyType: '',
+    timeline: '',
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -211,7 +215,7 @@ const HomeownerSolutions: React.FC = () => {
                   <button
                     onClick={() => {
                       setIsSubmitted(false);
-                      setFormData({ name: '', address: '', phone: '' });
+                      setFormData({ name: '', address: '', phone: '', propertyType: '', timeline: '' });
                     }}
                     className="text-p4c-gold font-semibold hover:underline"
                   >
@@ -306,6 +310,57 @@ const HomeownerSolutions: React.FC = () => {
                         {errors.phone}
                       </p>
                     )}
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label
+                        htmlFor="propertyType"
+                        className="block text-sm font-semibold text-gray-700 mb-2"
+                      >
+                        Property Type <span className="text-gray-500 text-xs">(Optional)</span>
+                      </label>
+                      <select
+                        id="propertyType"
+                        name="propertyType"
+                        value={formData.propertyType}
+                        onChange={(e) => setFormData((prev) => ({ ...prev, propertyType: e.target.value }))}
+                        className="w-full px-4 py-4 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-p4c-gold bg-white"
+                      >
+                        <option value="">Select property type</option>
+                        <option>Single Family Home</option>
+                        <option>Townhouse</option>
+                        <option>Condo/Apartment</option>
+                        <option>Duplex</option>
+                        <option>Multi-Family</option>
+                        <option>Commercial</option>
+                        <option>Land</option>
+                        <option>Other</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="timeline"
+                        className="block text-sm font-semibold text-gray-700 mb-2"
+                      >
+                        Preferred Timeline <span className="text-gray-500 text-xs">(Optional)</span>
+                      </label>
+                      <select
+                        id="timeline"
+                        name="timeline"
+                        value={formData.timeline}
+                        onChange={(e) => setFormData((prev) => ({ ...prev, timeline: e.target.value }))}
+                        className="w-full px-4 py-4 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-p4c-gold bg-white"
+                      >
+                        <option value="">Select timeline</option>
+                        <option>ASAP (within 30 days)</option>
+                        <option>Within 3 months</option>
+                        <option>Within 6 months</option>
+                        <option>Within 1 year</option>
+                        <option>Flexible</option>
+                      </select>
+                    </div>
                   </div>
 
                   <button

@@ -8,8 +8,8 @@ const Veterans: React.FC = () => (
     <div className="relative h-[400px] w-full overflow-hidden flex items-center justify-center">
       <div className="absolute top-0 left-0 w-full h-full z-0">
         <img
-          src={IMAGES.BANNERS.HERO_RESOURCES}
-          alt="American flag flying on a front porch"
+          src={IMAGES.BANNERS.HERO_HOME}
+          alt="Clean, restored P4C property in Tyler, Texas"
           className="w-full h-full object-cover"
         />
         <div className="absolute top-0 left-0 w-full h-full bg-p4c-navy/80 mix-blend-multiply" />
