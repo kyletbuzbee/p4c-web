@@ -9,6 +9,7 @@ interface AnimatedButtonProps {
   disabled?: boolean;
   loading?: boolean;
   animate?: boolean;
+  'aria-label'?: string;
 }
 
 export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
@@ -20,8 +21,10 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
   disabled = false,
   loading = false,
   animate = true,
+  'aria-label': ariaLabel,
   ...props
 }) => {
+  // ariaLabel is already extracted from props
   const [isPressed, setIsPressed] = useState(false);
   const [ripples, setRipples] = useState<
     Array<{ id: number; x: number; y: number }>
@@ -130,6 +133,7 @@ interface FloatingActionProps {
   onClick?: () => void;
   position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
   className?: string;
+  'aria-label'?: string;
 }
 
 export const FloatingAction: React.FC<FloatingActionProps> = ({
@@ -137,6 +141,8 @@ export const FloatingAction: React.FC<FloatingActionProps> = ({
   onClick,
   position = 'bottom-right',
   className = '',
+  'aria-label': ariaLabel = 'Quick action button',
+  ...props
 }) => {
   const positionClasses = {
     'bottom-right': 'bottom-6 right-6',
@@ -151,7 +157,8 @@ export const FloatingAction: React.FC<FloatingActionProps> = ({
       /* eslint-disable security/detect-object-injection */
       className={`fixed ${positionClasses[position]} z-40 w-14 h-14 bg-p4c-gold text-p4c-navy rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-p4c-gold focus:ring-offset-2 group ${className}`}
       /* eslint-enable security/detect-object-injection */
-      aria-label="Floating action button"
+      aria-label={ariaLabel}
+      {...props}
     >
       <div className="flex items-center justify-center w-full h-full group-hover:scale-110 transition-transform duration-200">
         {children}
@@ -226,6 +233,7 @@ interface SmoothScrollProps {
   offset?: number;
   duration?: number;
   className?: string;
+  'aria-label'?: string;
 }
 
 export const SmoothScroll: React.FC<SmoothScrollProps> = ({
@@ -233,12 +241,20 @@ export const SmoothScroll: React.FC<SmoothScrollProps> = ({
   children,
   offset = 0,
   className = '',
+  'aria-label': ariaLabel,
+  ...props
 }) => {
   const handleClick = (e: React.MouseEvent): void => {
     e.preventDefault();
 
     const targetElement = document.querySelector(to);
     if (targetElement) {
+      // Focus the target element for screen readers
+      targetElement.setAttribute('tabindex', '-1');
+      if ('focus' in targetElement) {
+        (targetElement as HTMLElement).focus();
+      }
+
       const targetPosition =
         targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
 
@@ -254,6 +270,8 @@ export const SmoothScroll: React.FC<SmoothScrollProps> = ({
       href={to}
       onClick={handleClick}
       className={`transition-colors duration-200 hover:text-p4c-gold cursor-pointer ${className}`}
+      aria-label={ariaLabel}
+      {...props}
     >
       {children}
     </a>

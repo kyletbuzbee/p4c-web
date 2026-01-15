@@ -10,6 +10,10 @@ const Terms: React.FC = () => (
         name="description"
         content="Terms of service for using the Properties 4 Creation website and portal."
       />
+      <meta
+        name="keywords"
+        content="terms of service, rental agreement terms, tenant rights, fair housing terms, lease terms, rental policies"
+      />
     </Helmet>
 
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

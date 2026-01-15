@@ -81,6 +81,10 @@ const FAQ: React.FC = () => (
         name="description"
         content="Frequently asked questions about applying for housing, Section 8, and veteran services at Properties 4 Creation."
       />
+      <meta
+        name="keywords"
+        content="housing FAQ, Section 8 questions, veteran housing FAQ, rental application process, pet policy housing, housing vouchers FAQ"
+      />
     </Helmet>
 
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import {
   Award,
   ShieldCheck,
@@ -10,6 +11,15 @@ import {
 import { IMAGES } from '../constants/images';
 
 const About: React.FC = () => (
+  <>
+    <Helmet>
+      <title>About Us | Veteran-Owned Affordable Housing | Properties 4 Creation</title>
+      <meta
+        name="description"
+        content="Learn about Properties 4 Creation, a veteran-owned company redefining affordable housing standards in East Texas. Premium renovations, compassionate management, community impact."
+      />
+      <meta name="keywords" content="veteran owned business, affordable housing East Texas, veteran housing company, quality affordable homes, veteran led property management" />
+    </Helmet>
   <div className="bg-p4c-beige min-h-screen">
     {/* Hero Banner */}
     <div className="relative h-[500px] w-full overflow-hidden flex items-center justify-center">
@@ -271,6 +281,7 @@ const About: React.FC = () => (
       </div>
     </div>
   </div>
+  </>
 );
 
 export default About;

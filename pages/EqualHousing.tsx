@@ -6,6 +6,14 @@ const EqualHousing: React.FC = () => (
   <div className="bg-p4c-beige min-h-screen py-16">
     <Helmet>
       <title>Equal Housing Opportunity | Properties 4 Creation</title>
+      <meta
+        name="description"
+        content="Properties 4 Creation equal housing opportunity statement and commitment to fair housing practices without discrimination based on race, color, religion, or national origin."
+      />
+      <meta
+        name="keywords"
+        content="equal housing opportunity, fair housing, housing discrimination, HUD fair housing, equal opportunity housing, non-discriminatory housing"
+      />
     </Helmet>
 
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -59,8 +59,6 @@ const Hero: React.FC<HeroProps> = ({ variant = 'image' }) => (
         </button>
       </div>
     </div>
-
-
   </div>
 );
 

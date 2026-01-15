@@ -27,17 +27,35 @@ const TenantLogin: React.FC = () => {
     e.preventDefault();
     setError('');
 
-    // Simulate simple auth check
-    if (email === 'admin@p4c.com' && password === 'admin') {
-      await login(email, 'admin');
-      navigate('/admin');
-    } else if (email === 'demo@p4c.com' && password === 'demo') {
-      await login(email, 'tenant');
-      navigate(from === '/admin' ? '/' : from); // Tenants can't go to admin
-    } else {
-      setError(
-        'Invalid credentials. Try (admin@p4c.com / admin) or (demo@p4c.com / demo)'
-      );
+    try {
+      // For demo purposes, accept these credentials
+      if (
+        (email === 'admin@p4c.com' && password === 'admin') ||
+        (email === 'tenant@p4c.com' && password === 'tenant123') ||
+        (email === 'veteran@p4c.com' && password === 'veteran123')
+      ) {
+        // Map veteran to tenant role since veteran is not in UserRole type
+        const userType = email.includes('admin')
+          ? 'admin'
+          : email.includes('veteran')
+            ? 'tenant' // Map veteran to tenant
+            : 'tenant';
+
+        await login(email, userType);
+
+        // Redirect based on user type
+        if (userType === 'admin') {
+          navigate('/admin');
+        } else {
+          navigate(from === '/admin' ? '/portal' : from || '/portal');
+        }
+      } else {
+        setError(
+          'Invalid email or password. Please check your credentials and try again.'
+        );
+      }
+    } catch (err) {
+      setError('Login failed. Please try again or contact support.');
     }
   };
 
@@ -45,6 +63,14 @@ const TenantLogin: React.FC = () => {
     <div className="min-h-screen bg-p4c-beige flex flex-col lg:flex-row">
       <Helmet>
         <title>Portal Login | Properties 4 Creation</title>
+        <meta
+          name="description"
+          content="Secure tenant portal for Properties 4 Creation residents. Pay rent, submit maintenance requests, and manage your housing account online."
+        />
+        <meta
+          name="keywords"
+          content="tenant portal login, resident login, pay rent online, maintenance requests, tenant dashboard, housing portal"
+        />
       </Helmet>
 
       {/* Left Side - Visuals */}
@@ -174,15 +200,28 @@ const TenantLogin: React.FC = () => {
               <ShieldCheck className="w-4 h-4" />
               Bank-Level 256-bit Encryption
             </div>
-            <p className="text-xs text-gray-500">
-              Not a resident yet?{' '}
-              <Link
-                to="/apply"
-                className="text-p4c-navy font-bold hover:underline"
-              >
-                Apply for a home
-              </Link>
-            </p>
+            <div className="space-y-3">
+              <p className="text-xs text-gray-500 text-center">
+                Not a resident yet?{' '}
+                <Link
+                  to="/apply"
+                  className="text-p4c-navy font-bold hover:underline"
+                >
+                  Apply for a home
+                </Link>
+              </p>
+
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                <p className="text-xs text-blue-800 font-medium text-center">
+                  Demo Credentials:
+                </p>
+                <div className="text-xs text-blue-700 mt-1 space-y-1">
+                  <div>Admin: admin@p4c.com / admin</div>
+                  <div>Tenant: tenant@p4c.com / tenant123</div>
+                  <div>Veteran: veteran@p4c.com / veteran123</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

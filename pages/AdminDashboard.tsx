@@ -50,6 +50,14 @@ const AdminDashboard: React.FC = () => {
     <div className="min-h-screen bg-gray-100 flex">
       <Helmet>
         <title>Admin Dashboard | Properties 4 Creation</title>
+        <meta
+          name="description"
+          content="Properties 4 Creation administrative dashboard for property management, tenant oversight, and operational analytics."
+        />
+        <meta
+          name="keywords"
+          content="admin dashboard, property management, tenant portal, P4C administration, housing management system"
+        />
       </Helmet>
 
       {/* Sidebar */}
@@ -115,37 +123,44 @@ const AdminDashboard: React.FC = () => {
                 value: '$42,500',
                 sub: '+12% from last month',
                 color: 'text-green-600',
+                icon: '💰',
               },
               {
                 label: 'Occupancy Rate',
                 value: '94%',
                 sub: '2 units available',
                 color: 'text-blue-600',
+                icon: '🏠',
               },
               {
                 label: 'Maintenance Req',
                 value: '3',
                 sub: '1 urgent',
                 color: 'text-orange-600',
+                icon: '🔧',
               },
               {
                 label: 'Applications',
                 value: '18',
                 sub: '5 pending review',
                 color: 'text-p4c-navy',
+                icon: '📝',
               },
             ].map((stat, i) => (
               <div
                 key={i}
-                className="bg-white p-6 rounded-xl shadow-sm border border-gray-100"
+                className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
               >
-                <div className="text-sm text-gray-500 font-medium mb-1">
-                  {stat.label}
+                <div className="flex items-center justify-between mb-4">
+                  <div className="text-sm text-gray-500 font-medium">
+                    {stat.label}
+                  </div>
+                  <span className="text-2xl">{stat.icon}</span>
                 </div>
-                <div className="text-2xl font-bold text-gray-900 mb-1">
+                <div className="text-3xl font-bold text-gray-900 mb-2">
                   {stat.value}
                 </div>
-                <div className={`text-xs ${stat.color} font-medium`}>
+                <div className={`text-sm ${stat.color} font-medium`}>
                   {stat.sub}
                 </div>
               </div>

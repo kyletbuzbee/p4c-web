@@ -1,11 +1,21 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { HeartHandshake, Phone, Home, Flag } from 'lucide-react';
 import { IMAGES } from '../constants/images';
 
 const Veterans: React.FC = () => (
+  <>
+    <Helmet>
+      <title>Veteran Housing Support | HUD-VASH Program | Properties 4 Creation</title>
+      <meta
+        name="description"
+        content="Veteran housing support with HUD-VASH program assistance, priority application processing, deposit assistance, and accessibility modifications for East Texas veterans."
+      />
+      <meta name="keywords" content="veteran housing, HUD-VASH program, veteran rental assistance, veteran housing East Texas, VA housing support, veteran priority housing" />
+    </Helmet>
   <div className="bg-p4c-beige min-h-screen">
     {/* Hero Banner */}
-    <div className="relative h-[400px] w-full overflow-hidden flex items-center justify-center">
+    <div className="relative h-[300px] w-full overflow-hidden flex items-center justify-center">
       <div className="absolute top-0 left-0 w-full h-full z-0">
         <img
           src={IMAGES.BANNERS.HERO_HOME}
@@ -20,76 +30,57 @@ const Veterans: React.FC = () => (
             <Flag className="w-8 h-8 text-p4c-navy" />
           </div>
         </div>
-        <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4">
-          Serving Those Who Served
+        <h1 className="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
+          Veteran Housing Support
         </h1>
-        <p className="text-xl text-gray-200">
-          Housing is a human right, but for veterans, it&apos;s a promise we
-          keep.
+        <p className="text-lg text-gray-200">
+          Priority housing and support services for veterans in East Texas.
         </p>
       </div>
     </div>
 
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Main Content */}
-        <div className="md:col-span-2 space-y-12">
+        <div className="lg:col-span-2 space-y-8">
           <section>
-            <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-4">
-              The HUD-VASH Program
+            <h2 className="text-2xl font-serif font-bold text-p4c-navy mb-4">
+              HUD-VASH Program Support
             </h2>
             <p className="text-gray-700 leading-relaxed mb-4">
-              Properties 4 Creation works directly with the HUD-VASH program to
-              provide permanent housing for homeless veterans. This program
-              combines Housing Choice Voucher (HCV) rental assistance for
-              homeless Veterans with case management and clinical services
-              provided by the Department of Veterans Affairs (VA).
-            </p>
-            <p className="text-gray-700 leading-relaxed">
-              We streamline the inspection and lease-up process to get you out
-              of temporary shelter and into your own home faster.
+              We work directly with HUD-VASH to provide permanent housing for veterans,
+              streamlining inspections and lease-up processes.
             </p>
           </section>
 
-          <section className="bg-white p-8 rounded-xl shadow-sm border-l-4 border-p4c-gold">
-            <h3 className="text-2xl font-serif font-bold text-p4c-navy mb-4 flex items-center gap-2">
+          <section className="bg-white p-6 rounded-xl shadow-sm border-l-4 border-p4c-gold">
+            <h3 className="text-xl font-serif font-bold text-p4c-navy mb-4 flex items-center gap-2">
               <HeartHandshake className="text-p4c-gold" />
-              Our Veteran Promise
+              Veteran Housing Benefits
             </h3>
-            <div className="space-y-4">
-              <div className="flex gap-4">
-                <div className="font-bold text-p4c-gold text-xl">01</div>
+            <div className="space-y-3">
+              <div className="flex gap-3">
+                <div className="font-bold text-p4c-gold">"</div>
                 <div>
-                  <h4 className="font-bold text-p4c-navy">
-                    Application Priority
+                  <h4 className="font-bold text-p4c-navy text-sm">
+                    Priority Application Processing
                   </h4>
-                  <p className="text-gray-600 text-sm">
-                    Veterans move to the front of the line for all available
-                    units.
-                  </p>
                 </div>
               </div>
-              <div className="flex gap-4">
-                <div className="font-bold text-p4c-gold text-xl">02</div>
+              <div className="flex gap-3">
+                <div className="font-bold text-p4c-gold">"</div>
                 <div>
-                  <h4 className="font-bold text-p4c-navy">
-                    Deposit Assistance
+                  <h4 className="font-bold text-p4c-navy text-sm">
+                    Deposit Assistance Available
                   </h4>
-                  <p className="text-gray-600 text-sm">
-                    We work with local non-profits to help cover security
-                    deposits.
-                  </p>
                 </div>
               </div>
-              <div className="flex gap-4">
-                <div className="font-bold text-p4c-gold text-xl">03</div>
+              <div className="flex gap-3">
+                <div className="font-bold text-p4c-gold">"</div>
                 <div>
-                  <h4 className="font-bold text-p4c-navy">
+                  <h4 className="font-bold text-p4c-navy text-sm">
                     Accessibility Modifications
                   </h4>
-                  <p className="text-gray-600 text-sm">
-                    Need a ramp or grab bars? We install them at no cost to you.
-                  </p>
                 </div>
               </div>
             </div>
@@ -99,45 +90,38 @@ const Veterans: React.FC = () => (
         {/* Sidebar / Resources */}
         <div className="space-y-6">
           <div className="bg-p4c-navy text-white p-6 rounded-xl shadow-lg">
-            <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-              <Phone className="w-5 h-5" />
-              Emergency Contacts
+            <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
+              <Phone className="w-4 h-4" />
+              Crisis Support
             </h3>
-            <ul className="space-y-4 text-sm">
-              <li className="border-b border-gray-700 pb-2">
+            <div className="space-y-3 text-sm">
+              <div>
                 <span className="block text-gray-400 text-xs uppercase tracking-wider">
                   Veterans Crisis Line
                 </span>
-                <span className="font-bold text-lg text-p4c-gold">
-                  988 (Press 1)
-                </span>
-              </li>
-              <li className="border-b border-gray-700 pb-2">
+                <span className="font-bold text-p4c-gold">988 (Press 1)</span>
+              </div>
+              <div>
                 <span className="block text-gray-400 text-xs uppercase tracking-wider">
-                  National Call Center for Homeless Veterans
+                  P4C Veteran Liaison
                 </span>
-                <span className="font-bold text-lg">1-877-4AID-VET</span>
-              </li>
-              <li>
-                <span className="block text-gray-400 text-xs uppercase tracking-wider">
-                  Properties 4 Creation Veteran Liaison
-                </span>
-                <span className="font-bold text-lg">(903) 555-0199</span>
-              </li>
-            </ul>
+                <span className="font-bold">(903) 555-0199</span>
+              </div>
+            </div>
           </div>
 
           <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-            <h3 className="text-xl font-bold text-p4c-navy mb-4 flex items-center gap-2">
-              <Home className="w-5 h-5 text-p4c-gold" />
-              Local Resources
+            <h3 className="text-lg font-bold text-p4c-navy mb-4 flex items-center gap-2">
+              <Home className="w-4 h-4 text-p4c-gold" />
+              Key Resources
             </h3>
-            <ul className="space-y-3 text-sm text-blue-600 underline">
+            <ul className="space-y-2 text-sm">
               <li>
                 <a
                   href="https://www.campv.org/tyler"
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="text-blue-600 hover:underline"
                 >
                   CampV Tyler
                 </a>
@@ -147,17 +131,9 @@ const Veterans: React.FC = () => (
                   href="https://www.tvc.texas.gov"
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="text-blue-600 hover:underline"
                 >
                   Texas Veterans Commission
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.easttexasfoodbank.org"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  East Texas Food Bank
                 </a>
               </li>
             </ul>
@@ -166,6 +142,7 @@ const Veterans: React.FC = () => (
       </div>
     </div>
   </div>
+  </>
 );
 
 export default Veterans;

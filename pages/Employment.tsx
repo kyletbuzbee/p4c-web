@@ -1,9 +1,19 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { HardHat, Briefcase, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { IMAGES } from '../constants/images';
 
 const Employment: React.FC = () => (
+  <>
+    <Helmet>
+      <title>Careers | Join Our Veteran-Led Construction Team | Properties 4 Creation</title>
+      <meta
+        name="description"
+        content="Join Properties 4 Creation's veteran-led construction team. We hire veterans first with competitive pay, flexible schedules, and career advancement opportunities in East Texas."
+      />
+      <meta name="keywords" content="veteran jobs East Texas, construction careers, veteran hiring, skilled trades jobs, veteran employment, construction company hiring" />
+    </Helmet>
   <div className="bg-p4c-beige min-h-screen">
     {/* Hero Banner */}
     <div className="relative h-[400px] w-full overflow-hidden flex items-center justify-center">
@@ -151,6 +161,7 @@ const Employment: React.FC = () => (
       </div>
     </div>
   </div>
+  </>
 );
 
 export default Employment;

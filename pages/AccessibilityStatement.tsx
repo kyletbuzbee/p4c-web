@@ -6,6 +6,14 @@ const AccessibilityStatement: React.FC = () => (
   <div className="bg-p4c-beige min-h-screen py-16">
     <Helmet>
       <title>Accessibility Statement | Properties 4 Creation</title>
+      <meta
+        name="description"
+        content="Properties 4 Creation accessibility statement and commitment to WCAG 2.1 compliance for digital accessibility and inclusive housing services."
+      />
+      <meta
+        name="keywords"
+        content="accessibility statement, web accessibility, WCAG compliance, disability access, inclusive housing, ADA compliance"
+      />
     </Helmet>
 
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

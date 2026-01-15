@@ -10,6 +10,10 @@ const Privacy: React.FC = () => (
         name="description"
         content="Privacy policy and data protection standards for Properties 4 Creation applicants and residents."
       />
+      <meta
+        name="keywords"
+        content="privacy policy, data protection, tenant privacy, housing privacy, rental application privacy, GDPR compliance"
+      />
     </Helmet>
 
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

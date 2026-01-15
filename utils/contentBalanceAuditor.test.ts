@@ -98,9 +98,11 @@ describe('Content Balance Auditor', () => {
     const veteranProperties = Array(10).fill(mockProperties[0]);
     const result = auditContentBalance(mockRoutes, veteranProperties);
 
-    if (result.veteranPerc > 60) {
-      expect(result.recommendations).toContain('High Veteran Tilt detected');
-    }
+    expect(result.veteranPerc).toBe(100);
+    expect(result.recommendations.length).toBe(3);
+    expect(result.recommendations[0]).toBe(
+      "High Veteran Tilt detected. Add 'Family Success Stories' to /stories to balance military testimonials."
+    );
   });
 
   test('should audit story balance correctly', () => {

@@ -154,6 +154,10 @@ const Contact: React.FC = () => {
           name="description"
           content="Contact Properties 4 Creation for housing inquiries, investor relations, or employment opportunities in East Texas."
         />
+        <meta
+          name="keywords"
+          content="contact Properties 4 Creation, housing inquiry East Texas, veteran housing contact, rental application, investor relations, employment opportunities"
+        />
       </Helmet>
 
       {/* Hero Banner */}

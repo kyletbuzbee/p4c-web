@@ -158,6 +158,7 @@ const SuccessStories: React.FC = () => {
       quote:
         'Properties 4 Creation gave me and my family a fresh start. After serving overseas, coming home to a place we could truly call our own was everything.',
       videoLabel: 'Marcus Thompson success story - Tyler veteran housing',
+      type: 'veteran',
     },
     {
       id: 2,
@@ -166,6 +167,26 @@ const SuccessStories: React.FC = () => {
       quote:
         'The attention to detail in every renovation shows how much they care about the community. Our home is more than just a house—it is a home for our children.',
       videoLabel: 'Sarah Martinez family success story - Longview',
+      type: 'family',
+    },
+    {
+      id: 3,
+      name: 'Jennifer Williams',
+      location: 'Lindale, TX',
+      quote:
+        'As a single mother, finding safe, affordable housing with good schools nearby was my top priority. P4C delivered beyond my expectations.',
+      videoLabel:
+        'Jennifer Williams family success story - Lindale single mother',
+      type: 'family',
+    },
+    {
+      id: 4,
+      name: 'Roberto & Maria Gonzalez',
+      location: 'Whitehouse, TX',
+      quote:
+        'Our children finally have their own rooms and we have a yard to play in. The neighborhood is peaceful and the schools are excellent.',
+      videoLabel: 'Roberto & Maria Gonzalez family success story - Whitehouse',
+      type: 'family',
     },
   ];
 
@@ -178,6 +199,10 @@ const SuccessStories: React.FC = () => {
         <meta
           name="description"
           content="Hear from veterans and families whose lives have been transformed by Properties 4 Creation in Tyler, Longview, and across East Texas."
+        />
+        <meta
+          name="keywords"
+          content="veteran success stories, family housing testimonials, P4C transformation stories, East Texas housing success, veteran housing testimonials, family home success stories"
         />
       </Helmet>
 
@@ -226,21 +251,11 @@ const SuccessStories: React.FC = () => {
             >
               {/* Video Section */}
               <div className="w-full lg:w-1/2">
-                {index === 1 ? (
-                  <div className="relative rounded-xl overflow-hidden bg-p4c-navy shadow-2xl">
-                    <img
-                      src={IMAGES.GALLERY.BUY_AS_IS}
-                      alt="Buy As-Is property before renovation"
-                      className="w-full aspect-video object-cover"
-                    />
-                  </div>
-                ) : (
-                  <CustomVideoPlayer
-                    src={IMAGES.VIDEOS.HERO_IMPACT}
-                    poster={IMAGES.BANNERS.HERO_IMPACT}
-                    ariaLabel={story.videoLabel}
-                  />
-                )}
+                <CustomVideoPlayer
+                  src={IMAGES.VIDEOS.HERO_IMPACT}
+                  poster={IMAGES.BANNERS.HERO_IMPACT}
+                  ariaLabel={story.videoLabel}
+                />
               </div>
 
               {/* Story Content */}

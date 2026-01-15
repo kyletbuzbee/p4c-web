@@ -113,6 +113,10 @@ const PropertyDetails: React.FC = () => {
           name="description"
           content={`Check out ${property.title} in ${property.address}. ${property.beds} Bed, ${property.baths} Bath, ${property.badges.join(', ')}.`}
         />
+        <meta
+          name="keywords"
+          content={`rental property ${property.address}, ${property.beds} bedroom rental, affordable housing ${property.neighborhood}, Section 8 housing, HUD-VASH housing`}
+        />
       </Helmet>
 
       {/* Hero Image */}

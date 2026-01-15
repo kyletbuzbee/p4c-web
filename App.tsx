@@ -36,6 +36,7 @@ const SuccessStories = React.lazy(() => import('./pages/SuccessStories'));
 const HomeownerSolutions = React.lazy(
   () => import('./pages/HomeownerSolutions')
 );
+const FamilyResources = React.lazy(() => import('./pages/FamilyResources'));
 const AdminDashboard = React.lazy(() => import('./pages/AdminDashboard'));
 const Faq = React.lazy(() => import('./pages/FAQ'));
 
@@ -56,6 +57,7 @@ const StandardLayout = () => (
           {/* Find a Home (Transactional) */}
           <Route path="/" element={<Home />} />
           <Route path="/homeowner-solutions" element={<HomeownerSolutions />} />
+          <Route path="/family-resources" element={<FamilyResources />} />
           <Route path="/properties/:id" element={<PropertyDetails />} />
           <Route path="/apply" element={<Application />} />
           <Route path="/equal-housing" element={<EqualHousing />} />

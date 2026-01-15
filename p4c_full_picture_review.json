@@ -1,12 +1,7 @@
 {
   "context": {
     "mission": "Housing veterans and families with dignity and technical excellence.",
-    "brand_palette": [
-      "#0B1120",
-      "#C5A059",
-      "#F5F5F0",
-      "#334155"
-    ],
+    "brand_palette": ["#0B1120", "#C5A059", "#F5F5F0", "#334155"],
     "architecture_layers": {
       "data_access": "services/api.ts",
       "ai_logic": "services/geminiService.ts",
@@ -87,6 +82,186 @@
     }
   },
   "analysis": {
+    "content_balance_analysis": {
+      "current_distribution": {
+        "veterans": 0.23181049069373943,
+        "families": 0.1065989847715736,
+        "property_buyers": 0.6615905245346869
+      },
+      "target_distribution": {
+        "veterans": 0.1,
+        "families": 0.3,
+        "property_buyers": 0.6
+      },
+      "gaps": {
+        "veterans": {
+          "current": 0.23181049069373943,
+          "target": 0.1,
+          "gap": -0.13181049069373943,
+          "status": "over",
+          "gap_percentage": -13.2
+        },
+        "families": {
+          "current": 0.1065989847715736,
+          "target": 0.3,
+          "gap": 0.1934010152284264,
+          "status": "under",
+          "gap_percentage": 19.3
+        },
+        "property_buyers": {
+          "current": 0.6615905245346869,
+          "target": 0.6,
+          "gap": -0.0615905245346869,
+          "status": "over",
+          "gap_percentage": -6.2
+        }
+      },
+      "critical_findings": [
+        "Family content is underrepresented (19.3% gap to reach 30% target)",
+        "Veteran content is overrepresented (13.2% over 10% target)",
+        "Property buyer content is slightly overrepresented (6.2% over 60% target)",
+        "18 pages have SEO scores below 70/100",
+        "Multiple accessibility violations across components",
+        "Lighthouse performance testing blocked by server issues"
+      ]
+    },
+    "comprehensive_plan": {
+      "executive_summary": "Properties 4 Creation faces critical content balance issues with family-focused content underrepresented and veteran content overrepresented. Technical issues include accessibility violations and poor SEO performance. The plan prioritizes family content expansion, veteran content reduction, and accessibility fixes.",
+      "priority_phases": {
+        "phase_1_critical": {
+          "focus": "Accessibility & Content Rebalancing Foundation",
+          "timeline": "2-3 weeks",
+          "actions": [
+            "Fix all HIGH severity accessibility violations (missing ARIA labels)",
+            "Create dedicated Family Resources page with school district information",
+            "Add family testimonials and success stories to existing pages",
+            "Reduce veteran-focused content by 13.2% across Veterans and VeteranServices pages",
+            "Implement content balance monitoring dashboard"
+          ]
+        },
+        "phase_2_content": {
+          "focus": "Family Content Expansion & Veteran Content Reduction",
+          "timeline": "3-4 weeks",
+          "actions": [
+            "Expand family-focused content by 19.3% to reach 30% target",
+            "Add interactive tools: school district ratings, childcare proximity search",
+            "Consolidate veteran content from Veterans/VeteranServices pages",
+            "Improve SEO on 18 pages with scores below 70",
+            "Remove redundant veteran-specific content"
+          ]
+        },
+        "phase_3_technical": {
+          "focus": "Technical Optimization & Content Balance Maintenance",
+          "timeline": "2-3 weeks",
+          "actions": [
+            "Fine-tune property buyer content (only 6.2% over target)",
+            "Fix Lighthouse testing environment and performance issues",
+            "Implement competitive features (market trend reports, ROI calculators)",
+            "Complete SEO optimization across all pages"
+          ]
+        }
+      },
+      "prioritized_action_items": [
+        {
+          "priority": "HIGH",
+          "category": "Content Strategy",
+          "item": "Consolidate veteran-focused content across Veterans and VeteranServices pages by 13.2%",
+          "impact": "Reduces overrepresented veteran content to meet 10% target",
+          "effort": "Medium",
+          "components_affected": ["Veterans", "VeteranServices"]
+        },
+        {
+          "priority": "CRITICAL",
+          "category": "Content Strategy",
+          "item": "Create comprehensive Family Resources page with school district information, family-friendly amenities, and childcare proximity",
+          "impact": "Directly addresses 39.3% family content gap",
+          "effort": "High",
+          "components_affected": ["New page creation"]
+        },
+        {
+          "priority": "HIGH",
+          "category": "Content Strategy",
+          "item": "Add family testimonials and success stories across existing pages",
+          "impact": "Increases family content representation",
+          "effort": "Medium",
+          "components_affected": ["SuccessStories", "Home", "OurImpact"]
+        },
+        {
+          "priority": "HIGH",
+          "category": "SEO",
+          "item": "Add proper title tags and meta descriptions to all 18 pages with missing SEO elements",
+          "impact": "Improves search engine rankings and organic traffic",
+          "effort": "Medium",
+          "components_affected": ["All pages with SEO scores below 70"]
+        },
+        {
+          "priority": "HIGH",
+          "category": "Content Strategy",
+          "item": "Implement school district rating tool and childcare proximity search",
+          "impact": "Adds valuable family-focused interactive features",
+          "effort": "High",
+          "components_affected": ["New interactive components"]
+        },
+        {
+          "priority": "MEDIUM",
+          "category": "Content Strategy",
+          "item": "Create VA loan calculator for veteran users",
+          "impact": "Addresses veteran content gap and provides practical tool",
+          "effort": "Medium",
+          "components_affected": ["Veterans", "VeteranServices"]
+        },
+        {
+          "priority": "MEDIUM",
+          "category": "Technical",
+          "item": "Fix Lighthouse testing environment and resolve server configuration issues",
+          "impact": "Enables performance monitoring and optimization",
+          "effort": "Medium",
+          "components_affected": ["Development environment"]
+        },
+        {
+          "priority": "MEDIUM",
+          "category": "Content Strategy",
+          "item": "Consolidate redundant property-related content and streamline property listings",
+          "impact": "Reduces overrepresented property buyer content by 46.2%",
+          "effort": "Medium",
+          "components_affected": [
+            "Home",
+            "HomeownerSolutions",
+            "PropertyDetails"
+          ]
+        },
+        {
+          "priority": "LOW",
+          "category": "Features",
+          "item": "Implement competitive features: property investment ROI calculator, market trend reports",
+          "impact": "Differentiates from competitors and adds value",
+          "effort": "High",
+          "components_affected": ["New feature components"]
+        }
+      ],
+      "success_metrics": {
+        "content_balance": {
+          "target": "30% families, 10% veterans, 60% property buyers",
+          "current": "10.7% families, 23.2% veterans, 66.2% property buyers",
+          "primary_gap": "19.3% family content increase, 13.2% veteran content reduction needed"
+        },
+        "accessibility": {
+          "target": "Zero HIGH severity violations",
+          "current": "Multiple HIGH severity ARIA label violations",
+          "primary_action": "Fix all missing aria-label attributes"
+        },
+        "seo": {
+          "target": "Average score 80+ across all pages",
+          "current": "Average score 42.9/100",
+          "primary_action": "Add missing title tags and meta descriptions"
+        },
+        "technical": {
+          "target": "Lighthouse tests pass, performance metrics established",
+          "current": "Lighthouse blocked by server issues",
+          "primary_action": "Fix development environment configuration"
+        }
+      }
+    },
     "timestamp": "2026-01-12T21:52:23.801106",
     "project_root": "K:\\Properties-4-Creation\\Website",
     "files": [

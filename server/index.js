@@ -320,10 +320,13 @@ app.post('/api/ai/chat', verifyApiKey, async (req, res) => {
 
     // Validate Botpress configuration
     if (!BOTPRESS_API_URL || !BOTPRESS_API_KEY || !BOTPRESS_BOT_ID) {
-      console.error('Botpress configuration incomplete - falling back to static response');
+      console.error(
+        'Botpress configuration incomplete - falling back to static response'
+      );
       return res.json({
         success: true,
-        message: "I'm sorry, our AI assistant is temporarily unavailable. Please try again later or contact our support team at (903) 555-HELP for immediate assistance with finding your home.",
+        message:
+          "I'm sorry, our AI assistant is temporarily unavailable. Please try again later or contact our support team at (903) 555-HELP for immediate assistance with finding your home.",
         timestamp: new Date().toISOString(),
       });
     }
@@ -331,20 +334,17 @@ app.post('/api/ai/chat', verifyApiKey, async (req, res) => {
     try {
       // Call Botpress API with timeout
       const botpressResponse = await Promise.race([
-        botpressClient.post(
-          `/api/v1/bots/${BOTPRESS_BOT_ID}/converse`,
-          {
-            type: 'text',
-            text: message,
-            // Botpress handles conversation context differently than Gemini
-            // For now, we'll start a new conversation each time
-            // In a production environment, you'd want to maintain session/thread ID
-          }
-        ),
+        botpressClient.post(`/api/v1/bots/${BOTPRESS_BOT_ID}/converse`, {
+          type: 'text',
+          text: message,
+          // Botpress handles conversation context differently than Gemini
+          // For now, we'll start a new conversation each time
+          // In a production environment, you'd want to maintain session/thread ID
+        }),
         // Timeout after 10 seconds
         new Promise((_, reject) =>
           setTimeout(() => reject(new Error('Botpress timeout')), 10000)
-        )
+        ),
       ]);
 
       // Extract the Botpress response
@@ -377,15 +377,31 @@ app.post('/api/ai/chat', verifyApiKey, async (req, res) => {
       console.error('Botpress API error:', botpressError);
 
       // Graceful fallback responses based on user intent
-      let fallbackMessage = "I'm sorry, our AI assistant is temporarily unavailable. Please try again later or contact our support team at (903) 555-HELP.";
+      let fallbackMessage =
+        "I'm sorry, our AI assistant is temporarily unavailable. Please try again later or contact our support team at (903) 555-HELP.";
 
       const lowerMessage = message.toLowerCase();
-      if (lowerMessage.includes('rent') || lowerMessage.includes('home') || lowerMessage.includes('housing')) {
-        fallbackMessage = "I'd be happy to help you find housing! Our AI assistant is temporarily unavailable. Please visit our website at properties4creation.com to browse available homes or call (903) 555-HELP for immediate assistance.";
-      } else if (lowerMessage.includes('sell') || lowerMessage.includes('house') || lowerMessage.includes('property')) {
-        fallbackMessage = "We buy houses in any condition! Our AI assistant is temporarily unavailable. Please visit properties4creation.com/homeowner-solutions or call (903) 555-SELL for a quick cash offer.";
-      } else if (lowerMessage.includes('veteran') || lowerMessage.includes('vash') || lowerMessage.includes('service')) {
-        fallbackMessage = "We proudly serve veterans with specialized housing programs. Our AI assistant is temporarily unavailable. Please visit properties4creation.com/veterans or call (903) 555-VETS for veteran services.";
+      if (
+        lowerMessage.includes('rent') ||
+        lowerMessage.includes('home') ||
+        lowerMessage.includes('housing')
+      ) {
+        fallbackMessage =
+          "I'd be happy to help you find housing! Our AI assistant is temporarily unavailable. Please visit our website at properties4creation.com to browse available homes or call (903) 555-HELP for immediate assistance.";
+      } else if (
+        lowerMessage.includes('sell') ||
+        lowerMessage.includes('house') ||
+        lowerMessage.includes('property')
+      ) {
+        fallbackMessage =
+          'We buy houses in any condition! Our AI assistant is temporarily unavailable. Please visit properties4creation.com/homeowner-solutions or call (903) 555-SELL for a quick cash offer.';
+      } else if (
+        lowerMessage.includes('veteran') ||
+        lowerMessage.includes('vash') ||
+        lowerMessage.includes('service')
+      ) {
+        fallbackMessage =
+          'We proudly serve veterans with specialized housing programs. Our AI assistant is temporarily unavailable. Please visit properties4creation.com/veterans or call (903) 555-VETS for veteran services.';
       }
 
       // Handle specific Botpress errors with appropriate HTTP status
@@ -420,7 +436,8 @@ app.post('/api/ai/chat', verifyApiKey, async (req, res) => {
     // Ultimate fallback - don't expose internal error details
     res.json({
       success: true,
-      message: "I'm sorry, our AI assistant is temporarily unavailable. Please try again later or contact our support team at (903) 555-HELP for immediate assistance with finding your home.",
+      message:
+        "I'm sorry, our AI assistant is temporarily unavailable. Please try again later or contact our support team at (903) 555-HELP for immediate assistance with finding your home.",
       timestamp: new Date().toISOString(),
     });
   }

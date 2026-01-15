@@ -13,6 +13,7 @@ import type {
   StoryContent,
 } from '../types/contentBalance';
 import type { ExtendedProperty } from '../types';
+import { logError } from '../services/errorBoundaryService';
 
 /**
  * Default configuration for the content auditor
@@ -200,15 +201,13 @@ export const auditContentBalance = (
     };
   } catch (error) {
     // Log error to error boundary service
-    import('../services/errorBoundaryService').then(({ logError }) => {
-      logError('Content Balance Auditor failed', {
-        error:
-          error instanceof Error
-            ? error
-            : new Error('Unknown error in Content Balance Auditor'),
-        component: 'contentBalanceAuditor',
-        severity: 'high',
-      });
+    logError('Content Balance Auditor failed', {
+      error:
+        error instanceof Error
+          ? error
+          : new Error('Unknown error in Content Balance Auditor'),
+      component: 'contentBalanceAuditor',
+      severity: 'high',
     });
 
     return {

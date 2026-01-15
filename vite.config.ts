@@ -214,6 +214,7 @@ export default defineConfig(({ mode }) => {
       include: [
         'src/**/*.{test,spec}.{ts,tsx}',
         'services/**/*.{test,spec}.{ts,tsx}',
+        'utils/**/*.{test,spec}.{ts,tsx}',
       ],
       coverage: {
         provider: 'v8',

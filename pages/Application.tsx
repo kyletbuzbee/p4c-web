@@ -950,7 +950,11 @@ const Application: React.FC = () => {
                     ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                     : 'bg-p4c-navy text-white hover:bg-p4c-slate'
                 }`}
-                aria-label={currentStep === 'about' ? 'Previous step not available' : 'Go to previous step'}
+                aria-label={
+                  currentStep === 'about'
+                    ? 'Previous step not available'
+                    : 'Go to previous step'
+                }
               >
                 <ArrowLeft className="w-4 h-4" />
                 Previous
@@ -961,7 +965,11 @@ const Application: React.FC = () => {
                 onClick={handleNextStep}
                 disabled={isSubmitting}
                 className="flex items-center gap-2 bg-p4c-navy text-white hover:bg-p4c-slate py-3 px-6 rounded-xl font-bold transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 disabled:opacity-70 disabled:cursor-not-allowed"
-                aria-label={currentStep === 'preferences' ? 'Submit application' : 'Continue to next step'}
+                aria-label={
+                  currentStep === 'preferences'
+                    ? 'Submit application'
+                    : 'Continue to next step'
+                }
               >
                 {isSubmitting ? (
                   <>

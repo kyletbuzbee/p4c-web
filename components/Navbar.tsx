@@ -51,6 +51,12 @@ const Navbar: React.FC = () => {
           desc: 'View available homes in East Texas',
         },
         {
+          label: 'Family Resources',
+          path: '/family-resources',
+          icon: <Users className="w-4 h-4" />,
+          desc: 'Resources for families and schools',
+        },
+        {
           label: 'Start Application',
           path: '/apply',
           icon: <FileText className="w-4 h-4" />,

@@ -13,11 +13,12 @@ const AIChatbot: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'model',
-      text: "Welcome to P4C Housing Assistant. I can help you find a family home, access veteran services, or get a cash offer for your property. What are you interested in today?",
+      text: 'Welcome to P4C Housing Assistant. Are you looking to Rent a Home, Sell a Property, or Find Veteran Services?',
     },
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [triageMode, setTriageMode] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -66,6 +67,33 @@ const AIChatbot: React.FC = () => {
     }
   }, [isOpen]);
 
+  const handleTriage = (userMessage: string) => {
+    const message = userMessage.toLowerCase();
+
+    if (
+      message.includes('rent') ||
+      message.includes('home') ||
+      message.includes('family') ||
+      message.includes('housing')
+    ) {
+      return 'Great! I can help you find the perfect rental home. What type of property are you looking for? (e.g., 2 bedroom, family-friendly, near schools)';
+    } else if (
+      message.includes('sell') ||
+      message.includes('property') ||
+      message.includes('cash offer')
+    ) {
+      return 'Perfect! We buy houses in any condition with cash offers. Would you like to schedule a free consultation to get started?';
+    } else if (
+      message.includes('veteran') ||
+      message.includes('service') ||
+      message.includes('vash')
+    ) {
+      return 'Thank you for your service! We offer priority housing for veterans through HUD-VASH and other programs. Would you like information about our veteran services?';
+    } else {
+      return "I'd be happy to help with your housing needs. Are you looking to rent a home, sell a property, or access veteran services?";
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
@@ -76,8 +104,19 @@ const AIChatbot: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const response = await sendChatMessage(userMessage);
-      setMessages((prev) => [...prev, { role: 'model', text: response }]);
+      // Check if this is the initial triage response
+      if (messages.length === 1 && !triageMode) {
+        const triageResponse = handleTriage(userMessage);
+        setMessages((prev) => [
+          ...prev,
+          { role: 'model', text: triageResponse },
+        ]);
+        setTriageMode(true);
+      } else {
+        // Normal chat flow
+        const response = await sendChatMessage(userMessage);
+        setMessages((prev) => [...prev, { role: 'model', text: response }]);
+      }
     } catch (error) {
       logError('Chat failure', {
         error: error as Error,
