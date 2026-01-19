@@ -161,8 +161,6 @@ export default defineConfig(({ mode }) => {
             router: ['react-router-dom'],
             // UI library
             ui: ['lucide-react'],
-            // AI service
-            ai: ['@google/generative-ai'],
             // Utils
             utils: ['react-helmet-async'],
           },
@@ -194,12 +192,7 @@ export default defineConfig(({ mode }) => {
     },
     // Performance optimizations
     optimizeDeps: {
-      include: [
-        'react',
-        'react-dom',
-        'react-router-dom',
-        'lucide-react',
-      ],
+      include: ['react', 'react-dom', 'react-router-dom', 'lucide-react'],
     },
     // CSS optimizations
     css: {

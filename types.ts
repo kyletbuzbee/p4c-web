@@ -1,8 +1,9 @@
+// Property Interfaces
 export interface Property {
   id: string;
   title: string;
   address: string;
-  price: number;
+  price: string | number;
   beds: number;
   baths: number;
   sqft: number;
@@ -12,28 +13,47 @@ export interface Property {
 }
 
 export interface ExtendedProperty extends Property {
+  // New Fields for Supabase Integration
+  city: string;
+  neighborhood: string;
+  schoolDistrict: string;
+  availabilityDate: string;
+  
+  // Arrays
   amenities: string[];
   accessibilityFeatures: string[];
-  schoolDistrict: string;
-  neighborhood: string;
-  availabilityDate: string;
-  coordinates: { lat: number; lng: number };
+  images: string[]; // For galleries
+  
+  // Status
+  status: 'available' | 'occupied' | 'maintenance';
+  
+  // Compatibility helpers (handles DB column naming differences)
+  bedrooms?: number;
+  bathrooms?: number;
+  
+  // Optional / Legacy
+  yearBuilt?: number;
+  location?: {
+    lat: number;
+    lng: number;
+  };
 }
 
-export interface TransformationData {
-  beforeImage: string;
-  afterImage: string;
-  label: string;
-}
-
+// Impact & Mission Interfaces
 export interface StatMetric {
   id: string;
   label: string;
   value: string;
-  icon: 'users' | 'home' | 'hammer' | 'dollar' | 'heart';
-  description?: string;
-  trend?: 'up' | 'down' | 'neutral';
-  trendValue?: string;
+  icon: string;
+  description: string;
+  trend: 'up' | 'down' | 'neutral';
+  trendValue: string;
+}
+
+export interface FinancialBreakdown {
+  category: string;
+  percentage: number;
+  color: string;
 }
 
 export interface RenovationStandard {
@@ -44,8 +64,17 @@ export interface RenovationStandard {
   benefit: string;
 }
 
-export interface FinancialBreakdown {
-  category: string;
-  percentage: number;
-  color: string;
+export interface TransformationData {
+  beforeImage: string;
+  afterImage: string;
+  label: string;
 }
+
+// Auth Interfaces
+export interface UserProfile {
+  id: string;
+  email: string;
+  role: 'admin' | 'tenant' | 'guest';
+  name?: string;
+  permissions?: string[];
+} 

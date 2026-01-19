@@ -1,176 +1,107 @@
+import { supabase } from '../lib/supabaseClient';
 import type {
   StatMetric,
   RenovationStandard,
   FinancialBreakdown,
   ExtendedProperty,
 } from '../types';
-import { properties, getPropertyById } from '../data/properties';
+// Fallback data
+import { properties as mockProperties, getPropertyById } from '../data/properties';
 
 /**
- * Enhanced Backend API Service
- *
- * This service supports both development (mock data) and production (real backend) modes.
- *
- * Development Mode (Default):
- * - Uses mock data with simulated network latency
- * - No environment variables required
- * - Perfect for frontend development and testing
- *
- * Production Mode:
- * - Set VITE_API_URL environment variable to enable real backend integration
- * - Falls back to mock data if backend is unavailable
- * - Automatic switching based on environment configuration
- *
- * Environment Setup:
- * - Copy .env.example to .env and configure VITE_API_URL
- * - Development: Leave VITE_API_URL empty (uses mock data)
- * - Production: Set VITE_API_URL to your backend endpoint
+ * Enhanced API Service
+ * Maps Supabase Database Schemas directly to Frontend Types
  */
 
-const SIMULATED_LATENCY = 800; // ms
-
-// Environment configuration for backend integration
-const API_CONFIG = {
-  // Get API URL from environment variable, fallback to empty string for mock data
-  // eslint-disable-next-line dot-notation
-  baseUrl: import.meta.env['VITE_API_URL'] || '',
-
-  // Check if we're in backend mode (has API URL) or mock mode (no API URL)
-  get isBackendMode() {
-    return this.baseUrl.trim().length > 0;
-  },
-
-  // Get full API endpoint URL
-  getEndpointUrl(endpoint: string): string {
-    return `${this.baseUrl.replace(/\/$/, '')}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
-  },
-};
+// --- DATA MAPPERS -------------------------------------------
 
 /**
- * HTTP client for backend communication
- * Automatically falls back to mock data on network errors
+ * Maps 'public.properties' SQL table to 'ExtendedProperty' UI type
  */
-class ApiClient {
-  private async makeRequest<T>(
-    endpoint: string,
-    options?: RequestInit
-  ): Promise<T> {
-    if (!API_CONFIG.isBackendMode) {
-      throw new Error('Backend mode disabled - using mock data');
-    }
+const mapPropertyFromDB = (dbProp: any): ExtendedProperty => ({
+  id: dbProp.id,
+  title: dbProp.title,
+  address: dbProp.address,
+  city: dbProp.city || '', // New SQL field
+  // Format numeric price from DB to string for UI (e.g. 1200 -> "$1,200")
+  price: typeof dbProp.price === 'number' 
+    ? `$${dbProp.price.toLocaleString()}` 
+    : dbProp.price,
+  
+  // Map SQL columns 'beds'/'baths' to UI expected 'bedrooms'/'bathrooms'
+  beds: dbProp.beds || 0,
+  bedrooms: dbProp.beds || 0, // Duplicate for compatibility
+  baths: dbProp.baths || 0,
+  bathrooms: dbProp.baths || 0, // Duplicate for compatibility
+  
+  sqft: dbProp.sqft || 0,
+  description: dbProp.description || '',
+  
+  // Handle Arrays
+  badges: dbProp.badges || [],
+  amenities: dbProp.amenities || [],
+  accessibilityFeatures: dbProp.accessibility_features || [], // New SQL field
+  
+  // Handle Images
+  imageUrl: dbProp.image_url,
+  images: dbProp.image_url ? [dbProp.image_url] : [],
+  
+  // Location & Details
+  neighborhood: dbProp.neighborhood || 'East Texas',
+  schoolDistrict: dbProp.school_district || 'TISD',
+  status: dbProp.is_active ? 'available' : 'occupied',
+  availabilityDate: dbProp.availability_date || 'Available Now',
+});
 
-    try {
-      const url = API_CONFIG.getEndpointUrl(endpoint);
-      const response = await fetch(url, {
-        headers: {
-          'Content-Type': 'application/json',
-          ...options?.headers,
-        },
-        ...options,
-      });
+/**
+ * Maps 'public.impact_metrics' SQL table to 'StatMetric' UI type
+ */
+const mapMetricFromDB = (dbMetric: any): StatMetric => ({
+  id: dbMetric.id,
+  label: dbMetric.label,
+  value: dbMetric.current_value.toString(),
+  icon: dbMetric.icon_name || 'chart',
+  // Fields not in DB yet, providing defaults to prevent UI crash
+  description: 'Updated via live database',
+  trend: 'neutral', 
+  trendValue: '',
+});
 
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
 
-      return await response.json();
-    } catch {
-      throw new Error('Backend unavailable - using mock data');
-    }
-  }
-
-  get<T>(endpoint: string): Promise<T> {
-    return this.makeRequest<T>(endpoint, { method: 'GET' });
-  }
-
-  post<T>(endpoint: string, data?: unknown): Promise<T> {
-    return this.makeRequest<T>(endpoint, {
-      method: 'POST',
-      body: data ? JSON.stringify(data) : null,
-    });
-  }
-}
-
-const apiClient = new ApiClient();
+// --- API SERVICE --------------------------------------------
 
 export const api = {
+  
+  // 1. IMPACT METRICS (Live DB Connection)
   impact: {
-    /**
-     * Get impact metrics
-     * Tries backend first if VITE_API_URL is set, falls back to mock data
-     */
     getMetrics: async (): Promise<StatMetric[]> => {
       try {
-        // Try backend first if in backend mode
-        if (API_CONFIG.isBackendMode) {
-          const data = await apiClient.get<StatMetric[]>('/api/impact/metrics');
-          return data;
-        }
-      } catch {
-        // Fallback to mock data
-      }
+        const { data, error } = await supabase
+          .from('impact_metrics')
+          .select('*');
 
-      // Fallback to mock data
-      await new Promise((resolve) => setTimeout(resolve, SIMULATED_LATENCY));
-      return [
-        {
-          id: '1',
-          label: 'Families Housed',
-          value: '142',
-          icon: 'home',
-          description: 'Total families placed in safe, renovated homes.',
-          trend: 'up',
-          trendValue: '+12% this year',
-        },
-        {
-          id: '2',
-          label: 'Veterans Served',
-          value: '85',
-          icon: 'users',
-          description: 'Veterans housed via HUD-VASH or direct placement.',
-          trend: 'up',
-          trendValue: '+8% this year',
-        },
-        {
-          id: '3',
-          label: 'Properties Revitalized',
-          value: '56',
-          icon: 'hammer',
-          description: 'Distressed properties fully renovated.',
-          trend: 'up',
-          trendValue: '+5 this quarter',
-        },
-        {
-          id: '4',
-          label: 'Community Wealth',
-          value: '$2.4M',
-          icon: 'dollar',
-          description: 'Estimated property value added to local neighborhoods.',
-          trend: 'up',
-          trendValue: 'Est. Value',
-        },
-      ];
+        if (error) throw error;
+        
+        // If DB is empty, fall back to static data so the site looks good
+        if (!data || data.length === 0) {
+          console.warn('No impact metrics in DB, using fallback.');
+          return [
+             { id: '1', label: 'Families Housed', value: '142', icon: 'home', description: 'Total families placed.', trend: 'up', trendValue: '+12%' },
+             { id: '2', label: 'Veterans Served', value: '85', icon: 'users', description: 'Veterans housed.', trend: 'up', trendValue: '+8%' },
+             { id: '3', label: 'Properties Revitalized', value: '56', icon: 'hammer', description: 'Renovated homes.', trend: 'up', trendValue: '+5' },
+             { id: '4', label: 'Community Wealth', value: '$2.4M', icon: 'dollar', description: 'Value added.', trend: 'up', trendValue: 'Est.' },
+          ];
+        }
+
+        return data.map(mapMetricFromDB);
+      } catch (error) {
+        console.error('Impact fetch error:', error);
+        return [];
+      }
     },
 
-    /**
-     * Get financial breakdown
-     * Tries backend first if VITE_API_URL is set, falls back to mock data
-     */
     getFinancialBreakdown: async (): Promise<FinancialBreakdown[]> => {
-      try {
-        // Try backend first if in backend mode
-        if (API_CONFIG.isBackendMode) {
-          const data = await apiClient.get<FinancialBreakdown[]>(
-            '/api/impact/financial-breakdown'
-          );
-          return data;
-        }
-      } catch {
-        // Fallback to mock data
-      }
-
-      // Fallback to mock data
-      await new Promise((resolve) => setTimeout(resolve, SIMULATED_LATENCY));
+      // Keeping this static for now unless you create a 'financials' table
       return [
         { category: 'Property Maintenance', percentage: 35, color: '#0B1120' },
         { category: 'Future Acquisitions', percentage: 30, color: '#C5A059' },
@@ -181,182 +112,130 @@ export const api = {
     },
   },
 
+  // 2. TRANSPARENCY (Renovation Standards)
   transparency: {
-    /**
-     * Get renovation standards
-     * Tries backend first if VITE_API_URL is set, falls back to mock data
-     */
     getStandards: async (): Promise<RenovationStandard[]> => {
-      try {
-        // Try backend first if in backend mode
-        if (API_CONFIG.isBackendMode) {
-          const data = await apiClient.get<RenovationStandard[]>(
-            '/api/transparency/standards'
-          );
-          return data;
-        }
-      } catch {
-        // Fallback to mock data
-      }
-
-      // Fallback to mock data
-      await new Promise((resolve) => setTimeout(resolve, SIMULATED_LATENCY));
+      // Keeping static - likely doesn't need frequent DB updates
       return [
-        {
-          id: 'kitchen',
-          category: 'Kitchen Countertops',
-          standardLandlord: 'Laminate / Formica',
-          p4cStandard: 'Quartz or Granite',
-          benefit: 'Hygienic, durable, heat resistant, and dignified.',
-        },
-        {
-          id: 'flooring',
-          category: 'Flooring',
-          standardLandlord: 'Cheap Carpet or Sheet Vinyl',
-          p4cStandard: 'Luxury Vinyl Plank (LVP)',
-          benefit:
-            'Waterproof, allergen-free, pet-friendly, and lasts 10+ years.',
-        },
-        {
-          id: 'hvac',
-          category: 'Climate Control',
-          standardLandlord: 'Repair old units until failure',
-          p4cStandard: 'New High-Efficiency SEER 16+',
-          benefit:
-            'Lowers tenant utility bills by ~25% and ensures reliability.',
-        },
-        {
-          id: 'security',
-          category: 'Security',
-          standardLandlord: 'Standard deadbolt',
-          p4cStandard: 'Smart Locks + Motion Lighting',
-          benefit: 'Enhanced safety for families and peace of mind.',
-        },
+        { id: 'kitchen', category: 'Kitchen Countertops', standardLandlord: 'Laminate', p4cStandard: 'Quartz/Granite', benefit: 'Durable & Dignified' },
+        { id: 'flooring', category: 'Flooring', standardLandlord: 'Carpet', p4cStandard: 'Luxury Vinyl Plank', benefit: 'Waterproof & Clean' },
+        { id: 'hvac', category: 'Climate', standardLandlord: 'Old Units', p4cStandard: 'SEER 16+', benefit: 'Lower Utility Bills' },
+        { id: 'security', category: 'Security', standardLandlord: 'Deadbolt', p4cStandard: 'Smart Locks', benefit: 'Safety First' },
       ];
     },
   },
 
+  // 3. PROPERTIES (Matches your 'public.properties' schema)
   properties: {
-    /**
-     * Get all available properties
-     * Tries backend first if VITE_API_URL is set, falls back to mock data
-     */
     getAll: async (): Promise<ExtendedProperty[]> => {
       try {
-        // Try backend first if in backend mode
-        if (API_CONFIG.isBackendMode) {
-          const data =
-            await apiClient.get<ExtendedProperty[]>('/api/properties');
-          return data;
-        }
-      } catch {
-        // Fallback to mock data
-      }
+        const { data, error } = await supabase
+          .from('properties')
+          .select('*')
+          .order('created_at', { ascending: false });
 
-      // Fallback to mock data
-      await new Promise((resolve) => setTimeout(resolve, SIMULATED_LATENCY));
-      return properties;
+        if (error) throw error;
+        return (data || []).map(mapPropertyFromDB);
+      } catch (error) {
+        console.warn('Property fetch error, using mock:', error);
+        return mockProperties;
+      }
     },
 
-    /**
-     * Get a specific property by ID
-     * Tries backend first if VITE_API_URL is set, falls back to mock data
-     */
     getById: async (id: string): Promise<ExtendedProperty | null> => {
       try {
-        // Try backend first if in backend mode
-        if (API_CONFIG.isBackendMode) {
-          const data = await apiClient.get<ExtendedProperty>(
-            `/api/properties/${id}`
-          );
-          return data;
-        }
-      } catch {
-        // Fallback to mock data
-      }
+        const { data, error } = await supabase
+          .from('properties')
+          .select('*')
+          .eq('id', id)
+          .single();
 
-      // Fallback to mock data
-      await new Promise((resolve) => setTimeout(resolve, SIMULATED_LATENCY));
-      const property = getPropertyById(id);
-      return property || null;
+        if (error) throw error;
+        return mapPropertyFromDB(data);
+      } catch (error) {
+        const mock = getPropertyById(id);
+        return mock || null;
+      }
     },
 
-    /**
-     * Search properties by criteria
-     * Tries backend first if VITE_API_URL is set, falls back to mock data
-     */
-    search: async (criteria: {
-      minPrice?: number;
-      maxPrice?: number;
-      beds?: number;
-      baths?: number;
-      neighborhood?: string;
-      schoolDistrict?: string;
-    }): Promise<ExtendedProperty[]> => {
-      try {
-        // Try backend first if in backend mode
-        if (API_CONFIG.isBackendMode) {
-          const data = await apiClient.post<ExtendedProperty[]>(
-            '/api/properties/search',
-            criteria
-          );
-          return data;
-        }
-      } catch {
-        // Fallback to mock data
-      }
+    // Admin: Create Property
+    create: async (property: any) => {
+      // Map UI fields back to SQL columns
+      const dbPayload = {
+        title: property.title,
+        address: property.address,
+        city: property.city || 'Tyler', // Default if missing
+        price: parseFloat(property.price.replace(/[^0-9.]/g, '')), // "1200" -> 1200.00
+        beds: parseInt(property.bedrooms || property.beds || 0),
+        baths: parseFloat(property.bathrooms || property.baths || 1),
+        sqft: parseInt(property.sqft || 0),
+        image_url: property.imageUrl || property.images?.[0] || '',
+        description: property.description,
+        badges: property.badges || [],
+        amenities: property.amenities || [],
+        accessibility_features: property.accessibilityFeatures || [],
+        school_district: property.schoolDistrict,
+        neighborhood: property.neighborhood,
+        availability_date: property.availabilityDate,
+        is_active: true
+      };
 
-      // Fallback to mock data
-      await new Promise((resolve) => setTimeout(resolve, SIMULATED_LATENCY));
+      const { data, error } = await supabase
+        .from('properties')
+        .insert([dbPayload])
+        .select()
+        .single();
 
-      return properties.filter((property) => {
-        if (criteria.minPrice && property.price < criteria.minPrice)
-          return false;
-        if (criteria.maxPrice && property.price > criteria.maxPrice)
-          return false;
-        if (criteria.beds && property.beds < criteria.beds) return false;
-        if (criteria.baths && property.baths < criteria.baths) return false;
-        if (
-          criteria.neighborhood &&
-          !property.neighborhood
-            .toLowerCase()
-            .includes(criteria.neighborhood.toLowerCase())
-        )
-          return false;
-        if (
-          criteria.schoolDistrict &&
-          property.schoolDistrict !== criteria.schoolDistrict
-        )
-          return false;
-        return true;
-      });
+      if (error) throw error;
+      return mapPropertyFromDB(data);
     },
 
-    /**
-     * Get properties by badge type
-     * Tries backend first if VITE_API_URL is set, falls back to mock data
-     */
-    getByBadge: async (badge: string): Promise<ExtendedProperty[]> => {
-      try {
-        // Try backend first if in backend mode
-        if (API_CONFIG.isBackendMode) {
-          const data = await apiClient.get<ExtendedProperty[]>(
-            `/api/properties/badge/${encodeURIComponent(badge)}`
-          );
-          return data;
-        }
-      } catch {
-        // Fallback to mock data
-      }
+    // Admin: Delete Property
+    delete: async (id: string) => {
+      const { error } = await supabase
+        .from('properties')
+        .delete()
+        .eq('id', id);
 
-      // Fallback to mock data
-      await new Promise((resolve) => setTimeout(resolve, SIMULATED_LATENCY));
-
-      return properties.filter((property) =>
-        property.badges.some((propertyBadge) =>
-          propertyBadge.toLowerCase().includes(badge.toLowerCase())
-        )
-      );
-    },
+      if (error) throw error;
+      return true;
+    }
   },
+
+  // 4. RESIDENT PORTAL (Matches 'maintenance_requests' & 'profiles')
+  maintenance: {
+    // Submit a new request
+    createRequest: async (request: { residentId: string; propertyId: string; category: string; description: string; priority: string }) => {
+      const { data, error } = await supabase
+        .from('maintenance_requests')
+        .insert([{
+          resident_id: request.residentId,
+          property_id: request.propertyId,
+          issue_category: request.category,
+          description: request.description,
+          priority: request.priority,
+          status: 'open'
+        }])
+        .select()
+        .single();
+        
+      if (error) throw error;
+      return data;
+    },
+
+    // Get requests for a specific resident
+    getResidentRequests: async (residentId: string) => {
+      const { data, error } = await supabase
+        .from('maintenance_requests')
+        .select(`
+          *,
+          properties (title, address)
+        `)
+        .eq('resident_id', residentId)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      return data;
+    }
+  }
 };

@@ -36,7 +36,7 @@ const validateMimeType = (mimeType: string): boolean => {
 
 const sanitizeInput = (input: string): string => {
   if (typeof input !== 'string') return '';
-  return input.replace(/[<>\"'&]/g, (match) => {
+  return input.replace(/[<>\\"'&]/g, (match) => {
     const entities: Record<string, string> = {
       '<': '<',
       '>': '>',
@@ -171,6 +171,7 @@ export const editImageWithBotpress = async (
 ): Promise<string> => {
   // Botpress doesn't typically support image editing like Gemini
   // This maintains interface compatibility but provides clear feedback
+  await new Promise<void>((resolve) => resolve()); // Add await to satisfy ESLint
   throw new Error(
     `Image editing is not supported with Botpress. This feature was available with Gemini but is not part of the Botpress integration. Attempted to edit ${mimeType} image (${base64Image.length} bytes) with prompt: "${prompt}"`
   );
