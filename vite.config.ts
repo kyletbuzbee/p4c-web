@@ -64,7 +64,7 @@ export default defineConfig(({ mode }) => {
         ],
         manifest: {
           name: 'Properties 4 Creation',
-          short_name: 'P4C',
+          short_name: 'Properties 4 Creation',
           description:
             'Housing solutions for veterans and families in East Texas',
           theme_color: '#0B1120',
@@ -199,7 +199,6 @@ export default defineConfig(({ mode }) => {
         'react-dom',
         'react-router-dom',
         'lucide-react',
-        '@google/generative-ai',
       ],
     },
     // CSS optimizations

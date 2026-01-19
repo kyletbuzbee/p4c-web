@@ -1,4 +1,4 @@
-# --- P4C Project Specifics ---
+# --- Properties 4 Creation Project Specifics ---
 # Never commit environment variables containing AI keys or backend URLs
 .env
 .env.local
@@ -73,3 +73,10 @@ ai_logic_review/
 ai_site_report/
 *.csv
 *.py
+*.log
+p4c_full_picture_review.json
+competitive_analysis_report.json
+comprehensive_analysis.json
+comprehensive_website_analysis_report.json
+content_analysis_report.json
+BotpressBot.bpz

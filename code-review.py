@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-AI-Optimized Code Review & Analysis Tool for Properties 4 Creation (P4C)
+AI-Optimized Code Review & Analysis Tool for Properties 4 Creation (Properties 4 Creation)
 Produces structured, comprehensive code reviews for AI processing.
 
-P4C MISSION: Housing veterans and families with dignity.
+Properties 4 Creation MISSION: Housing veterans and families with dignity.
 This analyzer enforces "Dignity-First" UI patterns and architectural standards.
 """
 
@@ -74,9 +74,9 @@ class ProjectAnalysis:
 
 
 class CodeReviewAnalyzer:
-    """Comprehensive code review analyzer for P4C with dignity-first heuristics."""
+    """Comprehensive code review analyzer for Properties 4 Creation with dignity-first heuristics."""
 
-    # P4C Brand Colors - Must use these instead of random hex codes
+    # Properties 4 Creation Brand Colors - Must use these instead of random hex codes
     P4C_BRAND_COLORS = {
         'navy': '#0B1120',
         'gold': '#C5A059',
@@ -89,7 +89,7 @@ class CodeReviewAnalyzer:
         'gray_900': '#0F172A',
     }
 
-    # P4C High-Stakes Components (must use ToastContext and AuthContext)
+    # Properties 4 Creation High-Stakes Components (must use ToastContext and AuthContext)
     HIGH_STAKES_COMPONENTS = [
         'Application.tsx',
         'AdminDashboard.tsx',
@@ -98,11 +98,11 @@ class CodeReviewAnalyzer:
         'VeteranServices.tsx',
     ]
 
-    # P4C Mission Prompt for AI Context
+    # Properties 4 Creation Mission Prompt for AI Context
     P4C_MISSION = """
-    P4C MISSION: Housing veterans and families with dignity.
+    Properties 4 Creation MISSION: Housing veterans and families with dignity.
     
-    As an AI reviewing P4C code, you must prioritize:
+    As an AI reviewing Properties 4 Creation code, you must prioritize:
     - TRUST: Veterans depend on this platform for stable housing. Code must be reliable.
     - TRANSPARENCY: Clear error messages and feedback are essential.
     - ACCESSIBILITY: Many veterans have disabilities. WCAG 2.1 AA compliance is mandatory.
@@ -193,7 +193,7 @@ class CodeReviewAnalyzer:
             (r'React\.Component', 'MEDIUM', 'architecture', 'Use functional components with hooks instead of class components'),
         ]
 
-        # P4C-specific Dignity-First UI Heuristics
+        # Properties 4 Creation-specific Dignity-First UI Heuristics
         self.dignity_first_patterns = [
             # Direct AI imports instead of geminiService
             (r'import\s+.*\s+from\s+[\'"]@google/generative-ai[\'"]', 'MEDIUM', 'architecture', 
@@ -232,7 +232,7 @@ class CodeReviewAnalyzer:
         ]
 
     def _generate_project_manifest(self) -> Dict[str, Any]:
-        """Generate project manifest with P4C-specific context for AI analysis."""
+        """Generate project manifest with Properties 4 Creation-specific context for AI analysis."""
         return {
             'mission_statement': 'Housing veterans and families with dignity',
             'mission_prompt': self.P4C_MISSION,
@@ -485,7 +485,7 @@ class CodeReviewAnalyzer:
         if ts_count == 0:
             recommendations.append('ℹ️ Consider using TypeScript for better type safety')
 
-        # P4C-specific recommendations
+        # Properties 4 Creation-specific recommendations
         accessibility_issues = sum(1 for a in analyses for i in a.issues if i.category == 'accessibility')
         if accessibility_issues > 0:
             recommendations.append(f'♿ ACCESSIBILITY: {accessibility_issues} issues found - veterans may have disabilities')
@@ -495,7 +495,7 @@ class CodeReviewAnalyzer:
     def run_analysis(self) -> ProjectAnalysis:
         """Run complete project analysis."""
         print(f"🔍 Analyzing project: {self.project_analysis.project_name}")
-        print(f"📋 P4C Mission: {self.manifest['mission_statement']}")
+        print(f"📋 Properties 4 Creation Mission: {self.manifest['mission_statement']}")
         
         # Collect files
         extensions = []
@@ -573,12 +573,12 @@ class CodeReviewAnalyzer:
         return self.project_analysis
 
     def generate_ai_report(self) -> str:
-        """Generate a comprehensive AI-readable report with P4C context."""
+        """Generate a comprehensive AI-readable report with Properties 4 Creation context."""
         analysis = self.run_analysis()
         
         report = []
         report.append("=" * 80)
-        report.append("🤝 P4C CODE REVIEW REPORT")
+        report.append("🤝 Properties 4 Creation CODE REVIEW REPORT")
         report.append("=" * 80)
         report.append(f"\n📊 PROJECT SUMMARY")
         report.append(f"   Project: {analysis.project_name}")
@@ -589,7 +589,7 @@ class CodeReviewAnalyzer:
         report.append(f"   Lines of Code: {analysis.summary['total_lines_of_code']}")
         
         report.append("\n" + "=" * 80)
-        report.append("🎖️ P4C MISSION CONTEXT")
+        report.append("🎖️ Properties 4 Creation MISSION CONTEXT")
         report.append("=" * 80)
         report.append(f"   Mission: {self.manifest['mission_statement']}")
         report.append(f"   High-Stakes Components: {', '.join(self.HIGH_STAKES_COMPONENTS)}")
@@ -680,7 +680,7 @@ if __name__ == "__main__":
         sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
         sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
     
-    parser = argparse.ArgumentParser(description='P4C AI-Optimized Code Review Tool')
+    parser = argparse.ArgumentParser(description='Properties 4 Creation AI-Optimized Code Review Tool')
     parser.add_argument('source', nargs='?', default='.', help='Source folder to analyze')
     parser.add_argument('--json', action='store_true', help='Output as JSON')
     parser.add_argument('--output', '-o', help='Output file path')

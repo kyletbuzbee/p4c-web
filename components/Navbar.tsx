@@ -19,6 +19,7 @@ import {
   LayoutDashboard,
   Scale,
   Accessibility,
+  Building2,
 } from 'lucide-react';
 import { IMAGES } from '../constants/images';
 
@@ -45,63 +46,63 @@ const Navbar: React.FC = () => {
       label: 'Find a Home',
       children: [
         {
-          label: 'Browse Listings',
+          label: 'Available Properties',
           path: '/',
           icon: <Home className="w-4 h-4" />,
-          desc: 'View available homes in East Texas',
+          desc: 'Premium rentals in Tyler & Longview',
         },
         {
           label: 'Family Resources',
           path: '/family-resources',
           icon: <Users className="w-4 h-4" />,
-          desc: 'Resources for families and schools',
+          desc: 'School districts & community guides',
         },
         {
-          label: 'Start Application',
+          label: 'Tenant Application',
           path: '/apply',
           icon: <FileText className="w-4 h-4" />,
-          desc: 'Pre-approval in minutes',
+          desc: 'Fast, digital approval process',
         },
         {
           label: 'Equal Housing',
           path: '/equal-housing',
           icon: <Scale className="w-4 h-4" />,
-          desc: 'Our commitment to fair housing',
+          desc: 'Fair housing for all applicants',
         },
       ],
     },
     {
-      label: 'Mission',
+      label: 'Company',
       children: [
         {
-          label: 'About Us',
+          label: 'Our Story',
           path: '/about',
-          icon: <Users className="w-4 h-4" />,
-          desc: 'Our story and values',
+          icon: <Building2 className="w-4 h-4" />,
+          desc: 'Professional management team',
         },
         {
-          label: 'Our Impact',
-          path: '/impact',
-          icon: <Heart className="w-4 h-4" />,
-          desc: 'Data on community revitalization',
-        },
-        {
-          label: 'Transparency',
+          label: 'Construction Standards',
           path: '/transparency',
           icon: <ShieldCheck className="w-4 h-4" />,
-          desc: 'Renovation standards',
+          desc: 'See our renovation quality specs',
         },
         {
-          label: 'Success Stories',
+          label: 'Community Investment',
+          path: '/impact',
+          icon: <Heart className="w-4 h-4" />,
+          desc: 'Revitalization data & metrics',
+        },
+        {
+          label: 'Resident Reviews',
           path: '/stories',
           icon: <CheckCircle2 className="w-4 h-4" />,
-          desc: 'Hear from our residents',
+          desc: 'Hear from happy tenants',
         },
         {
           label: 'Careers',
           path: '/employment',
           icon: <Hammer className="w-4 h-4" />,
-          desc: 'Join the construction crew',
+          desc: 'Join our renovation crews',
         },
       ],
     },
@@ -109,16 +110,16 @@ const Navbar: React.FC = () => {
       label: 'Residents',
       children: [
         {
-          label: 'Veteran Programs',
+          label: 'Veteran Housing',
           path: '/veterans',
           icon: <Flag className="w-4 h-4" />,
-          desc: 'HUD-VASH & specialized housing',
+          desc: 'Specialized military housing',
         },
         {
-          label: 'Support Services',
+          label: 'Resident Services',
           path: '/veteran-services',
           icon: <HeartHandshake className="w-4 h-4" />,
-          desc: 'Case management resources',
+          desc: 'Support & case management',
         },
         {
           label: 'Resident Portal',
@@ -130,7 +131,7 @@ const Navbar: React.FC = () => {
           label: 'FAQ',
           path: '/faq',
           icon: <HelpCircle className="w-4 h-4" />,
-          desc: 'Common questions',
+          desc: 'Leasing & policy questions',
         },
         {
           label: 'Accessibility',
@@ -169,13 +170,14 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-[#0B1120]/90 border-b border-[#0B1120]/30 text-white backdrop-blur-xl shadow-lg">
+    <nav className="sticky top-0 z-50 bg-[#0B1120]/95 border-b border-[#0B1120]/30 text-white backdrop-blur-xl shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20 items-center">
           {/* Logo */}
           <Link
             to="/"
             className="flex-shrink-0 flex items-center gap-3 hover:opacity-90 transition-opacity"
+            aria-label="Properties 4 Creation Home"
           >
             <img
               src={IMAGES.LOGO.WHITE_GOLD}
@@ -185,7 +187,7 @@ const Navbar: React.FC = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-2">
+          <div className="hidden md:flex items-center space-x-1">
             {navStructure.map((group) => (
               <div
                 key={group.label}
@@ -194,13 +196,19 @@ const Navbar: React.FC = () => {
                 onMouseLeave={handleMouseLeave}
               >
                 <button
-                  className={`flex items-center text-sm font-medium transition-colors duration-200 ${activeDropdown === group.label ? 'text-p4c-gold' : 'text-gray-300 hover:text-white'}`}
+                  className={`flex items-center text-sm font-medium transition-colors duration-200 ${
+                    activeDropdown === group.label
+                      ? 'text-p4c-gold'
+                      : 'text-gray-300 hover:text-white'
+                  }`}
                   aria-expanded={activeDropdown === group.label}
                   aria-haspopup="true"
                 >
                   {group.label}
                   <ChevronDown
-                    className={`ml-1 w-3 h-3 transition-transform duration-200 ${activeDropdown === group.label ? 'rotate-180' : ''}`}
+                    className={`ml-1 w-3 h-3 transition-transform duration-200 ${
+                      activeDropdown === group.label ? 'rotate-180' : ''
+                    }`}
                   />
                 </button>
 
@@ -249,7 +257,7 @@ const Navbar: React.FC = () => {
             <button
               onClick={() => handleNavClick('/admin')}
               className="text-gray-400 hover:text-p4c-gold p-2 rounded-full"
-              aria-label="Staff Dashboard - Access admin area"
+              aria-label="Staff Dashboard"
             >
               <LayoutDashboard className="w-4 h-4" />
             </button>
@@ -257,15 +265,16 @@ const Navbar: React.FC = () => {
             {/* Sell Your House CTA */}
             <Link
               to="/homeowner-solutions"
-              className="bg-p4c-gold text-p4c-navy px-6 py-3 rounded-xl font-bold hover:bg-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 mr-4"
+              className="bg-p4c-gold text-p4c-navy px-5 py-2.5 rounded-xl font-bold hover:bg-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 mr-3 text-sm flex items-center gap-2"
             >
-              Sell Your House Fast
+              <Building2 className="w-4 h-4" />
+              Sell Your House
             </Link>
 
             {/* CTA Button */}
             <button
               onClick={() => handleNavClick('/apply')}
-              className="bg-p4c-navy text-white hover:bg-p4c-slate px-6 py-2.5 rounded-md font-bold text-sm transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              className="bg-p4c-navy border border-p4c-gold text-p4c-gold hover:bg-p4c-gold hover:text-p4c-navy px-5 py-2.5 rounded-xl font-bold text-sm transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             >
               Apply Now
             </button>
@@ -306,24 +315,37 @@ const Navbar: React.FC = () => {
                       className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 text-gray-300 hover:text-white transition-colors text-left"
                     >
                       <div className="text-p4c-gold">{child.icon}</div>
-                      <span className="text-sm font-medium">{child.label}</span>
+                      <div>
+                        <div className="font-medium text-sm">{child.label}</div>
+                        <div className="text-xs text-gray-500">
+                          {child.desc}
+                        </div>
+                      </div>
                     </button>
                   ))}
                 </div>
               </div>
             ))}
-            <div className="pt-4 border-t border-gray-700">
+            <div className="pt-4 border-t border-gray-700 space-y-3">
               <button
-                onClick={() => handleNavClick('/contact')}
-                className="flex items-center gap-3 p-2 text-gray-300 hover:text-white mb-4"
+                onClick={() => handleNavClick('/homeowner-solutions')}
+                className="w-full bg-p4c-gold text-p4c-navy hover:bg-white px-6 py-3 rounded-lg font-bold flex items-center justify-center gap-2"
               >
-                <Phone className="w-4 h-4 text-p4c-gold" /> Contact Support
+                <Building2 className="w-4 h-4" /> Sell Your House Fast
               </button>
+
               <button
                 onClick={() => handleNavClick('/apply')}
-                className="w-full bg-p4c-gold text-p4c-navy hover:bg-p4c-goldHover px-6 py-3 rounded-md font-bold"
+                className="w-full bg-p4c-navy border border-p4c-gold text-p4c-gold hover:bg-p4c-goldHover hover:text-p4c-navy px-6 py-3 rounded-lg font-bold"
               >
-                Start Application
+                Start Tenant Application
+              </button>
+
+              <button
+                onClick={() => handleNavClick('/contact')}
+                className="w-full flex items-center justify-center gap-3 p-2 text-gray-400 hover:text-white"
+              >
+                <Phone className="w-4 h-4" /> Contact Office
               </button>
             </div>
           </div>

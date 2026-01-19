@@ -80,7 +80,7 @@ const validatePasswordPolicy = (
     errors.push('Password must contain at least one number');
   }
 
-  if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
+  if (!/[!@#$%^&*()_+\-=\\[\]{};':"|,.<>?]/.test(password)) {
     errors.push('Password must contain at least one special character');
   }
 
@@ -181,10 +181,12 @@ class SessionManager {
     lockoutRemaining?: number;
   } {
     const attempts = parseInt(
-      localStorage.getItem(`login_attempts_${email}`) || '0'
+      localStorage.getItem(`login_attempts_${email}`) || '0',
+      10
     );
     const lockoutUntil = parseInt(
-      localStorage.getItem(`lockout_${email}`) || '0'
+      localStorage.getItem(`lockout_${email}`) || '0',
+      10
     );
     const now = Date.now();
 
@@ -213,7 +215,7 @@ class SessionManager {
 
   static recordFailedAttempt(email: string): void {
     const attempts =
-      parseInt(localStorage.getItem(`login_attempts_${email}`) || '0') + 1;
+      parseInt(localStorage.getItem(`login_attempts_${email}`) || '0', 10) + 1;
     const now = Date.now();
 
     localStorage.setItem(`login_attempts_${email}`, attempts.toString());
@@ -310,8 +312,8 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
   const [sessionTimeRemaining, setSessionTimeRemaining] = useState(0);
   const [isLocked, setIsLocked] = useState(false);
   const { addToast } = useToast();
-  const sessionTimeoutRef = useRef<NodeJS.Timeout>();
-  const warningTimeoutRef = useRef<NodeJS.Timeout>();
+  const sessionTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  const warningTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   // Session timeout handler
   const handleSessionTimeout = useCallback(() => {

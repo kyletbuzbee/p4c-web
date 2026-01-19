@@ -14,19 +14,21 @@ const Footer: React.FC = () => (
   <footer className="bg-gray-900 text-white pt-16 pb-8 border-t border-gray-800">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-        {/* 1. Brand & Mission */}
+        {/* 1. Brand & Mission - BUSINESS FOCUSED */}
         <div className="col-span-1">
           <div className="flex items-center gap-2 mb-4">
             <img
               src={IMAGES.LOGO.WHITE_GOLD}
-              alt="Properties 4 Creation Logo"
+              alt="Properties 4 Creation Real Estate Logo"
               className="h-20 w-auto object-contain"
             />
           </div>
           <p className="text-gray-400 text-sm leading-relaxed mb-6">
-            Breaking the stigma of affordable housing in East Texas. We restore
-            properties to restore dignity, focusing on veterans and families
-            using housing vouchers.
+            Properties 4 Creation is an investment and management firm dedicated
+            to the revitalization of{' '}
+            <strong>Tyler, Longview, and Marshall</strong>. We transform
+            distressed assets into premium affordable housing for the East Texas
+            community.
           </p>
           <div className="flex gap-4">
             <a
@@ -34,6 +36,7 @@ const Footer: React.FC = () => (
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-p4c-gold transition-colors"
+              aria-label="Visit our Facebook page"
             >
               <Facebook className="w-5 h-5" />
             </a>
@@ -42,6 +45,7 @@ const Footer: React.FC = () => (
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-p4c-gold transition-colors"
+              aria-label="Visit our Instagram page"
             >
               <Instagram className="w-5 h-5" />
             </a>
@@ -50,6 +54,7 @@ const Footer: React.FC = () => (
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-p4c-gold transition-colors"
+              aria-label="Visit our LinkedIn profile"
             >
               <Linkedin className="w-5 h-5" />
             </a>
@@ -59,7 +64,7 @@ const Footer: React.FC = () => (
         {/* 2. Discover (User Facing) */}
         <div>
           <h4 className="font-serif font-bold text-lg mb-4 text-p4c-gold">
-            Discover
+            Properties
           </h4>
           <ul className="space-y-2 text-sm text-gray-400">
             <li>
@@ -72,7 +77,7 @@ const Footer: React.FC = () => (
                 to="/veteran-services"
                 className="hover:text-white transition-colors"
               >
-                Veteran Services
+                Veteran Housing Program
               </Link>
             </li>
             <li>
@@ -80,12 +85,12 @@ const Footer: React.FC = () => (
                 to="/success-stories"
                 className="hover:text-white transition-colors"
               >
-                Success Stories
+                Tenant Testimonials
               </Link>
             </li>
             <li>
               <Link to="/impact" className="hover:text-white transition-colors">
-                Impact Dashboard
+                Community Impact Data
               </Link>
             </li>
             <li>
@@ -112,7 +117,7 @@ const Footer: React.FC = () => (
                 to="/transparency"
                 className="hover:text-white transition-colors"
               >
-                Renovation Standards
+                Construction Standards
               </Link>
             </li>
             <li>
@@ -120,7 +125,7 @@ const Footer: React.FC = () => (
                 to="/employment"
                 className="hover:text-white transition-colors flex items-center gap-2"
               >
-                Careers{' '}
+                Careers
                 <span className="text-xs bg-p4c-gold text-p4c-navy px-1.5 rounded font-bold">
                   Hiring
                 </span>
@@ -136,7 +141,7 @@ const Footer: React.FC = () => (
                 to="/contact"
                 className="hover:text-white transition-colors"
               >
-                Contact Us
+                Contact Headquarters
               </Link>
             </li>
           </ul>
@@ -145,11 +150,14 @@ const Footer: React.FC = () => (
         {/* 4. Contact & Legal */}
         <div>
           <h4 className="font-serif font-bold text-lg mb-4 text-p4c-gold">
-            Get in Touch
+            Office
           </h4>
           <ul className="space-y-2 text-sm text-gray-400 mb-6">
-            <li>Longview, Texas</li>
-            <li>(936) 707-8460</li>
+            <li>Serving East Texas:</li>
+            <li className="font-medium text-white">
+              Tyler • Longview • Marshall
+            </li>
+            <li className="mt-2">(936) 707-8460</li>
             <li>Richard@properties4creation.com</li>
           </ul>
           <h5 className="font-bold text-sm text-white mb-2">Legal</h5>
@@ -191,7 +199,7 @@ const Footer: React.FC = () => (
       <div className="border-t border-gray-800 pt-8 pb-8">
         <div className="flex flex-wrap justify-center gap-6">
           <div className="flex items-center gap-2 text-sm text-gray-500">
-            <Flag className="text-p4c-gold w-4 h-4" /> Veteran Owned Business
+            <Flag className="text-p4c-gold w-4 h-4" /> Veteran Owned & Operated
           </div>
           <div className="flex items-center gap-2 text-sm text-gray-500">
             <Home className="text-p4c-gold w-4 h-4" /> Equal Housing Opportunity

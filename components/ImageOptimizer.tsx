@@ -64,11 +64,14 @@ const ImageOptimizer: React.FC<ImageOptimizerProps> = ({
       canvas.height = 1;
 
       // Test AVIF support
-      canvas.toDataURL('image/avif').startsWith('data:image/avif')
-        ? resolve('avif')
+      const format = canvas
+        .toDataURL('image/avif')
+        .startsWith('data:image/avif')
+        ? 'avif'
         : canvas.toDataURL('image/webp').startsWith('data:image/webp')
-          ? resolve('webp')
-          : resolve('jpeg');
+          ? 'webp'
+          : 'jpeg';
+      resolve(format);
     });
 
   useEffect(() => {

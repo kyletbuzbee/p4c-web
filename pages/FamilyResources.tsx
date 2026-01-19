@@ -92,7 +92,7 @@ const FamilyResources: React.FC = () => {
       family: 'Mother of 3',
       location: 'Tyler, TX',
       quote:
-        'P4C gave us a beautiful home where my kids could thrive. The school district is amazing, and the community support has been incredible.',
+        'Properties 4 Creation gave us a beautiful home where my kids could thrive. The school district is amazing, and the community support has been incredible.',
       rating: 5,
     },
     {
@@ -100,7 +100,7 @@ const FamilyResources: React.FC = () => {
       family: 'Parents of twins',
       location: 'Whitehouse, TX',
       quote:
-        'We were struggling to find affordable housing for our growing family. P4C not only provided us with a home but connected us with amazing family resources.',
+        'We were struggling to find affordable housing for our growing family. Properties 4 Creation not only provided us with a home but connected us with amazing family resources.',
       rating: 5,
     },
     {
@@ -386,7 +386,7 @@ const FamilyResources: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-serif font-bold text-p4c-navy mb-6">
-              Families Love Their P4C Homes
+              Families Love Their Properties 4 Creation Homes
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Hear from families who've found their perfect home with Properties

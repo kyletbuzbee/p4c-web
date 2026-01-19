@@ -143,7 +143,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
             );
 
             if (isValidSession) {
-              console.log('Session validated successfully');
               setUser(validatedUser);
             } else {
               console.warn('Invalid session detected, clearing storage');
@@ -185,8 +184,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         throw new Error('Valid role is required');
       }
 
-      console.log('Initiating secure login process...');
-
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
@@ -224,7 +221,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
       setUser(cleanUser);
 
-      console.log('Login successful for user:', cleanUser.email);
       addToast(`Welcome back, ${cleanUser.name}`, 'success');
     } catch (error) {
       console.error('Login error:', error);
@@ -241,8 +237,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
   // Secure logout function
   const logout = useCallback(() => {
-    console.log('Initiating secure logout...');
-
     // Clear state immediately
     setUser(null);
 
@@ -283,7 +277,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       if (response.ok) {
         const { token } = await response.json();
         localStorage.setItem('p4c_session_token', token);
-        console.log('Token refreshed successfully');
       } else {
         console.warn('Token refresh failed, logging out');
         logout();

@@ -14,6 +14,8 @@ import {
   X,
   ArrowRight,
   HeartHandshake,
+  Briefcase,
+  Building2,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -99,18 +101,22 @@ const Home: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Properties 4 Creation | Veteran Owned Affordable Housing</title>
+        <title>
+          Properties 4 Creation | Premium Affordable Housing & Investments
+        </title>
         <meta
           name="description"
-          content="Properties 4 Creation buys distressed properties, renovates them to premium standards, and rents them affordably to veterans and families in East Texas."
+          content="Properties 4 Creation acquires and revitalizes real estate in East Texas, offering premium affordable housing to families and veterans in Tyler, Longview, and Marshall."
         />
       </Helmet>
 
+      {/* Hero Video - Visual Hook */}
       <Hero variant="video" />
 
+      {/* Impact Metrics - Business Proof */}
       <ImpactDashboard />
 
-      {/* Featured Listings */}
+      {/* Featured Listings - The Product */}
       <section
         id="homes"
         className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
@@ -118,11 +124,13 @@ const Home: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-end mb-8">
           <div>
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-2">
-              Find Your Home
+              Available East Texas Residences
             </h2>
             <p className="text-gray-600 max-w-xl">
-              High-quality, affordable homes ready for move-in. We accept all
-              housing vouchers.
+              Browse our portfolio of fully renovated, professionally managed
+              homes in
+              <strong> Tyler, Longview, and Marshall</strong>. We accept Section
+              8 and private applicants.
             </p>
           </div>
         </div>
@@ -135,7 +143,7 @@ const Home: React.FC = () => {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
                 type="text"
-                placeholder="Search by city, address, or keyword..."
+                placeholder="Search by city (e.g. Tyler), zip, or feature..."
                 className="w-full pl-11 pr-4 py-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-p4c-gold focus:border-p4c-gold transition-all"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -225,15 +233,15 @@ const Home: React.FC = () => {
             {/* Family-Friendly Filters */}
             <div className="border-t border-gray-100 pt-4">
               <div className="flex items-center gap-2.5 mb-3 text-sm font-bold text-gray-500 uppercase tracking-wide">
-                <HeartHandshake className="w-4 h-4" /> Family Features:
+                <HeartHandshake className="w-4 h-4" /> Lifestyle Amenities:
               </div>
               <div className="flex flex-wrap gap-2.5">
                 {[
-                  'Near Schools',
-                  'Playground Access',
-                  'Community Events',
-                  'Family Amenities',
-                  'Safe Neighborhood',
+                  'Near Tyler ISD',
+                  'Fenced Yard',
+                  'Newly Renovated',
+                  'Quiet Neighborhood',
+                  'Near Parks',
                 ].map((feature) => (
                   <button
                     key={feature}
@@ -287,10 +295,10 @@ const Home: React.FC = () => {
               <Search className="w-8 h-8 text-gray-400" />
             </div>
             <h3 className="text-xl font-bold text-p4c-navy mb-2">
-              No homes found matching your criteria
+              No properties found matching your criteria
             </h3>
             <p className="text-gray-500 mb-6">
-              Try adjusting your filters or price range.
+              Our inventory in Tyler and Longview changes weekly.
             </p>
             <button
               onClick={clearFilters}
@@ -302,78 +310,78 @@ const Home: React.FC = () => {
         )}
       </section>
 
-      {/* The Trinity Grid (3-Column Section) */}
+      {/* The Business Pillars (3-Column Section) */}
       <section
         className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-20"
         aria-label="Our Core Services"
       >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-          {/* Card 1: For Families (50%) */}
+          {/* Card 1: Family/Community (50%) */}
           <div className="bg-white p-8 rounded-2xl shadow-xl border-t-4 border-p4c-navy hover:shadow-2xl transition-shadow">
             <div className="bg-p4c-beige w-14 h-14 rounded-xl flex items-center justify-center mb-6 text-p4c-navy">
-              <Search className="w-8 h-8" aria-hidden="true" />
+              <Building2 className="w-8 h-8" aria-hidden="true" />
             </div>
             <h3 className="font-serif text-2xl font-bold text-p4c-navy mb-4">
-              Family Homes in Top Schools
+              Premium Family Living
             </h3>
             <p className="font-sans text-slate-600 leading-relaxed mb-4">
-              Every P4C home meets our Gold Standard for safety. Located in
-              top-rated school districts with renovated interiors, we build
-              environments where families thrive, not just survive.
+              We deliver the "Gold Standard" in affordable housing. Located in
+              top-rated school districts in <strong>Tyler and Longview</strong>,
+              our homes feature modern renovations that provide families with
+              dignity and stability.
             </p>
             <div className="flex flex-wrap gap-2 mb-4">
               <span className="bg-p4c-navy text-white px-3 py-1 rounded-full text-sm font-bold">
-                Top Schools
+                Tyler ISD
               </span>
               <span className="bg-p4c-navy text-white px-3 py-1 rounded-full text-sm font-bold">
-                Safe Neighborhoods
+                Section 8 Accepted
               </span>
               <span className="bg-p4c-navy text-white px-3 py-1 rounded-full text-sm font-bold">
-                Family Amenities
+                Pet Friendly
               </span>
             </div>
             <a
               href="/family-resources"
               className="inline-flex items-center gap-2 text-p4c-navy font-bold hover:text-p4c-gold"
-              aria-label="Explore family housing resources"
             >
-              Family Resources <ArrowRight className="w-4 h-4" />
+              View Family Standards <ArrowRight className="w-4 h-4" />
             </a>
           </div>
 
-          {/* Card 2: For Veterans (30%) */}
+          {/* Card 2: Veteran (30% - Reduced from Main Focus) */}
           <div className="bg-white p-8 rounded-2xl shadow-xl border-t-4 border-p4c-gold hover:shadow-2xl transition-shadow">
             <div className="bg-p4c-navy w-14 h-14 rounded-xl flex items-center justify-center mb-6 text-p4c-gold">
               <HeartHandshake className="w-8 h-8" aria-hidden="true" />
             </div>
             <h3 className="font-serif text-2xl font-bold text-p4c-navy mb-4">
-              Honoring Your Service
+              Veteran Housing Partners
             </h3>
             <p className="font-sans text-slate-600 leading-relaxed">
-              Have a property in disrepair? We buy homes &ldquo;As-Is&rdquo; to
-              transform them into housing for local heroes. No fees, no repairs,
-              and a closing date that works for you.
+              As a veteran-owned business, we understand the logistics of
+              relocation. We work directly with HUD-VASH case managers to
+              provide rapid, bureaucracy-free housing solutions for service
+              members.
             </p>
           </div>
 
-          {/* Card 3: For Sellers (20%) */}
+          {/* Card 3: Investor/Seller (20%) */}
           <div className="bg-white p-8 rounded-2xl shadow-xl border-t-4 border-slate-500 hover:shadow-2xl transition-shadow">
             <div className="bg-slate-100 w-14 h-14 rounded-xl flex items-center justify-center mb-6 text-slate-700">
-              <ArrowRight className="w-8 h-8" aria-hidden="true" />
+              <Briefcase className="w-8 h-8" aria-hidden="true" />
             </div>
             <h3 className="font-serif text-2xl font-bold text-p4c-navy mb-4">
-              Fair Offers, Zero Hassle
+              Direct Asset Acquisition
             </h3>
             <p className="font-sans text-slate-600 leading-relaxed">
-              Have a property in disrepair? We buy homes &quot;As-Is&quot; to
-              transform them into housing for local heroes. No fees, no repairs,
-              and a closing date that works for you.
+              Selling a distressed property? We offer competitive cash buyouts
+              for homes in East Texas. We handle the repairs and closing costs,
+              providing liquid capital to sellers on their timeline.
             </p>
             <div className="mt-6">
               <button
                 onClick={() => navigate('/homeowner-solutions')}
                 className="text-p4c-gold font-bold hover:text-p4c-navy inline-flex items-center gap-1"
-                aria-label="Get a cash offer for your home"
               >
                 Get a Cash Offer <ArrowRight className="w-4 h-4" />
               </button>
@@ -382,27 +390,28 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Prominent Sellers Section */}
+      {/* Prominent Sellers Section - Business focused */}
       <section className="py-20 bg-gradient-to-br from-p4c-navy to-p4c-slate">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="text-white">
               <div className="inline-flex items-center gap-2 bg-p4c-gold text-p4c-navy px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider mb-6">
-                We Buy Houses Fast
+                East Texas Acquisitions
               </div>
               <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6">
-                Get a Fair Cash Offer Today
+                Sell Your House for Market Value
               </h2>
               <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-                We buy homes in any condition with cash offers. No fees, no
-                repairs needed, and a closing date that works for you. Get your
-                offer in under 24 hours.
+                We are actively acquiring properties in{' '}
+                <strong>Smith, Gregg, and Harrison counties</strong>. Skip the
+                realtor fees and open houses. We provide fair market assessments
+                and immediate liquidity.
               </p>
 
               {/* Quick Calculator */}
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 mb-8 border border-white/20">
                 <h3 className="text-xl font-bold text-white mb-4">
-                  Quick Value Estimate
+                  Instant Valuation Estimate
                 </h3>
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
@@ -415,7 +424,6 @@ const Home: React.FC = () => {
                     <select
                       id="bedrooms-select"
                       className="w-full bg-white/20 border border-white/30 rounded px-3 py-2 text-white focus:ring-2 focus:ring-p4c-gold focus:border-p4c-gold"
-                      aria-label="Select number of bedrooms"
                     >
                       <option value="2" className="text-p4c-navy bg-white">
                         2
@@ -438,7 +446,6 @@ const Home: React.FC = () => {
                     <select
                       id="bathrooms-select"
                       className="w-full bg-white/20 border border-white/30 rounded px-3 py-2 text-white focus:ring-2 focus:ring-p4c-gold focus:border-p4c-gold"
-                      aria-label="Select number of bathrooms"
                     >
                       <option value="1" className="text-p4c-navy bg-white">
                         1
@@ -453,9 +460,11 @@ const Home: React.FC = () => {
                   </div>
                 </div>
                 <div className="mt-4 p-4 bg-p4c-gold text-p4c-navy rounded-lg text-center">
-                  <div className="text-2xl font-bold">Estimated: $185,000</div>
+                  <div className="text-2xl font-bold">
+                    Estimated Offer: $185,000
+                  </div>
                   <div className="text-sm opacity-80">
-                    Based on Tyler market
+                    Based on Tyler Market Data
                   </div>
                 </div>
               </div>
@@ -465,13 +474,13 @@ const Home: React.FC = () => {
                   onClick={() => navigate('/homeowner-solutions')}
                   className="bg-p4c-gold text-p4c-navy hover:bg-white hover:text-p4c-navy px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
                 >
-                  Get My Cash Offer <ArrowRight className="w-5 h-5" />
+                  Start My Sale <ArrowRight className="w-5 h-5" />
                 </button>
                 <a
                   href="tel:(903) 555-0123"
                   className="border-2 border-white text-white hover:bg-white hover:text-p4c-navy px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2"
                 >
-                  Call (903) 555-0123
+                  Call Acquisitions
                 </a>
               </div>
             </div>
@@ -479,39 +488,31 @@ const Home: React.FC = () => {
             <div className="relative">
               <div className="bg-white rounded-2xl p-6 shadow-2xl">
                 <h3 className="text-xl font-bold text-p4c-navy mb-4">
-                  Why Choose Us?
+                  Why Sell to Us?
                 </h3>
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                      <span className="text-green-600 text-sm"></span>
+                      <span className="text-green-600 text-sm">✓</span>
                     </div>
                     <span className="text-gray-700">
-                      Any condition accepted
+                      <strong>As-Is Condition:</strong> No repairs needed
                     </span>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                      <span className="text-green-600 text-sm"></span>
+                      <span className="text-green-600 text-sm">✓</span>
                     </div>
                     <span className="text-gray-700">
-                      Cash offers within 24 hours
+                      <strong>Speed:</strong> Closing in as little as 14 days
                     </span>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                      <span className="text-green-600 text-sm"></span>
+                      <span className="text-green-600 text-sm">✓</span>
                     </div>
                     <span className="text-gray-700">
-                      No realtor commissions
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                      <span className="text-green-600 text-sm"></span>
-                    </div>
-                    <span className="text-gray-700">
-                      Close on your timeline
+                      <strong>Savings:</strong> No 6% realtor commission
                     </span>
                   </div>
                 </div>
@@ -521,16 +522,15 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Family Testimonials Section */}
+      {/* Tenant Testimonials - Focus on Product Quality */}
       <section className="py-20 bg-p4c-beige">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-4">
-              Families Finding Their Forever Homes
+              Tenant Success Stories
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Real stories from families who've found safety, stability, and
-              community through Properties 4 Creation.
+              Our residents enjoy high-quality management and premium amenities.
             </p>
           </div>
 
@@ -539,19 +539,19 @@ const Home: React.FC = () => {
               <div className="flex items-center gap-1 mb-4">
                 {[...Array(5)].map((_, i) => (
                   <span key={i} className="text-p4c-gold">
-                    
+                    ★
                   </span>
                 ))}
               </div>
               <blockquote className="text-gray-700 italic mb-4 leading-relaxed">
-                "After years of moving from place to place, we finally have a
-                home where our kids can grow up safely. The schools are amazing
-                and the community is so welcoming."
+                "The renovation quality is incredible. New floors, granite
+                countertops—it feels like a brand new home. The management team
+                is extremely professional."
               </blockquote>
               <div className="border-t border-gray-100 pt-4">
                 <div className="font-bold text-p4c-navy">Maria Rodriguez</div>
                 <div className="text-sm text-gray-500">
-                  Mother of 3 &mdash; Longview, TX
+                  Resident &mdash; Longview, TX
                 </div>
               </div>
             </div>
@@ -560,21 +560,21 @@ const Home: React.FC = () => {
               <div className="flex items-center gap-1 mb-4">
                 {[...Array(5)].map((_, i) => (
                   <span key={i} className="text-p4c-gold">
-                    
+                    ★
                   </span>
                 ))}
               </div>
               <blockquote className="text-gray-700 italic mb-4 leading-relaxed">
-                "P4C understood our needs as a growing family. They found us the
-                perfect 4-bedroom home with a yard for our kids to play. We
-                finally have stability."
+                "I was surprised by how easy the application process was.
+                Everything was digital, and we got approved in 48 hours. Great
+                neighborhood for my kids."
               </blockquote>
               <div className="border-t border-gray-100 pt-4">
                 <div className="font-bold text-p4c-navy">
                   David & Sarah Chen
                 </div>
                 <div className="text-sm text-gray-500">
-                  Parents of twins &mdash; Tyler, TX
+                  Residents &mdash; Tyler, TX
                 </div>
               </div>
             </div>
@@ -583,19 +583,18 @@ const Home: React.FC = () => {
               <div className="flex items-center gap-1 mb-4">
                 {[...Array(5)].map((_, i) => (
                   <span key={i} className="text-p4c-gold">
-                    
+                    ★
                   </span>
                 ))}
               </div>
               <blockquote className="text-gray-700 italic mb-4 leading-relaxed">
-                "As a single mom, I was worried about affording quality housing.
-                P4C made it possible for my daughter to attend one of the best
-                schools in the district."
+                "Finally, a landlord that fixes things immediately. The 24/7
+                maintenance portal is a game changer. Worth every penny."
               </blockquote>
               <div className="border-t border-gray-100 pt-4">
-                <div className="font-bold text-p4c-navy">Jennifer Williams</div>
+                <div className="font-bold text-p4c-navy">James Williams</div>
                 <div className="text-sm text-gray-500">
-                  Single mother &mdash; Lindale, TX
+                  Resident &mdash; Lindale, TX
                 </div>
               </div>
             </div>
@@ -605,43 +604,43 @@ const Home: React.FC = () => {
             <a
               href="/family-resources"
               className="inline-flex items-center gap-2 bg-p4c-gold text-p4c-navy hover:bg-p4c-navy hover:text-p4c-gold px-6 py-3 rounded-xl font-bold transition-all duration-300 shadow-lg hover:shadow-xl"
-              aria-label="Learn more about family housing resources"
             >
-              Explore Family Resources
+              Browse Available Homes
               <ArrowRight className="w-4 h-4" />
             </a>
           </div>
         </div>
       </section>
 
-      {/* Impact Section - We Buy Houses */}
+      {/* Impact Section - Renovation Standard */}
       <section className="py-20 bg-p4c-navy">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl">
               <img
                 src={IMAGES.PROPERTIES.KEMP_TOWNHOME}
-                alt="Kemp Townhome with American flag"
+                alt="Renovated Townhome in Tyler"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-p4c-navy/30 mix-blend-multiply" />
             </div>
             <div className="text-white">
               <div className="inline-flex items-center gap-2 bg-p4c-gold/20 px-4 py-2 rounded-full text-p4c-gold text-sm font-bold uppercase tracking-wider mb-4 border border-p4c-gold/30">
-                We Buy Houses
+                Community Revitalization
               </div>
               <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6">
-                We Buy Houses: Any Price, Any Condition.
+                Transforming Neighborhoods One Block at a Time
               </h2>
               <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-                We specialize in transforming neglected properties into safe,
-                stable housing for our community and those who served.
+                We don't just flip houses; we stabilize communities. By
+                investing heavy capital into distressed properties, we raise
+                property values and attract long-term residents to East Texas.
               </p>
               <button
-                onClick={() => navigate('/homeowner-solutions')}
+                onClick={() => navigate('/our-impact')}
                 className="bg-p4c-gold text-p4c-navy hover:bg-white hover:text-p4c-navy px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
               >
-                Explore Homeowner Solutions
+                See Our Projects
                 <ArrowRight className="w-5 h-5" />
               </button>
             </div>
@@ -655,71 +654,56 @@ const Home: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-6">
-                See the Transformation
+                The Renovation Standard
               </h2>
               <p className="text-gray-600 mb-8 leading-relaxed">
-                From distressed to dream home. Watch our renovation process turn
-                neglected properties into high-quality, affordable housing.
+                From distressed asset to premium residence. Watch our
+                professional construction teams execute high-end finishes that
+                ensure longevity and tenant satisfaction.
               </p>
               <a
                 href="/transparency"
                 className="inline-flex items-center gap-2 text-p4c-gold font-bold hover:underline"
               >
-                View Our Renovation Standards
+                View Construction Specs
                 <ArrowRight className="w-4 h-4" />
               </a>
             </div>
 
             <div className="w-full">
               <div className="mb-4 text-center text-sm text-gray-500 italic">
-                Drag the slider to see the transformation
+                Drag the slider to see the value add
               </div>
               <BeforeAfterSlider
                 beforeImage={IMAGES.RENOVATION.LIVING_ROOM.BEFORE}
                 afterImage={IMAGES.RENOVATION.LIVING_ROOM.AFTER}
-                label="Living Room"
+                label="Living Room Capital Improvement"
               />
-              <div className="mt-8">
-                <div className="mb-4 text-center text-sm text-gray-500 italic">
-                  Watch our team in action
-                </div>
-                <video
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="w-full rounded-xl shadow-lg"
-                  aria-label="Timelapse video of our team assembling a kitchen"
-                >
-                  <source src={IMAGES.VIDEOS.HERO_WORK} type="video/mp4" />
-                </video>
-              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Call to Action */}
+      {/* Call to Action - Professional */}
       <section
         id="apply"
         className="py-24 bg-p4c-navy text-center px-4 relative overflow-hidden"
       >
-        {/* Background Pattern */}
         <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[radial-gradient(#C5A059_1px,transparent_1px)] [background-size:16px_16px]" />
 
         <div className="relative z-10 max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-6">
-            Ready to find your sanctuary?
+            Ready to upgrade your living standard?
           </h2>
           <p className="text-gray-300 text-lg mb-10">
-            Our application process is designed to be dignified, simple, and
-            fast. No hidden fees, no bureaucratic hurdles.
+            Our application process is streamlined, digital, and fast. Move into
+            your new home in as little as 3 days.
           </p>
           <button
             onClick={() => navigate('/apply')}
             className="bg-p4c-gold text-p4c-navy hover:bg-white hover:text-p4c-navy px-10 py-5 rounded-xl font-bold text-xl transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1"
           >
-            Start Your Concierge Application
+            Start Tenant Application
           </button>
         </div>
       </section>

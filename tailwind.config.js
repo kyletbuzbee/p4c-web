@@ -3,9 +3,12 @@ module.exports = {
   content: [
     './index.html',
     './src/**/*.{js,ts,jsx,tsx}',
+    // Note: If 'components' and 'pages' are inside 'src', the line above covers them.
+    // Keeping them here is safe, just slightly redundant.
     './components/**/*.{js,ts,jsx,tsx}',
     './pages/**/*.{js,ts,jsx,tsx}',
   ],
+  darkMode: 'class', // ✅ CRITICAL: Enables manual dark mode toggling
   theme: {
     extend: {
       colors: {
@@ -23,8 +26,9 @@ module.exports = {
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-out forwards',
-        'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
-        'slide-in': 'slideIn 0.3s ease-out forwards',
+        'fade-in-up': 'fadeInUp 0.7s ease-out forwards', // Adjusted duration for smoother entry
+        'slide-in': 'slideIn 0.3s ease-out forwards', // Horizontal slide
+        'slide-up': 'slideInFromBottom 0.5s ease-out forwards', // ✅ NEW: Vertical slide for sections
       },
       keyframes: {
         fadeIn: {
@@ -38,6 +42,11 @@ module.exports = {
         slideIn: {
           '0%': { transform: 'translateX(100%)', opacity: '0' },
           '100%': { transform: 'translateX(0)', opacity: '1' },
+        },
+        // ✅ NEW: Matches the slide-up animation
+        slideInFromBottom: {
+          '0%': { opacity: '0', transform: 'translateY(50px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         },
       },
     },

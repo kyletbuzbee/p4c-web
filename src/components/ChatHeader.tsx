@@ -5,7 +5,7 @@
     <div className="w-8 h-8 rounded-full bg-white/10 p-1 border border-p4c-gold overflow-hidden">
       <img
         src="/images/bot/digital-architect-avatar.webp"
-        alt="P4C Digital Architect"
+        alt="Properties 4 Creation Digital Architect"
         className="w-full h-full object-cover"
       />
     </div>

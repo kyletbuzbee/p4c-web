@@ -1,210 +1,94 @@
-/**
- * Content Balance Auditor Tests
- * Unit tests for the content balance auditor utility
- */
+import { describe, expect, test } from 'vitest';
+import { auditContentBalance } from './contentBalanceAuditor';
 
-import { describe, expect, test, vi } from 'vitest';
-import {
-  auditContentBalance,
-  analyzePropertyContent,
-  auditStoryBalance,
-  createBalancedStories,
-} from './contentBalanceAuditor';
-import type { ExtendedProperty } from '../types';
-import type { StoryContent } from '../types/contentBalance';
+describe('Content Balance Auditor (Targets: 40% Family | 30% Community | 20% Investor | 10% Veteran)', () => {
+  test('should identify Investor content via Business/ROI keywords', () => {
+    const mockProperties: any[] = [
+      {
+        title: 'High Yield Asset',
+        description:
+          'Perfect for BRRRR strategy. Cash flow positive. ROI potential is high in this market.',
+      },
+    ];
 
-// Mock error boundary service
-vi.mock('../services/errorBoundaryService', () => ({
-  logError: vi.fn(),
-}));
+    const result = auditContentBalance(mockProperties, []);
 
-// Test Data
-describe('Content Balance Auditor', () => {
-  // Mock properties for testing
-  const mockProperties: ExtendedProperty[] = [
-    {
-      id: '1',
-      title: 'Veteran-Focused Property',
-      address: '123 Main St',
-      price: 1000,
-      beds: 2,
-      baths: 1,
-      sqft: 1000,
-      imageUrl: 'test.jpg',
-      badges: ['VASH Approved'],
-      description: 'Property for veterans with VASH benefits near VA clinic',
-      amenities: [],
-      accessibilityFeatures: [],
-      schoolDistrict: 'Test ISD',
-      neighborhood: 'Test',
-      availabilityDate: 'Available Now',
-      coordinates: { lat: 0, lng: 0 },
-    },
-    {
-      id: '2',
-      title: 'Family-Focused Property',
-      address: '456 Oak St',
-      price: 1200,
-      beds: 3,
-      baths: 2,
-      sqft: 1500,
-      imageUrl: 'test.jpg',
-      badges: ['Family Size'],
-      description: 'Spacious home near elementary school perfect for families',
-      amenities: [],
-      accessibilityFeatures: [],
-      schoolDistrict: 'Test ISD',
-      neighborhood: 'Test',
-      availabilityDate: 'Available Now',
-      coordinates: { lat: 0, lng: 0 },
-    },
-  ];
-
-  // Mock routes for testing
-  const mockRoutes = [
-    { path: '/veterans' },
-    { path: '/family-resources' },
-    { path: '/apply' },
-  ];
-
-  test('should analyze property content correctly', () => {
-    const veteranResult = analyzePropertyContent(mockProperties[0]!);
-    const familyResult = analyzePropertyContent(mockProperties[1]!);
-
-    expect(veteranResult).toBe('veteran');
-    expect(familyResult).toBe('family');
+    // Should classify as Investor due to 'BRRRR', 'Cash flow', 'ROI'
+    expect(result.percentages.investor).toBeGreaterThan(0);
+    expect(result.dominantCategory).toBe('investor');
   });
 
-  test('should audit content balance with correct scoring', () => {
-    const result = auditContentBalance(mockRoutes, mockProperties);
+  test('should identify Community content via "East Texas" region keywords', () => {
+    // UPDATED: Changed "Tyler" to "East Texas" per your regex request
+    const mockProperties: any[] = [
+      {
+        title: 'Affordable Apartment',
+        description:
+          'Clean, safe unit in East Texas. Revitalizing the neighborhood block by block.',
+      },
+    ];
 
-    expect(result.veteranWeight).toBeGreaterThan(0);
-    expect(result.familyWeight).toBeGreaterThan(0);
-    expect(result.veteranPerc + result.familyPerc).toBe(100);
-    expect(result.ratio).toMatch(/\d+% Veteran \/ \d+% Family/);
+    const result = auditContentBalance(mockProperties, []);
+
+    expect(result.percentages.community).toBeGreaterThan(0);
+    expect(result.dominantCategory).toBe('community');
   });
 
-  test('should handle empty inputs gracefully', () => {
-    const result = auditContentBalance([], []);
+  test('should identify Family content via "Stability/Schools" keywords', () => {
+    const mockProperties: any[] = [
+      {
+        title: 'Forever Home',
+        description:
+          'Top-rated school district. Fenced yard for children. Safe, stable living environment.',
+      },
+    ];
 
-    expect(result.veteranWeight).toBe(0);
-    expect(result.familyWeight).toBe(0);
-    expect(result.veteranPerc).toBe(0);
-    expect(result.familyPerc).toBe(0);
+    const result = auditContentBalance(mockProperties, []);
+
+    expect(result.percentages.family).toBeGreaterThan(0);
+    expect(result.dominantCategory).toBe('family');
   });
 
-  test('should generate recommendations for imbalanced content', () => {
-    // Create heavily veteran-biased content
-    const veteranProperties = Array(10).fill(mockProperties[0]);
-    const result = auditContentBalance(mockRoutes, veteranProperties);
+  test('should flag warning when Veteran content exceeds 10% threshold', () => {
+    // Simulating a scenario where Veteran content is overpowering (3 out of 3 items)
+    const mockProperties: any[] = [
+      { title: 'Veteran Haven', description: 'Exclusive for HUD-VASH heroes.' },
+      { title: 'Military Base', description: 'Serving those who served.' },
+      { title: 'Veteran Housing', description: 'Priority for veterans.' },
+    ];
 
-    expect(result.veteranPerc).toBe(100);
-    expect(result.recommendations.length).toBe(3);
-    expect(result.recommendations[0]).toBe(
-      "High Veteran Tilt detected. Add 'Family Success Stories' to /stories to balance military testimonials."
+    const result = auditContentBalance(mockProperties, []);
+
+    // Expect Veteran percentage to be very high
+    expect(result.percentages.veteran).toBeGreaterThan(80);
+
+    // The recommendation engine should trigger a warning because 80% > 10% target
+    const hasVeteranWarning = result.recommendations.some(
+      (rec) =>
+        rec.toLowerCase().includes('veteran') &&
+        (rec.toLowerCase().includes('high') ||
+          rec.toLowerCase().includes('reduce'))
     );
+
+    expect(hasVeteranWarning).toBe(true);
   });
 
-  test('should audit story balance correctly', () => {
-    const mockStories: StoryContent[] = [
+  test('should handle mixed content correctly', () => {
+    const mockProperties: any[] = [
+      { title: 'Family Home', description: 'Great schools, safe for kids.' }, // Family
+      { title: 'Family Home', description: 'Great schools, safe for kids.' }, // Family
       {
-        id: 1,
-        name: 'John Veteran',
-        location: 'Tyler, TX',
-        quote: 'Great experience as a veteran',
-        videoLabel: 'Veteran story',
-        type: 'veteran',
-        contentTypeDescription: 'Veteran Success Story',
-      },
-      {
-        id: 2,
-        name: 'Jane Family',
-        location: 'Longview, TX',
-        quote: 'Perfect for our family',
-        videoLabel: 'Family story',
-        type: 'family',
-        contentTypeDescription: 'Family Success Story',
-      },
+        title: 'Local Revitalization',
+        description: 'Improving East Texas streets.',
+      }, // Community
+      { title: 'Investment', description: 'Cash flow asset.' }, // Investor
     ];
 
-    const result = auditStoryBalance(mockStories);
+    const result = auditContentBalance(mockProperties, []);
 
-    expect(result.veteranWeight).toBe(10);
-    expect(result.familyWeight).toBe(10);
-    expect(result.ratio).toBe('50% Veteran / 50% Family');
-  });
-
-  test('should create balanced stories with proper typing', () => {
-    const mockStories: StoryContent[] = [
-      {
-        id: 1,
-        name: 'Test Veteran',
-        location: 'Tyler, TX',
-        quote: 'Military service helped me get this home',
-        videoLabel: 'Test veteran story',
-        type: 'veteran',
-        contentTypeDescription: 'Veteran Success Story',
-      },
-      {
-        id: 2,
-        name: 'Test Family',
-        location: 'Longview, TX',
-        quote: 'Our children love the school nearby',
-        videoLabel: 'Test family story',
-        type: 'family',
-        contentTypeDescription: 'Family Success Story',
-      },
-    ];
-
-    const result = createBalancedStories(mockStories);
-
-    expect(result.length).toBe(2);
-    expect(result[0]?.type).toBeDefined();
-    expect(result[0]?.contentTypeDescription).toBeDefined();
-    expect(result[1]?.type).toBeDefined();
-    expect(result[1]?.contentTypeDescription).toBeDefined();
-  });
-
-  test('should handle errors gracefully', () => {
-    // This should not throw, but return a safe default
-    const result = auditContentBalance([], []);
-
-    expect(result).toBeDefined();
-    expect(result.recommendations).toBeInstanceOf(Array);
-  });
-
-  test('should use default configuration when none provided', () => {
-    const result = auditContentBalance([], []);
-
-    // Should complete without errors using default config
-    expect(result).toBeDefined();
-  });
-});
-
-// Integration test
-describe('Content Balance Auditor Integration', () => {
-  test('should work with real-world property data structure', () => {
-    const realProperty: ExtendedProperty = {
-      id: 'test',
-      title: 'Real Property',
-      address: '123 Test St',
-      price: 1000,
-      beds: 2,
-      baths: 1,
-      sqft: 1000,
-      imageUrl: 'test.jpg',
-      badges: ['Section 8 Approved'],
-      description: 'Real property description with school district mentions',
-      amenities: ['Test amenity'],
-      accessibilityFeatures: [],
-      schoolDistrict: 'Test ISD',
-      neighborhood: 'Test Neighborhood',
-      availabilityDate: 'Available Now',
-      coordinates: { lat: 32.3513, lng: -95.3011 },
-    };
-
-    // Should not throw with real property structure
-    const result = analyzePropertyContent(realProperty);
-    expect(['veteran', 'family', 'neutral']).toContain(result);
+    // Expect Family to be highest (50%)
+    expect(result.dominantCategory).toBe('family');
+    // Expect Veteran to be low/zero
+    expect(result.percentages.veteran).toBeLessThan(10);
   });
 });

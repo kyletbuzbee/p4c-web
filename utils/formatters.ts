@@ -11,24 +11,22 @@
 export const formatCurrency = (
   amount: number,
   options?: Intl.NumberFormatOptions
-): string => {
-  return new Intl.NumberFormat('en-US', {
+): string =>
+  new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
     ...options,
   }).format(amount);
-};
 
 /**
  * Formats a number with thousands separators
  * @param num - The number to format
  * @returns Formatted number string
  */
-export const formatNumber = (num: number): string => {
-  return new Intl.NumberFormat('en-US').format(num);
-};
+export const formatNumber = (num: number): string =>
+  new Intl.NumberFormat('en-US').format(num);
 
 /**
  * Formats a date string to a human-readable format
@@ -65,25 +63,23 @@ export const truncateText = (text: string, maxLength: number): string => {
  * @param name - Full name
  * @returns Initials string
  */
-export const getInitials = (name: string): string => {
-  return name
+export const getInitials = (name: string): string =>
+  name
     .split(' ')
     .map((part) => part[0])
     .join('')
     .toUpperCase()
     .slice(0, 2);
-};
 
 /**
  * Slugifies a string for URLs
  * @param text - The text to slugify
  * @returns URL-safe slug string
  */
-export const slugify = (text: string): string => {
-  return text
+export const slugify = (text: string): string =>
+  text
     .toLowerCase()
     .replace(/[^\w\s-]/g, '')
     .replace(/\s+/g, '-')
     .replace(/--+/g, '-')
     .trim();
-};

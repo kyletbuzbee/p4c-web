@@ -22,7 +22,7 @@ const BotAvatar: React.FC<BotAvatarProps> = ({ className = '', size = 48 }) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={`block ${className}`}
-      aria-label="P4C Digital Architect Avatar"
+      aria-label="Properties 4 Creation Digital Architect Avatar"
       role="img"
     >
       {/* 1. Background Container (Navy with Gold Ring) */}

@@ -500,11 +500,6 @@ app.use('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-  console.log(
-    `🌍 CORS configured for: ${process.env.ALLOWED_ORIGINS || 'http://localhost:3000'}`
-  );
-
   if (!process.env.GEMINI_API_KEY) {
     console.warn(
       '⚠️  WARNING: GEMINI_API_KEY not configured in environment variables'

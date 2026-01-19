@@ -1,6 +1,7 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import type { ErrorInfo, ReactNode } from 'react';
 import { AlertTriangle, RefreshCw } from 'lucide-react';
+import { useToast } from '../context/ToastContext';
 
 interface Props {
   children?: ReactNode;
@@ -16,7 +17,20 @@ interface State {
   timestamp: string;
 }
 
-class ErrorBoundary extends Component<Props, State> {
+// Higher-order component to provide useToast to class component
+const withToast = <P extends object>(Component: React.ComponentType<P>) => {
+  const WrappedComponent = (props: P) => {
+    const toast = useToast();
+    return <Component {...props} toast={toast} />;
+  };
+  WrappedComponent.displayName = `withToast(${Component.displayName || Component.name})`;
+  return WrappedComponent;
+};
+
+class ErrorBoundary extends Component<
+  Props & { toast: ReturnType<typeof useToast> },
+  State
+> {
   public override state: State = {
     hasError: false,
     error: null,
@@ -26,7 +40,7 @@ class ErrorBoundary extends Component<Props, State> {
 
   public static getDerivedStateFromError(error: Error): State {
     // Generate unique error ID for tracking
-    const errorId = `ERR_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    const errorId = `ERR_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`;
     return {
       hasError: true,
       error,
@@ -81,7 +95,7 @@ class ErrorBoundary extends Component<Props, State> {
       });
     } catch (loggingError) {
       // Fail silently to avoid recursive errors
-      console.warn('Failed to log error to service:', loggingError);
+      // console.warn('Failed to log error to service:', loggingError);
     }
   };
 
@@ -193,11 +207,15 @@ class ErrorBoundary extends Component<Props, State> {
         body: JSON.stringify(reportData),
       });
 
-      alert(
-        'Error report submitted successfully. Thank you for your feedback!'
+      this.props.toast.addToast(
+        'Error report submitted successfully. Thank you for your feedback!',
+        'success'
       );
     } catch (error) {
-      alert('Failed to submit error report. Please try again later.');
+      this.props.toast.addToast(
+        'Failed to submit error report. Please try again later.',
+        'error'
+      );
     }
   };
 
@@ -279,4 +297,4 @@ class ErrorBoundary extends Component<Props, State> {
   }
 }
 
-export default ErrorBoundary;
+export default withToast(ErrorBoundary);

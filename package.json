@@ -28,9 +28,6 @@
     "dev:all": "npm run server & npm run dev"
   },
   "dependencies": {
-    "@google/genai": "^1.34.0",
-    "@google/generative-ai": "^0.21.0",
-    "@tensorflow/tfjs": "^4.11.0",
     "@types/node": "^20.11.16",
     "axios": "^1.13.2",
     "express": "^4.22.1",
@@ -48,7 +45,6 @@
     "react-intersection-observer": "^10.0.0",
     "react-router-dom": "^6.22.3",
     "recharts": "^2.12.7",
-    "upscaler": "^1.0.0-beta.19",
     "uuid": "^13.0.0",
     "winston": "^3.19.0",
     "xss": "^1.0.15"

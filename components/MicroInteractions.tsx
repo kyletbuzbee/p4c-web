@@ -24,7 +24,6 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
   'aria-label': ariaLabel,
   ...props
 }) => {
-  // ariaLabel is already extracted from props
   const [isPressed, setIsPressed] = useState(false);
   const [ripples, setRipples] = useState<
     Array<{ id: number; x: number; y: number }>
@@ -81,6 +80,7 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
       ref={buttonRef}
       onClick={handleClick}
       disabled={disabled || loading}
+      aria-label={ariaLabel}
       /* eslint-disable security/detect-object-injection */
       className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${isPressed ? 'scale-95' : ''} ${animate ? 'hover-lift button-press' : ''} ${className}`}
       /* eslint-enable security/detect-object-injection */

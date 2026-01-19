@@ -1,287 +1,154 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import {
-  Award,
-  ShieldCheck,
-  Heart,
-  TrendingUp,
-  Users,
-  CheckCircle2,
-} from 'lucide-react';
+import { Award, ShieldCheck, Heart, TrendingUp, Building2 } from 'lucide-react';
 import { IMAGES } from '../constants/images';
 
 const About: React.FC = () => (
-  <>
+  <div className="bg-p4c-beige min-h-screen">
     <Helmet>
-      <title>About Us | Veteran-Owned Affordable Housing | Properties 4 Creation</title>
+      <title>
+        About Us | Professional Property Management | Properties 4 Creation
+      </title>
       <meta
         name="description"
-        content="Learn about Properties 4 Creation, a veteran-owned company redefining affordable housing standards in East Texas. Premium renovations, compassionate management, community impact."
+        content="Properties 4 Creation is a premier property management and development firm in East Texas, dedicated to high-quality housing and community revitalization."
       />
-      <meta name="keywords" content="veteran owned business, affordable housing East Texas, veteran housing company, quality affordable homes, veteran led property management" />
     </Helmet>
-  <div className="bg-p4c-beige min-h-screen">
-    {/* Hero Banner */}
-    <div className="relative h-[500px] w-full overflow-hidden flex items-center justify-center">
+
+    {/* Hero Section */}
+    <div className="relative h-[400px] w-full overflow-hidden flex items-center justify-center">
       <div className="absolute top-0 left-0 w-full h-full z-0">
         <img
-          src={IMAGES.BANNERS.HERO_ABOUT}
-          alt="Architectural plans and safety hat"
+          src={IMAGES.TEAM.ONSITE}
+          alt="Properties 4 Creation team on site"
           className="w-full h-full object-cover"
         />
-        <div className="absolute top-0 left-0 w-full h-full hero-overlay-primary" />
-        <div className="absolute top-0 left-0 w-full h-full hero-overlay-secondary" />
+        <div className="absolute top-0 left-0 w-full h-full bg-p4c-navy/80 mix-blend-multiply" />
       </div>
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-fade-in-up">
-        <div className="inline-flex items-center gap-2 bg-p4c-gold/20 backdrop-blur-sm border border-p4c-gold/30 rounded-full px-4 py-1 mb-6">
-          <span className="text-p4c-gold text-xs font-bold uppercase tracking-widest">
-            Est. 2024 • East Texas
-          </span>
+        <div className="flex justify-center mb-6">
+          <div className="bg-p4c-gold/20 p-4 rounded-2xl border border-p4c-gold/30 backdrop-blur-sm">
+            <Building2 className="w-10 h-10 text-p4c-gold" />
+          </div>
         </div>
-        <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight hero-text-contrast">
-          Restoring Homes. <br />
-          <span className="text-p4c-gold">Restoring Dignity.</span>
+        <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4 tracking-wide">
+          Our Corporate Mission
         </h1>
-        <p className="text-xl text-gray-200 font-light max-w-2xl mx-auto hero-text-enhanced">
-          We are a veteran-owned company on a mission to redefine affordable
-          housing standards through quality craftsmanship and compassionate
-          management.
+        <p className="text-xl text-gray-200 font-light max-w-2xl mx-auto">
+          Setting the standard for residential property management and
+          development in
+          <strong> East Texas</strong>.
         </p>
       </div>
     </div>
 
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-      {/* Our Mission */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-32">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      {/* Company Overview */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
         <div>
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-6">
-            Our Mission
+          <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-6">
+            Professional Excellence in Housing
           </h2>
-          <div className="w-20 h-1 bg-p4c-gold mb-8" />
           <p className="text-gray-700 leading-relaxed mb-6 text-lg">
-            Properties 4 Creation was founded with a simple but radical idea:{' '}
-            <strong>Affordable housing shouldn't mean lower standards.</strong>
+            Properties 4 Creation is not just a landlord; we are a comprehensive
+            real estate solution provider. Founded on the principles of
+            integrity and operational excellence, we acquire, renovate, and
+            manage residential assets to provide superior housing outcomes.
           </p>
-          <p className="text-gray-700 leading-relaxed mb-6">
-            As veterans, we understand the importance of a safe, stable base.
-            When we looked at the affordable housing market in East Texas, we
-            saw distressed properties and neglected neighborhoods. Where others
-            saw risk, we saw potential for revitalization.
-          </p>
-          <p className="text-gray-700 leading-relaxed">
-            Today, we buy distressed properties, renovate them to
-            {'"'}homeowner standards,{'"'} and rent them affordably to the
-            people who need them most—families utilizing Section 8 vouchers and
-            veterans in the HUD-VASH program.
+          <p className="text-gray-700 leading-relaxed text-lg">
+            Our unique approach combines rigorous asset management with a
+            commitment to community stability. By partnering with HUD-VASH and
+            local municipalities, we ensure our investments deliver both
+            financial returns and tangible social impact.
           </p>
         </div>
-        <div className="relative group">
-          <div className="absolute -top-6 -left-6 w-32 h-32 bg-p4c-gold/20 rounded-tl-3xl -z-10 transition-transform group-hover:translate-x-2 group-hover:translate-y-2" />
+        <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl border border-gray-200">
           <img
-            src={IMAGES.TEAM.OWNER}
-            alt="Properties 4 Creation Team Owner"
-            loading="lazy"
-            className="rounded-2xl shadow-2xl w-full object-cover h-[500px]"
+            src={IMAGES.GALLERY.PROJECTS_AFTER_LIVING_ROOM}
+            alt="High quality renovated interior"
+            className="w-full h-full object-cover"
           />
-          <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-p4c-navy/10 rounded-br-3xl -z-10 transition-transform group-hover:-translate-x-2 group-hover:-translate-y-2" />
-
-          {/* Stat Card Overlay */}
-          <div className="absolute bottom-8 left-8 bg-white p-6 rounded-2xl shadow-xl max-w-xs hidden md:block border-l-4 border-p4c-gold ring-1 ring-gray-900/5">
-            <p className="text-p4c-navy font-bold text-lg italic">
-              "We don't build houses. We build foundations for future success."
-            </p>
-          </div>
         </div>
       </div>
 
-      {/* The P4C Standard Section */}
-      <div className="mb-32">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-4">
-            The Properties 4 Creation Standard
+      {/* Core Values Grid */}
+      <div className="mb-20">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-4">
+            Core Operating Values
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-            We invest upfront in premium materials to ensure our tenants live in
-            dignity and comfort.
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            The principles that drive our decision making and operations.
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 ring-1 ring-gray-900/5">
-          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-100">
-            {/* Material Quality */}
-            <div className="p-10 hover:bg-gray-50 transition-colors duration-300">
-              <div className="bg-p4c-navy w-16 h-16 rounded-2xl flex items-center justify-center mb-6 text-p4c-gold shadow-lg shadow-p4c-navy/20">
-                <ShieldCheck className="w-8 h-8" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {[
+            {
+              icon: ShieldCheck,
+              title: 'Integrity',
+              desc: 'We operate with total transparency in our leasing, renovations, and financial reporting.',
+            },
+            {
+              icon: Award,
+              title: 'Quality',
+              desc: 'We set a new standard for rental inventory, using commercial-grade materials in every home.',
+            },
+            {
+              icon: TrendingUp,
+              title: 'Growth',
+              desc: 'We are committed to the sustainable economic expansion of the East Texas region.',
+            },
+            {
+              icon: Heart,
+              title: 'Service',
+              desc: 'We serve those who served us, providing priority housing solutions for veterans.',
+            },
+          ].map((value, i) => (
+            <div
+              key={i}
+              className="bg-white p-8 rounded-xl shadow-sm hover:shadow-lg transition-all border-t-4 border-p4c-gold"
+            >
+              <div className="bg-p4c-navy/5 w-14 h-14 rounded-xl flex items-center justify-center mb-6">
+                <value.icon className="w-7 h-7 text-p4c-navy" />
               </div>
-              <h3 className="font-bold text-xl text-p4c-navy mb-4">
-                Premium Materials
+              <h3 className="text-xl font-bold text-p4c-navy mb-3">
+                {value.title}
               </h3>
-              <ul className="space-y-3">
-                <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-p4c-gold flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-600 text-sm">
-                    <strong>Quartz Countertops</strong> over laminate for
-                    hygiene and longevity.
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-p4c-gold flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-600 text-sm">
-                    <strong>LVP Flooring</strong> that is waterproof and
-                    scratch-resistant.
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-p4c-gold flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-600 text-sm">
-                    <strong>Energy Star Appliances</strong> to lower utility
-                    costs.
-                  </span>
-                </li>
-              </ul>
+              <p className="text-gray-600">{value.desc}</p>
             </div>
-
-            {/* Tenant Care */}
-            <div className="p-10 hover:bg-gray-50 transition-colors duration-300">
-              <div className="bg-p4c-navy w-16 h-16 rounded-2xl flex items-center justify-center mb-6 text-p4c-gold shadow-lg shadow-p4c-navy/20">
-                <Heart className="w-8 h-8" />
-              </div>
-              <h3 className="font-bold text-xl text-p4c-navy mb-4">
-                Dignity First Care
-              </h3>
-              <ul className="space-y-3">
-                <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-p4c-gold flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-600 text-sm">
-                    <strong>24/7 Maintenance</strong> response because things
-                    break, but trust shouldn't.
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-p4c-gold flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-600 text-sm">
-                    <strong>Concierge Onboarding</strong> helps navigate voucher
-                    paperwork effortlessly.
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-p4c-gold flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-600 text-sm">
-                    <strong>Community Events</strong> to foster connection among
-                    neighbors.
-                  </span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Community Impact */}
-            <div className="p-10 hover:bg-gray-50 transition-colors duration-300">
-              <div className="bg-p4c-navy w-16 h-16 rounded-2xl flex items-center justify-center mb-6 text-p4c-gold shadow-lg shadow-p4c-navy/20">
-                <TrendingUp className="w-8 h-8" />
-              </div>
-              <h3 className="font-bold text-xl text-p4c-navy mb-4">
-                Community Lift
-              </h3>
-              <ul className="space-y-3">
-                <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-p4c-gold flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-600 text-sm">
-                    <strong>Revitalizing Streets</strong> by fixing the "worst
-                    house on the block."
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-p4c-gold flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-600 text-sm">
-                    <strong>Local Hiring</strong> focuses on employing East
-                    Texas veterans.
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-p4c-gold flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-600 text-sm">
-                    <strong>Sustainable Building</strong> practices to reduce
-                    environmental impact.
-                  </span>
-                </li>
-              </ul>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 
-      {/* Leadership & Values Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="bg-p4c-navy text-white p-10 rounded-2xl flex flex-col justify-center relative overflow-hidden group shadow-xl ring-1 ring-white/10">
-          {/* Background decoration */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-white/10 transition-colors" />
-
-          <div className="relative z-10">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="bg-p4c-gold p-3 rounded-lg">
-                <Award className="w-8 h-8 text-p4c-navy" />
-              </div>
-              <h3 className="text-2xl font-serif font-bold">
-                Veteran Led & Operated
-              </h3>
+      {/* Credentials / Trust Indicators */}
+      <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 p-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-gray-100">
+          <div className="px-4 py-4">
+            <div className="text-4xl font-bold text-p4c-gold mb-2">10+</div>
+            <div className="font-bold text-p4c-navy">Years of Experience</div>
+            <div className="text-sm text-gray-500 mt-1">
+              In Real Estate & Development
             </div>
-            <p className="text-gray-300 leading-relaxed mb-6 text-lg">
-              Our leadership team is comprised of military veterans. We bring
-              the values of service, integrity, and mission-accomplishment to
-              property management.
-            </p>
-            <p className="text-gray-300 leading-relaxed">
-              We don't cut corners, and we don't leave anyone behind. That's the
-              pledge we made in service, and it's the pledge we keep in
-              business.
-            </p>
           </div>
-        </div>
-
-        <div className="bg-gradient-to-br from-p4c-gold to-yellow-600 text-p4c-navy p-10 rounded-2xl flex flex-col justify-center relative overflow-hidden group shadow-xl ring-1 ring-black/5">
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 group-hover:bg-white/30 transition-colors" />
-
-          <div className="relative z-10">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="bg-p4c-navy p-3 rounded-lg">
-                <Users className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-2xl font-serif font-bold">
-                Join the Mission
-              </h3>
+          <div className="px-4 py-4">
+            <div className="text-4xl font-bold text-p4c-gold mb-2">100%</div>
+            <div className="font-bold text-p4c-navy">Voucher Acceptance</div>
+            <div className="text-sm text-gray-500 mt-1">
+              Section 8 & HUD-VASH
             </div>
-            <p className="p4c-navy/90 leading-relaxed font-medium mb-8 text-lg">
-              Are you an investor looking for recession-resistant assets with a
-              social impact? We offer opportunities to partner on single-family
-              BRRRR projects in the East Texas market.
-            </p>
-            <button className="bg-p4c-navy text-white px-8 py-3 rounded-lg font-bold hover:bg-p4c-navy/90 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 inline-flex items-center gap-2">
-              Request Investor Packet <TrendingUp className="w-4 h-4" />
-            </button>
           </div>
-        </div>
-      </div>
-
-      {/* On Site Team Photo */}
-      <div className="mt-16">
-        <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-          <img
-            src={IMAGES.TEAM.ONSITE}
-            alt="Properties 4 Creation team working on site"
-            loading="lazy"
-            className="w-full h-auto object-cover max-h-[600px]"
-          />
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-p4c-navy/90 to-transparent p-8 pt-24">
-            <p className="text-white text-xl font-medium italic">
-              Hands-on leadership means we&apos;re always where the work
-              happens.
-            </p>
+          <div className="px-4 py-4">
+            <div className="text-4xl font-bold text-p4c-gold mb-2">A+</div>
+            <div className="font-bold text-p4c-navy">Tenant Satisfaction</div>
+            <div className="text-sm text-gray-500 mt-1">
+              Based on retention rates
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  </>
 );
 
 export default About;

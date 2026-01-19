@@ -52,18 +52,19 @@ export const initializeBotpressWebchat = (
     iframe.title = 'Properties 4 Creation Virtual Assistant';
 
     // Add loading state
-    container.innerHTML = `
-      <div class="flex items-center justify-center h-full bg-gray-50 rounded-2xl">
-        <div class="text-center">
-          <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-p4c-gold mx-auto mb-2"></div>
-          <p class="text-sm text-gray-600">Loading Patriot...</p>
-        </div>
+    const loadingDiv = document.createElement('div');
+    loadingDiv.className =
+      'flex items-center justify-center h-full bg-gray-50 rounded-2xl';
+    loadingDiv.innerHTML = `
+      <div class="text-center">
+        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-p4c-gold mx-auto mb-2"></div>
+        <p class="text-sm text-gray-600">Loading Patriot...</p>
       </div>
     `;
+    container.appendChild(loadingDiv);
 
     // Handle iframe load
     iframe.onload = () => {
-      // eslint-disable-line arrow-body-style
       // Clear loading state
       container.innerHTML = '';
       container.appendChild(iframe);
@@ -77,20 +78,23 @@ export const initializeBotpressWebchat = (
         metadata: { containerId },
       });
 
-      container.innerHTML = `
-        <div class="flex items-center justify-center h-full bg-red-50 rounded-2xl p-4">
-          <div class="text-center">
-            <div class="text-red-500 mb-2">⚠️</div>
-            <p class="text-sm text-red-700">Failed to load assistant</p>
-            <button
-              onclick="window.location.reload()"
-              class="mt-2 px-3 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-600 transition-colors"
-            >
-              Retry
-            </button>
-          </div>
+      const errorDiv = document.createElement('div');
+      errorDiv.className =
+        'flex items-center justify-center h-full bg-red-50 rounded-2xl p-4';
+      errorDiv.innerHTML = `
+        <div class="text-center">
+          <div class="text-red-500 mb-2">⚠️</div>
+          <p class="text-sm text-red-700">Failed to load assistant</p>
+          <button
+            onclick="window.location.reload()"
+            class="mt-2 px-3 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-600 transition-colors"
+          >
+            Retry
+          </button>
         </div>
       `;
+      container.innerHTML = '';
+      container.appendChild(errorDiv);
     };
   } catch (error) {
     logError('Failed to initialize Botpress webchat', {
@@ -118,7 +122,10 @@ export const destroyBotpressWebchat = (containerId: string): void => {
 
     const container = document.getElementById(containerId);
     if (container) {
-      container.innerHTML = '';
+      // Clear container using DOM manipulation instead of innerHTML
+      while (container.firstChild) {
+        container.removeChild(container.firstChild);
+      }
     }
   } catch (error) {
     logError('Failed to destroy Botpress webchat', {

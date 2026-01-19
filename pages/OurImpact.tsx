@@ -10,6 +10,8 @@ import {
   Heart,
   Loader2,
   ArrowUpRight,
+  TrendingUp,
+  Building,
 } from 'lucide-react';
 import { useToast } from '../context/ToastContext';
 import { IMAGES } from '../constants/images';
@@ -58,10 +60,12 @@ const OurImpact: React.FC = () => {
   return (
     <div className="bg-p4c-beige min-h-screen">
       <Helmet>
-        <title>Our Impact | Properties 4 Creation</title>
+        <title>
+          Community Impact & Investment Data | Properties 4 Creation
+        </title>
         <meta
           name="description"
-          content="See the data behind our mission. Families housed, veterans served, and communities revitalized in East Texas."
+          content="Review our community revitalization metrics. We track economic impact, property value increases, and housing stability in Tyler, Longview, and Marshall."
         />
       </Helmet>
 
@@ -83,12 +87,12 @@ const OurImpact: React.FC = () => {
         <div className="relative z-10 h-full flex items-center justify-center px-4">
           <div className="text-center max-w-4xl animate-fade-in-up">
             <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">
-              More Than Just Rentals.
+              Strategic Community <br />
+              <span className="text-p4c-gold">Revitalization.</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-200 font-light max-w-2xl mx-auto leading-relaxed">
-              We measure our bottom line differently. It&apos;s not just about
-              about the tangible difference we make in the lives of veterans and
-              the fabric of our neighborhoods.
+              We measure success by asset performance and the economic uplift of
+              <strong> Tyler, Longview, and Marshall</strong> neighborhoods.
             </p>
           </div>
         </div>
@@ -134,98 +138,100 @@ const OurImpact: React.FC = () => {
         <div className="mb-16">
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 ring-1 ring-gray-900/5">
             <div className="p-8 border-b border-gray-100 bg-gray-50">
-              <h2 className="text-2xl font-serif font-bold text-p4c-navy">
-                Project Spotlight: Our BRRR Cycle
+              <h2 className="text-2xl font-serif font-bold text-p4c-navy flex items-center gap-3">
+                <Building className="w-6 h-6 text-p4c-gold" />
+                The Revitalization Cycle (BRRR Strategy)
               </h2>
               <p className="text-gray-600 mt-2">
-                How we transform distressed properties into dream homes
+                Our systematic approach to acquiring and stabilizing distressed
+                assets.
               </p>
             </div>
             <div className="p-8">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {/* Buy (As-Is) */}
-                <div className="text-center">
-                  <div className="relative h-48 rounded-lg overflow-hidden mb-4 shadow-lg">
+                <div className="text-center group">
+                  <div className="relative h-48 rounded-lg overflow-hidden mb-4 shadow-lg group-hover:shadow-xl transition-shadow">
                     <img
                       src={IMAGES.GALLERY.LINDALE_COTTAGE}
-                      alt="Distressed property before renovation"
-                      className="w-full h-full object-cover"
+                      alt="Acquisition of distressed property"
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
                     />
-                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                      <span className="bg-p4c-navy text-white px-3 py-1 rounded-full text-xs font-bold">
-                        STEP 1: BUY AS-IS
-                      </span>
-                    </div>
-                  </div>
-                  <h3 className="font-bold text-p4c-navy mb-2">Buy (As-Is)</h3>
-                  <p className="text-sm text-gray-600">
-                    We purchase properties in any condition, giving homeowners a
-                    fair cash offer without the hassle of repairs.
-                  </p>
-                </div>
-
-                {/* Rehab */}
-                <div className="text-center">
-                  <div className="relative h-48 rounded-lg overflow-hidden mb-4 shadow-lg">
-                    <img
-                      src={IMAGES.GALLERY.WORK_FRAMING_DOOR}
-                      alt="Property under renovation with framing and door installation"
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                      <span className="bg-p4c-navy text-white px-3 py-1 rounded-full text-xs font-bold">
-                        STEP 2: REHAB
-                      </span>
-                    </div>
-                  </div>
-                  <h3 className="font-bold text-p4c-navy mb-2">Rehab</h3>
-                  <p className="text-sm text-gray-600">
-                    Our team transforms the property with quality materials and
-                    craftsmanship, creating a safe and modern home.
-                  </p>
-                </div>
-
-                {/* Rent/Refinance */}
-                <div className="text-center">
-                  <div className="relative h-48 rounded-lg overflow-hidden mb-4 shadow-lg">
-                    <img
-                      src={IMAGES.GALLERY.PROJECTS_AFTER_LIVING_ROOM}
-                      alt="Beautifully renovated living room ready for tenants"
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                      <span className="bg-p4c-navy text-white px-3 py-1 rounded-full text-xs font-bold">
-                        STEP 3: RENT/REFINANCE
+                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                      <span className="bg-p4c-navy text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                        1. Acquisition
                       </span>
                     </div>
                   </div>
                   <h3 className="font-bold text-p4c-navy mb-2">
-                    Rent/Refinance
+                    Identify & Acquire
                   </h3>
                   <p className="text-sm text-gray-600">
-                    The renovated property becomes a high-quality home for
-                    veterans and families, proving Section 8 housing can be
-                    exceptional.
+                    We purchase undervalued assets in high-potential East Texas
+                    neighborhoods.
+                  </p>
+                </div>
+
+                {/* Rehab */}
+                <div className="text-center group">
+                  <div className="relative h-48 rounded-lg overflow-hidden mb-4 shadow-lg group-hover:shadow-xl transition-shadow">
+                    <img
+                      src={IMAGES.GALLERY.WORK_FRAMING_DOOR}
+                      alt="Capital improvement construction"
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                      <span className="bg-p4c-navy text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                        2. Rehabilitation
+                      </span>
+                    </div>
+                  </div>
+                  <h3 className="font-bold text-p4c-navy mb-2">
+                    Capital Improvement
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    Strategic renovations inject equity and extend the asset's
+                    lifespan by 20+ years.
+                  </p>
+                </div>
+
+                {/* Rent */}
+                <div className="text-center group">
+                  <div className="relative h-48 rounded-lg overflow-hidden mb-4 shadow-lg group-hover:shadow-xl transition-shadow">
+                    <img
+                      src={IMAGES.GALLERY.PROJECTS_AFTER_LIVING_ROOM}
+                      alt="Stabilized asset with tenants"
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                      <span className="bg-p4c-navy text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                        3. Stabilization
+                      </span>
+                    </div>
+                  </div>
+                  <h3 className="font-bold text-p4c-navy mb-2">
+                    Lease & Manage
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    Placement of reliable tenants (Private & Section 8) ensures
+                    consistent cash flow.
                   </p>
                 </div>
 
                 {/* Repeat */}
-                <div className="text-center">
-                  <div className="relative h-48 rounded-lg overflow-hidden mb-4 shadow-lg bg-gradient-to-br from-p4c-gold to-p4c-navy flex items-center justify-center">
+                <div className="text-center group">
+                  <div className="relative h-48 rounded-lg overflow-hidden mb-4 shadow-lg bg-gradient-to-br from-p4c-gold to-p4c-navy flex items-center justify-center group-hover:scale-[1.02] transition-transform">
                     <div className="text-center text-white">
-                      <ArrowUpRight className="w-12 h-12 mx-auto mb-2" />
-                      <span className="text-2xl font-bold">BRRR</span>
-                    </div>
-                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                      <span className="bg-p4c-navy text-white px-3 py-1 rounded-full text-xs font-bold">
-                        STEP 4: REPEAT
-                      </span>
+                      <TrendingUp className="w-12 h-12 mx-auto mb-2" />
+                      <span className="text-2xl font-bold">Growth</span>
                     </div>
                   </div>
-                  <h3 className="font-bold text-p4c-navy mb-2">Repeat</h3>
+                  <h3 className="font-bold text-p4c-navy mb-2">
+                    Refinance & Repeat
+                  </h3>
                   <p className="text-sm text-gray-600">
-                    We reinvest profits to acquire more properties, creating a
-                    sustainable cycle of community revitalization.
+                    We leverage equity to acquire new assets, scaling our
+                    portfolio and community impact.
                   </p>
                 </div>
               </div>
@@ -238,39 +244,39 @@ const OurImpact: React.FC = () => {
           <div className="lg:col-span-2 space-y-8">
             <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 ring-1 ring-gray-900/5">
               <h2 className="text-2xl font-serif font-bold text-p4c-navy mb-4">
-                The Multiplier Effect
+                The Economic Multiplier Effect
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed">
-                When we purchase a distressed property, the impact ripples
-                outward. We remove blight, which stabilizes neighbor property
-                values. We hire local tradespeople, injecting capital into the
-                local economy. And we provide a stable home, allowing a family
-                to put down roots.
+                Our investment strategy does more than generate returns; it acts
+                as a catalyst for local economic growth. By removing blight, we
+                stabilize surrounding property values and attract further
+                investment into the community.
               </p>
               <p className="text-gray-700 leading-relaxed">
-                Study after study shows that stable housing is the primary
-                determinant of health outcomes, educational attainment for
-                children, and employment stability for adults. We aren't just
-                landlords; we are stability partners.
+                <strong>Local Labor First:</strong> We prioritize contracts with
+                East Texas tradespeople. Every dollar spent on renovation
+                circulates within the Tyler, Longview, and Marshall economies,
+                supporting local small businesses and families.
               </p>
             </div>
 
-            {/* Testimonials Placeholder (mock) */}
+            {/* Quote Card */}
             <div className="bg-p4c-navy text-white p-8 rounded-2xl shadow-lg relative overflow-hidden ring-1 ring-white/10">
               <div className="relative z-10">
-                <Heart className="w-10 h-10 text-p4c-gold mb-4" />
                 <p className="text-xl font-serif italic mb-6">
-                  "I was living in my car for three months before finding
-                  Properties 4 Creation. They didn't just give me keys; they
-                  treated me with respect from the first phone call. This isn't
-                  just a house, it's my sanctuary."
+                  "Properties 4 Creation isn't just a landlord; they are a
+                  cornerstone investor in our neighborhood. When they fix up a
+                  house, the whole street looks better."
                 </p>
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gray-400" />{' '}
-                  {/* Avatar Placeholder */}
+                  <div className="w-10 h-10 rounded-full bg-p4c-gold flex items-center justify-center text-p4c-navy font-bold">
+                    M
+                  </div>
                   <div>
-                    <div className="font-bold">Michael T.</div>
-                    <div className="text-sm text-p4c-gold">US Army Veteran</div>
+                    <div className="font-bold">Local City Official</div>
+                    <div className="text-sm text-p4c-gold">
+                      Community Development Dept.
+                    </div>
                   </div>
                 </div>
               </div>
@@ -280,7 +286,7 @@ const OurImpact: React.FC = () => {
           {/* Financial Breakdown */}
           <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 ring-1 ring-gray-900/5 h-fit">
             <h3 className="text-xl font-serif font-bold text-p4c-navy mb-6">
-              Where the Money Goes
+              Capital Allocation
             </h3>
             <div className="space-y-4">
               {financials.map((item, idx) => (
@@ -305,10 +311,10 @@ const OurImpact: React.FC = () => {
             </div>
             <div className="mt-8 pt-6 border-t border-gray-100 text-center">
               <p className="text-sm text-gray-500 mb-4">
-                Interested in becoming an impact investor?
+                Interested in partnership opportunities?
               </p>
               <button className="w-full border-2 border-p4c-navy text-p4c-navy font-bold py-2 rounded hover:bg-p4c-navy hover:text-white transition-colors">
-                Request Financial Report
+                Request Investor Prospectus
               </button>
             </div>
           </div>

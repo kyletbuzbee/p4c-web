@@ -56,7 +56,7 @@ const AdminDashboard: React.FC = () => {
         />
         <meta
           name="keywords"
-          content="admin dashboard, property management, tenant portal, P4C administration, housing management system"
+          content="admin dashboard, property management, tenant portal, Properties 4 Creation administration, housing management system"
         />
       </Helmet>
 

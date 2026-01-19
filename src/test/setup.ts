@@ -1,6 +1,6 @@
 /**
  * Global test setup file for Vitest
- * Configures the test environment for P4C React components
+ * Configures the test environment for Properties 4 Creation React components
  */
 
 import { vi } from 'vitest';

@@ -100,7 +100,7 @@ const Transparency: React.FC = () => {
                       Typical "Slumlord"
                     </th>
                     <th className="p-6 text-p4c-navy bg-p4c-gold/10">
-                      The P4C Standard
+                      The Properties 4 Creation Standard
                     </th>
                     <th className="p-6">Why It Matters</th>
                   </tr>

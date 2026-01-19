@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { IMAGES } from '../constants/images';
-import { ArrowRight, CheckCircle2, Phone, MapPin, User } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import {
+  ArrowRight,
+  CheckCircle2,
+  Phone,
+  MapPin,
+  User,
+  DollarSign,
+  Clock,
+} from 'lucide-react';
 
 interface FormData {
   name: string;
@@ -19,9 +26,8 @@ interface FormErrors {
 }
 
 const HomeownerSolutions: React.FC = () => {
-  const navigate = useNavigate();
+  // REMOVED: unused navigate hook
   const [formData, setFormData] = useState<FormData>(() => {
-    // Load from localStorage on component mount
     const saved = localStorage.getItem('homeownerSolutionsForm');
     return saved
       ? JSON.parse(saved)
@@ -37,7 +43,6 @@ const HomeownerSolutions: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // Auto-save form data to localStorage
   React.useEffect(() => {
     localStorage.setItem('homeownerSolutionsForm', JSON.stringify(formData));
   }, [formData]);
@@ -85,7 +90,6 @@ const HomeownerSolutions: React.FC = () => {
       setIsSubmitted(true);
     } catch (error) {
       // Error is handled by the error boundary service
-      // No console.error needed as per project rules
     } finally {
       setIsSubmitting(false);
     }
@@ -94,14 +98,16 @@ const HomeownerSolutions: React.FC = () => {
   return (
     <div className="bg-p4c-beige min-h-screen">
       <Helmet>
-        <title>Homeowner Solutions | Properties 4 Creation</title>
+        <title>
+          Homeowner Solutions | Cash Offers East Texas | Properties 4 Creation
+        </title>
         <meta
           name="description"
-          content="We buy houses in any condition to create high-quality homes for Veterans and families. Get a fair cash offer today."
+          content="We acquire residential assets in East Texas. Get a fair market cash offer for your property in as-is condition. Close in as little as 14 days."
         />
         <meta
           name="keywords"
-          content="Veteran owned house buyers, sell my house as-is, Section 8 property investment, buy houses any condition"
+          content="sell house fast Tyler TX, we buy houses Longview, cash home buyers East Texas, real estate investors Marshall, sell rental property"
         />
       </Helmet>
 
@@ -110,21 +116,22 @@ const HomeownerSolutions: React.FC = () => {
         <div className="absolute top-0 left-0 w-full h-full z-0">
           <img
             src={IMAGES.PROPERTIES.JEFFERSON_RIVER}
-            alt="Jefferson Riverfront Property"
+            alt="Waterfront property acquisition in East Texas"
             className="w-full h-full object-cover"
           />
-          <div className="absolute top-0 left-0 w-full h-full hero-overlay-primary bg-p4c-navy/50" />
-          <div className="absolute top-0 left-0 w-full h-full hero-overlay-secondary bg-gradient-to-b from-transparent via-transparent to-p4c-navy/60" />
+          <div className="absolute top-0 left-0 w-full h-full hero-overlay-primary bg-p4c-navy/60" />
+          <div className="absolute top-0 left-0 w-full h-full hero-overlay-secondary bg-gradient-to-b from-transparent via-transparent to-p4c-navy/80" />
         </div>
 
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-fade-in-up">
           <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight tracking-wide">
-            Give Your Property a{' '}
-            <span className="text-p4c-gold">New Mission.</span>
+            Direct Asset Acquisition <br />
+            <span className="text-p4c-gold">Simplified.</span>
           </h1>
           <p className="text-lg md:text-xl text-gray-100 mb-10 font-light max-w-2xl mx-auto leading-relaxed">
-            We buy houses in any condition to create high-quality homes for
-            Veterans and families.
+            We provide liquidity for property owners in{' '}
+            <strong>East Texas</strong> through competitive off-market cash
+            offers.
           </p>
         </div>
       </div>
@@ -134,20 +141,21 @@ const HomeownerSolutions: React.FC = () => {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-4">
-              From Distressed to Dream Home
+              Value-Add Strategy in Action
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Our Renovation Strategy in Action
+              See how we maximize asset potential through strategic capital
+              improvement.
             </p>
           </div>
-          <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+          <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-gray-100">
             <video
               autoPlay
               loop
               muted
               playsInline
               className="w-full aspect-video object-cover"
-              aria-label="Transformation video showing property renovation process"
+              aria-label="Timelapse of property renovation"
             >
               <source src={IMAGES.VIDEOS.HERO_IMPACT} type="video/mp4" />
             </video>
@@ -160,47 +168,47 @@ const HomeownerSolutions: React.FC = () => {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-4">
-              See the Transformation
+              Asset Transformation
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              We take properties in any condition and transform them into
-              high-quality homes for veterans and families.
+              We specialize in the rehabilitation of distressed inventory,
+              stabilizing property values in the community.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-              <div className="bg-red-100 p-4">
-                <h3 className="text-xl font-bold text-red-800 text-center">
-                  BEFORE
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+              <div className="bg-slate-200 p-3">
+                <h3 className="text-sm font-bold text-slate-700 text-center uppercase tracking-wider">
+                  Acquisition State
                 </h3>
               </div>
               <img
                 src={IMAGES.RENOVATION.LIVING_ROOM.BEFORE}
-                alt="Property before renovation - distressed condition"
+                alt="Property in distressed condition"
                 className="w-full h-64 object-cover"
               />
-              <div className="p-4">
+              <div className="p-4 bg-white">
                 <p className="text-gray-600 text-sm">
-                  Outdated kitchen, worn flooring, basic amenities
+                  Deferred maintenance, outdated systems, vacancy risk.
                 </p>
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-              <div className="bg-green-100 p-4">
-                <h3 className="text-xl font-bold text-green-800 text-center">
-                  AFTER
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+              <div className="bg-p4c-gold p-3">
+                <h3 className="text-sm font-bold text-p4c-navy text-center uppercase tracking-wider">
+                  Stabilized Asset
                 </h3>
               </div>
               <img
                 src={IMAGES.RENOVATION.LIVING_ROOM.AFTER}
-                alt="Property after renovation - modern, high-quality home"
+                alt="Renovated property ready for leasing"
                 className="w-full h-64 object-cover"
               />
-              <div className="p-4">
+              <div className="p-4 bg-white">
                 <p className="text-gray-600 text-sm">
-                  Quartz countertops, luxury vinyl flooring, modern appliances
+                  Market-ready finishes, updated mechanicals, premium rental.
                 </p>
               </div>
             </div>
@@ -208,24 +216,24 @@ const HomeownerSolutions: React.FC = () => {
         </div>
       </section>
 
-      {/* Video Testimonials Section */}
+      {/* Testimonials */}
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-4">
-              Happy Sellers Share Their Stories
+              Seller Experiences
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Hear directly from homeowners who've successfully sold their
-              properties through Properties 4 Creation.
+              Real feedback from property owners in East Texas who chose a
+              direct sale.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-p4c-beige rounded-2xl p-6">
+            <div className="bg-p4c-beige rounded-2xl p-8 border border-p4c-gold/20">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 bg-p4c-gold rounded-full flex items-center justify-center">
-                  <span className="text-p4c-navy font-bold text-lg">S</span>
+                <div className="w-12 h-12 bg-p4c-navy rounded-full flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">S</span>
                 </div>
                 <div>
                   <h3 className="font-bold text-p4c-navy">Sarah Mitchell</h3>
@@ -233,17 +241,17 @@ const HomeownerSolutions: React.FC = () => {
                 </div>
               </div>
               <blockquote className="text-gray-700 italic mb-4">
-                "The process was incredibly smooth. They gave me a fair cash
-                offer and closed in just 2 weeks. I couldn't believe how easy it
-                was!"
+                "I needed to liquidate an inherited property quickly. Properties
+                4 Creation provided a fair cash offer based on comps and we
+                closed in 14 days. Extremely professional."
               </blockquote>
-              <div className="flex text-p4c-gold"></div>
+              <div className="flex text-p4c-gold">★★★★★</div>
             </div>
 
-            <div className="bg-p4c-beige rounded-2xl p-6">
+            <div className="bg-p4c-beige rounded-2xl p-8 border border-p4c-gold/20">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 bg-p4c-gold rounded-full flex items-center justify-center">
-                  <span className="text-p4c-navy font-bold text-lg">R</span>
+                <div className="w-12 h-12 bg-p4c-navy rounded-full flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">R</span>
                 </div>
                 <div>
                   <h3 className="font-bold text-p4c-navy">Robert Johnson</h3>
@@ -251,134 +259,92 @@ const HomeownerSolutions: React.FC = () => {
                 </div>
               </div>
               <blockquote className="text-gray-700 italic mb-4">
-                "I was skeptical at first, but they delivered exactly what they
-                promised. No hidden fees, no hassle. Highly recommend!"
+                "As a landlord tired of management, selling my portfolio to P4C
+                was the right move. They bought the properties 'as-is' with
+                tenants in place. Seamless transition."
               </blockquote>
-              <div className="flex text-p4c-gold"></div>
+              <div className="flex text-p4c-gold">★★★★★</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Progress Tracker Section */}
+      {/* Progress Tracker */}
       <section className="py-20 bg-p4c-navy">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
-              Your Selling Journey
+              Acquisition Process
             </h2>
             <p className="text-gray-300 max-w-2xl mx-auto">
-              We've streamlined the home selling process to make it simple,
-              transparent, and stress-free.
+              Our streamlined disposition process ensures certainty of closing.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-p4c-gold rounded-full flex items-center justify-center mx-auto mb-4 text-p4c-navy font-bold text-xl">
-                1
+            <div className="text-center group">
+              <div className="w-16 h-16 bg-p4c-gold rounded-full flex items-center justify-center mx-auto mb-4 text-p4c-navy font-bold text-xl group-hover:bg-white transition-colors">
+                <Phone className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-white mb-2">
-                Initial Consultation
+                Discovery Call
               </h3>
               <p className="text-gray-300 text-sm">
-                We discuss your property goals and timeline. No obligation.
+                Brief discussion regarding asset details and seller goals.
               </p>
             </div>
 
-            <div className="text-center">
-              <div className="w-16 h-16 bg-p4c-gold rounded-full flex items-center justify-center mx-auto mb-4 text-p4c-navy font-bold text-xl">
-                2
+            <div className="text-center group">
+              <div className="w-16 h-16 bg-p4c-gold rounded-full flex items-center justify-center mx-auto mb-4 text-p4c-navy font-bold text-xl group-hover:bg-white transition-colors">
+                <DollarSign className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-white mb-2">
-                Property Evaluation
+                Market Analysis
               </h3>
               <p className="text-gray-300 text-sm">
-                Our team evaluates your property and provides a competitive cash
-                offer.
+                We underwrite the property and present a net cash offer.
               </p>
             </div>
 
-            <div className="text-center">
-              <div className="w-16 h-16 bg-p4c-gold rounded-full flex items-center justify-center mx-auto mb-4 text-p4c-navy font-bold text-xl">
-                3
+            <div className="text-center group">
+              <div className="w-16 h-16 bg-p4c-gold rounded-full flex items-center justify-center mx-auto mb-4 text-p4c-navy font-bold text-xl group-hover:bg-white transition-colors">
+                <CheckCircle2 className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-white mb-2">
                 Due Diligence
               </h3>
               <p className="text-gray-300 text-sm">
-                We handle all inspections and paperwork. You relax.
+                Rapid inspection period with no repair requests.
               </p>
             </div>
 
-            <div className="text-center">
-              <div className="w-16 h-16 bg-p4c-gold rounded-full flex items-center justify-center mx-auto mb-4 text-p4c-navy font-bold text-xl">
-                4
+            <div className="text-center group">
+              <div className="w-16 h-16 bg-p4c-gold rounded-full flex items-center justify-center mx-auto mb-4 text-p4c-navy font-bold text-xl group-hover:bg-white transition-colors">
+                <Clock className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-white mb-2">
-                Cash in Hand
+                Closing & Funding
               </h3>
               <p className="text-gray-300 text-sm">
-                Close quickly and get paid. Your timeline, your terms.
+                Close at a local title company on your timeline.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Benefits Section */}
-      <section className="py-20 bg-p4c-beige">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-2xl shadow-lg text-center">
-              <div className="bg-p4c-navy/5 p-4 rounded-full inline-block mb-4">
-                <CheckCircle2 className="w-10 h-10 text-p4c-gold" />
-              </div>
-              <h3 className="text-xl font-serif font-bold text-p4c-navy mb-3">
-                Any Condition
-              </h3>
-              <p className="text-gray-600">
-                We buy houses as-is. No repairs needed, no cleaning required.
-              </p>
-            </div>
-            <div className="bg-white p-8 rounded-2xl shadow-lg text-center">
-              <div className="bg-p4c-navy/5 p-4 rounded-full inline-block mb-4">
-                <CheckCircle2 className="w-10 h-10 text-p4c-gold" />
-              </div>
-              <h3 className="text-xl font-serif font-bold text-p4c-navy mb-3">
-                Fair Cash Offer
-              </h3>
-              <p className="text-gray-600">
-                Competitive offers based on market value, not lowball prices.
-              </p>
-            </div>
-            <div className="bg-white p-8 rounded-2xl shadow-lg text-center">
-              <div className="bg-p4c-navy/5 p-4 rounded-full inline-block mb-4">
-                <CheckCircle2 className="w-10 h-10 text-p4c-gold" />
-              </div>
-              <h3 className="text-xl font-serif font-bold text-p4c-navy mb-3">
-                Quick Closing
-              </h3>
-              <p className="text-gray-600">
-                Close in as little as 7 days. Your timeline, your choice.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Inquiry Form Section */}
-      <section className="py-20 bg-p4c-navy">
+      {/* Inquiry Form */}
+      <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+          <div className="bg-p4c-beige rounded-2xl shadow-xl overflow-hidden border border-p4c-gold/30">
             <div className="p-8 md:p-10">
               <div className="text-center mb-8">
                 <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-3">
-                  Request a Discreet Property Consultation
+                  Request a Cash Offer
                 </h2>
                 <p className="text-gray-600">
-                  Tell us about your property and we&apos;ll get back to you
-                  within 24 hours.
+                  Submit your property details for a confidential, no-obligation
+                  valuation.
                 </p>
               </div>
 
@@ -388,11 +354,11 @@ const HomeownerSolutions: React.FC = () => {
                     <CheckCircle2 className="w-8 h-8 text-green-600" />
                   </div>
                   <h3 className="text-2xl font-serif font-bold text-p4c-navy mb-2">
-                    Thank You!
+                    Inquiry Received
                   </h3>
                   <p className="text-gray-600 mb-6">
-                    We&apos;ve received your request and will be in touch
-                    shortly.
+                    Our acquisitions team will review your property and contact
+                    you shortly.
                   </p>
                   <button
                     onClick={() => {
@@ -405,9 +371,9 @@ const HomeownerSolutions: React.FC = () => {
                         timeline: '',
                       });
                     }}
-                    className="text-p4c-gold font-semibold hover:underline"
+                    className="text-p4c-gold font-bold hover:text-p4c-navy underline transition-colors"
                   >
-                    Submit another inquiry
+                    Submit another property
                   </button>
                 </div>
               ) : (
@@ -415,9 +381,9 @@ const HomeownerSolutions: React.FC = () => {
                   <div>
                     <label
                       htmlFor="name"
-                      className="block text-sm font-semibold text-gray-700 mb-2"
+                      className="block text-sm font-bold text-p4c-navy mb-2"
                     >
-                      Your Name
+                      Owner Name / Point of Contact
                     </label>
                     <div className="relative">
                       <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -428,7 +394,7 @@ const HomeownerSolutions: React.FC = () => {
                         value={formData.name}
                         onChange={handleChange}
                         placeholder="John Smith"
-                        className={`w-full pl-12 pr-4 py-4 rounded-xl border-2 focus:outline-none transition-all ${
+                        className={`w-full pl-12 pr-4 py-4 rounded-xl border-2 bg-white focus:outline-none transition-all ${
                           errors.name
                             ? 'border-red-300 focus:border-red-500'
                             : 'border-gray-200 focus:border-p4c-gold'
@@ -443,7 +409,7 @@ const HomeownerSolutions: React.FC = () => {
                   <div>
                     <label
                       htmlFor="address"
-                      className="block text-sm font-semibold text-gray-700 mb-2"
+                      className="block text-sm font-bold text-p4c-navy mb-2"
                     >
                       Property Address
                     </label>
@@ -455,8 +421,8 @@ const HomeownerSolutions: React.FC = () => {
                         name="address"
                         value={formData.address}
                         onChange={handleChange}
-                        placeholder="123 Main Street, City, TX 757XX"
-                        className={`w-full pl-12 pr-4 py-4 rounded-xl border-2 focus:outline-none transition-all ${
+                        placeholder="123 Main Street, Tyler, TX 75701"
+                        className={`w-full pl-12 pr-4 py-4 rounded-xl border-2 bg-white focus:outline-none transition-all ${
                           errors.address
                             ? 'border-red-300 focus:border-red-500'
                             : 'border-gray-200 focus:border-p4c-gold'
@@ -473,7 +439,7 @@ const HomeownerSolutions: React.FC = () => {
                   <div>
                     <label
                       htmlFor="phone"
-                      className="block text-sm font-semibold text-gray-700 mb-2"
+                      className="block text-sm font-bold text-p4c-navy mb-2"
                     >
                       Phone Number
                     </label>
@@ -485,8 +451,8 @@ const HomeownerSolutions: React.FC = () => {
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
-                        placeholder="(555) 123-4567"
-                        className={`w-full pl-12 pr-4 py-4 rounded-xl border-2 focus:outline-none transition-all ${
+                        placeholder="(903) 555-0123"
+                        className={`w-full pl-12 pr-4 py-4 rounded-xl border-2 bg-white focus:outline-none transition-all ${
                           errors.phone
                             ? 'border-red-300 focus:border-red-500'
                             : 'border-gray-200 focus:border-p4c-gold'
@@ -504,12 +470,9 @@ const HomeownerSolutions: React.FC = () => {
                     <div>
                       <label
                         htmlFor="propertyType"
-                        className="block text-sm font-semibold text-gray-700 mb-2"
+                        className="block text-sm font-bold text-p4c-navy mb-2"
                       >
-                        Property Type{' '}
-                        <span className="text-gray-500 text-xs">
-                          (Optional)
-                        </span>
+                        Asset Type
                       </label>
                       <select
                         id="propertyType"
@@ -523,27 +486,21 @@ const HomeownerSolutions: React.FC = () => {
                         }
                         className="w-full px-4 py-4 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-p4c-gold bg-white"
                       >
-                        <option value="">Select property type</option>
-                        <option>Single Family Home</option>
-                        <option>Townhouse</option>
-                        <option>Condo/Apartment</option>
-                        <option>Duplex</option>
-                        <option>Multi-Family</option>
+                        <option value="">Select type</option>
+                        <option>Single Family Residential</option>
+                        <option>Multi-Family (2-4 Units)</option>
+                        <option>Apartment Complex (5+ Units)</option>
                         <option>Commercial</option>
-                        <option>Land</option>
-                        <option>Other</option>
+                        <option>Vacant Land</option>
                       </select>
                     </div>
 
                     <div>
                       <label
                         htmlFor="timeline"
-                        className="block text-sm font-semibold text-gray-700 mb-2"
+                        className="block text-sm font-bold text-p4c-navy mb-2"
                       >
-                        Preferred Timeline{' '}
-                        <span className="text-gray-500 text-xs">
-                          (Optional)
-                        </span>
+                        Timeline
                       </label>
                       <select
                         id="timeline"
@@ -557,11 +514,9 @@ const HomeownerSolutions: React.FC = () => {
                         }
                         className="w-full px-4 py-4 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-p4c-gold bg-white"
                       >
-                        <option value="">Select timeline</option>
-                        <option>ASAP (within 30 days)</option>
-                        <option>Within 3 months</option>
-                        <option>Within 6 months</option>
-                        <option>Within 1 year</option>
+                        <option value="">Select timeframe</option>
+                        <option>Urgent (14-30 days)</option>
+                        <option>Short Term (1-3 months)</option>
                         <option>Flexible</option>
                       </select>
                     </div>
@@ -570,16 +525,16 @@ const HomeownerSolutions: React.FC = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-p4c-gold text-p4c-navy hover:bg-p4c-goldHover py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="w-full bg-p4c-gold text-p4c-navy hover:bg-p4c-goldHover py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 transform hover:-translate-y-1"
                   >
                     {isSubmitting ? (
                       <>
                         <div className="w-5 h-5 border-2 border-p4c-navy border-t-transparent rounded-full animate-spin" />
-                        Submitting...
+                        Processing...
                       </>
                     ) : (
                       <>
-                        Request Consultation
+                        Get My Offer
                         <ArrowRight className="w-5 h-5" />
                       </>
                     )}
@@ -588,25 +543,6 @@ const HomeownerSolutions: React.FC = () => {
               )}
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-6">
-            Ready to See More Properties?
-          </h2>
-          <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-            Browse our available homes and see how we&apos;re transforming
-            neighborhoods one property at a time.
-          </p>
-          <button
-            onClick={() => navigate('/#homes')}
-            className="bg-p4c-navy text-white hover:bg-p4c-slate px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
-          >
-            Browse Available Homes
-          </button>
         </div>
       </section>
     </div>

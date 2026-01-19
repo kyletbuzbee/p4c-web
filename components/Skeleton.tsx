@@ -5,7 +5,7 @@ interface SkeletonProps {
 }
 
 /**
- * Standardized P4C Skeleton Loader
+ * Standardized Properties 4 Creation Skeleton Loader
  * Enforces rounded-xl standard to maintain brand dignity during loading states.
  */
 const Skeleton: React.FC<SkeletonProps> = ({ className = '' }) => (

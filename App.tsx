@@ -9,7 +9,6 @@ import SkipLink from './components/SkipLink';
 import { ToastProvider } from './context/ToastContext';
 import { AuthProvider } from './context/AuthContext';
 import { DarkModeProvider } from './context/DarkModeContext';
-import AIChatbot from './components/AIChatbot';
 import CookieConsent from './components/CookieConsent';
 import AccessibilityTools from './components/AccessibilityTools';
 import { Loader2 } from 'lucide-react';
@@ -84,7 +83,6 @@ const StandardLayout = () => (
         </Routes>
       </Suspense>
     </main>
-    <AIChatbot />
     <AccessibilityTools />
     <Footer />
     <CookieConsent />
@@ -94,8 +92,9 @@ const StandardLayout = () => (
 function App() {
   return (
     <HelmetProvider>
-      <ErrorBoundary>
-        <ToastProvider>
+      {/* FIX: ToastProvider must wrap ErrorBoundary so ErrorBoundary can use the context */}
+      <ToastProvider>
+        <ErrorBoundary>
           <DarkModeProvider>
             <AuthProvider>
               <div className="font-sans antialiased text-p4c-navy bg-p4c-beige min-h-screen flex flex-col">
@@ -107,8 +106,8 @@ function App() {
               </div>
             </AuthProvider>
           </DarkModeProvider>
-        </ToastProvider>
-      </ErrorBoundary>
+        </ErrorBoundary>
+      </ToastProvider>
     </HelmetProvider>
   );
 }

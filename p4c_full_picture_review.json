@@ -1,7 +1,12 @@
 {
   "context": {
     "mission": "Housing veterans and families with dignity and technical excellence.",
-    "brand_palette": ["#0B1120", "#C5A059", "#F5F5F0", "#334155"],
+    "brand_palette": [
+      "#0B1120",
+      "#C5A059",
+      "#F5F5F0",
+      "#334155"
+    ],
     "architecture_layers": {
       "data_access": "services/api.ts",
       "ai_logic": "services/geminiService.ts",
@@ -21,7 +26,6 @@
       "components\\DarkModeToggle.tsx": [],
       "components\\ErrorBoundary.tsx": [],
       "components\\Footer.tsx": [],
-      "components\\GeminiImageEditor.tsx": [],
       "components\\Hero.tsx": [],
       "components\\ImageOptimizer.tsx": [],
       "components\\ImpactDashboard.tsx": [],
@@ -47,6 +51,7 @@
       "pages\\Contact.tsx": [],
       "pages\\Employment.tsx": [],
       "pages\\EqualHousing.tsx": [],
+      "pages\\FamilyResources.tsx": [],
       "pages\\FAQ.tsx": [],
       "pages\\Home.tsx": [],
       "pages\\HomeownerSolutions.tsx": [],
@@ -82,187 +87,7 @@
     }
   },
   "analysis": {
-    "content_balance_analysis": {
-      "current_distribution": {
-        "veterans": 0.23181049069373943,
-        "families": 0.1065989847715736,
-        "property_buyers": 0.6615905245346869
-      },
-      "target_distribution": {
-        "veterans": 0.1,
-        "families": 0.3,
-        "property_buyers": 0.6
-      },
-      "gaps": {
-        "veterans": {
-          "current": 0.23181049069373943,
-          "target": 0.1,
-          "gap": -0.13181049069373943,
-          "status": "over",
-          "gap_percentage": -13.2
-        },
-        "families": {
-          "current": 0.1065989847715736,
-          "target": 0.3,
-          "gap": 0.1934010152284264,
-          "status": "under",
-          "gap_percentage": 19.3
-        },
-        "property_buyers": {
-          "current": 0.6615905245346869,
-          "target": 0.6,
-          "gap": -0.0615905245346869,
-          "status": "over",
-          "gap_percentage": -6.2
-        }
-      },
-      "critical_findings": [
-        "Family content is underrepresented (19.3% gap to reach 30% target)",
-        "Veteran content is overrepresented (13.2% over 10% target)",
-        "Property buyer content is slightly overrepresented (6.2% over 60% target)",
-        "18 pages have SEO scores below 70/100",
-        "Multiple accessibility violations across components",
-        "Lighthouse performance testing blocked by server issues"
-      ]
-    },
-    "comprehensive_plan": {
-      "executive_summary": "Properties 4 Creation faces critical content balance issues with family-focused content underrepresented and veteran content overrepresented. Technical issues include accessibility violations and poor SEO performance. The plan prioritizes family content expansion, veteran content reduction, and accessibility fixes.",
-      "priority_phases": {
-        "phase_1_critical": {
-          "focus": "Accessibility & Content Rebalancing Foundation",
-          "timeline": "2-3 weeks",
-          "actions": [
-            "Fix all HIGH severity accessibility violations (missing ARIA labels)",
-            "Create dedicated Family Resources page with school district information",
-            "Add family testimonials and success stories to existing pages",
-            "Reduce veteran-focused content by 13.2% across Veterans and VeteranServices pages",
-            "Implement content balance monitoring dashboard"
-          ]
-        },
-        "phase_2_content": {
-          "focus": "Family Content Expansion & Veteran Content Reduction",
-          "timeline": "3-4 weeks",
-          "actions": [
-            "Expand family-focused content by 19.3% to reach 30% target",
-            "Add interactive tools: school district ratings, childcare proximity search",
-            "Consolidate veteran content from Veterans/VeteranServices pages",
-            "Improve SEO on 18 pages with scores below 70",
-            "Remove redundant veteran-specific content"
-          ]
-        },
-        "phase_3_technical": {
-          "focus": "Technical Optimization & Content Balance Maintenance",
-          "timeline": "2-3 weeks",
-          "actions": [
-            "Fine-tune property buyer content (only 6.2% over target)",
-            "Fix Lighthouse testing environment and performance issues",
-            "Implement competitive features (market trend reports, ROI calculators)",
-            "Complete SEO optimization across all pages"
-          ]
-        }
-      },
-      "prioritized_action_items": [
-        {
-          "priority": "HIGH",
-          "category": "Content Strategy",
-          "item": "Consolidate veteran-focused content across Veterans and VeteranServices pages by 13.2%",
-          "impact": "Reduces overrepresented veteran content to meet 10% target",
-          "effort": "Medium",
-          "components_affected": ["Veterans", "VeteranServices"]
-        },
-        {
-          "priority": "CRITICAL",
-          "category": "Content Strategy",
-          "item": "Create comprehensive Family Resources page with school district information, family-friendly amenities, and childcare proximity",
-          "impact": "Directly addresses 39.3% family content gap",
-          "effort": "High",
-          "components_affected": ["New page creation"]
-        },
-        {
-          "priority": "HIGH",
-          "category": "Content Strategy",
-          "item": "Add family testimonials and success stories across existing pages",
-          "impact": "Increases family content representation",
-          "effort": "Medium",
-          "components_affected": ["SuccessStories", "Home", "OurImpact"]
-        },
-        {
-          "priority": "HIGH",
-          "category": "SEO",
-          "item": "Add proper title tags and meta descriptions to all 18 pages with missing SEO elements",
-          "impact": "Improves search engine rankings and organic traffic",
-          "effort": "Medium",
-          "components_affected": ["All pages with SEO scores below 70"]
-        },
-        {
-          "priority": "HIGH",
-          "category": "Content Strategy",
-          "item": "Implement school district rating tool and childcare proximity search",
-          "impact": "Adds valuable family-focused interactive features",
-          "effort": "High",
-          "components_affected": ["New interactive components"]
-        },
-        {
-          "priority": "MEDIUM",
-          "category": "Content Strategy",
-          "item": "Create VA loan calculator for veteran users",
-          "impact": "Addresses veteran content gap and provides practical tool",
-          "effort": "Medium",
-          "components_affected": ["Veterans", "VeteranServices"]
-        },
-        {
-          "priority": "MEDIUM",
-          "category": "Technical",
-          "item": "Fix Lighthouse testing environment and resolve server configuration issues",
-          "impact": "Enables performance monitoring and optimization",
-          "effort": "Medium",
-          "components_affected": ["Development environment"]
-        },
-        {
-          "priority": "MEDIUM",
-          "category": "Content Strategy",
-          "item": "Consolidate redundant property-related content and streamline property listings",
-          "impact": "Reduces overrepresented property buyer content by 46.2%",
-          "effort": "Medium",
-          "components_affected": [
-            "Home",
-            "HomeownerSolutions",
-            "PropertyDetails"
-          ]
-        },
-        {
-          "priority": "LOW",
-          "category": "Features",
-          "item": "Implement competitive features: property investment ROI calculator, market trend reports",
-          "impact": "Differentiates from competitors and adds value",
-          "effort": "High",
-          "components_affected": ["New feature components"]
-        }
-      ],
-      "success_metrics": {
-        "content_balance": {
-          "target": "30% families, 10% veterans, 60% property buyers",
-          "current": "10.7% families, 23.2% veterans, 66.2% property buyers",
-          "primary_gap": "19.3% family content increase, 13.2% veteran content reduction needed"
-        },
-        "accessibility": {
-          "target": "Zero HIGH severity violations",
-          "current": "Multiple HIGH severity ARIA label violations",
-          "primary_action": "Fix all missing aria-label attributes"
-        },
-        "seo": {
-          "target": "Average score 80+ across all pages",
-          "current": "Average score 42.9/100",
-          "primary_action": "Add missing title tags and meta descriptions"
-        },
-        "technical": {
-          "target": "Lighthouse tests pass, performance metrics established",
-          "current": "Lighthouse blocked by server issues",
-          "primary_action": "Fix development environment configuration"
-        }
-      }
-    },
-    "timestamp": "2026-01-12T21:52:23.801106",
+    "timestamp": "2026-01-18T15:31:19.092445",
     "project_root": "K:\\Properties-4-Creation\\Website",
     "files": [
       {
@@ -316,7 +141,7 @@
             "message": "Missing ARIA label: Veterans with disabilities require screen-reader support."
           }
         ],
-        "summary": "import React, { useState, useRef, useEffect } from 'react';\nimport { MessageSquare, X, Send, Loader2, Bot } from 'lucide-react';\nimport { sendChatMessage } from '../services/botpressService';\nimport { logError } from '../services/errorBoundaryService';\n\ninterface Message {\n  role: 'user' | 'model';\n  text: string;\n}\n\nconst AIChatbot: React.FC = () => {\n  const [isOpen, setIsOpen] = useState(false);\n  const [messages, setMessages] = useState<Message[]>([\n    {\n      role: 'model',\n      text: \"Welcome to Properties 4 Creation! I'm Patriot, your virtual concierge. How can I help you find your home today?\",\n    },\n  ]);\n  const [input, setInput] = useState('');\n  const [isLoading, setIsLoading] = useState(false);\n  const messagesEndRef = useRef<HTMLDivElement>(null);\n  const chatContainerRef = useRef<HTMLDivElement>(null);\n  const inputRef = useRef<HTMLInputElement>(null);\n\n  const scrollToBottom = () => {\n    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });\n  };\n\n  useEffe"
+        "summary": "import React, { useState, useRef, useEffect } from 'react';\nimport { MessageSquare, X, Send, Loader2, Bot } from 'lucide-react';\nimport { sendChatMessage } from '../services/botpressService';\nimport { logError } from '../services/errorBoundaryService';\n\ninterface Message {\n  role: 'user' | 'model';\n  text: string;\n}\n\nconst AIChatbot: React.FC = () => {\n  const [isOpen, setIsOpen] = useState(false);\n  const [messages, setMessages] = useState<Message[]>([\n    {\n      role: 'model',\n      text: 'Welcome to Properties 4 Creation Housing Assistant. Are you looking to Rent a Home, Sell a Property, or Find Veteran Services?',\n    },\n  ]);\n  const [input, setInput] = useState('');\n  const [isLoading, setIsLoading] = useState(false);\n  const [triageMode, setTriageMode] = useState(false);\n  const messagesEndRef = useRef<HTMLDivElement>(null);\n  const chatContainerRef = useRef<HTMLDivElement>(null);\n  const inputRef = useRef<HTMLInputElement>(null);\n\n  const scrollToBottom = () => {\n    messagesE"
       },
       {
         "path": "components\\AIChatbotEnhanced.tsx",
@@ -371,7 +196,7 @@
             "message": "Missing ARIA label: Veterans with disabilities require screen-reader support."
           }
         ],
-        "summary": "import { Component } from 'react';\nimport type { ErrorInfo, ReactNode } from 'react';\nimport { AlertTriangle, RefreshCw } from 'lucide-react';\n\ninterface Props {\n  children?: ReactNode;\n  fallback?: ReactNode;\n  onError?: (error: Error, errorInfo: ErrorInfo) => void;\n  enableLogging?: boolean;\n}\n\ninterface State {\n  hasError: boolean;\n  error: Error | null;\n  errorId: string;\n  timestamp: string;\n}\n\nclass ErrorBoundary extends Component<Props, State> {\n  public override state: State = {\n    hasError: false,\n    error: null,\n    errorId: '',\n    timestamp: '',\n  };\n\n  public static getDerivedStateFromError(error: Error): State {\n    // Generate unique error ID for tracking\n    const errorId = `ERR_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;\n    return {\n      hasError: true,\n      error,\n      errorId,\n      timestamp: new Date().toISOString(),\n    };\n  }\n\n  public override componentDidCatch(error: Error, errorInfo: ErrorInfo) {\n    // Enhanced error logging with security"
+        "summary": "import React, { Component } from 'react';\nimport type { ErrorInfo, ReactNode } from 'react';\nimport { AlertTriangle, RefreshCw } from 'lucide-react';\nimport { useToast } from '../context/ToastContext';\n\ninterface Props {\n  children?: ReactNode;\n  fallback?: ReactNode;\n  onError?: (error: Error, errorInfo: ErrorInfo) => void;\n  enableLogging?: boolean;\n}\n\ninterface State {\n  hasError: boolean;\n  error: Error | null;\n  errorId: string;\n  timestamp: string;\n}\n\n// Higher-order component to provide useToast to class component\nconst withToast = (Component: any) => {\n  const WrappedComponent = (props: any) => {\n    const toast = useToast();\n    return <Component {...props} toast={toast} />;\n  };\n  WrappedComponent.displayName = `withToast(${Component.displayName || Component.name})`;\n  return WrappedComponent;\n};\n\nclass ErrorBoundary extends Component<Props & { toast: ReturnType<typeof useToast> }, State> {\n  public override state: State = {\n    hasError: false,\n    error: null,\n    errorId: "
       },
       {
         "path": "components\\Footer.tsx",
@@ -385,17 +210,6 @@
         "summary": "import React from 'react';\nimport {\n  Accessibility,\n  Home,\n  Facebook,\n  Instagram,\n  Linkedin,\n  Flag,\n} from 'lucide-react';\nimport { Link } from 'react-router-dom';\nimport { IMAGES } from '../constants/images';\n\nconst Footer: React.FC = () => (\n  <footer className=\"bg-gray-900 text-white pt-16 pb-8 border-t border-gray-800\">\n    <div className=\"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8\">\n      <div className=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12\">\n        {/* 1. Brand & Mission */}\n        <div className=\"col-span-1\">\n          <div className=\"flex items-center gap-2 mb-4\">\n            <img\n              src={IMAGES.LOGO.WHITE_GOLD}\n              alt=\"Properties 4 Creation Logo\"\n              className=\"h-20 w-auto object-contain\"\n            />\n          </div>\n          <p className=\"text-gray-400 text-sm leading-relaxed mb-6\">\n            Breaking the stigma of affordable housing in East Texas. We restore\n            properties to restore dignity, focusing o"
       },
       {
-        "path": "components\\GeminiImageEditor.tsx",
-        "mission_violations": [
-          {
-            "severity": "HIGH",
-            "type": "ACCESSIBILITY",
-            "message": "Missing ARIA label: Veterans with disabilities require screen-reader support."
-          }
-        ],
-        "summary": "import React, { useState, useRef } from 'react';\nimport {\n  Sparkles,\n  Image as ImageIcon,\n  Loader2,\n  Upload,\n  AlertCircle,\n} from 'lucide-react';\nimport { editImageWithGemini } from '../services/geminiService';\n\nconst GeminiImageEditor: React.FC = () => {\n  const [selectedImage, setSelectedImage] = useState<string | null>(null);\n  const [mimeType, setMimeType] = useState<string>('image/jpeg');\n  const [prompt, setPrompt] = useState('');\n  const [generatedImage, setGeneratedImage] = useState<string | null>(null);\n  const [loading, setLoading] = useState(false);\n  const [error, setError] = useState<string | null>(null);\n  const fileInputRef = useRef<HTMLInputElement>(null);\n\n  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {\n    const file = e.target.files?.[0];\n    if (file) {\n      if (file.size > 5 * 1024 * 1024) {\n        setError('Image size too large. Please use an image under 5MB.');\n        return;\n      }\n\n      const reader = new FileReader();\n      "
-      },
-      {
         "path": "components\\Hero.tsx",
         "mission_violations": [
           {
@@ -404,7 +218,7 @@
             "message": "Missing ARIA label: Veterans with disabilities require screen-reader support."
           }
         ],
-        "summary": "import React from 'react';\nimport { ArrowRight } from 'lucide-react';\nimport { IMAGES } from '../constants/images';\n\ninterface HeroProps {\n  variant?: 'image' | 'video';\n}\n\nconst Hero: React.FC<HeroProps> = ({ variant = 'image' }) => (\n  <div className=\"relative h-[85vh] w-full overflow-hidden flex items-center justify-center\">\n    <div\n      className=\"absolute top-0 left-0 w-full h-full z-0 overflow-hidden\"\n      aria-hidden=\"true\"\n    >\n      {variant === 'video' ? (\n        <video\n          autoPlay\n          loop\n          muted\n          playsInline\n          poster={IMAGES.BANNERS.HERO_PROJECTS}\n          className=\"object-cover w-full h-full\"\n        >\n          <source src={IMAGES.VIDEOS.HERO_PROJECTS} type=\"video/mp4\" />\n        </video>\n      ) : (\n        <img\n          src={IMAGES.BANNERS.HERO_HOME}\n          alt=\"Clean, restored P4C property in Tyler, Texas\"\n          className=\"object-cover w-full h-full\"\n        />\n      )}\n      <div className=\"absolute top-0 left-0 w-"
+        "summary": "import React from 'react';\nimport { ArrowRight } from 'lucide-react';\nimport { IMAGES } from '../constants/images';\n\ninterface HeroProps {\n  variant?: 'image' | 'video';\n}\n\nconst Hero: React.FC<HeroProps> = ({ variant = 'image' }) => (\n  <div className=\"relative h-[85vh] w-full overflow-hidden flex items-center justify-center\">\n    <div\n      className=\"absolute top-0 left-0 w-full h-full z-0 overflow-hidden\"\n      aria-hidden=\"true\"\n    >\n      {variant === 'video' ? (\n        <video\n          autoPlay\n          loop\n          muted\n          playsInline\n          poster={IMAGES.BANNERS.HERO_PROJECTS}\n          className=\"object-cover w-full h-full\"\n        >\n          <source src={IMAGES.VIDEOS.HERO_SPOTLIGHT} type=\"video/mp4\" />\n        </video>\n      ) : (\n        <img\n          src={IMAGES.BANNERS.HERO_HOME}\n          alt=\"Clean, restored Properties 4 Creation property in Tyler, Texas\"\n          className=\"object-cover w-full h-full\"\n        />\n      )}\n      <div className=\"absol"
       },
       {
         "path": "components\\ImageOptimizer.tsx",
@@ -425,7 +239,7 @@
             "message": "Missing ARIA label: Veterans with disabilities require screen-reader support."
           }
         ],
-        "summary": "import React, { useState, useEffect, useRef } from 'react';\n\ninterface AnimatedButtonProps {\n  children: React.ReactNode;\n  onClick?: () => void;\n  variant?: 'primary' | 'secondary' | 'ghost';\n  size?: 'sm' | 'md' | 'lg';\n  className?: string;\n  disabled?: boolean;\n  loading?: boolean;\n  animate?: boolean;\n}\n\nexport const AnimatedButton: React.FC<AnimatedButtonProps> = ({\n  children,\n  onClick,\n  variant = 'primary',\n  size = 'md',\n  className = '',\n  disabled = false,\n  loading = false,\n  animate = true,\n  ...props\n}) => {\n  const [isPressed, setIsPressed] = useState(false);\n  const [ripples, setRipples] = useState<\n    Array<{ id: number; x: number; y: number }>\n  >([]);\n  const buttonRef = useRef<HTMLButtonElement>(null);\n\n  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {\n    if (disabled || loading) return;\n\n    if (animate) {\n      // Create ripple effect\n      const rect = buttonRef.current?.getBoundingClientRect();\n      if (rect) {\n        const x = e.clientX "
+        "summary": "import React, { useState, useEffect, useRef } from 'react';\n\ninterface AnimatedButtonProps {\n  children: React.ReactNode;\n  onClick?: () => void;\n  variant?: 'primary' | 'secondary' | 'ghost';\n  size?: 'sm' | 'md' | 'lg';\n  className?: string;\n  disabled?: boolean;\n  loading?: boolean;\n  animate?: boolean;\n  'aria-label'?: string;\n}\n\nexport const AnimatedButton: React.FC<AnimatedButtonProps> = ({\n  children,\n  onClick,\n  variant = 'primary',\n  size = 'md',\n  className = '',\n  disabled = false,\n  loading = false,\n  animate = true,\n  'aria-label': ariaLabel,\n  ...props\n}) => {\n  // ariaLabel is already extracted from props\n  const [isPressed, setIsPressed] = useState(false);\n  const [ripples, setRipples] = useState<\n    Array<{ id: number; x: number; y: number }>\n  >([]);\n  const buttonRef = useRef<HTMLButtonElement>(null);\n\n  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {\n    if (disabled || loading) return;\n\n    if (animate) {\n      // Create ripple effect\n      cons"
       },
       {
         "path": "components\\Navbar.tsx",
@@ -466,7 +280,7 @@
       {
         "path": "components\\Skeleton.tsx",
         "mission_violations": [],
-        "summary": "import React from 'react';\n\ninterface SkeletonProps {\n  className?: string;\n}\n\n/**\n * Standardized P4C Skeleton Loader\n * Enforces rounded-xl standard to maintain brand dignity during loading states.\n */\nconst Skeleton: React.FC<SkeletonProps> = ({ className = '' }) => (\n  <div\n    className={`animate-pulse bg-gray-200 rounded-xl ${className}`}\n    aria-hidden=\"true\"\n  />\n);\n\nexport default Skeleton;\n"
+        "summary": "import React from 'react';\n\ninterface SkeletonProps {\n  className?: string;\n}\n\n/**\n * Standardized Properties 4 Creation Skeleton Loader\n * Enforces rounded-xl standard to maintain brand dignity during loading states.\n */\nconst Skeleton: React.FC<SkeletonProps> = ({ className = '' }) => (\n  <div\n    className={`animate-pulse bg-gray-200 rounded-xl ${className}`}\n    aria-hidden=\"true\"\n  />\n);\n\nexport default Skeleton;\n"
       },
       {
         "path": "components\\SkipLink.tsx",
@@ -513,7 +327,7 @@
       {
         "path": "data\\properties.ts",
         "mission_violations": [],
-        "summary": "import type { ExtendedProperty } from '../types';\nimport { IMAGES } from '../constants/images';\n\n// Re-export ExtendedProperty type for backward compatibility\nexport type { ExtendedProperty };\n\nexport const properties: ExtendedProperty[] = [\n  {\n    id: '1',\n    title: 'The Magnolia Residence',\n    address: '1245 Oakwood Dr, Tyler, TX',\n    price: 950,\n    beds: 3,\n    baths: 2,\n    sqft: 1450,\n    imageUrl: IMAGES.PROPERTIES.TYLER_RANCH,\n    badges: ['Section 8 Approved', 'Wheelchair Accessible'],\n    description:\n      'Fully renovated single-family home featuring quartz countertops, new HVAC, and a spacious fenced backyard perfect for families. Located within walking distance of Douglas Elementary School.',\n    amenities: [\n      'Quartz Countertops',\n      'Fenced Backyard',\n      'Central HVAC',\n      'Dishwasher',\n      'Washer/Dryer Hookups',\n    ],\n    accessibilityFeatures: [\n      'Wheelchair Ramp',\n      'Wide Doorways (36\")',\n      'Grab Bars in Bathroom',\n    ],\n    school"
+        "summary": "import type { ExtendedProperty } from '../types';\nimport { IMAGES } from '../constants/images';\n\n// Re-export ExtendedProperty type for backward compatibility\nexport type { ExtendedProperty };\n\nexport const properties: ExtendedProperty[] = [\n  {\n    id: '1',\n    title: 'Oakwood Ranch',\n    address: '1245 Oakwood Dr, Tyler, TX',\n    price: 950,\n    beds: 3,\n    baths: 2,\n    sqft: 1450,\n    imageUrl: IMAGES.PROPERTIES.TYLER_RANCH,\n    badges: ['Family Friendly', 'Top Rated Schools'],\n    description:\n      'Beautifully renovated family home featuring quartz countertops, modern HVAC system, and a spacious fenced backyard perfect for children and pets. Located within walking distance of Douglas Elementary School, one of the top-rated schools in Tyler ISD.',\n    amenities: [\n      'Quartz Countertops',\n      'Fenced Backyard',\n      'Central HVAC',\n      'Dishwasher',\n      'Washer/Dryer Hookups',\n      'Play Area',\n    ],\n    accessibilityFeatures: [\n      'Stroller-Friendly Pathways',\n  "
       },
       {
         "path": "pages\\About.tsx",
@@ -524,12 +338,12 @@
             "message": "Missing ARIA label: Veterans with disabilities require screen-reader support."
           }
         ],
-        "summary": "import React from 'react';\nimport {\n  Award,\n  ShieldCheck,\n  Heart,\n  TrendingUp,\n  Users,\n  CheckCircle2,\n} from 'lucide-react';\nimport { IMAGES } from '../constants/images';\n\nconst About: React.FC = () => (\n  <div className=\"bg-p4c-beige min-h-screen\">\n    {/* Hero Banner */}\n    <div className=\"relative h-[500px] w-full overflow-hidden flex items-center justify-center\">\n      <div className=\"absolute top-0 left-0 w-full h-full z-0\">\n        <img\n          src={IMAGES.BANNERS.HERO_ABOUT}\n          alt=\"Architectural plans and safety hat\"\n          className=\"w-full h-full object-cover\"\n        />\n        <div className=\"absolute top-0 left-0 w-full h-full hero-overlay-primary\" />\n        <div className=\"absolute top-0 left-0 w-full h-full hero-overlay-secondary\" />\n      </div>\n      <div className=\"relative z-10 text-center px-4 max-w-4xl mx-auto animate-fade-in-up\">\n        <div className=\"inline-flex items-center gap-2 bg-p4c-gold/20 backdrop-blur-sm border border-p4c-gold/30 rou"
+        "summary": "import React from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport {\n  Award,\n  ShieldCheck,\n  Heart,\n  TrendingUp,\n  Users,\n  CheckCircle2,\n} from 'lucide-react';\nimport { IMAGES } from '../constants/images';\n\nconst About: React.FC = () => (\n  <>\n    <Helmet>\n      <title>\n        About Us | Veteran-Owned Affordable Housing | Properties 4 Creation\n      </title>\n      <meta\n        name=\"description\"\n        content=\"Learn about Properties 4 Creation, a veteran-owned company redefining affordable housing standards in East Texas. Premium renovations, compassionate management, community impact.\"\n      />\n      <meta\n        name=\"keywords\"\n        content=\"veteran owned business, affordable housing East Texas, veteran housing company, quality affordable homes, veteran led property management\"\n      />\n    </Helmet>\n    <div className=\"bg-p4c-beige min-h-screen\">\n      {/* Hero Banner */}\n      <div className=\"relative h-[500px] w-full overflow-hidden flex items-center justif"
       },
       {
         "path": "pages\\AccessibilityStatement.tsx",
         "mission_violations": [],
-        "summary": "import React from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport { Accessibility } from 'lucide-react';\n\nconst AccessibilityStatement: React.FC = () => (\n  <div className=\"bg-p4c-beige min-h-screen py-16\">\n    <Helmet>\n      <title>Accessibility Statement | Properties 4 Creation</title>\n    </Helmet>\n\n    <div className=\"max-w-4xl mx-auto px-4 sm:px-6 lg:px-8\">\n      <div className=\"bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-gray-100\">\n        <div className=\"flex items-center gap-4 mb-8 pb-8 border-b border-gray-100\">\n          <div className=\"bg-p4c-gold p-3 rounded-full\">\n            <Accessibility className=\"w-8 h-8 text-p4c-navy\" />\n          </div>\n          <h1 className=\"text-3xl font-serif font-bold text-p4c-navy\">\n            Accessibility Statement\n          </h1>\n        </div>\n\n        <div className=\"prose prose-slate max-w-none text-gray-700\">\n          <p className=\"lead\">\n            Properties 4 Creation is committed to ensuring digital acc"
+        "summary": "import React from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport { Accessibility } from 'lucide-react';\n\nconst AccessibilityStatement: React.FC = () => (\n  <div className=\"bg-p4c-beige min-h-screen py-16\">\n    <Helmet>\n      <title>Accessibility Statement | Properties 4 Creation</title>\n      <meta\n        name=\"description\"\n        content=\"Properties 4 Creation accessibility statement and commitment to WCAG 2.1 compliance for digital accessibility and inclusive housing services.\"\n      />\n      <meta\n        name=\"keywords\"\n        content=\"accessibility statement, web accessibility, WCAG compliance, disability access, inclusive housing, ADA compliance\"\n      />\n    </Helmet>\n\n    <div className=\"max-w-4xl mx-auto px-4 sm:px-6 lg:px-8\">\n      <div className=\"bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-gray-100\">\n        <div className=\"flex items-center gap-4 mb-8 pb-8 border-b border-gray-100\">\n          <div className=\"bg-p4c-gold p-3 rounded-full\">\n     "
       },
       {
         "path": "pages\\AdminDashboard.tsx",
@@ -573,12 +387,23 @@
             "message": "Missing ARIA label: Veterans with disabilities require screen-reader support."
           }
         ],
-        "summary": "import React from 'react';\nimport { HardHat, Briefcase, CheckCircle2 } from 'lucide-react';\nimport { Link } from 'react-router-dom';\nimport { IMAGES } from '../constants/images';\n\nconst Employment: React.FC = () => (\n  <div className=\"bg-p4c-beige min-h-screen\">\n    {/* Hero Banner */}\n    <div className=\"relative h-[400px] w-full overflow-hidden flex items-center justify-center\">\n      <div className=\"absolute top-0 left-0 w-full h-full z-0\">\n        <img\n          src={IMAGES.GALLERY.FRAMING}\n          alt=\"Construction blueprints and tools\"\n          className=\"w-full h-full object-cover\"\n        />\n        <div className=\"absolute top-0 left-0 w-full h-full hero-overlay-primary\" />\n        <div className=\"absolute top-0 left-0 w-full h-full hero-overlay-secondary\" />\n      </div>\n      <div className=\"relative z-10 text-center px-4 max-w-4xl mx-auto\">\n        <h1 className=\"text-4xl md:text-5xl font-serif font-bold text-white mb-4 hero-text-contrast\">\n          Build With Purpose\n "
+        "summary": "import React from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport { HardHat, Briefcase, CheckCircle2 } from 'lucide-react';\nimport { Link } from 'react-router-dom';\nimport { IMAGES } from '../constants/images';\n\nconst Employment: React.FC = () => (\n  <>\n    <Helmet>\n      <title>\n        Careers | Join Our Veteran-Led Construction Team | Properties 4 Creation\n      </title>\n      <meta\n        name=\"description\"\n        content=\"Join Properties 4 Creation's veteran-led construction team. We hire veterans first with competitive pay, flexible schedules, and career advancement opportunities in East Texas.\"\n      />\n      <meta\n        name=\"keywords\"\n        content=\"veteran jobs East Texas, construction careers, veteran hiring, skilled trades jobs, veteran employment, construction company hiring\"\n      />\n    </Helmet>\n    <div className=\"bg-p4c-beige min-h-screen\">\n      {/* Hero Banner */}\n      <div className=\"relative h-[400px] w-full overflow-hidden flex items-center ju"
       },
       {
         "path": "pages\\EqualHousing.tsx",
         "mission_violations": [],
-        "summary": "import React from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport { Home } from 'lucide-react';\n\nconst EqualHousing: React.FC = () => (\n  <div className=\"bg-p4c-beige min-h-screen py-16\">\n    <Helmet>\n      <title>Equal Housing Opportunity | Properties 4 Creation</title>\n    </Helmet>\n\n    <div className=\"max-w-4xl mx-auto px-4 sm:px-6 lg:px-8\">\n      <div className=\"bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-gray-100 text-center\">\n        <div className=\"bg-p4c-navy p-4 rounded-full inline-flex mb-6\">\n          <Home className=\"w-10 h-10 text-white\" />\n        </div>\n        <h1 className=\"text-3xl font-serif font-bold text-p4c-navy mb-6\">\n          Equal Housing Opportunity\n        </h1>\n\n        <div className=\"prose prose-lg mx-auto text-gray-600 text-left\">\n          <p>\n            Properties 4 Creation is pledged to the letter and spirit of U.S.\n            policy for the achievement of equal housing opportunity throughout\n            the Nation. We en"
+        "summary": "import React from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport { Home } from 'lucide-react';\n\nconst EqualHousing: React.FC = () => (\n  <div className=\"bg-p4c-beige min-h-screen py-16\">\n    <Helmet>\n      <title>Equal Housing Opportunity | Properties 4 Creation</title>\n      <meta\n        name=\"description\"\n        content=\"Properties 4 Creation equal housing opportunity statement and commitment to fair housing practices without discrimination based on race, color, religion, or national origin.\"\n      />\n      <meta\n        name=\"keywords\"\n        content=\"equal housing opportunity, fair housing, housing discrimination, HUD fair housing, equal opportunity housing, non-discriminatory housing\"\n      />\n    </Helmet>\n\n    <div className=\"max-w-4xl mx-auto px-4 sm:px-6 lg:px-8\">\n      <div className=\"bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-gray-100 text-center\">\n        <div className=\"bg-p4c-navy p-4 rounded-full inline-flex mb-6\">\n          <Home className"
+      },
+      {
+        "path": "pages\\FamilyResources.tsx",
+        "mission_violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Missing ARIA label: Veterans with disabilities require screen-reader support."
+          }
+        ],
+        "summary": "import React from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport { IMAGES } from '../constants/images';\nimport {\n  Heart,\n  MapPin,\n  School,\n  Users,\n  Home,\n  Shield,\n  DollarSign,\n  CheckCircle2,\n  Star,\n  Award,\n  BookOpen,\n  Baby,\n  Car,\n  Wifi,\n} from 'lucide-react';\n\nconst FamilyResources: React.FC = () => {\n  const schoolDistricts = [\n    {\n      name: 'Tyler ISD',\n      rating: 4.2,\n      schools: 25,\n      students: '12,000+',\n      highlights: ['STEM Programs', 'Arts Excellence', 'Sports Programs'],\n    },\n    {\n      name: 'Whitehouse ISD',\n      rating: 4.5,\n      schools: 8,\n      students: '4,200+',\n      highlights: ['Small Class Sizes', 'Technology Focus', 'Music Programs'],\n    },\n    {\n      name: 'Lindale ISD',\n      rating: 4.3,\n      schools: 6,\n      students: '3,100+',\n      highlights: [\n        'Agricultural Programs',\n        'Community Involvement',\n        'Academic Excellence',\n      ],\n    },\n  ];\n\n  const familyFeatures = [\n    {\n      icon"
       },
       {
         "path": "pages\\FAQ.tsx",
@@ -600,7 +425,7 @@
             "message": "Missing ARIA label: Veterans with disabilities require screen-reader support."
           }
         ],
-        "summary": "import React, { useState, useMemo, useEffect } from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport Hero from '../components/Hero';\nimport ImpactDashboard from '../components/ImpactDashboard';\nimport PropertyCard from '../components/PropertyCard';\nimport BeforeAfterSlider from '../components/BeforeAfterSlider';\nimport GeminiImageEditor from '../components/GeminiImageEditor';\nimport { api } from '../services/api';\nimport { logError } from '../services/errorBoundaryService';\nimport type { ExtendedProperty } from '../types';\nimport { IMAGES } from '../constants/images';\nimport { Search, SlidersHorizontal, X, ArrowRight } from 'lucide-react';\nimport { useNavigate } from 'react-router-dom';\n\nconst Home: React.FC = () => {\n  const navigate = useNavigate();\n\n  // States\n  const [properties, setProperties] = useState<ExtendedProperty[]>([]);\n  const [loading, setLoading] = useState(true);\n  const [searchQuery, setSearchQuery] = useState('');\n  const [maxPrice, setMaxPrice] = useSt"
+        "summary": "import React, { useState, useMemo, useEffect } from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport Hero from '../components/Hero';\nimport ImpactDashboard from '../components/ImpactDashboard';\nimport PropertyCard from '../components/PropertyCard';\nimport BeforeAfterSlider from '../components/BeforeAfterSlider';\nimport { api } from '../services/api';\nimport { logError } from '../services/errorBoundaryService';\nimport type { ExtendedProperty } from '../types';\nimport { IMAGES } from '../constants/images';\nimport {\n  Search,\n  SlidersHorizontal,\n  X,\n  ArrowRight,\n  HeartHandshake,\n} from 'lucide-react';\nimport { useNavigate } from 'react-router-dom';\n\nconst Home: React.FC = () => {\n  const navigate = useNavigate();\n\n  // States\n  const [properties, setProperties] = useState<ExtendedProperty[]>([]);\n  const [loading, setLoading] = useState(true);\n  const [searchQuery, setSearchQuery] = useState('');\n  const [maxPrice, setMaxPrice] = useState<number>(2000);\n  const [minBeds, s"
       },
       {
         "path": "pages\\HomeownerSolutions.tsx",
@@ -611,7 +436,7 @@
             "message": "Missing ARIA label: Veterans with disabilities require screen-reader support."
           }
         ],
-        "summary": "import React, { useState } from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport { IMAGES } from '../constants/images';\nimport { ArrowRight, CheckCircle2, Phone, MapPin, User } from 'lucide-react';\nimport { useNavigate } from 'react-router-dom';\n\ninterface FormData {\n  name: string;\n  address: string;\n  phone: string;\n}\n\ninterface FormErrors {\n  name?: string;\n  address?: string;\n  phone?: string;\n}\n\nconst HomeownerSolutions: React.FC = () => {\n  const navigate = useNavigate();\n  const [formData, setFormData] = useState<FormData>({\n    name: '',\n    address: '',\n    phone: '',\n  });\n  const [errors, setErrors] = useState<FormErrors>({});\n  const [isSubmitting, setIsSubmitting] = useState(false);\n  const [isSubmitted, setIsSubmitted] = useState(false);\n\n  const validateForm = (): boolean => {\n    const newErrors: FormErrors = {};\n\n    if (!formData.name.trim()) {\n      newErrors.name = 'Name is required';\n    }\n\n    if (!formData.address.trim()) {\n      newErrors.address = '"
+        "summary": "import React, { useState } from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport { IMAGES } from '../constants/images';\nimport { ArrowRight, CheckCircle2, Phone, MapPin, User } from 'lucide-react';\nimport { useNavigate } from 'react-router-dom';\n\ninterface FormData {\n  name: string;\n  address: string;\n  phone: string;\n  propertyType?: string;\n  timeline?: string;\n}\n\ninterface FormErrors {\n  name?: string;\n  address?: string;\n  phone?: string;\n}\n\nconst HomeownerSolutions: React.FC = () => {\n  const navigate = useNavigate();\n  const [formData, setFormData] = useState<FormData>(() => {\n    // Load from localStorage on component mount\n    const saved = localStorage.getItem('homeownerSolutionsForm');\n    return saved\n      ? JSON.parse(saved)\n      : {\n          name: '',\n          address: '',\n          phone: '',\n          propertyType: '',\n          timeline: '',\n        };\n  });\n  const [errors, setErrors] = useState<FormErrors>({});\n  const [isSubmitting, setIsSubmitting] ="
       },
       {
         "path": "pages\\OurImpact.tsx",
@@ -633,7 +458,7 @@
             "message": "Missing ARIA label: Veterans with disabilities require screen-reader support."
           }
         ],
-        "summary": "import React from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport { Shield, Lock, Eye } from 'lucide-react';\n\nconst Privacy: React.FC = () => (\n  <div className=\"bg-p4c-beige min-h-screen py-16\">\n    <Helmet>\n      <title>Privacy Policy | Properties 4 Creation</title>\n      <meta\n        name=\"description\"\n        content=\"Privacy policy and data protection standards for Properties 4 Creation applicants and residents.\"\n      />\n    </Helmet>\n\n    <div className=\"max-w-4xl mx-auto px-4 sm:px-6 lg:px-8\">\n      <div className=\"bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-gray-100\">\n        <div className=\"border-b border-gray-200 pb-8 mb-8\">\n          <h1 className=\"text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-4\">\n            Privacy Policy\n          </h1>\n          <p className=\"text-gray-500\">Last Updated: October 24, 2023</p>\n        </div>\n\n        <div className=\"prose prose-slate max-w-none text-gray-700\">\n          <p className=\"lead text-lg\">"
+        "summary": "import React from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport { Shield, Lock, Eye } from 'lucide-react';\n\nconst Privacy: React.FC = () => (\n  <div className=\"bg-p4c-beige min-h-screen py-16\">\n    <Helmet>\n      <title>Privacy Policy | Properties 4 Creation</title>\n      <meta\n        name=\"description\"\n        content=\"Privacy policy and data protection standards for Properties 4 Creation applicants and residents.\"\n      />\n      <meta\n        name=\"keywords\"\n        content=\"privacy policy, data protection, tenant privacy, housing privacy, rental application privacy, GDPR compliance\"\n      />\n    </Helmet>\n\n    <div className=\"max-w-4xl mx-auto px-4 sm:px-6 lg:px-8\">\n      <div className=\"bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-gray-100\">\n        <div className=\"border-b border-gray-200 pb-8 mb-8\">\n          <h1 className=\"text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-4\">\n            Privacy Policy\n          </h1>\n          <p className=\""
       },
       {
         "path": "pages\\PropertyDetails.tsx",
@@ -666,7 +491,7 @@
             "message": "Missing ARIA label: Veterans with disabilities require screen-reader support."
           }
         ],
-        "summary": "import React, { useState } from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport {\n  Lock,\n  User,\n  ArrowRight,\n  ShieldCheck,\n  Wrench,\n  CreditCard,\n  AlertCircle,\n} from 'lucide-react';\nimport { Link, useNavigate, useLocation } from 'react-router-dom';\nimport { useAuth } from '../context/AuthContext';\nimport { IMAGES } from '../constants/images';\n\nconst TenantLogin: React.FC = () => {\n  const [email, setEmail] = useState('');\n  const [password, setPassword] = useState('');\n  const [error, setError] = useState('');\n  const { login, isLoading } = useAuth();\n  const navigate = useNavigate();\n  const location = useLocation();\n\n  const from = (location.state as any)?.from?.pathname || '/';\n\n  const handleLogin = async (e: React.FormEvent) => {\n    e.preventDefault();\n    setError('');\n\n    // Simulate simple auth check\n    if (email === 'admin@p4c.com' && password === 'admin') {\n      await login(email, 'admin');\n      navigate('/admin');\n    } else if (email === 'demo@p4c.c"
+        "summary": "import React, { useState } from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport {\n  Lock,\n  User,\n  ArrowRight,\n  ShieldCheck,\n  Wrench,\n  CreditCard,\n  AlertCircle,\n} from 'lucide-react';\nimport { Link, useNavigate, useLocation } from 'react-router-dom';\nimport { useAuth } from '../context/AuthContext';\nimport { IMAGES } from '../constants/images';\n\nconst TenantLogin: React.FC = () => {\n  const [email, setEmail] = useState('');\n  const [password, setPassword] = useState('');\n  const [error, setError] = useState('');\n  const { login, isLoading } = useAuth();\n  const navigate = useNavigate();\n  const location = useLocation();\n\n  const from = (location.state as any)?.from?.pathname || '/';\n\n  const handleLogin = async (e: React.FormEvent) => {\n    e.preventDefault();\n    setError('');\n\n    try {\n      // For demo purposes, accept these credentials\n      if (\n        (email === 'admin@p4c.com' && password === 'admin') ||\n        (email === 'tenant@p4c.com' && password === 'te"
       },
       {
         "path": "pages\\Terms.tsx",
@@ -677,7 +502,7 @@
             "message": "Missing ARIA label: Veterans with disabilities require screen-reader support."
           }
         ],
-        "summary": "import React from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport { Scale, FileText } from 'lucide-react';\n\nconst Terms: React.FC = () => (\n  <div className=\"bg-p4c-beige min-h-screen py-16\">\n    <Helmet>\n      <title>Terms of Service | Properties 4 Creation</title>\n      <meta\n        name=\"description\"\n        content=\"Terms of service for using the Properties 4 Creation website and portal.\"\n      />\n    </Helmet>\n\n    <div className=\"max-w-4xl mx-auto px-4 sm:px-6 lg:px-8\">\n      <div className=\"bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-gray-100\">\n        <div className=\"border-b border-gray-200 pb-8 mb-8\">\n          <h1 className=\"text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-4\">\n            Terms of Service\n          </h1>\n          <p className=\"text-gray-500\">Last Updated: October 24, 2023</p>\n        </div>\n\n        <div className=\"prose prose-slate max-w-none text-gray-700\">\n          <p className=\"lead text-lg\">\n            Welcome to "
+        "summary": "import React from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport { Scale, FileText } from 'lucide-react';\n\nconst Terms: React.FC = () => (\n  <div className=\"bg-p4c-beige min-h-screen py-16\">\n    <Helmet>\n      <title>Terms of Service | Properties 4 Creation</title>\n      <meta\n        name=\"description\"\n        content=\"Terms of service for using the Properties 4 Creation website and portal.\"\n      />\n      <meta\n        name=\"keywords\"\n        content=\"terms of service, rental agreement terms, tenant rights, fair housing terms, lease terms, rental policies\"\n      />\n    </Helmet>\n\n    <div className=\"max-w-4xl mx-auto px-4 sm:px-6 lg:px-8\">\n      <div className=\"bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-gray-100\">\n        <div className=\"border-b border-gray-200 pb-8 mb-8\">\n          <h1 className=\"text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-4\">\n            Terms of Service\n          </h1>\n          <p className=\"text-gray-500\">Last Updated:"
       },
       {
         "path": "pages\\Transparency.tsx",
@@ -693,7 +518,7 @@
             "message": "Missing ARIA label: Veterans with disabilities require screen-reader support."
           }
         ],
-        "summary": "import React from 'react';\nimport { HeartHandshake, Phone, Home, Flag } from 'lucide-react';\nimport { IMAGES } from '../constants/images';\n\nconst Veterans: React.FC = () => (\n  <div className=\"bg-p4c-beige min-h-screen\">\n    {/* Hero Banner */}\n    <div className=\"relative h-[400px] w-full overflow-hidden flex items-center justify-center\">\n      <div className=\"absolute top-0 left-0 w-full h-full z-0\">\n        <img\n          src={IMAGES.BANNERS.HERO_RESOURCES}\n          alt=\"American flag flying on a front porch\"\n          className=\"w-full h-full object-cover\"\n        />\n        <div className=\"absolute top-0 left-0 w-full h-full bg-p4c-navy/80 mix-blend-multiply\" />\n      </div>\n      <div className=\"relative z-10 text-center px-4 max-w-4xl mx-auto\">\n        <div className=\"flex justify-center mb-4\">\n          <div className=\"bg-p4c-gold p-3 rounded-full\">\n            <Flag className=\"w-8 h-8 text-p4c-navy\" />\n          </div>\n        </div>\n        <h1 className=\"text-4xl md:text-5x"
+        "summary": "import React from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport { HeartHandshake, Phone, Home, Flag } from 'lucide-react';\nimport { IMAGES } from '../constants/images';\n\nconst Veterans: React.FC = () => (\n  <>\n    <Helmet>\n      <title>\n        Veteran Housing Support | HUD-VASH Program | Properties 4 Creation\n      </title>\n      <meta\n        name=\"description\"\n        content=\"Veteran housing support with HUD-VASH program assistance, priority application processing, deposit assistance, and accessibility modifications for East Texas veterans.\"\n      />\n      <meta\n        name=\"keywords\"\n        content=\"veteran housing, HUD-VASH program, veteran rental assistance, veteran housing East Texas, VA housing support, veteran priority housing\"\n      />\n    </Helmet>\n    <div className=\"bg-p4c-beige min-h-screen\">\n      {/* Hero Banner */}\n      <div className=\"relative h-[300px] w-full overflow-hidden flex items-center justify-center\">\n        <div className=\"absolute top-0 "
       },
       {
         "path": "pages\\VeteranServices.tsx",
@@ -756,7 +581,7 @@
       {
         "path": "src\\components\\BotAatar.tsx",
         "mission_violations": [],
-        "summary": "import React from 'react';\n\ninterface BotAvatarProps {\n  className?: string;\n  size?: number;\n}\n\nconst BotAvatar: React.FC<BotAvatarProps> = ({ className = '', size = 48 }) => {\n  // Brand Colors from index.css\n  const colors = {\n    navy: '#0B1120',\n    gold: '#C5A059',\n    white: '#FFFFFF',\n    beige: '#F5F5F0',\n  };\n\n  return (\n    <svg\n      width={size}\n      height={size}\n      viewBox=\"0 0 64 64\"\n      fill=\"none\"\n      xmlns=\"http://www.w3.org/2000/svg\"\n      className={`block ${className}`}\n      aria-label=\"P4C Digital Architect Avatar\"\n      role=\"img\"\n    >\n      {/* 1. Background Container (Navy with Gold Ring) */}\n      <circle cx=\"32\" cy=\"32\" r=\"30\" fill={colors.navy} />\n      <circle cx=\"32\" cy=\"32\" r=\"30\" stroke={colors.gold} strokeWidth=\"2\" />\n\n      {/* 2. The 'Structure' (House Outline) */}\n      {/* Represents Housing/Stability */}\n      <path\n        d=\"M32 14L15 27V50H49V27L32 14Z\"\n        fill=\"none\"\n        stroke={colors.gold}\n        strokeWidth=\"2.5\"\n       "
+        "summary": "import React from 'react';\n\ninterface BotAvatarProps {\n  className?: string;\n  size?: number;\n}\n\nconst BotAvatar: React.FC<BotAvatarProps> = ({ className = '', size = 48 }) => {\n  // Brand Colors from index.css\n  const colors = {\n    navy: '#0B1120',\n    gold: '#C5A059',\n    white: '#FFFFFF',\n    beige: '#F5F5F0',\n  };\n\n  return (\n    <svg\n      width={size}\n      height={size}\n      viewBox=\"0 0 64 64\"\n      fill=\"none\"\n      xmlns=\"http://www.w3.org/2000/svg\"\n      className={`block ${className}`}\n      aria-label=\"Properties 4 Creation Digital Architect Avatar\"\n      role=\"img\"\n    >\n      {/* 1. Background Container (Navy with Gold Ring) */}\n      <circle cx=\"32\" cy=\"32\" r=\"30\" fill={colors.navy} />\n      <circle cx=\"32\" cy=\"32\" r=\"30\" stroke={colors.gold} strokeWidth=\"2\" />\n\n      {/* 2. The 'Structure' (House Outline) */}\n      {/* Represents Housing/Stability */}\n      <path\n        d=\"M32 14L15 27V50H49V27L32 14Z\"\n        fill=\"none\"\n        stroke={colors.gold}\n        strokeW"
       },
       {
         "path": "src\\components\\BotToggle.tsx",
@@ -766,7 +591,7 @@
       {
         "path": "src\\components\\ChatHeader.tsx",
         "mission_violations": [],
-        "summary": "/* src/components/bot/ChatHeader.tsx */\n<div className=\"p4c-bot-header\">\n  <div className=\"flex items-center gap-3\">\n    {/* The Avatar */}\n    <div className=\"w-8 h-8 rounded-full bg-white/10 p-1 border border-p4c-gold overflow-hidden\">\n      <img\n        src=\"/images/bot/digital-architect-avatar.webp\"\n        alt=\"P4C Digital Architect\"\n        className=\"w-full h-full object-cover\"\n      />\n    </div>\n    <div>\n      <h3>Digital Architect</h3>\n      <span className=\"status-indicator\">\n        <span className=\"status-dot\" />\n        Online\n      </span>\n    </div>\n  </div>\n</div>;\n"
+        "summary": "/* src/components/bot/ChatHeader.tsx */\n<div className=\"p4c-bot-header\">\n  <div className=\"flex items-center gap-3\">\n    {/* The Avatar */}\n    <div className=\"w-8 h-8 rounded-full bg-white/10 p-1 border border-p4c-gold overflow-hidden\">\n      <img\n        src=\"/images/bot/digital-architect-avatar.webp\"\n        alt=\"Properties 4 Creation Digital Architect\"\n        className=\"w-full h-full object-cover\"\n      />\n    </div>\n    <div>\n      <h3>Digital Architect</h3>\n      <span className=\"status-indicator\">\n        <span className=\"status-dot\" />\n        Online\n      </span>\n    </div>\n  </div>\n</div>;\n"
       },
       {
         "path": "src\\components\\ClientUpscaler.tsx",
@@ -803,22 +628,22 @@
       {
         "path": "src\\test\\setup.ts",
         "mission_violations": [],
-        "summary": "/**\n * Global test setup file for Vitest\n * Configures the test environment for P4C React components\n */\n\nimport { vi } from 'vitest';\n\n// Mock window.matchMedia for components that use it\nObject.defineProperty(window, 'matchMedia', {\n  writable: true,\n  value: vi.fn().mockImplementation((query) => ({\n    matches: false,\n    media: query,\n    onchange: null,\n    addListener: vi.fn(),\n    removeListener: vi.fn(),\n    addEventListener: vi.fn(),\n    removeEventListener: vi.fn(),\n    dispatchEvent: vi.fn(),\n  })),\n});\n\n// Mock ResizeObserver for components using it\nglobal.ResizeObserver = vi.fn().mockImplementation(() => ({\n  observe: vi.fn(),\n  unobserve: vi.fn(),\n  disconnect: vi.fn(),\n}));\n\n// Suppress console.error in tests to reduce noise\n// Only uncomment if debugging: vi.spyOn(console, 'error').mockImplementation(() => {});\n\n// Set default test timeout\nvi.setConfig({\n  testTimeout: 10000,\n});\n"
+        "summary": "/**\n * Global test setup file for Vitest\n * Configures the test environment for Properties 4 Creation React components\n */\n\nimport { vi } from 'vitest';\n\n// Mock window.matchMedia for components that use it\nObject.defineProperty(window, 'matchMedia', {\n  writable: true,\n  value: vi.fn().mockImplementation((query) => ({\n    matches: false,\n    media: query,\n    onchange: null,\n    addListener: vi.fn(),\n    removeListener: vi.fn(),\n    addEventListener: vi.fn(),\n    removeEventListener: vi.fn(),\n    dispatchEvent: vi.fn(),\n  })),\n});\n\n// Mock ResizeObserver for components using it\nglobal.ResizeObserver = vi.fn().mockImplementation(() => ({\n  observe: vi.fn(),\n  unobserve: vi.fn(),\n  disconnect: vi.fn(),\n}));\n\n// Suppress console.error in tests to reduce noise\n// Only uncomment if debugging: vi.spyOn(console, 'error').mockImplementation(() => {});\n\n// Set default test timeout\nvi.setConfig({\n  testTimeout: 10000,\n});\n"
       },
       {
         "path": "types\\contentBalance.ts",
         "mission_violations": [],
-        "summary": "/**\n * P4C Content Balance Auditor Types\n * Type definitions for the Content Balance Auditor system\n */\n\nexport interface AuditResult {\n  veteranWeight: number;\n  familyWeight: number;\n  ratio: string;\n  veteranPerc: number;\n  familyPerc: number;\n  recommendations: string[];\n}\n\nexport interface RouteConfig {\n  path: string;\n  veteranWeight?: number;\n  familyWeight?: number;\n}\n\nexport interface ContentAuditorConfig {\n  veteranKeywords: string[];\n  familyKeywords: string[];\n  routeWeights: RouteConfig[];\n}\n\nexport interface ContentBalanceWidgetProps {\n  auditResult: AuditResult;\n  onRefresh: () => void;\n}\n\nexport interface ContentBalanceChartProps {\n  veteranPerc: number;\n  familyPerc: number;\n}\n\nexport type ContentType = 'veteran' | 'family' | 'neutral';\n\nexport interface StoryContent {\n  id: number;\n  name: string;\n  location: string;\n  quote: string;\n  videoLabel: string;\n  type: ContentType;\n  contentTypeDescription: string;\n}\n"
+        "summary": "/**\n * Properties 4 Creation Content Balance Auditor Types\n * Type definitions for the Content Balance Auditor system\n */\n\nexport interface AuditResult {\n  veteranWeight: number;\n  familyWeight: number;\n  ratio: string;\n  veteranPerc: number;\n  familyPerc: number;\n  recommendations: string[];\n}\n\nexport interface RouteConfig {\n  path: string;\n  veteranWeight?: number;\n  familyWeight?: number;\n}\n\nexport interface ContentAuditorConfig {\n  veteranKeywords: string[];\n  familyKeywords: string[];\n  routeWeights: RouteConfig[];\n}\n\nexport interface ContentBalanceWidgetProps {\n  auditResult: AuditResult;\n  onRefresh: () => void;\n}\n\nexport interface ContentBalanceChartProps {\n  veteranPerc: number;\n  familyPerc: number;\n}\n\nexport type ContentType = 'veteran' | 'family' | 'neutral';\n\nexport interface StoryContent {\n  id: number;\n  name: string;\n  location: string;\n  quote: string;\n  videoLabel: string;\n  type: ContentType;\n  contentTypeDescription: string;\n}\n"
       },
       {
         "path": "utils\\contentBalanceAuditor.test.ts",
         "mission_violations": [],
-        "summary": "/**\n * Content Balance Auditor Tests\n * Unit tests for the content balance auditor utility\n */\n\nimport { describe, expect, test, vi } from 'vitest';\nimport {\n  auditContentBalance,\n  analyzePropertyContent,\n  auditStoryBalance,\n  createBalancedStories,\n} from './contentBalanceAuditor';\nimport type { ExtendedProperty } from '../types';\nimport type { StoryContent } from '../types/contentBalance';\n\n// Mock error boundary service\nvi.mock('../services/errorBoundaryService', () => ({\n  logError: vi.fn(),\n}));\n\n// Test Data\ndescribe('Content Balance Auditor', () => {\n  // Mock properties for testing\n  const mockProperties: ExtendedProperty[] = [\n    {\n      id: '1',\n      title: 'Veteran-Focused Property',\n      address: '123 Main St',\n      price: 1000,\n      beds: 2,\n      baths: 1,\n      sqft: 1000,\n      imageUrl: 'test.jpg',\n      badges: ['VASH Approved'],\n      description: 'Property for veterans with VASH benefits near VA clinic',\n      amenities: [],\n      accessibilityFeatures: [],\n"
+        "summary": "import { describe, expect, test } from 'vitest';\nimport { auditContentBalance } from './contentBalanceAuditor';\n\ndescribe('Content Balance Auditor (40/30/20/10)', () => {\n  \n  test('should detect Investor content correctly', () => {\n    const mockProperties: any[] = [\n      { title: 'Fixer Upper Special', description: 'Great for investors, cash only, as-is condition.' }\n    ];\n    \n    const result = auditContentBalance(mockProperties, []);\n    \n    expect(result.percentages.investor).toBe(100);\n    expect(result.percentages.family).toBe(0);\n  });\n\n  test('should identify Community content as default', () => {\n    const mockProperties: any[] = [\n      { title: 'Affordable Apartment', description: 'Clean, safe unit in Tyler. Near grocery stores.' }\n    ];\n    \n    const result = auditContentBalance(mockProperties, []);\n    \n    expect(result.percentages.community).toBe(100);\n  });\n\n  test('should recommend changes when Veteran content is too high', () => {\n    const mockProperties: any["
       },
       {
         "path": "utils\\contentBalanceAuditor.ts",
         "mission_violations": [],
-        "summary": "/**\n * P4C Content Balance Auditor\n *  * Version: 1.0.0\n * Purpose: Analyzes the semantic weight of content to ensure a 50/50 balance\n * between Veteran and Family outreach.\n */\n\nimport type {\n  AuditResult,\n  RouteConfig,\n  ContentAuditorConfig,\n  ContentType,\n  StoryContent,\n} from '../types/contentBalance';\nimport type { ExtendedProperty } from '../types';\n\n/**\n * Default configuration for the content auditor\n */\nexport const DEFAULT_CONFIG: ContentAuditorConfig = {\n  veteranKeywords: [\n    'vash',\n    'veteran',\n    'military',\n    'va clinic',\n    'rehousing',\n    'rapid rehousing',\n    'service',\n    'armed forces',\n  ],\n  familyKeywords: [\n    'school',\n    'elementary',\n    'park',\n    'voucher',\n    'family',\n    'children',\n    'district',\n    'child',\n    'kids',\n  ],\n  routeWeights: [\n    { path: '/veterans', veteranWeight: 10 },\n    { path: '/veteran-services', veteranWeight: 10 },\n    { path: '/stories', veteranWeight: 8 },\n    { path: '/homeowner-solutions', familyWeight"
+        "summary": "import type {\n  AuditResult,\n  ContentAuditorConfig,\n  StoryContent,\n} from '../types/contentBalance';\nimport type { ExtendedProperty } from '../types';\nimport { logError } from '../services/errorBoundaryService';\n\n/**\n * Properties 4 Creation Content Balance Auditor (Community Developer Edition)\n * Purpose: Ensures content aligns with the 40/30/20/10 split:\n * - 40% Family\n * - 30% Community (General)\n * - 20% Investor/Seller\n * - 10% Veteran\n */\n\nexport const DEFAULT_CONFIG: ContentAuditorConfig = {\n  veteranKeywords: [\n    'vash', 'veteran', 'military', 'va clinic', 'service', 'hero'\n  ],\n  familyKeywords: [\n    'school', 'family', 'children', 'kids', 'backyard', 'playground', 'district'\n  ],\n  // NEW: General Public Keywords (30%)\n  communityKeywords: [\n    'affordable', 'apartment', 'rental', 'tyler', 'longview', 'market', \n    'clean', 'safe', 'quality', 'maintenance'\n  ],\n  // NEW: Investor/Seller Keywords (20%)\n  investorKeywords: [\n    'cash offer', 'sell fast', 'as-is', 'reno"
       },
       {
         "path": "utils\\formatters.ts",

@@ -48,55 +48,55 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
 
 const FAQs = [
   {
-    q: 'Do you accept Section 8 vouchers?',
-    a: 'Yes, absolutely. We accept Housing Choice Vouchers (Section 8), HUD-VASH, and Rapid Rehousing assistance for all of our properties.',
+    q: 'Do you accept Section 8 or HUD-VASH vouchers?',
+    a: 'Yes. We view Housing Choice Vouchers (Section 8) and HUD-VASH as reliable income sources. Our properties in Tyler, Longview, and Marshall are renovated to meet or exceed Housing Quality Standards (HQS), ensuring a smooth inspection and move-in process.',
   },
   {
     q: 'What is your pet policy?',
-    a: 'We are pet-friendly! We allow up to 2 pets per household with a refundable pet deposit. Breed restrictions may apply due to insurance regulations.',
+    a: 'We operate pet-friendly communities across East Texas. We allow up to 2 pets per household with a refundable pet deposit. We believe accommodating pets leads to happier, long-term residents.',
   },
   {
     q: 'Is there an application fee?',
-    a: 'No. Properties 4 Creation believes in dignity-first housing. We do not charge application fees.',
+    a: 'We have waived application fees to streamline the leasing process and remove upfront financial barriers for qualified applicants. Our goal is efficient placement in our premium rentals.',
   },
   {
     q: 'Do you perform background checks?',
-    a: 'Yes, we conduct background and credit checks to ensure community safety. However, we take a holistic view of every applicant and consider explaining circumstances.',
+    a: 'Yes, we conduct standard credit and criminal background checks to ensure community safety. However, we utilize a "Fair Chance" assessment model, reviewing each applicant\'s history in context rather than applying automatic disqualifiers.',
   },
   {
-    q: 'How long does the application process take?',
-    a: "Typically 2-3 business days. If you are using a voucher, it may take longer depending on the housing authority's inspection schedule.",
+    q: 'How long does the leasing process take?',
+    a: "Our digital application process typically takes 2-3 business days. For voucher holders, timelines may vary based on the local housing authority's inspection availability, though our pre-inspected units often pass on the first attempt.",
   },
   {
-    q: 'Do you offer month-to-month leases?',
-    a: 'Our standard lease is 12 months, but we do offer flexible terms for veterans in transitional housing programs.',
+    q: 'Do you offer flexible lease terms?',
+    a: 'Our standard agreement is a 12-month lease to ensure community stability. However, we do coordinate with specific veteran rehousing programs (like SSVF) to offer flexible terms when required by the supportive services provider.',
   },
 ];
 
 const FAQ: React.FC = () => (
   <div className="bg-p4c-beige min-h-screen py-16">
     <Helmet>
-      <title>FAQ | Properties 4 Creation</title>
+      <title>Leasing FAQ | Properties 4 Creation</title>
       <meta
         name="description"
-        content="Frequently asked questions about applying for housing, Section 8, and veteran services at Properties 4 Creation."
+        content="Common questions about leasing with Properties 4 Creation. Information on Section 8 acceptance, pet policies, and application requirements in East Texas."
       />
       <meta
         name="keywords"
-        content="housing FAQ, Section 8 questions, veteran housing FAQ, rental application process, pet policy housing, housing vouchers FAQ"
+        content="Section 8 landlord Tyler TX, HUD-VASH acceptance, pet friendly rentals Longview, no application fee apartments, housing requirements East Texas"
       />
     </Helmet>
 
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-12">
-        <div className="bg-white p-4 rounded-full inline-flex mb-4 shadow-sm">
+        <div className="bg-white p-4 rounded-full inline-flex mb-4 shadow-sm border border-gray-100">
           <HelpCircle className="w-8 h-8 text-p4c-gold" />
         </div>
         <h1 className="text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-4">
-          Frequently Asked Questions
+          Leasing & Management FAQ
         </h1>
         <p className="text-gray-600">
-          Everything you need to know about finding your home with us.
+          Information for prospective residents in the East Texas area.
         </p>
       </div>
 
