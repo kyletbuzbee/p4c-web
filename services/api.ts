@@ -1,4 +1,4 @@
-import { supabase } from '../lib/supabaseClient';
+import { supabase } from '../src/lib/supabaseClient';
 import type {
   StatMetric,
   RenovationStandard,
@@ -6,7 +6,10 @@ import type {
   ExtendedProperty,
 } from '../types';
 // Fallback data
-import { properties as mockProperties, getPropertyById } from '../data/properties';
+import {
+  properties as mockProperties,
+  getPropertyById,
+} from '../data/properties';
 
 /**
  * Enhanced API Service
@@ -24,28 +27,29 @@ const mapPropertyFromDB = (dbProp: any): ExtendedProperty => ({
   address: dbProp.address,
   city: dbProp.city || '', // New SQL field
   // Format numeric price from DB to string for UI (e.g. 1200 -> "$1,200")
-  price: typeof dbProp.price === 'number' 
-    ? `$${dbProp.price.toLocaleString()}` 
-    : dbProp.price,
-  
+  price:
+    typeof dbProp.price === 'number'
+      ? `$${dbProp.price.toLocaleString()}`
+      : dbProp.price,
+
   // Map SQL columns 'beds'/'baths' to UI expected 'bedrooms'/'bathrooms'
   beds: dbProp.beds || 0,
   bedrooms: dbProp.beds || 0, // Duplicate for compatibility
   baths: dbProp.baths || 0,
   bathrooms: dbProp.baths || 0, // Duplicate for compatibility
-  
+
   sqft: dbProp.sqft || 0,
   description: dbProp.description || '',
-  
+
   // Handle Arrays
   badges: dbProp.badges || [],
   amenities: dbProp.amenities || [],
   accessibilityFeatures: dbProp.accessibility_features || [], // New SQL field
-  
+
   // Handle Images
   imageUrl: dbProp.image_url,
   images: dbProp.image_url ? [dbProp.image_url] : [],
-  
+
   // Location & Details
   neighborhood: dbProp.neighborhood || 'East Texas',
   schoolDistrict: dbProp.school_district || 'TISD',
@@ -63,15 +67,13 @@ const mapMetricFromDB = (dbMetric: any): StatMetric => ({
   icon: dbMetric.icon_name || 'chart',
   // Fields not in DB yet, providing defaults to prevent UI crash
   description: 'Updated via live database',
-  trend: 'neutral', 
+  trend: 'neutral',
   trendValue: '',
 });
-
 
 // --- API SERVICE --------------------------------------------
 
 export const api = {
-  
   // 1. IMPACT METRICS (Live DB Connection)
   impact: {
     getMetrics: async (): Promise<StatMetric[]> => {
@@ -81,15 +83,47 @@ export const api = {
           .select('*');
 
         if (error) throw error;
-        
+
         // If DB is empty, fall back to static data so the site looks good
         if (!data || data.length === 0) {
           console.warn('No impact metrics in DB, using fallback.');
           return [
-             { id: '1', label: 'Families Housed', value: '142', icon: 'home', description: 'Total families placed.', trend: 'up', trendValue: '+12%' },
-             { id: '2', label: 'Veterans Served', value: '85', icon: 'users', description: 'Veterans housed.', trend: 'up', trendValue: '+8%' },
-             { id: '3', label: 'Properties Revitalized', value: '56', icon: 'hammer', description: 'Renovated homes.', trend: 'up', trendValue: '+5' },
-             { id: '4', label: 'Community Wealth', value: '$2.4M', icon: 'dollar', description: 'Value added.', trend: 'up', trendValue: 'Est.' },
+            {
+              id: '1',
+              label: 'Families Housed',
+              value: '142',
+              icon: 'home',
+              description: 'Total families placed.',
+              trend: 'up',
+              trendValue: '+12%',
+            },
+            {
+              id: '2',
+              label: 'Veterans Served',
+              value: '85',
+              icon: 'users',
+              description: 'Veterans housed.',
+              trend: 'up',
+              trendValue: '+8%',
+            },
+            {
+              id: '3',
+              label: 'Properties Revitalized',
+              value: '56',
+              icon: 'hammer',
+              description: 'Renovated homes.',
+              trend: 'up',
+              trendValue: '+5',
+            },
+            {
+              id: '4',
+              label: 'Community Wealth',
+              value: '$2.4M',
+              icon: 'dollar',
+              description: 'Value added.',
+              trend: 'up',
+              trendValue: 'Est.',
+            },
           ];
         }
 
@@ -117,10 +151,34 @@ export const api = {
     getStandards: async (): Promise<RenovationStandard[]> => {
       // Keeping static - likely doesn't need frequent DB updates
       return [
-        { id: 'kitchen', category: 'Kitchen Countertops', standardLandlord: 'Laminate', p4cStandard: 'Quartz/Granite', benefit: 'Durable & Dignified' },
-        { id: 'flooring', category: 'Flooring', standardLandlord: 'Carpet', p4cStandard: 'Luxury Vinyl Plank', benefit: 'Waterproof & Clean' },
-        { id: 'hvac', category: 'Climate', standardLandlord: 'Old Units', p4cStandard: 'SEER 16+', benefit: 'Lower Utility Bills' },
-        { id: 'security', category: 'Security', standardLandlord: 'Deadbolt', p4cStandard: 'Smart Locks', benefit: 'Safety First' },
+        {
+          id: 'kitchen',
+          category: 'Kitchen Countertops',
+          standardLandlord: 'Laminate',
+          p4cStandard: 'Quartz/Granite',
+          benefit: 'Durable & Dignified',
+        },
+        {
+          id: 'flooring',
+          category: 'Flooring',
+          standardLandlord: 'Carpet',
+          p4cStandard: 'Luxury Vinyl Plank',
+          benefit: 'Waterproof & Clean',
+        },
+        {
+          id: 'hvac',
+          category: 'Climate',
+          standardLandlord: 'Old Units',
+          p4cStandard: 'SEER 16+',
+          benefit: 'Lower Utility Bills',
+        },
+        {
+          id: 'security',
+          category: 'Security',
+          standardLandlord: 'Deadbolt',
+          p4cStandard: 'Smart Locks',
+          benefit: 'Safety First',
+        },
       ];
     },
   },
@@ -166,9 +224,9 @@ export const api = {
         address: property.address,
         city: property.city || 'Tyler', // Default if missing
         price: parseFloat(property.price.replace(/[^0-9.]/g, '')), // "1200" -> 1200.00
-        beds: parseInt(property.bedrooms || property.beds || 0),
+        beds: parseInt(property.bedrooms || property.beds || 0, 10),
         baths: parseFloat(property.bathrooms || property.baths || 1),
-        sqft: parseInt(property.sqft || 0),
+        sqft: parseInt(property.sqft || 0, 10),
         image_url: property.imageUrl || property.images?.[0] || '',
         description: property.description,
         badges: property.badges || [],
@@ -177,7 +235,7 @@ export const api = {
         school_district: property.schoolDistrict,
         neighborhood: property.neighborhood,
         availability_date: property.availabilityDate,
-        is_active: true
+        is_active: true,
       };
 
       const { data, error } = await supabase
@@ -192,33 +250,38 @@ export const api = {
 
     // Admin: Delete Property
     delete: async (id: string) => {
-      const { error } = await supabase
-        .from('properties')
-        .delete()
-        .eq('id', id);
+      const { error } = await supabase.from('properties').delete().eq('id', id);
 
       if (error) throw error;
       return true;
-    }
+    },
   },
 
   // 4. RESIDENT PORTAL (Matches 'maintenance_requests' & 'profiles')
   maintenance: {
     // Submit a new request
-    createRequest: async (request: { residentId: string; propertyId: string; category: string; description: string; priority: string }) => {
+    createRequest: async (request: {
+      residentId: string;
+      propertyId: string;
+      category: string;
+      description: string;
+      priority: string;
+    }) => {
       const { data, error } = await supabase
         .from('maintenance_requests')
-        .insert([{
-          resident_id: request.residentId,
-          property_id: request.propertyId,
-          issue_category: request.category,
-          description: request.description,
-          priority: request.priority,
-          status: 'open'
-        }])
+        .insert([
+          {
+            resident_id: request.residentId,
+            property_id: request.propertyId,
+            issue_category: request.category,
+            description: request.description,
+            priority: request.priority,
+            status: 'open',
+          },
+        ])
         .select()
         .single();
-        
+
       if (error) throw error;
       return data;
     },
@@ -227,15 +290,17 @@ export const api = {
     getResidentRequests: async (residentId: string) => {
       const { data, error } = await supabase
         .from('maintenance_requests')
-        .select(`
+        .select(
+          `
           *,
           properties (title, address)
-        `)
+        `
+        )
         .eq('resident_id', residentId)
         .order('created_at', { ascending: false });
 
       if (error) throw error;
       return data;
-    }
-  }
+    },
+  },
 };

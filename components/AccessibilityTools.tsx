@@ -222,6 +222,7 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
                       ? 'bg-p4c-navy text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
+                  aria-label="Normal contrast mode"
                 >
                   Normal
                 </button>
@@ -232,6 +233,7 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
                       ? 'bg-p4c-navy text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
+                  aria-label="High contrast mode"
                 >
                   High
                 </button>
@@ -242,6 +244,7 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
                       ? 'bg-p4c-navy text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
+                  aria-label="Dark high contrast mode"
                 >
                   Dark High
                 </button>
@@ -257,6 +260,7 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
                     ? 'bg-p4c-beige text-p4c-navy'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
+                aria-label={`Reading mode ${readingMode ? 'on' : 'off'}`}
               >
                 <span>Reading Mode</span>
                 <span
@@ -278,6 +282,7 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
                     ? 'bg-p4c-beige text-p4c-navy'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
+                aria-label={`Focus mode ${focusMode ? 'on' : 'off'}`}
               >
                 <span>Focus Mode</span>
                 <span
@@ -299,6 +304,7 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
                     ? 'bg-p4c-beige text-p4c-navy'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
+                aria-label={`Audio assistance ${audioAssistance ? 'on' : 'off'}`}
               >
                 <span>Audio Assistance</span>
                 <span

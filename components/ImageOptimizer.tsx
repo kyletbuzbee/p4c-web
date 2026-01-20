@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useImageFormat } from '../context/ImageFormatContext';
 
 interface ImageOptimizerProps {
   src: string;
@@ -56,31 +57,13 @@ const ImageOptimizer: React.FC<ImageOptimizerProps> = ({
       .join(', ');
   };
 
-  // Check browser WebP/AVIF support
-  const checkFormatSupport = () =>
-    new Promise<string>((resolve) => {
-      const canvas = document.createElement('canvas');
-      canvas.width = 1;
-      canvas.height = 1;
-
-      // Test AVIF support
-      const format = canvas
-        .toDataURL('image/avif')
-        .startsWith('data:image/avif')
-        ? 'avif'
-        : canvas.toDataURL('image/webp').startsWith('data:image/webp')
-          ? 'webp'
-          : 'jpeg';
-      resolve(format);
-    });
-
   useEffect(() => {
     let isMounted = true;
 
     const loadImage = async () => {
       try {
-        // Check browser support for modern formats
-        const supportedFormat = await checkFormatSupport();
+        // Get cached format support from context
+        const { supportedFormat } = useImageFormat();
 
         // Generate optimized source
         const optimizedSrc = generateOptimizedSrc(src, supportedFormat);

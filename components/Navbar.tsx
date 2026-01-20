@@ -203,18 +203,23 @@ const Navbar: React.FC = () => {
                   }`}
                   aria-expanded={activeDropdown === group.label}
                   aria-haspopup="true"
+                  aria-label={`${group.label} menu`}
                 >
                   {group.label}
                   <ChevronDown
                     className={`ml-1 w-3 h-3 transition-transform duration-200 ${
                       activeDropdown === group.label ? 'rotate-180' : ''
                     }`}
+                    aria-hidden="true"
                   />
                 </button>
 
                 {/* Dropdown Menu */}
                 {activeDropdown === group.label && (
-                  <div className="absolute top-full left-0 w-72 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden animate-fade-in-up">
+                  <div
+                    className="absolute top-full left-0 w-72 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden animate-fade-in-up"
+                    role="menu"
+                  >
                     <div className="py-2">
                       {group.children?.map((child) => (
                         <button
@@ -223,6 +228,7 @@ const Navbar: React.FC = () => {
                           onKeyDown={(e) => handleKeyDown(e, child.path)}
                           className="w-full text-left px-4 py-3 hover:bg-gray-50 flex items-start gap-3 group/item transition-colors"
                           role="menuitem"
+                          aria-label={`${child.label} - ${child.desc}`}
                         >
                           <div className="mt-1 p-1.5 bg-p4c-beige rounded-md text-p4c-navy group-hover/item:bg-p4c-navy group-hover/item:text-p4c-gold transition-colors">
                             {child.icon}
@@ -247,6 +253,7 @@ const Navbar: React.FC = () => {
             <button
               onClick={() => handleNavClick('/contact')}
               className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium"
+              aria-label="Contact us"
             >
               Contact
             </button>
@@ -259,15 +266,16 @@ const Navbar: React.FC = () => {
               className="text-gray-400 hover:text-p4c-gold p-2 rounded-full"
               aria-label="Staff Dashboard"
             >
-              <LayoutDashboard className="w-4 h-4" />
+              <LayoutDashboard className="w-4 h-4" aria-hidden="true" />
             </button>
 
             {/* Sell Your House CTA */}
             <Link
               to="/homeowner-solutions"
               className="bg-p4c-gold text-p4c-navy px-5 py-2.5 rounded-xl font-bold hover:bg-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 mr-3 text-sm flex items-center gap-2"
+              aria-label="Sell your house - Homeowner solutions"
             >
-              <Building2 className="w-4 h-4" />
+              <Building2 className="w-4 h-4" aria-hidden="true" />
               Sell Your House
             </Link>
 
@@ -275,6 +283,7 @@ const Navbar: React.FC = () => {
             <button
               onClick={() => handleNavClick('/apply')}
               className="bg-p4c-navy border border-p4c-gold text-p4c-gold hover:bg-p4c-gold hover:text-p4c-navy px-5 py-2.5 rounded-xl font-bold text-sm transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              aria-label="Apply now for tenant application"
             >
               Apply Now
             </button>
@@ -313,6 +322,7 @@ const Navbar: React.FC = () => {
                       key={child.label}
                       onClick={() => handleNavClick(child.path)}
                       className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 text-gray-300 hover:text-white transition-colors text-left"
+                      aria-label={`${child.label} - ${child.desc}`}
                     >
                       <div className="text-p4c-gold">{child.icon}</div>
                       <div>
@@ -330,13 +340,16 @@ const Navbar: React.FC = () => {
               <button
                 onClick={() => handleNavClick('/homeowner-solutions')}
                 className="w-full bg-p4c-gold text-p4c-navy hover:bg-white px-6 py-3 rounded-lg font-bold flex items-center justify-center gap-2"
+                aria-label="Sell your house fast - Homeowner solutions"
               >
-                <Building2 className="w-4 h-4" /> Sell Your House Fast
+                <Building2 className="w-4 h-4" aria-hidden="true" /> Sell Your
+                House Fast
               </button>
 
               <button
                 onClick={() => handleNavClick('/apply')}
                 className="w-full bg-p4c-navy border border-p4c-gold text-p4c-gold hover:bg-p4c-goldHover hover:text-p4c-navy px-6 py-3 rounded-lg font-bold"
+                aria-label="Start tenant application process"
               >
                 Start Tenant Application
               </button>
@@ -344,8 +357,9 @@ const Navbar: React.FC = () => {
               <button
                 onClick={() => handleNavClick('/contact')}
                 className="w-full flex items-center justify-center gap-3 p-2 text-gray-400 hover:text-white"
+                aria-label="Contact office for assistance"
               >
-                <Phone className="w-4 h-4" /> Contact Office
+                <Phone className="w-4 h-4" aria-hidden="true" /> Contact Office
               </button>
             </div>
           </div>

@@ -18,19 +18,19 @@ export interface ExtendedProperty extends Property {
   neighborhood: string;
   schoolDistrict: string;
   availabilityDate: string;
-  
+
   // Arrays
   amenities: string[];
   accessibilityFeatures: string[];
   images: string[]; // For galleries
-  
+
   // Status
   status: 'available' | 'occupied' | 'maintenance';
-  
+
   // Compatibility helpers (handles DB column naming differences)
   bedrooms?: number;
   bathrooms?: number;
-  
+
   // Optional / Legacy
   yearBuilt?: number;
   location?: {
@@ -45,9 +45,9 @@ export interface StatMetric {
   label: string;
   value: string;
   icon: string;
-  description: string;
-  trend: 'up' | 'down' | 'neutral';
-  trendValue: string;
+  description?: string;
+  trend?: 'up' | 'down' | 'neutral';
+  trendValue?: string;
 }
 
 export interface FinancialBreakdown {
@@ -77,4 +77,4 @@ export interface UserProfile {
   role: 'admin' | 'tenant' | 'guest';
   name?: string;
   permissions?: string[];
-} 
+}

@@ -10,6 +10,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { ToastProvider } from './context/ToastContext';
 import { AuthProvider } from './context/AuthContext';
 import { DarkModeProvider } from './context/DarkModeContext';
+import { ImageFormatProvider } from './context/ImageFormatContext';
 import CookieConsent from './components/CookieConsent';
 import AccessibilityTools from './components/AccessibilityTools';
 import { Loader2 } from 'lucide-react';
@@ -104,15 +105,17 @@ function App() {
       <ToastProvider>
         <ErrorBoundary>
           <DarkModeProvider>
-            <AuthProvider>
-              <div className="font-sans antialiased text-p4c-navy bg-p4c-beige min-h-screen flex flex-col">
-                <SkipLink />
-                <ScrollToTop />
-                <Routes>
-                  <Route path="*" element={<StandardLayout />} />
-                </Routes>
-              </div>
-            </AuthProvider>
+            <ImageFormatProvider>
+              <AuthProvider>
+                <div className="font-sans antialiased text-p4c-navy bg-p4c-beige min-h-screen flex flex-col">
+                  <SkipLink />
+                  <ScrollToTop />
+                  <Routes>
+                    <Route path="*" element={<StandardLayout />} />
+                  </Routes>
+                </div>
+              </AuthProvider>
+            </ImageFormatProvider>
           </DarkModeProvider>
         </ErrorBoundary>
       </ToastProvider>
