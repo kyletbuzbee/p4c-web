@@ -89,6 +89,9 @@ export const IMAGES = {
     // FAQ Page
     HERO_FAQ: '/images/banners/hero-faq-banner.webp',
 
+    // Community Impact Page
+    HERO_COMMUNITY_IMPACT: '/images/banners/hero-community-impact-banner.png',
+
     // Get Started / Success Story Page
     HERO_SUCCESS_STORY: '/images/banners/hero-get-started-banner.webp',
     HERO_SUCCESS_STORY_640: '/images/banners/hero-get-started-banner-640.webp',
@@ -182,13 +185,20 @@ export const IMAGES = {
       '/images/our-work-gallery/projects-after-living-room.webp',
   },
 
-  // Videos
-  VIDEOS: {
-    HOME: '/images/videos/home.mp4',
-    HERO_PROJECTS: '/images/videos/hero-projects-banner.mp4',
-    HERO_WORK: '/images/videos/hero-our-work-banner.mp4',
-    HERO_IMPACT: '/images/videos/hero-our-impact.mp4',
-    HERO_SPOTLIGHT: '/images/videos/hero-spotlight-banner.mp4',
-    SUCCESS_STORY: '/images/videos/success-story.mp4',
+  // Family Lifestyle Images
+  FAMILY: {
+    BACKYARD: '/images/family/family-backyard.png',
+    KITCHEN_DINNER: '/images/family/family-kitchen-dinner.png',
   },
+
+  // Videos
+    VIDEOS: {
+      HOME: '/images/videos/home.mp4',
+      HERO_PROJECTS: '/images/videos/hero-projects-banner.mp4',
+      HERO_WORK: '/images/videos/hero-our-work-banner.mp4',
+      HERO_OUR_WORK: '/images/videos/Hero-Our-Work-Video.mp4',
+      HERO_IMPACT: '/images/videos/hero-our-impact.mp4',
+      HERO_SPOTLIGHT: '/images/videos/hero-spotlight-banner.mp4',
+      SUCCESS_STORY: '/images/videos/success-stories.mp4',
+    },
 } as const;

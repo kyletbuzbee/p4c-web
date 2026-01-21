@@ -18,7 +18,7 @@ export const properties: ExtendedProperty[] = [
     baths: 2,
     sqft: 1450,
     description:
-      'Beautifully renovated family home featuring quartz countertops, modern HVAC system, and a spacious fenced backyard perfect for children and pets. Located within walking distance of Douglas Elementary School, one of the top-rated schools in Tyler ISD.',
+      'Beautifully renovated home in the heart of Tyler, featuring quartz countertops, modern HVAC system, and a spacious fenced backyard. This property contributes to the revitalization of the Azalea District neighborhood, offering premium affordable housing in East Texas. Located within walking distance of local schools and community amenities.',
     imageUrl: IMAGES.PROPERTIES.TYLER_RANCH,
     images: [IMAGES.PROPERTIES.TYLER_RANCH],
     badges: ['Family Friendly', 'Top Rated Schools'],
@@ -53,7 +53,7 @@ export const properties: ExtendedProperty[] = [
     baths: 1.5,
     sqft: 1100,
     description:
-      'Charming bungalow perfect for small families. Features energy-efficient appliances, dedicated parking, and access to a community garden. Located in a quiet, family-friendly neighborhood with excellent schools nearby.',
+      'Charming bungalow in Longview featuring energy-efficient appliances, dedicated parking, and access to a community garden. This property supports our mission of providing quality housing in East Texas communities. Located in the Pine Tree neighborhood, close to local amenities and schools.',
     imageUrl: IMAGES.PROPERTIES.MINEOLA_STUDIO,
     images: [IMAGES.PROPERTIES.MINEOLA_STUDIO],
     badges: ['Cozy Family Home', 'Energy Efficient'],
@@ -87,7 +87,7 @@ export const properties: ExtendedProperty[] = [
     baths: 2,
     sqft: 1800,
     description:
-      'Spacious family home with open floor plan perfect for growing families. Brand new luxury vinyl plank flooring throughout and modernized kitchen. Features a covered patio for family gatherings and a detached garage. Located in a safe, family-oriented neighborhood.',
+      'Spacious home with open floor plan featuring brand new luxury vinyl plank flooring and modernized kitchen. This Marshall property includes a covered patio and detached garage, contributing to the revitalization of the Historic District neighborhood in East Texas. Located in a well-established community with local character.',
     imageUrl: IMAGES.PROPERTIES.MARSHALL_FARMHOUSE,
     images: [IMAGES.PROPERTIES.MARSHALL_FARMHOUSE],
     badges: ['Family Size', 'Top Rated Schools'],
@@ -117,7 +117,7 @@ export const properties: ExtendedProperty[] = [
     baths: 2,
     sqft: 1600,
     description:
-      'Beautifully restored modern family home with open concept living area perfect for family time. LED lighting throughout and brand new thermal insulation to keep your family comfortable year-round. Located in a vibrant downtown area with family-friendly amenities nearby.',
+      'Beautifully restored modern home with open concept living area, featuring LED lighting and brand new thermal insulation for year-round comfort. This Downtown Tyler property offers urban living with easy access to local businesses and community events, supporting the revitalization of Tyler\'s historic core.',
     imageUrl: IMAGES.PROPERTIES.LONGVIEW_VICTORIAN,
     images: [IMAGES.PROPERTIES.LONGVIEW_VICTORIAN],
     badges: ['New Construction', 'Family Paradise'],
@@ -147,7 +147,7 @@ export const properties: ExtendedProperty[] = [
     baths: 1,
     sqft: 950,
     description:
-      'Affordable duplex perfect for small families, recently updated with fresh paint and new appliances. Features a large shared yard ideal for children and pets to play. Close to public transit and family-friendly amenities.',
+      'Affordable duplex in Kilgore, recently updated with fresh paint and new appliances. Features a large shared yard and convenient access to public transit. This property provides quality housing in the Sycamore Grove neighborhood, supporting our community development efforts in East Texas.',
     imageUrl: IMAGES.PROPERTIES.KEMP_TOWNHOME,
     images: [IMAGES.PROPERTIES.KEMP_TOWNHOME],
     badges: ['Affordable Family Home', 'Pet Friendly'],
@@ -177,7 +177,7 @@ export const properties: ExtendedProperty[] = [
     baths: 2.5,
     sqft: 1750,
     description:
-      'Beautiful brick home in the highly sought-after Lindale school district, perfect for families. Features a double vanity, large soaking tub for relaxing baths, and a cozy fireplace for family evenings. Spacious layout ideal for growing families.',
+      'Beautiful brick home in Lindale featuring a double vanity, large soaking tub, and cozy fireplace. This property in the Eagle Creek neighborhood offers quality housing in East Texas, with a spacious layout and premium amenities. Located in a growing community with excellent local character and amenities.',
     imageUrl: IMAGES.PROPERTIES.LINDALE_COTTAGE,
     images: [IMAGES.PROPERTIES.LINDALE_COTTAGE],
     badges: ['Family Dream Home', 'Top Rated Schools'],
