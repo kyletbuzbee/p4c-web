@@ -22,6 +22,8 @@ export interface ExtendedProperty {
     lat: number;
     lng: number;
   };
+  beds?: number;
+  baths?: number;
 }
 
 export interface StatMetric {

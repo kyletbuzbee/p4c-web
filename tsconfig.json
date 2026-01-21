@@ -43,7 +43,6 @@
     "useDefineForClassFields": false,
 
     /* Enhanced Path Mapping */
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
       "@/components/*": ["./components/*"],
