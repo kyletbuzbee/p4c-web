@@ -192,13 +192,13 @@ export const IMAGES = {
   },
 
   // Videos
-    VIDEOS: {
-      HOME: '/images/videos/home.mp4',
-      HERO_PROJECTS: '/images/videos/hero-projects-banner.mp4',
-      HERO_WORK: '/images/videos/hero-our-work-banner.mp4',
-      HERO_OUR_WORK: '/images/videos/Hero-Our-Work-Video.mp4',
-      HERO_IMPACT: '/images/videos/hero-our-impact.mp4',
-      HERO_SPOTLIGHT: '/images/videos/hero-spotlight-banner.mp4',
-      SUCCESS_STORY: '/images/videos/success-stories.mp4',
-    },
+  VIDEOS: {
+    HOME: '/images/videos/home.mp4',
+    HERO_PROJECTS: '/images/videos/hero-projects-banner.mp4',
+    HERO_WORK: '/images/videos/hero-our-work-banner.mp4',
+    HERO_OUR_WORK: '/images/videos/Hero-Our-Work-Video.mp4',
+    HERO_IMPACT: '/images/videos/hero-our-impact.mp4',
+    HERO_SPOTLIGHT: '/images/videos/hero-spotlight-banner.mp4',
+    SUCCESS_STORY: '/images/videos/success-stories.mp4',
+  },
 } as const;

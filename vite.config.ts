@@ -40,7 +40,7 @@ export default defineConfig(({ mode }) => {
           'max-age=31536000; includeSubDomains; preload',
         // Content Security Policy - XSS Prevention
         'Content-Security-Policy':
-          "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://p4c-web.onrender.com https://generativelanguage.googleapis.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;",
+          "default-src 'self'; script-src 'self' 'unsafe-inline'; script-src-elem 'self' https://esm.sh; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://p4c-web.onrender.com https://generativelanguage.googleapis.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;",
       },
       proxy: {
         // Proxy API calls to secure server

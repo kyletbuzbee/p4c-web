@@ -117,7 +117,7 @@ export const properties: ExtendedProperty[] = [
     baths: 2,
     sqft: 1600,
     description:
-      'Beautifully restored modern home with open concept living area, featuring LED lighting and brand new thermal insulation for year-round comfort. This Downtown Tyler property offers urban living with easy access to local businesses and community events, supporting the revitalization of Tyler\'s historic core.',
+      "Beautifully restored modern home with open concept living area, featuring LED lighting and brand new thermal insulation for year-round comfort. This Downtown Tyler property offers urban living with easy access to local businesses and community events, supporting the revitalization of Tyler's historic core.",
     imageUrl: IMAGES.PROPERTIES.LONGVIEW_VICTORIAN,
     images: [IMAGES.PROPERTIES.LONGVIEW_VICTORIAN],
     badges: ['New Construction', 'Family Paradise'],
