@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable no-console */
 
 import { auditContentBalance } from '../utils/contentBalanceAuditor.ts';
 import { properties } from '../data/properties.ts';
@@ -23,17 +24,12 @@ const stories = [
   },
 ];
 
-console.log('🔍 Running Content Balance Audit...');
-console.log('=================================');
-
 try {
   // Run the content audit
   const auditResult = auditContentBalance(properties, stories);
 
-  console.log('📊 Content Distribution Results:');
-  console.log(`Family: ${auditResult.percentages.family}% (Target: 40%)`);
   console.log(`Community: ${auditResult.percentages.community}% (Target: 30%)`);
-  console.log(`Investor: ${auditResult.percentages.investor}% (Target: 20%)`);
+
   console.log(`Veteran: ${auditResult.percentages.veteran}% (Target: 10%)`);
   console.log('');
   console.log(`📈 Dominant Category: ${auditResult.dominantCategory}`);
