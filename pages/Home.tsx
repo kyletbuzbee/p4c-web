@@ -70,7 +70,7 @@ const Home: React.FC = () => {
           property.description.toLowerCase().includes(query);
 
         // Price Filter
-        const matchesPrice = property.price <= maxPrice;
+        const matchesPrice = typeof property.price === 'number' ? property.price <= maxPrice : parseFloat(property.price.replace(/[^0-9.]/g, '')) <= maxPrice;
 
         // Bed Filter
         const matchesBeds = property.beds >= minBeds;

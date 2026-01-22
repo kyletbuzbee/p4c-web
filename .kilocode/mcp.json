@@ -25,7 +25,7 @@
       "args": [
         "-y",
         "@modelcontextprotocol/server-filesystem",
-        "C:/p4c-web"
+        "C:\\p4c-web"
       ]
     },
     "git": {
@@ -71,7 +71,7 @@
         "-y",
         "@supabase/mcp-server-supabase@0.5.5",
         "--access-token",
-        "abjscrezxkqrzwgmufzr"
+        "sb_secret_-riY6h1GWkRRsqOXtoLBSQ_Iz_To1dm"
       ]
     }
   }
