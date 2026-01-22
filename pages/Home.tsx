@@ -31,7 +31,7 @@ const Home: React.FC = () => {
   const [selectedBadges, setSelectedBadges] = useState<string[]>([]);
   const [arv, setArv] = useState<number>(0);
   const [repairs, setRepairs] = useState<number>(0);
-  const offerPrice = (arv * 0.70) - repairs;
+  const offerPrice = arv * 0.7 - repairs;
 
   // Fetch properties on component mount
   useEffect(() => {
@@ -514,14 +514,16 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-
       {/* Impact Section - Renovation Standard */}
       <section className="py-20 bg-p4c-navy">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl">
               <video
-                autoPlay loop muted playsInline
+                autoPlay
+                loop
+                muted
+                playsInline
                 className="absolute inset-0 w-full h-full object-cover opacity-60"
                 src="/images/videos/hero-our-work-banner.mp4"
               />

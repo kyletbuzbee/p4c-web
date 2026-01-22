@@ -22,7 +22,10 @@ const Community: React.FC = () => {
       {/* Hero Section with Video Background */}
       <div className="relative h-[500px] w-full overflow-hidden flex items-center justify-center">
         <video
-          autoPlay loop muted playsInline
+          autoPlay
+          loop
+          muted
+          playsInline
           className="absolute inset-0 w-full h-full object-cover"
           src="/images/videos/hero-our-work-banner.mp4"
         />
@@ -59,8 +62,8 @@ const Community: React.FC = () => {
                 Acquisition
               </h3>
               <p className="text-gray-600 mb-6">
-                Identifying distressed properties in Tyler, Longview, and Marshall
-                that have potential for transformation.
+                Identifying distressed properties in Tyler, Longview, and
+                Marshall that have potential for transformation.
               </p>
               <div className="relative h-48 rounded-xl overflow-hidden shadow-md">
                 <img
@@ -80,8 +83,8 @@ const Community: React.FC = () => {
                 Rehabilitation
               </h3>
               <p className="text-gray-600 mb-6">
-                Professional renovation to modern standards with high-end finishes
-                that ensure longevity and tenant satisfaction.
+                Professional renovation to modern standards with high-end
+                finishes that ensure longevity and tenant satisfaction.
               </p>
               <div className="relative h-48 rounded-xl overflow-hidden shadow-md">
                 <img
@@ -123,10 +126,11 @@ const Community: React.FC = () => {
                 Investor Opportunities
               </h2>
               <p className="text-gray-600 mb-6 leading-relaxed">
-                Properties 4 Creation offers accredited investors the opportunity
-                to participate in our proven real estate investment strategy.
-                With a focus on East Texas markets, we deliver consistent returns
-                through value-add acquisitions and professional management.
+                Properties 4 Creation offers accredited investors the
+                opportunity to participate in our proven real estate investment
+                strategy. With a focus on East Texas markets, we deliver
+                consistent returns through value-add acquisitions and
+                professional management.
               </p>
               <p className="text-gray-600 mb-8 leading-relaxed">
                 Our portfolio includes single-family residences, multi-family
@@ -136,13 +140,17 @@ const Community: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-6 mb-8">
                 <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100">
-                  <div className="text-3xl font-bold text-p4c-gold mb-2">12-15%</div>
+                  <div className="text-3xl font-bold text-p4c-gold mb-2">
+                    12-15%
+                  </div>
                   <div className="text-sm text-gray-500 uppercase tracking-wide">
                     Target Annual Returns
                   </div>
                 </div>
                 <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100">
-                  <div className="text-3xl font-bold text-p4c-gold mb-2">3-5 yrs</div>
+                  <div className="text-3xl font-bold text-p4c-gold mb-2">
+                    3-5 yrs
+                  </div>
                   <div className="text-sm text-gray-500 uppercase tracking-wide">
                     Investment Horizon
                   </div>
@@ -169,7 +177,9 @@ const Community: React.FC = () => {
                 <div className="flex items-center gap-3">
                   <DollarSign className="w-6 h-6 text-p4c-gold" />
                   <div>
-                    <div className="font-bold text-p4c-navy">Accredited Investors</div>
+                    <div className="font-bold text-p4c-navy">
+                      Accredited Investors
+                    </div>
                     <div className="text-sm text-gray-600">
                       Minimum $50,000 investment
                     </div>
@@ -188,7 +198,9 @@ const Community: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div className="px-4 py-4">
               <div className="text-4xl font-bold text-p4c-gold mb-2">50+</div>
-              <div className="font-bold text-p4c-navy">Properties Revitalized</div>
+              <div className="font-bold text-p4c-navy">
+                Properties Revitalized
+              </div>
               <div className="text-sm text-gray-500 mt-1">
                 In Tyler and Longview
               </div>
@@ -202,7 +214,9 @@ const Community: React.FC = () => {
             </div>
             <div className="px-4 py-4">
               <div className="text-4xl font-bold text-p4c-gold mb-2">$15M+</div>
-              <div className="font-bold text-p4c-navy">Community Investment</div>
+              <div className="font-bold text-p4c-navy">
+                Community Investment
+              </div>
               <div className="text-sm text-gray-500 mt-1">
                 In East Texas Economy
               </div>
@@ -228,7 +242,8 @@ const Community: React.FC = () => {
               </button>
             </div>
             <p className="text-gray-600 mb-6">
-              Please contact us to learn more about our investment opportunities.
+              Please contact us to learn more about our investment
+              opportunities.
             </p>
             <button
               onClick={() => {

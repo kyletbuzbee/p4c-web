@@ -254,7 +254,9 @@ const HomeownerSolutions: React.FC = () => {
                   <span className="text-white font-bold text-lg">P</span>
                 </div>
                 <div>
-                  <h3 className="font-bold text-p4c-navy">Properties 4 Creation Team</h3>
+                  <h3 className="font-bold text-p4c-navy">
+                    Properties 4 Creation Team
+                  </h3>
                   <p className="text-sm text-gray-600">East Texas</p>
                 </div>
               </div>

@@ -7,33 +7,32 @@ const Reviews: React.FC = () => {
   const videos = [
     {
       id: 1,
-      poster: "/images/resident-review/resident-review-mark.png",
-      src: "/images/videos/hero-our-work-banner.mp4",
+      poster: '/images/resident-review/resident-review-mark.png',
+      src: '/images/videos/hero-our-work-banner.mp4',
       title: "Mark's Experience",
-      description: "Mark shares his experience living in our Tyler property"
+      description: 'Mark shares his experience living in our Tyler property',
     },
     {
       id: 2,
-      poster: "/images/resident-review/resident-review-alex.png",
-      src: "/images/videos/hero-our-work-banner.mp4",
+      poster: '/images/resident-review/resident-review-alex.png',
+      src: '/images/videos/hero-our-work-banner.mp4',
       title: "Alex's Story",
-      description: "Alex talks about the application process and move-in experience"
+      description:
+        'Alex talks about the application process and move-in experience',
     },
     {
       id: 3,
-      poster: "/images/resident-review/resident-review-sarah.png",
-      src: "/images/videos/hero-our-work-banner.mp4",
+      poster: '/images/resident-review/resident-review-sarah.png',
+      src: '/images/videos/hero-our-work-banner.mp4',
       title: "Sarah's Review",
-      description: "Sarah discusses the maintenance response and community"
+      description: 'Sarah discusses the maintenance response and community',
     },
   ];
 
   return (
     <div className="bg-p4c-beige min-h-screen">
       <Helmet>
-        <title>
-          Resident Reviews & Testimonials | Properties 4 Creation
-        </title>
+        <title>Resident Reviews & Testimonials | Properties 4 Creation</title>
         <meta
           name="description"
           content="Read and watch real reviews from residents living in Properties 4 Creation homes in Tyler, Longview, and Marshall, Texas."
@@ -60,7 +59,8 @@ const Reviews: React.FC = () => {
             Resident Voices
           </h1>
           <p className="text-xl text-gray-200 font-light max-w-2xl mx-auto">
-            Real stories from families and individuals who call our properties home
+            Real stories from families and individuals who call our properties
+            home
           </p>
         </div>
       </div>
@@ -79,7 +79,10 @@ const Reviews: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {videos.map((video) => (
-              <div key={video.id} className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow">
+              <div
+                key={video.id}
+                className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow"
+              >
                 <div className="relative h-64">
                   <img
                     src={video.poster}
@@ -88,14 +91,20 @@ const Reviews: React.FC = () => {
                   />
                   <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
                     <button className="bg-p4c-gold/80 hover:bg-p4c-gold text-p4c-navy w-16 h-16 rounded-full flex items-center justify-center transition-all">
-                      <svg className="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z"/>
+                      <svg
+                        className="w-6 h-6 ml-1"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M8 5v14l11-7z" />
                       </svg>
                     </button>
                   </div>
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-p4c-navy mb-2">{video.title}</h3>
+                  <h3 className="text-xl font-bold text-p4c-navy mb-2">
+                    {video.title}
+                  </h3>
                   <p className="text-gray-600 mb-4">{video.description}</p>
                   <div className="flex items-center gap-2">
                     <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
@@ -133,9 +142,10 @@ const Reviews: React.FC = () => {
                 </div>
               </div>
               <p className="text-gray-600 mb-6 leading-relaxed">
-                "We've been living in our Properties 4 Creation home for 2 years now and couldn't be happier.
-                The application process was smooth, maintenance requests are handled promptly, and the
-                neighborhood is safe and family-friendly. Our kids love the nearby parks!"
+                "We've been living in our Properties 4 Creation home for 2 years
+                now and couldn't be happier. The application process was smooth,
+                maintenance requests are handled promptly, and the neighborhood
+                is safe and family-friendly. Our kids love the nearby parks!"
               </p>
               <div className="flex items-center gap-2">
                 <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
@@ -157,9 +167,11 @@ const Reviews: React.FC = () => {
                 </div>
               </div>
               <p className="text-gray-600 mb-6 leading-relaxed">
-                "As a veteran, I was struggling to find stable housing until I found Properties 4 Creation.
-                The team worked with my VA benefits and had me moved in within a week. The property is
-                well-maintained and the management is responsive. Highly recommend!"
+                "As a veteran, I was struggling to find stable housing until I
+                found Properties 4 Creation. The team worked with my VA benefits
+                and had me moved in within a week. The property is
+                well-maintained and the management is responsive. Highly
+                recommend!"
               </p>
               <div className="flex items-center gap-2">
                 <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
@@ -177,13 +189,16 @@ const Reviews: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="font-bold text-p4c-navy">Sarah Williams</h4>
-                  <p className="text-sm text-gray-500">Marshall, TX - 6 Months</p>
+                  <p className="text-sm text-gray-500">
+                    Marshall, TX - 6 Months
+                  </p>
                 </div>
               </div>
               <p className="text-gray-600 mb-6 leading-relaxed">
-                "The renovation quality is impressive! Everything was brand new when we moved in -
-                appliances, flooring, paint. The property management team is professional and actually
-                cares about tenant satisfaction. Best rental experience I've had."
+                "The renovation quality is impressive! Everything was brand new
+                when we moved in - appliances, flooring, paint. The property
+                management team is professional and actually cares about tenant
+                satisfaction. Best rental experience I've had."
               </p>
               <div className="flex items-center gap-2">
                 <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
@@ -205,9 +220,10 @@ const Reviews: React.FC = () => {
                 </div>
               </div>
               <p className="text-gray-600 mb-6 leading-relaxed">
-                "We were hesitant about renting after some bad experiences, but Properties 4 Creation
-                changed our minds. The online portal makes rent payment easy, maintenance is quick,
-                and the community events help us feel connected to our neighbors."
+                "We were hesitant about renting after some bad experiences, but
+                Properties 4 Creation changed our minds. The online portal makes
+                rent payment easy, maintenance is quick, and the community
+                events help us feel connected to our neighbors."
               </p>
               <div className="flex items-center gap-2">
                 <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
@@ -246,13 +262,15 @@ const Reviews: React.FC = () => {
                   The Johnson Family
                 </h3>
                 <p className="text-gray-600 mb-4 leading-relaxed">
-                  After struggling with unstable housing for years, the Johnson family found stability
-                  through our Section 8 program. With three children in Tyler ISD schools, they needed
-                  a safe, long-term home near good schools.
+                  After struggling with unstable housing for years, the Johnson
+                  family found stability through our Section 8 program. With
+                  three children in Tyler ISD schools, they needed a safe,
+                  long-term home near good schools.
                 </p>
                 <p className="text-gray-600 mb-6 leading-relaxed">
-                  "Properties 4 Creation didn't just give us a house - they gave us hope. Our kids have
-                  thrived in their new school, and we finally feel like we have a real home."
+                  "Properties 4 Creation didn't just give us a house - they gave
+                  us hope. Our kids have thrived in their new school, and we
+                  finally feel like we have a real home."
                 </p>
                 <div className="flex items-center gap-4">
                   <img
@@ -261,8 +279,12 @@ const Reviews: React.FC = () => {
                     className="w-12 h-12"
                   />
                   <div>
-                    <div className="font-bold text-p4c-navy">Properties 4 Creation Team</div>
-                    <div className="text-sm text-gray-500">Helping families since 2018</div>
+                    <div className="font-bold text-p4c-navy">
+                      Properties 4 Creation Team
+                    </div>
+                    <div className="text-sm text-gray-500">
+                      Helping families since 2018
+                    </div>
                   </div>
                 </div>
               </div>
@@ -273,9 +295,10 @@ const Reviews: React.FC = () => {
                   <h4 className="font-bold text-p4c-navy">Our Commitment</h4>
                 </div>
                 <p className="text-gray-600 text-sm">
-                  We believe everyone deserves a safe, dignified place to call home.
-                  Through our community partnerships and housing programs, we've helped
-                  over 200 families achieve housing stability in East Texas.
+                  We believe everyone deserves a safe, dignified place to call
+                  home. Through our community partnerships and housing programs,
+                  we've helped over 200 families achieve housing stability in
+                  East Texas.
                 </p>
               </div>
             </div>

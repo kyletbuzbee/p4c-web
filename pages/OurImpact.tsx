@@ -80,7 +80,10 @@ const OurImpact: React.FC = () => {
           className="absolute top-0 left-0 w-full h-full object-cover"
           aria-label="Impact hero background video showcasing our projects"
         >
-          <source src="/images/videos/hero-our-work-banner.mp4" type="video/mp4" />
+          <source
+            src="/images/videos/hero-our-work-banner.mp4"
+            type="video/mp4"
+          />
         </video>
         <div className="absolute top-0 left-0 w-full h-full hero-overlay-primary" />
         <div className="absolute top-0 left-0 w-full h-full hero-overlay-secondary" />
@@ -313,7 +316,10 @@ const OurImpact: React.FC = () => {
               <p className="text-sm text-gray-500 mb-4">
                 Interested in partnership opportunities?
               </p>
-              <a href="/contact" className="w-full border-2 border-p4c-navy text-p4c-navy font-bold py-2 rounded hover:bg-p4c-navy hover:text-white transition-colors inline-block">
+              <a
+                href="/contact"
+                className="w-full border-2 border-p4c-navy text-p4c-navy font-bold py-2 rounded hover:bg-p4c-navy hover:text-white transition-colors inline-block"
+              >
                 Request Investor Prospectus
               </a>
             </div>

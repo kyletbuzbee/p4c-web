@@ -126,7 +126,9 @@ const About: React.FC = () => (
               className="bg-white p-8 rounded-xl shadow-sm hover:shadow-lg transition-all border-t-4 border-p4c-gold"
             >
               <div className="bg-p4c-navy/5 w-14 h-14 rounded-xl flex items-center justify-center mb-6">
-                <span className="text-xl font-bold text-p4c-navy">{value.year}</span>
+                <span className="text-xl font-bold text-p4c-navy">
+                  {value.year}
+                </span>
               </div>
               <h3 className="text-xl font-bold text-p4c-navy mb-3">
                 {value.title}

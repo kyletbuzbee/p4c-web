@@ -65,7 +65,8 @@ const Contact: React.FC = () => {
             Contact Us
           </h1>
           <p className="text-xl text-gray-200 font-light max-w-2xl mx-auto">
-            We're here to help with leasing, maintenance, and investment inquiries
+            We're here to help with leasing, maintenance, and investment
+            inquiries
           </p>
         </div>
       </div>

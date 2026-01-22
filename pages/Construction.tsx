@@ -57,7 +57,9 @@ const Construction: React.FC = () => {
               <div className="bg-p4c-navy/5 w-14 h-14 rounded-xl flex items-center justify-center mb-6">
                 <span className="text-xl font-bold text-p4c-navy">01</span>
               </div>
-              <h3 className="text-xl font-bold text-p4c-navy mb-4">Assessment</h3>
+              <h3 className="text-xl font-bold text-p4c-navy mb-4">
+                Assessment
+              </h3>
               <p className="text-gray-600">
                 Comprehensive property evaluation and scope of work development
               </p>
@@ -77,7 +79,9 @@ const Construction: React.FC = () => {
               <div className="bg-p4c-navy/5 w-14 h-14 rounded-xl flex items-center justify-center mb-6">
                 <span className="text-xl font-bold text-p4c-navy">03</span>
               </div>
-              <h3 className="text-xl font-bold text-p4c-navy mb-4">Execution</h3>
+              <h3 className="text-xl font-bold text-p4c-navy mb-4">
+                Execution
+              </h3>
               <p className="text-gray-600">
                 Professional construction with quality control at every stage
               </p>
@@ -87,7 +91,9 @@ const Construction: React.FC = () => {
               <div className="bg-p4c-navy/5 w-14 h-14 rounded-xl flex items-center justify-center mb-6">
                 <span className="text-xl font-bold text-p4c-navy">04</span>
               </div>
-              <h3 className="text-xl font-bold text-p4c-navy mb-4">Final Inspection</h3>
+              <h3 className="text-xl font-bold text-p4c-navy mb-4">
+                Final Inspection
+              </h3>
               <p className="text-gray-600">
                 Rigorous quality assurance and certification
               </p>
@@ -103,8 +109,9 @@ const Construction: React.FC = () => {
                 Our Construction Standards
               </h2>
               <p className="text-gray-600 mb-8 leading-relaxed">
-                We adhere to the highest construction standards to ensure our properties
-                are safe, durable, and comfortable for long-term residency.
+                We adhere to the highest construction standards to ensure our
+                properties are safe, durable, and comfortable for long-term
+                residency.
               </p>
 
               <div className="space-y-6">
@@ -113,9 +120,12 @@ const Construction: React.FC = () => {
                     <CheckCircle className="w-5 h-5 text-green-600" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-p4c-navy mb-2">Structural Integrity</h4>
+                    <h4 className="font-bold text-p4c-navy mb-2">
+                      Structural Integrity
+                    </h4>
                     <p className="text-gray-600">
-                      Foundation repair, roof replacement, and structural reinforcement
+                      Foundation repair, roof replacement, and structural
+                      reinforcement
                     </p>
                   </div>
                 </div>
@@ -125,9 +135,12 @@ const Construction: React.FC = () => {
                     <CheckCircle className="w-5 h-5 text-green-600" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-p4c-navy mb-2">Mechanical Systems</h4>
+                    <h4 className="font-bold text-p4c-navy mb-2">
+                      Mechanical Systems
+                    </h4>
                     <p className="text-gray-600">
-                      New HVAC, electrical, and plumbing systems with energy-efficient components
+                      New HVAC, electrical, and plumbing systems with
+                      energy-efficient components
                     </p>
                   </div>
                 </div>
@@ -137,9 +150,12 @@ const Construction: React.FC = () => {
                     <CheckCircle className="w-5 h-5 text-green-600" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-p4c-navy mb-2">Interior Finishes</h4>
+                    <h4 className="font-bold text-p4c-navy mb-2">
+                      Interior Finishes
+                    </h4>
                     <p className="text-gray-600">
-                      Modern kitchens, bathrooms, flooring, and paint with premium materials
+                      Modern kitchens, bathrooms, flooring, and paint with
+                      premium materials
                     </p>
                   </div>
                 </div>
@@ -149,9 +165,12 @@ const Construction: React.FC = () => {
                     <CheckCircle className="w-5 h-5 text-green-600" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-p4c-navy mb-2">Safety & Compliance</h4>
+                    <h4 className="font-bold text-p4c-navy mb-2">
+                      Safety & Compliance
+                    </h4>
                     <p className="text-gray-600">
-                      Full compliance with building codes, ADA standards, and safety regulations
+                      Full compliance with building codes, ADA standards, and
+                      safety regulations
                     </p>
                   </div>
                 </div>
@@ -169,7 +188,9 @@ const Construction: React.FC = () => {
                 <div className="flex items-center gap-3">
                   <ShieldCheck className="w-6 h-6 text-p4c-gold" />
                   <div>
-                    <div className="font-bold text-p4c-navy">Quality Guarantee</div>
+                    <div className="font-bold text-p4c-navy">
+                      Quality Guarantee
+                    </div>
                     <div className="text-sm text-gray-600">
                       1-year warranty on all construction work
                     </div>
@@ -214,9 +235,12 @@ const Construction: React.FC = () => {
                 </div>
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-bold text-p4c-navy mb-2">Living Room</h3>
+                <h3 className="text-xl font-bold text-p4c-navy mb-2">
+                  Living Room
+                </h3>
                 <p className="text-gray-600">
-                  Complete renovation with new flooring, paint, lighting, and modern furnishings
+                  Complete renovation with new flooring, paint, lighting, and
+                  modern furnishings
                 </p>
               </div>
             </div>
@@ -243,7 +267,9 @@ const Construction: React.FC = () => {
                 </div>
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-bold text-p4c-navy mb-2">Kitchen</h3>
+                <h3 className="text-xl font-bold text-p4c-navy mb-2">
+                  Kitchen
+                </h3>
                 <p className="text-gray-600">
                   New cabinets, countertops, appliances, and modern fixtures
                 </p>
@@ -264,10 +290,11 @@ const Construction: React.FC = () => {
               Our Commitment to Quality
             </h2>
             <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-              We don't just renovate houses - we create homes. Every property we acquire
-              undergoes a comprehensive transformation to meet our rigorous quality standards.
-              From structural integrity to aesthetic appeal, we ensure our residences provide
-              safe, comfortable, and beautiful living spaces for families.
+              We don't just renovate houses - we create homes. Every property we
+              acquire undergoes a comprehensive transformation to meet our
+              rigorous quality standards. From structural integrity to aesthetic
+              appeal, we ensure our residences provide safe, comfortable, and
+              beautiful living spaces for families.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
