@@ -22,11 +22,7 @@
     },
     "filesystem": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-filesystem",
-        "C:\\p4c-web"
-      ]
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "C:\\p4c-web"]
     },
     "git": {
       "command": "uvx",
@@ -38,17 +34,11 @@
     },
     "puppeteer": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-puppeteer"
-      ]
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer"]
     },
     "memory": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-memory"
-      ]
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
     },
     "sentry": {
       "command": "uvx",
@@ -60,10 +50,7 @@
     },
     "playwright": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@playwright/mcp@0.0.38"
-      ]
+      "args": ["-y", "@playwright/mcp@0.0.38"]
     },
     "supabase": {
       "command": "npx",

@@ -81,11 +81,11 @@ const StandardLayout = () => (
           <Route path="/contact" element={<Contact />} />
           <Route
             path="/admin"
-            element={(
+            element={
               <ProtectedRoute requiredRole="admin">
                 <AdminDashboard />
               </ProtectedRoute>
-            )}
+            }
           />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />

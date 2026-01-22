@@ -146,18 +146,18 @@ const PropertyCard = memo<PropertyCardProps>(
     }, [property.badges]);
 
     // Optimize price display
-    const formatPrice = useCallback(
-      (price: string | number) => {
-        const numericPrice = typeof price === 'number' ? price : parseFloat(price.replace(/[^0-9.]/g, ''));
-        return new Intl.NumberFormat('en-US', {
-          style: 'currency',
-          currency: 'USD',
-          minimumFractionDigits: 0,
-          maximumFractionDigits: 0,
-        }).format(numericPrice);
-      },
-      []
-    );
+    const formatPrice = useCallback((price: string | number) => {
+      const numericPrice =
+        typeof price === 'number'
+          ? price
+          : parseFloat(price.replace(/[^0-9.]/g, ''));
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      }).format(numericPrice);
+    }, []);
 
     return (
       <div
@@ -216,7 +216,10 @@ const PropertyCard = memo<PropertyCardProps>(
             <div className="flex flex-col items-center justify-center p-3 bg-gray-50 rounded-lg">
               <Move className="w-5 h-5 text-p4c-slate mb-1.5" />
               <span className="text-xs font-semibold text-p4c-navy">
-                {typeof property.sqft === 'number' ? property.sqft.toLocaleString() : property.sqft} sqft
+                {typeof property.sqft === 'number'
+                  ? property.sqft.toLocaleString()
+                  : property.sqft}{' '}
+                sqft
               </span>
             </div>
           </div>

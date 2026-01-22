@@ -15,6 +15,8 @@ export const DEFAULT_CONFIG: ContentAuditorConfig = {
     'service member',
     'hero',
     'base',
+    'voucher',
+    'sacrifice',
   ],
   familyKeywords: [
     'school',
@@ -29,6 +31,7 @@ export const DEFAULT_CONFIG: ContentAuditorConfig = {
     'stability',
     'dignity',
     'future',
+    'spacious',
   ],
   communityKeywords: [
     'east texas',
@@ -45,6 +48,8 @@ export const DEFAULT_CONFIG: ContentAuditorConfig = {
     'standard',
     'housing',
     'economy',
+    'development',
+    'historic',
   ],
   investorKeywords: [
     'cash offer',
@@ -60,7 +65,9 @@ export const DEFAULT_CONFIG: ContentAuditorConfig = {
     'brrr',
     'equity',
     'turnkey',
+    'portfolio',
   ],
+  // Route weights remain the same
   routeWeights: [
     { path: '/veterans', veteranWeight: 10 },
     { path: '/family-resources', familyWeight: 10 },
@@ -92,56 +99,93 @@ export const auditContentBalance = (
     const desc = 'description' in item ? item.description : '';
     const text = `${title} ${desc}`.toLowerCase();
 
-    // Explicitly typed parameter 'k' to fix TS7006
-    if (DEFAULT_CONFIG.investorKeywords.some((k: string) => text.includes(k))) {
+    // ARCHITECTURAL CHANGE: Use independent IF statements.
+    // A single property can be relevant to Families AND the Community.
+
+    if (DEFAULT_CONFIG.investorKeywords.some((k) => text.includes(k))) {
       scores.investor++;
-    } else if (
-      DEFAULT_CONFIG.veteranKeywords.some((k: string) => text.includes(k))
-    ) {
+    }
+
+    if (DEFAULT_CONFIG.veteranKeywords.some((k) => text.includes(k))) {
       scores.veteran++;
-    } else if (
-      DEFAULT_CONFIG.familyKeywords.some((k: string) => text.includes(k))
-    ) {
+    }
+
+    if (DEFAULT_CONFIG.familyKeywords.some((k) => text.includes(k))) {
       scores.family++;
-    } else if (
-      DEFAULT_CONFIG.communityKeywords.some((k: string) => text.includes(k))
-    ) {
-      scores.community++;
-    } else {
+    }
+
+    if (DEFAULT_CONFIG.communityKeywords.some((k) => text.includes(k))) {
       scores.community++;
     }
+
+    // REMOVED: The 'else' block that defaulted to community.
+    // If it doesn't match keywords, it shouldn't score points.
   });
 
-  const total = Object.values(scores).reduce((a, b) => a + b, 0);
+  // Calculate total score based on hits, not just item count
+  const totalScore = Object.values(scores).reduce((a, b) => a + b, 0);
+
   const percs = {
-    family: total ? Math.round((scores.family / total) * 100) : 0,
-    community: total ? Math.round((scores.community / total) * 100) : 0,
-    investor: total ? Math.round((scores.investor / total) * 100) : 0,
-    veteran: total ? Math.round((scores.veteran / total) * 100) : 0,
+    family: totalScore ? Math.round((scores.family / totalScore) * 100) : 0,
+    community: totalScore
+      ? Math.round((scores.community / totalScore) * 100)
+      : 0,
+    investor: totalScore ? Math.round((scores.investor / totalScore) * 100) : 0,
+    veteran: totalScore ? Math.round((scores.veteran / totalScore) * 100) : 0,
   };
 
   const dominantCategory = Object.keys(percs).reduce((a, b) =>
     percs[a as keyof typeof percs] > percs[b as keyof typeof percs] ? a : b
   );
 
-  if (Math.abs(percs.family - TARGETS.family) > 10) {
-    tips.push(
-      `Family content is at ${percs.family}% (Target: 40%). ${percs.family < 40 ? 'Highlight school districts and amenities.' : 'Reduce family focus.'}`
-    );
-  }
-  if (Math.abs(percs.community - TARGETS.community) > 10) {
-    tips.push(
-      `Community content is at ${percs.community}% (Target: 30%). ${percs.community < 30 ? 'Mention "East Texas", "Tyler", or "Revitalization" more often.' : 'Good local focus.'}`
-    );
-  }
-  if (Math.abs(percs.investor - TARGETS.investor) > 10) {
-    tips.push(
-      `Investor content is at ${percs.investor}% (Target: 20%). ${percs.investor < 20 ? 'Use terms like "Asset", "ROI", and "Cash Offer".' : 'Too much investor focus.'}`
-    );
-  }
+  // Recommendations Logic
+  // Helper to generate directional advice
+  const checkBalance = (
+    current: number,
+    target: number,
+    label: string,
+    lowTip: string,
+    highTip: string
+  ) => {
+    if (Math.abs(current - target) > 10) {
+      tips.push(
+        `${label} content is at ${current}% (Target: ${target}%). ${current < target ? lowTip : highTip}`
+      );
+    }
+  };
+
+  checkBalance(
+    percs.family,
+    TARGETS.family,
+    'Family',
+    'Highlight school districts, safety, and amenities.',
+    'Ensure you are not alienating investors or single residents.'
+  );
+
+  checkBalance(
+    percs.community,
+    TARGETS.community,
+    'Community',
+    'Mention "East Texas", "Tyler", or specific neighborhoods.',
+    'Good local focus, but ensure specific property features are clear.'
+  );
+
+  checkBalance(
+    percs.investor,
+    TARGETS.investor,
+    'Investor',
+    'Include terms like "Asset", "ROI", and "Cash Flow".',
+    'Tone down the financial jargon; emphasize the mission.'
+  );
+
+  // Veteran logic is unique (strict cap)
   if (percs.veteran > 15) {
     tips.push(
-      `Veteran content is too high (${percs.veteran}%). Keep it niche (~10%) to maintain broad market appeal.`
+      `Veteran content is high (${percs.veteran}%). Ensure this doesn't overshadow the primary Family mission.`
+    );
+  } else if (percs.veteran < 5) {
+    tips.push(
+      `Veteran content is low (${percs.veteran}%). Mention HUD-VASH or "Service" to reach 10%.`
     );
   }
 
