@@ -45,15 +45,27 @@ const Contact: React.FC = () => {
         />
       </Helmet>
 
-      {/* Hero */}
-      <div className="bg-p4c-navy text-white py-20 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4">
-            Contact Our Team
+      {/* Hero Section */}
+      <div className="relative h-[400px] w-full overflow-hidden flex items-center justify-center">
+        <div className="absolute top-0 left-0 w-full h-full z-0">
+          <img
+            src="/images/banners/hero-contact-banner.png"
+            alt="Professional contact and support"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute top-0 left-0 w-full h-full bg-p4c-navy/80 mix-blend-multiply" />
+        </div>
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-fade-in-up">
+          <div className="flex justify-center mb-6">
+            <div className="bg-p4c-gold/20 p-4 rounded-2xl border border-p4c-gold/30 backdrop-blur-sm">
+              <Mail className="w-10 h-10 text-p4c-gold" />
+            </div>
+          </div>
+          <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4 tracking-wide">
+            Contact Us
           </h1>
-          <p className="text-xl text-gray-300">
-            We are here to help with leasing, maintenance, and investor
-            inquiries.
+          <p className="text-xl text-gray-200 font-light max-w-2xl mx-auto">
+            We're here to help with leasing, maintenance, and investment inquiries
           </p>
         </div>
       </div>
@@ -136,7 +148,7 @@ const Contact: React.FC = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold/20 outline-none transition-all"
+                    className="w-full rounded-md border-gray-300 shadow-sm focus:border-[#C5A059] focus:ring-[#C5A059]"
                     required
                   />
                 </div>
@@ -153,7 +165,7 @@ const Contact: React.FC = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold/20 outline-none transition-all"
+                    className="w-full rounded-md border-gray-300 shadow-sm focus:border-[#C5A059] focus:ring-[#C5A059]"
                     required
                   />
                 </div>
@@ -169,7 +181,7 @@ const Contact: React.FC = () => {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold/20 outline-none transition-all"
+                    className="w-full rounded-md border-gray-300 shadow-sm focus:border-[#C5A059] focus:ring-[#C5A059]"
                   >
                     <option>General Inquiry</option>
                     <option>Leasing Question</option>
@@ -190,14 +202,14 @@ const Contact: React.FC = () => {
                     value={formData.message}
                     onChange={handleChange}
                     rows={4}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold/20 outline-none transition-all"
+                    className="w-full rounded-md border-gray-300 shadow-sm focus:border-[#C5A059] focus:ring-[#C5A059]"
                     required
                   />
                 </div>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-p4c-navy text-white px-6 py-4 rounded-lg font-bold hover:bg-p4c-slate transition-colors flex items-center justify-center gap-2 disabled:opacity-70"
+                  className="w-full bg-[#0B1120] text-white hover:bg-[#C5A059] transition-colors px-6 py-4 rounded-xl font-bold text-lg"
                 >
                   {isSubmitting ? (
                     'Sending...'

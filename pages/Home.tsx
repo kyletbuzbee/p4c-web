@@ -29,6 +29,9 @@ const Home: React.FC = () => {
   const [maxPrice, setMaxPrice] = useState<number>(2000);
   const [minBeds, setMinBeds] = useState<number>(0);
   const [selectedBadges, setSelectedBadges] = useState<string[]>([]);
+  const [arv, setArv] = useState<number>(0);
+  const [repairs, setRepairs] = useState<number>(0);
+  const offerPrice = (arv * 0.70) - repairs;
 
   // Fetch properties on component mount
   useEffect(() => {
@@ -420,51 +423,37 @@ const Home: React.FC = () => {
                   <div>
                     <label
                       className="block text-gray-300 mb-1"
-                      htmlFor="bedrooms-select"
+                      htmlFor="arv-input"
                     >
-                      Bedrooms
+                      After Repair Value (ARV)
                     </label>
-                    <select
-                      id="bedrooms-select"
+                    <input
+                      id="arv-input"
+                      type="number"
                       className="w-full bg-white/20 border border-white/30 rounded px-3 py-2 text-white focus:ring-2 focus:ring-p4c-gold focus:border-p4c-gold"
-                    >
-                      <option value="2" className="text-p4c-navy bg-white">
-                        2
-                      </option>
-                      <option value="3" className="text-p4c-navy bg-white">
-                        3
-                      </option>
-                      <option value="4" className="text-p4c-navy bg-white">
-                        4
-                      </option>
-                    </select>
+                      value={arv}
+                      onChange={(e) => setArv(Number(e.target.value))}
+                    />
                   </div>
                   <div>
                     <label
                       className="block text-gray-300 mb-1"
-                      htmlFor="bathrooms-select"
+                      htmlFor="repairs-input"
                     >
-                      Bathrooms
+                      Repair Costs
                     </label>
-                    <select
-                      id="bathrooms-select"
+                    <input
+                      id="repairs-input"
+                      type="number"
                       className="w-full bg-white/20 border border-white/30 rounded px-3 py-2 text-white focus:ring-2 focus:ring-p4c-gold focus:border-p4c-gold"
-                    >
-                      <option value="1" className="text-p4c-navy bg-white">
-                        1
-                      </option>
-                      <option value="2" className="text-p4c-navy bg-white">
-                        2
-                      </option>
-                      <option value="3" className="text-p4c-navy bg-white">
-                        3
-                      </option>
-                    </select>
+                      value={repairs}
+                      onChange={(e) => setRepairs(Number(e.target.value))}
+                    />
                   </div>
                 </div>
                 <div className="mt-4 p-4 bg-p4c-gold text-p4c-navy rounded-lg text-center">
                   <div className="text-2xl font-bold">
-                    Estimated Offer: $185,000
+                    Your Cash Offer: ${offerPrice.toLocaleString()}
                   </div>
                   <div className="text-sm opacity-80">
                     Based on Tyler Market Data
@@ -525,105 +514,16 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Tenant Testimonials - Focus on Product Quality */}
-      <section className="py-20 bg-p4c-beige">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-4">
-              Tenant Success Stories
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Our residents enjoy high-quality management and premium amenities.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
-              <div className="flex items-center gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <span key={i} className="text-p4c-gold">
-                    ★
-                  </span>
-                ))}
-              </div>
-              <blockquote className="text-gray-700 italic mb-4 leading-relaxed">
-                "The renovation quality is incredible. New floors, granite
-                countertops—it feels like a brand new home. The management team
-                is extremely professional."
-              </blockquote>
-              <div className="border-t border-gray-100 pt-4">
-                <div className="font-bold text-p4c-navy">Maria Rodriguez</div>
-                <div className="text-sm text-gray-500">
-                  Resident &mdash; Longview, TX
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
-              <div className="flex items-center gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <span key={i} className="text-p4c-gold">
-                    ★
-                  </span>
-                ))}
-              </div>
-              <blockquote className="text-gray-700 italic mb-4 leading-relaxed">
-                "I was surprised by how easy the application process was.
-                Everything was digital, and we got approved in 48 hours. Great
-                neighborhood for my kids."
-              </blockquote>
-              <div className="border-t border-gray-100 pt-4">
-                <div className="font-bold text-p4c-navy">
-                  David & Sarah Chen
-                </div>
-                <div className="text-sm text-gray-500">
-                  Residents &mdash; Tyler, TX
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
-              <div className="flex items-center gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <span key={i} className="text-p4c-gold">
-                    ★
-                  </span>
-                ))}
-              </div>
-              <blockquote className="text-gray-700 italic mb-4 leading-relaxed">
-                "Finally, a landlord that fixes things immediately. The 24/7
-                maintenance portal is a game changer. Worth every penny."
-              </blockquote>
-              <div className="border-t border-gray-100 pt-4">
-                <div className="font-bold text-p4c-navy">James Williams</div>
-                <div className="text-sm text-gray-500">
-                  Resident &mdash; Lindale, TX
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="text-center mt-12">
-            <a
-              href="/family-resources"
-              className="inline-flex items-center gap-2 bg-p4c-gold text-p4c-navy hover:bg-p4c-navy hover:text-p4c-gold px-6 py-3 rounded-xl font-bold transition-all duration-300 shadow-lg hover:shadow-xl"
-            >
-              Browse Available Homes
-              <ArrowRight className="w-4 h-4" />
-            </a>
-          </div>
-        </div>
-      </section>
 
       {/* Impact Section - Renovation Standard */}
       <section className="py-20 bg-p4c-navy">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl">
-              <img
-                src={IMAGES.PROPERTIES.KEMP_TOWNHOME}
-                alt="Renovated Townhome in Tyler"
-                className="w-full h-full object-cover"
+              <video
+                autoPlay loop muted playsInline
+                className="absolute inset-0 w-full h-full object-cover opacity-60"
+                src="/images/videos/hero-our-work-banner.mp4"
               />
               <div className="absolute inset-0 bg-p4c-navy/30 mix-blend-multiply" />
             </div>
@@ -665,7 +565,7 @@ const Home: React.FC = () => {
                 ensure longevity and tenant satisfaction.
               </p>
               <a
-                href="/transparency"
+                href="/construction-standards"
                 className="inline-flex items-center gap-2 text-p4c-gold font-bold hover:underline"
               >
                 View Construction Specs

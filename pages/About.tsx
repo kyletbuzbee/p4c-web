@@ -1,7 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Award, ShieldCheck, Heart, TrendingUp, Building2 } from 'lucide-react';
-import { IMAGES } from '../constants/images';
+import { Building2 } from 'lucide-react';
 
 const About: React.FC = () => (
   <div className="bg-p4c-beige min-h-screen">
@@ -19,7 +18,7 @@ const About: React.FC = () => (
     <div className="relative h-[400px] w-full overflow-hidden flex items-center justify-center">
       <div className="absolute top-0 left-0 w-full h-full z-0">
         <img
-          src={IMAGES.TEAM.ONSITE}
+          src="/images/banners/hero-about-banner.webp"
           alt="Properties 4 Creation team on site"
           className="w-full h-full object-cover"
         />
@@ -32,7 +31,7 @@ const About: React.FC = () => (
           </div>
         </div>
         <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4 tracking-wide">
-          Our Corporate Mission
+          Revitalizing East Texas, One Home at a Time.
         </h1>
         <p className="text-xl text-gray-200 font-light max-w-2xl mx-auto">
           Setting the standard for residential property management and
@@ -62,12 +61,29 @@ const About: React.FC = () => (
             financial returns and tangible social impact.
           </p>
         </div>
-        <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl border border-gray-200">
-          <img
-            src={IMAGES.GALLERY.PROJECTS_AFTER_LIVING_ROOM}
-            alt="High quality renovated interior"
-            className="w-full h-full object-cover"
-          />
+        <div className="grid grid-cols-2 gap-4">
+          <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl border border-gray-200">
+            <img
+              src="/images/about/about-us-team-owner.webp"
+              alt="Richard Lonkert, Owner & Veteran"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute bottom-0 left-0 right-0 bg-p4c-navy/80 text-white p-4">
+              <h3 className="font-bold text-lg">Richard Lonkert</h3>
+              <p className="text-sm">Owner & Veteran</p>
+            </div>
+          </div>
+          <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl border border-gray-200">
+            <img
+              src="/images/about/about-us-team-headshot.webp"
+              alt="Kyle Buzbee, Managing Partner"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute bottom-0 left-0 right-0 bg-p4c-navy/80 text-white p-4">
+              <h3 className="font-bold text-lg">Kyle Buzbee</h3>
+              <p className="text-sm">Managing Partner</p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -75,34 +91,34 @@ const About: React.FC = () => (
       <div className="mb-20">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-4">
-            Core Operating Values
+            Our Journey
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            The principles that drive our decision making and operations.
+            The milestones that define our growth and impact.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {[
             {
-              icon: ShieldCheck,
-              title: 'Integrity',
-              desc: 'We operate with total transparency in our leasing, renovations, and financial reporting.',
+              year: '2018',
+              title: 'Founded',
+              desc: 'Properties 4 Creation was established with a mission to revitalize East Texas communities.',
             },
             {
-              icon: Award,
-              title: 'Quality',
-              desc: 'We set a new standard for rental inventory, using commercial-grade materials in every home.',
+              year: '2020',
+              title: 'First Multi-family Acquired',
+              desc: 'Expanded our portfolio with the acquisition of our first multi-family property.',
             },
             {
-              icon: TrendingUp,
-              title: 'Growth',
-              desc: 'We are committed to the sustainable economic expansion of the East Texas region.',
+              year: '2023',
+              title: 'Veteran Housing Initiative',
+              desc: 'Launched our Veteran Housing Initiative to provide priority housing solutions for veterans.',
             },
             {
-              icon: Heart,
-              title: 'Service',
-              desc: 'We serve those who served us, providing priority housing solutions for veterans.',
+              year: 'Future',
+              title: '500+ Families Housed',
+              desc: 'Our goal is to house over 500 families in safe, affordable homes.',
             },
           ].map((value, i) => (
             <div
@@ -110,7 +126,7 @@ const About: React.FC = () => (
               className="bg-white p-8 rounded-xl shadow-sm hover:shadow-lg transition-all border-t-4 border-p4c-gold"
             >
               <div className="bg-p4c-navy/5 w-14 h-14 rounded-xl flex items-center justify-center mb-6">
-                <value.icon className="w-7 h-7 text-p4c-navy" />
+                <span className="text-xl font-bold text-p4c-navy">{value.year}</span>
               </div>
               <h3 className="text-xl font-bold text-p4c-navy mb-3">
                 {value.title}

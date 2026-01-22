@@ -1,0 +1,183 @@
+Phase 2: Component & Page Implementation
+1. Home Page (src/pages/Home.tsx)
+A. Calculator Section (East Texas Acquisitions)
+Goal: Functional "Seller Net Sheet" (How much we pay).
+
+State Logic:
+
+TypeScript
+const [arv, setArv] = useState<number>(0); // After Repair Value
+const [repairs, setRepairs] = useState<number>(0);
+// Formula: (ARV * 0.70) - Repairs = Max Cash Offer
+const offerPrice = (arv * 0.70) - repairs;
+UI Layout:
+
+Two inputs (Currency formatted).
+
+One prominent result card: "Your Cash Offer".
+
+Style: Dark Navy background (bg-[#0B1120]) with Gold text (text-[#C5A059]) for the result.
+
+B. Community Revitalization Section
+Hero Replacement: Swap the static <img> for a background video.
+
+TypeScript
+<video
+  autoPlay loop muted playsInline
+  className="absolute inset-0 w-full h-full object-cover opacity-60"
+  src="/images/videos/hero-our-work-banner.mp4"
+/>
+Overlay: Ensure text remains readable with a black overlay (bg-black/50).
+
+C. Content Architecture
+Delete: Remove the <TenantSuccessStories /> component from Home.tsx completely.
+
+Renovation Card:
+
+Update Link: <Link to="/construction-standards">View Construction Specs</Link>
+
+Family Resources:
+
+Update Banner prop: src="/images/banners/family-resources-banner.png"
+
+Rental Application:
+
+CSS Fix: Locate the h2 or title class. Remove line-through or decoration-line-through.
+
+2. About Page (src/pages/About.tsx)
+A. Hero Section
+Image: src="/images/banners/hero-about-banner.webp"
+
+Overlay Text: "Revitalizing East Texas, One Home at a Time."
+
+B. Leadership Section ("Professional Excellence")
+Refactor: Replace generic text with a 2-Column Leadership Grid.
+
+Col 1 (Owner):
+
+Image: /images/about/about-us-team-owner.webp
+
+Name: Richard Lonkert
+
+Role: Owner & Veteran
+
+Bio: Focus on his veteran background and vision for housing families.
+
+Col 2 (Partner):
+
+Image: /images/about/about-us-team-headshot.webp
+
+Name: Kyle Buzbee
+
+Role: Managing Partner
+
+Styling: Use rounded-xl images with shadow-lg.
+
+C. Timeline Component
+Replace: Remove "Integrity, Quality, Growth" cards.
+
+Implement: A vertical timeline showing the journey.
+
+2018: Founded.
+
+2020: First Multi-family acquired.
+
+2023: Veteran Housing Initiative.
+
+Future: 500+ Families Housed.
+
+3. Community Page (src/pages/Community.tsx)
+A. Hero Section
+Background: Use Video /images/videos/hero-our-work-banner.mp4.
+
+B. Revitalization Cycle (The "How We Create Value" Merge)
+Layout: Horizontal Process Steps (Arrow flow).
+
+Step 1: Acquisition
+
+Image: /images/about/acquisition.png
+
+Text: "Identifying distressed properties."
+
+Step 2: Rehabilitation
+
+Image: /images/about/rehabilitaion.png
+
+Text: "Professional renovation to modern standards."
+
+Step 3: Stabilization
+
+Image: /images/properties/tyler-ranch-home.webp
+
+Text: "Placing families in safe, forever homes."
+
+C. Investor Prospectus
+Action: The "Request Prospectus" button is dead.
+
+Fix: onClick={() => setIsContactModalOpen(true)} (Or link to /contact).
+
+4. Resident Reviews (src/pages/Reviews.tsx)
+A. Video Section Fix
+Problem: 3 duplicate videos.
+
+Solution: Map specific posters to specific videos.
+
+TypeScript
+const videos = [
+  { id: 1, poster: "/images/resident-review/resident-review-mark.png", src: "/videos/review-1.mp4" },
+  { id: 2, poster: "/images/resident-review/resident-review-alex.png", src: "/videos/review-2.mp4" },
+  { id: 3, poster: "/images/resident-review/resident-review-sarah.png", src: "/videos/review-3.mp4" },
+];
+(Note: If actual video files are missing, reuse hero-our-work-banner.mp4 temporarily, but ensure the Posters are unique so they look different).
+
+B. Content Migration
+Add: Paste the <TenantSuccessStories /> component (removed from Home) into the bottom of this page.
+
+5. Construction Page (src/pages/Construction.tsx)
+A. Banner & Card
+Banner: src="/images/banners/home-renovation-banner.webp" (or hero-projects-banner.webp).
+
+Card Design:
+
+Add border-l-4 border-[#C5A059] (Gold border).
+
+Add hover:shadow-2xl transition-shadow duration-300.
+
+Content: Bullet points for "HVAC", "Roofing", "Flooring", "Safety".
+
+6. Careers Page (src/pages/Careers.tsx)
+A. Banner Cleanup
+Image: src="/images/banners/career-banner.png"
+
+Text: Find <h1>We hire veterans first</h1> and delete it. Keep the main title "Join Our Team".
+
+7. Resident Services (src/pages/ResidentServices.tsx)
+A. Banner
+Image: src="/images/banners/resident-service-banner.png"
+
+B. Portal Logic
+Fix: The form likely has type="submit" but no onSubmit handler, or it reloads the page.
+
+Code:
+
+TypeScript
+const handleLogin = (e: React.FormEvent) => {
+  e.preventDefault();
+  // Add authentication logic or Toast "Login service coming soon"
+  toast.info("Resident Portal is currently under maintenance.");
+};
+8. Homeowner Solutions (src/pages/Homeowner.tsx)
+A. Testimonials
+Edit: Find the testimonial signed by "Robert". Change signature to "Properties 4 Creation Team".
+
+9. Contact Page (src/pages/Contact.tsx)
+A. Professional Form
+Banner: /images/banners/hero-contact-banner.png
+
+Input Styling:
+
+className="w-full rounded-md border-gray-300 shadow-sm focus:border-[#C5A059] focus:ring-[#C5A059]"
+
+Submit Button:
+
+bg-[#0B1120] text-white hover:bg-[#C5A059] transition-colors.

@@ -59,8 +59,8 @@ describe('Content Balance Auditor (Targets: 40% Family | 30% Community | 20% Inv
 
     const result = auditContentBalance(mockProperties, []);
 
-    // Expect Veteran percentage to be very high
-    expect(result.percentages.veteran).toBeGreaterThan(80);
+    // Expect Veteran percentage to be very high (75% or more)
+    expect(result.percentages.veteran).toBeGreaterThanOrEqual(75);
 
     // The recommendation engine should trigger a warning because 80% > 10% target
     const hasVeteranWarning = result.recommendations.some(

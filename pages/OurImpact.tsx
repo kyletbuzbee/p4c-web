@@ -80,7 +80,7 @@ const OurImpact: React.FC = () => {
           className="absolute top-0 left-0 w-full h-full object-cover"
           aria-label="Impact hero background video showcasing our projects"
         >
-          <source src={IMAGES.VIDEOS.HERO_PROJECTS} type="video/mp4" />
+          <source src="/images/videos/hero-our-work-banner.mp4" type="video/mp4" />
         </video>
         <div className="absolute top-0 left-0 w-full h-full hero-overlay-primary" />
         <div className="absolute top-0 left-0 w-full h-full hero-overlay-secondary" />
@@ -153,7 +153,7 @@ const OurImpact: React.FC = () => {
                 <div className="text-center group">
                   <div className="relative h-48 rounded-lg overflow-hidden mb-4 shadow-lg group-hover:shadow-xl transition-shadow">
                     <img
-                      src={IMAGES.GALLERY.LINDALE_COTTAGE}
+                      src="/images/about/acquisition.png"
                       alt="Acquisition of distressed property"
                       className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
                     />
@@ -176,7 +176,7 @@ const OurImpact: React.FC = () => {
                 <div className="text-center group">
                   <div className="relative h-48 rounded-lg overflow-hidden mb-4 shadow-lg group-hover:shadow-xl transition-shadow">
                     <img
-                      src={IMAGES.GALLERY.WORK_FRAMING_DOOR}
+                      src="/images/about/rehabilitaion.png"
                       alt="Capital improvement construction"
                       className="w-full h-full object-cover"
                     />
@@ -199,7 +199,7 @@ const OurImpact: React.FC = () => {
                 <div className="text-center group">
                   <div className="relative h-48 rounded-lg overflow-hidden mb-4 shadow-lg group-hover:shadow-xl transition-shadow">
                     <img
-                      src={IMAGES.GALLERY.PROJECTS_AFTER_LIVING_ROOM}
+                      src="/images/properties/tyler-ranch-home.webp"
                       alt="Stabilized asset with tenants"
                       className="w-full h-full object-cover"
                     />
@@ -313,9 +313,9 @@ const OurImpact: React.FC = () => {
               <p className="text-sm text-gray-500 mb-4">
                 Interested in partnership opportunities?
               </p>
-              <button className="w-full border-2 border-p4c-navy text-p4c-navy font-bold py-2 rounded hover:bg-p4c-navy hover:text-white transition-colors">
+              <a href="/contact" className="w-full border-2 border-p4c-navy text-p4c-navy font-bold py-2 rounded hover:bg-p4c-navy hover:text-white transition-colors inline-block">
                 Request Investor Prospectus
-              </button>
+              </a>
             </div>
           </div>
         </div>

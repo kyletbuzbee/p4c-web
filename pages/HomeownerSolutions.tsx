@@ -251,11 +251,11 @@ const HomeownerSolutions: React.FC = () => {
             <div className="bg-p4c-beige rounded-2xl p-8 border border-p4c-gold/20">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 bg-p4c-navy rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">R</span>
+                  <span className="text-white font-bold text-lg">P</span>
                 </div>
                 <div>
-                  <h3 className="font-bold text-p4c-navy">Robert Johnson</h3>
-                  <p className="text-sm text-gray-600">Longview, TX</p>
+                  <h3 className="font-bold text-p4c-navy">Properties 4 Creation Team</h3>
+                  <p className="text-sm text-gray-600">East Texas</p>
                 </div>
               </div>
               <blockquote className="text-gray-700 italic mb-4">

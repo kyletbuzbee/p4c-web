@@ -235,8 +235,8 @@ const SuccessStories: React.FC = () => {
               {/* Video Section */}
               <div className="w-full lg:w-1/2 bg-gray-900">
                 <CustomVideoPlayer
-                  src={IMAGES.VIDEOS.HERO_IMPACT}
-                  poster={IMAGES.BANNERS.HERO_IMPACT}
+                  src={story.id === 1 ? "/videos/review-1.mp4" : story.id === 2 ? "/videos/review-2.mp4" : "/videos/review-3.mp4"}
+                  poster={story.id === 1 ? "/images/resident-review/resident-review-mark.png" : story.id === 2 ? "/images/resident-review/resident-review-alex.png" : "/images/resident-review/resident-review-sarah.png"}
                   ariaLabel={story.videoLabel}
                 />
               </div>
