@@ -170,7 +170,7 @@ const Navbar = (): JSX.Element => {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-[#0B1120]/95 border-b border-[#0B1120]/30 text-white backdrop-blur-xl shadow-lg">
+    <nav className="sticky top-0 z-50 glass-navbar border-b border-white/10 text-white backdrop-blur-2xl shadow-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20 items-center">
           {/* Logo */}

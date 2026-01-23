@@ -260,6 +260,41 @@
     }
   }
 
+  /* Enhanced Glass Morphism for Navbar */
+  @supports (backdrop-filter: blur(10px)) {
+    .glass-navbar {
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      background-color: rgba(11, 17, 32, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .glass-navbar:hover {
+      background-color: rgba(11, 17, 32, 0.78);
+    }
+  }
+
+  /* Fallback for browsers without backdrop-filter support */
+  .no-backdrop-filter .glass-navbar {
+    background-color: rgba(11, 17, 32, 0.95);
+  }
+
+  /* Glass morphism animation */
+  @keyframes glassMorph {
+    0% {
+      backdrop-filter: blur(20px) saturate(160%);
+      background-color: rgba(11, 17, 32, 0.7);
+    }
+    100% {
+      backdrop-filter: blur(24px) saturate(180%);
+      background-color: rgba(11, 17, 32, 0.72);
+    }
+  }
+
+  .glass-animation {
+    animation: glassMorph 0.4s ease-out forwards;
+  }
+
   /* PWA install button */
   .install-button {
     @apply bg-p4c-gold text-p4c-navy px-6 py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300;
