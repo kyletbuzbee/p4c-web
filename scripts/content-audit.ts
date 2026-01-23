@@ -69,6 +69,6 @@ try {
     process.exit(1);
   }
 } catch (error) {
-  console.error('❌ Content Audit Error:', error.message);
+  console.error('❌ Content Audit Error:', error instanceof Error ? error.message : String(error));
   process.exit(1);
 }
