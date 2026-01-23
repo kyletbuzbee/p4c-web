@@ -79,4 +79,7 @@ competitive_analysis_report.json
 comprehensive_analysis.json
 comprehensive_website_analysis_report.json
 content_analysis_report.json
-BotpressBot.bpz
+BlotpressBot.bpz
+.kilocode/
+.clinerules/
+.quodo/
