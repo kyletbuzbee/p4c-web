@@ -34,7 +34,7 @@ interface NavItem {
   }[];
 }
 
-const Navbar: React.FC = () => {
+const Navbar = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false); // Mobile menu state
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const dropdownTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
