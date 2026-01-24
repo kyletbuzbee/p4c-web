@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { api } from '../services/api';
-import type { StatMetric, FinancialBreakdown } from '../types';
+import type { StatMetric, FinancialBreakdown } from '../types/types';
 import {
   Home,
   Users,

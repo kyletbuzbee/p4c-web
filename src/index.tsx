@@ -4,6 +4,12 @@ import App from './App';
 import { HashRouter } from 'react-router-dom';
 import './index.css';
 
+// Import from the same directory (no /src/)
+import { updateSW } from './pwa-register';
+
+// Run it
+updateSW();
+
 const rootElement = document.getElementById('root');
 if (!rootElement) {
   throw new Error('Could not find root element to mount to');

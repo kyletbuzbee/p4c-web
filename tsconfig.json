@@ -43,17 +43,18 @@
     "useDefineForClassFields": false,
 
     /* Enhanced Path Mapping */
+    "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
-      "@/components/*": ["./components/*"],
-      "@/pages/*": ["./pages/*"],
-      "@/context/*": ["./context/*"],
-      "@/services/*": ["./services/*"],
-      "@/types/*": ["./types/*"],
-      "@/constants/*": ["./constants/*"],
-      "@/utils/*": ["./utils/*"],
+      "@/components/*": ["src/components/*"],
+      "@/pages/*": ["src/pages/*"],
+      "@/context/*": ["src/context/*"],
+      "@/services/*": ["src/services/*"],
+      "@/types/*": ["src/types/*"],
+      "@/constants/*": ["src/constants/*"],
+      "@/utils/*": ["src/utils/*"],
       "@/hooks/*": ["./hooks/*"],
-      "@/data/*": ["./data/*"]
+      "@/data/*": ["src/data/*"]
     },
 
     /* Enhanced Type Definitions */

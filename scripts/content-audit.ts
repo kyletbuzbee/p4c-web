@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /* eslint-disable no-console */
 
-import { auditContentBalance } from '../utils/contentBalanceAuditor';
-import { properties } from '../data/properties';
+import { auditContentBalance } from '../src/utils/contentBalanceAuditor';
+import { properties } from '../src/data/properties';
 
 // Mock stories data for content audit
 const stories = [

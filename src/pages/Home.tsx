@@ -6,7 +6,7 @@ import PropertyCard from '../components/PropertyCard';
 import BeforeAfterSlider from '../components/BeforeAfterSlider';
 import { api } from '../services/api';
 import { logError } from '../services/errorBoundaryService';
-import type { ExtendedProperty } from '../types';
+import type { ExtendedProperty } from '../types/types';
 import { IMAGES } from '../constants/images';
 import {
   Search,

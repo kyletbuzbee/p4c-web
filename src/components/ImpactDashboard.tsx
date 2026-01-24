@@ -1,5 +1,5 @@
 import React from 'react';
-import type { StatMetric } from '../types';
+import type { StatMetric } from '../types/types';
 import { Users, Home, TrendingUp } from 'lucide-react';
 
 const stats: StatMetric[] = [

@@ -1,4 +1,4 @@
-import type { ExtendedProperty } from '../types';
+import type { ExtendedProperty } from '../types/types.ts';
 import { IMAGES } from '../constants/images.ts';
 
 // Re-export ExtendedProperty type for backward compatibility

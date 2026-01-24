@@ -12,7 +12,9 @@
           ".webp",
           ".ico",
           ".json"
-        ]
+        ],
+        "maxWaitForLoad": 60000,
+        "maxWaitForFcp": 45000
       }
     },
     "assert": {
@@ -26,8 +28,7 @@
         "content-width": "warning",
         "html-has-lang": "on",
         "document-title": "on",
-        "meta-viewport": "on",
-  
+        "meta-viewport": "on"
       }
     },
     "upload": {

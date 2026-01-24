@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback, memo } from 'react';
-import type { Property } from '../types';
+import type { Property } from '../types/types';
 import { Bed, Bath, Move, MapPin, Image as ImageIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
@@ -7,6 +7,7 @@ import { useInView } from 'react-intersection-observer';
 interface PropertyCardProps {
   property: Property;
   priority?: boolean; // For above-the-fold content
+  viewType?: 'list' | 'grid';
 }
 
 // Lazy loaded image component with intersection observer

@@ -11,7 +11,7 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 import { api } from '../services/api';
-import type { RenovationStandard } from '../types';
+import type { RenovationStandard } from '../types/types';
 import { useToast } from '../context/ToastContext';
 import { IMAGES } from '../constants/images';
 

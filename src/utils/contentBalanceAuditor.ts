@@ -3,7 +3,7 @@ import type {
   ContentAuditorConfig,
   StoryContent,
 } from '../types/contentBalance';
-import type { ExtendedProperty } from '../types';
+import type { ExtendedProperty } from '../types/types';
 
 export const DEFAULT_CONFIG: ContentAuditorConfig = {
   veteranKeywords: [

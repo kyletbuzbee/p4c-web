@@ -1,10 +1,10 @@
-import { supabase } from '../src/lib/supabaseClient';
+import { supabase } from '../lib/supabaseClient';
 import type {
   StatMetric,
   RenovationStandard,
   FinancialBreakdown,
   ExtendedProperty,
-} from '../types';
+} from '../types/types';
 // Fallback data
 import {
   properties as mockProperties,

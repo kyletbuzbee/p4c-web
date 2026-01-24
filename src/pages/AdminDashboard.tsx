@@ -15,7 +15,7 @@ import {
   Search,
 } from 'lucide-react';
 import { api } from '../services/api';
-import type { ExtendedProperty } from '../types';
+import type { ExtendedProperty } from '../types/types';
 
 // Define the available views
 type DashboardView = 'dashboard' | 'properties' | 'tenants' | 'settings';
