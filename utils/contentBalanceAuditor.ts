@@ -78,10 +78,10 @@ export const DEFAULT_CONFIG: ContentAuditorConfig = {
 };
 
 const TARGETS = {
-  family: 40,
-  community: 30,
-  investor: 20,
-  veteran: 10,
+  family: 35,
+  community: 53,
+  investor: 6,
+  veteran: 6,
 };
 
 export const auditContentBalance = (

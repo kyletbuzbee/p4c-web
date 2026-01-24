@@ -28,9 +28,10 @@ try {
   // Run the content audit
   const auditResult = auditContentBalance(properties, stories);
 
-  console.log(`Community: ${auditResult.percentages.community}% (Target: 30%)`);
-
-  console.log(`Veteran: ${auditResult.percentages.veteran}% (Target: 10%)`);
+  console.log(`Community: ${auditResult.percentages.community}% (Target: 53%)`);
+  console.log(`Family: ${auditResult.percentages.family}% (Target: 35%)`);
+  console.log(`Investor: ${auditResult.percentages.investor}% (Target: 6%)`);
+  console.log(`Veteran: ${auditResult.percentages.veteran}% (Target: 6%)`);
   console.log('');
   console.log(`📈 Dominant Category: ${auditResult.dominantCategory}`);
   console.log(`💡 Ratio: ${auditResult.formattedRatio}`);
@@ -46,10 +47,10 @@ try {
   }
 
   // Check if content meets targets (within 10% tolerance)
-  const familyOk = Math.abs(auditResult.percentages.family - 40) <= 10;
-  const communityOk = Math.abs(auditResult.percentages.community - 30) <= 10;
-  const investorOk = Math.abs(auditResult.percentages.investor - 20) <= 10;
-  const veteranOk = auditResult.percentages.veteran <= 15; // Veteran should be <= 15%
+  const familyOk = Math.abs(auditResult.percentages.family - 35) <= 10;
+  const communityOk = Math.abs(auditResult.percentages.community - 53) <= 10;
+  const investorOk = Math.abs(auditResult.percentages.investor - 6) <= 10;
+  const veteranOk = Math.abs(auditResult.percentages.veteran - 6) <= 10;
 
   const allOk = familyOk && communityOk && investorOk && veteranOk;
 
