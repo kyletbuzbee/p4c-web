@@ -82,7 +82,7 @@ class P4CIntelligenceEngine:
         self.ignored_exts = {
             '.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico', 
             '.pdf', '.zip', '.tar', '.gz', '.pyc', '.log', 
-            '.py', '.txt', '.md', '.exe', '.dll', '.lock', '.json'
+            '.py', '.txt', '.md', '.exe', '.dll', '.lock', '.json', '.txt', '.md'
         }
         
         # 3. INCLUDED EXTENSIONS (Strictly Code)
@@ -132,6 +132,47 @@ class P4CIntelligenceEngine:
                     line=line_idx + 1
                 ))
         return issues
+
+    def _generate_tree(self, dir_path: Path, prefix: str = "") -> str:
+        """Generates a visual directory tree structure."""
+        output = ""
+        
+        try:
+            # Get all items in directory
+            items = list(dir_path.iterdir())
+            
+            # Filter ignored items
+            filtered_items = []
+            for item in items:
+                # Skip if in ignored dirs
+                if item.is_dir() and item.name in self.ignored_dirs:
+                    continue
+                # Skip if in ignored filenames
+                if item.name in self.ignored_filenames:
+                    continue
+                # Skip hidden files
+                if item.name.startswith('.'):
+                    continue
+                filtered_items.append(item)
+            
+            # Sort: Directories first, then alphabetical
+            filtered_items.sort(key=lambda x: (not x.is_dir(), x.name.lower()))
+            
+            # Build tree string
+            for i, item in enumerate(filtered_items):
+                is_last = (i == len(filtered_items) - 1)
+                connector = "└── " if is_last else "├── "
+                
+                output += f"{prefix}{connector}{item.name}\n"
+                
+                if item.is_dir():
+                    extension = "    " if is_last else "│   "
+                    output += self._generate_tree(item, prefix + extension)
+                    
+        except PermissionError:
+            output += f"{prefix}└── [Access Denied]\n"
+            
+        return output
 
     def scan_project(self):
         print(f"🚀 Scanning Properties 4 Creation Project at: {self.source_dir}")
@@ -198,8 +239,15 @@ class P4CIntelligenceEngine:
         md.append(f"- **High/Critical Issues:** {self.project_stats['issues_breakdown']['CRITICAL'] + self.project_stats['issues_breakdown']['HIGH']}")
         md.append("\n")
 
+        # Project Structure (NEW SECTION)
+        md.append("## 2. Project Structure")
+        md.append("```text")
+        md.append(self._generate_tree(self.source_dir))
+        md.append("```")
+        md.append("\n")
+
         # Codebase Dump
-        md.append("## 2. Source Code & Analysis")
+        md.append("## 3. Source Code & Analysis")
         self.files_data.sort(key=lambda x: x.path)
         
         for f in self.files_data:
