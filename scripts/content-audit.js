@@ -12,7 +12,10 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
 try {
   // Run with tsx (the preferred and working method)
-  execSync('npx tsx scripts/content-audit.ts', { stdio: 'inherit', cwd: resolve(__dirname, '..') });
+  execSync('npx tsx scripts/content-audit.ts', {
+    stdio: 'inherit',
+    cwd: resolve(__dirname, '..'),
+  });
 } catch (error) {
   // Exit with the same code as the content audit script
   // Exit code 1 means content audit failed (expected behavior)
