@@ -293,7 +293,7 @@ const PropertyDetails: React.FC = () => {
                 >
                   Start Application
                 </Link>
-                <button className="block w-full bg-white border-2 border-p4c-navy text-p4c-navy text-center py-3 rounded-md font-bold hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+                <button className="w-full bg-white border-2 border-p4c-navy text-p4c-navy text-center py-3 rounded-md font-bold hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
                   <Calendar className="w-5 h-5" /> Schedule Viewing
                 </button>
               </div>
