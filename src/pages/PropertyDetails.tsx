@@ -41,7 +41,6 @@ const PropertyDetails: React.FC = () => {
         setProperty(propertyData || undefined);
       } catch (err) {
         setError('Failed to load property details. Please try again.');
-        console.error('Error fetching property:', err);
       } finally {
         setLoading(false);
       }

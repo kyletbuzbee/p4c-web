@@ -111,7 +111,7 @@ const AdminDashboard: React.FC = () => {
   );
 
   // 3. Action Handlers
-  const handleDelete = async (id: string) => {
+  const handleDelete = (id: string) => {
     try {
       // await api.properties.delete(id); // Uncomment when API is ready
       setProperties((prev) => prev.filter((p) => p.id !== id)); // Optimistic update
@@ -154,6 +154,7 @@ const AdminDashboard: React.FC = () => {
                 ? 'bg-white/10 text-p4c-gold'
                 : 'text-gray-300 hover:bg-white/5'
             }`}
+            aria-label="Dashboard"
           >
             <BarChart3 className="w-5 h-5 mr-3" /> Dashboard
           </button>
@@ -164,6 +165,7 @@ const AdminDashboard: React.FC = () => {
                 ? 'bg-white/10 text-p4c-gold'
                 : 'text-gray-300 hover:bg-white/5'
             }`}
+            aria-label="Properties"
           >
             <Home className="w-5 h-5 mr-3" /> Properties
           </button>
@@ -174,6 +176,7 @@ const AdminDashboard: React.FC = () => {
                 ? 'bg-white/10 text-p4c-gold'
                 : 'text-gray-300 hover:bg-white/5'
             }`}
+            aria-label="Tenants"
           >
             <Users className="w-5 h-5 mr-3" /> Tenants
           </button>
@@ -184,6 +187,7 @@ const AdminDashboard: React.FC = () => {
                 ? 'bg-white/10 text-p4c-gold'
                 : 'text-gray-300 hover:bg-white/5'
             }`}
+            aria-label="Settings"
           >
             <Settings className="w-5 h-5 mr-3" /> Settings
           </button>
@@ -206,6 +210,7 @@ const AdminDashboard: React.FC = () => {
           <button
             onClick={logout}
             className="flex items-center justify-center w-full px-4 py-2 border border-gray-600 rounded-lg text-sm hover:bg-gray-800 transition-colors"
+            aria-label="Sign out"
           >
             <LogOut className="w-4 h-4 mr-2" /> Sign Out
           </button>
@@ -224,6 +229,7 @@ const AdminDashboard: React.FC = () => {
               <button
                 onClick={handleAddNew}
                 className="bg-p4c-navy text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-p4c-slate transition-colors shadow-md"
+                aria-label="Add new property"
               >
                 <Plus className="w-4 h-4" /> Add Property
               </button>
@@ -362,6 +368,7 @@ const AdminDashboard: React.FC = () => {
                                 onClick={() => handleEdit(property.id)}
                                 className="p-1.5 hover:bg-gray-100 rounded text-gray-500 hover:text-p4c-navy"
                                 title="Edit Property"
+                                aria-label={`Edit ${property.title}`}
                               >
                                 <Edit2 className="w-4 h-4" />
                               </button>
@@ -369,6 +376,7 @@ const AdminDashboard: React.FC = () => {
                                 onClick={() => handleDelete(property.id)}
                                 className="p-1.5 hover:bg-red-50 rounded text-gray-500 hover:text-red-600"
                                 title="Delete Property"
+                                aria-label={`Delete ${property.title}`}
                               >
                                 <Trash2 className="w-4 h-4" />
                               </button>
