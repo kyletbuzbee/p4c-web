@@ -30,7 +30,7 @@
     "lighthouse:run": "npm run build && lhci autorun"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.90.1",
+    "@supabase/supabase-js": "^2.91.1",
     "@types/node": "^20.11.16",
     "axios": "^1.13.2",
     "express": "^4.22.1",

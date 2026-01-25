@@ -18,12 +18,12 @@ export const properties: ExtendedProperty[] = [
     baths: 2,
     sqft: 1450,
     description:
-      'Beautifully renovated home in the heart of Tyler, featuring quartz countertops, modern HVAC system, and a spacious fenced backyard. This property contributes to the revitalization of the Azalea District neighborhood, offering premium affordable housing in East Texas. Located within walking distance of local schools and community amenities.',
+      'Beautifully renovated home in the heart of Tyler, featuring durable countertops, modern HVAC system, and a spacious fenced backyard. This property contributes to the revitalization of the Azalea District neighborhood, offering quality affordable housing in East Texas. Located within walking distance of local schools and community amenities.',
     imageUrl: IMAGES.PROPERTIES.TYLER_RANCH,
     images: [IMAGES.PROPERTIES.TYLER_RANCH],
     badges: ['Family Friendly', 'Top Rated Schools'],
     amenities: [
-      'Quartz Countertops',
+      'Durable Countertops',
       'Fenced Backyard',
       'Central HVAC',
       'Dishwasher',
@@ -87,12 +87,12 @@ export const properties: ExtendedProperty[] = [
     baths: 2,
     sqft: 1800,
     description:
-      'Spacious home with open floor plan featuring brand new luxury vinyl plank flooring and modernized kitchen. This Marshall property includes a covered patio and detached garage, contributing to the revitalization of the Historic District neighborhood in East Texas. Located in a well-established community with local character.',
+      'Spacious home with open floor plan featuring brand new durable vinyl plank flooring and modernized kitchen. This Marshall property includes a covered patio and detached garage, contributing to the revitalization of the Historic District neighborhood in East Texas. Located in a well-established community with local character.',
     imageUrl: IMAGES.PROPERTIES.MARSHALL_FARMHOUSE,
     images: [IMAGES.PROPERTIES.MARSHALL_FARMHOUSE],
     badges: ['Family Size', 'Top Rated Schools'],
     amenities: [
-      'LVP Flooring',
+      'Durable Vinyl Plank Flooring',
       'Covered Patio',
       'Detached Garage',
       'Walk-in Closets',

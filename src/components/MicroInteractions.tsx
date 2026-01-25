@@ -61,18 +61,32 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
   const baseClasses =
     'relative overflow-hidden transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
 
-  const variantClasses = {
-    primary:
-      'bg-p4c-gold text-p4c-navy hover:bg-p4c-goldHover focus:ring-p4c-gold shadow-lg hover:shadow-xl hover:-translate-y-0.5',
-    secondary:
-      'bg-p4c-navy text-white hover:bg-p4c-slate focus:ring-p4c-navy shadow-md hover:shadow-lg',
-    ghost: 'bg-transparent text-p4c-navy hover:bg-gray-100 focus:ring-p4c-navy',
+  // Safe variant class lookup
+  const getVariantClass = (variant: string): string => {
+    switch (variant) {
+      case 'primary':
+        return 'bg-p4c-gold text-p4c-navy hover:bg-p4c-goldHover focus:ring-p4c-gold shadow-lg hover:shadow-xl hover:-translate-y-0.5';
+      case 'secondary':
+        return 'bg-p4c-navy text-white hover:bg-p4c-slate focus:ring-p4c-navy shadow-md hover:shadow-lg';
+      case 'ghost':
+        return 'bg-transparent text-p4c-navy hover:bg-gray-100 focus:ring-p4c-navy';
+      default:
+        return 'bg-p4c-gold text-p4c-navy hover:bg-p4c-goldHover focus:ring-p4c-gold shadow-lg hover:shadow-xl hover:-translate-y-0.5';
+    }
   };
 
-  const sizeClasses = {
-    sm: 'px-3 py-1.5 text-sm rounded-md',
-    md: 'px-4 py-2 text-base rounded-lg',
-    lg: 'px-6 py-3 text-lg rounded-xl',
+  // Safe size class lookup
+  const getSizeClass = (size: string): string => {
+    switch (size) {
+      case 'sm':
+        return 'px-3 py-1.5 text-sm rounded-md';
+      case 'md':
+        return 'px-4 py-2 text-base rounded-lg';
+      case 'lg':
+        return 'px-6 py-3 text-lg rounded-xl';
+      default:
+        return 'px-4 py-2 text-base rounded-lg';
+    }
   };
 
   return (
@@ -81,9 +95,7 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
       onClick={handleClick}
       disabled={disabled || loading}
       aria-label={ariaLabel}
-      /* eslint-disable security/detect-object-injection */
-      className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${isPressed ? 'scale-95' : ''} ${animate ? 'hover-lift button-press' : ''} ${className}`}
-      /* eslint-enable security/detect-object-injection */
+      className={`${baseClasses} ${getVariantClass(variant)} ${getSizeClass(size)} ${isPressed ? 'scale-95' : ''} ${animate ? 'hover-lift button-press' : ''} ${className}`}
       {...props}
     >
       {/* Ripple effects */}
@@ -144,19 +156,26 @@ export const FloatingAction: React.FC<FloatingActionProps> = ({
   'aria-label': ariaLabel = 'Quick action button',
   ...props
 }) => {
-  const positionClasses = {
-    'bottom-right': 'bottom-6 right-6',
-    'bottom-left': 'bottom-6 left-6',
-    'top-right': 'top-6 right-6',
-    'top-left': 'top-6 left-6',
+  // Safe position class lookup
+  const getPositionClass = (position: string): string => {
+    switch (position) {
+      case 'bottom-right':
+        return 'bottom-6 right-6';
+      case 'bottom-left':
+        return 'bottom-6 left-6';
+      case 'top-right':
+        return 'top-6 right-6';
+      case 'top-left':
+        return 'top-6 left-6';
+      default:
+        return 'bottom-6 right-6';
+    }
   };
 
   return (
     <button
       onClick={onClick}
-      /* eslint-disable security/detect-object-injection */
-      className={`fixed ${positionClasses[position]} z-40 w-14 h-14 bg-p4c-gold text-p4c-navy rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-p4c-gold focus:ring-offset-2 group ${className}`}
-      /* eslint-enable security/detect-object-injection */
+      className={`fixed ${getPositionClass(position)} z-40 w-14 h-14 bg-p4c-gold text-p4c-navy rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-p4c-gold focus:ring-offset-2 group ${className}`}
       aria-label={ariaLabel}
       {...props}
     >
@@ -200,18 +219,24 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
     return undefined;
   }, [progress, animated]);
 
-  const sizeClasses = {
-    sm: 'w-16 h-2',
-    md: 'w-24 h-3',
-    lg: 'w-32 h-4',
+  // Safe size class lookup
+  const getSizeClass = (size: string): string => {
+    switch (size) {
+      case 'sm':
+        return 'w-16 h-2';
+      case 'md':
+        return 'w-24 h-3';
+      case 'lg':
+        return 'w-32 h-4';
+      default:
+        return 'w-24 h-3';
+    }
   };
 
   return (
     <div className={`flex items-center space-x-2 ${className}`}>
       <div
-        /* eslint-disable security/detect-object-injection */
-        className={`bg-gray-200 rounded-full overflow-hidden ${sizeClasses[size]}`}
-        /* eslint-enable security/detect-object-injection */
+        className={`bg-gray-200 rounded-full overflow-hidden ${getSizeClass(size)}`}
       >
         <div
           className={`${color} h-full rounded-full transition-all duration-500 ease-out`}
@@ -315,18 +340,25 @@ export const HoverCard: React.FC<HoverCardProps> = ({
   className = '',
   hoverEffect = 'lift',
 }) => {
-  const effectClasses = {
-    lift: 'hover:-translate-y-2 hover:shadow-xl',
-    glow: 'hover:shadow-lg hover:shadow-p4c-gold/20',
-    scale: 'hover:scale-105',
-    border: 'hover:border-p4c-gold hover:border-2',
+  // Safe effect class lookup
+  const getEffectClass = (effect: string): string => {
+    switch (effect) {
+      case 'lift':
+        return 'hover:-translate-y-2 hover:shadow-xl';
+      case 'glow':
+        return 'hover:shadow-lg hover:shadow-p4c-gold/20';
+      case 'scale':
+        return 'hover:scale-105';
+      case 'border':
+        return 'hover:border-p4c-gold hover:border-2';
+      default:
+        return 'hover:-translate-y-2 hover:shadow-xl';
+    }
   };
 
   return (
     <div
-      /* eslint-disable security/detect-object-injection */
-      className={`transition-all duration-300 ease-in-out ${effectClasses[hoverEffect]} ${className}`}
-      /* eslint-enable security/detect-object-injection */
+      className={`transition-all duration-300 ease-in-out ${getEffectClass(hoverEffect)} ${className}`}
     >
       {children}
     </div>
@@ -344,10 +376,18 @@ export const LoadingDots: React.FC<LoadingDotsProps> = ({
   color = 'bg-p4c-gold',
   className = '',
 }) => {
-  const sizeClasses = {
-    sm: 'w-1 h-1',
-    md: 'w-2 h-2',
-    lg: 'w-3 h-3',
+  // Safe size class lookup
+  const getSizeClass = (size: string): string => {
+    switch (size) {
+      case 'sm':
+        return 'w-1 h-1';
+      case 'md':
+        return 'w-2 h-2';
+      case 'lg':
+        return 'w-3 h-3';
+      default:
+        return 'w-2 h-2';
+    }
   };
 
   return (
@@ -355,9 +395,7 @@ export const LoadingDots: React.FC<LoadingDotsProps> = ({
       {[0, 1, 2].map((i) => (
         <div
           key={i}
-          /* eslint-disable security/detect-object-injection */
-          className={`${sizeClasses[size]} ${color} rounded-full animate-bounce`}
-          /* eslint-enable security/detect-object-injection */
+          className={`${getSizeClass(size)} ${color} rounded-full animate-bounce`}
           style={{
             animationDelay: `${i * 0.1}s`,
             animationDuration: '0.6s',
