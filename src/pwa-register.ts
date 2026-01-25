@@ -3,7 +3,7 @@
 
 let swRegistration: ServiceWorkerRegistration | null = null;
 
-export function updateSW() {
+export function updateSW(p0: boolean) {
   // Check if service workers are supported
   if ('serviceWorker' in navigator) {
     // Wait for DOM content to load before registering
