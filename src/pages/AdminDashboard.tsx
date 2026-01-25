@@ -66,8 +66,9 @@ const AdminDashboard: React.FC = () => {
         (parseInt(
           typeof curr.price === 'string'
             ? curr.price.replace(/,/g, '')
-            : curr.price.toString()
-        , 10) || 0),
+            : curr.price.toString(),
+          10
+        ) || 0),
       0
     );
 

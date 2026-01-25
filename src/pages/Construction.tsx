@@ -283,8 +283,8 @@ const Construction: React.FC = () => (
             Our Commitment to Quality
           </h2>
           <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-            We don't just renovate houses - we create homes. Every property we
-            acquire undergoes a comprehensive transformation to meet our
+            We don&apos;t just renovate houses - we create homes. Every property
+            we acquire undergoes a comprehensive transformation to meet our
             rigorous quality standards. From structural integrity to aesthetic
             appeal, we ensure our residences provide safe, comfortable, and
             beautiful living spaces for families.

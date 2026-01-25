@@ -410,7 +410,7 @@ const FamilyResources: React.FC = () => {
                 </div>
 
                 <blockquote className="text-gray-700 mb-6 italic leading-relaxed">
-                  "{testimonial.quote}"
+                  &quot;{testimonial.quote}&quot;
                 </blockquote>
 
                 <div>

@@ -66,8 +66,8 @@ const Careers: React.FC = () => (
                   <h4 className="font-bold text-p4c-navy">Mission-Driven</h4>
                 </div>
                 <p className="text-gray-600 text-sm">
-                  We're committed to revitalizing East Texas communities through
-                  quality housing
+                  We&apos;re committed to revitalizing East Texas communities
+                  through quality housing
                 </p>
               </div>
 
@@ -77,8 +77,8 @@ const Careers: React.FC = () => (
                   <h4 className="font-bold text-p4c-navy">Team Focused</h4>
                 </div>
                 <p className="text-gray-600 text-sm">
-                  We invest in our team&apos;s growth and create a supportive work
-                  environment
+                  We invest in our team&apos;s growth and create a supportive
+                  work environment
                 </p>
               </div>
 
@@ -135,8 +135,7 @@ const Careers: React.FC = () => (
             Current Opportunities
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            We're always looking for talented individuals to join our growing
-            team
+            We&apos;re always looking for talented individuals to join our team
           </p>
         </div>
 
@@ -340,8 +339,8 @@ const Careers: React.FC = () => (
             Ready to Join Our Team?
           </h2>
           <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-            We're always looking for passionate, skilled individuals who want to
-            make a difference in East Texas communities. Whether you're in
+            We&apos;re always looking for passionate, skilled individuals who
+            make a difference in East Texas communities. Whether you&apos;re in
             property management, construction, or acquisitions, we have
             opportunities for you to grow your career.
           </p>
