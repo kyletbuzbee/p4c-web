@@ -83,3 +83,7 @@ BlotpressBot.bpz
 .kilocode/
 .clinerules/
 .quodo/
+.kilocode/mcp.json
+.quodo/mcp.json
+.clinerules/mcp.json
+.supabase/
