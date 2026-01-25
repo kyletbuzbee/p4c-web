@@ -331,10 +331,10 @@ const Home: React.FC = () => {
               Premium Family Living
             </h3>
             <p className="font-sans text-slate-600 leading-relaxed mb-4">
-              We deliver the "Gold Standard" in affordable housing. Located in
-              top-rated school districts in <strong>Tyler and Longview</strong>,
-              our homes feature modern renovations that provide families with
-              dignity and stability.
+              We deliver the &quot;Gold Standard&quot; in affordable housing.
+              Located in in top-rated school districts in{' '}
+              <strong>Tyler and Longview</strong>, our homes feature modern
+              renovations that provide families with dignity and stability.
             </p>
             <div className="flex flex-wrap gap-2 mb-4">
               <span className="bg-p4c-navy text-white px-3 py-1 rounded-full text-sm font-bold">
@@ -537,7 +537,7 @@ const Home: React.FC = () => {
                 Transforming Neighborhoods One Block at a Time
               </h2>
               <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-                We don't just flip houses; we stabilize communities. By
+                We don&apos;t just flip houses; we stabilize communities. By
                 investing heavy capital into distressed properties, we raise
                 property values and attract long-term residents to East Texas.
               </p>

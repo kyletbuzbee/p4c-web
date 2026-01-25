@@ -149,7 +149,7 @@ const FamilyResources: React.FC = () => {
           </h1>
           <p className="text-xl md:text-2xl text-gray-200 mb-8 leading-relaxed">
             Safe, affordable housing in East Texas with top-rated schools and
-            community support for your family's future.
+            community support for your family&apos;s future.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
@@ -178,7 +178,7 @@ const FamilyResources: React.FC = () => {
               Top-Rated School Districts
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Your children's education is our priority. All our properties are
+              Your children&apos;s education is our priority. All our properties
               located within highly-rated school districts.
             </p>
           </div>
@@ -389,8 +389,8 @@ const FamilyResources: React.FC = () => {
               Families Love Their Properties 4 Creation Homes
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Hear from families who've found their perfect home with Properties
-              4 Creation.
+              Hear from families who&apos;ve found their perfect home with
+              Properties 4 Creation.
             </p>
           </div>
 
@@ -431,11 +431,11 @@ const FamilyResources: React.FC = () => {
       <section className="py-20 bg-p4c-navy text-white">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-serif font-bold text-p4c-beige mb-6">
-            Ready to Find Your Family's Home?
+            Ready to Find Your Family&apos;s Home?
           </h2>
           <p className="text-xl text-gray-300 mb-8 leading-relaxed">
             Take the first step towards creating lasting memories in a home that
-            supports your family's growth and happiness.
+            supports your family&apos;s growth and happiness.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a

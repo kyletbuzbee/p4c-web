@@ -38,7 +38,7 @@ export const UpdateNotification: React.FC = () => {
 
           <div className="flex gap-2">
             <button
-              onClick={() => updateSW(false)}
+              onClick={() => updateSW()}
               className="px-3 py-1.5 bg-p4c-navy text-p4c-gold text-xs font-bold rounded hover:bg-slate-800 transition-colors"
             >
               Refresh Now

@@ -241,9 +241,9 @@ const HomeownerSolutions: React.FC = () => {
                 </div>
               </div>
               <blockquote className="text-gray-700 italic mb-4">
-                "I needed to liquidate an inherited property quickly. Properties
-                4 Creation provided a fair cash offer based on comps and we
-                closed in 14 days. Extremely professional."
+                &quot;I needed to liquidate an inherited property quickly.
+                Properties 4 Creation provided a fair cash offer based on comps
+                and we closed in 14 days. Extremely professional.&quot;
               </blockquote>
               <div className="flex text-p4c-gold">★★★★★</div>
             </div>
@@ -261,9 +261,10 @@ const HomeownerSolutions: React.FC = () => {
                 </div>
               </div>
               <blockquote className="text-gray-700 italic mb-4">
-                "As a landlord tired of management, selling my portfolio to P4C
-                was the right move. They bought the properties 'as-is' with
-                tenants in place. Seamless transition."
+                &quot;As a landlord tired of management, selling my portfolio to
+                P4C was the right move. They bought the properties
+                &apos;as-is&apos; with tenants in place. Seamless
+                transition.&quot;
               </blockquote>
               <div className="flex text-p4c-gold">★★★★★</div>
             </div>

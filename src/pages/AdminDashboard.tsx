@@ -67,7 +67,7 @@ const AdminDashboard: React.FC = () => {
           typeof curr.price === 'string'
             ? curr.price.replace(/,/g, '')
             : curr.price.toString()
-        ) || 0),
+        , 10) || 0),
       0
     );
 
@@ -112,18 +112,12 @@ const AdminDashboard: React.FC = () => {
 
   // 3. Action Handlers
   const handleDelete = async (id: string) => {
-    if (
-      window.confirm(
-        'Are you sure you want to delete this property? This cannot be undone.'
-      )
-    ) {
-      try {
-        // await api.properties.delete(id); // Uncomment when API is ready
-        setProperties((prev) => prev.filter((p) => p.id !== id)); // Optimistic update
-        addToast('Property deleted successfully', 'success');
-      } catch (error) {
-        addToast('Failed to delete property', 'error');
-      }
+    try {
+      // await api.properties.delete(id); // Uncomment when API is ready
+      setProperties((prev) => prev.filter((p) => p.id !== id)); // Optimistic update
+      addToast('Property deleted successfully', 'success');
+    } catch (error) {
+      addToast('Failed to delete property', 'error');
     }
   };
 

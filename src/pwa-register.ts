@@ -3,7 +3,7 @@
 
 let swRegistration: ServiceWorkerRegistration | null = null;
 
-export function updateSW(p0: boolean) {
+export function updateSW() {
   // Check if service workers are supported
   if ('serviceWorker' in navigator) {
     // Wait for DOM content to load before registering
@@ -28,7 +28,10 @@ async function registerServiceWorker() {
       const newWorker = swRegistration?.installing;
       if (newWorker) {
         newWorker.addEventListener('statechange', () => {
-          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+          if (
+            newWorker.state === 'installed' &&
+            navigator.serviceWorker.controller
+          ) {
             // New content is available
             window.dispatchEvent(new Event('p4c-sw-update'));
           }
