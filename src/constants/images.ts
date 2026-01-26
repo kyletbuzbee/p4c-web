@@ -67,8 +67,10 @@ export const IMAGES = {
     HERO_TRANSPARENCY: '/images/banners/hero-transparency-banner.webp',
     HERO_TRANSPARENCY_640: '/images/banners/hero-transparency-banner-640.webp',
     HERO_TRANSPARENCY_960: '/images/banners/hero-transparency-banner-960.webp',
-    HERO_TRANSPARENCY_1280: '/images/banners/hero-transparency-banner-1280.webp',
-    HERO_TRANSPARENCY_1920: '/images/banners/hero-transparency-banner-1920.webp',
+    HERO_TRANSPARENCY_1280:
+      '/images/banners/hero-transparency-banner-1280.webp',
+    HERO_TRANSPARENCY_1920:
+      '/images/banners/hero-transparency-banner-1920.webp',
 
     // Application Page
     HERO_APPLICATION: '/images/banners/hero-application-banner.webp',
@@ -187,7 +189,8 @@ export const IMAGES = {
     REMODELING: '/images/our-work-gallery/our-work-remodeling-400w.webp',
     BUY_AS_IS: '/images/our-work-gallery/our-impact-buy-as-is.webp',
     LINDALE_COTTAGE: '/images/our-work-gallery/lindale-cottage-before.webp',
-    MEASURING_PLACEHOLDER: '/images/our-work-gallery/our-work-detailed-measuring-placeholder.jpg',
+    MEASURING_PLACEHOLDER:
+      '/images/our-work-gallery/our-work-detailed-measuring-placeholder.jpg',
     MEETING: '/images/our-work-gallery/our-work-meeting.png',
   },
 
