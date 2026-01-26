@@ -3,10 +3,7 @@ module.exports = {
   content: [
     './index.html',
     './src/**/*.{js,ts,jsx,tsx}',
-    // Note: If 'components' and 'pages' are inside 'src', the line above covers them.
-    // Keeping them here is safe, just slightly redundant.
-    './components/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,tsx}',
+    // REMOVED redundant ./components and ./pages as they are inside src/
   ],
   darkMode: 'class', // ✅ CRITICAL: Enables manual dark mode toggling
   theme: {

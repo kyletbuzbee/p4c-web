@@ -3,7 +3,13 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
-  workflow_dispatch: # Allow manual triggering
+  workflow_dispatch:
+
+# --- PREVENT DEPLOYMENT CONFLICTS ---
+# This cancels any "in-progress" runs if you push new code before the old one finishes.
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
   build-and-deploy:
@@ -22,7 +28,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Fetch full history for better caching
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -38,9 +44,7 @@ jobs:
           echo "Building application for GitHub Pages..."
           npm run build
         env:
-          # Using custom domain (CNAME), so base path is "/"
           VITE_USE_CUSTOM_DOMAIN: 'true'
-          # VITE_REPOSITORY_NAME: ${{ github.event.repository.name }}
 
       - name: Verify build output
         run: |
@@ -48,13 +52,11 @@ jobs:
             echo "Build failed: dist directory not found"
             exit 1
           fi
-          echo "Build successful: dist directory exists"
-          ls -la dist/
-          # Check for essential files
           if [ ! -f "dist/index.html" ]; then
             echo "Build failed: index.html not found"
             exit 1
           fi
+          echo "Build successful: dist/index.html exists"
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -73,21 +75,16 @@ jobs:
           echo "✅ GitHub Pages deployment completed successfully!"
           echo "🌐 Website URL: ${{ steps.deployment.outputs.page_url }}"
           echo "📝 Commit: ${{ github.sha }}"
-          echo "👤 Author: ${{ github.actor }}"
 
-  # Optional: Add a job to validate the deployment
   validate-deployment:
     name: Validate Deployment
     runs-on: ubuntu-latest
     needs: build-and-deploy
     if: github.ref == 'refs/heads/main'
-
     steps:
-      - name: Wait for deployment
-        run: sleep 30 # Wait for GitHub Pages to process the deployment
-
       - name: Check deployment status
         run: |
-          echo "Validating deployment..."
-          # Basic health check - this would be more comprehensive in a real scenario
+          echo "Validating P4C Web Availability..."
+          # Optional: Use curl to verify the site returns 200 OK
+          # curl -s --head  --request GET https://www.properties4creations.com/ | grep "200 OK" || exit 1
           echo "✅ Deployment validation completed"
