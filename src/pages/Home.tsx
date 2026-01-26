@@ -316,11 +316,22 @@ const Home: React.FC = () => {
         )}
       </section>
 
-      {/* The Business Pillars (3-Column Section) */}
+      {/* Core Services Section */}
       <section
         className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-20"
         aria-label="Our Core Services"
       >
+        <div className="text-center mb-16">
+          <div className="inline-block bg-p4c-navy text-white px-6 py-3 rounded-full text-sm font-bold uppercase tracking-wider mb-6">
+            Our Services
+          </div>
+          <h2 className="text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-4">
+            Comprehensive Real Estate Solutions
+          </h2>
+          <p className="text-gray-600 max-w-3xl mx-auto text-lg">
+            From premium family housing to direct asset acquisition, we provide end-to-end real estate services across East Texas.
+          </p>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
           {/* Card 1: Family/Community (50%) */}
           <div className="bg-white p-8 rounded-2xl shadow-xl border-t-4 border-p4c-navy hover:shadow-2xl transition-shadow">
@@ -514,7 +525,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Impact Section - Renovation Standard */}
+      {/* Impact Section - Community Focus */}
       <section className="py-20 bg-p4c-navy">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -525,27 +536,25 @@ const Home: React.FC = () => {
                 muted
                 playsInline
                 className="absolute inset-0 w-full h-full object-cover opacity-60"
-                src="/images/videos/hero-our-work-banner.mp4"
+                src={IMAGES.VIDEOS.SUCCESS_STORY}
               />
               <div className="absolute inset-0 bg-p4c-navy/30 mix-blend-multiply" />
             </div>
             <div className="text-white">
               <div className="inline-flex items-center gap-2 bg-p4c-gold/20 px-4 py-2 rounded-full text-p4c-gold text-sm font-bold uppercase tracking-wider mb-4 border border-p4c-gold/30">
-                Community Revitalization
+                Community Impact
               </div>
               <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6">
-                Transforming Neighborhoods One Block at a Time
+                Building Stronger Communities Through Quality Renovations
               </h2>
               <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-                We don&apos;t just flip houses; we stabilize communities. By
-                investing heavy capital into distressed properties, we raise
-                property values and attract long-term residents to East Texas.
+                Every property we renovate represents an investment in East Texas families. Our commitment to premium finishes and modern amenities creates stable, long-term housing that strengthens neighborhoods and supports local growth.
               </p>
               <button
                 onClick={() => navigate('/our-impact')}
                 className="bg-p4c-gold text-p4c-navy hover:bg-white hover:text-p4c-navy px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
               >
-                See Our Projects
+                View Our Impact
                 <ArrowRight className="w-5 h-5" />
               </button>
             </div>
