@@ -9,12 +9,6 @@
 
 // Brand Assets
 export const IMAGES = {
-  LOGO: {
-    PNG: '/images/logo/brand-logo.webp',
-    SVG: '/images/logo/brand-logo.svg',
-    WHITE_GOLD: '/images/logo/brand-logo-white-gold.svg',
-  },
-
   // Page Hero Banners
   BANNERS: {
     // Home Page
@@ -30,7 +24,6 @@ export const IMAGES = {
     HERO_ABOUT_960: '/images/banners/hero-about-banner-960.webp',
     HERO_ABOUT_1920: '/images/banners/hero-about-banner-1920.webp',
     HERO_ABOUT_US: '/images/banners/hero-about-us-banner.webp',
-    HERO_ABOUT_1: '/images/banners/hero-about1-banner.webp',
 
     // Contact Page
     HERO_CONTACT: '/images/banners/hero-contact-banner.webp',
@@ -41,7 +34,6 @@ export const IMAGES = {
 
     // Impact Page
     HERO_IMPACT: '/images/banners/hero-impact_banner-640.avif',
-    HERO_IMPACT_640: '/images/banners/hero-impact_banner-640.avif',
     HERO_IMPACT_960: '/images/banners/hero-impact_banner-960.avif',
     HERO_IMPACT_1280: '/images/banners/hero-impact_banner-1280.avif',
     HERO_IMPACT_1920: '/images/banners/hero-impact_banner-1920.avif',
@@ -49,11 +41,8 @@ export const IMAGES = {
     // Privacy Page
     HERO_PRIVACY: '/images/banners/hero-privacy-banner.webp',
     HERO_PRIVACY_640: '/images/banners/hero-privacy-banner-640.webp',
-    HERO_PRIVACY_800: '/images/banners/hero-privacy-banner-800w.webp',
     HERO_PRIVACY_960: '/images/banners/hero-privacy-banner-960.webp',
-    HERO_PRIVACY_1200: '/images/banners/hero-privacy-banner-1200w.webp',
     HERO_PRIVACY_1280: '/images/banners/hero-privacy-banner-1280.webp',
-    HERO_PRIVACY_1600: '/images/banners/hero-privacy-banner-1600w.webp',
     HERO_PRIVACY_1920: '/images/banners/hero-privacy-banner-1920.webp',
 
     // Projects Page
@@ -78,10 +67,8 @@ export const IMAGES = {
     HERO_TRANSPARENCY: '/images/banners/hero-transparency-banner.webp',
     HERO_TRANSPARENCY_640: '/images/banners/hero-transparency-banner-640.webp',
     HERO_TRANSPARENCY_960: '/images/banners/hero-transparency-banner-960.webp',
-    HERO_TRANSPARENCY_1280:
-      '/images/banners/hero-transparency-banner-1280.webp',
-    HERO_TRANSPARENCY_1920:
-      '/images/banners/hero-transparency-banner-1920.webp',
+    HERO_TRANSPARENCY_1280: '/images/banners/hero-transparency-banner-1280.webp',
+    HERO_TRANSPARENCY_1920: '/images/banners/hero-transparency-banner-1920.webp',
 
     // Application Page
     HERO_APPLICATION: '/images/banners/hero-application-banner.webp',
@@ -94,15 +81,6 @@ export const IMAGES = {
 
     // Get Started / Success Story Page
     HERO_SUCCESS_STORY: '/images/banners/hero-get-started-banner.webp',
-    HERO_SUCCESS_STORY_640: '/images/banners/hero-get-started-banner-640.webp',
-    HERO_SUCCESS_STORY_960: '/images/banners/hero-get-started-banner-960.webp',
-    HERO_SUCCESS_STORY_1280:
-      '/images/banners/hero-get-started-banner-1280.webp',
-    HERO_SUCCESS_STORY_1920:
-      '/images/banners/hero-get-started-banner-1920.webp',
-
-    // Deprecated: Get Started renamed to Success Story
-    HERO_GET_STARTED: '/images/banners/hero-get-started-banner.webp',
 
     // Legal Page
     HERO_LEGAL: '/images/banners/hero-legal-banner.webp',
@@ -116,6 +94,20 @@ export const IMAGES = {
 
     // Thank You Page
     HERO_THANK_YOU: '/images/banners/hero-thank-you-banner.webp',
+
+    // Career Page
+    CAREER: '/images/banners/career-banner.webp',
+
+    // Family Resources Page
+    FAMILY_RESOURCES: '/images/banners/family-resources-banner.webp',
+
+    // Homeowner Solutions Page
+    HERO_HOMEOWNER_SOLUTIONS: '/images/banners/hero-homeowner-solutions.webp',
+
+    // Additional Banners
+    LINDALE_COTTAGE_BANNER: '/images/banners/lindale-cottage.webp',
+    PROPERTIES_BANNER_PNG: '/images/banners/properties-banner.png',
+    RESIDENT_SERVICE_BANNER_PNG: '/images/banners/resident-service-banner.png',
   },
 
   // Property Listings
@@ -127,9 +119,21 @@ export const IMAGES = {
     MARSHALL_FARMHOUSE: '/images/properties/marshall-farmhouse-400w.webp',
     MINEOLA_STUDIO: '/images/properties/mineola-studio.webp',
     MINEOLA_STUDIO_OUTSIDE: '/images/properties/mineola-studio-outside.webp',
-    RODRIGUEZ_FAMILY: '/images/properties/rodriguez-family-400w.webp',
     TYLER_RANCH: '/images/properties/tyler-ranch-home.webp',
     TYLER_RANCH_400: '/images/properties/tyler-ranch-home-400w.webp',
+  },
+
+  // Brand Assets
+  LOGO: {
+    PNG: '/images/logo/brand-logo.webp',
+    SVG: '/images/logo/brand-logo.svg',
+    WHITE_GOLD: '/images/logo/brand-logo-white-gold.svg',
+    CHAT_AVATAR_PNG: '/images/logo/chat-avatar.png',
+    CHAT_AVATAR_SVG: '/images/logo/chat-avatar.svg',
+    PWA_192: '/images/logo/pwa-192x192.png',
+    PWA_512: '/images/logo/pwa-512x512.png',
+    PWA_PNG: '/images/logo/pwa.png',
+    PWA_SVG: '/images/logo/pwa.svg',
   },
 
   // Team & About
@@ -137,6 +141,8 @@ export const IMAGES = {
     OWNER: '/images/about/about-us-team-owner.webp',
     HEADSHOT: '/images/about/about-us-team-headshot.webp',
     ONSITE: '/images/about/about-us-team-onsite.webp',
+    ACQUISITION: '/images/about/acquisition.png',
+    REHABILITATION: '/images/about/rehabilitaion.png',
   },
 
   // Renovation Showcase (Before/After)
@@ -170,6 +176,7 @@ export const IMAGES = {
       AFTER:
         '/images/before-after-comparison/projects-after-brick-patio-400w.webp',
     },
+    BEFORE_PLACEHOLDER: '/images/before-after-comparison/before.webp',
   },
 
   // Gallery / Our Work
@@ -180,9 +187,16 @@ export const IMAGES = {
     REMODELING: '/images/our-work-gallery/our-work-remodeling-400w.webp',
     BUY_AS_IS: '/images/our-work-gallery/our-impact-buy-as-is.webp',
     LINDALE_COTTAGE: '/images/our-work-gallery/lindale-cottage-before.webp',
-    WORK_FRAMING_DOOR: '/images/our-work-gallery/work-framing-door.webp',
-    PROJECTS_AFTER_LIVING_ROOM:
-      '/images/our-work-gallery/projects-after-living-room.webp',
+    MEASURING_PLACEHOLDER: '/images/our-work-gallery/our-work-detailed-measuring-placeholder.jpg',
+    MEETING: '/images/our-work-gallery/our-work-meeting.png',
+  },
+
+  // Resident Review Images
+  RESIDENT_REVIEW: {
+    ALEX: '/images/resident-review/resident-review-alex.png',
+    EMILY_DAVID: '/images/resident-review/resident-review-emily-david.png',
+    MARK: '/images/resident-review/resident-review-mark.png',
+    SARAH: '/images/resident-review/resident-review-sarah.png',
   },
 
   // Family Lifestyle Images
@@ -196,7 +210,6 @@ export const IMAGES = {
     HOME: '/images/videos/home.mp4',
     HERO_PROJECTS: '/images/videos/hero-projects-banner.mp4',
     HERO_WORK: '/images/videos/hero-our-work-banner.mp4',
-    HERO_OUR_WORK: '/images/videos/Hero-Our-Work-Video.mp4',
     HERO_IMPACT: '/images/videos/hero-our-impact.mp4',
     HERO_SPOTLIGHT: '/images/videos/hero-spotlight-banner.mp4',
     SUCCESS_STORY: '/images/videos/success-stories.mp4',
