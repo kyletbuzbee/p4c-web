@@ -34,7 +34,7 @@ interface NavItem {
   }[];
 }
 
-const Navbar = (): JSX.Element => {
+const Navbar = (): React.ReactElement => {
   const [isOpen, setIsOpen] = useState(false); // Mobile menu state
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const dropdownTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -294,7 +294,9 @@ const Navbar = (): JSX.Element => {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-gray-300 hover:text-white p-2 focus:outline-none focus:ring-2 focus:ring-p4c-gold"
-              aria-label={isOpen ? 'Close mobile menu' : 'Open mobile menu'}
+              aria-label={
+                isOpen ? 'Close navigation menu' : 'Open navigation menu'
+              }
               aria-expanded={isOpen}
             >
               {isOpen ? (
