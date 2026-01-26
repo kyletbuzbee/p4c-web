@@ -27,7 +27,7 @@ const Community: React.FC = () => {
           muted
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
-          src="/images/videos/hero-our-work-banner.mp4"
+          src="/images/videos/community-investment-banner.mp4"
         />
         <div className="absolute inset-0 bg-p4c-navy/60" />
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">

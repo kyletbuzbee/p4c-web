@@ -3,7 +3,7 @@
   "private": true,
   "version": "2.0.0",
   "type": "module",
-  "homepage": "/",
+  "homepage": "http://http:///",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -101,5 +101,17 @@
     "vite": "^7.3.0",
     "vite-plugin-pwa": "^1.2.0",
     "vitest": "^4.0.16"
+  },
+  "description": "",
+  "main": "tailwind.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kyletbuzbee/p4c-web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kyletbuzbee/p4c-web/issues"
   }
 }
