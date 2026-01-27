@@ -13,6 +13,8 @@ dist/
 .vite/
 .parcel-cache/
 .eslintcache
+dist/sw.js
+.cache/
 
 # --- P4C AUDIT & ANALYSIS REPORTS ---
 # Ignore the high-volume analysis data but keep the intelligence summary
