@@ -9,6 +9,8 @@ package-lock.json
 yarn.lock
 pnpm-lock.yaml
 .pnpm-store/
+content-audit.js
+
 
 # --- ENVIRONMENT & SECRETS ---
 .env
