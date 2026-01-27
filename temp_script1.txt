@@ -1,3 +1,0 @@
-// GitHub Pages SPA fallback
-// This script will redirect to the root page and let React Router handle the routing
-sessionStorage.redirect = location.href;
