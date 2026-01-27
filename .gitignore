@@ -1,53 +1,94 @@
-# --- CRITICAL: DEPENDENCIES & OS (DO NOT REMOVE) ---
+# =============================================================================
+# PROPERTIES 4 CREATION - .gitignore
+# Optimized for Vite + React + TypeScript + Tailwind CSS + Supabase
+# =============================================================================
+
+# --- DEPENDENCIES & NODE MODULES (CRITICAL) ---
 node_modules/
-.DS_Store
-Thumbs.db
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+.pnpm-store/
 
 # --- ENVIRONMENT & SECRETS ---
 .env
 .env.local
-*.local
+.env.*.local
+.secrets
+!.env.example
 
-# --- BUILD & CACHE ---
+# --- BUILD OUTPUT ---
 dist/
-.vite/
-.parcel-cache/
-.eslintcache
-dist/sw.js
-.cache/
 build/
 out/
-# --- TEST & COVERAGE ---
-coverage/
-test-results/
-*.py
+.vite/
+.cache/
 
-# --- LOGS & REPORTS ---
+# --- CACHE FILES ---
+.eslintcache
+*.tsbuildinfo
+.swc/
+.parcel-cache/
+
+# --- LOGS ---
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-
-# --- P4C AUDIT & ANALYSIS REPORTS ---
-# Ignore the high-volume analysis data but keep the intelligence summary
-*.json
-!package.json
-!tsconfig.json
-!src-deps.json
-*.md
-!README.md
-!P4C_PROJECT_INTELLIGENCE.md
-content-audit.js
-*.txt
-src-deps.json
-
-# --- DOCKER & SYSTEM ---
-.docker/
-docker-compose.override.yml
-*.py
 *.log
+
+# --- TEST & COVERAGE ---
+coverage/
+test-results/
+.playwright/
+cypress/videos/
+cypress/screenshots/
+
+# --- IDE & EDITORS ---
 .vscode/
 .idea/
+*.swp
+*.swo
+*~
+.#*
+*.sublime-workspace
+*.sublime-project
 
+# --- OS SPECIFIC ---
+.DS_Store
+Thumbs.db
+~$*
+*.lnk
+System Volume Information/
 
+# --- DOCKER ---
+docker-compose.override.yml
+.docker/
 
+# --- SUPABASE ---
+supabase/.env
+supabase/config.toml
+.supabase/
+
+# --- TEMPORARY FILES ---
+*.tmp
+*.temp
+tmp/
+temp/
+*.pid
+*.pid.lock
+
+# --- PWA & SERVICE WORKERS ---
+public/sw.js
+public/workbox-*.js
+public/precache-manifest.*.js
+
+# --- KEEP THESE FILES ---
+!package.json
+!tsconfig.json
+!.env.example
+!.dockerignore
+!docker-compose.yml
+!Dockerfile.dev
+!Dockerfile.prod
+!README.md

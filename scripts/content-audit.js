@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /**
  * Content Audit Script
- * 
+ *
  * Scans the codebase for hardcoded image paths and ensures all assets
  * use the IMAGES constant from src/constants/images.ts
- * 
+ *
  * Usage: node scripts/content-audit.js
  */
 
@@ -42,7 +42,7 @@ const IGNORE_PATTERNS = [
   /\.test\./,
   /\.spec\./,
   /images\.ts$/, // The IMAGES constant file itself
-  /\.d\.ts$/,    // TypeScript declaration files
+  /\.d\.ts$/, // TypeScript declaration files
 ];
 
 function extractImagePaths(fileContent) {
@@ -57,19 +57,19 @@ function extractImagePaths(fileContent) {
 }
 
 function isAllowedDomain(path) {
-  return ALLOWED_DOMAINS.some(domain => path.includes(domain));
+  return ALLOWED_DOMAINS.some((domain) => path.includes(domain));
 }
 
 function isIgnoredFile(filePath) {
-  return IGNORE_PATTERNS.some(pattern => pattern.test(filePath));
+  return IGNORE_PATTERNS.some((pattern) => pattern.test(filePath));
 }
 
 function scanDirectory(dir, results = { files: [], issues: 0 }) {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
-  
+
   for (const entry of entries) {
     const fullPath = path.join(dir, entry.name);
-    
+
     if (entry.isDirectory()) {
       if (!isIgnoredFile(fullPath)) {
         scanDirectory(fullPath, results);
@@ -78,14 +78,14 @@ function scanDirectory(dir, results = { files: [], issues: 0 }) {
       if (isIgnoredFile(fullPath)) {
         continue;
       }
-      
+
       try {
         const content = fs.readFileSync(fullPath, 'utf-8');
         const imagePaths = extractImagePaths(content);
-        
+
         if (imagePaths.length > 0) {
-          const hardcodedPaths = imagePaths.filter(p => !isAllowedDomain(p));
-          
+          const hardcodedPaths = imagePaths.filter((p) => !isAllowedDomain(p));
+
           if (hardcodedPaths.length > 0) {
             results.files.push({
               path: path.relative(process.cwd(), fullPath),
@@ -99,40 +99,13 @@ function scanDirectory(dir, results = { files: [], issues: 0 }) {
       }
     }
   }
-  
+
   return results;
 }
 
-function printResults(results) {
-  console.log('\n=== P4C Content Audit Results ===\n');
-  
-  if (results.files.length === 0) {
-    console.log('✅ No hardcoded image paths found!');
-    console.log('All image references use the IMAGES constant.\n');
-    return;
-  }
-  
-  console.log(`Found ${results.issues} hardcoded image path(s) in ${results.files.length} file(s):\n`);
-  
-  for (const file of results.files) {
-    console.log(`📁 ${file.path}`);
-    for (const issue of file.issues) {
-      console.log(`   ❌ ${issue}`);
-    }
-    console.log('');
-  }
-  
-  console.log('Recommendation: Use the IMAGES constant from @constants/images instead.');
-  console.log('Example: import { IMAGES } from "../constants/images";');
-  console.log('Then use: src={IMAGES.BANNERS.HERO_HOME}\n');
-}
-
 function main() {
-  console.log('🔍 Scanning for hardcoded image paths...\n');
-  
   const results = scanDirectory(SOURCE_DIR);
-  printResults(results);
-  
+
   // Exit with error code if issues found
   process.exit(results.issues > 0 ? 1 : 0);
 }
