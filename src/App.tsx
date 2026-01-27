@@ -75,10 +75,13 @@ const StandardLayout = () => (
           <Route path="/stories" element={<SuccessStories />} />
           <Route path="/transparency" element={<Transparency />} />
           {/* --- 35% FAMILIES (Housing) --- */}
+          (
           <Route path="/properties" element={<Properties />} />{' '}
           {/* List View */}
+          ) (
           <Route path="/properties/:id" element={<PropertyDetails />} />{' '}
           {/* Detail View */}
+          )
           <Route path="/apply" element={<Application />} />
           <Route path="/family-resources" element={<FamilyResources />} />
           <Route path="/equal-housing" element={<EqualHousing />} />
@@ -99,6 +102,7 @@ const StandardLayout = () => (
           {/* --- TEST ROUTES --- */}
           <Route path="/test-property-form" element={<TestPropertyForm />} />
           {/* --- PROTECTED ROUTES --- */}
+          (
           <Route
             path="/admin"
             element={
@@ -107,6 +111,7 @@ const StandardLayout = () => (
               </ProtectedRoute>
             }
           />
+          )
         </Routes>
       </Suspense>
     </main>

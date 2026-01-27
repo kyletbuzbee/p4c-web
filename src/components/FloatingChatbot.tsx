@@ -27,7 +27,10 @@ const FloatingChatbot: React.FC<FloatingChatbotProps> = ({
         });
         setIsLoaded(true);
       } catch (error) {
-        console.error('Failed to initialize chatbot:', error);
+        // Log error in development only
+        if (import.meta.env.DEV) {
+          console.error('Failed to initialize chatbot:', error);
+        }
       }
     } else if (!isOpen && isLoaded) {
       // Clean up when closed
@@ -35,7 +38,10 @@ const FloatingChatbot: React.FC<FloatingChatbotProps> = ({
         destroyBotpressWebchat(containerId);
         setIsLoaded(false);
       } catch (error) {
-        console.error('Failed to destroy chatbot:', error);
+        // Log error in development only
+        if (import.meta.env.DEV) {
+          console.error('Failed to destroy chatbot:', error);
+        }
       }
     }
   }, [isOpen, isLoaded]);

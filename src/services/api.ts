@@ -129,6 +129,12 @@ export const api = {
 
         return data.map(mapMetricFromDB);
       } catch (error) {
+        // Log error in development only
+        if (import.meta.env.DEV) {
+          console.error('Impact fetch error:', error);
+        }
+        return [];
+      } catch (error) {
         console.error('Impact fetch error:', error);
         return [];
       }
@@ -193,7 +199,10 @@ export const api = {
         if (error) throw error;
         return (data || []).map(mapPropertyFromDB);
       } catch (error) {
-        console.warn('Property fetch error, using mock:', error);
+        // Log warning in development only
+        if (import.meta.env.DEV) {
+          console.warn('Property fetch error, using mock:', error);
+        }
         return mockProperties;
       }
     },
