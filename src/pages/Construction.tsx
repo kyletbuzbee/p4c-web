@@ -1,6 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Hammer, ShieldCheck, CheckCircle, Home } from 'lucide-react';
+import { IMAGES } from '../constants/images';
 
 const Construction: React.FC = () => (
   <div className="bg-p4c-beige min-h-screen">
@@ -18,7 +19,7 @@ const Construction: React.FC = () => (
     <div className="relative h-[400px] w-full overflow-hidden flex items-center justify-center">
       <div className="absolute top-0 left-0 w-full h-full z-0">
         <img
-          src="/images/banners/home-renovation-banner.webp"
+          src={IMAGES.BANNERS.HERO_RENOVATION}
           alt="Professional construction and renovation work"
           className="w-full h-full object-cover"
         />
@@ -174,7 +175,7 @@ const Construction: React.FC = () => (
 
           <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
             <img
-              src="/images/banners/hero-projects-banner.webp"
+              src={IMAGES.BANNERS.HERO_PROJECTS}
               alt="Construction team working on property renovation"
               className="w-full h-full object-cover"
             />
@@ -211,7 +212,7 @@ const Construction: React.FC = () => (
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
             <div className="relative">
               <img
-                src="/images/before-after-comparison/living-room-before.webp"
+                src={IMAGES.RENOVATION.LIVING_ROOM.BEFORE}
                 alt="Living room before renovation"
                 className="w-full h-64 object-cover"
               />
@@ -221,7 +222,7 @@ const Construction: React.FC = () => (
             </div>
             <div className="relative">
               <img
-                src="/images/before-after-comparison/living-room-after.webp"
+                src={IMAGES.RENOVATION.LIVING_ROOM.AFTER}
                 alt="Living room after renovation"
                 className="w-full h-64 object-cover"
               />
@@ -243,7 +244,7 @@ const Construction: React.FC = () => (
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
             <div className="relative">
               <img
-                src="/images/before-after-comparison/kitchen-before.webp"
+                src={IMAGES.RENOVATION.KITCHEN.BEFORE}
                 alt="Kitchen before renovation"
                 className="w-full h-64 object-cover"
               />
@@ -253,7 +254,7 @@ const Construction: React.FC = () => (
             </div>
             <div className="relative">
               <img
-                src="/images/before-after-comparison/kitchen-after.webp"
+                src={IMAGES.RENOVATION.KITCHEN.AFTER}
                 alt="Kitchen after renovation"
                 className="w-full h-64 object-cover"
               />

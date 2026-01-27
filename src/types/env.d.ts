@@ -7,3 +7,10 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+// Global augmentation for import.meta
+declare global {
+  interface ImportMeta {
+    readonly env: ImportMetaEnv;
+  }
+}

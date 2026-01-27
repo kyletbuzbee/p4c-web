@@ -142,10 +142,7 @@ const Properties: React.FC = () => {
             playsInline
             className="w-full h-full object-cover"
           >
-            <source
-              src="/images/videos/hero-properties-banner.mp4"
-              type="video/mp4"
-            />
+            <source src={IMAGES.VIDEOS.HERO_PROPERTY} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
           <div className="absolute top-0 left-0 w-full h-full bg-p4c-navy/60" />

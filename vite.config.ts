@@ -28,15 +28,15 @@ export default defineConfig(({ mode }) => {
     base,
     server: {
       port: 3001,
-      host: true, // Needed for Docker exposure
-      strictPort: true,
+      host: '0.0.0.0', // Exposes the server to your local network (0.0.0.0)
+      strictPort: false, // Allows Vite to try 3002, 3003, etc., if 3001 is taken
       hmr: {
-        clientPort: 3001, // Forces browser to connect HMR to the mapped port
+        // Removed clientPort restriction to allow Vite to automatically negotiate the HMR port
       },
       watch: {
         usePolling: true, // High reliability for file changes across Docker volumes
       },
-      allowedHosts: ['p4c-web.onrender.com', 'p4c-web', '.onrender.com'],
+      allowedHosts: true, // Updated to be more permissive for local network testing
       headers: {
         // Security Headers - CRITICAL for XSS Protection
         'X-Frame-Options': 'DENY',
@@ -50,9 +50,10 @@ export default defineConfig(({ mode }) => {
           ? [
               "base-uri 'none'",
               "object-src 'none'",
-              "script-src 'self' 'strict-dynamic' https://esm.sh",
+              "script-src 'self' 'unsafe-inline' https://esm.sh",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "img-src 'self' data: https:",
+              "media-src 'self' https: data: blob:", // Allows videos/audio
               "font-src 'self' https://fonts.gstatic.com",
               [
                 "connect-src 'self'",
@@ -71,14 +72,15 @@ export default defineConfig(({ mode }) => {
           : [
               "base-uri 'none'",
               "object-src 'none'",
-              "script-src 'self' 'unsafe-inline' https://esm.sh",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://esm.sh",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "img-src 'self' data: https:",
+              "media-src 'self' https: data: blob:", // Allows videos/audio
               "font-src 'self' https://fonts.gstatic.com",
               [
                 "connect-src 'self'",
-                'ws://localhost:3001', // Fixed port from 3000 to 3001
-                'http://localhost:3001',
+                'ws://*', // Allows WebSocket (HMR) on any local IP/port
+                'http://*', // Allows API calls to any local IP/port
                 'https://abjscrezxkqrzwgmufzr.supabase.co',
                 'https://*.supabase.co',
                 'https://p4c-web.onrender.com',
@@ -145,7 +147,7 @@ export default defineConfig(({ mode }) => {
         },
         workbox: {
           maximumFileSizeToCacheInBytes: 15728640, // 15 MB for better mobile performance
-          globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,woff2}'],
+          globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,woff2,avif,mp4}'],
           runtimeCaching: [
             {
               urlPattern: /^https:\/\/api\..*/i,
@@ -158,6 +160,66 @@ export default defineConfig(({ mode }) => {
                 },
               },
             },
+            // High-Priority Banner Images (Hero, Page Banners)
+            {
+              urlPattern: /^https?:\/\/.*\/images\/banners\/.*/i,
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'high-priority-banners',
+                expiration: {
+                  maxEntries: 30,
+                  maxAgeSeconds: 604800, // 7 days for hero banners
+                },
+                cacheableResponse: {
+                  statuses: [0, 200],
+                },
+              },
+            },
+            // Property Images Cache
+            {
+              urlPattern: /^https?:\/\/.*\/images\/properties\/.*/i,
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'property-images',
+                expiration: {
+                  maxEntries: 50,
+                  maxAgeSeconds: 604800, // 7 days for property images
+                },
+                cacheableResponse: {
+                  statuses: [0, 200],
+                },
+              },
+            },
+            // Gallery & Before/After Images
+            {
+              urlPattern:
+                /^https?:\/\/.*\/(?:our-work-gallery|before-after-comparison|gallery)\/.*/i,
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'gallery-images',
+                expiration: {
+                  maxEntries: 50,
+                  maxAgeSeconds: 604800, // 7 days
+                },
+                cacheableResponse: {
+                  statuses: [0, 200],
+                },
+              },
+            },
+            // Video/Audio Files
+            {
+              urlPattern: /^https?:\/\/.*\.(?:mp4|webm|ogg|wav|mp3)$/i,
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'media-files',
+                expiration: {
+                  maxEntries: 20,
+                  maxAgeSeconds: 2592000, // 30 days for videos
+                },
+                rangeRequests: true, // Support for video seeking
+              },
+            },
+            // Google Fonts Cache
             {
               urlPattern: /^https:\/fonts\.googleapis\.com\/.*/i,
               handler: 'CacheFirst',
@@ -193,7 +255,16 @@ export default defineConfig(({ mode }) => {
     },
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, '.'),
+        '@': path.resolve(__dirname, './src'), // Updated to point to src specifically
+        '@components': path.resolve(__dirname, './src/components'),
+        '@context': path.resolve(__dirname, './src/context'),
+        '@pages': path.resolve(__dirname, './src/pages'),
+        '@services': path.resolve(__dirname, './src/services'),
+        '@utils': path.resolve(__dirname, './src/utils'),
+        '@types': path.resolve(__dirname, './src/types'),
+        '@assets': path.resolve(__dirname, './src/assets'),
+        '@hooks': path.resolve(__dirname, './src/hooks'),
+        '@constants': path.resolve(__dirname, './src/constants'),
       },
     },
     build: {

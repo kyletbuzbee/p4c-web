@@ -131,7 +131,7 @@ const FamilyResources: React.FC = () => {
       <div className="relative h-[60vh] w-full overflow-hidden flex items-center justify-center">
         <div className="absolute top-0 left-0 w-full h-full z-0">
           <img
-            src={IMAGES.BANNERS.HERO_HOME}
+            src={IMAGES.BANNERS.HERO_FAMILY_RESOURCES}
             alt="Beautiful family home in East Texas neighborhood"
             className="w-full h-full object-cover"
           />

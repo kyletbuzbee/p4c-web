@@ -15,6 +15,18 @@ dist/
 .eslintcache
 dist/sw.js
 .cache/
+build/
+out/
+# --- TEST & COVERAGE ---
+coverage/
+test-results/
+*.py
+
+# --- LOGS & REPORTS ---
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
 # --- P4C AUDIT & ANALYSIS REPORTS ---
 # Ignore the high-volume analysis data but keep the intelligence summary
@@ -25,6 +37,9 @@ dist/sw.js
 *.md
 !README.md
 !P4C_PROJECT_INTELLIGENCE.md
+content-audit.js
+*.txt
+src-deps.json
 
 # --- DOCKER & SYSTEM ---
 .docker/
@@ -33,5 +48,6 @@ docker-compose.override.yml
 *.log
 .vscode/
 .idea/
-*.txt
-dist/sw.js
+
+
+

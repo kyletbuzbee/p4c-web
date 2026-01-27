@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';
+import { IMAGES } from '../constants/images';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -49,7 +50,7 @@ const Contact: React.FC = () => {
       <div className="relative h-[400px] w-full overflow-hidden flex items-center justify-center">
         <div className="absolute top-0 left-0 w-full h-full z-0">
           <img
-            src="/images/banners/hero-contact-banner.png"
+            src={IMAGES.BANNERS.HERO_CONTACT}
             alt="Professional contact and support"
             className="w-full h-full object-cover"
           />

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Star, MessageCircle, Users } from 'lucide-react';
+import { IMAGES } from '../constants/images';
 
 const Reviews: React.FC = () => {
   // Video data with unique posters
@@ -43,7 +44,7 @@ const Reviews: React.FC = () => {
       <div className="relative h-[400px] w-full overflow-hidden flex items-center justify-center">
         <div className="absolute top-0 left-0 w-full h-full z-0">
           <img
-            src="/images/banners/hero-community-impact-banner.png"
+            src={IMAGES.BANNERS.HERO_COMMUNITY_IMPACT}
             alt="Happy residents in East Texas community"
             className="w-full h-full object-cover"
           />
@@ -250,7 +251,7 @@ const Reviews: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
               <img
-                src="/images/banners/family-resources-banner.png"
+                src={IMAGES.BANNERS.FAMILY_RESOURCES}
                 alt="Happy family in their new home"
                 className="w-full h-full object-cover"
               />
@@ -274,7 +275,7 @@ const Reviews: React.FC = () => {
                 </p>
                 <div className="flex items-center gap-4">
                   <img
-                    src="/images/logo/p4c-logo-gold.png"
+                    src={IMAGES.LOGO.WHITE_GOLD}
                     alt="Properties 4 Creation logo"
                     className="w-12 h-12"
                   />

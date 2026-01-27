@@ -1,6 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Building2 } from 'lucide-react';
+import { IMAGES } from '../constants/images';
 
 const About: React.FC = () => (
   <div className="bg-p4c-beige min-h-screen">
@@ -18,7 +19,7 @@ const About: React.FC = () => (
     <div className="relative h-[400px] w-full overflow-hidden flex items-center justify-center">
       <div className="absolute top-0 left-0 w-full h-full z-0">
         <img
-          src="/images/banners/hero-about-banner.webp"
+          src={IMAGES.BANNERS.HERO_ABOUT}
           alt="Properties 4 Creation team on site"
           className="w-full h-full object-cover"
         />
@@ -64,7 +65,7 @@ const About: React.FC = () => (
         <div className="grid grid-cols-2 gap-4">
           <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl border border-gray-200">
             <img
-              src="/images/about/about-us-team-owner.webp"
+              src={IMAGES.TEAM.OWNER}
               alt="Richard Lonkert, Owner & Veteran"
               className="w-full h-full object-cover"
             />
@@ -75,7 +76,7 @@ const About: React.FC = () => (
           </div>
           <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl border border-gray-200">
             <img
-              src="/images/about/about-us-team-headshot.webp"
+              src={IMAGES.TEAM.HEADSHOT}
               alt="Kyle Buzbee, Managing Partner"
               className="w-full h-full object-cover"
             />

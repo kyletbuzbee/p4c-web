@@ -55,6 +55,9 @@ export const IMAGES = {
     HERO_PROJECTS_1280: '/images/banners/hero-projects-banner-1280.webp',
     HERO_PROJECTS_1920: '/images/banners/hero-projects-banner-1920.webp',
 
+    // Renovation Page
+    HERO_RENOVATION: '/images/banners/home-renovation-banner.webp',
+
     // Resources Page
     HERO_RESOURCES: '/images/banners/hero-resources-banner.webp',
     HERO_RESOURCES_640: '/images/banners/hero-resources-banner-640.webp',
@@ -104,7 +107,7 @@ export const IMAGES = {
     CAREER: '/images/banners/career-banner.webp',
 
     // Family Resources Page
-    FAMILY_RESOURCES: '/images/banners/family-resources-banner.webp',
+    HERO_FAMILY_RESOURCES: '/images/banners/family-resources-banner.webp',
 
     // Homeowner Solutions Page
     HERO_HOMEOWNER_SOLUTIONS: '/images/banners/hero-homeowner-solutions.webp',
@@ -150,24 +153,26 @@ export const IMAGES = {
     REHABILITATION: '/images/about/rehabilitaion.png',
   },
 
-  // Renovation Showcase (Before/After)
+  // Bot/Chat Assets
+  BOT: {
+    ARCHITECT: '/images/bot/digital-architect-avatar.webp',
+  },
+
+  // Renovation Showcase (Before/After) - Updated with all paths
   RENOVATION: {
+    LIVING_ROOM: {
+      BEFORE: '/images/before-after-comparison/living-room-before.webp',
+      AFTER: '/images/before-after-comparison/living-room-after.webp',
+    },
+    KITCHEN: {
+      BEFORE: '/images/before-after-comparison/kitchen-before.webp',
+      AFTER: '/images/before-after-comparison/kitchen-after.webp',
+    },
     BATHROOM: {
       BEFORE:
         '/images/before-after-comparison/projects-before-bathroom-800w.webp',
       AFTER:
         '/images/before-after-comparison/projects-after-bathroom-800w.webp',
-    },
-    KITCHEN: {
-      BEFORE:
-        '/images/before-after-comparison/projects-before-kitchen-800w.webp',
-      AFTER: '/images/before-after-comparison/projects-after-kitchen-800w.webp',
-    },
-    LIVING_ROOM: {
-      BEFORE:
-        '/images/before-after-comparison/projects-before-living-room-800w.webp',
-      AFTER:
-        '/images/before-after-comparison/projects-after-living-room-800w.webp',
     },
     FRONT_PORCH: {
       BEFORE:
@@ -209,6 +214,7 @@ export const IMAGES = {
   FAMILY: {
     BACKYARD: '/images/family/family-backyard.png',
     KITCHEN_DINNER: '/images/family/family-kitchen-dinner.png',
+    HAPPY_KITCHEN: '/images/family/happy-family-kitchen.webp',
   },
 
   // Videos

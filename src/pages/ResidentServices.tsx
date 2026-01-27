@@ -9,6 +9,7 @@ import {
   AlertTriangle,
 } from 'lucide-react';
 import { useToast } from '../context/ToastContext';
+import { IMAGES } from '../constants/images';
 
 const ResidentServices: React.FC = () => {
   const { addToast } = useToast();
@@ -47,7 +48,7 @@ const ResidentServices: React.FC = () => {
       <div className="relative h-[400px] w-full overflow-hidden flex items-center justify-center">
         <div className="absolute top-0 left-0 w-full h-full z-0">
           <img
-            src="/images/banners/resident-service-banner.png"
+            src={IMAGES.BANNERS.RESIDENT_SERVICE_BANNER_PNG}
             alt="Happy resident family in their home"
             className="w-full h-full object-cover"
           />
@@ -74,7 +75,7 @@ const ResidentServices: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
               <img
-                src="/images/banners/family-resources-banner.png"
+                src={IMAGES.BANNERS.RESIDENT_SERVICE_BANNER_PNG}
                 alt="Resident portal access"
                 className="w-full h-full object-cover"
               />
@@ -329,7 +330,7 @@ const ResidentServices: React.FC = () => {
 
             <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
               <img
-                src="/images/family/happy-family-kitchen.webp"
+                src={IMAGES.FAMILY.HAPPY_KITCHEN}
                 alt="Happy family enjoying their home"
                 className="w-full h-full object-cover"
               />

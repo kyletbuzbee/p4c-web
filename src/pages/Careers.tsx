@@ -7,6 +7,7 @@ import {
   HeartHandshake,
   Star,
 } from 'lucide-react';
+import { IMAGES } from '../constants/images';
 
 const Careers: React.FC = () => (
   <div className="bg-p4c-beige min-h-screen">
@@ -22,7 +23,7 @@ const Careers: React.FC = () => (
     <div className="relative h-[400px] w-full overflow-hidden flex items-center justify-center">
       <div className="absolute top-0 left-0 w-full h-full z-0">
         <img
-          src="/images/banners/career-banner.png"
+          src={IMAGES.BANNERS.CAREER}
           alt="Professional team working together"
           className="w-full h-full object-cover"
         />
@@ -108,7 +109,7 @@ const Careers: React.FC = () => (
 
           <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
             <img
-              src="/images/about/about-us-team-onsite.webp"
+              src={IMAGES.TEAM.ONSITE}
               alt="Team members working on site"
               className="w-full h-full object-cover"
             />

@@ -1,15 +1,19 @@
 # Properties 4 Creation PROJECT INTELLIGENCE REPORT
-**Date:** 2026-01-27T09:29:19.660772  
-**Mission:** Revitalizing East Texas by providing quality affordable housing for families and the community, while offering sustainable solutions for property owners and investors.  
+
+**Date:** 2026-01-27T09:52:15.353201  
+**Mission:** Revitalizing East Texas by providing quality affordable housing for
+families and the community, while offering sustainable solutions for property
+owners and investors.  
 **Community Alignment Score:** 0/100
 
 ## 1. Executive Summary
-- **Total Files:** 85
-- **Lines of Code:** 15876
+
+- **Total Files:** 86
+- **Lines of Code:** 15888
 - **High/Critical Issues:** 98
 
-
 ## 2. Project Structure
+
 ```text
 ├── plans
 │   ├── hmr-stability-solution.md
@@ -349,6 +353,7 @@
 │   │   └── setup.ts
 │   ├── types
 │   │   ├── declarations.d.ts
+│   │   ├── env.d.ts
 │   │   ├── index.ts
 │   │   ├── supabase.ts
 │   │   └── types.ts
@@ -383,14 +388,16 @@
 ├── temp_script1.txt
 ├── test-csp.js
 ├── TODO.md
+├── tsconfig.app.json
 ├── tsconfig.enhanced.json
 ├── tsconfig.json
+├── tsconfig.node.json
 └── vite.config.ts
 
 ```
 
-
 ## 3. Source Code & Analysis
+
 ### 📄 `404.html`
 
 ```html
@@ -475,10 +482,10 @@
     </script>
   </body>
 </html>
-
 ```
 
 ---
+
 ### 📄 `index.html`
 
 ```html
@@ -516,13 +523,14 @@
     <script type="module" src="/src/index.tsx"></script>
   </body>
 </html>
-
 ```
 
 ---
+
 ### 📄 `public\images\about\index.html`
 
 **⚠️ Analysis Findings:**
+
 - 🔵 **[MEDIUM]** Image missing alt text (Line 226)
 - 🔵 **[MEDIUM]** Image missing alt text (Line 337)
 - 🔵 **[MEDIUM]** Image missing alt text (Line 355)
@@ -965,10 +973,10 @@
     <script type="module" src="/js/includes.js"></script>
   </body>
 </html>
-
 ```
 
 ---
+
 ### 📄 `public\sw.js`
 
 ```javascript
@@ -1241,10 +1249,10 @@ self.addEventListener('notificationclick', (event) => {
 
   event.waitUntil(clients.openWindow('/'));
 });
-
 ```
 
 ---
+
 ### 📄 `src\App.tsx`
 
 ```typescript
@@ -1402,9 +1410,11 @@ export default App;
 ```
 
 ---
+
 ### 📄 `src\components\AccessibilityTools.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** Button missing aria-label (Line 160)
 - 🔴 **[HIGH]** Button missing aria-label (Line 177)
 - 🔴 **[HIGH]** Button missing aria-label (Line 193)
@@ -1760,9 +1770,11 @@ export default AccessibilityTools;
 ```
 
 ---
+
 ### 📄 `src\components\AddPropertyModal.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** Button missing aria-label (Line 84)
 - 🔴 **[HIGH]** Button missing aria-label (Line 306)
 - 🔴 **[HIGH]** Button missing aria-label (Line 313)
@@ -2104,6 +2116,7 @@ export default AddPropertyModal;
 ```
 
 ---
+
 ### 📄 `src\components\AdminDashboardSkeleton.tsx`
 
 ```typescript
@@ -2215,9 +2228,11 @@ export default AdminDashboardSkeleton;
 ```
 
 ---
+
 ### 📄 `src\components\BeforeAfterSlider.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔵 **[MEDIUM]** Image missing alt text (Line 25)
 - 🔵 **[MEDIUM]** Image missing alt text (Line 40)
 
@@ -2309,6 +2324,7 @@ export default BeforeAfterSlider;
 ```
 
 ---
+
 ### 📄 `src\components\BotAvatar.tsx`
 
 ```typescript
@@ -2409,6 +2425,7 @@ export default BotAvatar;
 ```
 
 ---
+
 ### 📄 `src\components\BotToggle.tsx`
 
 ```typescript
@@ -2422,9 +2439,11 @@ import { MessageCircle } from 'lucide-react'; // Standard library import
 ```
 
 ---
+
 ### 📄 `src\components\ChatHeader.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔵 **[MEDIUM]** Image missing alt text (Line 6)
 
 ```typescript
@@ -2452,9 +2471,11 @@ import { MessageCircle } from 'lucide-react'; // Standard library import
 ```
 
 ---
+
 ### 📄 `src\components\ClientUpscaler.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** Button missing aria-label (Line 179)
 - 🔴 **[HIGH]** Button missing aria-label (Line 264)
 - 🔴 **[HIGH]** Button missing aria-label (Line 292)
@@ -2807,9 +2828,11 @@ export default ClientUpscaler;
 ```
 
 ---
+
 ### 📄 `src\components\CookieConsent.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** Button missing aria-label (Line 55)
 - 🔴 **[HIGH]** Button missing aria-label (Line 61)
 
@@ -2891,9 +2914,11 @@ export default CookieConsent;
 ```
 
 ---
+
 ### 📄 `src\components\DarkModeToggle.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** Button missing aria-label (Line 12)
 
 ```typescript
@@ -2972,9 +2997,11 @@ export default DarkModeToggle;
 ```
 
 ---
+
 ### 📄 `src\components\ErrorBoundary.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** Button missing aria-label (Line 158)
 - 🔴 **[HIGH]** Button missing aria-label (Line 164)
 - 🔴 **[HIGH]** Button missing aria-label (Line 171)
@@ -3178,9 +3205,11 @@ export default ErrorBoundary;
 ```
 
 ---
+
 ### 📄 `src\components\FloatingChatbot.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** Button missing aria-label (Line 56)
 - 🔴 **[HIGH]** Button missing aria-label (Line 77)
 
@@ -3316,9 +3345,11 @@ export default FloatingChatbot;
 ```
 
 ---
+
 ### 📄 `src\components\Footer.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔵 **[MEDIUM]** Image missing alt text (Line 20)
 
 ```typescript
@@ -3548,9 +3579,11 @@ export default Footer;
 ```
 
 ---
+
 ### 📄 `src\components\Hero.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** Button missing aria-label (Line 67)
 - 🔴 **[HIGH]** Button missing aria-label (Line 75)
 - 🔵 **[MEDIUM]** Image missing alt text (Line 34)
@@ -3649,9 +3682,11 @@ export default Hero;
 ```
 
 ---
+
 ### 📄 `src\components\ImageOptimizer.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔵 **[MEDIUM]** Image missing alt text (Line 149)
 - 🔵 **[MEDIUM]** Image missing alt text (Line 182)
 
@@ -3860,9 +3895,11 @@ export default ImageOptimizer;
 ```
 
 ---
+
 ### 📄 `src\components\MicroInteractions.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** Button missing aria-label (Line 93)
 - 🔴 **[HIGH]** Button missing aria-label (Line 176)
 
@@ -4282,9 +4319,11 @@ export default AnimatedButton;
 ```
 
 ---
+
 ### 📄 `src\components\Navbar.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** Button missing aria-label (Line 198)
 - 🔴 **[HIGH]** Button missing aria-label (Line 225)
 - 🔴 **[HIGH]** Button missing aria-label (Line 253)
@@ -4676,9 +4715,11 @@ export default Navbar;
 ```
 
 ---
+
 ### 📄 `src\components\OptimizedImage.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔵 **[MEDIUM]** Image missing alt text (Line 157)
 - 🔵 **[MEDIUM]** Image missing alt text (Line 196)
 
@@ -4949,9 +4990,11 @@ export default OptimizedImage;
 ```
 
 ---
+
 ### 📄 `src\components\PropertyCard.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔵 **[MEDIUM]** Image missing alt text (Line 89)
 
 ```typescript
@@ -5203,6 +5246,7 @@ export default PropertyCard;
 ```
 
 ---
+
 ### 📄 `src\components\PropertyDetailsSkeleton.tsx`
 
 ```typescript
@@ -5267,6 +5311,7 @@ export default PropertyDetailsSkeleton;
 ```
 
 ---
+
 ### 📄 `src\components\ProtectedRoute.tsx`
 
 ```typescript
@@ -5313,6 +5358,7 @@ export default ProtectedRoute;
 ```
 
 ---
+
 ### 📄 `src\components\ScrollToTop.tsx`
 
 ```typescript
@@ -5328,10 +5374,10 @@ export default function ScrollToTop() {
 
   return null;
 }
-
 ```
 
 ---
+
 ### 📄 `src\components\Skeleton.tsx`
 
 ```typescript
@@ -5357,9 +5403,11 @@ export default Skeleton;
 ```
 
 ---
+
 ### 📄 `src\components\SkipLink.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** Button missing aria-label (Line 62)
 
 ```typescript
@@ -5446,9 +5494,11 @@ export default SkipLink;
 ```
 
 ---
+
 ### 📄 `src\components\UpdateNotification.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** Button missing aria-label (Line 40)
 - 🔴 **[HIGH]** Button missing aria-label (Line 46)
 - 🔴 **[HIGH]** Button missing aria-label (Line 55)
@@ -5523,9 +5573,11 @@ export const UpdateNotification: React.FC = () => {
 ```
 
 ---
+
 ### 📄 `src\components\admin\PropertyForm.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** Button missing aria-label (Line 111)
 
 ```typescript
@@ -5653,6 +5705,7 @@ export const PropertyForm = () => {
 ```
 
 ---
+
 ### 📄 `src\constants\images.ts`
 
 ```typescript
@@ -5881,10 +5934,10 @@ export const IMAGES = {
     HERO_PROPERTY: '/images/videos/hero-property-banner.mp4',
   },
 } as const;
-
 ```
 
 ---
+
 ### 📄 `src\context\AuthContext.tsx`
 
 ```typescript
@@ -6232,6 +6285,7 @@ const getDefaultPermissions = (role: UserRole): string[] => {
 ```
 
 ---
+
 ### 📄 `src\context\DarkModeContext.tsx`
 
 ```typescript
@@ -6349,6 +6403,7 @@ export const DarkModeProvider: React.FC<DarkModeProviderProps> = ({
 ```
 
 ---
+
 ### 📄 `src\context\EnhancedAuthContext.tsx`
 
 ```typescript
@@ -7140,6 +7195,7 @@ const throttle = (func: Function, limit: number) => {
 ```
 
 ---
+
 ### 📄 `src\context\ImageFormatContext.tsx`
 
 ```typescript
@@ -7214,9 +7270,11 @@ export const useImageFormat = () => {
 ```
 
 ---
+
 ### 📄 `src\context\ToastContext.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** Button missing aria-label (Line 105)
 
 ```typescript
@@ -7341,6 +7399,7 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({
 ```
 
 ---
+
 ### 📄 `src\data\properties.ts`
 
 ```typescript
@@ -7549,10 +7608,10 @@ export const properties: ExtendedProperty[] = [
 export const getPropertyById = (
   id: string | undefined
 ): ExtendedProperty | undefined => properties.find((p) => p.id === id);
-
 ```
 
 ---
+
 ### 📄 `src\index.css`
 
 ```css
@@ -7776,10 +7835,10 @@ export const getPropertyById = (
     }
   }
 }
-
 ```
 
 ---
+
 ### 📄 `src\index.tsx`
 
 ```typescript
@@ -7814,26 +7873,28 @@ root.render(
 ```
 
 ---
+
 ### 📄 `src\lib\supabaseClient.ts`
 
 ```typescript
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env['VITE_SUPABASE_URL'];
-const supabaseAnonKey = import.meta.env['VITE_SUPABASE_ANON_KEY'];
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error('Missing Supabase environment variables');
 }
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
 ```
 
 ---
+
 ### 📄 `src\pages\About.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔵 **[MEDIUM]** Image missing alt text (Line 20)
 - 🔵 **[MEDIUM]** Image missing alt text (Line 66)
 - 🔵 **[MEDIUM]** Image missing alt text (Line 77)
@@ -8015,6 +8076,7 @@ export default About;
 ```
 
 ---
+
 ### 📄 `src\pages\AccessibilityStatement.tsx`
 
 ```typescript
@@ -8108,9 +8170,11 @@ export default AccessibilityStatement;
 ```
 
 ---
+
 ### 📄 `src\pages\AdminDashboard.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** Button missing aria-label (Line 151)
 - 🔴 **[HIGH]** Button missing aria-label (Line 162)
 - 🔴 **[HIGH]** Button missing aria-label (Line 173)
@@ -8563,9 +8627,11 @@ export default AdminDashboard;
 ```
 
 ---
+
 ### 📄 `src\pages\Application.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** Button missing aria-label (Line 300)
 - 🔴 **[HIGH]** Button missing aria-label (Line 312)
 - 🔴 **[HIGH]** Button missing aria-label (Line 320)
@@ -8911,9 +8977,11 @@ export default Application;
 ```
 
 ---
+
 ### 📄 `src\pages\Careers.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔵 **[MEDIUM]** Image missing alt text (Line 24)
 - 🔵 **[MEDIUM]** Image missing alt text (Line 110)
 
@@ -9289,9 +9357,11 @@ export default Careers;
 ```
 
 ---
+
 ### 📄 `src\pages\Community.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** Button missing aria-label (Line 160)
 - 🔴 **[HIGH]** Button missing aria-label (Line 236)
 - 🔴 **[HIGH]** Button missing aria-label (Line 248)
@@ -9569,9 +9639,11 @@ export default Community;
 ```
 
 ---
+
 ### 📄 `src\pages\Construction.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔵 **[MEDIUM]** Image missing alt text (Line 20)
 - 🔵 **[MEDIUM]** Image missing alt text (Line 176)
 - 🔵 **[MEDIUM]** Image missing alt text (Line 213)
@@ -9896,9 +9968,11 @@ export default Construction;
 ```
 
 ---
+
 ### 📄 `src\pages\Contact.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** Button missing aria-label (Line 130)
 - 🔴 **[HIGH]** Button missing aria-label (Line 210)
 - 🔵 **[MEDIUM]** Image missing alt text (Line 51)
@@ -10140,9 +10214,11 @@ export default Contact;
 ```
 
 ---
+
 ### 📄 `src\pages\Employment.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** Button missing aria-label (Line 143)
 - 🔵 **[MEDIUM]** Image missing alt text (Line 26)
 
@@ -10323,6 +10399,7 @@ export default Employment;
 ```
 
 ---
+
 ### 📄 `src\pages\EqualHousing.tsx`
 
 ```typescript
@@ -10395,9 +10472,11 @@ export default EqualHousing;
 ```
 
 ---
+
 ### 📄 `src\pages\FAQ.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** Button missing aria-label (Line 19)
 
 ```typescript
@@ -10517,9 +10596,11 @@ export default FAQ;
 ```
 
 ---
+
 ### 📄 `src\pages\FamilyResources.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔵 **[MEDIUM]** Image missing alt text (Line 133)
 
 ```typescript
@@ -10989,9 +11070,11 @@ export default FamilyResources;
 ```
 
 ---
+
 ### 📄 `src\pages\Home.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** Button missing aria-label (Line 202)
 - 🔴 **[HIGH]** Button missing aria-label (Line 220)
 - 🔴 **[HIGH]** Button missing aria-label (Line 248)
@@ -11635,9 +11718,11 @@ export default Home;
 ```
 
 ---
+
 ### 📄 `src\pages\HomeownerSolutions.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** Button missing aria-label (Line 366)
 - 🔴 **[HIGH]** Button missing aria-label (Line 528)
 - 🔵 **[MEDIUM]** Image missing alt text (Line 117)
@@ -12204,9 +12289,11 @@ export default HomeownerSolutions;
 ```
 
 ---
+
 ### 📄 `src\pages\OurImpact.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔵 **[MEDIUM]** Image missing alt text (Line 158)
 - 🔵 **[MEDIUM]** Image missing alt text (Line 181)
 - 🔵 **[MEDIUM]** Image missing alt text (Line 204)
@@ -12549,6 +12636,7 @@ export default OurImpact;
 ```
 
 ---
+
 ### 📄 `src\pages\Privacy.tsx`
 
 ```typescript
@@ -12674,9 +12762,11 @@ export default Privacy;
 ```
 
 ---
+
 ### 📄 `src\pages\Properties.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** UI bypassing Service Layer (direct data import) (Line 14)
 - 🔴 **[HIGH]** Button missing aria-label (Line 188)
 - 🔴 **[HIGH]** Button missing aria-label (Line 204)
@@ -13069,9 +13159,11 @@ export default Properties;
 ```
 
 ---
+
 ### 📄 `src\pages\PropertyDetails.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** Button missing aria-label (Line 67)
 - 🔴 **[HIGH]** Button missing aria-label (Line 296)
 - 🔵 **[MEDIUM]** Image missing alt text (Line 123)
@@ -13406,9 +13498,11 @@ export default PropertyDetails;
 ```
 
 ---
+
 ### 📄 `src\pages\ResidentServices.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** Button missing aria-label (Line 143)
 - 🔴 **[HIGH]** Button missing aria-label (Line 152)
 - 🔴 **[HIGH]** Button missing aria-label (Line 367)
@@ -13941,9 +14035,11 @@ export default ResidentServices;
 ```
 
 ---
+
 ### 📄 `src\pages\Reviews.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** Button missing aria-label (Line 93)
 - 🔵 **[MEDIUM]** Image missing alt text (Line 45)
 - 🔵 **[MEDIUM]** Image missing alt text (Line 87)
@@ -14267,9 +14363,11 @@ export default Reviews;
 ```
 
 ---
+
 ### 📄 `src\pages\SuccessStories.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** Button missing aria-label (Line 92)
 - 🔴 **[HIGH]** Button missing aria-label (Line 104)
 - 🔴 **[HIGH]** Button missing aria-label (Line 124)
@@ -14687,9 +14785,11 @@ export default SuccessStories;
 ```
 
 ---
+
 ### 📄 `src\pages\TenantLogin.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** Button missing aria-label (Line 165)
 - 🔴 **[HIGH]** Button missing aria-label (Line 188)
 
@@ -14930,6 +15030,7 @@ export default TenantLogin;
 ```
 
 ---
+
 ### 📄 `src\pages\Terms.tsx`
 
 ```typescript
@@ -15046,6 +15147,7 @@ export default Terms;
 ```
 
 ---
+
 ### 📄 `src\pages\TestPropertyForm.tsx`
 
 ```typescript
@@ -15089,9 +15191,11 @@ export default TestPropertyForm;
 ```
 
 ---
+
 ### 📄 `src\pages\Tools.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** Button missing aria-label (Line 66)
 - 🔴 **[HIGH]** Button missing aria-label (Line 72)
 - 🔴 **[HIGH]** Button missing aria-label (Line 104)
@@ -15287,9 +15391,11 @@ export default Tools;
 ```
 
 ---
+
 ### 📄 `src\pages\Transparency.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔵 **[MEDIUM]** Image missing alt text (Line 53)
 - 🔵 **[MEDIUM]** Image missing alt text (Line 218)
 
@@ -15535,9 +15641,11 @@ export default Transparency;
 ```
 
 ---
+
 ### 📄 `src\pages\VeteranServices.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔵 **[MEDIUM]** Image missing alt text (Line 28)
 
 ```typescript
@@ -15805,9 +15913,11 @@ export default VeteranServices;
 ```
 
 ---
+
 ### 📄 `src\pages\Veterans.tsx`
 
 **⚠️ Analysis Findings:**
+
 - 🔵 **[MEDIUM]** Image missing alt text (Line 35)
 
 ```typescript
@@ -16113,6 +16223,7 @@ export default Veterans;
 ```
 
 ---
+
 ### 📄 `src\pwa-register.ts`
 
 ```typescript
@@ -16201,10 +16312,10 @@ if ('serviceWorker' in navigator) {
     logDev('Properties 4 Creation is ready for offline use.');
   });
 }
-
 ```
 
 ---
+
 ### 📄 `src\services\api.ts`
 
 ```typescript
@@ -16553,10 +16664,10 @@ export const api = {
     },
   },
 };
-
 ```
 
 ---
+
 ### 📄 `src\services\botpressService.test.ts`
 
 ```typescript
@@ -16735,10 +16846,10 @@ describe('Botpress Service', () => {
     });
   });
 });
-
 ```
 
 ---
+
 ### 📄 `src\services\botpressService.ts`
 
 ```typescript
@@ -16935,13 +17046,14 @@ export default {
   editImageWithBotpress,
   validationUtils,
 };
-
 ```
 
 ---
+
 ### 📄 `src\services\botpressWebchatService.ts`
 
 **⚠️ Analysis Findings:**
+
 - 🔴 **[HIGH]** Button missing aria-label (Line 88)
 
 ```typescript
@@ -17098,10 +17210,10 @@ export default {
   destroyBotpressWebchat,
   checkBotpressWebchatHealth,
 };
-
 ```
 
 ---
+
 ### 📄 `src\services\errorBoundaryService.ts`
 
 ```typescript
@@ -17182,10 +17294,10 @@ export default {
   logWarning,
   logInfo,
 };
-
 ```
 
 ---
+
 ### 📄 `src\test\setup.ts`
 
 ```typescript
@@ -17225,19 +17337,42 @@ global.ResizeObserver = vi.fn().mockImplementation(() => ({
 vi.setConfig({
   testTimeout: 10000,
 });
-
 ```
 
 ---
+
 ### 📄 `src\types\declarations.d.ts`
 
 ```typescript
 declare module 'upscaler';
 declare module '@google/generative-ai';
-
 ```
 
 ---
+
+### 📄 `src\types\env.d.ts`
+
+```typescript
+// Environment variable type definitions
+interface ImportMetaEnv {
+  readonly VITE_SUPABASE_URL: string;
+  readonly VITE_SUPABASE_ANON_KEY: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
+
+// Global augmentation for import.meta
+declare global {
+  interface ImportMeta {
+    readonly env: ImportMetaEnv;
+  }
+}
+```
+
+---
+
 ### 📄 `src\types\index.ts`
 
 ```typescript
@@ -17292,10 +17427,10 @@ export interface FinancialBreakdown {
   percentage: number;
   color: string;
 }
-
 ```
 
 ---
+
 ### 📄 `src\types\supabase.ts`
 
 ```typescript
@@ -18081,6 +18216,7 @@ e x p o r t   t y p e   J s o n   = 
 ```
 
 ---
+
 ### 📄 `src\types\types.ts`
 
 ```typescript
@@ -18164,10 +18300,10 @@ export interface UserProfile {
   name?: string;
   permissions?: string[];
 }
-
 ```
 
 ---
+
 ### 📄 `src\utils\formatters.ts`
 
 ```typescript
@@ -18256,10 +18392,10 @@ export const slugify = (text: string): string =>
     .replace(/\s+/g, '-')
     .replace(/--+/g, '-')
     .trim();
-
 ```
 
 ---
+
 ### 📄 `src\utils\imageOptimization.ts`
 
 ```typescript
@@ -18481,10 +18617,10 @@ export const generateBlurPlaceholder = (): string =>
       <rect width="400" height="300" fill="#f0f0f0" filter="url(#blur)" />
     </svg>
   `)}`;
-
 ```
 
 ---
+
 ### 📄 `src\vite-env.d.ts`
 
 ```typescript
@@ -18500,10 +18636,10 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
-
 ```
 
 ---
+
 ### 📄 `test-csp.js`
 
 ```javascript
@@ -18540,10 +18676,10 @@ try {
     '📝 Form field check: Could not read compiled file, but source has been fixed'
   );
 }
-
 ```
 
 ---
+
 ### 📄 `vite.config.ts`
 
 ```typescript
@@ -18824,7 +18960,6 @@ export default defineConfig(({ mode }) => {
     },
   };
 });
-
 ```
 
 ---

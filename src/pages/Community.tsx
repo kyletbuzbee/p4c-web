@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { ArrowRight, Home, Wrench, Users, DollarSign, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { IMAGES } from '../constants/images';
 
 const Community: React.FC = () => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const Community: React.FC = () => {
           muted
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
-          src="/images/videos/community-investment-banner.mp4"
+          src={IMAGES.VIDEOS.COMMUNITY_INVESTMENT}
         />
         <div className="absolute inset-0 bg-p4c-navy/60" />
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
@@ -67,7 +68,7 @@ const Community: React.FC = () => {
               </p>
               <div className="relative h-48 rounded-xl overflow-hidden shadow-md">
                 <img
-                  src="/images/about/acquisition.png"
+                  src={IMAGES.TEAM.ACQUISITION}
                   alt="Property acquisition process"
                   className="w-full h-full object-cover"
                 />
@@ -88,7 +89,7 @@ const Community: React.FC = () => {
               </p>
               <div className="relative h-48 rounded-xl overflow-hidden shadow-md">
                 <img
-                  src="/images/about/rehabilitaion.png"
+                  src={IMAGES.TEAM.REHABILITATION}
                   alt="Property rehabilitation process"
                   className="w-full h-full object-cover"
                 />
@@ -109,7 +110,7 @@ const Community: React.FC = () => {
               </p>
               <div className="relative h-48 rounded-xl overflow-hidden shadow-md">
                 <img
-                  src="/images/properties/tyler-ranch-home.webp"
+                  src={IMAGES.PROPERTIES.TYLER_RANCH}
                   alt="Stabilized property with happy family"
                   className="w-full h-full object-cover"
                 />
@@ -168,7 +169,7 @@ const Community: React.FC = () => {
 
             <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
               <img
-                src="/images/banners/hero-community-impact-banner.png"
+                src={IMAGES.BANNERS.HERO_COMMUNITY_IMPACT}
                 alt="Community impact visualization"
                 className="w-full h-full object-cover"
               />

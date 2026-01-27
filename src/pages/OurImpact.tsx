@@ -80,10 +80,7 @@ const OurImpact: React.FC = () => {
           className="absolute top-0 left-0 w-full h-full object-cover"
           aria-label="Impact hero background video showcasing our projects"
         >
-          <source
-            src="/images/videos/hero-our-work-banner.mp4"
-            type="video/mp4"
-          />
+          <source src={IMAGES.VIDEOS.HERO_WORK} type="video/mp4" />
         </video>
         <div className="absolute top-0 left-0 w-full h-full hero-overlay-primary" />
         <div className="absolute top-0 left-0 w-full h-full hero-overlay-secondary" />
@@ -156,7 +153,7 @@ const OurImpact: React.FC = () => {
                 <div className="text-center group">
                   <div className="relative h-48 rounded-lg overflow-hidden mb-4 shadow-lg group-hover:shadow-xl transition-shadow">
                     <img
-                      src="/images/about/acquisition.png"
+                      src={IMAGES.TEAM.ACQUISITION}
                       alt="Acquisition of distressed property"
                       className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
                     />
@@ -179,7 +176,7 @@ const OurImpact: React.FC = () => {
                 <div className="text-center group">
                   <div className="relative h-48 rounded-lg overflow-hidden mb-4 shadow-lg group-hover:shadow-xl transition-shadow">
                     <img
-                      src="/images/about/rehabilitaion.png"
+                      src={IMAGES.TEAM.REHABILITATION}
                       alt="Capital improvement construction"
                       className="w-full h-full object-cover"
                     />
@@ -202,7 +199,7 @@ const OurImpact: React.FC = () => {
                 <div className="text-center group">
                   <div className="relative h-48 rounded-lg overflow-hidden mb-4 shadow-lg group-hover:shadow-xl transition-shadow">
                     <img
-                      src="/images/properties/tyler-ranch-home.webp"
+                      src={IMAGES.PROPERTIES.TYLER_RANCH}
                       alt="Stabilized asset with tenants"
                       className="w-full h-full object-cover"
                     />
