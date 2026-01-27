@@ -1,4 +1,30 @@
-node_modules
-dist
-.git
+# --- DEPENDENCIES ---
+# Always let Docker run 'npm install' inside the container
+node_modules/
+npm-debug.log
+
+# --- BUILD OUTPUT ---
+dist/
+dist-ssr/
+
+# --- SECRETS & CONFIG ---
+# We inject these via compose.yaml, NOT by baking them into the image
 .env
+.env.*
+.git
+.gitignore
+docker-compose.yml
+compose.yaml
+Dockerfile*
+
+# --- CLUTTER & REPORTS ---
+# Documentation doesn't need to live in the web container
+*.md
+plans/
+ai_logic_review/
+ai_site_report/
+src-deps.json
+
+# --- OS FILES ---
+.DS_Store
+Thumbs.db

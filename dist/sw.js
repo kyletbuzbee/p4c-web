@@ -1,1 +1,269 @@
-if(!self.define){let e,r={};const a=(a,b)=>(a=new URL(a+".js",b).href,r[a]||new Promise(r=>{if("document"in self){const e=document.createElement("script");e.src=a,e.onload=r,document.head.appendChild(e)}else e=a,importScripts(a),r()}).then(()=>{let e=r[a];if(!e)throw new Error(`Module ${a} didn’t register its module`);return e}));self.define=(b,n)=>{const i=e||("document"in self?document.currentScript.src:"")||location.href;if(r[i])return;let s={};const o=e=>a(e,i),c={module:{uri:i},exports:s,require:o};r[i]=Promise.all(b.map(e=>c[e]||o(e))).then(e=>(n(...e),s))}}define(["./workbox-354287e6"],function(e){"use strict";self.skipWaiting(),e.clientsClaim(),e.precacheAndRoute([{url:"registerSW.js",revision:"11a4472c4d01b2f83fe973058dba4d40"},{url:"pwa.svg",revision:"74c294851cbac2d12d572bd24f8f0f08"},{url:"pwa.png",revision:"d4ff6e02dad7e0fba0c3e2d2c1f80b5e"},{url:"pwa-512x512.png",revision:"df2ac5a8418f220797cd2911be9262c2"},{url:"pwa-192x192.png",revision:"5b88434b9089978780170a5a32e72db0"},{url:"index.html",revision:"3ba09d6fbfc9af1cf26d27775d3bdb8b"},{url:"favicon.ico",revision:"d41d8cd98f00b204e9800998ecf8427e"},{url:"js/VeteranServices-Bo4sXI1o.js",revision:"250b324411cec496f405c3903f74cfe2"},{url:"js/Veterans-BQ_bqudz.js",revision:"debf5fe78c80a356732952b8415c25ff"},{url:"js/utils-BLjenHXc.js",revision:"09b39996b335e64d75229772f3cddef2"},{url:"js/ui-Cv49lX3S.js",revision:"d5e396759886e774d8664c3c01ec951d"},{url:"js/Transparency-DOY-7Sbl.js",revision:"8a42be292488b9e5c7f2013ddd4af7fc"},{url:"js/TestPropertyForm-CgoFxGfW.js",revision:"c338f0f714b4221e1e84082de3ea68ab"},{url:"js/Terms-CQIdoa4M.js",revision:"27b6d336ea130d9cea72fd142629ce13"},{url:"js/TenantLogin-CJ06Ms7d.js",revision:"9451724aa8c178905d7fe68dbc1275bf"},{url:"js/SuccessStories-D_ZSTf3h.js",revision:"2bc8b9e1017166ca8e7ee2b519357828"},{url:"js/router-Cqyp-vmz.js",revision:"0199933842abc9530ff3f27896e62ca5"},{url:"js/react-l0sNRNKZ.js",revision:"68b329da9893e34099c7d8ad5cb9c940"},{url:"js/PropertyDetails-D5bZYj0_.js",revision:"91c09f92a04a17e76c713fa415234072"},{url:"js/PropertyCard-D65Ml7fs.js",revision:"097391053724333429a6efbf7ec8b015"},{url:"js/properties-TQ4HqbPh.js",revision:"73c91105b128fe07ac8e88bf883c3db5"},{url:"js/Properties-Gpk-IcNL.js",revision:"8b7d22362c98aa7ecbc7085cb07b32ba"},{url:"js/Privacy-BEejI5iQ.js",revision:"53bc7187afc650e5c9681bbb69068e7a"},{url:"js/OurImpact-B2pkHDsE.js",revision:"2062e861607065fa8e6cf42a13a6c9ae"},{url:"js/HomeownerSolutions-CJ7xP1Pd.js",revision:"45d18a49f698bfd3d154e2d4ae79fb11"},{url:"js/Home-DZiP9fhM.js",revision:"303943abce14dab46286e033b0b55f79"},{url:"js/FAQ-C6shRJGL.js",revision:"dbcf52c682fc06bd0d5a6c5cb49c47c4"},{url:"js/FamilyResources-_ej2R-s4.js",revision:"6c950dede6bbcff4d56965201b0b0023"},{url:"js/EqualHousing-BREzy2Ui.js",revision:"33826876592edf0b3d7721c8ec63a006"},{url:"js/Employment-_H07Lx6i.js",revision:"cd7328a792fbd433ba7b3d23e3d1d5e3"},{url:"js/Contact-ClAZE8w5.js",revision:"d143bb334ce3e2c0aa60bb2cbb6b1771"},{url:"js/Community-Dr6ipaPq.js",revision:"2e8153d9fc1bb1ead2277d92b49a9442"},{url:"js/Application-BfIlMYbx.js",revision:"3b7a73de04d0b9a508e0458cc6103d2e"},{url:"js/api-BvtG0B8i.js",revision:"eb574b2686418239c7f8a306bb6099b7"},{url:"js/AdminDashboard-DCamboPq.js",revision:"0739371d5d24d3758036d6b24dc3b1ff"},{url:"js/AccessibilityStatement-DuI-AlwT.js",revision:"071b5a4e6b9aa18c869c2e1e8a6cb65f"},{url:"js/About-BT38R2ah.js",revision:"6b9952d0ed0b7025cbda1a30ce38021c"},{url:"images/resident-review/resident-review-sarah.png",revision:"bb609bc7a43a4bfac17af7e15b327a84"},{url:"images/resident-review/resident-review-mark.png",revision:"c62841e1dad15a69355385109b2dba8d"},{url:"images/resident-review/resident-review-emily-david.png",revision:"f99745667653c05a391ab2f5e4e0acfc"},{url:"images/resident-review/resident-review-alex.png",revision:"b26ae3cc6f742fb8d70dc141ce6d35f9"},{url:"images/properties/tyler-ranch-home.webp",revision:"737821b1b702df2d66ca0a22bb3a752d"},{url:"images/properties/tyler-ranch-home-400w.webp",revision:"fd043c43d8751b4a1307f57b1f13e39f"},{url:"images/properties/rodriguez-family-400w.webp",revision:"086bb09e68e4129344e41db0b2e30cfe"},{url:"images/properties/mineola-studio.webp",revision:"ab7540cf68595b640915e2054120bd6f"},{url:"images/properties/mineola-studio-outside.webp",revision:"2969665c51f67050d93d028553af6dd9"},{url:"images/properties/marshall-farmhouse-400w.webp",revision:"bae8ae0105fc7bf3594b055a65e7c7e8"},{url:"images/properties/longview-victorian.webp",revision:"6674192b56d75dd7eb491b6d14e356f1"},{url:"images/properties/lindale-cottage.webp",revision:"16dfd471f881f879ba203b31452bc82f"},{url:"images/properties/kemp-townhome.webp",revision:"19b72cfc601e0d4b4c4fd6510c592d06"},{url:"images/properties/jefferson-riverfront.webp",revision:"469c3ed42ae46ac87ab253a37c1646b4"},{url:"images/our-work-gallery/our-work-painting-dog-800w.webp",revision:"e75d2304f42dcb3c0942ac062c6f858e"},{url:"images/our-work-gallery/our-work-meeting.png",revision:"8867adccb0dc6248268d4bb1fcdb0dbe"},{url:"images/our-work-gallery/our-work-framing-door.webp",revision:"cda56de0599c3df17bb3587e49f2f26c"},{url:"images/our-work-gallery/our-work-framing-door-800w.webp",revision:"86c0fec0d80d84096b42f37e5d927cbe"},{url:"images/our-work-gallery/our-work-framing-door-400w.webp",revision:"667ba6631885d7ea257e4724c20710ee"},{url:"images/our-work-gallery/our-work-detailed-measuring-800w.webp",revision:"5c8ea5ed77b8cee87f3c4132740b702c"},{url:"images/our-work-gallery/our-impact-buy-as-is.webp",revision:"42c42ffda6387558af92169d6e381935"},{url:"images/logo/pwa.svg",revision:"ce2b2c41d79c0b880a6864a9bc7837c1"},{url:"images/logo/pwa.png",revision:"d4ff6e02dad7e0fba0c3e2d2c1f80b5e"},{url:"images/logo/pwa-512x512.png",revision:"df2ac5a8418f220797cd2911be9262c2"},{url:"images/logo/pwa-192x192.png",revision:"5b88434b9089978780170a5a32e72db0"},{url:"images/logo/chat-avatar.svg",revision:"1adaeea42f4115e9a3fbc2c8d53dfb44"},{url:"images/logo/chat-avatar.png",revision:"1f791b436ac67e34d0dec577eca4b821"},{url:"images/logo/brand-logo.svg",revision:"a241ae60962b684f83917b06bf89e32c"},{url:"images/logo/brand-logo-white-gold.svg",revision:"1666d5a1bf3722d49972ddc01d5d2da3"},{url:"images/family/family-kitchen-dinner.png",revision:"1c0dbd23a76914abe376a4a846123e23"},{url:"images/family/family-backyard.png",revision:"fe1f76d42df432d7e85239271cb3da6b"},{url:"images/before-after-comparison/projects-before-living-room-800w.webp",revision:"a53929cd8a5244186475d905825d5cf8"},{url:"images/before-after-comparison/projects-before-living-room-400w.webp",revision:"d687cb17d6bd6bf0208a665ff42e7cf7"},{url:"images/before-after-comparison/projects-before-kitchen-800w.webp",revision:"0eec188ca143373bc94df7a8a54cfb05"},{url:"images/before-after-comparison/projects-before-kitchen-400w.webp",revision:"d291550d3e4e923a599b0b2b8339d3af"},{url:"images/before-after-comparison/projects-before-front-porch-400w.webp",revision:"ae46a5329c6bc0e8a84870a924317982"},{url:"images/before-after-comparison/projects-before-bathroom-800w.webp",revision:"41bbc6984e0ef0ea285465a17d9f8030"},{url:"images/before-after-comparison/projects-before-bathroom-400w.webp",revision:"d60c02dcead6a7976088f823bb3a6716"},{url:"images/before-after-comparison/projects-after-living-room.webp",revision:"0d44d5c7c4ebae72d7592598b01e3d71"},{url:"images/before-after-comparison/projects-after-living-room-800w.webp",revision:"d2d63b9913e5d006a609c7981145b456"},{url:"images/before-after-comparison/projects-after-living-room-400w.webp",revision:"09d6ac2bb51dc555a3cac8a7f29271e4"},{url:"images/before-after-comparison/projects-after-kitchen.webp",revision:"f352fd87aecda52a3c6aa732612c0c20"},{url:"images/before-after-comparison/projects-after-kitchen-800w.webp",revision:"5794070715d54f5ed9a14f03fca6cf62"},{url:"images/before-after-comparison/projects-after-kitchen-400w.webp",revision:"aaceb653b82233b25393900866d4199e"},{url:"images/before-after-comparison/projects-after-front-porch.webp",revision:"0cfb70d776f55760b4a42b3214b78f30"},{url:"images/before-after-comparison/projects-after-front-porch-800w.webp",revision:"f59b0b76089548a2b2cdef87a844cd44"},{url:"images/before-after-comparison/projects-after-front-porch-400w.webp",revision:"c5ef40afcb50a30bf25c3d073905c303"},{url:"images/before-after-comparison/projects-after-brick-patio-400w.webp",revision:"ab33a7238b99eb974d49e48a0f0cf67d"},{url:"images/before-after-comparison/projects-after-bathroom-800w.webp",revision:"e7eae9eb2c2163ad88a55196f4f4b4fc"},{url:"images/before-after-comparison/projects-after-bathroom-400w.webp",revision:"11843c0846edeba7cb1137a969e2c338"},{url:"images/before-after-comparison/before.webp",revision:"b5fe3637fdf9bc5dfc8851e10240303c"},{url:"images/banners/resident-services-banner.PNG",revision:"fa4311511dc7d63fb7a1d3d53b356a12"},{url:"images/banners/resident-service-banner.png",revision:"7105dde72a9038a833ee3ca29386ec07"},{url:"images/banners/properties-banner.png",revision:"413ceb67d2262ff747c71ee00e3f0a78"},{url:"images/banners/lindale-cottage.webp",revision:"a72bf37bc2b4ba36ba67559b034bec51"},{url:"images/banners/hero-transparency-banner.webp",revision:"86a923f1c8b702f16a50d5881505198d"},{url:"images/banners/hero-transparency-banner.png",revision:"b0b1a8fd55a047e1ab2225164e1961d9"},{url:"images/banners/hero-transparency-banner-960.webp",revision:"35af0e30bea27b407f966a7498b8412c"},{url:"images/banners/hero-transparency-banner-640.webp",revision:"06dff811a9de8335820a588bc4086495"},{url:"images/banners/hero-transparency-banner-1920.webp",revision:"3f5fc9da71480c1950d539848c581a94"},{url:"images/banners/hero-transparency-banner-1280.webp",revision:"3f5fc9da71480c1950d539848c581a94"},{url:"images/banners/hero-thank-you-banner.png",revision:"ab4513fb1ff23f822ea6ec61a8105185"},{url:"images/banners/hero-terms-banner-800w.webp",revision:"b545edf9435463b924f874db78881d1a"},{url:"images/banners/hero-terms-banner-1200w.webp",revision:"85b86924c4fee4bea0fc0d99b78571bb"},{url:"images/banners/hero-success-story-banner.webp",revision:"81159a8ff42ecf0e0d42113b892c75d6"},{url:"images/banners/hero-success-story-banner (2).webp",revision:"b9ae52618d0063070f0c2002d04ff80b"},{url:"images/banners/hero-resources-banner.webp",revision:"764abcf80ea3ee6b03d20eaf30ed82c8"},{url:"images/banners/hero-resources-banner.png",revision:"9c6e8d3b9d56d26534ab4b87322d2562"},{url:"images/banners/hero-resources-banner-960.webp",revision:"bd81c467e60731d033608227fa519466"},{url:"images/banners/hero-resources-banner-640.webp",revision:"64dca5eeb55c7fbe692dd8039eed3bc2"},{url:"images/banners/hero-resources-banner-1920.webp",revision:"b8424b6e42ea2cf814cb32e6b0843061"},{url:"images/banners/hero-resources-banner-1280.webp",revision:"651c874c34f2f6f942ff5b7017c5fef3"},{url:"images/banners/hero-resources-banner (1).webp",revision:"2e990a8d4dba53b5065b2bdca132c718"},{url:"images/banners/hero-projects-banner.webp",revision:"5c548f1cb926a98c08ed0a2ecca3a8a3"},{url:"images/banners/hero-projects-banner-960.webp",revision:"e1fa167ad5e711ffd6fb167f2c482f4a"},{url:"images/banners/hero-projects-banner-640.webp",revision:"c2ba83a97123ec6f011781861cb2102d"},{url:"images/banners/hero-projects-banner-1920.webp",revision:"b37b1813befc006e7b7e64a38682370f"},{url:"images/banners/hero-projects-banner-1280.webp",revision:"9965ac2dcddd12d7bbd9db32d0623a87"},{url:"images/banners/hero-privacy-banner.webp",revision:"c71f32c0f95c93588e3573eb0c4abd3c"},{url:"images/banners/hero-privacy-banner.png",revision:"7b693254b1f2c7a419d599dc3c4ba950"},{url:"images/banners/hero-privacy-banner-960.webp",revision:"a75cb362897fefaacc60c1f4ecc7ca77"},{url:"images/banners/hero-privacy-banner-800w.webp",revision:"64e8402f77bc74ace40a0db42985c54d"},{url:"images/banners/hero-privacy-banner-640.webp",revision:"90379c3f1b1ed0091d2ee02b69388171"},{url:"images/banners/hero-privacy-banner-1920.webp",revision:"46f70a5ea602278373c7df10959f7a46"},{url:"images/banners/hero-privacy-banner-1600w.webp",revision:"4f7fb661182ea0ae71fedb4a95327b33"},{url:"images/banners/hero-privacy-banner-1280.webp",revision:"13c34f52b658da718215c2a2cd8c44da"},{url:"images/banners/hero-privacy-banner-1200w.webp",revision:"edb2ffc748a1ae1a073c80427ed466ba"},{url:"images/banners/hero-legal-banner.webp",revision:"514fc868be445e3c2d1c666923b59234"},{url:"images/banners/hero-legal-banner-960.webp",revision:"cffa842067913baa88e1fc50418632bf"},{url:"images/banners/hero-legal-banner-640.webp",revision:"5ea52e17554d0636a28c18e349d90cd6"},{url:"images/banners/hero-legal-banner-1920.webp",revision:"db5f19e19c3a2884170017fdb5553658"},{url:"images/banners/hero-legal-banner-1280.webp",revision:"46c8a88515068aa1470cfbc32a668eac"},{url:"images/banners/hero-impact_banner-960.webp",revision:"853dce9e8d5d944731b8c7bd07666c83"},{url:"images/banners/hero-impact_banner-960-960.webp",revision:"05bf7cada63fb614a3f4894362259b3b"},{url:"images/banners/hero-impact_banner-960-640.webp",revision:"3d261fe2dc201b2967b4943f4b482f87"},{url:"images/banners/hero-impact_banner-960-1920.webp",revision:"05bf7cada63fb614a3f4894362259b3b"},{url:"images/banners/hero-impact_banner-960-1280.webp",revision:"05bf7cada63fb614a3f4894362259b3b"},{url:"images/banners/hero-impact_banner-640.webp",revision:"58fa194b60680388aa82fb9938424ae9"},{url:"images/banners/hero-impact_banner-640.png",revision:"561cb1df1d5b2f8cef98a607a516db25"},{url:"images/banners/hero-impact_banner-640-960.webp",revision:"727f9b43e2b0b4af11d930712e193266"},{url:"images/banners/hero-impact_banner-640-640.webp",revision:"727f9b43e2b0b4af11d930712e193266"},{url:"images/banners/hero-impact_banner-640-1920.webp",revision:"727f9b43e2b0b4af11d930712e193266"},{url:"images/banners/hero-impact_banner-640-1280.webp",revision:"727f9b43e2b0b4af11d930712e193266"},{url:"images/banners/hero-impact_banner-1920.webp",revision:"60cf98fdf52f1b728d2cfc19017ad107"},{url:"images/banners/hero-impact_banner-1920-960.webp",revision:"da2e6f6b9babc3c26eb515948ae491ea"},{url:"images/banners/hero-impact_banner-1920-640.webp",revision:"321819e036de3c9597c1ec28e2d65fbd"},{url:"images/banners/hero-impact_banner-1920-1920.webp",revision:"5df8d02875980bea823b7d422ef849ff"},{url:"images/banners/hero-impact_banner-1920-1280.webp",revision:"6a3f8c5b206083b4c09e5b8903044af9"},{url:"images/banners/hero-impact_banner-1280.webp",revision:"39da6b1d51e260671b08b4635115ac46"},{url:"images/banners/hero-impact_banner-1280-960.webp",revision:"978adff8dce8c1106f0aeb39fccc8da9"},{url:"images/banners/hero-impact_banner-1280-640.webp",revision:"3ddd764b4ebcc3ff9a4b008452cdd6c7"},{url:"images/banners/hero-impact_banner-1280-1920.webp",revision:"338067a160920859845a1e99bf208eeb"},{url:"images/banners/hero-impact_banner-1280-1280.webp",revision:"338067a160920859845a1e99bf208eeb"},{url:"images/banners/hero-impact-banner.webp",revision:"fc78cd906c91275a296bb5dd8abc8128"},{url:"images/banners/hero-homeowner-solutions.webp",revision:"42c42ffda6387558af92169d6e381935"},{url:"images/banners/hero-homeowner-solutions.png",revision:"ef1bfb224f528a0b3f194964e8f41a93"},{url:"images/banners/hero-home-banner.webp",revision:"3b60291351a70f8a01899e4433735496"},{url:"images/banners/hero-home-banner-960.webp",revision:"650372704211f503b62dc87c1da1b8c9"},{url:"images/banners/hero-home-banner-800w.webp",revision:"a4a145a882f158e03fae4afc2228e353"},{url:"images/banners/hero-home-banner-640.webp",revision:"8113e616377460ff7ac48ac632c169da"},{url:"images/banners/hero-home-banner-400w.webp",revision:"754926900998768b70c7712df18e736e"},{url:"images/banners/hero-home-banner-1920.webp",revision:"4708647d61fada83786caff5c2b1b3cf"},{url:"images/banners/hero-home-banner-1280.webp",revision:"f83df5454310f69d4f919be2cd72ffc3"},{url:"images/banners/hero-get-started-banner.png",revision:"753b31ae8bba4c5712783a8ada08cae3"},{url:"images/banners/hero-get-started-banner-960.webp",revision:"c662b306e4c5d45fc95ea5bd3d695bbe"},{url:"images/banners/hero-get-started-banner-640.webp",revision:"2b80a8945696a9d3421f585352a1c5d1"},{url:"images/banners/hero-get-started-banner-1920.webp",revision:"c00ccd1b7e36c3e2cc083c887f61d46a"},{url:"images/banners/hero-get-started-banner-1280.webp",revision:"5b984e05c82639779e1480d409a36e6b"},{url:"images/banners/hero-faq-banner.webp",revision:"66a3a5911436922e53b0824db39116b7"},{url:"images/banners/hero-faq-banner.png",revision:"4c93e660d7c8974eab3b79c5ff1824dc"},{url:"images/banners/hero-contact-banner.webp",revision:"d03db4901d2240f7fa78f7451f8c568b"},{url:"images/banners/hero-contact-banner.png",revision:"43492496969dead4f7ede679ef8b89ab"},{url:"images/banners/hero-contact-banner-960.webp",revision:"d03db4901d2240f7fa78f7451f8c568b"},{url:"images/banners/hero-contact-banner-640.webp",revision:"d03db4901d2240f7fa78f7451f8c568b"},{url:"images/banners/hero-contact-banner-1920.webp",revision:"d03db4901d2240f7fa78f7451f8c568b"},{url:"images/banners/hero-contact-banner-1280.webp",revision:"d03db4901d2240f7fa78f7451f8c568b"},{url:"images/banners/hero-community-impact-banner.png",revision:"6ed14f2571b04119883d500dc63a3039"},{url:"images/banners/hero-application-banner.webp",revision:"a204c98af5231a7cafab4b61e9cb10c3"},{url:"images/banners/hero-application-banner-1280.webp",revision:"762e267d4233cf747d7dccece484c515"},{url:"images/banners/hero-about-us-banner.webp",revision:"2e9c412074e8e9d7d97bc7c478fcf5d4"},{url:"images/banners/hero-about-banner.webp",revision:"1d57674a95ef0cae529feeb3b55d4ce9"},{url:"images/banners/hero-about-banner.png",revision:"9daa02cc4d62aded947ca62a0f415292"},{url:"images/banners/hero-about-banner-960.webp",revision:"8c1dd0f9368a90a2db14fce058e3f6c3"},{url:"images/banners/hero-about-banner-640.webp",revision:"d4866a944518049bea532bc0d916586f"},{url:"images/banners/hero-about-banner-1920.webp",revision:"2608677675f555efdeedb44ee4b66754"},{url:"images/banners/hero-about-banner-1280.webp",revision:"9bfb28218574ab0d8b3cb6467e5c72ff"},{url:"images/banners/family-resources-banner.png",revision:"7fce6469107f2156d6e5f23a6f94a314"},{url:"images/banners/career-banner.webp",revision:"3f2be8757d051f1b5433219bc8b8205f"},{url:"images/banners/career-banner.png",revision:"1dd7df44f0843b654ca0f349682ea824"},{url:"images/about/rehabilitaion.png",revision:"8a6d2a09a3960453ac9cf8aef9c92340"},{url:"images/about/index.html",revision:"36363ec2774a8d2aa1b539dfd63734fb"},{url:"images/about/acquisition.png",revision:"aa0a768c38d281f87f86c288c1b756a8"},{url:"images/about/about-us-team-owner.webp",revision:"acdfb377f5ff199445ffb959b3e3303c"},{url:"images/about/about-us-team-onsite.webp",revision:"2e9c412074e8e9d7d97bc7c478fcf5d4"},{url:"images/about/about-us-team-headshot.webp",revision:"2fd173712b0d607419abdc4d7a4d442a"},{url:"assets/index-DiKYLAwG.css",revision:null},{url:"assets/index-CjiBnxQ6.js",revision:null},{url:"favicon.ico",revision:"d41d8cd98f00b204e9800998ecf8427e"},{url:"pwa-192x192.png",revision:"5b88434b9089978780170a5a32e72db0"},{url:"pwa-512x512.png",revision:"df2ac5a8418f220797cd2911be9262c2"},{url:"manifest.webmanifest",revision:"65e0b09211b343daf888e63093781d0f"}],{}),e.cleanupOutdatedCaches(),e.registerRoute(new e.NavigationRoute(e.createHandlerBoundToURL("index.html"))),e.registerRoute(/^https:\/\/api\..*/i,new e.NetworkFirst({cacheName:"api-cache",plugins:[new e.ExpirationPlugin({maxEntries:50,maxAgeSeconds:86400})]}),"GET"),e.registerRoute(/^https:\/fonts\.googleapis\.com\/.*/i,new e.CacheFirst({cacheName:"google-fonts-cache",plugins:[new e.ExpirationPlugin({maxEntries:10,maxAgeSeconds:31536e3})]}),"GET"),e.registerRoute(/^https:\/fonts\.gstatic\.com\/.*/i,new e.CacheFirst({cacheName:"gstatic-fonts-cache",plugins:[new e.ExpirationPlugin({maxEntries:10,maxAgeSeconds:31536e3})]}),"GET")});
+/**
+ * Service Worker for Properties 4 Creation
+ * Provides offline functionality and caching strategies
+ */
+
+const CACHE_NAME = 'p4c-v2.0.0';
+const STATIC_CACHE = 'p4c-static-v2.0.0';
+const DYNAMIC_CACHE = 'p4c-dynamic-v2.0.0';
+const IMAGE_CACHE = 'p4c-images-v2.0.0';
+
+// Assets to cache immediately
+const STATIC_ASSETS = [
+  '/',
+  '/index.html',
+  '/manifest.json',
+  // Add other static assets here
+];
+
+// Cache strategies
+const CACHE_STRATEGIES = {
+  CACHE_FIRST: 'cache-first',
+  NETWORK_FIRST: 'network-first',
+  STALE_WHILE_REVALIDATE: 'stale-while-revalidate',
+};
+
+// Install event - cache static assets
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches
+      .open(STATIC_CACHE)
+      .then((cache) => {
+        return cache.addAll(STATIC_ASSETS);
+      })
+      .then(() => {
+        return self.skipWaiting();
+      })
+      .catch((error) => {
+        console.error('[SW] Failed to cache static assets:', error);
+      })
+  );
+});
+
+// Activate event - clean up old caches
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches
+      .keys()
+      .then((cacheNames) =>
+        Promise.all(
+          cacheNames.map((cacheName) => {
+            // Delete old caches
+            if (
+              cacheName !== STATIC_CACHE &&
+              cacheName !== DYNAMIC_CACHE &&
+              cacheName !== IMAGE_CACHE
+            ) {
+              return caches.delete(cacheName);
+            }
+          })
+        )
+      )
+      .then(() => {
+        return self.clients.claim();
+      })
+  );
+});
+
+// Fetch event - handle requests with appropriate strategies
+self.addEventListener('fetch', (event) => {
+  const { request } = event;
+  const url = new URL(request.url);
+
+  // Skip non-GET requests
+  if (request.method !== 'GET') {
+    return;
+  }
+
+  // Skip API requests (let them go to the server)
+  if (url.pathname.startsWith('/api/')) {
+    return;
+  }
+
+  // Handle different types of requests
+  if (isImageRequest(request)) {
+    event.respondWith(handleImageRequest(request));
+  } else if (isStaticAsset(request)) {
+    event.respondWith(handleStaticAsset(request));
+  } else if (isNavigationRequest(request)) {
+    event.respondWith(handleNavigationRequest(request));
+  } else {
+    event.respondWith(handleDynamicRequest(request));
+  }
+});
+
+// Check if request is for an image
+function isImageRequest(request) {
+  const url = new URL(request.url);
+  return /\.(png|jpg|jpeg|gif|svg|webp|ico)$/i.test(url.pathname);
+}
+
+// Check if request is for a static asset
+function isStaticAsset(request) {
+  const url = new URL(request.url);
+  return (
+    STATIC_ASSETS.some((asset) => url.pathname === asset) ||
+    /\.(css|js|woff|woff2|ttf|otf)$/i.test(url.pathname)
+  );
+}
+
+// Check if request is for navigation
+function isNavigationRequest(request) {
+  return request.mode === 'navigate';
+}
+
+// Cache-first strategy for images
+async function handleImageRequest(request) {
+  try {
+    const cachedResponse = await caches.match(request);
+    if (cachedResponse) {
+      return cachedResponse;
+    }
+
+    const networkResponse = await fetch(request);
+    if (networkResponse.ok) {
+      const cache = await caches.open(IMAGE_CACHE);
+      cache.put(request, networkResponse.clone());
+    }
+
+    return networkResponse;
+  } catch (error) {
+    console.error('[SW] Image request failed:', error);
+
+    // Return a fallback image if available
+    const fallbackResponse = await caches.match('/images/fallback.png');
+    return (
+      fallbackResponse || new Response('Image not available', { status: 404 })
+    );
+  }
+}
+
+// Cache-first strategy for static assets
+async function handleStaticAsset(request) {
+  try {
+    const cachedResponse = await caches.match(request);
+    if (cachedResponse) {
+      return cachedResponse;
+    }
+
+    const networkResponse = await fetch(request);
+    if (networkResponse.ok) {
+      const cache = await caches.open(STATIC_CACHE);
+      cache.put(request, networkResponse.clone());
+    }
+
+    return networkResponse;
+  } catch (error) {
+    console.error('[SW] Static asset request failed:', error);
+    return new Response('Asset not available', { status: 404 });
+  }
+}
+
+// Network-first strategy for navigation requests
+async function handleNavigationRequest(request) {
+  try {
+    const networkResponse = await fetch(request);
+
+    // Cache successful responses
+    if (networkResponse.ok) {
+      const cache = await caches.open(DYNAMIC_CACHE);
+      cache.put(request, networkResponse.clone());
+    }
+
+    return networkResponse;
+  } catch (error) {
+    console.error('[SW] Navigation request failed, trying cache:', error);
+
+    // Fallback to cached version
+    const cachedResponse = await caches.match(request);
+    if (cachedResponse) {
+      return cachedResponse;
+    }
+
+    // Final fallback to index.html for SPA routing
+    const fallbackResponse = await caches.match('/index.html');
+    return (
+      fallbackResponse || new Response('Page not available', { status: 404 })
+    );
+  }
+}
+
+// Stale-while-revalidate strategy for dynamic content
+async function handleDynamicRequest(request) {
+  try {
+    const cachedResponse = await caches.match(request);
+
+    // Fetch from network in background
+    const networkResponsePromise = fetch(request)
+      .then((networkResponse) => {
+        if (networkResponse.ok) {
+          const cache = caches.open(DYNAMIC_CACHE);
+          cache.then((c) => c.put(request, networkResponse.clone()));
+        }
+        return networkResponse;
+      })
+      .catch((error) => {
+        console.error('[SW] Network request failed:', error);
+        return null;
+      });
+
+    // Return cached response immediately if available
+    if (cachedResponse) {
+      // Update cache in background
+      networkResponsePromise;
+      return cachedResponse;
+    }
+
+    // Wait for network if no cache
+    const networkResponse = await networkResponsePromise;
+    return (
+      networkResponse || new Response('Content not available', { status: 404 })
+    );
+  } catch (error) {
+    console.error('[SW] Dynamic request failed:', error);
+
+    const cachedResponse = await caches.match(request);
+    return (
+      cachedResponse || new Response('Content not available', { status: 404 })
+    );
+  }
+}
+
+// Background sync for offline actions
+self.addEventListener('sync', (event) => {
+  if (event.tag === 'background-sync') {
+    event.waitUntil(performBackgroundSync());
+  }
+});
+
+// Handle background sync
+async function performBackgroundSync() {
+  try {
+    // Sync any pending data when connection is restored
+    // Add your background sync logic here
+  } catch (error) {
+    console.error('[SW] Background sync failed:', error);
+  }
+}
+
+// Push notifications (if needed in future)
+self.addEventListener('push', (event) => {
+  const options = {
+    body: event.data ? event.data.text() : 'New notification',
+    icon: '/icon-192x192.png',
+    badge: '/badge-72x72.png',
+    tag: 'p4c-notification',
+    requireInteraction: true,
+  };
+
+  event.waitUntil(
+    self.registration.showNotification('Properties 4 Creation', options)
+  );
+});
+
+// Handle notification clicks
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+
+  event.waitUntil(clients.openWindow('/'));
+});

@@ -1,1 +1,0 @@
-if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/p4c-web/sw.js', { scope: '/p4c-web/' })})}
