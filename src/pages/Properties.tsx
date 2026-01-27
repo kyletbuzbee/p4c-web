@@ -133,14 +133,30 @@ const Properties: React.FC = () => {
       </Helmet>
 
       {/* --- HERO SECTION --- */}
-      <div className="bg-gradient-to-r from-p4c-navy to-p4c-gold py-16 px-4 sm:px-6 lg:px-8 shadow-xl">
-        <div className="max-w-7xl mx-auto text-center">
+      <div className="relative h-[500px] w-full overflow-hidden flex items-center justify-center">
+        <div className="absolute top-0 left-0 w-full h-full z-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+          >
+            <source
+              src="/images/videos/hero-properties-banner.mp4"
+              type="video/mp4"
+            />
+            Your browser does not support the video tag.
+          </video>
+          <div className="absolute top-0 left-0 w-full h-full bg-p4c-navy/60" />
+        </div>
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 font-serif">
             More Than a House. <br className="hidden sm:block" />
             {/* FIX: Escaped apostrophe */}
             <span className="text-p4c-beige">It&apos;s Your Sanctuary.</span>
           </h1>
-          <p className="text-xl text-p4c-beige/90 max-w-3xl mx-auto mb-8 font-sans">
+          <p className="text-xl text-white max-w-3xl mx-auto mb-8 font-sans">
             Quality affordable housing for families, veterans, and the
             community. We prioritize people over profit.
           </p>

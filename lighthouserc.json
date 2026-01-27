@@ -3,6 +3,7 @@
     "collect": {
       "staticDistDir": "./dist",
       "settings": {
+        "chromeFlags": "--no-sandbox",
         "staticFileExtensions": [
           ".html",
           ".js",
@@ -18,17 +19,24 @@
       }
     },
     "assert": {
+      "preset": "lighthouse:recommended",
       "assertions": {
-        "csp-xss": "warning",
         "installable-manifest": "on",
         "service-worker": "on",
         "apple-touch-icon": "on",
         "icon-size-192": "on",
         "icon-size-512": "on",
-        "content-width": "warning",
+
+        "csp-xss": "warning",
+
         "html-has-lang": "on",
         "document-title": "on",
-        "meta-viewport": "on"
+        "meta-viewport": "on",
+        "color-contrast": "on",
+        "tap-targets": "on",
+        "font-size": "on",
+        "resource-summary:image:size": ["warning", { "maxSize": 5000000 }],
+        "total-byte-weight": ["warning", { "maxSize": 10000000 }]
       }
     },
     "upload": {

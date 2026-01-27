@@ -35,7 +35,7 @@ const Reviews: React.FC = () => {
         <title>Resident Reviews & Testimonials | Properties 4 Creation</title>
         <meta
           name="description"
-          content="Read and watch real reviews from residents living in Properties 4 Creation homes in Tyler, Longview, and Marshall, Texas."
+          content="Read and watch real reviews from residents living in Properties 4 Creation homes in East Texas, Texas."
         />
       </Helmet>
 

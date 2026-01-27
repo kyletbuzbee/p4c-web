@@ -49,7 +49,7 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
 const FAQs = [
   {
     q: 'Do you accept Section 8 or HUD-VASH vouchers?',
-    a: 'Yes. We view Housing Choice Vouchers (Section 8) and HUD-VASH as reliable income sources. Our properties in Tyler, Longview, and Marshall are renovated to meet or exceed Housing Quality Standards (HQS), ensuring a smooth inspection and move-in process.',
+    a: 'Yes. We view Housing Choice Vouchers (Section 8) and HUD-VASH as reliable income sources. Our properties in East Texas are renovated to meet or exceed Housing Quality Standards (HQS), ensuring a smooth inspection and move-in process.',
   },
   {
     q: 'What is your pet policy?',

@@ -7,6 +7,9 @@
  * <img src={IMAGES.BANNERS.HERO_HOME} alt="Home" />
  */
 
+export const P4C_MISSION_STATEMENT =
+  'Properties 4 Creation is committed to revitalizing East Texas: 53% Community Impact, 37% Family Stability, 5% Veteran Support, and 5% Investor ROI';
+
 // Brand Assets
 export const IMAGES = {
   // Page Hero Banners
@@ -216,5 +219,7 @@ export const IMAGES = {
     HERO_IMPACT: '/images/videos/hero-our-impact.mp4',
     HERO_SPOTLIGHT: '/images/videos/hero-spotlight-banner.mp4',
     SUCCESS_STORY: '/images/videos/success-stories.mp4',
+    COMMUNITY_INVESTMENT: '/images/videos/community-investment-banner.mp4',
+    HERO_PROPERTY: '/images/videos/hero-property-banner.mp4',
   },
 } as const;

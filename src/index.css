@@ -10,13 +10,13 @@
   --color-gold: #c5a059;
   --color-gold-hover: #b08d48;
   --color-slate: #334155;
-  
+
   /* Animation Tokens */
   --animation-duration-fast: 150ms;
   --animation-duration-normal: 300ms;
   --animation-duration-slow: 500ms;
   --animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
-  
+
   /* Accessibility */
   --accessibility-font-size: 100%;
 }
@@ -42,7 +42,7 @@
 
 @layer components {
   /* --- NAVIGATION & LAYOUT --- */
-  
+
   .skip-link {
     @apply fixed left-4 top-4 bg-p4c-navy text-white p-3 z-[100] rounded-lg shadow-lg transition-all duration-200;
     transform: translateY(-100%);
@@ -76,7 +76,11 @@
 
   .install-button {
     @apply bg-p4c-gold text-p4c-navy px-6 py-3 rounded-lg font-bold shadow-lg transition-all duration-300;
-    background: linear-gradient(135deg, var(--color-gold), var(--color-gold-hover));
+    background: linear-gradient(
+      135deg,
+      var(--color-gold),
+      var(--color-gold-hover)
+    );
   }
 
   .install-button:hover {
@@ -94,12 +98,21 @@
   /* --- HERO & VISUAL ENHANCEMENTS --- */
 
   .hero-overlay-primary {
-    background: linear-gradient(180deg, rgba(11, 17, 32, 0.9) 0%, rgba(11, 17, 32, 0.6) 50%, rgba(11, 17, 32, 0.85) 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(11, 17, 32, 0.9) 0%,
+      rgba(11, 17, 32, 0.6) 50%,
+      rgba(11, 17, 32, 0.85) 100%
+    );
     mix-blend-mode: multiply;
   }
 
   .hero-overlay-secondary {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.15) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.3) 0%,
+      rgba(0, 0, 0, 0.15) 100%
+    );
   }
 
   .hero-text-enhanced {
@@ -110,7 +123,12 @@
   /* Mobile Overlays */
   @media (max-width: 640px) {
     .hero-overlay-primary {
-      background: linear-gradient(180deg, rgba(11, 17, 32, 0.6) 0%, rgba(11, 17, 32, 0.4) 50%, rgba(11, 17, 32, 0.5) 100%);
+      background: linear-gradient(
+        180deg,
+        rgba(11, 17, 32, 0.6) 0%,
+        rgba(11, 17, 32, 0.4) 50%,
+        rgba(11, 17, 32, 0.5) 100%
+      );
     }
   }
 
@@ -119,7 +137,8 @@
   .accordion-content {
     display: grid;
     grid-template-rows: 0fr;
-    transition: grid-template-rows var(--animation-duration-normal) var(--animation-easing);
+    transition: grid-template-rows var(--animation-duration-normal)
+      var(--animation-easing);
   }
 
   .accordion-open .accordion-content {
@@ -161,7 +180,9 @@
   /* --- MOTION SENSITIVITY --- */
 
   @media (prefers-reduced-motion: reduce) {
-    *, ::before, ::after {
+    *,
+    ::before,
+    ::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
@@ -171,8 +192,14 @@
 
   @media (prefers-reduced-motion: no-preference) {
     @keyframes glassMorph {
-      0% { backdrop-filter: blur(20px); background-color: rgba(11, 17, 32, 0.7); }
-      100% { backdrop-filter: blur(24px); background-color: rgba(11, 17, 32, 0.72); }
+      0% {
+        backdrop-filter: blur(20px);
+        background-color: rgba(11, 17, 32, 0.7);
+      }
+      100% {
+        backdrop-filter: blur(24px);
+        background-color: rgba(11, 17, 32, 0.72);
+      }
     }
     .glass-animation {
       animation: glassMorph 0.4s ease-out forwards;
@@ -183,7 +210,11 @@
   }
 
   @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 }

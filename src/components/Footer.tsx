@@ -2,10 +2,10 @@ import React from 'react';
 import {
   Accessibility,
   Home,
+  Flag,
   Facebook,
   Instagram,
   Linkedin,
-  Flag,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { IMAGES } from '../constants/images';
@@ -25,8 +25,7 @@ const Footer: React.FC = () => (
           </div>
           <p className="text-gray-400 text-sm leading-relaxed mb-6">
             Properties 4 Creation is an investment and management firm dedicated
-            to the revitalization of{' '}
-            <strong>Tyler, Longview, and Marshall</strong>. We transform
+            to the revitalization of <strong>East Texas</strong>. We transform
             distressed assets into premium affordable housing for the East Texas
             community.
           </p>
@@ -68,7 +67,10 @@ const Footer: React.FC = () => (
           </h4>
           <ul className="space-y-2 text-sm text-gray-400">
             <li>
-              <Link to="/" className="hover:text-white transition-colors">
+              <Link
+                to="/properties"
+                className="hover:text-white transition-colors"
+              >
                 Available Homes
               </Link>
             </li>
@@ -122,7 +124,7 @@ const Footer: React.FC = () => (
             </li>
             <li>
               <Link
-                to="/employment"
+                to="/careers"
                 className="hover:text-white transition-colors flex items-center gap-2"
               >
                 Careers
@@ -153,10 +155,7 @@ const Footer: React.FC = () => (
             Office
           </h4>
           <ul className="space-y-2 text-sm text-gray-400 mb-6">
-            <li>Serving East Texas:</li>
-            <li className="font-medium text-white">
-              Tyler • Longview • Marshall
-            </li>
+            <li>Serving East Texas</li>
             <li className="mt-2">(936) 707-8460</li>
             <li>Richard@properties4creation.com</li>
           </ul>

@@ -8,7 +8,7 @@ on:
 # --- PREVENT DEPLOYMENT CONFLICTS ---
 # This cancels any "in-progress" runs if you push new code before the old one finishes.
 concurrency:
-  group: "pages"
+  group: 'pages'
   cancel-in-progress: true
 
 jobs:

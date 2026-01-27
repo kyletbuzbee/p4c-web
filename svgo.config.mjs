@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 export default {
   plugins: [
     {
@@ -5,7 +6,7 @@ export default {
       params: {
         overrides: {
           removeViewBox: false, // Required for scaling in Tailwind
-          cleanupIds: false,    // Prevents breaking gradients/masks
+          cleanupIds: false, // Prevents breaking gradients/masks
         },
       },
     },

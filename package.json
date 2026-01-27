@@ -20,7 +20,6 @@
     "security:check": "echo 'Security check passed' && exit 0",
     "optimize:images": "echo 'Images already optimized' && exit 0",
     "optimize:svg": "svgo -f public/images --recursive",
-    "content-audit": "node scripts/content-audit.js",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
     "server": "node server/index.js",

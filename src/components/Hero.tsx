@@ -48,20 +48,19 @@ const Hero: React.FC<HeroProps> = ({ variant = 'image' }) => {
           <div className="inline-flex items-center gap-2 bg-p4c-gold/10 border border-p4c-gold/30 px-4 py-2 rounded-full mb-8">
             <ShieldCheck className="w-5 h-5 text-p4c-gold" />
             <span className="text-p4c-gold text-sm font-bold tracking-widest uppercase">
-              The P4C Reliability Pledge
+              The Properties 4 Creation Reliability Pledge
             </span>
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-[1.1]">
-            Revitalizing <span className="text-p4c-gold">East Texas</span>{' '}
+          <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-[1.1] text-left">
+            Revitalizing <span className="text-p4c-gold">East Texas</span>
             <br />
             One Home at a Time.
           </h1>
 
           <p className="text-xl md:text-2xl text-gray-200 mb-10 font-light leading-relaxed">
             Delivering quality affordable housing for families and veterans.
-            Sustainable community solutions in{' '}
-            <strong>Tyler, Longview, and Marshall</strong>.
+            Sustainable community solutions in <strong>East Texas</strong>.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-5">

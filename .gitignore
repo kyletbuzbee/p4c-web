@@ -1,89 +1,34 @@
-# --- Properties 4 Creation Project Specifics ---
-# Never commit environment variables containing AI keys or backend URLs
+# --- CRITICAL: DEPENDENCIES & OS (DO NOT REMOVE) ---
+node_modules/
+.DS_Store
+Thumbs.db
+
+# --- ENVIRONMENT & SECRETS ---
 .env
 .env.local
-.env.example
-.env.development.local
-.env.test.local
-.env.production.local
-
-# Build artifacts (Vite/dist)
-dist/
-dist-ssr/
 *.local
 
-# --- Dependencies ---
-# Standard Node.js dependencies
-node_modules/
-jspm_packages/
+# --- BUILD & CACHE ---
+dist/
+.vite/
+.parcel-cache/
+.eslintcache
 
-# --- AI & Data Processing ---
-# Local logs and temporary AI processing files
-logs/
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
-# --- Testing & Coverage ---
-# Exclude test coverage reports to keep the repo clean
-coverage/
-.nyc_output/
-
-# --- IDE & System Files ---
-# Remove clutter from local development environments
-.vscode/
-.idea/
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.swp
-
-# --- Deployment Specifics ---
-# If using a local server for testing
-server/logs/
-server/node_modules/
-
-# --- Miscellaneous ---
-ENTERPRISE_CODE_REVIEW_REPORT.md
-code-review.py
-DEPLOYMENT_GUIDE.md
-ENTERPRISE_CODE_IMPROV
-ENTERPRISE_CODE_IMPROVEMENTS.md
-ENTERPRISE_CODE_REVIEW_REPORT.md
-EXECUTIVE_SUMMARY.md
-GITHUB_ACTIONS_WORKFLOW_DOCUMENTATION.md
-GITHUB_PAGES_DEPLOYMENT_CHECKLIST.md
-GITHUB_PAGES_DEPLOYMENT_GUIDE.md
-GITHUB_PAGES_DEPLOYMENT.md
-GITHUB_PAGES_TROUBLESHOOTING_GUIDE.md
-IMPLEMENTATION_ROADMAP.md
-IMPLEMENTATION_SUMMARY.md
-RENDER_DEPLOYMENT.md
-REPOSITORY_PATTERN_IMPLEMENTATION.md
-SECURITY_FIXES_SUMMARY.md
-SECURITY_VULNERABILITY_REPORT.md
-plans
-ai_logic_review/
+# --- P4C AUDIT & ANALYSIS REPORTS ---
+# Ignore the high-volume analysis data but keep the intelligence summary
+*.json
+!package.json
+!tsconfig.json
+!src-deps.json
 *.md
-*.txt
-ai_site_report/
-*.csv
+!README.md
+!P4C_PROJECT_INTELLIGENCE.md
+
+# --- DOCKER & SYSTEM ---
+.docker/
+docker-compose.override.yml
 *.py
 *.log
-p4c_full_picture_review.json
-competitive_analysis_report.json
-comprehensive_analysis.json
-comprehensive_website_analysis_report.json
-content_analysis_report.json
-BlotpressBot.bpz
-.kilocode/
-.clinerules/
-.quodo/
-.kilocode/mcp.json
-.quodo/mcp.json
-.clinerules/mcp.json
-.supabase/
+.vscode/
+.idea/
+*.txt

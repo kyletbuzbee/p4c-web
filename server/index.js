@@ -5,8 +5,6 @@
 
 const express = require('express');
 const cors = require('cors');
-const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
 const axios = require('axios');
 const dotenv = require('dotenv');
 const {
@@ -14,7 +12,6 @@ const {
   applyEnhancedSecurityHeaders,
   handleCSPViolation,
   applyAPISecurityHeaders,
-  generateSecurityHeadersReport,
 } = require('./middleware/enhancedSecurityHeaders');
 
 // Import comprehensive security middleware
@@ -22,7 +19,6 @@ const {
   createAdvancedRateLimiter,
   createInputValidation,
   createSizeLimiter,
-  createDynamicSecurityHeaders,
   createAPIKeyValidator,
   createSecurityLogger,
   createSecurityErrorHandler,
@@ -32,7 +28,6 @@ const {
 const {
   createPerformanceMonitor,
   createPerformanceEndpoints,
-  metricsAggregator,
 } = require('./middleware/performanceMonitoring');
 
 // Load environment variables
@@ -176,6 +171,9 @@ const BOTPRESS_API_KEY =
   process.env.BOTPRESS_API_KEY || 'bp_bak_Vr4mQVS58PvsNUvx1VZXp4BBblxiBfCqDN0g';
 const BOTPRESS_BOT_ID = process.env.BOTPRESS_BOT_ID || 'your-bot-id'; // You'll need to get this from your Botpress dashboard
 
+// Initialize Google Generative AI
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
 // Initialize axios for Botpress API calls
 const botpressClient = axios.create({
   baseURL: BOTPRESS_API_URL,
@@ -187,7 +185,7 @@ const botpressClient = axios.create({
 
 // Middleware to verify API key presence
 const verifyApiKey = (req, res, next) => {
-  if (!process.env.GEMINI_API_KEY && !geminiApiKey) {
+  if (!process.env.GEMINI_API_KEY) {
     console.error('GEMINI_API_KEY not configured');
     return res.status(500).json({
       error: 'Server configuration error',
@@ -300,7 +298,7 @@ app.post('/api/ai/edit-image', verifyApiKey, async (req, res) => {
 // Proxy endpoint for chat (now using Botpress)
 app.post('/api/ai/chat', verifyApiKey, async (req, res) => {
   try {
-    const { message, history } = req.body;
+    const { message } = req.body;
 
     // Input validation
     if (!message || typeof message !== 'string') {

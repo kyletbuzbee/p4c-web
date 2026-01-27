@@ -65,7 +65,7 @@ const OurImpact: React.FC = () => {
         </title>
         <meta
           name="description"
-          content="Review our community revitalization metrics. We track economic impact, property value increases, and housing stability in Tyler, Longview, and Marshall."
+          content="Review our community revitalization metrics. We track economic impact, property value increases, and housing stability in East Texas."
         />
       </Helmet>
 
@@ -95,7 +95,7 @@ const OurImpact: React.FC = () => {
             </h1>
             <p className="text-lg md:text-xl text-gray-200 font-light max-w-2xl mx-auto leading-relaxed">
               We measure success by asset performance and the economic uplift of
-              <strong> Tyler, Longview, and Marshall</strong> neighborhoods.
+              <strong> East Texas</strong> neighborhoods.
             </p>
           </div>
         </div>
@@ -193,8 +193,8 @@ const OurImpact: React.FC = () => {
                     Capital Improvement
                   </h3>
                   <p className="text-sm text-gray-600">
-                    Strategic renovations inject equity and extend the asset's
-                    lifespan by 20+ years.
+                    Strategic renovations inject equity and extend the
+                    asset&apos;s lifespan by 20+ years.
                   </p>
                 </div>
 
@@ -258,8 +258,8 @@ const OurImpact: React.FC = () => {
               <p className="text-gray-700 leading-relaxed">
                 <strong>Local Labor First:</strong> We prioritize contracts with
                 East Texas tradespeople. Every dollar spent on renovation
-                circulates within the Tyler, Longview, and Marshall economies,
-                supporting local small businesses and families.
+                circulates within the East Texas economies, supporting local
+                small businesses and families.
               </p>
             </div>
 
@@ -267,9 +267,9 @@ const OurImpact: React.FC = () => {
             <div className="bg-p4c-navy text-white p-8 rounded-2xl shadow-lg relative overflow-hidden ring-1 ring-white/10">
               <div className="relative z-10">
                 <p className="text-xl font-serif italic mb-6">
-                  "Properties 4 Creation isn't just a landlord; they are a
-                  cornerstone investor in our neighborhood. When they fix up a
-                  house, the whole street looks better."
+                  &quot;Properties 4 Creation isn&apos;t just a landlord; they
+                  are a cornerstone investor in our neighborhood. When they fix
+                  up a house, the whole street looks better.&quot;
                 </p>
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-p4c-gold flex items-center justify-center text-p4c-navy font-bold">

@@ -47,7 +47,7 @@ const Navbar = (): React.ReactElement => {
       children: [
         {
           label: 'Available Properties',
-          path: '/',
+          path: '/properties',
           icon: <Home className="w-4 h-4" />,
           desc: 'Premium rentals in Tyler & Longview',
         },
@@ -88,13 +88,13 @@ const Navbar = (): React.ReactElement => {
         },
         {
           label: 'Community Investment',
-          path: '/impact',
+          path: '/community',
           icon: <Heart className="w-4 h-4" />,
           desc: 'Revitalization data & metrics',
         },
         {
           label: 'Resident Reviews',
-          path: '/stories',
+          path: '/reviews',
           icon: <CheckCircle2 className="w-4 h-4" />,
           desc: 'Hear from happy tenants',
         },
@@ -117,7 +117,7 @@ const Navbar = (): React.ReactElement => {
         },
         {
           label: 'Resident Services',
-          path: '/veteran-services',
+          path: '/resident-services',
           icon: <HeartHandshake className="w-4 h-4" />,
           desc: 'Support & case management',
         },

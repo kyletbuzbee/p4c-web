@@ -10,7 +10,7 @@ const Construction: React.FC = () => (
       </title>
       <meta
         name="description"
-        content="Learn about Properties 4 Creation's professional construction standards and renovation processes for properties in Tyler, Longview, and Marshall, Texas."
+        content="Learn about Properties 4 Creation's professional construction standards and renovation processes for properties in East Texas, Texas."
       />
     </Helmet>
 

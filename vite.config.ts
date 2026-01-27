@@ -27,8 +27,15 @@ export default defineConfig(({ mode }) => {
   return {
     base,
     server: {
-      port: 3000,
-      host: '0.0.0.0',
+      port: 3001,
+      host: true, // Needed for Docker exposure
+      strictPort: true,
+      hmr: {
+        clientPort: 3001, // Forces browser to connect HMR to the mapped port
+      },
+      watch: {
+        usePolling: true, // High reliability for file changes across Docker volumes
+      },
       allowedHosts: ['p4c-web.onrender.com', 'p4c-web', '.onrender.com'],
       headers: {
         // Security Headers - CRITICAL for XSS Protection
@@ -38,9 +45,53 @@ export default defineConfig(({ mode }) => {
         'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
         'Strict-Transport-Security':
           'max-age=31536000; includeSubDomains; preload',
-        // Content Security Policy - XSS Prevention
-        'Content-Security-Policy':
-          "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://esm.sh; script-src-elem 'self' 'unsafe-inline' https://esm.sh; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://p4c-web.onrender.com https://generativelanguage.googleapis.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests; worker-src 'self' blob:",
+        // Content Security Policy - Relaxed for development, strict for production
+        'Content-Security-Policy': isProduction
+          ? [
+              "base-uri 'none'",
+              "object-src 'none'",
+              "script-src 'self' 'strict-dynamic' https://esm.sh",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+              "img-src 'self' data: https:",
+              "font-src 'self' https://fonts.gstatic.com",
+              [
+                "connect-src 'self'",
+                'https://p4c-web.onrender.com',
+                'https://generativelanguage.googleapis.com', // Gemini AI
+                'https://fonts.googleapis.com',
+                'https://fonts.gstatic.com',
+                'https://esm.sh',
+                'https://*.supabase.co', // Recommended for your Supabase integration
+              ].join(' '),
+              "frame-src 'none'",
+              "form-action 'self'",
+              'upgrade-insecure-requests',
+              "worker-src 'self' blob:",
+            ].join('; ')
+          : [
+              "base-uri 'none'",
+              "object-src 'none'",
+              "script-src 'self' 'unsafe-inline' https://esm.sh",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+              "img-src 'self' data: https:",
+              "font-src 'self' https://fonts.gstatic.com",
+              [
+                "connect-src 'self'",
+                'ws://localhost:3001', // Fixed port from 3000 to 3001
+                'http://localhost:3001',
+                'https://abjscrezxkqrzwgmufzr.supabase.co',
+                'https://*.supabase.co',
+                'https://p4c-web.onrender.com',
+                'https://generativelanguage.googleapis.com', // Gemini AI
+                'https://fonts.googleapis.com',
+                'https://fonts.gstatic.com',
+                'https://esm.sh',
+              ].join(' '),
+              "frame-src 'none'",
+              "form-action 'self'",
+              'upgrade-insecure-requests',
+              "worker-src 'self' blob:",
+            ].join('; '),
       },
       proxy: {
         // Proxy API calls to secure server

@@ -192,7 +192,7 @@ const SuccessStories: React.FC = () => {
         </title>
         <meta
           name="description"
-          content="Read reviews from residents in Tyler, Longview, and Marshall. See why families and veterans choose Properties 4 Creation for their housing needs."
+          content="Read reviews from residents in East Texas. See why families and veterans choose Properties 4 Creation for their housing needs."
         />
       </Helmet>
 
@@ -380,7 +380,7 @@ const SuccessStories: React.FC = () => {
           </h2>
           <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
             Experience the Properties 4 Creation difference. Browse our
-            available listings in Tyler, Longview, and Marshall today.
+            available listings in East Texas today.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button

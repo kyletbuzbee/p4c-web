@@ -141,6 +141,7 @@ const Application: React.FC = () => {
                     </label>
                     <input
                       id="firstName"
+                      name="firstName"
                       type="text"
                       className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold/20 outline-none transition-all"
                       placeholder="John"
@@ -156,6 +157,7 @@ const Application: React.FC = () => {
                     </label>
                     <input
                       id="lastName"
+                      name="lastName"
                       type="text"
                       className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold/20 outline-none transition-all"
                       placeholder="Doe"
@@ -171,6 +173,7 @@ const Application: React.FC = () => {
                     </label>
                     <input
                       id="email"
+                      name="email"
                       type="email"
                       className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold/20 outline-none transition-all"
                       placeholder="john.doe@example.com"
@@ -186,6 +189,7 @@ const Application: React.FC = () => {
                     </label>
                     <input
                       id="phone"
+                      name="phone"
                       type="tel"
                       className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold/20 outline-none transition-all"
                       placeholder="(555) 123-4567"
@@ -211,6 +215,7 @@ const Application: React.FC = () => {
                   </label>
                   <input
                     id="address"
+                    name="address"
                     type="text"
                     className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold/20 outline-none transition-all"
                     placeholder="123 Main St, City, State, ZIP"
@@ -226,6 +231,7 @@ const Application: React.FC = () => {
                   </label>
                   <select
                     id="timeAtAddress"
+                    name="timeAtAddress"
                     className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold/20 outline-none transition-all"
                   >
                     <option>Less than 1 year</option>
@@ -242,6 +248,7 @@ const Application: React.FC = () => {
                   </label>
                   <textarea
                     id="reasonForMoving"
+                    name="reasonForMoving"
                     rows={3}
                     className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold/20 outline-none transition-all"
                     placeholder="Briefly explain why you are looking for a new home..."
@@ -274,6 +281,7 @@ const Application: React.FC = () => {
                   <input
                     type="checkbox"
                     id="consent"
+                    name="consent"
                     className="mt-1 w-4 h-4 text-p4c-gold border-gray-300 rounded focus:ring-p4c-gold"
                     required
                   />

@@ -39,7 +39,7 @@ const ResidentServices: React.FC = () => {
         <title>Resident Services & Portal | Properties 4 Creation</title>
         <meta
           name="description"
-          content="Access resident services, maintenance requests, and account management for Properties 4 Creation tenants in Tyler, Longview, and Marshall, Texas."
+          content="Access resident services, maintenance requests, and account management for Properties 4 Creation tenants in East Texas, Texas."
         />
       </Helmet>
 
@@ -149,9 +149,18 @@ const ResidentServices: React.FC = () => {
               </form>
 
               <div className="mt-6 text-center">
-                <a href="#" className="text-p4c-gold hover:underline text-sm">
+                <button
+                  type="button"
+                  className="text-p4c-gold hover:underline text-sm bg-transparent border-none cursor-pointer"
+                  onClick={() =>
+                    addToast(
+                      'Password reset functionality coming soon. Please contact our office for assistance.',
+                      'info'
+                    )
+                  }
+                >
                   Forgot password?
-                </a>
+                </button>
               </div>
             </div>
           </div>

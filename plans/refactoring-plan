@@ -1,0 +1,124 @@
+P4C Website Refactoring Plan: Implementation Checklist
+Role: Properties 4 Creation Website Designer & Architect Mission: 40% Families, 30% Community, 20% Investors, 10% Veterans. Tech Stack: React, TypeScript, Tailwind CSS, Vite.
+
+1. System Constraints & Brand Standards
+[ ] Color Palette: Strictly enforce Navy (#0B1120), Gold (#C5A059), Beige (#F5F5F0), and Slate (#334155).
+
+[ ] Typography: Merriweather for headers (Trust), Inter for body (Clarity).
+
+[ ] Styling: Use Tailwind CSS only (no external CSS-in-JS). Use rounded-xl and shadow-lg for cards.
+
+[ ] Interaction: No alert(); use Toast/Modals.
+
+[ ] Responsiveness: No fixed widths; use max-w-* containers.
+
+2. Page-Specific Tasks
+A. Home Page (src/pages/Home.tsx)
+[ ] East Texas Acquisitions Calculator:
+
+[ ] Make functional: Implement profit logic (e.g., (ARV * 0.70) - Repairs = Max Offer).
+
+[ ] Ensure inputs accurately reflect "how much we buy for" vs. "profit potential."
+
+[ ] Community Revitalization Hero:
+
+[ ] Replace static image with hero-our-work-video.mp4 (ensure loop/muted/playsinline).
+
+[ ] Tenant Success Stories:
+
+[ ] REMOVE this section entirely from Home (move content to Resident Reviews).
+
+[ ] Renovation Standard Link:
+
+[ ] Fix broken link/timeout on "The Renovation Standard" card. Point to src/pages/Construction.tsx.
+
+[ ] Rental Application UI:
+
+[ ] Fix CSS: Remove the strikethrough line currently cutting through the "Rental Application" title.
+
+B. About / Our Story (src/pages/About.tsx)
+[ ] Banner Image:
+
+[ ] Update banner to new asset.
+
+[ ] Professional Excellence Section:
+
+[ ] Refactor text to focus on leadership: Richard Lonkert (Owner/Veteran) & Kyle Buzbee (Partner).
+
+[ ] Implement image: C:\p4c-web\public\images\about\about-us-team-owner.webp
+
+[ ] Implement image: C:\p4c-web\public\images\about\about-us-team-headshot.webp
+
+[ ] Company Timeline:
+
+[ ] REMOVE "Integrity, Quality, Growth" cards.
+
+[ ] ADD High-quality "Timeline Graph" component visualizing the company journey and outlook.
+
+C. Construction Standards (src/pages/Construction.tsx)
+[ ] Renovation Standard Card:
+
+[ ] Redesign for "Visual Appeal": Remove dull look. Add gold borders/accents or before/after interaction.
+
+[ ] Refactor content to be more "Practical" (focus on specs/finishes).
+
+[ ] Revitalization Cycle:
+
+[ ] Add missing images for phases: 1. Acquisition, 2. Rehabilitation, 3. Stabilization.
+
+D. Community Investment (src/pages/Community.tsx)
+[ ] Banner Image:
+
+[ ] Update source: C:\p4c-web\public\images\banners\hero-community-impact-banner.png
+
+[ ] Layout Refactor:
+
+[ ] Consolidate "How We Create Value" section into the "Revitalization Cycle" display.
+
+[ ] Ensure layout is clean and professional.
+
+[ ] Investor CTA:
+
+[ ] Fix "Request Investor Prospectus" button (currently non-functional). Link to contact form or modal.
+
+E. Resident Reviews (src/pages/Reviews.tsx)
+[ ] Content Migration:
+
+[ ] Add "Tenant Success Stories" (moved from Home page) to this page.
+
+[ ] Video Cleanup:
+
+[ ] Fix bug showing 3 duplicate videos. Ensure unique mapping of video testimonials.
+
+F. Careers (src/pages/Careers.tsx)
+[ ] Banner Content:
+
+[ ] REMOVE subheading "We hire veterans first".
+
+[ ] Banner Image:
+
+[ ] Update banner to new asset.
+
+G. Homeowner Solutions (src/pages/Homeowner.tsx)
+[ ] Seller Experiences:
+
+[ ] Change quote attribution: "Robert" -> "Properties 4 Creation".
+
+H. Residents & Veterans (src/pages/Veterans.tsx)
+[ ] Hero Section:
+
+[ ] Remove accidental SVG element overlaying the banner title.
+
+I. Resident Services (src/pages/ResidentServices.tsx)
+[ ] Banner:
+
+[ ] Replace blurry image with high-res version.
+
+[ ] Resident Portal:
+
+[ ] CRITICAL FIX: Debug Login functionality (currently cannot login).
+
+J. FAQ (src/pages/FAQ.tsx)
+[ ] Banner:
+
+[ ] Update source: public/images/banner/faq (verify extension).

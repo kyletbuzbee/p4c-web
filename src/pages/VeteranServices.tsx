@@ -18,7 +18,7 @@ const VeteranServices: React.FC = () => (
       <title>Veteran Housing Logistics | Properties 4 Creation</title>
       <meta
         name="description"
-        content="Operational support for veterans in Tyler, Longview, and Marshall. We coordinate HUD-VASH leasing, employment referrals, and housing stability."
+        content="Operational support for veterans in East Texas. We coordinate HUD-VASH leasing, employment referrals, and housing stability."
       />
     </Helmet>
 
@@ -45,7 +45,7 @@ const VeteranServices: React.FC = () => (
         <p className="text-xl text-gray-200 font-light max-w-2xl mx-auto">
           Structured housing solutions and resource coordination for veterans in
           the
-          <strong> Tyler, Longview, and Marshall</strong> area.
+          <strong> East Texas</strong> area.
         </p>
       </div>
     </div>

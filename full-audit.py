@@ -57,9 +57,7 @@ class P4CStandards:
         (r'<img(?!.*alt)', 'MEDIUM', 'Accessibility', 'Image missing alt text'),
         
         # -- BRAND ALIGNMENT (Enforcing the 40/30/20/10 Split) --
-        (r'(?i)quartz countertop', 'HIGH', 'Brand-Misalignment', 'Remove "Luxury" promises (Quartz) - Pivot to "Durable/Quality"'),
-        (r'(?i)gold standard', 'MEDIUM', 'Brand-Misalignment', 'Replace "Gold Standard" with "Reliability Pledge"'),
-        (r'(?i)veterans only', 'HIGH', 'Brand-Misalignment', 'Avoid exclusionary language. Use "Priority" or "Preferred" instead of "Only".'),
+        (r'(?i)gold standard', 'MEDIUM', 'Brand-Misalignment', 'Replace "Gold Standard" with "Reliability Pledge"')
     ]
 
 # =============================================================================
@@ -75,7 +73,7 @@ class P4CIntelligenceEngine:
         self.ignored_dirs = {
             'node_modules', '.git', 'dist', 'build', 'coverage', 
             '__pycache__', '.qodo', 'ai_logic_review', '.vscode', '.idea',
-            'public', 'server' # Ignoring server/backend code to focus on Frontend/Content
+            'server' # Ignoring server/backend code to focus on Frontend/Content
         }
         
         # 2. EXCLUDED EXTENSIONS (Explicitly banning non-code assets)

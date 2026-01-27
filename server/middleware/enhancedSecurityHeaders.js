@@ -56,6 +56,8 @@ const createEnhancedSecurityHeadersMiddleware = (options = {}) => {
           'https://api.gemini.google.com',
           'https://www.google-analytics.com',
           'https://analytics.google.com',
+          'https://abjscrezxkqrzwgmufzr.supabase.co',
+          'https://*.supabase.co',
         ],
         frameSrc: [
           "'self'",

@@ -1,0 +1,169 @@
+{
+  "App.tsx": [
+    "components/AccessibilityTools.tsx",
+    "components/CookieConsent.tsx",
+    "components/ErrorBoundary.tsx",
+    "components/Footer.tsx",
+    "components/Navbar.tsx",
+    "components/ProtectedRoute.tsx",
+    "components/ScrollToTop.tsx",
+    "components/SkipLink.tsx",
+    "components/UpdateNotification.tsx",
+    "context/AuthContext.tsx",
+    "context/DarkModeContext.tsx",
+    "context/ImageFormatContext.tsx",
+    "context/ToastContext.tsx",
+    "pages/About.tsx",
+    "pages/AccessibilityStatement.tsx",
+    "pages/AdminDashboard.tsx",
+    "pages/Application.tsx",
+    "pages/Community.tsx",
+    "pages/Contact.tsx",
+    "pages/Employment.tsx",
+    "pages/EqualHousing.tsx",
+    "pages/FAQ.tsx",
+    "pages/FamilyResources.tsx",
+    "pages/Home.tsx",
+    "pages/HomeownerSolutions.tsx",
+    "pages/OurImpact.tsx",
+    "pages/Privacy.tsx",
+    "pages/Properties.tsx",
+    "pages/PropertyDetails.tsx",
+    "pages/SuccessStories.tsx",
+    "pages/TenantLogin.tsx",
+    "pages/Terms.tsx",
+    "pages/Transparency.tsx",
+    "pages/VeteranServices.tsx",
+    "pages/Veterans.tsx"
+  ],
+  "components/AccessibilityTools.tsx": [],
+  "components/AdminDashboardSkeleton.tsx": [],
+  "components/BeforeAfterSlider.tsx": [],
+  "components/CookieConsent.tsx": [],
+  "components/ErrorBoundary.tsx": [
+    "context/ToastContext.tsx"
+  ],
+  "components/Footer.tsx": [
+    "constants/images.ts"
+  ],
+  "components/Hero.tsx": [
+    "constants/images.ts"
+  ],
+  "components/ImpactDashboard.tsx": [
+    "types/types.ts"
+  ],
+  "components/Navbar.tsx": [
+    "constants/images.ts"
+  ],
+  "components/PropertyCard.tsx": [
+    "types/types.ts"
+  ],
+  "components/PropertyDetailsSkeleton.tsx": [
+    "components/Skeleton.tsx"
+  ],
+  "components/ProtectedRoute.tsx": [
+    "context/AuthContext.tsx"
+  ],
+  "components/ScrollToTop.tsx": [],
+  "components/Skeleton.tsx": [],
+  "components/SkipLink.tsx": [],
+  "components/UpdateNotification.tsx": [
+    "pwa-register.ts"
+  ],
+  "constants/images.ts": [],
+  "context/AuthContext.tsx": [
+    "context/ToastContext.tsx"
+  ],
+  "context/DarkModeContext.tsx": [],
+  "context/ImageFormatContext.tsx": [],
+  "context/ToastContext.tsx": [],
+  "data/properties.ts": [
+    "constants/images.ts",
+    "types/types.ts"
+  ],
+  "index.css": [],
+  "index.tsx": [
+    "App.tsx",
+    "index.css",
+    "pwa-register.ts"
+  ],
+  "lib/supabaseClient.ts": [],
+  "pages/About.tsx": [],
+  "pages/AccessibilityStatement.tsx": [],
+  "pages/AdminDashboard.tsx": [
+    "components/AdminDashboardSkeleton.tsx",
+    "context/AuthContext.tsx",
+    "context/ToastContext.tsx",
+    "services/api.ts",
+    "types/types.ts"
+  ],
+  "pages/Application.tsx": [],
+  "pages/Community.tsx": [],
+  "pages/Contact.tsx": [],
+  "pages/Employment.tsx": [
+    "constants/images.ts"
+  ],
+  "pages/EqualHousing.tsx": [],
+  "pages/FAQ.tsx": [],
+  "pages/FamilyResources.tsx": [
+    "constants/images.ts"
+  ],
+  "pages/Home.tsx": [
+    "components/BeforeAfterSlider.tsx",
+    "components/Hero.tsx",
+    "components/ImpactDashboard.tsx",
+    "components/PropertyCard.tsx",
+    "constants/images.ts",
+    "services/api.ts",
+    "services/errorBoundaryService.ts",
+    "types/types.ts"
+  ],
+  "pages/HomeownerSolutions.tsx": [
+    "constants/images.ts"
+  ],
+  "pages/OurImpact.tsx": [
+    "constants/images.ts",
+    "context/ToastContext.tsx",
+    "services/api.ts",
+    "types/types.ts"
+  ],
+  "pages/Privacy.tsx": [],
+  "pages/Properties.tsx": [
+    "components/PropertyCard.tsx",
+    "data/properties.ts",
+    "types/types.ts"
+  ],
+  "pages/PropertyDetails.tsx": [
+    "components/PropertyDetailsSkeleton.tsx",
+    "services/api.ts",
+    "types/types.ts"
+  ],
+  "pages/SuccessStories.tsx": [
+    "constants/images.ts"
+  ],
+  "pages/TenantLogin.tsx": [
+    "constants/images.ts",
+    "context/AuthContext.tsx"
+  ],
+  "pages/Terms.tsx": [],
+  "pages/Transparency.tsx": [
+    "constants/images.ts",
+    "context/ToastContext.tsx",
+    "services/api.ts",
+    "types/types.ts"
+  ],
+  "pages/VeteranServices.tsx": [
+    "constants/images.ts"
+  ],
+  "pages/Veterans.tsx": [
+    "constants/images.ts"
+  ],
+  "pwa-register.ts": [],
+  "services/api.ts": [
+    "data/properties.ts",
+    "lib/supabaseClient.ts",
+    "types/types.ts"
+  ],
+  "services/errorBoundaryService.ts": [],
+  "types/types.ts": []
+}

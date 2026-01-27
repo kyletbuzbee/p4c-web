@@ -212,6 +212,10 @@ const createDynamicSecurityHeaders = () => (req, res, next) => {
     'Permissions-Policy',
     'camera=(), microphone=(), geolocation=()'
   );
+  res.setHeader(
+    'Strict-Transport-Security',
+    'max-age=31536000; includeSubDomains; preload'
+  );
 
   // Add nonce to response for use in templates
   res.locals.nonce = nonce;

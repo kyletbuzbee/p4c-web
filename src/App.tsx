@@ -13,6 +13,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import CookieConsent from './components/CookieConsent';
 import AccessibilityTools from './components/AccessibilityTools';
 import { UpdateNotification } from './components/UpdateNotification'; // + ADDED: PWA Support
+import FloatingChatbot from './components/FloatingChatbot';
 
 // Context Providers
 import { ToastProvider } from './context/ToastContext';
@@ -47,6 +48,7 @@ const AccessibilityStatement = React.lazy(
 const EqualHousing = React.lazy(() => import('./pages/EqualHousing'));
 const SuccessStories = React.lazy(() => import('./pages/SuccessStories'));
 const Transparency = React.lazy(() => import('./pages/Transparency'));
+const TestPropertyForm = React.lazy(() => import('./pages/TestPropertyForm'));
 
 // Loading Fallback
 const PageLoader = () => (
@@ -94,6 +96,8 @@ const StandardLayout = () => (
           <Route path="/accessibility" element={<AccessibilityStatement />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
+          {/* --- TEST ROUTES --- */}
+          <Route path="/test-property-form" element={<TestPropertyForm />} />
           {/* --- PROTECTED ROUTES --- */}
           <Route
             path="/admin"
@@ -109,6 +113,7 @@ const StandardLayout = () => (
     <AccessibilityTools />
     <Footer />
     <CookieConsent />
+    <FloatingChatbot />
   </>
 );
 

@@ -134,23 +134,22 @@ export const api = {
       }
     },
 
-    getFinancialBreakdown: async (): Promise<FinancialBreakdown[]> => {
+    getFinancialBreakdown: (): Promise<FinancialBreakdown[]> =>
       // Keeping this static for now unless you create a 'financials' table
-      return [
+      Promise.resolve([
         { category: 'Property Maintenance', percentage: 35, color: '#0B1120' },
         { category: 'Future Acquisitions', percentage: 30, color: '#C5A059' },
         { category: 'Investor Returns', percentage: 20, color: '#334155' },
         { category: 'Community Programs', percentage: 10, color: '#94a3b8' },
         { category: 'Admin/Ops', percentage: 5, color: '#cbd5e1' },
-      ];
-    },
+      ]),
   },
 
   // 2. TRANSPARENCY (Renovation Standards)
   transparency: {
-    getStandards: async (): Promise<RenovationStandard[]> => {
+    getStandards: (): Promise<RenovationStandard[]> =>
       // Keeping static - likely doesn't need frequent DB updates
-      return [
+      Promise.resolve([
         {
           id: 'kitchen',
           category: 'Kitchen Countertops',
@@ -179,8 +178,7 @@ export const api = {
           p4cStandard: 'Smart Locks',
           benefit: 'Safety First',
         },
-      ];
-    },
+      ]),
   },
 
   // 3. PROPERTIES (Matches your 'public.properties' schema)
@@ -218,12 +216,13 @@ export const api = {
 
     // Admin: Create Property
     create: async (property: any) => {
-      // Map UI fields back to SQL columns
+      // Hardened price parsing: handles $1,200.00 or 1200
+      const priceStr = property.price.toString().replace(/[$,]/g, '');
       const dbPayload = {
         title: property.title,
         address: property.address,
         city: property.city || 'Tyler', // Default if missing
-        price: parseFloat(property.price.replace(/[^0-9.]/g, '')), // "1200" -> 1200.00
+        price: parseFloat(priceStr) || 0,
         beds: parseInt(property.bedrooms || property.beds || 0, 10),
         baths: parseFloat(property.bathrooms || property.baths || 1),
         sqft: parseInt(property.sqft || 0, 10),

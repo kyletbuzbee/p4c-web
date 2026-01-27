@@ -21,7 +21,7 @@ const Veterans: React.FC = () => (
       </title>
       <meta
         name="description"
-        content="Properties 4 Creation provides priority housing placement for veterans in Tyler, Longview, and Marshall. We specialize in HUD-VASH leasing and accessible home modifications."
+        content="Properties 4 Creation provides priority housing placement for veterans in East Texas. We specialize in HUD-VASH leasing and accessible home modifications."
       />
       <meta
         name="keywords"
@@ -52,7 +52,7 @@ const Veterans: React.FC = () => (
           </h1>
           <p className="text-xl text-gray-200 font-light max-w-2xl mx-auto leading-relaxed">
             Delivering dignified, high-quality housing solutions for veterans in
-            <strong> Tyler, Longview, and Marshall</strong>.
+            <strong> East Texas</strong>.
           </p>
         </div>
       </div>

@@ -1,7 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Hero from '../components/Hero';
-import ImpactDashboard from '../components/ImpactDashboard';
 import PropertyCard from '../components/PropertyCard';
 import BeforeAfterSlider from '../components/BeforeAfterSlider';
 import { api } from '../services/api';
@@ -112,20 +111,17 @@ const Home: React.FC = () => {
         </title>
         <meta
           name="description"
-          content="Properties 4 Creation acquires and revitalizes real estate in East Texas, offering premium affordable housing to families and veterans in Tyler, Longview, and Marshall."
+          content="Properties 4 Creation acquires and revitalizes real estate in East Texas, offering premium affordable housing to families and veterans in East Texas."
         />
       </Helmet>
 
       {/* Hero Video - Visual Hook */}
       <Hero variant="video" />
 
-      {/* Impact Metrics - Business Proof */}
-      <ImpactDashboard />
-
       {/* Featured Listings - The Product */}
       <section
         id="homes"
-        className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+        className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white"
       >
         <div className="flex flex-col md:flex-row justify-between items-end mb-8">
           <div>
@@ -135,8 +131,8 @@ const Home: React.FC = () => {
             <p className="text-gray-600 max-w-xl">
               Browse our portfolio of fully renovated, professionally managed
               homes in
-              <strong> Tyler, Longview, and Marshall</strong>. We accept Section
-              8 and private applicants.
+              <strong> East Texas</strong>. We accept Section 8 and private
+              applicants.
             </p>
           </div>
         </div>
@@ -318,7 +314,7 @@ const Home: React.FC = () => {
 
       {/* Core Services Section */}
       <section
-        className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-20"
+        className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-20 bg-p4c-beige"
         aria-label="Our Core Services"
       >
         <div className="text-center mb-16">
@@ -329,7 +325,8 @@ const Home: React.FC = () => {
             Comprehensive Real Estate Solutions
           </h2>
           <p className="text-gray-600 max-w-3xl mx-auto text-lg">
-            From premium family housing to direct asset acquisition, we provide end-to-end real estate services across East Texas.
+            From premium family housing to direct asset acquisition, we provide
+            end-to-end real estate services across East Texas.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
@@ -526,7 +523,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* Impact Section - Community Focus */}
-      <section className="py-20 bg-p4c-navy">
+      <section className="py-20 bg-p4c-slate">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl">
@@ -548,7 +545,10 @@ const Home: React.FC = () => {
                 Building Stronger Communities Through Quality Renovations
               </h2>
               <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-                Every property we renovate represents an investment in East Texas families. Our commitment to premium finishes and modern amenities creates stable, long-term housing that strengthens neighborhoods and supports local growth.
+                Every property we renovate represents an investment in East
+                Texas families. Our commitment to premium finishes and modern
+                amenities creates stable, long-term housing that strengthens
+                neighborhoods and supports local growth.
               </p>
               <button
                 onClick={() => navigate('/our-impact')}
@@ -563,7 +563,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* Transformation Showcase */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-p4c-beige">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
