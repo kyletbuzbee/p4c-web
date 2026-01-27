@@ -9,7 +9,7 @@ package-lock.json
 yarn.lock
 pnpm-lock.yaml
 .pnpm-store/
-content-audit.js
+scripts/content-audit.js
 
 
 # --- ENVIRONMENT & SECRETS ---
