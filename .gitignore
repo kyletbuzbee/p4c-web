@@ -10,6 +10,8 @@ yarn.lock
 pnpm-lock.yaml
 .pnpm-store/
 scripts/content-audit.js
+*.txt
+*bpz
 
 
 # --- ENVIRONMENT & SECRETS ---
@@ -84,6 +86,9 @@ temp/
 public/sw.js
 public/workbox-*.js
 public/precache-manifest.*.js
+lighthouse-report.json
+lighthouse-report.html
+__pycache__/analyze.cpython-314.pyc
 
 # --- KEEP THESE FILES ---
 !package.json
