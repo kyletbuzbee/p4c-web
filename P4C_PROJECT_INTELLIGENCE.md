@@ -1,12 +1,12 @@
 # Properties 4 Creation PROJECT INTELLIGENCE REPORT
-**Date:** 2026-01-26T16:40:40.957107  
+**Date:** 2026-01-27T09:29:19.660772  
 **Mission:** Revitalizing East Texas by providing quality affordable housing for families and the community, while offering sustainable solutions for property owners and investors.  
 **Community Alignment Score:** 0/100
 
 ## 1. Executive Summary
-- **Total Files:** 82
-- **Lines of Code:** 15477
-- **High/Critical Issues:** 94
+- **Total Files:** 85
+- **Lines of Code:** 15876
+- **High/Critical Issues:** 98
 
 
 ## 2. Project Structure
@@ -247,15 +247,17 @@
 │   │   │   └── resident-review-sarah.png
 │   │   └── videos
 │   │       ├── community-investment-banner.mp4
+│   │       ├── hero-kitchen-timelapse.mp4
+│   │       ├── Hero-Our-Impact(1).mp4
 │   │       ├── hero-our-impact.mp4
-│   │       ├── hero-our-work-banner.mp4
 │   │       ├── hero-properties-banner.mp4
 │   │       ├── Hero-Spotlight-Banner(8).mp4
-│   │       ├── hero-spotlight-banner.mp4
-│   │       ├── home.mp4
+│   │       ├── hero-transform-banner.mp4
+│   │       ├── home-page-hero.mp4
 │   │       ├── success-stories.mp4
 │   │       └── Video Project 11.mp4
 │   ├── favicon.ico
+│   ├── importmap.json
 │   ├── manifest.json
 │   ├── pwa-192x192.png
 │   ├── pwa-512x512.png
@@ -263,10 +265,13 @@
 │   ├── pwa.svg
 │   └── sw.js
 ├── scripts
+│   ├── setup-p4c.sh
 │   ├── test-ai-chatbot.sh
 │   └── validate-ci.sh
 ├── src
 │   ├── components
+│   │   ├── admin
+│   │   │   └── PropertyForm.tsx
 │   │   ├── AccessibilityTools.tsx
 │   │   ├── AddPropertyModal.tsx
 │   │   ├── AdminDashboardSkeleton.tsx
@@ -278,6 +283,7 @@
 │   │   ├── CookieConsent.tsx
 │   │   ├── DarkModeToggle.tsx
 │   │   ├── ErrorBoundary.tsx
+│   │   ├── FloatingChatbot.tsx
 │   │   ├── Footer.tsx
 │   │   ├── Hero.tsx
 │   │   ├── ImageOptimizer.tsx
@@ -328,6 +334,7 @@
 │   │   ├── SuccessStories.tsx
 │   │   ├── TenantLogin.tsx
 │   │   ├── Terms.tsx
+│   │   ├── TestPropertyForm.tsx
 │   │   ├── Tools.tsx
 │   │   ├── Transparency.tsx
 │   │   ├── Veterans.tsx
@@ -357,8 +364,10 @@
 │   └── config.toml
 ├── 404.html
 ├── BotpressBot.bpz
+├── compose.yaml
 ├── context-review.py
 ├── cr.py
+├── Dockerfile.dev
 ├── index.html
 ├── lighthouse-report.json
 ├── lighthouserc.json
@@ -475,48 +484,39 @@
 ```html
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Properties 4 Creation | Veteran Owned Housing</title>
+    <meta
+      name="description"
+      content="Veteran-owned affordable housing in East Texas. Premium renovations, Section 8 accepted."
+    />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Properties 4 Creation | Veteran Owned Housing</title>
-  <meta name="description"
-    content="Veteran-owned affordable housing in East Texas. Premium renovations, Section 8 accepted." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script type="importmap" src="/importmap.json"></script>
+    <link rel="modulepreload" href="https://esm.sh/react@18.3.1" />
+    <link rel="modulepreload" href="https://esm.sh/react-dom@18.3.1" />
+    <link rel="modulepreload" href="https://esm.sh/react-dom@18.3.1/client" />
+    <link
+      rel="modulepreload"
+      href="https://esm.sh/react-router-dom@6.22.3?deps=react@18.3.1,react-dom@18.3.1"
+    />
+    <link rel="manifest" href="/manifest.json" />
+  </head>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
-    rel="stylesheet" />
-  <script type="importmap">
-      {
-        "imports": {
-          "react": "https://esm.sh/react@18.3.1",
-          "react/": "https://esm.sh/react@18.3.1/",
-          "react-dom": "https://esm.sh/react-dom@18.3.1",
-          "react-dom/client": "https://esm.sh/react-dom@18.3.1/client",
-          "react-router-dom": "https://esm.sh/react-router-dom@6.22.3?deps=react@18.3.1,react-dom@18.3.1",
-          "lucide-react": "https://esm.sh/lucide-react@0.344.0?deps=react@18.3.1",
-          "react-helmet-async": "https://esm.sh/react-helmet-async@2.0.4?deps=react@18.3.1,react-dom@18.3.1",
-          "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-          "vitest": "https://esm.sh/vitest@^4.0.16"
-        }
-      }
-    </script>
-  <link rel="modulepreload" href="https://esm.sh/react@18.3.1" />
-  <link rel="modulepreload" href="https://esm.sh/react-dom@18.3.1" />
-  <link rel="modulepreload" href="https://esm.sh/react-dom@18.3.1/client" />
-  <link rel="modulepreload" href="https://esm.sh/react-router-dom@6.22.3?deps=react@18.3.1,react-dom@18.3.1" />
-  <link rel="manifest" href="/manifest.json" />
-</head>
+  <body>
+    <div id="root" role="main" aria-label="Properties 4 Creation Web App"></div>
 
-<body>
-  <div id="root" role="main" aria-label="Properties 4 Creation Web App"></div>
-
-  <script type="module" src="/src/index.tsx"></script>
-</body>
-
+    <script type="module" src="/src/index.tsx"></script>
+  </body>
 </html>
+
 ```
 
 ---
@@ -1263,6 +1263,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import CookieConsent from './components/CookieConsent';
 import AccessibilityTools from './components/AccessibilityTools';
 import { UpdateNotification } from './components/UpdateNotification'; // + ADDED: PWA Support
+import FloatingChatbot from './components/FloatingChatbot';
 
 // Context Providers
 import { ToastProvider } from './context/ToastContext';
@@ -1297,6 +1298,7 @@ const AccessibilityStatement = React.lazy(
 const EqualHousing = React.lazy(() => import('./pages/EqualHousing'));
 const SuccessStories = React.lazy(() => import('./pages/SuccessStories'));
 const Transparency = React.lazy(() => import('./pages/Transparency'));
+const TestPropertyForm = React.lazy(() => import('./pages/TestPropertyForm'));
 
 // Loading Fallback
 const PageLoader = () => (
@@ -1323,10 +1325,13 @@ const StandardLayout = () => (
           <Route path="/stories" element={<SuccessStories />} />
           <Route path="/transparency" element={<Transparency />} />
           {/* --- 35% FAMILIES (Housing) --- */}
+          (
           <Route path="/properties" element={<Properties />} />{' '}
           {/* List View */}
+          ) (
           <Route path="/properties/:id" element={<PropertyDetails />} />{' '}
           {/* Detail View */}
+          )
           <Route path="/apply" element={<Application />} />
           <Route path="/family-resources" element={<FamilyResources />} />
           <Route path="/equal-housing" element={<EqualHousing />} />
@@ -1344,7 +1349,10 @@ const StandardLayout = () => (
           <Route path="/accessibility" element={<AccessibilityStatement />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
+          {/* --- TEST ROUTES --- */}
+          <Route path="/test-property-form" element={<TestPropertyForm />} />
           {/* --- PROTECTED ROUTES --- */}
+          (
           <Route
             path="/admin"
             element={
@@ -1353,12 +1361,14 @@ const StandardLayout = () => (
               </ProtectedRoute>
             }
           />
+          )
         </Routes>
       </Suspense>
     </main>
     <AccessibilityTools />
     <Footer />
     <CookieConsent />
+    <FloatingChatbot />
   </>
 );
 
@@ -1753,9 +1763,9 @@ export default AccessibilityTools;
 ### 📄 `src\components\AddPropertyModal.tsx`
 
 **⚠️ Analysis Findings:**
-- 🔴 **[HIGH]** Button missing aria-label (Line 71)
-- 🔴 **[HIGH]** Button missing aria-label (Line 293)
-- 🔴 **[HIGH]** Button missing aria-label (Line 300)
+- 🔴 **[HIGH]** Button missing aria-label (Line 84)
+- 🔴 **[HIGH]** Button missing aria-label (Line 306)
+- 🔴 **[HIGH]** Button missing aria-label (Line 313)
 
 ```typescript
 import React, { useState } from 'react';
@@ -1804,7 +1814,20 @@ const AddPropertyModal: React.FC<AddPropertyModalProps> = ({
     try {
       // Send data to API (which maps it to Supabase)
       await api.properties.create({
-        ...formData,
+        // Convert string numbers to actual numbers for type safety
+        bedrooms: Number(formData.bedrooms),
+        bathrooms: Number(formData.bathrooms),
+        sqft: Number(formData.sqft),
+        // Include only the fields we need from formData
+        title: formData.title,
+        address: formData.address,
+        city: formData.city,
+        price: formData.price,
+        description: formData.description,
+        imageUrl: formData.imageUrl,
+        neighborhood: formData.neighborhood,
+        schoolDistrict: formData.schoolDistrict,
+        availabilityDate: formData.availabilityDate,
         // Default arrays for now (you can add UI selectors for these later)
         badges: ['Veteran Friendly', 'Recently Renovated'],
         amenities: ['Central Air', 'Fenced Yard', 'Pet Friendly'],
@@ -3155,6 +3178,144 @@ export default ErrorBoundary;
 ```
 
 ---
+### 📄 `src\components\FloatingChatbot.tsx`
+
+**⚠️ Analysis Findings:**
+- 🔴 **[HIGH]** Button missing aria-label (Line 56)
+- 🔴 **[HIGH]** Button missing aria-label (Line 77)
+
+```typescript
+import React, { useState, useEffect, useRef } from 'react';
+import BotAvatar from './BotAvatar';
+import {
+  initializeBotpressWebchat,
+  destroyBotpressWebchat,
+} from '../services/botpressWebchatService';
+
+interface FloatingChatbotProps {
+  className?: string;
+}
+
+const FloatingChatbot: React.FC<FloatingChatbotProps> = ({
+  className = '',
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+  const containerId = 'botpress-webchat-container';
+
+  useEffect(() => {
+    if (isOpen && !isLoaded) {
+      // Initialize webchat when opened
+      try {
+        initializeBotpressWebchat(containerId, {
+          width: '100%',
+          height: '400px',
+        });
+        setIsLoaded(true);
+      } catch (error) {
+        // Log error in development only
+        if (import.meta.env.DEV) {
+          console.error('Failed to initialize chatbot:', error);
+        }
+      }
+    } else if (!isOpen && isLoaded) {
+      // Clean up when closed
+      try {
+        destroyBotpressWebchat(containerId);
+        setIsLoaded(false);
+      } catch (error) {
+        // Log error in development only
+        if (import.meta.env.DEV) {
+          console.error('Failed to destroy chatbot:', error);
+        }
+      }
+    }
+  }, [isOpen, isLoaded]);
+
+  const toggleChat = () => {
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <>
+      {/* Floating Chat Button */}
+      <button
+        onClick={toggleChat}
+        className={`fixed bottom-6 right-6 z-50 p-4 bg-p4c-navy hover:bg-p4c-navy/90 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-p4c-gold/50 ${className}`}
+        aria-label={isOpen ? 'Close chat assistant' : 'Open chat assistant'}
+        title={isOpen ? 'Close chat assistant' : 'Open chat assistant'}
+      >
+        <BotAvatar size={32} className="transition-transform duration-300" />
+      </button>
+
+      {/* Chat Window */}
+      {isOpen && (
+        <div className="fixed bottom-24 right-6 z-40 w-96 max-w-[calc(100vw-2rem)] bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
+          {/* Header */}
+          <div className="bg-p4c-navy text-white p-4 flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <BotAvatar size={24} />
+              <div>
+                <h3 className="font-semibold text-sm">Patriot Assistant</h3>
+                <p className="text-xs opacity-90">Properties 4 Creation</p>
+              </div>
+            </div>
+            <button
+              onClick={toggleChat}
+              className="text-white hover:text-p4c-gold transition-colors p-1"
+              aria-label="Close chat"
+            >
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+
+          {/* Chat Container */}
+          <div
+            id={containerId}
+            ref={chatContainerRef}
+            className="h-96 bg-gray-50"
+            style={{ minHeight: '400px' }}
+          />
+
+          {/* Footer */}
+          <div className="bg-gray-50 px-4 py-2 border-t border-gray-200">
+            <p className="text-xs text-gray-600 text-center">
+              Powered by Botpress • Veteran-Owned Business
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* Backdrop for mobile */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"
+          onClick={toggleChat}
+          aria-hidden="true"
+        />
+      )}
+    </>
+  );
+};
+
+export default FloatingChatbot;
+
+```
+
+---
 ### 📄 `src\components\Footer.tsx`
 
 **⚠️ Analysis Findings:**
@@ -3165,10 +3326,10 @@ import React from 'react';
 import {
   Accessibility,
   Home,
+  Flag,
   Facebook,
   Instagram,
   Linkedin,
-  Flag,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { IMAGES } from '../constants/images';
@@ -3188,8 +3349,7 @@ const Footer: React.FC = () => (
           </div>
           <p className="text-gray-400 text-sm leading-relaxed mb-6">
             Properties 4 Creation is an investment and management firm dedicated
-            to the revitalization of{' '}
-            <strong>East Texas</strong>. We transform
+            to the revitalization of <strong>East Texas</strong>. We transform
             distressed assets into premium affordable housing for the East Texas
             community.
           </p>
@@ -3231,7 +3391,10 @@ const Footer: React.FC = () => (
           </h4>
           <ul className="space-y-2 text-sm text-gray-400">
             <li>
-              <Link to="/" className="hover:text-white transition-colors">
+              <Link
+                to="/properties"
+                className="hover:text-white transition-colors"
+              >
                 Available Homes
               </Link>
             </li>
@@ -3285,7 +3448,7 @@ const Footer: React.FC = () => (
             </li>
             <li>
               <Link
-                to="/employment"
+                to="/careers"
                 className="hover:text-white transition-colors flex items-center gap-2"
               >
                 Careers
@@ -3316,10 +3479,7 @@ const Footer: React.FC = () => (
             Office
           </h4>
           <ul className="space-y-2 text-sm text-gray-400 mb-6">
-            <li>Serving East Texas:</li>
-            <li className="font-medium text-white">
-              Tyler • Longview • Marshall
-            </li>
+            <li>Serving East Texas</li>
             <li className="mt-2">(936) 707-8460</li>
             <li>Richard@properties4creation.com</li>
           </ul>
@@ -3446,12 +3606,12 @@ const Hero: React.FC<HeroProps> = ({ variant = 'image' }) => {
           <div className="inline-flex items-center gap-2 bg-p4c-gold/10 border border-p4c-gold/30 px-4 py-2 rounded-full mb-8">
             <ShieldCheck className="w-5 h-5 text-p4c-gold" />
             <span className="text-p4c-gold text-sm font-bold tracking-widest uppercase">
-              The P4C Reliability Pledge
+              The Properties 4 Creation Reliability Pledge
             </span>
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-[1.1]">
-            Revitalizing <span className="text-p4c-gold">East Texas</span>{' '}
+          <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-[1.1] text-left">
+            Revitalizing <span className="text-p4c-gold">East Texas</span>
             <br />
             One Home at a Time.
           </h1>
@@ -4187,7 +4347,7 @@ const Navbar = (): React.ReactElement => {
       children: [
         {
           label: 'Available Properties',
-          path: '/',
+          path: '/properties',
           icon: <Home className="w-4 h-4" />,
           desc: 'Premium rentals in Tyler & Longview',
         },
@@ -4228,13 +4388,13 @@ const Navbar = (): React.ReactElement => {
         },
         {
           label: 'Community Investment',
-          path: '/impact',
+          path: '/community',
           icon: <Heart className="w-4 h-4" />,
           desc: 'Revitalization data & metrics',
         },
         {
           label: 'Resident Reviews',
-          path: '/stories',
+          path: '/reviews',
           icon: <CheckCircle2 className="w-4 h-4" />,
           desc: 'Hear from happy tenants',
         },
@@ -4257,7 +4417,7 @@ const Navbar = (): React.ReactElement => {
         },
         {
           label: 'Resident Services',
-          path: '/veteran-services',
+          path: '/resident-services',
           icon: <HeartHandshake className="w-4 h-4" />,
           desc: 'Support & case management',
         },
@@ -5363,6 +5523,136 @@ export const UpdateNotification: React.FC = () => {
 ```
 
 ---
+### 📄 `src\components\admin\PropertyForm.tsx`
+
+**⚠️ Analysis Findings:**
+- 🔴 **[HIGH]** Button missing aria-label (Line 111)
+
+```typescript
+import React, { useState } from 'react';
+import { api } from '../../services/api';
+import { useToast } from '../../context/ToastContext';
+
+export const PropertyForm = () => {
+  const { addToast } = useToast();
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    title: '',
+    address: '',
+    price: '',
+    bedrooms: '3',
+    bathrooms: '2',
+    sqft: '',
+    description: '',
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      await api.properties.create({
+        ...formData,
+        // Convert string numbers to actual numbers for type safety
+        bedrooms: Number(formData.bedrooms),
+        bathrooms: Number(formData.bathrooms),
+        sqft: Number(formData.sqft),
+        // Add required fields with defaults
+        badges: ['Recently Renovated'],
+        amenities: ['Central Air'],
+        accessibilityFeatures: [],
+      });
+      addToast('Property created successfully!', 'success');
+      setFormData({
+        title: '',
+        address: '',
+        price: '',
+        bedrooms: '3',
+        bathrooms: '2',
+        sqft: '',
+        description: '',
+      });
+    } catch (error) {
+      addToast('Failed to create property. Check permissions.', 'error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <form
+      onSubmit={handleSubmit}
+      className="p-6 bg-white rounded-lg shadow-md space-y-4 border-t-4 border-p4c-gold"
+    >
+      <h2 className="text-2xl font-bold text-p4c-navy">Add New Listing</h2>
+
+      <div>
+        <label
+          htmlFor="title"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Property Title
+        </label>
+        <input
+          id="title"
+          type="text"
+          required
+          aria-required="true"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-p4c-gold focus:ring-p4c-gold"
+          value={formData.title}
+          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+        />
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label
+            htmlFor="price"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Monthly Rent ($)
+          </label>
+          <input
+            id="price"
+            type="text"
+            placeholder="e.g., 1,200"
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-p4c-gold focus:ring-p4c-gold"
+            value={formData.price}
+            onChange={(e) =>
+              setFormData({ ...formData, price: e.target.value })
+            }
+          />
+        </div>
+        <div>
+          <label
+            htmlFor="sqft"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Square Feet
+          </label>
+          <input
+            id="sqft"
+            type="number"
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-p4c-gold focus:ring-p4c-gold"
+            value={formData.sqft}
+            onChange={(e) => setFormData({ ...formData, sqft: e.target.value })}
+          />
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        disabled={loading}
+        className="w-full py-2 px-4 bg-p4c-navy text-p4c-gold font-bold rounded-md hover:bg-opacity-90 transition-all disabled:opacity-50"
+      >
+        {loading ? 'Processing...' : 'Register Property'}
+      </button>
+    </form>
+  );
+};
+
+```
+
+---
 ### 📄 `src\constants\images.ts`
 
 ```typescript
@@ -5375,7 +5665,8 @@ export const UpdateNotification: React.FC = () => {
  * <img src={IMAGES.BANNERS.HERO_HOME} alt="Home" />
  */
 
-export const P4C_MISSION_STATEMENT = 'Properties 4 Creation is committed to revitalizing East Texas: 53% Community Impact, 37% Family Stability, 5% Veteran Support, and 5% Investor ROI';
+export const P4C_MISSION_STATEMENT =
+  'Properties 4 Creation is committed to revitalizing East Texas: 53% Community Impact, 37% Family Stability, 5% Veteran Support, and 5% Investor ROI';
 
 // Brand Assets
 export const IMAGES = {
@@ -5586,6 +5877,8 @@ export const IMAGES = {
     HERO_IMPACT: '/images/videos/hero-our-impact.mp4',
     HERO_SPOTLIGHT: '/images/videos/hero-spotlight-banner.mp4',
     SUCCESS_STORY: '/images/videos/success-stories.mp4',
+    COMMUNITY_INVESTMENT: '/images/videos/community-investment-banner.mp4',
+    HERO_PROPERTY: '/images/videos/hero-property-banner.mp4',
   },
 } as const;
 
@@ -7275,13 +7568,13 @@ export const getPropertyById = (
   --color-gold: #c5a059;
   --color-gold-hover: #b08d48;
   --color-slate: #334155;
-  
+
   /* Animation Tokens */
   --animation-duration-fast: 150ms;
   --animation-duration-normal: 300ms;
   --animation-duration-slow: 500ms;
   --animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
-  
+
   /* Accessibility */
   --accessibility-font-size: 100%;
 }
@@ -7307,7 +7600,7 @@ export const getPropertyById = (
 
 @layer components {
   /* --- NAVIGATION & LAYOUT --- */
-  
+
   .skip-link {
     @apply fixed left-4 top-4 bg-p4c-navy text-white p-3 z-[100] rounded-lg shadow-lg transition-all duration-200;
     transform: translateY(-100%);
@@ -7341,7 +7634,11 @@ export const getPropertyById = (
 
   .install-button {
     @apply bg-p4c-gold text-p4c-navy px-6 py-3 rounded-lg font-bold shadow-lg transition-all duration-300;
-    background: linear-gradient(135deg, var(--color-gold), var(--color-gold-hover));
+    background: linear-gradient(
+      135deg,
+      var(--color-gold),
+      var(--color-gold-hover)
+    );
   }
 
   .install-button:hover {
@@ -7359,12 +7656,21 @@ export const getPropertyById = (
   /* --- HERO & VISUAL ENHANCEMENTS --- */
 
   .hero-overlay-primary {
-    background: linear-gradient(180deg, rgba(11, 17, 32, 0.9) 0%, rgba(11, 17, 32, 0.6) 50%, rgba(11, 17, 32, 0.85) 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(11, 17, 32, 0.9) 0%,
+      rgba(11, 17, 32, 0.6) 50%,
+      rgba(11, 17, 32, 0.85) 100%
+    );
     mix-blend-mode: multiply;
   }
 
   .hero-overlay-secondary {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.15) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.3) 0%,
+      rgba(0, 0, 0, 0.15) 100%
+    );
   }
 
   .hero-text-enhanced {
@@ -7375,7 +7681,12 @@ export const getPropertyById = (
   /* Mobile Overlays */
   @media (max-width: 640px) {
     .hero-overlay-primary {
-      background: linear-gradient(180deg, rgba(11, 17, 32, 0.6) 0%, rgba(11, 17, 32, 0.4) 50%, rgba(11, 17, 32, 0.5) 100%);
+      background: linear-gradient(
+        180deg,
+        rgba(11, 17, 32, 0.6) 0%,
+        rgba(11, 17, 32, 0.4) 50%,
+        rgba(11, 17, 32, 0.5) 100%
+      );
     }
   }
 
@@ -7384,7 +7695,8 @@ export const getPropertyById = (
   .accordion-content {
     display: grid;
     grid-template-rows: 0fr;
-    transition: grid-template-rows var(--animation-duration-normal) var(--animation-easing);
+    transition: grid-template-rows var(--animation-duration-normal)
+      var(--animation-easing);
   }
 
   .accordion-open .accordion-content {
@@ -7426,7 +7738,9 @@ export const getPropertyById = (
   /* --- MOTION SENSITIVITY --- */
 
   @media (prefers-reduced-motion: reduce) {
-    *, ::before, ::after {
+    *,
+    ::before,
+    ::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
@@ -7436,8 +7750,14 @@ export const getPropertyById = (
 
   @media (prefers-reduced-motion: no-preference) {
     @keyframes glassMorph {
-      0% { backdrop-filter: blur(20px); background-color: rgba(11, 17, 32, 0.7); }
-      100% { backdrop-filter: blur(24px); background-color: rgba(11, 17, 32, 0.72); }
+      0% {
+        backdrop-filter: blur(20px);
+        background-color: rgba(11, 17, 32, 0.7);
+      }
+      100% {
+        backdrop-filter: blur(24px);
+        background-color: rgba(11, 17, 32, 0.72);
+      }
     }
     .glass-animation {
       animation: glassMorph 0.4s ease-out forwards;
@@ -7448,10 +7768,15 @@ export const getPropertyById = (
   }
 
   @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 }
+
 ```
 
 ---
@@ -10671,11 +10996,11 @@ export default FamilyResources;
 - 🔴 **[HIGH]** Button missing aria-label (Line 220)
 - 🔴 **[HIGH]** Button missing aria-label (Line 248)
 - 🔴 **[HIGH]** Button missing aria-label (Line 305)
-- 🔴 **[HIGH]** Button missing aria-label (Line 395)
-- 🔴 **[HIGH]** Button missing aria-label (Line 472)
-- 🔴 **[HIGH]** Button missing aria-label (Line 549)
-- 🔴 **[HIGH]** Button missing aria-label (Line 612)
-- 🔵 **[MEDIUM]** Replace "Gold Standard" with "Reliability Pledge" (Line 341)
+- 🔴 **[HIGH]** Button missing aria-label (Line 396)
+- 🔴 **[HIGH]** Button missing aria-label (Line 473)
+- 🔴 **[HIGH]** Button missing aria-label (Line 553)
+- 🔴 **[HIGH]** Button missing aria-label (Line 616)
+- 🔵 **[MEDIUM]** Replace "Gold Standard" with "Reliability Pledge" (Line 342)
 
 ```typescript
 import React, { useState, useMemo, useEffect } from 'react';
@@ -10801,7 +11126,7 @@ const Home: React.FC = () => {
       {/* Featured Listings - The Product */}
       <section
         id="homes"
-        className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+        className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white"
       >
         <div className="flex flex-col md:flex-row justify-between items-end mb-8">
           <div>
@@ -10811,8 +11136,8 @@ const Home: React.FC = () => {
             <p className="text-gray-600 max-w-xl">
               Browse our portfolio of fully renovated, professionally managed
               homes in
-              <strong> East Texas</strong>. We accept Section
-              8 and private applicants.
+              <strong> East Texas</strong>. We accept Section 8 and private
+              applicants.
             </p>
           </div>
         </div>
@@ -10994,7 +11319,7 @@ const Home: React.FC = () => {
 
       {/* Core Services Section */}
       <section
-        className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-20"
+        className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-20 bg-p4c-beige"
         aria-label="Our Core Services"
       >
         <div className="text-center mb-16">
@@ -11005,7 +11330,8 @@ const Home: React.FC = () => {
             Comprehensive Real Estate Solutions
           </h2>
           <p className="text-gray-600 max-w-3xl mx-auto text-lg">
-            From premium family housing to direct asset acquisition, we provide end-to-end real estate services across East Texas.
+            From premium family housing to direct asset acquisition, we provide
+            end-to-end real estate services across East Texas.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
@@ -11202,7 +11528,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* Impact Section - Community Focus */}
-      <section className="py-20 bg-p4c-navy">
+      <section className="py-20 bg-p4c-slate">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl">
@@ -11224,7 +11550,10 @@ const Home: React.FC = () => {
                 Building Stronger Communities Through Quality Renovations
               </h2>
               <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-                Every property we renovate represents an investment in East Texas families. Our commitment to premium finishes and modern amenities creates stable, long-term housing that strengthens neighborhoods and supports local growth.
+                Every property we renovate represents an investment in East
+                Texas families. Our commitment to premium finishes and modern
+                amenities creates stable, long-term housing that strengthens
+                neighborhoods and supports local growth.
               </p>
               <button
                 onClick={() => navigate('/our-impact')}
@@ -11239,7 +11568,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* Transformation Showcase */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-p4c-beige">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
@@ -12078,8 +12407,8 @@ const OurImpact: React.FC = () => {
                     Capital Improvement
                   </h3>
                   <p className="text-sm text-gray-600">
-                    Strategic renovations inject equity and extend the asset's
-                    lifespan by 20+ years.
+                    Strategic renovations inject equity and extend the
+                    asset&apos;s lifespan by 20+ years.
                   </p>
                 </div>
 
@@ -12143,8 +12472,8 @@ const OurImpact: React.FC = () => {
               <p className="text-gray-700 leading-relaxed">
                 <strong>Local Labor First:</strong> We prioritize contracts with
                 East Texas tradespeople. Every dollar spent on renovation
-                circulates within the East Texas economies,
-                supporting local small businesses and families.
+                circulates within the East Texas economies, supporting local
+                small businesses and families.
               </p>
             </div>
 
@@ -12152,9 +12481,9 @@ const OurImpact: React.FC = () => {
             <div className="bg-p4c-navy text-white p-8 rounded-2xl shadow-lg relative overflow-hidden ring-1 ring-white/10">
               <div className="relative z-10">
                 <p className="text-xl font-serif italic mb-6">
-                  "Properties 4 Creation isn't just a landlord; they are a
-                  cornerstone investor in our neighborhood. When they fix up a
-                  house, the whole street looks better."
+                  &quot;Properties 4 Creation isn&apos;t just a landlord; they
+                  are a cornerstone investor in our neighborhood. When they fix
+                  up a house, the whole street looks better.&quot;
                 </p>
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-p4c-gold flex items-center justify-center text-p4c-navy font-bold">
@@ -12349,10 +12678,10 @@ export default Privacy;
 
 **⚠️ Analysis Findings:**
 - 🔴 **[HIGH]** UI bypassing Service Layer (direct data import) (Line 14)
-- 🔴 **[HIGH]** Button missing aria-label (Line 172)
 - 🔴 **[HIGH]** Button missing aria-label (Line 188)
-- 🔴 **[HIGH]** Button missing aria-label (Line 278)
-- 🔴 **[HIGH]** Button missing aria-label (Line 341)
+- 🔴 **[HIGH]** Button missing aria-label (Line 204)
+- 🔴 **[HIGH]** Button missing aria-label (Line 294)
+- 🔴 **[HIGH]** Button missing aria-label (Line 357)
 
 ```typescript
 import React, { useState, useEffect } from 'react';
@@ -12490,14 +12819,30 @@ const Properties: React.FC = () => {
       </Helmet>
 
       {/* --- HERO SECTION --- */}
-      <div className="bg-gradient-to-r from-p4c-navy to-p4c-gold py-16 px-4 sm:px-6 lg:px-8 shadow-xl">
-        <div className="max-w-7xl mx-auto text-center">
+      <div className="relative h-[500px] w-full overflow-hidden flex items-center justify-center">
+        <div className="absolute top-0 left-0 w-full h-full z-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+          >
+            <source
+              src="/images/videos/hero-properties-banner.mp4"
+              type="video/mp4"
+            />
+            Your browser does not support the video tag.
+          </video>
+          <div className="absolute top-0 left-0 w-full h-full bg-p4c-navy/60" />
+        </div>
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 font-serif">
             More Than a House. <br className="hidden sm:block" />
             {/* FIX: Escaped apostrophe */}
             <span className="text-p4c-beige">It&apos;s Your Sanctuary.</span>
           </h1>
-          <p className="text-xl text-p4c-beige/90 max-w-3xl mx-auto mb-8 font-sans">
+          <p className="text-xl text-white max-w-3xl mx-auto mb-8 font-sans">
             Quality affordable housing for families, veterans, and the
             community. We prioritize people over profit.
           </p>
@@ -13065,13 +13410,14 @@ export default PropertyDetails;
 
 **⚠️ Analysis Findings:**
 - 🔴 **[HIGH]** Button missing aria-label (Line 143)
-- 🔴 **[HIGH]** Button missing aria-label (Line 358)
-- 🔴 **[HIGH]** Button missing aria-label (Line 386)
-- 🔴 **[HIGH]** Button missing aria-label (Line 414)
-- 🔴 **[HIGH]** Button missing aria-label (Line 442)
+- 🔴 **[HIGH]** Button missing aria-label (Line 152)
+- 🔴 **[HIGH]** Button missing aria-label (Line 367)
+- 🔴 **[HIGH]** Button missing aria-label (Line 395)
+- 🔴 **[HIGH]** Button missing aria-label (Line 423)
+- 🔴 **[HIGH]** Button missing aria-label (Line 451)
 - 🔵 **[MEDIUM]** Image missing alt text (Line 49)
 - 🔵 **[MEDIUM]** Image missing alt text (Line 76)
-- 🔵 **[MEDIUM]** Image missing alt text (Line 322)
+- 🔵 **[MEDIUM]** Image missing alt text (Line 331)
 
 ```typescript
 import React, { useState } from 'react';
@@ -13225,9 +13571,18 @@ const ResidentServices: React.FC = () => {
               </form>
 
               <div className="mt-6 text-center">
-                <a href="#" className="text-p4c-gold hover:underline text-sm">
+                <button
+                  type="button"
+                  className="text-p4c-gold hover:underline text-sm bg-transparent border-none cursor-pointer"
+                  onClick={() =>
+                    addToast(
+                      'Password reset functionality coming soon. Please contact our office for assistance.',
+                      'info'
+                    )
+                  }
+                >
                   Forgot password?
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -14691,6 +15046,49 @@ export default Terms;
 ```
 
 ---
+### 📄 `src\pages\TestPropertyForm.tsx`
+
+```typescript
+import React from 'react';
+import { PropertyForm } from '../components/admin/PropertyForm';
+import ErrorBoundary from '../components/ErrorBoundary';
+
+const TestPropertyForm: React.FC = () => {
+  return (
+    <div className="min-h-screen bg-p4c-beige p-8">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-3xl font-serif text-p4c-navy mb-8">
+          Property Form Test
+        </h1>
+
+        <ErrorBoundary>
+          <PropertyForm />
+        </ErrorBoundary>
+
+        <div className="mt-8 p-4 bg-gray-100 rounded-lg">
+          <h2 className="text-xl font-semibold text-p4c-navy mb-2">
+            Test Instructions:
+          </h2>
+          <ul className="list-disc list-inside space-y-1 text-slate-700">
+            <li>Fill out the form with property details</li>
+            <li>Click "Register Property" to submit</li>
+            <li>You should see a success toast notification if it works</li>
+            <li>
+              If there's an error (e.g., not logged in as admin), you'll see an
+              error toast
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default TestPropertyForm;
+
+```
+
+---
 ### 📄 `src\pages\Tools.tsx`
 
 **⚠️ Analysis Findings:**
@@ -15828,12 +16226,43 @@ import {
  * Maps Supabase Database Schemas directly to Frontend Types
  */
 
+/**
+ * Internal DB Interfaces to resolve 'any' linting errors
+ */
+interface DatabaseProperty {
+  id: string;
+  title: string;
+  address: string;
+  city?: string;
+  price: number;
+  beds: number;
+  baths: number;
+  sqft: number;
+  description: string;
+  badges: string[];
+  amenities: string[];
+  accessibility_features: string[];
+  image_url: string;
+  neighborhood?: string;
+  school_district?: string;
+  is_active: boolean;
+  availability_date?: string;
+  created_at?: string;
+}
+
+interface DatabaseMetric {
+  id: string;
+  label: string;
+  current_value: number;
+  icon_name?: string;
+}
+
 // --- DATA MAPPERS -------------------------------------------
 
 /**
  * Maps 'public.properties' SQL table to 'ExtendedProperty' UI type
  */
-const mapPropertyFromDB = (dbProp: any): ExtendedProperty => ({
+const mapPropertyFromDB = (dbProp: DatabaseProperty): ExtendedProperty => ({
   id: dbProp.id,
   title: dbProp.title,
   address: dbProp.address,
@@ -15872,7 +16301,7 @@ const mapPropertyFromDB = (dbProp: any): ExtendedProperty => ({
 /**
  * Maps 'public.impact_metrics' SQL table to 'StatMetric' UI type
  */
-const mapMetricFromDB = (dbMetric: any): StatMetric => ({
+const mapMetricFromDB = (dbMetric: DatabaseMetric): StatMetric => ({
   id: dbMetric.id,
   label: dbMetric.label,
   value: dbMetric.current_value.toString(),
@@ -15898,7 +16327,7 @@ export const api = {
 
         // If DB is empty, fall back to static data so the site looks good
         if (!data || data.length === 0) {
-          console.warn('No impact metrics in DB, using fallback.');
+          // Silent fallback - no console output in production
           return [
             {
               id: '1',
@@ -15941,28 +16370,27 @@ export const api = {
 
         return data.map(mapMetricFromDB);
       } catch (error) {
-        console.error('Impact fetch error:', error);
+        // Silent error handling - rely on ErrorBoundary and ToastContext
         return [];
       }
     },
 
-    getFinancialBreakdown: async (): Promise<FinancialBreakdown[]> => {
+    getFinancialBreakdown: (): Promise<FinancialBreakdown[]> =>
       // Keeping this static for now unless you create a 'financials' table
-      return [
+      Promise.resolve([
         { category: 'Property Maintenance', percentage: 35, color: '#0B1120' },
         { category: 'Future Acquisitions', percentage: 30, color: '#C5A059' },
         { category: 'Investor Returns', percentage: 20, color: '#334155' },
         { category: 'Community Programs', percentage: 10, color: '#94a3b8' },
         { category: 'Admin/Ops', percentage: 5, color: '#cbd5e1' },
-      ];
-    },
+      ]),
   },
 
   // 2. TRANSPARENCY (Renovation Standards)
   transparency: {
-    getStandards: async (): Promise<RenovationStandard[]> => {
+    getStandards: (): Promise<RenovationStandard[]> =>
       // Keeping static - likely doesn't need frequent DB updates
-      return [
+      Promise.resolve([
         {
           id: 'kitchen',
           category: 'Kitchen Countertops',
@@ -15991,8 +16419,7 @@ export const api = {
           p4cStandard: 'Smart Locks',
           benefit: 'Safety First',
         },
-      ];
-    },
+      ]),
   },
 
   // 3. PROPERTIES (Matches your 'public.properties' schema)
@@ -16005,9 +16432,9 @@ export const api = {
           .order('created_at', { ascending: false });
 
         if (error) throw error;
-        return (data || []).map(mapPropertyFromDB);
+        return ((data as DatabaseProperty[]) || []).map(mapPropertyFromDB);
       } catch (error) {
-        console.warn('Property fetch error, using mock:', error);
+        // Silent error handling - rely on ErrorBoundary and ToastContext
         return mockProperties;
       }
     },
@@ -16021,7 +16448,7 @@ export const api = {
           .single();
 
         if (error) throw error;
-        return mapPropertyFromDB(data);
+        return mapPropertyFromDB(data as DatabaseProperty);
       } catch (error) {
         const mock = getPropertyById(id);
         return mock || null;
@@ -16029,24 +16456,34 @@ export const api = {
     },
 
     // Admin: Create Property
-    create: async (property: any) => {
-      // Map UI fields back to SQL columns
-      const dbPayload = {
-        title: property.title,
-        address: property.address,
-        city: property.city || 'Tyler', // Default if missing
-        price: parseFloat(property.price.replace(/[^0-9.]/g, '')), // "1200" -> 1200.00
-        beds: parseInt(property.bedrooms || property.beds || 0, 10),
-        baths: parseFloat(property.bathrooms || property.baths || 1),
-        sqft: parseInt(property.sqft || 0, 10),
-        image_url: property.imageUrl || property.images?.[0] || '',
-        description: property.description,
+    create: async (property: Partial<ExtendedProperty>) => {
+      // Sanitize price input: strip currency symbols and commas
+      const priceStr = (property.price || '0').toString().replace(/[$,]/g, '');
+
+      // Sanitize text fields to prevent XSS
+      const sanitizeText = (text: string | undefined): string => {
+        if (!text) return '';
+        return text.replace(/[<>]/g, ''); // Basic XSS prevention
+      };
+
+      const dbPayload: Omit<DatabaseProperty, 'id' | 'created_at'> = {
+        title: sanitizeText(property.title),
+        address: sanitizeText(property.address),
+        city: sanitizeText(property.city) || 'Tyler',
+        price: parseFloat(priceStr) || 0,
+        beds: property.bedrooms || property.beds || 0,
+        baths: property.bathrooms || property.baths || 1,
+        sqft: property.sqft || 0,
+        image_url: sanitizeText(
+          property.imageUrl || property.images?.[0] || ''
+        ),
+        description: sanitizeText(property.description),
         badges: property.badges || [],
         amenities: property.amenities || [],
         accessibility_features: property.accessibilityFeatures || [],
-        school_district: property.schoolDistrict,
-        neighborhood: property.neighborhood,
-        availability_date: property.availabilityDate,
+        school_district: sanitizeText(property.schoolDistrict),
+        neighborhood: sanitizeText(property.neighborhood),
+        availability_date: sanitizeText(property.availabilityDate),
         is_active: true,
       };
 
@@ -16057,7 +16494,7 @@ export const api = {
         .single();
 
       if (error) throw error;
-      return mapPropertyFromDB(data);
+      return mapPropertyFromDB(data as DatabaseProperty);
     },
 
     // Admin: Delete Property
@@ -18070,29 +18507,38 @@ interface ImportMeta {
 ### 📄 `test-csp.js`
 
 ```javascript
+/* eslint-disable no-console */
+
 import fs from 'fs';
 
 // Read the HTML file
 const html = fs.readFileSync('index.html', 'utf8');
 
 // Extract CSP policy
-const cspMatch = html.match(/content=["']([^"']*abjscrezxkqrzwgmufzr[^"']*)["']/i);
+const cspMatch = html.match(
+  /content=["']([^"']*abjscrezxkqrzwgmufzr[^"']*)["']/i
+);
 
 if (cspMatch) {
-    console.log('✅ CSP Policy found and includes Supabase URL');
-    console.log('📋 Supabase URL: https://abjscrezxkqrzwgmufzr.supabase.co');
-    console.log('🔒 Security fixes applied successfully!');
+  console.log('✅ CSP Policy found and includes Supabase URL');
+  console.log('📋 Supabase URL: https://abjscrezxkqrzwgmufzr.supabase.co');
+  console.log('🔒 Security fixes applied successfully!');
 } else {
-    console.log('❌ CSP policy not found or missing Supabase URL');
+  console.log('❌ CSP policy not found or missing Supabase URL');
 }
 
 // Check form field fix
 try {
-    const appJs = fs.readFileSync('dist/js/Application-Qu4Czref.js', 'utf8');
-    const hasNameAttr = appJs.includes('name="consent"');
-    console.log('📝 Form field name attribute:', hasNameAttr ? '✅ FIXED' : '❌ MISSING');
+  const appJs = fs.readFileSync('dist/js/Application-Qu4Czref.js', 'utf8');
+  const hasNameAttr = appJs.includes('name="consent"');
+  console.log(
+    '📝 Form field name attribute:',
+    hasNameAttr ? '✅ FIXED' : '❌ MISSING'
+  );
 } catch (error) {
-    console.log('📝 Form field check: Could not read compiled file, but source has been fixed');
+  console.log(
+    '📝 Form field check: Could not read compiled file, but source has been fixed'
+  );
 }
 
 ```
@@ -18130,8 +18576,15 @@ export default defineConfig(({ mode }) => {
   return {
     base,
     server: {
-      port: 3000,
-      host: '0.0.0.0',
+      port: 3001,
+      host: true, // Needed for Docker exposure
+      strictPort: true,
+      hmr: {
+        clientPort: 3001, // Forces browser to connect HMR to the mapped port
+      },
+      watch: {
+        usePolling: true, // High reliability for file changes across Docker volumes
+      },
       allowedHosts: ['p4c-web.onrender.com', 'p4c-web', '.onrender.com'],
       headers: {
         // Security Headers - CRITICAL for XSS Protection
@@ -18141,31 +18594,53 @@ export default defineConfig(({ mode }) => {
         'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
         'Strict-Transport-Security':
           'max-age=31536000; includeSubDomains; preload',
-        // Strict Hash-based Content Security Policy - XSS Prevention
-        'Content-Security-Policy': [
-          "base-uri 'none'",
-          "object-src 'none'",
-          "script-src 'self' 'strict-dynamic' 'unsafe-inline' https://esm.sh",
-          "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-          "img-src 'self' data: https:",
-          "font-src 'self' https://fonts.gstatic.com",
-          // Whitelisting connections for API, HMR, and Service Worker caching
-          [
-            "connect-src 'self'",
-            'ws://localhost:3000',
-            'http://localhost:3000',
-            'https://p4c-web.onrender.com',
-            'https://generativelanguage.googleapis.com', // Gemini AI
-            'https://fonts.googleapis.com',
-            'https://fonts.gstatic.com',
-            'https://esm.sh',
-            'https://*.supabase.co', // Recommended for your Supabase integration
-          ].join(' '),
-          "frame-src 'none'",
-          "form-action 'self'",
-          'upgrade-insecure-requests',
-          "worker-src 'self' blob:",
-        ].join('; '),
+        // Content Security Policy - Relaxed for development, strict for production
+        'Content-Security-Policy': isProduction
+          ? [
+              "base-uri 'none'",
+              "object-src 'none'",
+              "script-src 'self' 'strict-dynamic' https://esm.sh",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+              "img-src 'self' data: https:",
+              "font-src 'self' https://fonts.gstatic.com",
+              [
+                "connect-src 'self'",
+                'https://p4c-web.onrender.com',
+                'https://generativelanguage.googleapis.com', // Gemini AI
+                'https://fonts.googleapis.com',
+                'https://fonts.gstatic.com',
+                'https://esm.sh',
+                'https://*.supabase.co', // Recommended for your Supabase integration
+              ].join(' '),
+              "frame-src 'none'",
+              "form-action 'self'",
+              'upgrade-insecure-requests',
+              "worker-src 'self' blob:",
+            ].join('; ')
+          : [
+              "base-uri 'none'",
+              "object-src 'none'",
+              "script-src 'self' 'unsafe-inline' https://esm.sh",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+              "img-src 'self' data: https:",
+              "font-src 'self' https://fonts.gstatic.com",
+              [
+                "connect-src 'self'",
+                'ws://localhost:3001', // Fixed port from 3000 to 3001
+                'http://localhost:3001',
+                'https://abjscrezxkqrzwgmufzr.supabase.co',
+                'https://*.supabase.co',
+                'https://p4c-web.onrender.com',
+                'https://generativelanguage.googleapis.com', // Gemini AI
+                'https://fonts.googleapis.com',
+                'https://fonts.gstatic.com',
+                'https://esm.sh',
+              ].join(' '),
+              "frame-src 'none'",
+              "form-action 'self'",
+              'upgrade-insecure-requests',
+              "worker-src 'self' blob:",
+            ].join('; '),
       },
       proxy: {
         // Proxy API calls to secure server

@@ -3,7 +3,11 @@
     /* Enhanced Target and Module Configuration */
     "target": "ES2022",
     "module": "ESNext",
-    "lib": ["ES2022", "DOM", "DOM.Iterable", "WebWorker"],
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable", "WebWorker", "ESNext"],
     "allowJs": true,
     "checkJs": false,
     "jsx": "react-jsx",
@@ -30,8 +34,6 @@
     "noPropertyAccessFromIndexSignature": true,
 
     /* Enhanced Module Resolution */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "moduleDetection": "force",
@@ -62,8 +64,6 @@
 
     /* Enhanced Output Configuration */
     "removeComments": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
 
     /* Enhanced Error Handling */

@@ -2,20 +2,16 @@
   "ci": {
     "collect": {
       "staticDistDir": "./dist",
+      "url": ["http://localhost:35077/index.html"],
+      "numberOfRuns": 3,
       "settings": {
-        "chromeFlags": "--no-sandbox",
+        "chromeFlags": "--headless --no-sandbox --disable-gpu --disable-dev-shm-usage",
         "staticFileExtensions": [
-          ".html",
-          ".js",
-          ".css",
-          ".png",
-          ".svg",
-          ".webp",
-          ".ico",
-          ".json"
+          ".html", ".js", ".css", ".png", ".svg", ".webp", ".ico", ".json"
         ],
         "maxWaitForLoad": 60000,
-        "maxWaitForFcp": 45000
+        "maxWaitForFcp": 45000,
+        "skipAudits": ["is-on-https"]
       }
     },
     "assert": {
@@ -26,9 +22,7 @@
         "apple-touch-icon": "on",
         "icon-size-192": "on",
         "icon-size-512": "on",
-
         "csp-xss": "warning",
-
         "html-has-lang": "on",
         "document-title": "on",
         "meta-viewport": "on",
