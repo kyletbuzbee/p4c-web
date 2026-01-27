@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { IMAGES } from '../constants/images';
 import { Helmet } from 'react-helmet-async';
 import {
   Search,

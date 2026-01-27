@@ -8,23 +8,23 @@ const Reviews: React.FC = () => {
   const videos = [
     {
       id: 1,
-      poster: '/images/resident-review/resident-review-mark.png',
-      src: '/images/videos/hero-our-work-banner.mp4',
+      poster: IMAGES.RESIDENT_REVIEW.MARK,
+      src: IMAGES.VIDEOS.HERO_WORK,
       title: "Mark's Experience",
       description: 'Mark shares his experience living in our Tyler property',
     },
     {
       id: 2,
-      poster: '/images/resident-review/resident-review-alex.png',
-      src: '/images/videos/hero-our-work-banner.mp4',
+      poster: IMAGES.RESIDENT_REVIEW.ALEX,
+      src: IMAGES.VIDEOS.HERO_WORK,
       title: "Alex's Story",
       description:
         'Alex talks about the application process and move-in experience',
     },
     {
       id: 3,
-      poster: '/images/resident-review/resident-review-sarah.png',
-      src: '/images/videos/hero-our-work-banner.mp4',
+      poster: IMAGES.RESIDENT_REVIEW.SARAH,
+      src: IMAGES.VIDEOS.HERO_WORK,
       title: "Sarah's Review",
       description: 'Sarah discusses the maintenance response and community',
     },
@@ -251,7 +251,7 @@ const Reviews: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
               <img
-                src={IMAGES.BANNERS.FAMILY_RESOURCES}
+                src={IMAGES.BANNERS.HERO_FAMILY_RESOURCES}
                 alt="Happy family in their new home"
                 className="w-full h-full object-cover"
               />
