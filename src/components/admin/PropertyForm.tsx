@@ -19,7 +19,17 @@ export const PropertyForm = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await api.properties.create(formData);
+      await api.properties.create({
+        ...formData,
+        // Convert string numbers to actual numbers for type safety
+        bedrooms: Number(formData.bedrooms),
+        bathrooms: Number(formData.bathrooms),
+        sqft: Number(formData.sqft),
+        // Add required fields with defaults
+        badges: ['Recently Renovated'],
+        amenities: ['Central Air'],
+        accessibilityFeatures: [],
+      });
       addToast('Property created successfully!', 'success');
       setFormData({
         title: '',

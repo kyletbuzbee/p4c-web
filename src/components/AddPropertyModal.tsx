@@ -44,7 +44,20 @@ const AddPropertyModal: React.FC<AddPropertyModalProps> = ({
     try {
       // Send data to API (which maps it to Supabase)
       await api.properties.create({
-        ...formData,
+        // Convert string numbers to actual numbers for type safety
+        bedrooms: Number(formData.bedrooms),
+        bathrooms: Number(formData.bathrooms),
+        sqft: Number(formData.sqft),
+        // Include only the fields we need from formData
+        title: formData.title,
+        address: formData.address,
+        city: formData.city,
+        price: formData.price,
+        description: formData.description,
+        imageUrl: formData.imageUrl,
+        neighborhood: formData.neighborhood,
+        schoolDistrict: formData.schoolDistrict,
+        availabilityDate: formData.availabilityDate,
         // Default arrays for now (you can add UI selectors for these later)
         badges: ['Veteran Friendly', 'Recently Renovated'],
         amenities: ['Central Air', 'Fenced Yard', 'Pet Friendly'],
