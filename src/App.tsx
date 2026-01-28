@@ -102,7 +102,6 @@ const StandardLayout = () => (
           {/* --- TEST ROUTES --- */}
           <Route path="/test-property-form" element={<TestPropertyForm />} />
           {/* --- PROTECTED ROUTES --- */}
-          (
           <Route
             path="/admin"
             element={
@@ -111,7 +110,6 @@ const StandardLayout = () => (
               </ProtectedRoute>
             }
           />
-          )
         </Routes>
       </Suspense>
     </main>

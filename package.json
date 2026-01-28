@@ -34,6 +34,7 @@
     "@supabase/supabase-js": "^2.91.1",
     "@types/node": "^20.11.16",
     "axios": "^1.13.2",
+    "ci": "^2.3.0",
     "express": "^4.22.1",
     "express-mongo-sanitize": "^2.2.0",
     "express-rate-limit": "^8.2.1",

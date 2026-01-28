@@ -14,6 +14,11 @@ jobs:
   validate-and-build:
     name: Validate, Test, and Build
     runs-on: ubuntu-latest
+    env:
+      VITE_USE_CUSTOM_DOMAIN: 'true'
+      VITE_REPOSITORY_NAME: ${{ github.event.repository.name }}
+      VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+      VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
     steps:
       - uses: actions/checkout@v4
 
@@ -39,12 +44,6 @@ jobs:
 
       - name: Build Application
         run: npm run build
-        env:
-          VITE_USE_CUSTOM_DOMAIN: 'true'
-          VITE_REPOSITORY_NAME: ${{ github.event.repository.name }}
-          # Injecting GitHub Secrets into the environment
-          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
-          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
       # CRITICAL: Fix for your custom domain
       - name: Inject CNAME
         run: echo "www.properties4creations.com" > dist/CNAME

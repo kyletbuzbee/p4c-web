@@ -189,5 +189,15 @@ module.exports = {
       files: ['**/*.css'],
       excludedFiles: ['**/*.css'],
     },
+    {
+      files: ['**/sw.js', '**/sw.ts'],
+      rules: {
+        'no-console': 'off',
+        'no-unused-vars': 'off',
+        'arrow-body-style': 'off',
+        'require-await': 'off',
+        'no-undef': 'off',
+      },
+    },
   ],
 };
