@@ -147,7 +147,8 @@ export default defineConfig(({ mode }) => {
         },
         workbox: {
           maximumFileSizeToCacheInBytes: 15728640, // 15 MB for better mobile performance
-          globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,woff2,avif,mp4}'],
+          globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,woff2,avif}'],
+          globIgnores: ['**/images/videos/**'],
           runtimeCaching: [
             {
               urlPattern: /^https:\/\/api\..*/i,
