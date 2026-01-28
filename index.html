@@ -17,7 +17,7 @@
     />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' https://esm.sh 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https: blob:; connect-src 'self' https://generativelanguage.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';"
+      content="default-src 'self'; script-src 'self' https://esm.sh 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https: blob:; connect-src 'self' https://generativelanguage.googleapis.com ws://localhost:3001; font-src 'self' https://fonts.gstatic.com; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';"
     />
     <script type="importmap" src="/importmap.json"></script>
     <link rel="modulepreload" href="https://esm.sh/react@18.3.1" />
@@ -33,6 +33,6 @@
   <body>
     <div id="root" role="main" aria-label="Properties 4 Creation Web App"></div>
 
-    <script type="module" src="/src/index.tsx"></script>
+    <script type="module" src="./src/index.tsx"></script>
   </body>
 </html>

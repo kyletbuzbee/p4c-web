@@ -195,10 +195,12 @@ async function handleDynamicRequest(request) {
 
     // Fetch from network in background
     const networkResponsePromise = fetch(request)
-      .then((networkResponse) => {
+      .then(async (networkResponse) => {
         if (networkResponse.ok) {
-          const cache = caches.open(DYNAMIC_CACHE);
-          cache.then((c) => c.put(request, networkResponse.clone()));
+          const cache = await caches.open(DYNAMIC_CACHE);
+          // Clone the response before putting it in cache
+          const responseToCache = networkResponse.clone();
+          await cache.put(request, responseToCache);
         }
         return networkResponse;
       })
@@ -209,8 +211,7 @@ async function handleDynamicRequest(request) {
 
     // Return cached response immediately if available
     if (cachedResponse) {
-      // Update cache in background
-      networkResponsePromise;
+      // Background update already triggered by networkResponsePromise
       return cachedResponse;
     }
 
