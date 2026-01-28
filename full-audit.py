@@ -80,7 +80,9 @@ class P4CIntelligenceEngine:
         self.ignored_exts = {
             '.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico', 
             '.pdf', '.zip', '.tar', '.gz', '.pyc', '.log', 
-            '.py', '.txt', '.md', '.exe', '.dll', '.lock', '.json', '.txt', '.md'
+            '.py', '.txt', '.md', '.exe', '.dll', '.lock',
+            '.mp4', '.png', '.webp', '.avif', '.md', '.txt'
+            '.bpz', '.json', '.sh' 
         }
         
         # 3. INCLUDED EXTENSIONS (Strictly Code)

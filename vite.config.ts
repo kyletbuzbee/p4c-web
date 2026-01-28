@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
 interface EnvVariables {
-  [key: string]: string;
+  [key: string]: string | undefined;
   VITE_REPOSITORY_NAME?: string;
   VITE_USE_CUSTOM_DOMAIN?: string;
 }
@@ -52,12 +52,14 @@ export default defineConfig(({ mode }) => {
               "object-src 'none'",
               "script-src 'self' 'unsafe-inline' https://esm.sh",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-              "img-src 'self' data: https:",
+              "img-src 'self' data: https: blob: https://abjscrezxkqrzwgmufzr.supabase.co",
               "media-src 'self' https: data: blob:", // Allows videos/audio
               "font-src 'self' https://fonts.gstatic.com",
               [
                 "connect-src 'self'",
                 'https://p4c-web.onrender.com',
+                'wss://p4c-web.onrender.com', // WebSocket for Botpress
+                'https://abjscrezxkqrzwgmufzr.supabase.co',
                 'https://generativelanguage.googleapis.com', // Gemini AI
                 'https://fonts.googleapis.com',
                 'https://fonts.gstatic.com',
@@ -110,41 +112,16 @@ export default defineConfig(({ mode }) => {
       // PWA configuration for installability and service worker
       VitePWA({
         registerType: 'autoUpdate',
+        srcDir: 'public',
+        filename: 'sw.js',
+        strategies: 'injectManifest',
+        injectRegister: null, // We handle registration in pwa-register.ts
         includeAssets: [
           'favicon.ico',
           'apple-touch-icon.png',
           'masked-icon.svg',
         ],
-        manifest: {
-          name: 'Properties 4 Creation',
-          short_name: 'Properties 4 Creation',
-          description:
-            'Housing solutions for veterans and families in East Texas',
-          theme_color: '#0B1120',
-          background_color: '#0B1120',
-          display: 'standalone',
-          orientation: 'portrait',
-          scope: '/',
-          start_url: '/',
-          icons: [
-            {
-              src: 'pwa-192x192.png',
-              sizes: '192x192',
-              type: 'image/png',
-            },
-            {
-              src: 'pwa-512x512.png',
-              sizes: '512x512',
-              type: 'image/png',
-            },
-            {
-              src: 'pwa-512x512.png',
-              sizes: '512x512',
-              type: 'image/png',
-              purpose: 'any maskable',
-            },
-          ],
-        },
+        manifest: false, // Use public/manifest.json directly
         workbox: {
           maximumFileSizeToCacheInBytes: 15728640, // 15 MB for better mobile performance
           globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,woff2,avif}'],

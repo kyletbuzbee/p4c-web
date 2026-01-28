@@ -1,11 +1,11 @@
 # Properties 4 Creation PROJECT INTELLIGENCE REPORT
-**Date:** 2026-01-27T19:54:13.391879  
+**Date:** 2026-01-27T20:34:02.801304  
 **Mission:** Revitalizing East Texas by providing quality affordable housing for families and the community, while offering sustainable solutions for property owners and investors.  
 **Community Alignment Score:** 0/100
 
 ## 1. Executive Summary
 - **Total Files:** 89
-- **Lines of Code:** 34591
+- **Lines of Code:** 34592
 - **High/Critical Issues:** 98
 
 
@@ -370,6 +370,7 @@
 │   └── config.toml
 ├── 404.html
 ├── BotpressBot.bpz
+├── CNAME
 ├── compose.yaml
 ├── context-review.py
 ├── cr.py
@@ -622,7 +623,7 @@ module.exports = {
     />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' https://esm.sh 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https: blob:; connect-src 'self' https://generativelanguage.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';"
+      content="default-src 'self'; script-src 'self' https://esm.sh 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https: blob: https://abjscrezxkqrzwgmufzr.supabase.co; connect-src 'self' https://generativelanguage.googleapis.com https://abjscrezxkqrzwgmufzr.supabase.co ws://localhost:3001 wss://p4c-web.onrender.com; font-src 'self' https://fonts.gstatic.com; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';"
     />
     <script type="importmap" src="/importmap.json"></script>
     <link rel="modulepreload" href="https://esm.sh/react@18.3.1" />
@@ -638,7 +639,7 @@ module.exports = {
   <body>
     <div id="root" role="main" aria-label="Properties 4 Creation Web App"></div>
 
-    <script type="module" src="/src/index.tsx"></script>
+    <script type="module" src="./src/index.tsx"></script>
   </body>
 </html>
 
@@ -20725,10 +20726,12 @@ async function handleDynamicRequest(request) {
 
     // Fetch from network in background
     const networkResponsePromise = fetch(request)
-      .then((networkResponse) => {
+      .then(async (networkResponse) => {
         if (networkResponse.ok) {
-          const cache = caches.open(DYNAMIC_CACHE);
-          cache.then((c) => c.put(request, networkResponse.clone()));
+          const cache = await caches.open(DYNAMIC_CACHE);
+          // Clone the response before putting it in cache
+          const responseToCache = networkResponse.clone();
+          await cache.put(request, responseToCache);
         }
         return networkResponse;
       })
@@ -20739,8 +20742,7 @@ async function handleDynamicRequest(request) {
 
     // Return cached response immediately if available
     if (cachedResponse) {
-      // Update cache in background
-      networkResponsePromise;
+      // Background update already triggered by networkResponsePromise
       return cachedResponse;
     }
 
@@ -31111,7 +31113,7 @@ const Home: React.FC = () => {
               </h2>
               <p className="text-gray-300 text-lg mb-8 leading-relaxed">
                 We are actively acquiring properties in{' '}
-                <strong>Smith, Gregg, and Harrison counties</strong>. Skip the
+                <strong>Smith, Gregg, Harrison and all East Texas counties</strong>. Skip the
                 realtor fees and open houses. We provide fair market assessments
                 and immediate liquidity.
               </p>
@@ -37710,7 +37712,7 @@ import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
 interface EnvVariables {
-  [key: string]: string;
+  [key: string]: string | undefined;
   VITE_REPOSITORY_NAME?: string;
   VITE_USE_CUSTOM_DOMAIN?: string;
 }
@@ -37853,7 +37855,8 @@ export default defineConfig(({ mode }) => {
         },
         workbox: {
           maximumFileSizeToCacheInBytes: 15728640, // 15 MB for better mobile performance
-          globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,woff2,avif,mp4}'],
+          globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,woff2,avif}'],
+          globIgnores: ['**/images/videos/**'],
           runtimeCaching: [
             {
               urlPattern: /^https:\/\/api\..*/i,
