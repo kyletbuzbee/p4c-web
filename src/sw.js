@@ -3,6 +3,12 @@
  * Provides offline functionality and caching strategies
  */
 
+// Workbox manifest injection point - VitePWA will inject the manifest here
+import { precacheAndRoute } from 'workbox-precaching';
+
+// The build system will replace this with the actual manifest
+precacheAndRoute(self.__WB_MANIFEST);
+
 const CACHE_NAME = 'p4c-v2.0.0';
 const STATIC_CACHE = 'p4c-static-v2.0.0';
 const DYNAMIC_CACHE = 'p4c-dynamic-v2.0.0';

@@ -1,0 +1,88 @@
+name: P4C Unified CI/CD
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-and-build:
+    name: Validate, Test, and Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Security Audit
+        run: npm audit --audit-level=high || true # Warn but don't break yet
+
+      - name: Lint & Type Check
+        run: |
+          npm run lint
+          npm run type-check
+
+      - name: Run Unit Tests
+        run: npm run test:unit
+
+      - name: Build Application
+        run: npm run build
+        env:
+          VITE_USE_CUSTOM_DOMAIN: 'true'
+          VITE_REPOSITORY_NAME: ${{ github.event.repository.name }}
+          # Injecting GitHub Secrets into the environment
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+      # CRITICAL: Fix for your custom domain
+      - name: Inject CNAME
+        run: echo "www.properties4creations.com" > dist/CNAME
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: p4c-production-build
+          path: dist/
+          retention-days: 1
+
+  deploy:
+    name: Deploy to Production
+    needs: validate-and-build
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: p4c-production-build
+          path: dist/
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload to GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

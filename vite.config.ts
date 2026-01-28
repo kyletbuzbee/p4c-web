@@ -113,10 +113,13 @@ export default defineConfig(({ mode }) => {
       react(),
       // PWA configuration for installability and service worker
       VitePWA({
-        registerType: 'autoUpdate',
-        srcDir: 'public',
-        filename: 'sw.js',
         strategies: 'injectManifest',
+        srcDir: 'src',
+        filename: 'sw.js',
+        outDir: 'dist',
+        injectManifest: {
+          swDest: 'dist/sw.js',
+        },
         injectRegister: null, // We handle registration in pwa-register.ts
         includeAssets: [
           'favicon.ico',
