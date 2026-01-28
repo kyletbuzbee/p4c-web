@@ -93,10 +93,10 @@ const Navbar = (): React.ReactElement => {
           desc: 'Revitalization data & metrics',
         },
         {
-          label: 'Resident Reviews',
+          label: 'Quality & Reviews',
           path: '/reviews',
           icon: <CheckCircle2 className="w-4 h-4" />,
-          desc: 'Hear from happy tenants',
+          desc: 'Our commitment to excellence',
         },
         {
           label: 'Careers',

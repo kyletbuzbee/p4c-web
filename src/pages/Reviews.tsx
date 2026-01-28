@@ -1,311 +1,152 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Star, MessageCircle, Users } from 'lucide-react';
+import {
+  Star,
+  ShieldCheck,
+  Hammer,
+  Clock,
+  Users,
+  ArrowRight,
+} from 'lucide-react';
 import { IMAGES } from '../constants/images';
+import BeforeAfterSlider from '../components/BeforeAfterSlider';
+import { useNavigate } from 'react-router-dom';
 
 const Reviews: React.FC = () => {
-  // Video data with unique posters
-  const videos = [
-    {
-      id: 1,
-      poster: IMAGES.RESIDENT_REVIEW.MARK,
-      src: IMAGES.VIDEOS.HERO_WORK,
-      title: "Mark's Experience",
-      description: 'Mark shares his experience living in our Tyler property',
-    },
-    {
-      id: 2,
-      poster: IMAGES.RESIDENT_REVIEW.ALEX,
-      src: IMAGES.VIDEOS.HERO_WORK,
-      title: "Alex's Story",
-      description:
-        'Alex talks about the application process and move-in experience',
-    },
-    {
-      id: 3,
-      poster: IMAGES.RESIDENT_REVIEW.SARAH,
-      src: IMAGES.VIDEOS.HERO_WORK,
-      title: "Sarah's Review",
-      description: 'Sarah discusses the maintenance response and community',
-    },
-  ];
+  const navigate = useNavigate();
 
   return (
     <div className="bg-p4c-beige min-h-screen">
       <Helmet>
-        <title>Resident Reviews & Testimonials | Properties 4 Creation</title>
+        <title>Our Standard of Quality | Properties 4 Creation</title>
         <meta
           name="description"
-          content="Read and watch real reviews from residents living in Properties 4 Creation homes in East Texas, Texas."
+          content="Explore the Properties 4 Creation quality standard. See our commitment to $30k+ renovations per unit and our pledge to East Texas families."
         />
       </Helmet>
 
-      {/* Hero Section */}
-      <div className="relative h-[400px] w-full overflow-hidden flex items-center justify-center">
+      {/* Hero Section - Mission Focused */}
+      <div className="relative h-[450px] w-full overflow-hidden flex items-center justify-center">
         <div className="absolute top-0 left-0 w-full h-full z-0">
           <img
             src={IMAGES.BANNERS.HERO_COMMUNITY_IMPACT}
-            alt="Happy residents in East Texas community"
+            alt="P4C Quality Renovation in East Texas"
             className="w-full h-full object-cover"
           />
-          <div className="absolute top-0 left-0 w-full h-full bg-p4c-navy/70 mix-blend-multiply" />
+          <div className="absolute top-0 left-0 w-full h-full bg-p4c-navy/80 mix-blend-multiply" />
         </div>
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-fade-in-up">
-          <div className="flex justify-center mb-6">
-            <div className="bg-p4c-gold/20 p-4 rounded-2xl border border-p4c-gold/30 backdrop-blur-sm">
-              <Users className="w-10 h-10 text-p4c-gold" />
-            </div>
+          <div className="inline-flex items-center gap-2 bg-p4c-gold/20 border border-p4c-gold/30 px-4 py-2 rounded-full mb-6 backdrop-blur-sm">
+            <ShieldCheck className="w-5 h-5 text-p4c-gold" />
+            <span className="text-p4c-gold text-xs font-bold tracking-widest uppercase">
+              The Reliability Pledge
+            </span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4 tracking-wide">
-            Resident Voices
+          <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6">
+            Our Standard <span className="text-p4c-gold">of Excellence</span>
           </h1>
-          <p className="text-xl text-gray-200 font-light max-w-2xl mx-auto">
-            Real stories from families and individuals who call our properties
-            home
+          <p className="text-xl text-gray-200 font-light max-w-2xl mx-auto leading-relaxed">
+            While our residents prepare their stories, explore the $30k+
+            renovation standard we bring to every East Texas home.
           </p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        {/* Video Reviews Section */}
-        <section className="mb-20">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-4">
-              Video Testimonials
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Hear directly from our residents about their experiences
-            </p>
-          </div>
+      {/* Quality Standards Grid */}
+      <section className="max-w-7xl mx-auto px-4 py-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+          {[
+            {
+              icon: <Hammer className="w-8 h-8 text-p4c-gold" />,
+              title: '$30k+ Reinvestment',
+              desc: 'Every acquisition undergoes a minimum $30,000 capital improvement to ensure modern living standards.',
+            },
+            {
+              icon: <ShieldCheck className="w-8 h-8 text-p4c-gold" />,
+              title: 'Veteran Inspected',
+              desc: "As a veteran-owned company, our quality control is rigorous. We don't lease what we wouldn't live in.",
+            },
+            {
+              icon: <Clock className="w-8 h-8 text-p4c-gold" />,
+              title: 'Rapid Response',
+              desc: "Our localized maintenance team ensures that 'Quality' extends beyond move-in day with 24-hour service.",
+            },
+          ].map((item, i) => (
+            <div
+              key={i}
+              className="bg-white p-8 rounded-2xl shadow-sm border-b-4 border-p4c-gold"
+            >
+              <div className="mb-4">{item.icon}</div>
+              <h3 className="text-xl font-serif font-bold text-p4c-navy mb-2">
+                {item.title}
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                {item.desc}
+              </p>
+            </div>
+          ))}
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {videos.map((video) => (
+        {/* Visual Proof Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center bg-white rounded-3xl p-8 md:p-12 shadow-xl mb-20">
+          <div>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-6">
+              Transformation in Progress
+            </h2>
+            <p className="text-gray-600 mb-8 leading-relaxed">
+              We are currently revitalizing multiple properties across Tyler and
+              Longview. Our focus is on durable materials like Quartz
+              countertops and Luxury Vinyl Plank flooring that provide families
+              with a dignified place to call home.
+            </p>
+            <button
+              onClick={() => navigate('/properties')}
+              className="inline-flex items-center gap-2 text-p4c-gold font-bold hover:underline"
+              aria-label="View current available properties"
+            >
+              See Available Homes <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+          <div className="w-full">
+            <BeforeAfterSlider
+              beforeImage={IMAGES.RENOVATION.LIVING_ROOM.BEFORE}
+              afterImage={IMAGES.RENOVATION.LIVING_ROOM.AFTER}
+              label="East Texas Interior Revitalization"
+            />
+          </div>
+        </div>
+
+        {/* "Coming Soon" Placeholder Section */}
+        <div className="text-center py-20">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-p4c-gold/10 rounded-full mb-6">
+            <Users className="w-10 h-10 text-p4c-gold" />
+          </div>
+          <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-4">
+            Resident Stories Coming Soon
+          </h2>
+          <p className="text-gray-600 max-w-2xl mx-auto mb-10">
+            We are currently moving families into our newly renovated
+            properties. Check back shortly to hear about their experiences with
+            the Properties 4 Creation community.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto opacity-50 grayscale">
+            {[1, 2].map((i) => (
               <div
-                key={video.id}
-                className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow"
+                key={i}
+                className="bg-white p-8 rounded-2xl border-2 border-dashed border-gray-300"
               >
-                <div className="relative h-64">
-                  <img
-                    src={video.poster}
-                    alt={video.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                    <button className="bg-p4c-gold/80 hover:bg-p4c-gold text-p4c-navy w-16 h-16 rounded-full flex items-center justify-center transition-all">
-                      <svg
-                        className="w-6 h-6 ml-1"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    </button>
-                  </div>
+                <div className="flex gap-1 mb-4">
+                  {[...Array(5)].map((_, j) => (
+                    <Star key={j} className="w-4 h-4 text-gray-300" />
+                  ))}
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-p4c-navy mb-2">
-                    {video.title}
-                  </h3>
-                  <p className="text-gray-600 mb-4">{video.description}</p>
-                  <div className="flex items-center gap-2">
-                    <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
-                    <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
-                    <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
-                    <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
-                    <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
-                  </div>
-                </div>
+                <div className="h-4 bg-gray-200 rounded w-3/4 mb-2" />
+                <div className="h-4 bg-gray-200 rounded w-1/2" />
               </div>
             ))}
           </div>
-        </section>
-
-        {/* Written Reviews Section */}
-        <section className="mb-20">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-4">
-              Written Testimonials
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Feedback from our residents about their living experience
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white p-8 rounded-2xl shadow-xl border-l-4 border-p4c-gold">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 bg-p4c-navy rounded-full flex items-center justify-center text-white font-bold">
-                  JM
-                </div>
-                <div>
-                  <h4 className="font-bold text-p4c-navy">John & Maria T.</h4>
-                  <p className="text-sm text-gray-500">Tyler, TX - 2 Years</p>
-                </div>
-              </div>
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                "We've been living in our Properties 4 Creation home for 2 years
-                now and couldn't be happier. The application process was smooth,
-                maintenance requests are handled promptly, and the neighborhood
-                is safe and family-friendly. Our kids love the nearby parks!"
-              </p>
-              <div className="flex items-center gap-2">
-                <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
-                <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
-                <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
-                <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
-                <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
-              </div>
-            </div>
-
-            <div className="bg-white p-8 rounded-2xl shadow-xl border-l-4 border-p4c-gold">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 bg-p4c-navy rounded-full flex items-center justify-center text-white font-bold">
-                  RT
-                </div>
-                <div>
-                  <h4 className="font-bold text-p4c-navy">Robert Thompson</h4>
-                  <p className="text-sm text-gray-500">Longview, TX - 1 Year</p>
-                </div>
-              </div>
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                "As a veteran, I was struggling to find stable housing until I
-                found Properties 4 Creation. The team worked with my VA benefits
-                and had me moved in within a week. The property is
-                well-maintained and the management is responsive. Highly
-                recommend!"
-              </p>
-              <div className="flex items-center gap-2">
-                <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
-                <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
-                <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
-                <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
-                <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
-              </div>
-            </div>
-
-            <div className="bg-white p-8 rounded-2xl shadow-xl border-l-4 border-p4c-gold">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 bg-p4c-navy rounded-full flex items-center justify-center text-white font-bold">
-                  SW
-                </div>
-                <div>
-                  <h4 className="font-bold text-p4c-navy">Sarah Williams</h4>
-                  <p className="text-sm text-gray-500">
-                    Marshall, TX - 6 Months
-                  </p>
-                </div>
-              </div>
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                "The renovation quality is impressive! Everything was brand new
-                when we moved in - appliances, flooring, paint. The property
-                management team is professional and actually cares about tenant
-                satisfaction. Best rental experience I've had."
-              </p>
-              <div className="flex items-center gap-2">
-                <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
-                <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
-                <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
-                <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
-                <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
-              </div>
-            </div>
-
-            <div className="bg-white p-8 rounded-2xl shadow-xl border-l-4 border-p4c-gold">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 bg-p4c-navy rounded-full flex items-center justify-center text-white font-bold">
-                  DG
-                </div>
-                <div>
-                  <h4 className="font-bold text-p4c-navy">David & Grace M.</h4>
-                  <p className="text-sm text-gray-500">Tyler, TX - 1.5 Years</p>
-                </div>
-              </div>
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                "We were hesitant about renting after some bad experiences, but
-                Properties 4 Creation changed our minds. The online portal makes
-                rent payment easy, maintenance is quick, and the community
-                events help us feel connected to our neighbors."
-              </p>
-              <div className="flex items-center gap-2">
-                <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
-                <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
-                <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
-                <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
-                <Star className="w-4 h-4 text-p4c-gold fill-p4c-gold" />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Tenant Success Stories Section */}
-        <section>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-4">
-              Tenant Success Stories
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              How we've helped families find their forever homes
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
-              <img
-                src={IMAGES.BANNERS.HERO_FAMILY_RESOURCES}
-                alt="Happy family in their new home"
-                className="w-full h-full object-cover"
-              />
-            </div>
-
-            <div>
-              <div className="mb-8">
-                <h3 className="text-2xl font-serif font-bold text-p4c-navy mb-4">
-                  The Johnson Family
-                </h3>
-                <p className="text-gray-600 mb-4 leading-relaxed">
-                  After struggling with unstable housing for years, the Johnson
-                  family found stability through our Section 8 program. With
-                  three children in Tyler ISD schools, they needed a safe,
-                  long-term home near good schools.
-                </p>
-                <p className="text-gray-600 mb-6 leading-relaxed">
-                  "Properties 4 Creation didn't just give us a house - they gave
-                  us hope. Our kids have thrived in their new school, and we
-                  finally feel like we have a real home."
-                </p>
-                <div className="flex items-center gap-4">
-                  <img
-                    src={IMAGES.LOGO.WHITE_GOLD}
-                    alt="Properties 4 Creation logo"
-                    className="w-12 h-12"
-                  />
-                  <div>
-                    <div className="font-bold text-p4c-navy">
-                      Properties 4 Creation Team
-                    </div>
-                    <div className="text-sm text-gray-500">
-                      Helping families since 2018
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100">
-                <div className="flex items-center gap-3 mb-3">
-                  <MessageCircle className="w-6 h-6 text-p4c-gold" />
-                  <h4 className="font-bold text-p4c-navy">Our Commitment</h4>
-                </div>
-                <p className="text-gray-600 text-sm">
-                  We believe everyone deserves a safe, dignified place to call
-                  home. Through our community partnerships and housing programs,
-                  we've helped over 200 families achieve housing stability in
-                  East Texas.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
+        </div>
+      </section>
     </div>
   );
 };

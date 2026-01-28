@@ -417,7 +417,7 @@ const Home: React.FC = () => {
               </h2>
               <p className="text-gray-300 text-lg mb-8 leading-relaxed">
                 We are actively acquiring properties in{' '}
-                <strong>Smith, Gregg, and Harrison counties</strong>. Skip the
+                <strong>Smith, Gregg, Harrison and all East Texas counties</strong>. Skip the
                 realtor fees and open houses. We provide fair market assessments
                 and immediate liquidity.
               </p>
