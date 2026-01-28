@@ -64,7 +64,9 @@ export default defineConfig(({ mode }) => {
                 'https://fonts.googleapis.com',
                 'https://fonts.gstatic.com',
                 'https://esm.sh',
-                'https://*.supabase.co', // Recommended for your Supabase integration
+                'https://*.supabase.co', // Supabase integration
+                'https://www.properties4creations.com', // Custom domain
+                'https://properties4creations.com', // Custom domain (non-www)
               ].join(' '),
               "frame-src 'none'",
               "form-action 'self'",
