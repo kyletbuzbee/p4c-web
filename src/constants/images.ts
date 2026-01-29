@@ -240,5 +240,7 @@ export const IMAGES = {
     HERO_HOME: '/images/videos/home-page-hero.mp4',
     // Added missing constant used in Hero.tsx
     HERO_SPOTLIGHT: '/images/videos/Hero-Spotlight-Banner(8).mp4',
+    // Kitchen timelapse for Our Impact page
+    KITCHEN_TIMELAPSE: '/images/videos/hero-kitchen-timelapse.mp4',
   },
 } as const;

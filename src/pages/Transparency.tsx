@@ -75,14 +75,14 @@ const Transparency: React.FC = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 -mt-10 relative z-20">
-        {/* The Comparison Table */}
+        {/* The Renovation Standard */}
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-20 border border-gray-100">
-          <div className="p-8 border-b border-gray-100 bg-gray-50">
-            <h2 className="text-2xl font-serif font-bold text-p4c-navy">
+          <div className="p-8 border-b border-gray-100 bg-gradient-to-r from-p4c-navy to-p4c-slate">
+            <h2 className="text-2xl font-serif font-bold text-white">
               The Renovation Standard
             </h2>
-            <p className="text-gray-600 mt-2">
-              How we stack up against the industry average.
+            <p className="text-gray-300 mt-2">
+              Revitalizing East Texas through sustainable, high-quality renovations that stand the test of time.
             </p>
           </div>
 
@@ -96,13 +96,13 @@ const Transparency: React.FC = () => {
                 <thead>
                   <tr className="bg-gray-50 border-b border-gray-200 text-xs uppercase tracking-wider text-gray-500 font-bold">
                     <th className="p-6">Feature</th>
-                    <th className="p-6 text-red-800 bg-red-50/50">
-                      Typical "Slumlord"
+                    <th className="p-6 text-gray-600 bg-gray-50">
+                      Industry Standard
                     </th>
                     <th className="p-6 text-p4c-navy bg-p4c-gold/10">
-                      The Properties 4 Creation Standard
+                      The P4C Revitalization Standard
                     </th>
-                    <th className="p-6">Why It Matters</th>
+                    <th className="p-6">Community Impact</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
@@ -114,20 +114,20 @@ const Transparency: React.FC = () => {
                       <td className="p-6 font-bold text-p4c-navy">
                         {item.category}
                       </td>
-                      <td className="p-6 text-gray-600 bg-red-50/20">
+                      <td className="p-6 text-gray-500 bg-gray-50/30">
                         <div className="flex items-start gap-2">
-                          <X className="w-4 h-4 text-red-500 mt-1 flex-shrink-0" />
+                          <span className="text-gray-400 mt-1">•</span>
                           {item.standardLandlord}
                         </div>
                       </td>
                       <td className="p-6 font-semibold text-p4c-navy bg-p4c-gold/5">
                         <div className="flex items-start gap-2">
-                          <Check className="w-4 h-4 text-green-600 mt-1 flex-shrink-0" />
+                          <Check className="w-4 h-4 text-p4c-gold mt-1 flex-shrink-0" />
                           {item.p4cStandard}
                         </div>
                       </td>
-                      <td className="p-6 text-sm text-gray-600 italic">
-                        "{item.benefit}"
+                      <td className="p-6 text-sm text-gray-600">
+                        {item.benefit}
                       </td>
                     </tr>
                   ))}
@@ -135,51 +135,94 @@ const Transparency: React.FC = () => {
               </table>
             </div>
           )}
+
+          <div className="p-6 bg-p4c-beige/30 border-t border-gray-100">
+            <p className="text-sm text-gray-600 text-center">
+              <strong>Our Commitment:</strong> Every renovation is an investment in East Texas communities. 
+              We don't just repair homes—we revitalize neighborhoods, create local jobs, and provide 
+              dignified housing for families and veterans.
+            </p>
+          </div>
         </div>
 
-        {/* Quality Standards Section - Moved from Home Page */}
+        {/* Quality Standards Section - Mission-Driven */}
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-20 border border-gray-100">
-          <div className="p-8 border-b border-gray-100 bg-gray-50">
-            <div className="inline-flex items-center gap-2 bg-p4c-beige px-3 py-1 rounded-full text-p4c-navy text-xs font-bold uppercase tracking-wider mb-4 border border-gray-200">
-              <Shield className="w-4 h-4" /> Quality Standards
+          <div className="p-8 border-b border-gray-100 bg-gradient-to-r from-p4c-gold/10 to-p4c-beige">
+            <div className="inline-flex items-center gap-2 bg-white px-3 py-1 rounded-full text-p4c-navy text-xs font-bold uppercase tracking-wider mb-4 border border-p4c-gold/30 shadow-sm">
+              <Shield className="w-4 h-4 text-p4c-gold" /> Quality Standards
             </div>
             <h2 className="text-2xl font-serif font-bold text-p4c-navy">
-              We Install Quality, Not Cheap Fixes
+              Sustainable Solutions for Property Owners & Residents
             </h2>
             <p className="text-gray-600 mt-2">
-              Many landlords cut corners. We don&apos;t. At Properties 4
-              Creation, we use homeowner-grade materials.
+              We believe quality housing is the foundation of thriving communities. 
+              Our commitment to excellence drives every decision we make.
             </p>
           </div>
           <div className="p-8">
             <p className="text-gray-700 leading-relaxed mb-8">
-              We use homeowner-grade materials like Quartz countertops, luxury
-              vinyl plank flooring, and high-efficiency HVAC systems. Why?
-              Because you deserve a home that lasts and feels proud to live in.
+              At Properties 4 Creation, we install materials that honor both the 
+              homeowner&apos;s investment and the resident&apos;s dignity. By choosing 
+              premium, sustainable materials, we reduce long-term maintenance costs 
+              while creating homes that families are proud to call their own. This 
+              approach supports our mission: <strong>revitalizing East Texas one property at a time</strong>.
             </p>
-            <ul className="space-y-4">
-              <li className="flex items-start">
-                <CheckCircle2 className="w-6 h-6 text-p4c-gold mr-3 flex-shrink-0" />
-                <span className="text-gray-700">
-                  <strong>Quartz Countertops:</strong> Durable, hygienic, and
-                  beautiful.
-                </span>
-              </li>
-              <li className="flex items-start">
-                <CheckCircle2 className="w-6 h-6 text-p4c-gold mr-3 flex-shrink-0" />
-                <span className="text-gray-700">
-                  <strong>LVP Flooring:</strong> Waterproof and
-                  scratch-resistant.
-                </span>
-              </li>
-              <li className="flex items-start">
-                <CheckCircle2 className="w-6 h-6 text-p4c-gold mr-3 flex-shrink-0" />
-                <span className="text-gray-700">
-                  <strong>Energy Efficient:</strong> Lower utility bills for our
-                  tenants.
-                </span>
-              </li>
-            </ul>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-p4c-beige/30 p-6 rounded-xl">
+                <div className="flex items-start">
+                  <CheckCircle2 className="w-6 h-6 text-p4c-gold mr-3 flex-shrink-0" />
+                  <div>
+                    <span className="text-p4c-navy font-bold">Quartz Countertops</span>
+                    <p className="text-gray-600 text-sm mt-1">
+                      Durable, hygienic surfaces that withstand daily use while maintaining 
+                      their beauty for decades.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-p4c-beige/30 p-6 rounded-xl">
+                <div className="flex items-start">
+                  <CheckCircle2 className="w-6 h-6 text-p4c-gold mr-3 flex-shrink-0" />
+                  <div>
+                    <span className="text-p4c-navy font-bold">Luxury Vinyl Plank Flooring</span>
+                    <p className="text-gray-600 text-sm mt-1">
+                      Waterproof, scratch-resistant flooring that looks beautiful 
+                      and handles active families and pets.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-p4c-beige/30 p-6 rounded-xl">
+                <div className="flex items-start">
+                  <CheckCircle2 className="w-6 h-6 text-p4c-gold mr-3 flex-shrink-0" />
+                  <div>
+                    <span className="text-p4c-navy font-bold">Energy-Efficient Systems</span>
+                    <p className="text-gray-600 text-sm mt-1">
+                      High-efficiency HVAC and appliances reduce utility costs for 
+                      residents and environmental impact for the community.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-p4c-beige/30 p-6 rounded-xl">
+                <div className="flex items-start">
+                  <CheckCircle2 className="w-6 h-6 text-p4c-gold mr-3 flex-shrink-0" />
+                  <div>
+                    <span className="text-p4c-navy font-bold">Local Contractor Partnerships</span>
+                    <p className="text-gray-600 text-sm mt-1">
+                      We prioritize East Texas tradespeople, keeping investment dollars 
+                      circulating in our local economy.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="mt-8 p-6 bg-p4c-navy rounded-xl text-white">
+              <p className="text-center italic">
+                &quot;Quality isn&apos;t just about materials—it&apos;s about creating 
+                homes where families can thrive and communities can grow.&quot;
+              </p>
+            </div>
           </div>
         </div>
 

@@ -20,17 +20,16 @@ const Community: React.FC = () => {
         />
       </Helmet>
 
-      {/* Hero Section with Video Background */}
+      {/* Hero Section with Banner Image */}
       <div className="relative h-[500px] w-full overflow-hidden flex items-center justify-center">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-          src={IMAGES.VIDEOS.HERO_COMMUNITY}
-        />
-        <div className="absolute inset-0 bg-p4c-navy/60" />
+        <div className="absolute inset-0 z-0">
+          <img
+            src={IMAGES.BANNERS.HERO_COMMUNITY_IMPACT}
+            alt="Community impact banner"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-p4c-navy/60" />
+        </div>
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4 tracking-wide">
             Building Stronger Communities

@@ -49,6 +49,8 @@ const EqualHousing = React.lazy(() => import('./pages/EqualHousing'));
 const SuccessStories = React.lazy(() => import('./pages/SuccessStories'));
 const Transparency = React.lazy(() => import('./pages/Transparency'));
 const TestPropertyForm = React.lazy(() => import('./pages/TestPropertyForm'));
+const Careers = React.lazy(() => import('./pages/Careers'));
+const ResidentServices = React.lazy(() => import('./pages/ResidentServices'));
 
 // Loading Fallback
 const PageLoader = () => (
@@ -96,6 +98,8 @@ const StandardLayout = () => (
           <Route path="/employment" element={<Employment />} />
           <Route path="/portal" element={<TenantLogin />} />
           <Route path="/faq" element={<Faq />} />
+          <Route path="/careers" element={<Careers />} />
+          <Route path="/resident-services" element={<ResidentServices />} />
           <Route path="/accessibility" element={<AccessibilityStatement />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />

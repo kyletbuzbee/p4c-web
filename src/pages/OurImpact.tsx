@@ -78,9 +78,9 @@ const OurImpact: React.FC = () => {
           playsInline
           poster={IMAGES.BANNERS.HERO_PROJECTS}
           className="absolute top-0 left-0 w-full h-full object-cover"
-          aria-label="Impact hero background video showcasing our projects"
+          aria-label="Kitchen renovation timelapse showcasing our transformation process"
         >
-          <source src={IMAGES.VIDEOS.HERO_WORK} type="video/mp4" />
+          <source src={IMAGES.VIDEOS.KITCHEN_TIMELAPSE} type="video/mp4" />
         </video>
         <div className="absolute top-0 left-0 w-full h-full hero-overlay-primary" />
         <div className="absolute top-0 left-0 w-full h-full hero-overlay-secondary" />
