@@ -52,27 +52,27 @@ const Navbar = (): React.ReactElement => {
           desc: 'Premium rentals in Tyler & Longview',
         },
         {
-          label: 'Family Resources',
-          path: '/family-resources',
-          icon: <Users className="w-4 h-4" />,
-          desc: 'School districts & community guides',
-        },
-        {
-          label: 'Tenant Application',
+          label: 'Apply for Housing',
           path: '/apply',
           icon: <FileText className="w-4 h-4" />,
           desc: 'Fast, digital approval process',
         },
         {
-          label: 'Equal Housing',
-          path: '/equal-housing',
-          icon: <Scale className="w-4 h-4" />,
-          desc: 'Fair housing for all applicants',
+          label: 'Veteran Housing Program',
+          path: '/veterans',
+          icon: <Flag className="w-4 h-4" />,
+          desc: 'Specialized military housing',
+        },
+        {
+          label: 'Family Resources',
+          path: '/family-resources',
+          icon: <Users className="w-4 h-4" />,
+          desc: 'School districts & community guides',
         },
       ],
     },
     {
-      label: 'Company',
+      label: 'About Us',
       children: [
         {
           label: 'Our Story',
@@ -81,26 +81,26 @@ const Navbar = (): React.ReactElement => {
           desc: 'Professional management team',
         },
         {
-          label: 'Construction Standards',
-          path: '/transparency',
-          icon: <ShieldCheck className="w-4 h-4" />,
-          desc: 'See our renovation quality specs',
-        },
-        {
-          label: 'Community Investment',
+          label: 'Community Impact',
           path: '/community',
           icon: <Heart className="w-4 h-4" />,
           desc: 'Revitalization data & metrics',
         },
         {
-          label: 'Quality & Reviews',
+          label: 'Quality Standards',
+          path: '/transparency',
+          icon: <ShieldCheck className="w-4 h-4" />,
+          desc: 'See our renovation quality specs',
+        },
+        {
+          label: 'Resident Stories',
           path: '/reviews',
           icon: <CheckCircle2 className="w-4 h-4" />,
           desc: 'Our commitment to excellence',
         },
         {
           label: 'Careers',
-          path: '/employment',
+          path: '/careers',
           icon: <Hammer className="w-4 h-4" />,
           desc: 'Join our renovation crews',
         },
@@ -110,10 +110,10 @@ const Navbar = (): React.ReactElement => {
       label: 'Residents',
       children: [
         {
-          label: 'Veteran Housing',
-          path: '/veterans',
-          icon: <Flag className="w-4 h-4" />,
-          desc: 'Specialized military housing',
+          label: 'Resident Portal',
+          path: '/portal',
+          icon: <Lock className="w-4 h-4" />,
+          desc: 'Pay rent & request repairs',
         },
         {
           label: 'Resident Services',
@@ -122,10 +122,10 @@ const Navbar = (): React.ReactElement => {
           desc: 'Support & case management',
         },
         {
-          label: 'Resident Portal',
-          path: '/portal',
-          icon: <Lock className="w-4 h-4" />,
-          desc: 'Pay rent & request repairs',
+          label: 'Veteran Services',
+          path: '/veteran-services',
+          icon: <Flag className="w-4 h-4" />,
+          desc: 'Veteran resident support',
         },
         {
           label: 'FAQ',

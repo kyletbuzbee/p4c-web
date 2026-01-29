@@ -60,10 +60,10 @@ const Footer: React.FC = () => (
           </div>
         </div>
 
-        {/* 2. Discover (User Facing) */}
+        {/* 2. Find a Home (Prospective Residents) */}
         <div>
           <h4 className="font-serif font-bold text-lg mb-4 text-p4c-gold">
-            Properties
+            Find a Home
           </h4>
           <ul className="space-y-2 text-sm text-gray-400">
             <li>
@@ -71,12 +71,12 @@ const Footer: React.FC = () => (
                 to="/properties"
                 className="hover:text-white transition-colors"
               >
-                Available Homes
+                Available Properties
               </Link>
             </li>
             <li>
               <Link
-                to="/veteran-services"
+                to="/veterans"
                 className="hover:text-white transition-colors"
               >
                 Veteran Housing Program
@@ -84,26 +84,21 @@ const Footer: React.FC = () => (
             </li>
             <li>
               <Link
-                to="/success-stories"
+                to="/family-resources"
                 className="hover:text-white transition-colors"
               >
-                Tenant Testimonials
+                Family Resources
               </Link>
             </li>
             <li>
-              <Link to="/impact" className="hover:text-white transition-colors">
-                Community Impact Data
-              </Link>
-            </li>
-            <li>
-              <Link to="/portal" className="hover:text-white transition-colors">
-                Resident Portal
+              <Link to="/apply" className="hover:text-white transition-colors">
+                Apply for Housing
               </Link>
             </li>
           </ul>
         </div>
 
-        {/* 3. Company (Corporate Facing) */}
+        {/* 3. Company (About Us) */}
         <div>
           <h4 className="font-serif font-bold text-lg mb-4 text-p4c-gold">
             Company
@@ -116,10 +111,26 @@ const Footer: React.FC = () => (
             </li>
             <li>
               <Link
+                to="/community"
+                className="hover:text-white transition-colors"
+              >
+                Community Impact
+              </Link>
+            </li>
+            <li>
+              <Link
                 to="/transparency"
                 className="hover:text-white transition-colors"
               >
-                Construction Standards
+                Quality Standards
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/reviews"
+                className="hover:text-white transition-colors"
+              >
+                Resident Stories
               </Link>
             </li>
             <li>
@@ -133,31 +144,41 @@ const Footer: React.FC = () => (
                 </span>
               </Link>
             </li>
+          </ul>
+        </div>
+
+        {/* 4. Residents & Legal */}
+        <div>
+          <h4 className="font-serif font-bold text-lg mb-4 text-p4c-gold">
+            Residents
+          </h4>
+          <ul className="space-y-2 text-sm text-gray-400 mb-6">
+            <li>
+              <Link to="/portal" className="hover:text-white transition-colors">
+                Resident Portal
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/resident-services"
+                className="hover:text-white transition-colors"
+              >
+                Resident Services
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/veteran-services"
+                className="hover:text-white transition-colors"
+              >
+                Veteran Services
+              </Link>
+            </li>
             <li>
               <Link to="/faq" className="hover:text-white transition-colors">
                 FAQ
               </Link>
             </li>
-            <li>
-              <Link
-                to="/contact"
-                className="hover:text-white transition-colors"
-              >
-                Contact Headquarters
-              </Link>
-            </li>
-          </ul>
-        </div>
-
-        {/* 4. Contact & Legal */}
-        <div>
-          <h4 className="font-serif font-bold text-lg mb-4 text-p4c-gold">
-            Office
-          </h4>
-          <ul className="space-y-2 text-sm text-gray-400 mb-6">
-            <li>Serving East Texas</li>
-            <li className="mt-2">(936) 707-8460</li>
-            <li>Richard@properties4creation.com</li>
           </ul>
           <h5 className="font-bold text-sm text-white mb-2">Legal</h5>
           <ul className="space-y-2 text-sm text-gray-400">
