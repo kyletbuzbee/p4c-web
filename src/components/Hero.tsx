@@ -28,7 +28,7 @@ const Hero: React.FC<HeroProps> = ({ variant = 'image' }) => {
             poster={IMAGES.BANNERS.HERO_PROJECTS}
             className="object-cover w-full h-full opacity-50" // Dimmed for readability
           >
-            <source src={IMAGES.VIDEOS.HERO_SPOTLIGHT} type="video/mp4" />
+            <source src={IMAGES.VIDEOS.HERO_HOME} type="video/mp4" />
           </video>
         ) : (
           <img

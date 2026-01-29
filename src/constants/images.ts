@@ -230,11 +230,15 @@ export const IMAGES = {
     HERO_PROJECTS: '/images/videos/hero-projects-banner.mp4',
     // Updated: Mapped to actual file 'hero-properties-banner.mp4'
     HERO_WORK: '/images/videos/hero-properties-banner.mp4',
+    // Properties page hero video
+    HERO_PROPERTY: '/images/videos/hero-properties-banner.mp4',
     HOME_PAGE: '/images/videos/home-page-hero.mp4',
     SUCCESS_STORY: '/images/videos/success-stories.mp4',
     HERO_COMMUNITY: '/images/videos/community-investment-banner.mp4',
     // Updated: Removed '-banner' to match disk
     HERO_IMPACT: '/images/videos/hero-our-impact.mp4',
+    // Added: Home page hero video
+    HERO_HOME: '/images/videos/home-page-hero.mp4',
     // Added missing constant used in Hero.tsx
     HERO_SPOTLIGHT: '/images/videos/Hero-Spotlight-Banner(8).mp4',
   },
