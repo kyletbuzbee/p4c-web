@@ -100,3 +100,26 @@ __pycache__/analyze.cpython-314.pyc
 !Dockerfile.dev
 !Dockerfile.prod
 !README.md
+TODO.md
+.clinerules/.p4c-rules.md
+.clinerules/routemap.md
+.clinerules/strict-eslint-type-check.md
+.github/GITHUB_PAGES_DEPLOYMENT_PLAN.md
+.github/README_WORKFLOW.md
+.github/README_WORKFLOWS.md
+.kilocode/mcp.json
+.kilocode/rules/.kilo-rules.md
+.kilocode/skills/mcp-builder/SKILL.md
+.kilocode/skills/mcp-builder/reference/evaluation.md
+.kilocode/skills/mcp-builder/reference/mcp_best_practices.md
+.kilocode/skills/mcp-builder/reference/node_mcp_server.md
+.kilocode/skills/mcp-builder/reference/python_mcp_server.md
+.kilocode/skills/skill-share/SKILL.md
+plans/hmr-stability-solution.md
+plans/navigation-hero-enhancement-plan.md
+plans/race-condition-prevention.md
+plans/ux-optimization-plan.md
+plans/vite-optimization-solution.md
+public/images/banners/resident-services-banner.PNG
+public/images/videos/Video Project 11.mp4
+src/constants/IMAGE_MANAGEMENT_GUIDE.md
