@@ -114,8 +114,8 @@ export const IMAGES = {
 
     // Additional Banners
     LINDALE_COTTAGE_BANNER: '/images/banners/lindale-cottage.webp',
-    PROPERTIES_BANNER_PNG: '/images/banners/properties-banner.png',
-    RESIDENT_SERVICE_BANNER_PNG: '/images/banners/resident-service-banner.png',
+    HERO_PROPERTIES: '/images/banners/properties-banner.webp',
+    RESIDENT_SERVICE_BANNER: '/images/banners/resident-service-banner.webp',
   },
 
   // Property Listings
@@ -133,7 +133,8 @@ export const IMAGES = {
 
   // Brand Assets
   LOGO: {
-    PNG: '/images/logo/brand-logo.webp',
+    // Updated to use SVG that actually exists
+    PNG: '/images/logo/brand-logo.svg',
     SVG: '/images/logo/brand-logo.svg',
     WHITE_GOLD: '/images/logo/brand-logo-white-gold.svg',
     CHAT_AVATAR_PNG: '/images/logo/chat-avatar.png',
@@ -161,12 +162,17 @@ export const IMAGES = {
   // Renovation Showcase (Before/After) - Updated with all paths
   RENOVATION: {
     LIVING_ROOM: {
-      BEFORE: '/images/before-after-comparison/living-room-before.webp',
-      AFTER: '/images/before-after-comparison/living-room-after.webp',
+      // Updated: Match physical filenames
+      BEFORE:
+        '/images/before-after-comparison/projects-before-living-room-800w.webp',
+      AFTER:
+        '/images/before-after-comparison/projects-after-living-room-800w.webp',
     },
     KITCHEN: {
-      BEFORE: '/images/before-after-comparison/kitchen-before.webp',
-      AFTER: '/images/before-after-comparison/kitchen-after.webp',
+      // Updated: Match physical filenames
+      BEFORE:
+        '/images/before-after-comparison/projects-before-kitchen-800w.webp',
+      AFTER: '/images/before-after-comparison/projects-after-kitchen-800w.webp',
     },
     BATHROOM: {
       BEFORE:
@@ -186,7 +192,8 @@ export const IMAGES = {
       AFTER:
         '/images/before-after-comparison/projects-after-brick-patio-400w.webp',
     },
-    BEFORE_PLACEHOLDER: '/images/before-after-comparison/before.webp',
+    BEFORE_PLACEHOLDER:
+      '/images/before-after-comparison/projects-before-living-room-placeholder.jpg',
   },
 
   // Gallery / Our Work
@@ -219,13 +226,16 @@ export const IMAGES = {
 
   // Videos
   VIDEOS: {
-    HOME: '/images/videos/home.mp4',
+    HOME: '/images/videos/home-page-hero.mp4',
     HERO_PROJECTS: '/images/videos/hero-projects-banner.mp4',
-    HERO_WORK: '/images/videos/hero-our-work-banner.mp4',
-    HERO_IMPACT: '/images/videos/hero-our-impact.mp4',
-    HERO_SPOTLIGHT: '/images/videos/hero-spotlight-banner.mp4',
+    // Updated: Mapped to actual file 'hero-properties-banner.mp4'
+    HERO_WORK: '/images/videos/hero-properties-banner.mp4',
+    HOME_PAGE: '/images/videos/home-page-hero.mp4',
     SUCCESS_STORY: '/images/videos/success-stories.mp4',
-    COMMUNITY_INVESTMENT: '/images/videos/community-investment-banner.mp4',
-    HERO_PROPERTY: '/images/videos/hero-property-banner.mp4',
+    HERO_COMMUNITY: '/images/videos/community-investment-banner.mp4',
+    // Updated: Removed '-banner' to match disk
+    HERO_IMPACT: '/images/videos/hero-our-impact.mp4',
+    // Added missing constant used in Hero.tsx
+    HERO_SPOTLIGHT: '/images/videos/Hero-Spotlight-Banner(8).mp4',
   },
 } as const;

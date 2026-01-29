@@ -48,7 +48,7 @@ const ResidentServices: React.FC = () => {
       <div className="relative h-[400px] w-full overflow-hidden flex items-center justify-center">
         <div className="absolute top-0 left-0 w-full h-full z-0">
           <img
-            src={IMAGES.BANNERS.RESIDENT_SERVICE_BANNER_PNG}
+            src={IMAGES.BANNERS.RESIDENT_SERVICE_BANNER}
             alt="Happy resident family in their home"
             className="w-full h-full object-cover"
           />
@@ -75,7 +75,7 @@ const ResidentServices: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
               <img
-                src={IMAGES.BANNERS.RESIDENT_SERVICE_BANNER_PNG}
+                src={IMAGES.BANNERS.RESIDENT_SERVICE_BANNER}
                 alt="Resident portal access"
                 className="w-full h-full object-cover"
               />

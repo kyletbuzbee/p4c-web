@@ -199,5 +199,11 @@ module.exports = {
         'no-undef': 'off',
       },
     },
+    {
+      files: ['scripts/**/*.js', 'scripts/**/*.ts'],
+      rules: {
+        'security/detect-non-literal-fs-filename': 'off',
+      },
+    },
   ],
 };

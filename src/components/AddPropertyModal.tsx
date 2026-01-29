@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, Loader2, Save } from 'lucide-react';
 import { useToast } from '../context/ToastContext';
 import { api } from '../services/api';
+import { IMAGES } from '../constants/images';
 
 interface AddPropertyModalProps {
   isOpen: boolean;
@@ -28,8 +29,7 @@ const AddPropertyModal: React.FC<AddPropertyModalProps> = ({
     bathrooms: 0,
     sqft: 0,
     description: '',
-    imageUrl:
-      'https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&q=80',
+    imageUrl: IMAGES.PROPERTIES.TYLER_RANCH as string,
     neighborhood: '', // [NEW]
     schoolDistrict: '', // [NEW]
     availabilityDate: 'Available Now', // [NEW]
