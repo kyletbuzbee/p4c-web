@@ -219,8 +219,7 @@ export const IMAGES = {
 
   // Family Lifestyle Images
   FAMILY: {
-    BACKYARD: '/images/family/family-backyard.png',
-    KITCHEN_DINNER: '/images/family/family-kitchen-dinner.png',
+    BACKYARD: '/images/family/family-backyard.webp',
     HAPPY_KITCHEN: '/images/family/happy-family-kitchen.webp',
   },
 
