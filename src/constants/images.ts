@@ -242,5 +242,7 @@ export const IMAGES = {
     HERO_SPOTLIGHT: '/images/videos/Hero-Spotlight-Banner(8).mp4',
     // Kitchen timelapse for Our Impact page
     KITCHEN_TIMELAPSE: '/images/videos/hero-kitchen-timelapse.mp4',
+    // Impact hero video alias
+    IMPACT_HERO: '/images/videos/hero-kitchen-timelapse.mp4',
   },
 } as const;

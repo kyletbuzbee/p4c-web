@@ -553,10 +553,10 @@ const Home: React.FC = () => {
                 neighborhoods and supports local growth.
               </p>
               <button
-                onClick={() => navigate('/our-impact')}
+                onClick={() => navigate('/transparency')}
                 className="bg-p4c-gold text-p4c-navy hover:bg-white hover:text-p4c-navy px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
               >
-                View Our Impact
+                View Our Impact Data
                 <ArrowRight className="w-5 h-5" />
               </button>
             </div>

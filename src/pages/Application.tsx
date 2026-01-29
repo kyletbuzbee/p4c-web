@@ -83,8 +83,8 @@ const Application: React.FC = () => {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-10">
-          <h1 className="text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-4">
-            Rental Application
+          <h1 className="text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-4 max-w-lg mx-auto leading-tight">
+            Properties 4 Creation<br />Rental Application
           </h1>
           <p className="text-gray-600 flex items-center justify-center gap-2">
             <Lock className="w-4 h-4" /> Secure 256-bit Encrypted Submission
