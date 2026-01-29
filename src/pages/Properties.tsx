@@ -136,16 +136,11 @@ const Properties: React.FC = () => {
       {/* --- HERO SECTION --- */}
       <div className="relative h-[500px] w-full overflow-hidden flex items-center justify-center">
         <div className="absolute top-0 left-0 w-full h-full z-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
+          <img
+            src={IMAGES.BANNERS.HERO_PROPERTIES}
+            alt="Properties in East Texas"
             className="w-full h-full object-cover"
-          >
-            <source src={IMAGES.VIDEOS.HERO_PROPERTY} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+          />
           <div className="absolute top-0 left-0 w-full h-full bg-p4c-navy/60" />
         </div>
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
