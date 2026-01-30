@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import fs from 'fs';
 
 // Read the HTML file
@@ -26,7 +24,7 @@ try {
     '📝 Form field name attribute:',
     hasNameAttr ? '✅ FIXED' : '❌ MISSING'
   );
-} catch (error) {
+} catch {
   console.log(
     '📝 Form field check: Could not read compiled file, but source has been fixed'
   );

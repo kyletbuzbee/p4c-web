@@ -17,7 +17,6 @@ import {
   FileText,
   CheckCircle2,
   LayoutDashboard,
-  Scale,
   Accessibility,
   Building2,
 } from 'lucide-react';
@@ -48,25 +47,25 @@ const Navbar = (): React.ReactElement => {
         {
           label: 'Available Properties',
           path: '/properties',
-          icon: <Home className="w-4 h-4" />,
+          icon: <Home className="size-4" />,
           desc: 'Premium rentals in Tyler & Longview',
         },
         {
           label: 'Apply for Housing',
           path: '/apply',
-          icon: <FileText className="w-4 h-4" />,
+          icon: <FileText className="size-4" />,
           desc: 'Fast, digital approval process',
         },
         {
           label: 'Veteran Housing Program',
           path: '/veterans',
-          icon: <Flag className="w-4 h-4" />,
+          icon: <Flag className="size-4" />,
           desc: 'Specialized military housing',
         },
         {
           label: 'Family Resources',
           path: '/family-resources',
-          icon: <Users className="w-4 h-4" />,
+          icon: <Users className="size-4" />,
           desc: 'School districts & community guides',
         },
       ],
@@ -77,31 +76,31 @@ const Navbar = (): React.ReactElement => {
         {
           label: 'Our Story',
           path: '/about',
-          icon: <Building2 className="w-4 h-4" />,
+          icon: <Building2 className="size-4" />,
           desc: 'Professional management team',
         },
         {
           label: 'Community Impact',
           path: '/community',
-          icon: <Heart className="w-4 h-4" />,
+          icon: <Heart className="size-4" />,
           desc: 'Revitalization data & metrics',
         },
         {
           label: 'Quality Standards',
           path: '/transparency',
-          icon: <ShieldCheck className="w-4 h-4" />,
+          icon: <ShieldCheck className="size-4" />,
           desc: 'See our renovation quality specs',
         },
         {
           label: 'Resident Stories',
           path: '/reviews',
-          icon: <CheckCircle2 className="w-4 h-4" />,
+          icon: <CheckCircle2 className="size-4" />,
           desc: 'Our commitment to excellence',
         },
         {
           label: 'Careers',
           path: '/careers',
-          icon: <Hammer className="w-4 h-4" />,
+          icon: <Hammer className="size-4" />,
           desc: 'Join our renovation crews',
         },
       ],
@@ -112,31 +111,31 @@ const Navbar = (): React.ReactElement => {
         {
           label: 'Resident Portal',
           path: '/portal',
-          icon: <Lock className="w-4 h-4" />,
+          icon: <Lock className="size-4" />,
           desc: 'Pay rent & request repairs',
         },
         {
           label: 'Resident Services',
           path: '/resident-services',
-          icon: <HeartHandshake className="w-4 h-4" />,
+          icon: <HeartHandshake className="size-4" />,
           desc: 'Support & case management',
         },
         {
           label: 'Veteran Services',
           path: '/veteran-services',
-          icon: <Flag className="w-4 h-4" />,
+          icon: <Flag className="size-4" />,
           desc: 'Veteran resident support',
         },
         {
           label: 'FAQ',
           path: '/faq',
-          icon: <HelpCircle className="w-4 h-4" />,
+          icon: <HelpCircle className="size-4" />,
           desc: 'Leasing & policy questions',
         },
         {
           label: 'Accessibility',
           path: '/accessibility',
-          icon: <Accessibility className="w-4 h-4" />,
+          icon: <Accessibility className="size-4" />,
           desc: 'ADA compliance info',
         },
       ],
@@ -170,13 +169,13 @@ const Navbar = (): React.ReactElement => {
   };
 
   return (
-    <nav className="sticky top-0 z-50 glass-navbar border-b border-white/10 text-white backdrop-blur-2xl shadow-xl">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-20 items-center">
+    <nav className="glass-navbar sticky top-0 z-50 border-b border-white/10 text-white shadow-xl backdrop-blur-2xl">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-20 items-center justify-between">
           {/* Logo */}
           <Link
             to="/"
-            className="flex-shrink-0 flex items-center gap-3 hover:opacity-90 transition-opacity"
+            className="flex shrink-0 items-center gap-3 transition-opacity hover:opacity-90"
             aria-label="Properties 4 Creation Home"
           >
             <img
@@ -187,11 +186,11 @@ const Navbar = (): React.ReactElement => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1">
+          <div className="hidden items-center space-x-1 md:flex">
             {navStructure.map((group) => (
               <div
                 key={group.label}
-                className="relative group px-3 py-2"
+                className="group relative px-3 py-2"
                 onMouseEnter={() => handleMouseEnter(group.label)}
                 onMouseLeave={handleMouseLeave}
               >
@@ -207,7 +206,7 @@ const Navbar = (): React.ReactElement => {
                 >
                   {group.label}
                   <ChevronDown
-                    className={`ml-1 w-3 h-3 transition-transform duration-200 ${
+                    className={`ml-1 size-3 transition-transform duration-200 ${
                       activeDropdown === group.label ? 'rotate-180' : ''
                     }`}
                     aria-hidden="true"
@@ -217,7 +216,7 @@ const Navbar = (): React.ReactElement => {
                 {/* Dropdown Menu */}
                 {activeDropdown === group.label && (
                   <div
-                    className="absolute top-full left-0 w-72 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden animate-fade-in-up"
+                    className="absolute left-0 top-full w-72 animate-fade-in-up overflow-hidden rounded-xl border border-gray-200 bg-white shadow-2xl"
                     role="menu"
                   >
                     <div className="py-2">
@@ -226,18 +225,18 @@ const Navbar = (): React.ReactElement => {
                           key={child.label}
                           onClick={() => handleNavClick(child.path)}
                           onKeyDown={(e) => handleKeyDown(e, child.path)}
-                          className="w-full text-left px-4 py-3 hover:bg-gray-50 flex items-start gap-3 group/item transition-colors"
+                          className="group/item flex w-full items-start gap-3 px-4 py-3 text-left transition-colors hover:bg-gray-50"
                           role="menuitem"
                           aria-label={`${child.label} - ${child.desc}`}
                         >
-                          <div className="mt-1 p-1.5 bg-p4c-beige rounded-md text-p4c-navy group-hover/item:bg-p4c-navy group-hover/item:text-p4c-gold transition-colors">
+                          <div className="mt-1 rounded-md bg-p4c-beige p-1.5 text-p4c-navy transition-colors group-hover/item:bg-p4c-navy group-hover/item:text-p4c-gold">
                             {child.icon}
                           </div>
                           <div>
-                            <div className="text-p4c-navy font-bold text-sm">
+                            <div className="text-sm font-bold text-p4c-navy">
                               {child.label}
                             </div>
-                            <div className="text-gray-500 text-xs">
+                            <div className="text-xs text-gray-500">
                               {child.desc}
                             </div>
                           </div>
@@ -252,37 +251,37 @@ const Navbar = (): React.ReactElement => {
             {/* Direct Links */}
             <button
               onClick={() => handleNavClick('/contact')}
-              className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium"
+              className="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white"
               aria-label="Contact us"
             >
               Contact
             </button>
 
-            <div className="h-6 w-px bg-gray-700 mx-2" />
+            <div className="mx-2 h-6 w-px bg-gray-700" />
 
             {/* Internal / Admin Link (Hidden in plain sight) */}
             <button
               onClick={() => handleNavClick('/admin')}
-              className="text-gray-400 hover:text-p4c-gold p-2 rounded-full"
+              className="rounded-full p-2 text-gray-400 hover:text-p4c-gold"
               aria-label="Staff Dashboard"
             >
-              <LayoutDashboard className="w-4 h-4" aria-hidden="true" />
+              <LayoutDashboard className="size-4" aria-hidden="true" />
             </button>
 
             {/* Sell Your House CTA */}
             <Link
               to="/homeowner-solutions"
-              className="bg-p4c-gold text-p4c-navy px-5 py-2.5 rounded-xl font-bold hover:bg-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 mr-3 text-sm flex items-center gap-2"
+              className="mr-3 flex items-center gap-2 rounded-xl bg-p4c-gold px-5 py-2.5 text-sm font-bold text-p4c-navy shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-xl"
               aria-label="Sell your house - Homeowner solutions"
             >
-              <Building2 className="w-4 h-4" aria-hidden="true" />
+              <Building2 className="size-4" aria-hidden="true" />
               Sell Your House
             </Link>
 
             {/* CTA Button */}
             <button
               onClick={() => handleNavClick('/apply')}
-              className="bg-p4c-navy border border-p4c-gold text-p4c-gold hover:bg-p4c-gold hover:text-p4c-navy px-5 py-2.5 rounded-xl font-bold text-sm transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              className="rounded-xl border border-p4c-gold bg-p4c-navy px-5 py-2.5 text-sm font-bold text-p4c-gold shadow-lg transition-all hover:-translate-y-0.5 hover:bg-p4c-gold hover:text-p4c-navy hover:shadow-xl"
               aria-label="Apply now for tenant application"
             >
               Apply Now
@@ -290,20 +289,16 @@ const Navbar = (): React.ReactElement => {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
+          <div className="flex items-center md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-300 hover:text-white p-2 focus:outline-none focus:ring-2 focus:ring-p4c-gold"
+              className="p-2 text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-p4c-gold"
               aria-label={
                 isOpen ? 'Close navigation menu' : 'Open navigation menu'
               }
               aria-expanded={isOpen}
             >
-              {isOpen ? (
-                <X className="h-6 w-6" />
-              ) : (
-                <Menu className="h-6 w-6" />
-              )}
+              {isOpen ? <X className="size-6" /> : <Menu className="size-6" />}
             </button>
           </div>
         </div>
@@ -311,11 +306,11 @@ const Navbar = (): React.ReactElement => {
 
       {/* Mobile Menu Overlay */}
       {isOpen && (
-        <div className="md:hidden bg-[#0B1120] border-t border-gray-800 max-h-[calc(100vh-80px)] overflow-y-auto">
-          <div className="px-4 pt-4 pb-6 space-y-6">
+        <div className="max-h-[calc(100vh-80px)] overflow-y-auto border-t border-gray-800 bg-[#0B1120] md:hidden">
+          <div className="space-y-6 px-4 pb-6 pt-4">
             {navStructure.map((group) => (
               <div key={group.label} className="space-y-3">
-                <h3 className="text-p4c-gold font-serif font-bold border-b border-gray-700 pb-2">
+                <h3 className="border-b border-gray-700 pb-2 font-serif font-bold text-p4c-gold">
                   {group.label}
                 </h3>
                 <div className="grid grid-cols-1 gap-2">
@@ -323,12 +318,12 @@ const Navbar = (): React.ReactElement => {
                     <button
                       key={child.label}
                       onClick={() => handleNavClick(child.path)}
-                      className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 text-gray-300 hover:text-white transition-colors text-left"
+                      className="flex items-center gap-3 rounded-lg p-2 text-left text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
                       aria-label={`${child.label} - ${child.desc}`}
                     >
                       <div className="text-p4c-gold">{child.icon}</div>
                       <div>
-                        <div className="font-medium text-sm">{child.label}</div>
+                        <div className="text-sm font-medium">{child.label}</div>
                         <div className="text-xs text-gray-500">
                           {child.desc}
                         </div>
@@ -338,19 +333,19 @@ const Navbar = (): React.ReactElement => {
                 </div>
               </div>
             ))}
-            <div className="pt-4 border-t border-gray-700 space-y-3">
+            <div className="space-y-3 border-t border-gray-700 pt-4">
               <button
                 onClick={() => handleNavClick('/homeowner-solutions')}
-                className="w-full bg-p4c-gold text-p4c-navy hover:bg-white px-6 py-3 rounded-lg font-bold flex items-center justify-center gap-2"
+                className="flex w-full items-center justify-center gap-2 rounded-lg bg-p4c-gold px-6 py-3 font-bold text-p4c-navy hover:bg-white"
                 aria-label="Sell your house fast - Homeowner solutions"
               >
-                <Building2 className="w-4 h-4" aria-hidden="true" /> Sell Your
+                <Building2 className="size-4" aria-hidden="true" /> Sell Your
                 House Fast
               </button>
 
               <button
                 onClick={() => handleNavClick('/apply')}
-                className="w-full bg-p4c-navy border border-p4c-gold text-p4c-gold hover:bg-p4c-goldHover hover:text-p4c-navy px-6 py-3 rounded-lg font-bold"
+                className="w-full rounded-lg border border-p4c-gold bg-p4c-navy px-6 py-3 font-bold text-p4c-gold hover:bg-p4c-goldHover hover:text-p4c-navy"
                 aria-label="Start tenant application process"
               >
                 Start Tenant Application
@@ -358,10 +353,10 @@ const Navbar = (): React.ReactElement => {
 
               <button
                 onClick={() => handleNavClick('/contact')}
-                className="w-full flex items-center justify-center gap-3 p-2 text-gray-400 hover:text-white"
+                className="flex w-full items-center justify-center gap-3 p-2 text-gray-400 hover:text-white"
                 aria-label="Contact office for assistance"
               >
-                <Phone className="w-4 h-4" aria-hidden="true" /> Contact Office
+                <Phone className="size-4" aria-hidden="true" /> Contact Office
               </button>
             </div>
           </div>

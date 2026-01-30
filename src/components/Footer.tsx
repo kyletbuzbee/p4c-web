@@ -11,19 +11,19 @@ import { Link } from 'react-router-dom';
 import { IMAGES } from '../constants/images';
 
 const Footer: React.FC = () => (
-  <footer className="bg-gray-900 text-white pt-16 pb-8 border-t border-gray-800">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+  <footer className="border-t border-gray-800 bg-gray-900 pb-8 pt-16 text-white">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mb-12 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
         {/* 1. Brand & Mission - BUSINESS FOCUSED */}
         <div className="col-span-1">
-          <div className="flex items-center gap-2 mb-4">
+          <div className="mb-4 flex items-center gap-2">
             <img
               src={IMAGES.LOGO.WHITE_GOLD}
               alt="Properties 4 Creation Real Estate Logo"
               className="h-20 w-auto object-contain"
             />
           </div>
-          <p className="text-gray-400 text-sm leading-relaxed mb-6">
+          <p className="mb-6 text-sm leading-relaxed text-gray-400">
             Properties 4 Creation is an investment and management firm dedicated
             to the revitalization of <strong>East Texas</strong>. We transform
             distressed assets into premium affordable housing for the East Texas
@@ -34,42 +34,42 @@ const Footer: React.FC = () => (
               href="https://facebook.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-p4c-gold transition-colors"
+              className="text-gray-400 transition-colors hover:text-p4c-gold"
               aria-label="Visit our Facebook page"
             >
-              <Facebook className="w-5 h-5" />
+              <Facebook className="size-5" />
             </a>
             <a
               href="https://instagram.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-p4c-gold transition-colors"
+              className="text-gray-400 transition-colors hover:text-p4c-gold"
               aria-label="Visit our Instagram page"
             >
-              <Instagram className="w-5 h-5" />
+              <Instagram className="size-5" />
             </a>
             <a
               href="https://linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-p4c-gold transition-colors"
+              className="text-gray-400 transition-colors hover:text-p4c-gold"
               aria-label="Visit our LinkedIn profile"
             >
-              <Linkedin className="w-5 h-5" />
+              <Linkedin className="size-5" />
             </a>
           </div>
         </div>
 
         {/* 2. Find a Home (Prospective Residents) */}
         <div>
-          <h4 className="font-serif font-bold text-lg mb-4 text-p4c-gold">
+          <h4 className="mb-4 font-serif text-lg font-bold text-p4c-gold">
             Find a Home
           </h4>
           <ul className="space-y-2 text-sm text-gray-400">
             <li>
               <Link
                 to="/properties"
-                className="hover:text-white transition-colors"
+                className="transition-colors hover:text-white"
               >
                 Available Properties
               </Link>
@@ -77,7 +77,7 @@ const Footer: React.FC = () => (
             <li>
               <Link
                 to="/veterans"
-                className="hover:text-white transition-colors"
+                className="transition-colors hover:text-white"
               >
                 Veteran Housing Program
               </Link>
@@ -85,13 +85,13 @@ const Footer: React.FC = () => (
             <li>
               <Link
                 to="/family-resources"
-                className="hover:text-white transition-colors"
+                className="transition-colors hover:text-white"
               >
                 Family Resources
               </Link>
             </li>
             <li>
-              <Link to="/apply" className="hover:text-white transition-colors">
+              <Link to="/apply" className="transition-colors hover:text-white">
                 Apply for Housing
               </Link>
             </li>
@@ -100,19 +100,19 @@ const Footer: React.FC = () => (
 
         {/* 3. Company (About Us) */}
         <div>
-          <h4 className="font-serif font-bold text-lg mb-4 text-p4c-gold">
+          <h4 className="mb-4 font-serif text-lg font-bold text-p4c-gold">
             Company
           </h4>
           <ul className="space-y-2 text-sm text-gray-400">
             <li>
-              <Link to="/about" className="hover:text-white transition-colors">
+              <Link to="/about" className="transition-colors hover:text-white">
                 Our Story
               </Link>
             </li>
             <li>
               <Link
                 to="/community"
-                className="hover:text-white transition-colors"
+                className="transition-colors hover:text-white"
               >
                 Community Impact
               </Link>
@@ -120,7 +120,7 @@ const Footer: React.FC = () => (
             <li>
               <Link
                 to="/transparency"
-                className="hover:text-white transition-colors"
+                className="transition-colors hover:text-white"
               >
                 Quality Standards
               </Link>
@@ -128,7 +128,7 @@ const Footer: React.FC = () => (
             <li>
               <Link
                 to="/reviews"
-                className="hover:text-white transition-colors"
+                className="transition-colors hover:text-white"
               >
                 Resident Stories
               </Link>
@@ -136,10 +136,10 @@ const Footer: React.FC = () => (
             <li>
               <Link
                 to="/careers"
-                className="hover:text-white transition-colors flex items-center gap-2"
+                className="flex items-center gap-2 transition-colors hover:text-white"
               >
                 Careers
-                <span className="text-xs bg-p4c-gold text-p4c-navy px-1.5 rounded font-bold">
+                <span className="rounded bg-p4c-gold px-1.5 text-xs font-bold text-p4c-navy">
                   Hiring
                 </span>
               </Link>
@@ -149,19 +149,19 @@ const Footer: React.FC = () => (
 
         {/* 4. Residents & Legal */}
         <div>
-          <h4 className="font-serif font-bold text-lg mb-4 text-p4c-gold">
+          <h4 className="mb-4 font-serif text-lg font-bold text-p4c-gold">
             Residents
           </h4>
-          <ul className="space-y-2 text-sm text-gray-400 mb-6">
+          <ul className="mb-6 space-y-2 text-sm text-gray-400">
             <li>
-              <Link to="/portal" className="hover:text-white transition-colors">
+              <Link to="/portal" className="transition-colors hover:text-white">
                 Resident Portal
               </Link>
             </li>
             <li>
               <Link
                 to="/resident-services"
-                className="hover:text-white transition-colors"
+                className="transition-colors hover:text-white"
               >
                 Resident Services
               </Link>
@@ -169,36 +169,36 @@ const Footer: React.FC = () => (
             <li>
               <Link
                 to="/veteran-services"
-                className="hover:text-white transition-colors"
+                className="transition-colors hover:text-white"
               >
                 Veteran Services
               </Link>
             </li>
             <li>
-              <Link to="/faq" className="hover:text-white transition-colors">
+              <Link to="/faq" className="transition-colors hover:text-white">
                 FAQ
               </Link>
             </li>
           </ul>
-          <h5 className="font-bold text-sm text-white mb-2">Legal</h5>
+          <h5 className="mb-2 text-sm font-bold text-white">Legal</h5>
           <ul className="space-y-2 text-sm text-gray-400">
             <li>
               <Link
                 to="/privacy"
-                className="hover:text-white transition-colors"
+                className="transition-colors hover:text-white"
               >
                 Privacy Policy
               </Link>
             </li>
             <li>
-              <Link to="/terms" className="hover:text-white transition-colors">
+              <Link to="/terms" className="transition-colors hover:text-white">
                 Terms of Service
               </Link>
             </li>
             <li>
               <Link
                 to="/equal-housing"
-                className="hover:text-white transition-colors"
+                className="transition-colors hover:text-white"
               >
                 Equal Housing
               </Link>
@@ -206,7 +206,7 @@ const Footer: React.FC = () => (
             <li>
               <Link
                 to="/accessibility"
-                className="hover:text-white transition-colors"
+                className="transition-colors hover:text-white"
               >
                 Accessibility
               </Link>
@@ -216,21 +216,21 @@ const Footer: React.FC = () => (
       </div>
 
       {/* Badges Bar */}
-      <div className="border-t border-gray-800 pt-8 pb-8">
+      <div className="border-t border-gray-800 py-8">
         <div className="flex flex-wrap justify-center gap-6">
           <div className="flex items-center gap-2 text-sm text-gray-500">
-            <Flag className="text-p4c-gold w-4 h-4" /> Veteran Owned & Operated
+            <Flag className="size-4 text-p4c-gold" /> Veteran Owned & Operated
           </div>
           <div className="flex items-center gap-2 text-sm text-gray-500">
-            <Home className="text-p4c-gold w-4 h-4" /> Equal Housing Opportunity
+            <Home className="size-4 text-p4c-gold" /> Equal Housing Opportunity
           </div>
           <div className="flex items-center gap-2 text-sm text-gray-500">
-            <Accessibility className="text-p4c-gold w-4 h-4" /> ADA Compliant
+            <Accessibility className="size-4 text-p4c-gold" /> ADA Compliant
           </div>
         </div>
       </div>
 
-      <div className="border-t border-gray-800 pt-8 text-center text-gray-600 text-xs">
+      <div className="border-t border-gray-800 pt-8 text-center text-xs text-gray-600">
         <p>
           &copy; {new Date().getFullYear()} Properties 4 Creation, LLC. All
           rights reserved.

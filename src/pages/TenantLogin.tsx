@@ -54,13 +54,13 @@ const TenantLogin: React.FC = () => {
           'Invalid email or password. Please check your credentials and try again.'
         );
       }
-    } catch (err) {
+    } catch {
       setError('Login failed. Please try again or contact support.');
     }
   };
 
   return (
-    <div className="min-h-screen bg-p4c-beige flex flex-col lg:flex-row">
+    <div className="flex min-h-screen flex-col bg-p4c-beige lg:flex-row">
       <Helmet>
         <title>Portal Login | Properties 4 Creation</title>
         <meta
@@ -74,20 +74,20 @@ const TenantLogin: React.FC = () => {
       </Helmet>
 
       {/* Left Side - Visuals */}
-      <div className="lg:w-1/2 bg-p4c-navy relative hidden lg:flex flex-col justify-center px-12 text-white overflow-hidden">
+      <div className="relative hidden flex-col justify-center overflow-hidden bg-p4c-navy px-12 text-white lg:flex lg:w-1/2">
         <div
-          className="absolute top-0 left-0 w-full h-full bg-cover opacity-20"
+          className="absolute left-0 top-0 size-full bg-cover opacity-20"
           style={{ backgroundImage: `url('${IMAGES.BANNERS.HERO_HOME}')` }}
         />
         <div className="relative z-10">
-          <h1 className="text-4xl font-serif font-bold mb-6">Welcome Home.</h1>
-          <p className="text-lg text-gray-300 mb-8 max-w-md">
+          <h1 className="mb-6 font-serif text-4xl font-bold">Welcome Home.</h1>
+          <p className="mb-8 max-w-md text-lg text-gray-300">
             Manage your residency with ease. Pay rent, request repairs, and view
             community announcements all in one place.
           </p>
           <div className="space-y-4">
-            <div className="flex items-center gap-4 bg-white/10 p-4 rounded-lg backdrop-blur-sm border border-white/10">
-              <CreditCard className="text-p4c-gold w-6 h-6" />
+            <div className="flex items-center gap-4 rounded-lg border border-white/10 bg-white/10 p-4 backdrop-blur-sm">
+              <CreditCard className="size-6 text-p4c-gold" />
               <div>
                 <h3 className="font-bold">Auto-Pay Rent</h3>
                 <p className="text-sm text-gray-400">
@@ -95,8 +95,8 @@ const TenantLogin: React.FC = () => {
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-4 bg-white/10 p-4 rounded-lg backdrop-blur-sm border border-white/10">
-              <Wrench className="text-p4c-gold w-6 h-6" />
+            <div className="flex items-center gap-4 rounded-lg border border-white/10 bg-white/10 p-4 backdrop-blur-sm">
+              <Wrench className="size-6 text-p4c-gold" />
               <div>
                 <h3 className="font-bold">24/7 Maintenance</h3>
                 <p className="text-sm text-gray-400">
@@ -109,23 +109,23 @@ const TenantLogin: React.FC = () => {
       </div>
 
       {/* Right Side - Form */}
-      <div className="lg:w-1/2 flex items-center justify-center p-8">
-        <div className="max-w-md w-full bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
-          <div className="text-center mb-8">
-            <div className="inline-flex justify-center items-center bg-p4c-navy p-3 rounded-full mb-4 shadow-lg">
-              <Lock className="text-p4c-gold w-6 h-6" />
+      <div className="flex items-center justify-center p-8 lg:w-1/2">
+        <div className="w-full max-w-md rounded-2xl border border-gray-100 bg-white p-8 shadow-xl">
+          <div className="mb-8 text-center">
+            <div className="mb-4 inline-flex items-center justify-center rounded-full bg-p4c-navy p-3 shadow-lg">
+              <Lock className="size-6 text-p4c-gold" />
             </div>
-            <h2 className="text-2xl font-bold text-p4c-navy font-serif">
+            <h2 className="font-serif text-2xl font-bold text-p4c-navy">
               Secure Login
             </h2>
-            <p className="text-gray-500 text-sm mt-2">
+            <p className="mt-2 text-sm text-gray-500">
               Resident & Staff Portal
             </p>
           </div>
 
           {error && (
-            <div className="mb-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm flex items-center gap-2 animate-fade-in">
-              <AlertCircle className="w-4 h-4 flex-shrink-0" />
+            <div className="mb-4 flex animate-fade-in items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+              <AlertCircle className="size-4 shrink-0" />
               {error}
             </div>
           )}
@@ -134,20 +134,20 @@ const TenantLogin: React.FC = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="mb-1 block text-sm font-medium text-gray-700"
               >
                 Email Address
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <User className="h-5 w-5 text-gray-400" />
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                  <User className="size-5 text-gray-400" />
                 </div>
                 <input
                   id="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-p4c-gold focus:border-p4c-gold sm:text-sm transition-shadow"
+                  className="block w-full rounded-md border border-gray-300 py-3 pl-10 pr-3 shadow-sm transition-shadow placeholder:text-gray-400 focus:border-p4c-gold focus:outline-none focus:ring-p4c-gold sm:text-sm"
                   placeholder="you@example.com"
                   required
                 />
@@ -155,7 +155,7 @@ const TenantLogin: React.FC = () => {
             </div>
 
             <div>
-              <div className="flex justify-between items-center mb-1">
+              <div className="mb-1 flex items-center justify-between">
                 <label
                   htmlFor="password"
                   className="block text-sm font-medium text-gray-700"
@@ -164,21 +164,21 @@ const TenantLogin: React.FC = () => {
                 </label>
                 <button
                   type="button"
-                  className="text-xs text-p4c-navy hover:underline cursor-pointer"
+                  className="cursor-pointer text-xs text-p4c-navy hover:underline"
                 >
                   Forgot password?
                 </button>
               </div>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-gray-400" />
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                  <Lock className="size-5 text-gray-400" />
                 </div>
                 <input
                   id="password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-p4c-gold focus:border-p4c-gold sm:text-sm transition-shadow"
+                  className="block w-full rounded-md border border-gray-300 py-3 pl-10 pr-3 shadow-sm transition-shadow placeholder:text-gray-400 focus:border-p4c-gold focus:outline-none focus:ring-p4c-gold sm:text-sm"
                   placeholder="••••••••"
                   required
                 />
@@ -188,34 +188,34 @@ const TenantLogin: React.FC = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-bold text-white bg-p4c-navy hover:bg-p4c-slate focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-p4c-navy transition-all duration-200 disabled:opacity-70"
+              className="flex w-full justify-center rounded-md border border-transparent bg-p4c-navy px-4 py-3 text-sm font-bold text-white shadow-sm transition-all duration-200 hover:bg-p4c-slate focus:outline-none focus:ring-2 focus:ring-p4c-navy focus:ring-offset-2 disabled:opacity-70"
             >
               {isLoading ? 'Signing in...' : 'Sign In'}{' '}
-              <ArrowRight className="ml-2 w-4 h-4" />
+              <ArrowRight className="ml-2 size-4" />
             </button>
           </form>
 
-          <div className="mt-6 pt-6 border-t border-gray-100 text-center">
-            <div className="flex items-center justify-center gap-2 text-green-700 bg-green-50 p-2 rounded text-xs font-bold mb-4">
-              <ShieldCheck className="w-4 h-4" />
+          <div className="mt-6 border-t border-gray-100 pt-6 text-center">
+            <div className="mb-4 flex items-center justify-center gap-2 rounded bg-green-50 p-2 text-xs font-bold text-green-700">
+              <ShieldCheck className="size-4" />
               Bank-Level 256-bit Encryption
             </div>
             <div className="space-y-3">
-              <p className="text-xs text-gray-500 text-center">
+              <p className="text-center text-xs text-gray-500">
                 Not a resident yet?{' '}
                 <Link
                   to="/apply"
-                  className="text-p4c-navy font-bold hover:underline"
+                  className="font-bold text-p4c-navy hover:underline"
                 >
                   Apply for a home
                 </Link>
               </p>
 
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                <p className="text-xs text-blue-800 font-medium text-center">
+              <div className="rounded-lg border border-blue-200 bg-blue-50 p-3">
+                <p className="text-center text-xs font-medium text-blue-800">
                   Demo Credentials:
                 </p>
-                <div className="text-xs text-blue-700 mt-1 space-y-1">
+                <div className="mt-1 space-y-1 text-xs text-blue-700">
                   <div>Admin: admin@p4c.com / admin</div>
                   <div>Tenant: tenant@p4c.com / tenant123</div>
                   <div>Veteran: veteran@p4c.com / veteran123</div>

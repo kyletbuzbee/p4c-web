@@ -236,7 +236,7 @@ class SessionManager {
 }
 
 // Enhanced user data validator
-const validateUserData = (userData: any): User | null => {
+const validateUserData = (userData: unknown): User | null => {
   try {
     if (!userData.id || !userData.email || !userData.role) {
       return null;
@@ -273,7 +273,7 @@ const validateUserData = (userData: any): User | null => {
       loginAttempts: userData.loginAttempts || 0,
       lockedUntil: userData.lockedUntil,
     };
-  } catch (error) {
+  } catch {
     return null;
   }
 };
@@ -770,15 +770,16 @@ const getDefaultPermissions = (role: UserRole): string[] => {
 };
 
 // Utility function for throttling
-const throttle = (func: Function, limit: number) => {
+const throttle = <T extends (...args: unknown[]) => unknown>(
+  func: T,
+  limit: number
+): T => {
   let inThrottle: boolean;
-  return function (this: any) {
-    const args = arguments;
-    const context = this;
+  return function (this: unknown, ...args: Parameters<T>) {
     if (!inThrottle) {
-      func.apply(context, args);
+      func.apply(this, args);
       inThrottle = true;
       setTimeout(() => (inThrottle = false), limit);
     }
-  };
+  } as T;
 };

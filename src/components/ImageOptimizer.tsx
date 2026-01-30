@@ -31,6 +31,7 @@ const ImageOptimizer: React.FC<ImageOptimizerProps> = ({
   const [hasError, setHasError] = useState(false);
   const [currentSrc, setCurrentSrc] = useState(placeholder);
   const imgRef = useRef<HTMLImageElement>(null);
+  const { supportedFormat } = useImageFormat();
 
   // Generate optimized image URLs
   const generateOptimizedSrc = (
@@ -60,16 +61,13 @@ const ImageOptimizer: React.FC<ImageOptimizerProps> = ({
   useEffect(() => {
     let isMounted = true;
 
-    const loadImage = async () => {
+    const loadImage = () => {
       try {
-        // Get cached format support from context
-        const { supportedFormat } = useImageFormat();
-
         // Generate optimized source
         const optimizedSrc = generateOptimizedSrc(src, supportedFormat);
 
         // Preload image
-        const img = new Image();
+        const img = new window.Image();
 
         // Set up event handlers
         img.onload = () => {
@@ -96,6 +94,7 @@ const ImageOptimizer: React.FC<ImageOptimizerProps> = ({
         // Set source
         img.src = optimizedSrc;
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.warn('Image optimization failed, using original:', error);
         if (isMounted) {
           setCurrentSrc(src);
@@ -129,8 +128,9 @@ const ImageOptimizer: React.FC<ImageOptimizerProps> = ({
       }
 
       return () => {
-        if (imgRef.current) {
-          observer.unobserve(imgRef.current);
+        const currentRef = imgRef.current;
+        if (currentRef) {
+          observer.unobserve(currentRef);
         }
       };
     }
@@ -138,7 +138,7 @@ const ImageOptimizer: React.FC<ImageOptimizerProps> = ({
     return () => {
       isMounted = false;
     };
-  }, [src, priority, onLoad, onError]);
+  }, [src, priority, supportedFormat, onLoad, onError]);
 
   // Generate sizes attribute for responsive images
   const sizes = width
@@ -182,7 +182,7 @@ export const ProgressiveImage: React.FC<
         <img
           src={blurDataURL}
           alt=""
-          className="absolute inset-0 w-full h-full object-cover filter blur-sm scale-110"
+          className="absolute inset-0 size-full scale-110 object-cover blur-sm"
           aria-hidden="true"
         />
       )}

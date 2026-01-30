@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Accessibility } from 'lucide-react';
 
 const AccessibilityStatement: React.FC = () => (
-  <div className="bg-p4c-beige min-h-screen py-16">
+  <div className="min-h-screen bg-p4c-beige py-16">
     <Helmet>
       <title>Accessibility Statement | Properties 4 Creation</title>
       <meta
@@ -16,13 +16,13 @@ const AccessibilityStatement: React.FC = () => (
       />
     </Helmet>
 
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-gray-100">
-        <div className="flex items-center gap-4 mb-8 pb-8 border-b border-gray-100">
-          <div className="bg-p4c-gold p-3 rounded-full">
-            <Accessibility className="w-8 h-8 text-p4c-navy" />
+    <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <div className="rounded-2xl border border-gray-100 bg-white p-8 shadow-xl md:p-12">
+        <div className="mb-8 flex items-center gap-4 border-b border-gray-100 pb-8">
+          <div className="rounded-full bg-p4c-gold p-3">
+            <Accessibility className="size-8 text-p4c-navy" />
           </div>
-          <h1 className="text-3xl font-serif font-bold text-p4c-navy">
+          <h1 className="font-serif text-3xl font-bold text-p4c-navy">
             Accessibility Statement
           </h1>
         </div>
@@ -35,14 +35,14 @@ const AccessibilityStatement: React.FC = () => (
             standards.
           </p>
 
-          <h3 className="text-xl font-bold text-p4c-navy mt-6 mb-2">
+          <h3 className="mb-2 mt-6 text-xl font-bold text-p4c-navy">
             Measures to support accessibility
           </h3>
           <p>
             Properties 4 Creation takes the following measures to ensure
             accessibility of our website:
           </p>
-          <ul className="list-disc pl-5 mb-6">
+          <ul className="mb-6 list-disc pl-5">
             <li>
               Include accessibility as part of our internal mission statement.
             </li>
@@ -51,7 +51,7 @@ const AccessibilityStatement: React.FC = () => (
             <li>Provide continual accessibility training for our staff.</li>
           </ul>
 
-          <h3 className="text-xl font-bold text-p4c-navy mt-6 mb-2">
+          <h3 className="mb-2 mt-6 text-xl font-bold text-p4c-navy">
             Conformance status
           </h3>
           <p>
@@ -64,7 +64,7 @@ const AccessibilityStatement: React.FC = () => (
             accessibility standard.
           </p>
 
-          <h3 className="text-xl font-bold text-p4c-navy mt-6 mb-2">
+          <h3 className="mb-2 mt-6 text-xl font-bold text-p4c-navy">
             Feedback
           </h3>
           <p>

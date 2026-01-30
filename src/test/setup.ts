@@ -21,6 +21,9 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 // Mock ResizeObserver for components using it
+declare const global: typeof globalThis & {
+  ResizeObserver: typeof ResizeObserver;
+};
 global.ResizeObserver = vi.fn().mockImplementation(() => ({
   observe: vi.fn(),
   unobserve: vi.fn(),

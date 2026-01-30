@@ -102,7 +102,7 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
       {ripples.map((ripple) => (
         <span
           key={ripple.id}
-          className="absolute rounded-full bg-white/30 animate-ping"
+          className="absolute animate-ping rounded-full bg-white/30"
           style={{
             left: ripple.x - 10,
             top: ripple.y - 10,
@@ -116,7 +116,7 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
       {/* Loading spinner */}
       {loading && (
         <span className="absolute inset-0 flex items-center justify-center">
-          <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+          <svg className="size-5 animate-spin" viewBox="0 0 24 24">
             <circle
               className="opacity-25"
               cx="12"
@@ -175,16 +175,16 @@ export const FloatingAction: React.FC<FloatingActionProps> = ({
   return (
     <button
       onClick={onClick}
-      className={`fixed ${getPositionClass(position)} z-40 w-14 h-14 bg-p4c-gold text-p4c-navy rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-p4c-gold focus:ring-offset-2 group ${className}`}
+      className={`fixed ${getPositionClass(position)} group z-40 size-14 rounded-full bg-p4c-gold text-p4c-navy shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-p4c-gold focus:ring-offset-2 ${className}`}
       aria-label={ariaLabel}
       {...props}
     >
-      <div className="flex items-center justify-center w-full h-full group-hover:scale-110 transition-transform duration-200">
+      <div className="flex size-full items-center justify-center transition-transform duration-200 group-hover:scale-110">
         {children}
       </div>
 
       {/* Pulse animation */}
-      <div className="absolute inset-0 rounded-full bg-p4c-gold animate-ping opacity-20" />
+      <div className="absolute inset-0 animate-ping rounded-full bg-p4c-gold opacity-20" />
     </button>
   );
 };
@@ -236,7 +236,7 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
   return (
     <div className={`flex items-center space-x-2 ${className}`}>
       <div
-        className={`bg-gray-200 rounded-full overflow-hidden ${getSizeClass(size)}`}
+        className={`overflow-hidden rounded-full bg-gray-200 ${getSizeClass(size)}`}
       >
         <div
           className={`${color} h-full rounded-full transition-all duration-500 ease-out`}
@@ -294,7 +294,7 @@ export const SmoothScroll: React.FC<SmoothScrollProps> = ({
     <a
       href={to}
       onClick={handleClick}
-      className={`transition-colors duration-200 hover:text-p4c-gold cursor-pointer ${className}`}
+      className={`cursor-pointer transition-colors duration-200 hover:text-p4c-gold ${className}`}
       aria-label={ariaLabel}
       {...props}
     >
@@ -395,7 +395,7 @@ export const LoadingDots: React.FC<LoadingDotsProps> = ({
       {[0, 1, 2].map((i) => (
         <div
           key={i}
-          className={`${getSizeClass(size)} ${color} rounded-full animate-bounce`}
+          className={`${getSizeClass(size)} ${color} animate-bounce rounded-full`}
           style={{
             animationDelay: `${i * 0.1}s`,
             animationDuration: '0.6s',

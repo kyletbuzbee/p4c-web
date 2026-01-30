@@ -19,7 +19,7 @@ const Tools: React.FC = () => {
       title: 'Free Image Upscaler',
       description:
         'Enhance your property photos with AI - 2x resolution, completely free!',
-      icon: <Zap className="w-8 h-8 text-p4c-gold" />,
+      icon: <Zap className="size-8 text-p4c-gold" />,
       component: <ClientUpscaler />,
       color: 'from-p4c-gold to-p4c-navy',
     },
@@ -28,7 +28,7 @@ const Tools: React.FC = () => {
       title: 'AI Housing Assistant',
       description:
         'Get personalized help with your housing needs from our AI concierge.',
-      icon: <Brain className="w-8 h-8 text-p4c-navy" />,
+      icon: <Brain className="size-8 text-p4c-navy" />,
       action: () => navigate('/'),
       color: 'from-p4c-navy to-p4c-beige',
     },
@@ -36,7 +36,7 @@ const Tools: React.FC = () => {
       id: 'veteran-resources',
       title: 'Veteran Resources',
       description: 'Access specialized housing programs and support services.',
-      icon: <Shield className="w-8 h-8 text-p4c-gold" />,
+      icon: <Shield className="size-8 text-p4c-gold" />,
       action: () => navigate('/veterans'),
       color: 'from-p4c-gold to-p4c-navy',
     },
@@ -44,7 +44,7 @@ const Tools: React.FC = () => {
       id: 'find-homes',
       title: 'Find Your Home',
       description: 'Browse available properties and start your application.',
-      icon: <HomeIcon className="w-8 h-8 text-p4c-navy" />,
+      icon: <HomeIcon className="size-8 text-p4c-navy" />,
       action: () => navigate('/'),
       color: 'from-p4c-navy to-p4c-beige',
     },
@@ -53,25 +53,25 @@ const Tools: React.FC = () => {
   return (
     <div className="min-h-screen bg-p4c-beige">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-p4c-navy to-p4c-gold text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
+      <div className="bg-gradient-to-br from-p4c-navy to-p4c-gold py-16 text-white">
+        <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+          <h1 className="mb-6 text-4xl font-bold md:text-6xl">
             Free Tools & Resources
           </h1>
-          <p className="text-xl md:text-2xl text-p4c-beige mb-8 max-w-3xl mx-auto">
+          <p className="mx-auto mb-8 max-w-3xl text-xl text-p4c-beige md:text-2xl">
             Empowering veterans and families with cutting-edge tools and
             personalized support to find their perfect home in East Texas.
           </p>
           <div className="flex justify-center gap-4">
             <button
               onClick={() => navigate('/apply')}
-              className="bg-white text-p4c-navy px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+              className="rounded-lg bg-white px-8 py-3 font-semibold text-p4c-navy transition-colors hover:bg-gray-100"
             >
               Start Application
             </button>
             <button
               onClick={() => navigate('/contact')}
-              className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-p4c-navy transition-colors"
+              className="rounded-lg border-2 border-white px-8 py-3 font-semibold text-white transition-colors hover:bg-white hover:text-p4c-navy"
             >
               Contact Us
             </button>
@@ -80,19 +80,19 @@ const Tools: React.FC = () => {
       </div>
 
       {/* Tools Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
           {tools.map((tool) => (
             <div
               key={tool.id}
-              className={`bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 ${
+              className={`overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl${
                 tool.id === 'image-upscaler' ? 'lg:col-span-2' : ''
               }`}
             >
-              <div className={`p-6 bg-gradient-to-r ${tool.color}`}>
+              <div className={`bg-gradient-to-r p-6 ${tool.color}`}>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
-                    <div className="bg-white/20 p-3 rounded-full">
+                    <div className="rounded-full bg-white/20 p-3">
                       {tool.icon}
                     </div>
                     <div>
@@ -103,7 +103,7 @@ const Tools: React.FC = () => {
                   {tool.action && (
                     <button
                       onClick={tool.action}
-                      className="bg-white text-p4c-navy px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+                      className="rounded-lg bg-white px-4 py-2 font-semibold text-p4c-navy transition-colors hover:bg-gray-100"
                     >
                       Get Started
                     </button>
@@ -117,17 +117,17 @@ const Tools: React.FC = () => {
 
               {tool.id !== 'image-upscaler' && (
                 <div className="p-6">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600">
+                  <div className="grid grid-cols-1 gap-4 text-sm text-gray-600 md:grid-cols-3">
                     <div className="flex items-center gap-2">
-                      <Users className="w-4 h-4 text-p4c-gold" />
+                      <Users className="size-4 text-p4c-gold" />
                       <span>Expert Support</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <ImageIcon className="w-4 h-4 text-p4c-gold" />
+                      <ImageIcon className="size-4 text-p4c-gold" />
                       <span>Quality Guaranteed</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Shield className="w-4 h-4 text-p4c-gold" />
+                      <Shield className="size-4 text-p4c-gold" />
                       <span>Veteran Focused</span>
                     </div>
                   </div>
@@ -138,12 +138,12 @@ const Tools: React.FC = () => {
         </div>
 
         {/* Features Section */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-3">
           <div className="text-center">
-            <div className="bg-p4c-gold/20 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-              <Zap className="w-8 h-8 text-p4c-gold" />
+            <div className="bg-p4c-gold/20 mx-auto mb-4 flex size-16 items-center justify-center rounded-full p-4">
+              <Zap className="size-8 text-p4c-gold" />
             </div>
-            <h3 className="text-xl font-semibold text-p4c-navy mb-2">
+            <h3 className="mb-2 text-xl font-semibold text-p4c-navy">
               Free Tools
             </h3>
             <p className="text-gray-600">
@@ -153,10 +153,10 @@ const Tools: React.FC = () => {
           </div>
 
           <div className="text-center">
-            <div className="bg-p4c-navy/20 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-              <Brain className="w-8 h-8 text-p4c-navy" />
+            <div className="bg-p4c-navy/20 mx-auto mb-4 flex size-16 items-center justify-center rounded-full p-4">
+              <Brain className="size-8 text-p4c-navy" />
             </div>
-            <h3 className="text-xl font-semibold text-p4c-navy mb-2">
+            <h3 className="mb-2 text-xl font-semibold text-p4c-navy">
               AI-Powered
             </h3>
             <p className="text-gray-600">
@@ -166,10 +166,10 @@ const Tools: React.FC = () => {
           </div>
 
           <div className="text-center">
-            <div className="bg-p4c-beige/80 p-4 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-              <Shield className="w-8 h-8 text-p4c-navy" />
+            <div className="bg-p4c-beige/80 mx-auto mb-4 flex size-16 items-center justify-center rounded-full p-4">
+              <Shield className="size-8 text-p4c-navy" />
             </div>
-            <h3 className="text-xl font-semibold text-p4c-navy mb-2">
+            <h3 className="mb-2 text-xl font-semibold text-p4c-navy">
               Veteran Support
             </h3>
             <p className="text-gray-600">

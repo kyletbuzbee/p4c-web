@@ -126,7 +126,7 @@ class ErrorBoundaryInternal extends Component<InternalProps, State> {
         'Error report submitted successfully. Thank you for your feedback!',
         'success'
       );
-    } catch (error) {
+    } catch {
       this.props.toast.addToast('Failed to submit report.', 'error');
     }
   };
@@ -136,20 +136,20 @@ class ErrorBoundaryInternal extends Component<InternalProps, State> {
       if (this.props.fallback) return this.props.fallback;
 
       return (
-        <div className="min-h-screen flex items-center justify-center bg-p4c-beige p-4">
-          <div className="bg-white p-8 rounded-xl shadow-2xl max-w-md w-full text-center border-t-4 border-red-500">
-            <div className="bg-red-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-              <AlertTriangle className="w-8 h-8 text-red-500" />
+        <div className="flex min-h-screen items-center justify-center bg-p4c-beige p-4">
+          <div className="w-full max-w-md rounded-xl border-t-4 border-red-500 bg-white p-8 text-center shadow-2xl">
+            <div className="mx-auto mb-6 flex size-16 items-center justify-center rounded-full bg-red-50">
+              <AlertTriangle className="size-8 text-red-500" />
             </div>
-            <h1 className="text-2xl font-serif font-bold text-p4c-navy mb-2">
+            <h1 className="mb-2 font-serif text-2xl font-bold text-p4c-navy">
               Something went wrong
             </h1>
-            <p className="text-gray-600 mb-2">
+            <p className="mb-2 text-gray-600">
               We encountered an unexpected issue and are working to resolve it.
             </p>
 
-            <div className="bg-gray-50 p-3 rounded-lg mb-6 text-left">
-              <p className="text-sm text-gray-500 mb-1">
+            <div className="mb-6 rounded-lg bg-gray-50 p-3 text-left">
+              <p className="mb-1 text-sm text-gray-500">
                 <strong>Error ID:</strong> {this.state.errorId}
               </p>
             </div>
@@ -157,20 +157,20 @@ class ErrorBoundaryInternal extends Component<InternalProps, State> {
             <div className="flex flex-col gap-3">
               <button
                 onClick={this.handleReset}
-                className="flex-1 bg-gray-200 text-gray-800 px-4 py-2 rounded-md font-medium hover:bg-gray-300"
+                className="flex-1 rounded-md bg-gray-200 px-4 py-2 font-medium text-gray-800 hover:bg-gray-300"
               >
                 Try Again
               </button>
               <button
                 onClick={this.handleReload}
-                className="flex-1 bg-p4c-navy text-white px-4 py-2 rounded-md font-bold hover:bg-p4c-slate flex items-center justify-center gap-2"
+                className="flex flex-1 items-center justify-center gap-2 rounded-md bg-p4c-navy px-4 py-2 font-bold text-white hover:bg-p4c-slate"
               >
-                <RefreshCw className="w-4 h-4" />
+                <RefreshCw className="size-4" />
                 Reload Page
               </button>
               <button
                 onClick={this.handleReportError}
-                className="flex-1 bg-blue-100 text-blue-800 px-4 py-2 rounded-md font-medium hover:bg-blue-200 text-sm"
+                className="flex-1 rounded-md bg-blue-100 px-4 py-2 text-sm font-medium text-blue-800 hover:bg-blue-200"
               >
                 Report This Error
               </button>

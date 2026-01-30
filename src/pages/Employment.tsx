@@ -19,53 +19,53 @@ const Employment: React.FC = () => (
         content="veteran jobs East Texas, construction careers, veteran hiring, skilled trades jobs, veteran employment, construction company hiring"
       />
     </Helmet>
-    <div className="bg-p4c-beige min-h-screen">
+    <div className="min-h-screen bg-p4c-beige">
       {/* Hero Banner */}
-      <div className="relative h-[400px] w-full overflow-hidden flex items-center justify-center">
-        <div className="absolute top-0 left-0 w-full h-full z-0">
+      <div className="relative flex h-[400px] w-full items-center justify-center overflow-hidden">
+        <div className="absolute left-0 top-0 z-0 size-full">
           <img
             src={IMAGES.GALLERY.FRAMING}
             alt="Construction blueprints and tools"
-            className="w-full h-full object-cover"
+            className="size-full object-cover"
           />
-          <div className="absolute top-0 left-0 w-full h-full hero-overlay-primary" />
-          <div className="absolute top-0 left-0 w-full h-full hero-overlay-secondary" />
+          <div className="hero-overlay-primary absolute left-0 top-0 size-full" />
+          <div className="hero-overlay-secondary absolute left-0 top-0 size-full" />
         </div>
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4 hero-text-contrast">
+        <div className="relative z-10 mx-auto max-w-4xl px-4 text-center">
+          <h1 className="hero-text-contrast mb-4 font-serif text-4xl font-bold text-white md:text-5xl">
             Build With Purpose
           </h1>
-          <p className="text-xl text-p4c-gold font-medium hero-text-enhanced">
+          <p className="hero-text-enhanced text-xl font-medium text-p4c-gold">
             Join the Properties 4 Creation Crew. We Hire Veterans First.
           </p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2">
           {/* Mission & Culture */}
           <div>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="bg-p4c-navy p-2 rounded-lg">
-                <HardHat className="text-p4c-gold w-6 h-6" />
+            <div className="mb-6 flex items-center gap-3">
+              <div className="rounded-lg bg-p4c-navy p-2">
+                <HardHat className="size-6 text-p4c-gold" />
               </div>
-              <h2 className="text-3xl font-serif font-bold text-p4c-navy">
+              <h2 className="font-serif text-3xl font-bold text-p4c-navy">
                 Why Work With Us?
               </h2>
             </div>
-            <p className="text-gray-700 leading-relaxed mb-6">
+            <p className="mb-6 leading-relaxed text-gray-700">
               At Properties 4 Creation, we believe that the hands that built our
               nation are best suited to build our communities. We aren&apos;t
               just renovating houses; we are restoring dignity.
             </p>
-            <p className="text-gray-700 leading-relaxed mb-8">
+            <p className="mb-8 leading-relaxed text-gray-700">
               We offer competitive pay, flexible schedules for reservists, and a
               culture that understands the value of discipline, integrity, and
               hard work.
             </p>
 
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-              <h3 className="font-bold text-lg mb-4 text-p4c-navy border-b pb-2">
+            <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+              <h3 className="mb-4 border-b pb-2 text-lg font-bold text-p4c-navy">
                 Our Commitments to You
               </h3>
               <ul className="space-y-3">
@@ -76,7 +76,7 @@ const Employment: React.FC = () => (
                   'Skills training and certification support',
                 ].map((item, i) => (
                   <li key={i} className="flex items-center text-gray-700">
-                    <CheckCircle2 className="w-5 h-5 text-p4c-gold mr-3" />
+                    <CheckCircle2 className="mr-3 size-5 text-p4c-gold" />
                     {item}
                   </li>
                 ))}
@@ -86,11 +86,11 @@ const Employment: React.FC = () => (
 
           {/* Open Positions */}
           <div>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="bg-p4c-navy p-2 rounded-lg">
-                <Briefcase className="text-p4c-gold w-6 h-6" />
+            <div className="mb-6 flex items-center gap-3">
+              <div className="rounded-lg bg-p4c-navy p-2">
+                <Briefcase className="size-6 text-p4c-gold" />
               </div>
-              <h2 className="text-3xl font-serif font-bold text-p4c-navy">
+              <h2 className="font-serif text-3xl font-bold text-p4c-navy">
                 Open Positions
               </h2>
             </div>
@@ -124,40 +124,40 @@ const Employment: React.FC = () => (
               ].map((job, index) => (
                 <div
                   key={index}
-                  className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow border-l-4 border-p4c-gold"
+                  className="rounded-xl border-l-4 border-p4c-gold bg-white p-6 shadow-md transition-shadow hover:shadow-lg"
                 >
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="font-bold text-xl text-p4c-navy">
+                  <div className="mb-2 flex items-start justify-between">
+                    <h3 className="text-xl font-bold text-p4c-navy">
                       {job.title}
                     </h3>
-                    <span className="bg-gray-100 text-gray-600 text-xs font-bold px-2 py-1 rounded uppercase">
+                    <span className="rounded bg-gray-100 px-2 py-1 text-xs font-bold uppercase text-gray-600">
                       {job.type}
                     </span>
                   </div>
-                  <div className="flex justify-between text-sm text-gray-500 mb-4">
+                  <div className="mb-4 flex justify-between text-sm text-gray-500">
                     <span>{job.location}</span>
                     <span className="font-semibold text-p4c-navy">
                       {job.salary}
                     </span>
                   </div>
-                  <button className="w-full border border-p4c-navy text-p4c-navy hover:bg-p4c-navy hover:text-white py-2 rounded font-medium transition-colors">
+                  <button className="w-full rounded border border-p4c-navy py-2 font-medium text-p4c-navy transition-colors hover:bg-p4c-navy hover:text-white">
                     Apply Now
                   </button>
                 </div>
               ))}
             </div>
 
-            <div className="mt-8 bg-p4c-navy text-white p-6 rounded-xl text-center">
-              <h4 className="font-bold text-lg mb-2">
+            <div className="mt-8 rounded-xl bg-p4c-navy p-6 text-center text-white">
+              <h4 className="mb-2 text-lg font-bold">
                 Don&apos;t see your trade?
               </h4>
-              <p className="text-gray-300 text-sm mb-4">
+              <p className="mb-4 text-sm text-gray-300">
                 We are always looking for skilled plumbers, electricians, and
                 roofers.
               </p>
               <Link
                 to="/contact"
-                className="text-p4c-gold font-bold underline hover:text-white"
+                className="font-bold text-p4c-gold underline hover:text-white"
               >
                 Send us your resume
               </Link>

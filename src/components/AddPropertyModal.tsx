@@ -67,7 +67,7 @@ const AddPropertyModal: React.FC<AddPropertyModalProps> = ({
       addToast('Property listed successfully!', 'success');
       onSuccess();
       onClose();
-    } catch (error) {
+    } catch {
       addToast('Failed to create property. Please check your inputs.', 'error');
     } finally {
       setLoading(false);
@@ -75,24 +75,24 @@ const AddPropertyModal: React.FC<AddPropertyModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in">
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-        <div className="flex justify-between items-center p-6 border-b border-gray-100">
-          <h2 className="text-xl font-serif font-bold text-p4c-navy">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
+      <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-xl bg-white shadow-2xl">
+        <div className="flex items-center justify-between border-b border-gray-100 p-6">
+          <h2 className="font-serif text-xl font-bold text-p4c-navy">
             Add New Listing
           </h2>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+            className="rounded-full p-2 transition-colors hover:bg-gray-100"
           >
-            <X className="w-5 h-5 text-gray-500" />
+            <X className="size-5 text-gray-500" />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6 space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6 p-6">
           {/* Section 1: Basic Info */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2 col-span-2">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div className="col-span-2 space-y-2">
               <label
                 htmlFor="property-title"
                 className="text-sm font-medium text-gray-700"
@@ -103,7 +103,7 @@ const AddPropertyModal: React.FC<AddPropertyModalProps> = ({
                 id="property-title"
                 required
                 type="text"
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-p4c-gold outline-none"
+                className="w-full rounded-lg border border-gray-200 px-4 py-2 outline-none focus:ring-2 focus:ring-p4c-gold"
                 placeholder="e.g. Modern Family Home"
                 value={formData.title}
                 onChange={(e) =>
@@ -123,7 +123,7 @@ const AddPropertyModal: React.FC<AddPropertyModalProps> = ({
                 id="monthly-rent"
                 required
                 type="text"
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-p4c-gold outline-none"
+                className="w-full rounded-lg border border-gray-200 px-4 py-2 outline-none focus:ring-2 focus:ring-p4c-gold"
                 placeholder="e.g. 1200"
                 value={formData.price}
                 onChange={(e) =>
@@ -142,7 +142,7 @@ const AddPropertyModal: React.FC<AddPropertyModalProps> = ({
               <input
                 id="availability"
                 type="text"
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-p4c-gold outline-none"
+                className="w-full rounded-lg border border-gray-200 px-4 py-2 outline-none focus:ring-2 focus:ring-p4c-gold"
                 value={formData.availabilityDate}
                 onChange={(e) =>
                   setFormData({ ...formData, availabilityDate: e.target.value })
@@ -152,8 +152,8 @@ const AddPropertyModal: React.FC<AddPropertyModalProps> = ({
           </div>
 
           {/* Section 2: Location */}
-          <div className="p-4 bg-gray-50 rounded-lg grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2 col-span-2">
+          <div className="grid grid-cols-1 gap-4 rounded-lg bg-gray-50 p-4 md:grid-cols-2">
+            <div className="col-span-2 space-y-2">
               <label
                 htmlFor="street-address"
                 className="text-sm font-medium text-gray-700"
@@ -164,7 +164,7 @@ const AddPropertyModal: React.FC<AddPropertyModalProps> = ({
                 id="street-address"
                 required
                 type="text"
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-p4c-gold outline-none"
+                className="w-full rounded-lg border border-gray-200 px-4 py-2 outline-none focus:ring-2 focus:ring-p4c-gold"
                 placeholder="e.g. 123 Veteran Way"
                 value={formData.address}
                 onChange={(e) =>
@@ -184,7 +184,7 @@ const AddPropertyModal: React.FC<AddPropertyModalProps> = ({
                 id="city"
                 required
                 type="text"
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-p4c-gold outline-none"
+                className="w-full rounded-lg border border-gray-200 px-4 py-2 outline-none focus:ring-2 focus:ring-p4c-gold"
                 placeholder="e.g. Tyler"
                 value={formData.city}
                 onChange={(e) =>
@@ -203,7 +203,7 @@ const AddPropertyModal: React.FC<AddPropertyModalProps> = ({
               <input
                 id="neighborhood"
                 type="text"
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-p4c-gold outline-none"
+                className="w-full rounded-lg border border-gray-200 px-4 py-2 outline-none focus:ring-2 focus:ring-p4c-gold"
                 placeholder="e.g. Azalea District"
                 value={formData.neighborhood}
                 onChange={(e) =>
@@ -227,7 +227,7 @@ const AddPropertyModal: React.FC<AddPropertyModalProps> = ({
                 required
                 type="number"
                 min="0"
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                className="w-full rounded-lg border border-gray-200 px-4 py-2"
                 value={formData.bedrooms}
                 onChange={(e) =>
                   setFormData({ ...formData, bedrooms: Number(e.target.value) })
@@ -247,7 +247,7 @@ const AddPropertyModal: React.FC<AddPropertyModalProps> = ({
                 type="number"
                 min="0"
                 step="0.5"
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                className="w-full rounded-lg border border-gray-200 px-4 py-2"
                 value={formData.bathrooms}
                 onChange={(e) =>
                   setFormData({
@@ -269,7 +269,7 @@ const AddPropertyModal: React.FC<AddPropertyModalProps> = ({
                 required
                 type="number"
                 min="0"
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                className="w-full rounded-lg border border-gray-200 px-4 py-2"
                 value={formData.sqft}
                 onChange={(e) =>
                   setFormData({ ...formData, sqft: Number(e.target.value) })
@@ -290,7 +290,7 @@ const AddPropertyModal: React.FC<AddPropertyModalProps> = ({
               id="image-url"
               type="text"
               required
-              className="w-full px-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-600"
+              className="w-full rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-600"
               placeholder="https://..."
               value={formData.imageUrl}
               onChange={(e) =>
@@ -302,23 +302,23 @@ const AddPropertyModal: React.FC<AddPropertyModalProps> = ({
             </p>
           </div>
 
-          <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
+          <div className="flex justify-end gap-3 border-t border-gray-100 pt-4">
             <button
               type="button"
               onClick={onClose}
-              className="px-6 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium transition-colors"
+              className="rounded-lg px-6 py-2 font-medium text-gray-600 transition-colors hover:bg-gray-100"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="px-6 py-2 bg-p4c-navy text-white rounded-lg font-bold hover:bg-p4c-slate transition-colors flex items-center gap-2"
+              className="flex items-center gap-2 rounded-lg bg-p4c-navy px-6 py-2 font-bold text-white transition-colors hover:bg-p4c-slate"
             >
               {loading ? (
-                <Loader2 className="w-4 h-4 animate-spin" />
+                <Loader2 className="size-4 animate-spin" />
               ) : (
-                <Save className="w-4 h-4" />
+                <Save className="size-4" />
               )}
               Save Property
             </button>

@@ -27,14 +27,14 @@ const CookieConsent: React.FC = (): React.ReactNode => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 w-full z-50 bg-white border-t border-gray-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] p-4 animate-slide-in">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+    <div className="fixed bottom-0 left-0 z-50 w-full animate-slide-in border-t border-gray-200 bg-white p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
+      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 md:flex-row">
         <div className="flex items-start gap-4">
-          <div className="bg-p4c-beige p-2 rounded-full hidden sm:block">
-            <Cookie className="w-6 h-6 text-p4c-gold" />
+          <div className="hidden rounded-full bg-p4c-beige p-2 sm:block">
+            <Cookie className="size-6 text-p4c-gold" />
           </div>
           <div className="text-sm text-gray-600">
-            <p className="font-bold text-p4c-navy mb-1">
+            <p className="mb-1 font-bold text-p4c-navy">
               We value your privacy
             </p>
             <p>
@@ -43,7 +43,7 @@ const CookieConsent: React.FC = (): React.ReactNode => {
               &quot;Accept&quot;, you consent to our use of cookies.{' '}
               <a
                 href="/privacy"
-                className="underline text-p4c-navy hover:text-p4c-gold"
+                className="text-p4c-navy underline hover:text-p4c-gold"
               >
                 Read our Privacy Policy
               </a>
@@ -51,16 +51,16 @@ const CookieConsent: React.FC = (): React.ReactNode => {
             </p>
           </div>
         </div>
-        <div className="flex gap-3 w-full md:w-auto">
+        <div className="flex w-full gap-3 md:w-auto">
           <button
             onClick={handleDecline}
-            className="flex-1 md:flex-none px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+            className="flex-1 rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 md:flex-none"
           >
             Decline
           </button>
           <button
             onClick={handleAccept}
-            className="flex-1 md:flex-none px-6 py-2 bg-p4c-navy text-white rounded-md text-sm font-medium hover:bg-p4c-slate transition-colors shadow-sm"
+            className="flex-1 rounded-md bg-p4c-navy px-6 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-p4c-slate md:flex-none"
           >
             Accept
           </button>

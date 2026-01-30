@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Home } from 'lucide-react';
 
 const EqualHousing: React.FC = () => (
-  <div className="bg-p4c-beige min-h-screen py-16">
+  <div className="min-h-screen bg-p4c-beige py-16">
     <Helmet>
       <title>Equal Housing Opportunity | Properties 4 Creation</title>
       <meta
@@ -16,16 +16,16 @@ const EqualHousing: React.FC = () => (
       />
     </Helmet>
 
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-gray-100 text-center">
-        <div className="bg-p4c-navy p-4 rounded-full inline-flex mb-6">
-          <Home className="w-10 h-10 text-white" />
+    <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <div className="rounded-2xl border border-gray-100 bg-white p-8 text-center shadow-xl md:p-12">
+        <div className="mb-6 inline-flex rounded-full bg-p4c-navy p-4">
+          <Home className="size-10 text-white" />
         </div>
-        <h1 className="text-3xl font-serif font-bold text-p4c-navy mb-6">
+        <h1 className="mb-6 font-serif text-3xl font-bold text-p4c-navy">
           Equal Housing Opportunity
         </h1>
 
-        <div className="prose prose-lg mx-auto text-gray-600 text-left">
+        <div className="prose prose-lg mx-auto text-left text-gray-600">
           <p>
             Properties 4 Creation is pledged to the letter and spirit of U.S.
             policy for the achievement of equal housing opportunity throughout
@@ -37,7 +37,7 @@ const EqualHousing: React.FC = () => (
           <p>
             <strong>We agree to:</strong>
           </p>
-          <ul className="list-disc pl-6 space-y-2">
+          <ul className="list-disc space-y-2 pl-6">
             <li>
               Provide equal professional service to all, without regard to race,
               color, religion, sex, handicap, familial status, or national

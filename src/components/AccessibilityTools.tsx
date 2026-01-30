@@ -159,20 +159,20 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
       {/* Floating Accessibility Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-6 left-6 bg-p4c-navy text-white p-4 rounded-full shadow-lg hover:bg-p4c-gold hover:text-p4c-navy transition-all duration-300 z-50 focus:outline-none focus:ring-2 focus:ring-p4c-gold focus:ring-offset-2 ${className}`}
+        className={`fixed bottom-6 left-6 z-50 rounded-full bg-p4c-navy p-4 text-white shadow-lg transition-all duration-300 hover:bg-p4c-gold hover:text-p4c-navy focus:outline-none focus:ring-2 focus:ring-p4c-gold focus:ring-offset-2 ${className}`}
         aria-label="Accessibility Tools"
         title="Accessibility Tools (Ctrl/Cmd + K for contrast, + and - for font size)"
       >
         <span className="text-lg">⚙️</span>
         {isOpen && (
-          <span className="absolute -top-2 -left-2 w-3 h-3 bg-red-500 rounded-full" />
+          <span className="absolute -left-2 -top-2 size-3 rounded-full bg-red-500" />
         )}
       </button>
 
       {/* Accessibility Panel */}
       {isOpen && (
-        <div className="fixed bottom-24 left-6 bg-white border border-gray-200 rounded-lg shadow-xl p-4 w-80 z-50 animate-in slide-in-from-bottom-2 duration-200">
-          <div className="flex justify-between items-center mb-3">
+        <div className="animate-in slide-in-from-bottom-2 fixed bottom-24 left-6 z-50 w-80 rounded-lg border border-gray-200 bg-white p-4 shadow-xl duration-200">
+          <div className="mb-3 flex items-center justify-between">
             <h3 className="font-semibold text-gray-800">Accessibility Tools</h3>
             <button
               onClick={() => setIsOpen(false)}
@@ -186,14 +186,14 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
           <div className="space-y-4">
             {/* Font Size Control */}
             <div>
-              <span className="block text-sm font-medium text-gray-700 mb-2">
+              <span className="mb-2 block text-sm font-medium text-gray-700">
                 Font Size: {fontSize}%
               </span>
               <div className="flex gap-2">
                 <button
                   onClick={decreaseFontSize}
                   disabled={fontSize <= 80}
-                  className="flex-1 bg-gray-100 text-gray-700 px-3 py-2 rounded hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 rounded bg-gray-100 px-3 py-2 text-gray-700 hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-50"
                   aria-label="Decrease font size"
                 >
                   A-
@@ -201,7 +201,7 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
                 <button
                   onClick={increaseFontSize}
                   disabled={fontSize >= 150}
-                  className="flex-1 bg-gray-100 text-gray-700 px-3 py-2 rounded hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 rounded bg-gray-100 px-3 py-2 text-gray-700 hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-50"
                   aria-label="Increase font size"
                 >
                   A+
@@ -211,13 +211,13 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
 
             {/* Contrast Control */}
             <div>
-              <span className="block text-sm font-medium text-gray-700 mb-2">
+              <span className="mb-2 block text-sm font-medium text-gray-700">
                 Contrast Mode
               </span>
               <div className="flex gap-2">
                 <button
                   onClick={() => setContrast('normal')}
-                  className={`flex-1 px-3 py-2 rounded text-sm ${
+                  className={`flex-1 rounded px-3 py-2 text-sm ${
                     contrast === 'normal'
                       ? 'bg-p4c-navy text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -228,7 +228,7 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
                 </button>
                 <button
                   onClick={() => setContrast('high')}
-                  className={`flex-1 px-3 py-2 rounded text-sm ${
+                  className={`flex-1 rounded px-3 py-2 text-sm ${
                     contrast === 'high'
                       ? 'bg-p4c-navy text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -239,7 +239,7 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
                 </button>
                 <button
                   onClick={() => setContrast('dark-high')}
-                  className={`flex-1 px-3 py-2 rounded text-sm ${
+                  className={`flex-1 rounded px-3 py-2 text-sm ${
                     contrast === 'dark-high'
                       ? 'bg-p4c-navy text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -255,7 +255,7 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
             <div>
               <button
                 onClick={toggleReadingMode}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded ${
+                className={`flex w-full items-center justify-between rounded px-3 py-2 ${
                   readingMode
                     ? 'bg-p4c-beige text-p4c-navy'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -264,9 +264,9 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
               >
                 <span>Reading Mode</span>
                 <span
-                  className={`w-4 h-4 border-2 rounded ${
+                  className={`size-4 rounded border-2 ${
                     readingMode
-                      ? 'bg-p4c-navy border-p4c-navy'
+                      ? 'border-p4c-navy bg-p4c-navy'
                       : 'border-gray-400'
                   }`}
                 />
@@ -277,7 +277,7 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
             <div>
               <button
                 onClick={toggleFocusMode}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded ${
+                className={`flex w-full items-center justify-between rounded px-3 py-2 ${
                   focusMode
                     ? 'bg-p4c-beige text-p4c-navy'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -286,9 +286,9 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
               >
                 <span>Focus Mode</span>
                 <span
-                  className={`w-4 h-4 border-2 rounded ${
+                  className={`size-4 rounded border-2 ${
                     focusMode
-                      ? 'bg-p4c-navy border-p4c-navy'
+                      ? 'border-p4c-navy bg-p4c-navy'
                       : 'border-gray-400'
                   }`}
                 />
@@ -299,7 +299,7 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
             <div>
               <button
                 onClick={toggleAudioAssistance}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded ${
+                className={`flex w-full items-center justify-between rounded px-3 py-2 ${
                   audioAssistance
                     ? 'bg-p4c-beige text-p4c-navy'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -308,9 +308,9 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
               >
                 <span>Audio Assistance</span>
                 <span
-                  className={`w-4 h-4 border-2 rounded ${
+                  className={`size-4 rounded border-2 ${
                     audioAssistance
-                      ? 'bg-p4c-navy border-p4c-navy'
+                      ? 'border-p4c-navy bg-p4c-navy'
                       : 'border-gray-400'
                   }`}
                 />
@@ -318,9 +318,9 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
             </div>
 
             {/* Keyboard Shortcuts */}
-            <div className="pt-2 border-t border-gray-200">
-              <p className="text-xs text-gray-600 mb-2">Keyboard Shortcuts:</p>
-              <div className="text-xs space-y-1 text-gray-500">
+            <div className="border-t border-gray-200 pt-2">
+              <p className="mb-2 text-xs text-gray-600">Keyboard Shortcuts:</p>
+              <div className="space-y-1 text-xs text-gray-500">
                 <div>Ctrl/Cmd + +/-: Font size</div>
                 <div>Ctrl/Cmd + 0: Reset font</div>
                 <div>Ctrl/Cmd + K: Contrast</div>

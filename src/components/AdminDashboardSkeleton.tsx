@@ -5,69 +5,69 @@ interface AdminDashboardSkeletonProps {
 }
 
 const SidebarSkeleton: React.FC = () => (
-  <aside className="w-64 bg-p4c-navy text-white hidden md:flex flex-col animate-pulse">
-    <div className="p-6 border-b border-gray-700">
-      <div className="h-6 bg-gray-600 rounded w-3/4 mb-2" />
-      <div className="h-4 bg-gray-700 rounded w-1/2" />
+  <aside className="hidden w-64 animate-pulse flex-col bg-p4c-navy text-white md:flex">
+    <div className="border-b border-gray-700 p-6">
+      <div className="mb-2 h-6 w-3/4 rounded bg-gray-600" />
+      <div className="h-4 w-1/2 rounded bg-gray-700" />
     </div>
-    <nav className="flex-1 p-4 space-y-2">
+    <nav className="flex-1 space-y-2 p-4">
       {[1, 2, 3, 4].map((i) => (
         <div
           key={i}
-          className="flex items-center w-full px-4 py-3 bg-gray-700/30 rounded-lg"
+          className="flex w-full items-center rounded-lg bg-gray-700/30 px-4 py-3"
         >
-          <div className="w-5 h-5 bg-gray-600 rounded mr-3" />
-          <div className="h-4 bg-gray-600 rounded w-20" />
+          <div className="mr-3 size-5 rounded bg-gray-600" />
+          <div className="h-4 w-20 rounded bg-gray-600" />
         </div>
       ))}
     </nav>
-    <div className="p-4 border-t border-gray-700">
-      <div className="flex items-center gap-3 mb-4">
-        <div className="w-8 h-8 bg-gray-600 rounded-full" />
+    <div className="border-t border-gray-700 p-4">
+      <div className="mb-4 flex items-center gap-3">
+        <div className="size-8 rounded-full bg-gray-600" />
         <div className="space-y-1">
-          <div className="h-4 bg-gray-600 rounded w-16" />
-          <div className="h-3 bg-gray-700 rounded w-20" />
+          <div className="h-4 w-16 rounded bg-gray-600" />
+          <div className="h-3 w-20 rounded bg-gray-700" />
         </div>
       </div>
-      <div className="h-10 bg-gray-600 rounded w-full" />
+      <div className="h-10 w-full rounded bg-gray-600" />
     </div>
   </aside>
 );
 
 const StatsSkeleton: React.FC = () => (
-  <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+  <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-4">
     {[1, 2, 3, 4].map((i) => (
       <div
         key={i}
-        className="bg-white p-6 rounded-xl shadow-sm border border-gray-100"
+        className="rounded-xl border border-gray-100 bg-white p-6 shadow-sm"
       >
-        <div className="h-4 bg-gray-200 rounded w-24 mb-2" />
-        <div className="h-8 bg-gray-200 rounded w-16 mb-2" />
-        <div className="h-3 bg-gray-100 rounded w-28" />
+        <div className="mb-2 h-4 w-24 rounded bg-gray-200" />
+        <div className="mb-2 h-8 w-16 rounded bg-gray-200" />
+        <div className="h-3 w-28 rounded bg-gray-100" />
       </div>
     ))}
   </div>
 );
 
 const TableSkeleton: React.FC = () => (
-  <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-    <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
-      <div className="h-5 bg-gray-200 rounded w-32" />
-      <div className="h-4 bg-gray-100 rounded w-16" />
+  <div className="overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm">
+    <div className="flex items-center justify-between border-b border-gray-100 px-6 py-4">
+      <div className="h-5 w-32 rounded bg-gray-200" />
+      <div className="h-4 w-16 rounded bg-gray-100" />
     </div>
     <div className="p-8">
       <div className="space-y-4">
-        <div className="h-4 bg-gray-100 rounded w-1/4 mx-auto mb-6" />
+        <div className="mx-auto mb-6 h-4 w-1/4 rounded bg-gray-100" />
         {[1, 2, 3].map((i) => (
           <div
             key={i}
-            className="h-16 bg-gray-50 rounded flex items-center px-6"
+            className="flex h-16 items-center rounded bg-gray-50 px-6"
           >
-            <div className="flex items-center w-full">
-              <div className="w-10 h-10 bg-gray-200 rounded mr-4" />
+            <div className="flex w-full items-center">
+              <div className="mr-4 size-10 rounded bg-gray-200" />
               <div className="flex-1 space-y-2">
-                <div className="h-4 bg-gray-200 rounded w-1/3" />
-                <div className="h-3 bg-gray-100 rounded w-1/4" />
+                <div className="h-4 w-1/3 rounded bg-gray-200" />
+                <div className="h-3 w-1/4 rounded bg-gray-100" />
               </div>
             </div>
           </div>
@@ -85,13 +85,13 @@ const AdminDashboardSkeleton: React.FC<AdminDashboardSkeletonProps> = ({
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex">
+    <div className="flex min-h-screen bg-gray-100">
       <SidebarSkeleton />
       <main className="flex-1 overflow-y-auto">
         <div className="p-8">
-          <div className="flex justify-between items-center mb-8">
-            <div className="h-8 bg-gray-200 rounded w-48" />
-            <div className="h-10 bg-gray-200 rounded w-32" />
+          <div className="mb-8 flex items-center justify-between">
+            <div className="h-8 w-48 rounded bg-gray-200" />
+            <div className="h-10 w-32 rounded bg-gray-200" />
           </div>
           <StatsSkeleton />
           <TableSkeleton />

@@ -4,12 +4,10 @@
  * Enforces that all image references in JSX use the IMAGES constant from
  * src/constants/images.ts instead of hardcoded paths.
  *
- * Usage: Add to .eslintrc.cjs plugins and rules
+ * Usage: Add to eslint.config.js plugins and rules
  */
 
-'use strict';
-
-module.exports = {
+const rule = {
   meta: {
     type: 'problem',
     docs: {
@@ -47,7 +45,7 @@ module.exports = {
       'picsum.photos',
     ];
 
-    const filename = context.getFilename();
+    const filename = context.filename;
 
     // Skip test files
     if (filename.includes('.test.') || filename.includes('.spec.')) {
@@ -100,5 +98,11 @@ module.exports = {
         });
       },
     };
+  },
+};
+
+export default {
+  rules: {
+    'use-images-constant': rule,
   },
 };

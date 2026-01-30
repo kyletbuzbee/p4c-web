@@ -10,7 +10,7 @@ import {
 import { IMAGES } from '../constants/images';
 
 const Careers: React.FC = () => (
-  <div className="bg-p4c-beige min-h-screen">
+  <div className="min-h-screen bg-p4c-beige">
     <Helmet>
       <title>Careers | Join Our Team | Properties 4 Creation</title>
       <meta
@@ -20,40 +20,40 @@ const Careers: React.FC = () => (
     </Helmet>
 
     {/* Hero Section */}
-    <div className="relative h-[400px] w-full overflow-hidden flex items-center justify-center">
-      <div className="absolute top-0 left-0 w-full h-full z-0">
+    <div className="relative flex h-[400px] w-full items-center justify-center overflow-hidden">
+      <div className="absolute left-0 top-0 z-0 size-full">
         <img
           src={IMAGES.BANNERS.CAREER}
           alt="Professional team working together"
-          className="w-full h-full object-cover"
+          className="size-full object-cover"
         />
-        <div className="absolute top-0 left-0 w-full h-full bg-p4c-navy/80 mix-blend-multiply" />
+        <div className="bg-p4c-navy/80 absolute left-0 top-0 size-full mix-blend-multiply" />
       </div>
-      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-fade-in-up">
-        <div className="flex justify-center mb-6">
-          <div className="bg-p4c-gold/20 p-4 rounded-2xl border border-p4c-gold/30 backdrop-blur-sm">
-            <Briefcase className="w-10 h-10 text-p4c-gold" />
+      <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
+        <div className="mb-6 flex justify-center">
+          <div className="bg-p4c-gold/20 border-p4c-gold/30 rounded-2xl border p-4 backdrop-blur-sm">
+            <Briefcase className="size-10 text-p4c-gold" />
           </div>
         </div>
-        <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4 tracking-wide">
+        <h1 className="mb-4 font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
           Join Our Team
         </h1>
-        <p className="text-xl text-gray-200 font-light max-w-2xl mx-auto">
+        <p className="mx-auto max-w-2xl text-xl font-light text-gray-200">
           Build a rewarding career while making a difference in East Texas
           communities
         </p>
       </div>
     </div>
 
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
       {/* Company Culture Section */}
       <section className="mb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           <div>
-            <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-6">
+            <h2 className="mb-6 font-serif text-3xl font-bold text-p4c-navy">
               Our Culture
             </h2>
-            <p className="text-gray-600 mb-8 leading-relaxed">
+            <p className="mb-8 leading-relaxed text-gray-600">
               At Properties 4 Creation, we believe in creating opportunities -
               for our residents, our communities, and our team members. We
               foster a culture of professionalism, integrity, and continuous
@@ -61,62 +61,62 @@ const Careers: React.FC = () => (
             </p>
 
             <div className="grid grid-cols-2 gap-6">
-              <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100">
-                <div className="flex items-center gap-3 mb-3">
-                  <HeartHandshake className="w-6 h-6 text-p4c-gold" />
+              <div className="rounded-xl border border-gray-100 bg-white p-6 shadow-md">
+                <div className="mb-3 flex items-center gap-3">
+                  <HeartHandshake className="size-6 text-p4c-gold" />
                   <h4 className="font-bold text-p4c-navy">Mission-Driven</h4>
                 </div>
-                <p className="text-gray-600 text-sm">
+                <p className="text-sm text-gray-600">
                   We&apos;re committed to revitalizing East Texas communities
                   through quality housing
                 </p>
               </div>
 
-              <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100">
-                <div className="flex items-center gap-3 mb-3">
-                  <Users className="w-6 h-6 text-p4c-gold" />
+              <div className="rounded-xl border border-gray-100 bg-white p-6 shadow-md">
+                <div className="mb-3 flex items-center gap-3">
+                  <Users className="size-6 text-p4c-gold" />
                   <h4 className="font-bold text-p4c-navy">Team Focused</h4>
                 </div>
-                <p className="text-gray-600 text-sm">
+                <p className="text-sm text-gray-600">
                   We invest in our team&apos;s growth and create a supportive
                   work environment
                 </p>
               </div>
 
-              <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100">
-                <div className="flex items-center gap-3 mb-3">
-                  <ShieldCheck className="w-6 h-6 text-p4c-gold" />
+              <div className="rounded-xl border border-gray-100 bg-white p-6 shadow-md">
+                <div className="mb-3 flex items-center gap-3">
+                  <ShieldCheck className="size-6 text-p4c-gold" />
                   <h4 className="font-bold text-p4c-navy">
                     Professional Growth
                   </h4>
                 </div>
-                <p className="text-gray-600 text-sm">
+                <p className="text-sm text-gray-600">
                   Continuous learning and career development opportunities
                 </p>
               </div>
 
-              <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100">
-                <div className="flex items-center gap-3 mb-3">
-                  <Star className="w-6 h-6 text-p4c-gold" />
+              <div className="rounded-xl border border-gray-100 bg-white p-6 shadow-md">
+                <div className="mb-3 flex items-center gap-3">
+                  <Star className="size-6 text-p4c-gold" />
                   <h4 className="font-bold text-p4c-navy">Excellence</h4>
                 </div>
-                <p className="text-gray-600 text-sm">
+                <p className="text-sm text-gray-600">
                   We strive for excellence in everything we do
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
+          <div className="relative h-96 overflow-hidden rounded-2xl shadow-2xl">
             <img
               src={IMAGES.TEAM.ONSITE}
               alt="Team members working on site"
-              className="w-full h-full object-cover"
+              className="size-full object-cover"
             />
-            <div className="absolute inset-0 bg-p4c-navy/20" />
-            <div className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-sm p-4 rounded-xl">
+            <div className="bg-p4c-navy/20 absolute inset-0" />
+            <div className="absolute inset-x-6 bottom-6 rounded-xl bg-white/90 p-4 backdrop-blur-sm">
               <div className="flex items-center gap-3">
-                <Briefcase className="w-6 h-6 text-p4c-gold" />
+                <Briefcase className="size-6 text-p4c-gold" />
                 <div>
                   <div className="font-bold text-p4c-navy">Career Growth</div>
                   <div className="text-sm text-gray-600">
@@ -131,34 +131,34 @@ const Careers: React.FC = () => (
 
       {/* Open Positions Section */}
       <section className="mb-20">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-4">
+        <div className="mb-12 text-center">
+          <h2 className="mb-4 font-serif text-3xl font-bold text-p4c-navy">
             Current Opportunities
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-gray-600">
             We&apos;re always looking for talented individuals to join our team
           </p>
         </div>
 
         <div className="space-y-6">
-          <div className="bg-white p-8 rounded-2xl shadow-xl border-l-4 border-p4c-gold hover:shadow-2xl transition-shadow">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="rounded-2xl border-l-4 border-p4c-gold bg-white p-8 shadow-xl transition-shadow hover:shadow-2xl">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
               <div className="md:col-span-2">
-                <h3 className="text-xl font-bold text-p4c-navy mb-2">
+                <h3 className="mb-2 text-xl font-bold text-p4c-navy">
                   Property Manager
                 </h3>
-                <p className="text-gray-600 mb-4">
+                <p className="mb-4 text-gray-600">
                   Manage our portfolio of residential properties, ensuring
                   tenant satisfaction and property maintenance.
                 </p>
-                <div className="flex flex-wrap gap-3 mb-4">
-                  <span className="bg-p4c-navy/10 text-p4c-navy px-3 py-1 rounded-full text-sm font-medium">
+                <div className="mb-4 flex flex-wrap gap-3">
+                  <span className="bg-p4c-navy/10 rounded-full px-3 py-1 text-sm font-medium text-p4c-navy">
                     Full-time
                   </span>
-                  <span className="bg-p4c-navy/10 text-p4c-navy px-3 py-1 rounded-full text-sm font-medium">
+                  <span className="bg-p4c-navy/10 rounded-full px-3 py-1 text-sm font-medium text-p4c-navy">
                     Tyler, TX
                   </span>
-                  <span className="bg-p4c-navy/10 text-p4c-navy px-3 py-1 rounded-full text-sm font-medium">
+                  <span className="bg-p4c-navy/10 rounded-full px-3 py-1 text-sm font-medium text-p4c-navy">
                     $50,000 - $65,000/year
                   </span>
                 </div>
@@ -166,7 +166,7 @@ const Careers: React.FC = () => (
               <div className="flex items-end justify-end">
                 <a
                   href="/employment"
-                  className="bg-p4c-gold text-p4c-navy hover:bg-white hover:text-p4c-navy px-6 py-3 rounded-xl font-bold transition-all duration-300 inline-flex items-center gap-2"
+                  className="inline-flex items-center gap-2 rounded-xl bg-p4c-gold px-6 py-3 font-bold text-p4c-navy transition-all duration-300 hover:bg-white hover:text-p4c-navy"
                 >
                   Apply Now
                 </a>
@@ -174,24 +174,24 @@ const Careers: React.FC = () => (
             </div>
           </div>
 
-          <div className="bg-white p-8 rounded-2xl shadow-xl border-l-4 border-p4c-gold hover:shadow-2xl transition-shadow">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="rounded-2xl border-l-4 border-p4c-gold bg-white p-8 shadow-xl transition-shadow hover:shadow-2xl">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
               <div className="md:col-span-2">
-                <h3 className="text-xl font-bold text-p4c-navy mb-2">
+                <h3 className="mb-2 text-xl font-bold text-p4c-navy">
                   Maintenance Technician
                 </h3>
-                <p className="text-gray-600 mb-4">
+                <p className="mb-4 text-gray-600">
                   Perform maintenance and repairs on our residential properties
                   to ensure they meet our quality standards.
                 </p>
-                <div className="flex flex-wrap gap-3 mb-4">
-                  <span className="bg-p4c-navy/10 text-p4c-navy px-3 py-1 rounded-full text-sm font-medium">
+                <div className="mb-4 flex flex-wrap gap-3">
+                  <span className="bg-p4c-navy/10 rounded-full px-3 py-1 text-sm font-medium text-p4c-navy">
                     Full-time
                   </span>
-                  <span className="bg-p4c-navy/10 text-p4c-navy px-3 py-1 rounded-full text-sm font-medium">
+                  <span className="bg-p4c-navy/10 rounded-full px-3 py-1 text-sm font-medium text-p4c-navy">
                     Longview, TX
                   </span>
-                  <span className="bg-p4c-navy/10 text-p4c-navy px-3 py-1 rounded-full text-sm font-medium">
+                  <span className="bg-p4c-navy/10 rounded-full px-3 py-1 text-sm font-medium text-p4c-navy">
                     $18 - $22/hour
                   </span>
                 </div>
@@ -199,7 +199,7 @@ const Careers: React.FC = () => (
               <div className="flex items-end justify-end">
                 <a
                   href="/employment"
-                  className="bg-p4c-gold text-p4c-navy hover:bg-white hover:text-p4c-navy px-6 py-3 rounded-xl font-bold transition-all duration-300 inline-flex items-center gap-2"
+                  className="inline-flex items-center gap-2 rounded-xl bg-p4c-gold px-6 py-3 font-bold text-p4c-navy transition-all duration-300 hover:bg-white hover:text-p4c-navy"
                 >
                   Apply Now
                 </a>
@@ -207,24 +207,24 @@ const Careers: React.FC = () => (
             </div>
           </div>
 
-          <div className="bg-white p-8 rounded-2xl shadow-xl border-l-4 border-p4c-gold hover:shadow-2xl transition-shadow">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="rounded-2xl border-l-4 border-p4c-gold bg-white p-8 shadow-xl transition-shadow hover:shadow-2xl">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
               <div className="md:col-span-2">
-                <h3 className="text-xl font-bold text-p4c-navy mb-2">
+                <h3 className="mb-2 text-xl font-bold text-p4c-navy">
                   Acquisitions Specialist
                 </h3>
-                <p className="text-gray-600 mb-4">
+                <p className="mb-4 text-gray-600">
                   Identify and evaluate potential property acquisitions in East
                   Texas markets.
                 </p>
-                <div className="flex flex-wrap gap-3 mb-4">
-                  <span className="bg-p4c-navy/10 text-p4c-navy px-3 py-1 rounded-full text-sm font-medium">
+                <div className="mb-4 flex flex-wrap gap-3">
+                  <span className="bg-p4c-navy/10 rounded-full px-3 py-1 text-sm font-medium text-p4c-navy">
                     Full-time
                   </span>
-                  <span className="bg-p4c-navy/10 text-p4c-navy px-3 py-1 rounded-full text-sm font-medium">
+                  <span className="bg-p4c-navy/10 rounded-full px-3 py-1 text-sm font-medium text-p4c-navy">
                     Tyler, TX
                   </span>
-                  <span className="bg-p4c-navy/10 text-p4c-navy px-3 py-1 rounded-full text-sm font-medium">
+                  <span className="bg-p4c-navy/10 rounded-full px-3 py-1 text-sm font-medium text-p4c-navy">
                     $60,000 - $80,000/year + commission
                   </span>
                 </div>
@@ -232,7 +232,7 @@ const Careers: React.FC = () => (
               <div className="flex items-end justify-end">
                 <a
                   href="/employment"
-                  className="bg-p4c-gold text-p4c-navy hover:bg-white hover:text-p4c-navy px-6 py-3 rounded-xl font-bold transition-all duration-300 inline-flex items-center gap-2"
+                  className="inline-flex items-center gap-2 rounded-xl bg-p4c-gold px-6 py-3 font-bold text-p4c-navy transition-all duration-300 hover:bg-white hover:text-p4c-navy"
                 >
                   Apply Now
                 </a>
@@ -244,20 +244,20 @@ const Careers: React.FC = () => (
 
       {/* Benefits Section */}
       <section className="mb-20">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-4">
+        <div className="mb-12 text-center">
+          <h2 className="mb-4 font-serif text-3xl font-bold text-p4c-navy">
             Why Work With Us?
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-gray-600">
             We offer competitive compensation and comprehensive benefits
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-white p-8 rounded-2xl shadow-xl text-center hover:shadow-2xl transition-shadow">
-            <div className="bg-p4c-navy/5 w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-6">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+          <div className="rounded-2xl bg-white p-8 text-center shadow-xl transition-shadow hover:shadow-2xl">
+            <div className="bg-p4c-navy/5 mx-auto mb-6 flex size-16 items-center justify-center rounded-xl">
               <svg
-                className="w-8 h-8 text-p4c-navy"
+                className="size-8 text-p4c-navy"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -270,7 +270,7 @@ const Careers: React.FC = () => (
                 />
               </svg>
             </div>
-            <h3 className="text-xl font-bold text-p4c-navy mb-4">
+            <h3 className="mb-4 text-xl font-bold text-p4c-navy">
               Competitive Pay
             </h3>
             <p className="text-gray-600">
@@ -278,10 +278,10 @@ const Careers: React.FC = () => (
             </p>
           </div>
 
-          <div className="bg-white p-8 rounded-2xl shadow-xl text-center hover:shadow-2xl transition-shadow">
-            <div className="bg-p4c-navy/5 w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-6">
+          <div className="rounded-2xl bg-white p-8 text-center shadow-xl transition-shadow hover:shadow-2xl">
+            <div className="bg-p4c-navy/5 mx-auto mb-6 flex size-16 items-center justify-center rounded-xl">
               <svg
-                className="w-8 h-8 text-p4c-navy"
+                className="size-8 text-p4c-navy"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -294,7 +294,7 @@ const Careers: React.FC = () => (
                 />
               </svg>
             </div>
-            <h3 className="text-xl font-bold text-p4c-navy mb-4">
+            <h3 className="mb-4 text-xl font-bold text-p4c-navy">
               Health Benefits
             </h3>
             <p className="text-gray-600">
@@ -302,10 +302,10 @@ const Careers: React.FC = () => (
             </p>
           </div>
 
-          <div className="bg-white p-8 rounded-2xl shadow-xl text-center hover:shadow-2xl transition-shadow">
-            <div className="bg-p4c-navy/5 w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-6">
+          <div className="rounded-2xl bg-white p-8 text-center shadow-xl transition-shadow hover:shadow-2xl">
+            <div className="bg-p4c-navy/5 mx-auto mb-6 flex size-16 items-center justify-center rounded-xl">
               <svg
-                className="w-8 h-8 text-p4c-navy"
+                className="size-8 text-p4c-navy"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -318,7 +318,7 @@ const Careers: React.FC = () => (
                 />
               </svg>
             </div>
-            <h3 className="text-xl font-bold text-p4c-navy mb-4">
+            <h3 className="mb-4 text-xl font-bold text-p4c-navy">
               Career Growth
             </h3>
             <p className="text-gray-600">
@@ -329,32 +329,32 @@ const Careers: React.FC = () => (
       </section>
 
       {/* CTA Section */}
-      <section className="bg-p4c-navy rounded-2xl text-white p-12 text-center">
-        <div className="max-w-3xl mx-auto">
-          <div className="flex justify-center mb-6">
-            <div className="bg-p4c-gold/20 p-4 rounded-2xl border border-p4c-gold/30">
-              <Briefcase className="w-10 h-10 text-p4c-gold" />
+      <section className="rounded-2xl bg-p4c-navy p-12 text-center text-white">
+        <div className="mx-auto max-w-3xl">
+          <div className="mb-6 flex justify-center">
+            <div className="bg-p4c-gold/20 border-p4c-gold/30 rounded-2xl border p-4">
+              <Briefcase className="size-10 text-p4c-gold" />
             </div>
           </div>
-          <h2 className="text-3xl font-serif font-bold mb-6">
+          <h2 className="mb-6 font-serif text-3xl font-bold">
             Ready to Join Our Team?
           </h2>
-          <p className="text-gray-300 text-lg mb-8 leading-relaxed">
+          <p className="mb-8 text-lg leading-relaxed text-gray-300">
             We&apos;re always looking for passionate, skilled individuals who
             make a difference in East Texas communities. Whether you&apos;re in
             property management, construction, or acquisitions, we have
             opportunities for you to grow your career.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <a
               href="/employment"
-              className="bg-p4c-gold text-p4c-navy hover:bg-white hover:text-p4c-navy px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center gap-2"
+              className="inline-flex items-center gap-2 rounded-xl bg-p4c-gold px-8 py-4 text-lg font-bold text-p4c-navy shadow-lg transition-all duration-300 hover:bg-white hover:text-p4c-navy hover:shadow-xl"
             >
               View All Positions
             </a>
             <a
               href="/contact"
-              className="border-2 border-white text-white hover:bg-white hover:text-p4c-navy px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 inline-flex items-center gap-2"
+              className="inline-flex items-center gap-2 rounded-xl border-2 border-white px-8 py-4 text-lg font-bold text-white transition-all duration-300 hover:bg-white hover:text-p4c-navy"
             >
               Contact HR
             </a>

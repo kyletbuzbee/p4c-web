@@ -49,37 +49,37 @@ const FamilyResources: React.FC = () => {
 
   const familyFeatures = [
     {
-      icon: <Home className="w-8 h-8 text-p4c-gold" />,
+      icon: <Home className="size-8 text-p4c-gold" />,
       title: 'Spacious Family Homes',
       description:
         '3-5 bedroom homes with dedicated family spaces, play areas, and modern amenities perfect for growing families.',
     },
     {
-      icon: <Shield className="w-8 h-8 text-p4c-gold" />,
+      icon: <Shield className="size-8 text-p4c-gold" />,
       title: 'Safe Neighborhoods',
       description:
         'Gated communities with 24/7 security, well-lit streets, and proximity to emergency services.',
     },
     {
-      icon: <School className="w-8 h-8 text-p4c-gold" />,
+      icon: <School className="size-8 text-p4c-gold" />,
       title: 'Top-Rated Schools',
       description:
         'Access to award-winning school districts with excellent test scores and extracurricular programs.',
     },
     {
-      icon: <Users className="w-8 h-8 text-p4c-gold" />,
+      icon: <Users className="size-8 text-p4c-gold" />,
       title: 'Community Support',
       description:
         'Local family support networks, childcare resources, and community events for families.',
     },
     {
-      icon: <MapPin className="w-8 h-8 text-p4c-gold" />,
+      icon: <MapPin className="size-8 text-p4c-gold" />,
       title: 'Convenient Locations',
       description:
         'Short commutes to work, shopping, healthcare, and recreational facilities.',
     },
     {
-      icon: <DollarSign className="w-8 h-8 text-p4c-gold" />,
+      icon: <DollarSign className="size-8 text-p4c-gold" />,
       title: 'Affordable Housing',
       description:
         'HUD-VASH and Section 8 approved properties with rent assistance programs available.',
@@ -114,7 +114,7 @@ const FamilyResources: React.FC = () => {
   ];
 
   return (
-    <div className="bg-p4c-beige min-h-screen">
+    <div className="min-h-screen bg-p4c-beige">
       <Helmet>
         <title>Family Resources | Properties 4 Creation</title>
         <meta
@@ -128,40 +128,40 @@ const FamilyResources: React.FC = () => {
       </Helmet>
 
       {/* Hero Section */}
-      <div className="relative h-[60vh] w-full overflow-hidden flex items-center justify-center">
-        <div className="absolute top-0 left-0 w-full h-full z-0">
+      <div className="relative flex h-[60vh] w-full items-center justify-center overflow-hidden">
+        <div className="absolute left-0 top-0 z-0 size-full">
           <img
             src={IMAGES.BANNERS.HERO_FAMILY_RESOURCES}
             alt="Beautiful family home in East Texas neighborhood"
-            className="w-full h-full object-cover"
+            className="size-full object-cover"
           />
-          <div className="absolute top-0 left-0 w-full h-full hero-overlay-primary" />
-          <div className="absolute top-0 left-0 w-full h-full hero-overlay-secondary" />
+          <div className="hero-overlay-primary absolute left-0 top-0 size-full" />
+          <div className="hero-overlay-secondary absolute left-0 top-0 size-full" />
         </div>
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-fade-in-up">
-          <div className="flex justify-center mb-6">
-            <div className="bg-p4c-gold p-4 rounded-full shadow-xl">
-              <Heart className="w-12 h-12 text-p4c-navy" />
+        <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
+          <div className="mb-6 flex justify-center">
+            <div className="rounded-full bg-p4c-gold p-4 shadow-xl">
+              <Heart className="size-12 text-p4c-navy" />
             </div>
           </div>
-          <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 hero-text-contrast">
+          <h1 className="hero-text-contrast mb-6 font-serif text-4xl font-bold text-white md:text-6xl">
             Family Homes That Feel Like Home
           </h1>
-          <p className="text-xl md:text-2xl text-gray-200 mb-8 leading-relaxed">
+          <p className="mb-8 text-xl leading-relaxed text-gray-200 md:text-2xl">
             Safe, affordable housing in East Texas with top-rated schools and
             community support for your family&apos;s future.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <a
               href="#schools"
-              className="bg-p4c-gold text-p4c-navy hover:bg-white px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              className="rounded-xl bg-p4c-gold px-8 py-4 text-lg font-bold text-p4c-navy shadow-lg transition-all hover:-translate-y-1 hover:bg-white hover:shadow-xl"
               aria-label="Learn about school districts"
             >
               Explore Schools
             </a>
             <a
               href="#features"
-              className="bg-white/20 backdrop-blur-sm border-2 border-white text-white hover:bg-white hover:text-p4c-navy px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-lg hover:shadow-xl"
+              className="rounded-xl border-2 border-white bg-white/20 px-8 py-4 text-lg font-bold text-white shadow-lg backdrop-blur-sm transition-all hover:bg-white hover:text-p4c-navy hover:shadow-xl"
               aria-label="See family housing features"
             >
               View Features
@@ -171,37 +171,37 @@ const FamilyResources: React.FC = () => {
       </div>
 
       {/* School Districts Section */}
-      <section id="schools" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-p4c-navy mb-6">
+      <section id="schools" className="bg-white py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-16 text-center">
+            <h2 className="mb-6 font-serif text-4xl font-bold text-p4c-navy md:text-5xl">
               Top-Rated School Districts
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="mx-auto max-w-3xl text-xl text-gray-600">
               Your children&apos;s education is our priority. All our properties
               located within highly-rated school districts.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {schoolDistricts.map((district) => (
               <div
                 key={district.name}
-                className="bg-p4c-beige rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
+                className="rounded-2xl border border-gray-100 bg-p4c-beige p-8 shadow-lg transition-all duration-300 hover:shadow-xl"
               >
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-2xl font-serif font-bold text-p4c-navy">
+                <div className="mb-4 flex items-center justify-between">
+                  <h3 className="font-serif text-2xl font-bold text-p4c-navy">
                     {district.name}
                   </h3>
                   <div className="flex items-center gap-1">
-                    <Star className="w-5 h-5 text-p4c-gold fill-current" />
+                    <Star className="size-5 fill-current text-p4c-gold" />
                     <span className="font-bold text-p4c-navy">
                       {district.rating}
                     </span>
                   </div>
                 </div>
 
-                <div className="space-y-3 mb-6">
+                <div className="mb-6 space-y-3">
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Schools:</span>
                     <span className="font-semibold text-p4c-navy">
@@ -217,7 +217,7 @@ const FamilyResources: React.FC = () => {
                 </div>
 
                 <div>
-                  <h4 className="font-semibold text-p4c-navy mb-2">
+                  <h4 className="mb-2 font-semibold text-p4c-navy">
                     Highlights:
                   </h4>
                   <ul className="space-y-1">
@@ -226,7 +226,7 @@ const FamilyResources: React.FC = () => {
                         key={idx}
                         className="flex items-center gap-2 text-sm text-gray-600"
                       >
-                        <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" />
+                        <CheckCircle2 className="size-4 shrink-0 text-green-500" />
                         {highlight}
                       </li>
                     ))}
@@ -239,29 +239,29 @@ const FamilyResources: React.FC = () => {
       </section>
 
       {/* Family Features Section */}
-      <section id="features" className="py-20 bg-p4c-navy text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-p4c-beige mb-6">
+      <section id="features" className="bg-p4c-navy py-20 text-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-16 text-center">
+            <h2 className="mb-6 font-serif text-4xl font-bold text-p4c-beige md:text-5xl">
               Designed for Families
             </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            <p className="mx-auto max-w-3xl text-xl text-gray-300">
               Every aspect of our properties is chosen with families in mind,
               from spacious layouts to community amenities.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {familyFeatures.map((feature, index) => (
               <div
                 key={index}
-                className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-300"
+                className="rounded-2xl border border-white/20 bg-white/10 p-6 backdrop-blur-sm transition-all duration-300 hover:bg-white/15"
               >
                 <div className="mb-4">{feature.icon}</div>
-                <h3 className="text-xl font-serif font-bold text-p4c-beige mb-3">
+                <h3 className="mb-3 font-serif text-xl font-bold text-p4c-beige">
                   {feature.title}
                 </h3>
-                <p className="text-gray-300 leading-relaxed">
+                <p className="leading-relaxed text-gray-300">
                   {feature.description}
                 </p>
               </div>
@@ -271,26 +271,26 @@ const FamilyResources: React.FC = () => {
       </section>
 
       {/* Family Amenities Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-p4c-navy mb-6">
+      <section className="bg-white py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-16 text-center">
+            <h2 className="mb-6 font-serif text-4xl font-bold text-p4c-navy md:text-5xl">
               Family Amenities & Services
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="mx-auto max-w-3xl text-xl text-gray-600">
               Beyond housing, we provide comprehensive support services to help
               families thrive in East Texas.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
             <div className="space-y-8">
               <div className="flex gap-4">
-                <div className="bg-p4c-gold p-3 rounded-xl flex-shrink-0">
-                  <BookOpen className="w-6 h-6 text-p4c-navy" />
+                <div className="shrink-0 rounded-xl bg-p4c-gold p-3">
+                  <BookOpen className="size-6 text-p4c-navy" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-serif font-bold text-p4c-navy mb-2">
+                  <h3 className="mb-2 font-serif text-xl font-bold text-p4c-navy">
                     Educational Support
                   </h3>
                   <p className="text-gray-600">
@@ -301,11 +301,11 @@ const FamilyResources: React.FC = () => {
               </div>
 
               <div className="flex gap-4">
-                <div className="bg-p4c-gold p-3 rounded-xl flex-shrink-0">
-                  <Baby className="w-6 h-6 text-p4c-navy" />
+                <div className="shrink-0 rounded-xl bg-p4c-gold p-3">
+                  <Baby className="size-6 text-p4c-navy" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-serif font-bold text-p4c-navy mb-2">
+                  <h3 className="mb-2 font-serif text-xl font-bold text-p4c-navy">
                     Childcare Resources
                   </h3>
                   <p className="text-gray-600">
@@ -316,11 +316,11 @@ const FamilyResources: React.FC = () => {
               </div>
 
               <div className="flex gap-4">
-                <div className="bg-p4c-gold p-3 rounded-xl flex-shrink-0">
-                  <Users className="w-6 h-6 text-p4c-navy" />
+                <div className="shrink-0 rounded-xl bg-p4c-gold p-3">
+                  <Users className="size-6 text-p4c-navy" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-serif font-bold text-p4c-navy mb-2">
+                  <h3 className="mb-2 font-serif text-xl font-bold text-p4c-navy">
                     Family Counseling
                   </h3>
                   <p className="text-gray-600">
@@ -333,11 +333,11 @@ const FamilyResources: React.FC = () => {
 
             <div className="space-y-8">
               <div className="flex gap-4">
-                <div className="bg-p4c-gold p-3 rounded-xl flex-shrink-0">
-                  <Car className="w-6 h-6 text-p4c-navy" />
+                <div className="shrink-0 rounded-xl bg-p4c-gold p-3">
+                  <Car className="size-6 text-p4c-navy" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-serif font-bold text-p4c-navy mb-2">
+                  <h3 className="mb-2 font-serif text-xl font-bold text-p4c-navy">
                     Transportation Support
                   </h3>
                   <p className="text-gray-600">
@@ -348,11 +348,11 @@ const FamilyResources: React.FC = () => {
               </div>
 
               <div className="flex gap-4">
-                <div className="bg-p4c-gold p-3 rounded-xl flex-shrink-0">
-                  <Wifi className="w-6 h-6 text-p4c-navy" />
+                <div className="shrink-0 rounded-xl bg-p4c-gold p-3">
+                  <Wifi className="size-6 text-p4c-navy" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-serif font-bold text-p4c-navy mb-2">
+                  <h3 className="mb-2 font-serif text-xl font-bold text-p4c-navy">
                     Technology Access
                   </h3>
                   <p className="text-gray-600">
@@ -363,11 +363,11 @@ const FamilyResources: React.FC = () => {
               </div>
 
               <div className="flex gap-4">
-                <div className="bg-p4c-gold p-3 rounded-xl flex-shrink-0">
-                  <Award className="w-6 h-6 text-p4c-navy" />
+                <div className="shrink-0 rounded-xl bg-p4c-gold p-3">
+                  <Award className="size-6 text-p4c-navy" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-serif font-bold text-p4c-navy mb-2">
+                  <h3 className="mb-2 font-serif text-xl font-bold text-p4c-navy">
                     Community Programs
                   </h3>
                   <p className="text-gray-600">
@@ -382,34 +382,34 @@ const FamilyResources: React.FC = () => {
       </section>
 
       {/* Family Testimonials */}
-      <section className="py-20 bg-p4c-beige">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-p4c-navy mb-6">
+      <section className="bg-p4c-beige py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-16 text-center">
+            <h2 className="mb-6 font-serif text-4xl font-bold text-p4c-navy md:text-5xl">
               Families Love Their Properties 4 Creation Homes
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="mx-auto max-w-3xl text-xl text-gray-600">
               Hear from families who&apos;ve found their perfect home with
               Properties 4 Creation.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {testimonials.map((testimonial, index) => (
               <div
                 key={index}
-                className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100"
+                className="rounded-2xl border border-gray-100 bg-white p-8 shadow-lg"
               >
-                <div className="flex mb-4">
+                <div className="mb-4 flex">
                   {[...Array(testimonial.rating)].map((_, i) => (
                     <Star
                       key={i}
-                      className="w-5 h-5 text-p4c-gold fill-current"
+                      className="size-5 fill-current text-p4c-gold"
                     />
                   ))}
                 </div>
 
-                <blockquote className="text-gray-700 mb-6 italic leading-relaxed">
+                <blockquote className="mb-6 italic leading-relaxed text-gray-700">
                   &quot;{testimonial.quote}&quot;
                 </blockquote>
 
@@ -428,26 +428,26 @@ const FamilyResources: React.FC = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="py-20 bg-p4c-navy text-white">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-p4c-beige mb-6">
+      <section className="bg-p4c-navy py-20 text-white">
+        <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+          <h2 className="mb-6 font-serif text-4xl font-bold text-p4c-beige md:text-5xl">
             Ready to Find Your Family&apos;s Home?
           </h2>
-          <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+          <p className="mb-8 text-xl leading-relaxed text-gray-300">
             Take the first step towards creating lasting memories in a home that
             supports your family&apos;s growth and happiness.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <a
               href="/apply"
-              className="bg-p4c-gold text-p4c-navy hover:bg-white px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              className="rounded-xl bg-p4c-gold px-8 py-4 text-lg font-bold text-p4c-navy shadow-lg transition-all hover:-translate-y-1 hover:bg-white hover:shadow-xl"
               aria-label="Start your family housing application"
             >
               Start Application
             </a>
             <a
               href="/contact"
-              className="bg-white/20 backdrop-blur-sm border-2 border-white text-white hover:bg-white hover:text-p4c-navy px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-lg hover:shadow-xl"
+              className="rounded-xl border-2 border-white bg-white/20 px-8 py-4 text-lg font-bold text-white shadow-lg backdrop-blur-sm transition-all hover:bg-white hover:text-p4c-navy hover:shadow-xl"
               aria-label="Contact us about family housing"
             >
               Contact Us

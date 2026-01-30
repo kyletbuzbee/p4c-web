@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 
 const VeteranServices: React.FC = () => (
-  <div className="bg-p4c-beige min-h-screen">
+  <div className="min-h-screen bg-p4c-beige">
     <Helmet>
       <title>Veteran Housing Logistics | Properties 4 Creation</title>
       <meta
@@ -23,26 +23,26 @@ const VeteranServices: React.FC = () => (
     </Helmet>
 
     {/* Hero Banner */}
-    <div className="relative h-[400px] w-full overflow-hidden flex items-center justify-center">
-      <div className="absolute top-0 left-0 w-full h-full z-0">
+    <div className="relative flex h-[400px] w-full items-center justify-center overflow-hidden">
+      <div className="absolute left-0 top-0 z-0 size-full">
         <img
           src={IMAGES.BANNERS.HERO_RESOURCES}
           alt="American flag on a renovated porch in East Texas"
-          className="w-full h-full object-cover"
+          className="size-full object-cover"
         />
-        <div className="absolute top-0 left-0 w-full h-full hero-overlay-primary bg-p4c-navy/60" />
-        <div className="absolute top-0 left-0 w-full h-full hero-overlay-secondary bg-gradient-to-t from-p4c-navy to-transparent" />
+        <div className="hero-overlay-primary bg-p4c-navy/60 absolute left-0 top-0 size-full" />
+        <div className="hero-overlay-secondary absolute left-0 top-0 size-full bg-gradient-to-t from-p4c-navy to-transparent" />
       </div>
-      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-fade-in-up">
-        <div className="flex justify-center mb-6">
-          <div className="bg-p4c-gold/20 p-4 rounded-2xl border border-p4c-gold/30 backdrop-blur-sm">
-            <Flag className="w-10 h-10 text-p4c-gold" />
+      <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
+        <div className="mb-6 flex justify-center">
+          <div className="bg-p4c-gold/20 border-p4c-gold/30 rounded-2xl border p-4 backdrop-blur-sm">
+            <Flag className="size-10 text-p4c-gold" />
           </div>
         </div>
-        <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4 tracking-wide">
+        <h1 className="mb-4 font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
           Housing Logistics & Support
         </h1>
-        <p className="text-xl text-gray-200 font-light max-w-2xl mx-auto">
+        <p className="mx-auto max-w-2xl text-xl font-light text-gray-200">
           Structured housing solutions and resource coordination for veterans in
           the
           <strong> East Texas</strong> area.
@@ -50,20 +50,20 @@ const VeteranServices: React.FC = () => (
       </div>
     </div>
 
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
       {/* Core Services Grid */}
       <div className="mb-20">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-4">
+        <div className="mb-12 text-center">
+          <h2 className="mb-4 font-serif text-3xl font-bold text-p4c-navy">
             Operational Support Pillars
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-gray-600">
             We provide more than just a lease; we offer a framework for
             stability and reintegration.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {[
             {
               icon: Home,
@@ -98,15 +98,15 @@ const VeteranServices: React.FC = () => (
           ].map((service, i) => (
             <div
               key={i}
-              className="bg-white p-8 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 group"
+              className="group rounded-xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-lg"
             >
-              <div className="bg-p4c-navy/5 w-14 h-14 rounded-xl flex items-center justify-center mb-6 group-hover:bg-p4c-navy transition-colors">
-                <service.icon className="w-7 h-7 text-p4c-navy group-hover:text-p4c-gold transition-colors" />
+              <div className="bg-p4c-navy/5 mb-6 flex size-14 items-center justify-center rounded-xl transition-colors group-hover:bg-p4c-navy">
+                <service.icon className="size-7 text-p4c-navy transition-colors group-hover:text-p4c-gold" />
               </div>
-              <h3 className="text-xl font-bold text-p4c-navy mb-3">
+              <h3 className="mb-3 text-xl font-bold text-p4c-navy">
                 {service.title}
               </h3>
-              <p className="text-gray-600 leading-relaxed text-sm">
+              <p className="text-sm leading-relaxed text-gray-600">
                 {service.text}
               </p>
             </div>
@@ -115,62 +115,62 @@ const VeteranServices: React.FC = () => (
       </div>
 
       {/* Specialized Housing Programs */}
-      <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-20 border border-gray-100">
-        <div className="bg-p4c-navy p-8 md:p-10 text-white flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+      <div className="mb-20 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-xl">
+        <div className="flex flex-col items-start justify-between gap-6 bg-p4c-navy p-8 text-white md:flex-row md:items-center md:p-10">
           <div>
-            <h2 className="text-3xl font-serif font-bold mb-2">
+            <h2 className="mb-2 font-serif text-3xl font-bold">
               Accepted Voucher Programs
             </h2>
             <p className="text-gray-300">
               We are experts in processing federal and state housing assistance.
             </p>
           </div>
-          <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/20">
-            <span className="text-p4c-gold font-bold">100% Approval Rate</span>{' '}
+          <div className="rounded-lg border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-sm">
+            <span className="font-bold text-p4c-gold">100% Approval Rate</span>{' '}
             on Inspections
           </div>
         </div>
 
-        <div className="p-8 md:p-10 grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div className="grid grid-cols-1 gap-10 p-8 md:grid-cols-2 md:p-10">
           <div>
-            <h3 className="text-xl font-bold text-p4c-navy mb-3 flex items-center gap-3">
-              <span className="bg-p4c-gold w-1.5 h-6 rounded-full" />
+            <h3 className="mb-3 flex items-center gap-3 text-xl font-bold text-p4c-navy">
+              <span className="h-6 w-1.5 rounded-full bg-p4c-gold" />
               HUD-VASH Program
             </h3>
-            <p className="text-gray-600 mb-4 leading-relaxed">
+            <p className="mb-4 leading-relaxed text-gray-600">
               We work directly with VA case managers to expedite HQS inspections
               and lease-ups. Our team understands the specific requirements of
               the HUD-VASH program to prevent administrative delays.
             </p>
           </div>
           <div>
-            <h3 className="text-xl font-bold text-p4c-navy mb-3 flex items-center gap-3">
-              <span className="bg-p4c-gold w-1.5 h-6 rounded-full" />
+            <h3 className="mb-3 flex items-center gap-3 text-xl font-bold text-p4c-navy">
+              <span className="h-6 w-1.5 rounded-full bg-p4c-gold" />
               Section 8 (HCV)
             </h3>
-            <p className="text-gray-600 mb-4 leading-relaxed">
+            <p className="mb-4 leading-relaxed text-gray-600">
               Standard Housing Choice Vouchers are welcomed. Our properties are
               pre-screened to meet or exceed Housing Quality Standards (HQS),
               ensuring a pass on the first inspection attempt.
             </p>
           </div>
           <div>
-            <h3 className="text-xl font-bold text-p4c-navy mb-3 flex items-center gap-3">
-              <span className="bg-p4c-gold w-1.5 h-6 rounded-full" />
+            <h3 className="mb-3 flex items-center gap-3 text-xl font-bold text-p4c-navy">
+              <span className="h-6 w-1.5 rounded-full bg-p4c-gold" />
               Rapid Rehousing (SSVF)
             </h3>
-            <p className="text-gray-600 mb-4 leading-relaxed">
+            <p className="mb-4 leading-relaxed text-gray-600">
               We accept short-term rental assistance from SSVF providers. We
               offer flexible lease terms to align with the duration of your
               assistance program to ensure housing stability.
             </p>
           </div>
           <div>
-            <h3 className="text-xl font-bold text-p4c-navy mb-3 flex items-center gap-3">
-              <span className="bg-p4c-gold w-1.5 h-6 rounded-full" />
+            <h3 className="mb-3 flex items-center gap-3 text-xl font-bold text-p4c-navy">
+              <span className="h-6 w-1.5 rounded-full bg-p4c-gold" />
               ADA / Accessibility
             </h3>
-            <p className="text-gray-600 mb-4 leading-relaxed">
+            <p className="mb-4 leading-relaxed text-gray-600">
               We provide reasonable accommodations including wheelchair ramps,
               grab bars, and visual alarms at no cost to disabled veteran
               tenants upon request.
@@ -180,10 +180,10 @@ const VeteranServices: React.FC = () => (
       </div>
 
       {/* Resources Directory */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         <div className="lg:col-span-2">
-          <h2 className="text-2xl font-serif font-bold text-p4c-navy mb-6 flex items-center gap-2">
-            <MapPin className="text-p4c-gold w-6 h-6" />
+          <h2 className="mb-6 flex items-center gap-2 font-serif text-2xl font-bold text-p4c-navy">
+            <MapPin className="size-6 text-p4c-gold" />
             East Texas Resource Network
           </h2>
           <div className="space-y-4">
@@ -211,20 +211,20 @@ const VeteranServices: React.FC = () => (
             ].map((res, i) => (
               <div
                 key={i}
-                className="flex flex-col sm:flex-row sm:items-center justify-between bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:border-p4c-gold transition-colors"
+                className="flex flex-col justify-between rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-colors hover:border-p4c-gold sm:flex-row sm:items-center"
               >
                 <div>
-                  <h4 className="font-bold text-p4c-navy text-lg">
+                  <h4 className="text-lg font-bold text-p4c-navy">
                     {res.name}
                   </h4>
-                  <p className="text-gray-600 text-sm mt-1">{res.desc}</p>
+                  <p className="mt-1 text-sm text-gray-600">{res.desc}</p>
                 </div>
-                <div className="mt-4 sm:mt-0 flex-shrink-0">
+                <div className="mt-4 shrink-0 sm:mt-0">
                   <a
                     href={`tel:${res.phone.replace(/\D/g, '')}`}
-                    className="text-p4c-navy font-bold hover:text-p4c-gold transition-colors flex items-center gap-2 bg-gray-50 px-4 py-2 rounded-lg border border-gray-100"
+                    className="flex items-center gap-2 rounded-lg border border-gray-100 bg-gray-50 px-4 py-2 font-bold text-p4c-navy transition-colors hover:text-p4c-gold"
                   >
-                    <Phone className="w-4 h-4" /> {res.phone}
+                    <Phone className="size-4" /> {res.phone}
                   </a>
                 </div>
               </div>
@@ -232,22 +232,22 @@ const VeteranServices: React.FC = () => (
           </div>
         </div>
 
-        <div className="bg-p4c-navy text-white p-8 rounded-2xl h-fit shadow-xl border-t-4 border-p4c-gold">
-          <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-            <Shield className="w-5 h-5 text-p4c-gold" />
+        <div className="h-fit rounded-2xl border-t-4 border-p4c-gold bg-p4c-navy p-8 text-white shadow-xl">
+          <h3 className="mb-4 flex items-center gap-2 text-xl font-bold">
+            <Shield className="size-5 text-p4c-gold" />
             Tactical Support
           </h3>
-          <p className="text-gray-300 mb-6 text-sm leading-relaxed">
+          <p className="mb-6 text-sm leading-relaxed text-gray-300">
             If you are a veteran in crisis or at immediate risk of homelessness,
             activate the Veterans Crisis Line immediately.
           </p>
           <a
             href="tel:988"
-            className="block w-full bg-p4c-gold text-p4c-navy text-center py-4 rounded-lg font-bold hover:bg-white transition-colors mb-4 shadow-lg"
+            className="mb-4 block w-full rounded-lg bg-p4c-gold py-4 text-center font-bold text-p4c-navy shadow-lg transition-colors hover:bg-white"
           >
             Dial 988 (Press 1)
           </a>
-          <div className="text-center text-xs text-gray-400 border-t border-white/10 pt-4 mt-4">
+          <div className="mt-4 border-t border-white/10 pt-4 text-center text-xs text-gray-400">
             <p>Confidential • 24/7 • Free</p>
             <p className="mt-1">P4C Liaison: (903) 707-8460</p>
           </div>

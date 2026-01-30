@@ -11,21 +11,21 @@ const DarkModeToggle: React.FC<DarkModeToggleProps> = ({ className = '' }) => {
   return (
     <button
       onClick={toggleDarkMode}
-      className={`p-2 rounded-full transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-p4c-navy focus:ring-opacity-50 ${className}`}
+      className={`rounded-full p-2 transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-p4c-navy focus:ring-opacity-50 ${className}`}
       aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
       title={`Current: ${isDarkMode ? 'Dark' : 'Light'} mode | System preference: ${systemPreference}`}
     >
-      <div className="relative w-6 h-6">
+      <div className="relative size-6">
         {/* Sun Icon */}
         <div
           className={`absolute inset-0 transition-all duration-500 ease-in-out ${
             isDarkMode
-              ? 'opacity-0 scale-50 rotate-180'
-              : 'opacity-100 scale-100 rotate-0'
+              ? 'rotate-180 scale-50 opacity-0'
+              : 'rotate-0 scale-100 opacity-100'
           }`}
         >
           <svg
-            className="w-full h-full text-yellow-500"
+            className="size-full text-yellow-500"
             viewBox="0 0 24 24"
             fill="currentColor"
           >
@@ -38,12 +38,12 @@ const DarkModeToggle: React.FC<DarkModeToggleProps> = ({ className = '' }) => {
         <div
           className={`absolute inset-0 transition-all duration-500 ease-in-out ${
             isDarkMode
-              ? 'opacity-100 scale-100 rotate-0'
-              : 'opacity-0 scale-50 -rotate-180'
+              ? 'rotate-0 scale-100 opacity-100'
+              : '-rotate-180 scale-50 opacity-0'
           }`}
         >
           <svg
-            className="w-full h-full text-gray-200"
+            className="size-full text-gray-200"
             viewBox="0 0 24 24"
             fill="currentColor"
           >
@@ -60,7 +60,7 @@ const DarkModeToggle: React.FC<DarkModeToggleProps> = ({ className = '' }) => {
       {/* System preference indicator */}
       {systemPreference !== 'no-preference' && (
         <span
-          className="absolute -bottom-1 -right-1 w-2 h-2 bg-blue-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          className="absolute -bottom-1 -right-1 size-2 rounded-full bg-blue-400 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
           title={`System prefers ${systemPreference} mode`}
         />
       )}

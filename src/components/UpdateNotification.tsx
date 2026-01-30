@@ -23,29 +23,29 @@ export const UpdateNotification: React.FC = () => {
       role="alert"
       aria-live="polite"
     >
-      <div className="bg-white border-l-4 border-p4c-gold rounded-r-xl shadow-2xl p-4 max-w-sm flex items-start gap-4 animate-bounce">
-        <div className="text-p4c-navy mt-1">
-          <RefreshCw className="w-5 h-5 animate-spin" />
+      <div className="flex max-w-sm animate-bounce items-start gap-4 rounded-r-xl border-l-4 border-p4c-gold bg-white p-4 shadow-2xl">
+        <div className="mt-1 text-p4c-navy">
+          <RefreshCw className="size-5 animate-spin" />
         </div>
 
         <div className="flex-1">
-          <h4 className="text-sm font-serif font-bold text-p4c-navy">
+          <h4 className="font-serif text-sm font-bold text-p4c-navy">
             Update Available
           </h4>
-          <p className="text-xs text-slate-600 mt-1 mb-3">
+          <p className="mb-3 mt-1 text-xs text-slate-600">
             We&apos;ve updated the listings. Refresh to see the latest homes.
           </p>
 
           <div className="flex gap-2">
             <button
               onClick={() => updateSW()}
-              className="px-3 py-1.5 bg-p4c-navy text-p4c-gold text-xs font-bold rounded hover:bg-slate-800 transition-colors"
+              className="rounded bg-p4c-navy px-3 py-1.5 text-xs font-bold text-p4c-gold transition-colors hover:bg-slate-800"
             >
               Refresh Now
             </button>
             <button
               onClick={() => setShowUpdate(false)}
-              className="px-3 py-1.5 text-slate-500 text-xs font-medium hover:text-slate-800 transition-colors"
+              className="px-3 py-1.5 text-xs font-medium text-slate-500 transition-colors hover:text-slate-800"
             >
               Dismiss
             </button>
@@ -57,7 +57,7 @@ export const UpdateNotification: React.FC = () => {
           className="text-slate-400 hover:text-slate-600"
           aria-label="Close notification"
         >
-          <X className="w-4 h-4" />
+          <X className="size-4" />
         </button>
       </div>
     </div>

@@ -46,7 +46,7 @@ const SkipLink: React.FC = () => {
 
   return (
     <div
-      className="fixed top-0 left-0 right-0 z-[100] flex justify-start"
+      className="fixed inset-x-0 top-0 z-[100] flex justify-start"
       role="region"
       aria-label="Skip navigation"
     >
@@ -54,11 +54,11 @@ const SkipLink: React.FC = () => {
         href="#main-content"
         onClick={handleClick}
         onKeyDown={(e) => e.key === 'Escape' && hideSkipLink()}
-        className="skip-link inline-flex items-center px-4 py-3 bg-p4c-navy text-white font-semibold shadow-lg focus:outline-none focus:ring-2 focus:ring-p4c-gold focus:ring-offset-2"
+        className="skip-link inline-flex items-center bg-p4c-navy px-4 py-3 font-semibold text-white shadow-lg focus:outline-none focus:ring-2 focus:ring-p4c-gold focus:ring-offset-2"
         aria-label="Skip to main content"
       >
         <span>Skip to main content</span>
-        <ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" />
+        <ArrowRight className="ml-2 size-4" aria-hidden="true" />
         <button
           type="button"
           onClick={(e) => {
@@ -66,10 +66,10 @@ const SkipLink: React.FC = () => {
             hideSkipLink();
           }}
           onKeyDown={(e) => e.key === 'Enter' && hideSkipLink()}
-          className="ml-3 p-1 hover:bg-white/20 rounded-full transition-colors"
+          className="ml-3 rounded-full p-1 transition-colors hover:bg-white/20"
           aria-label="Dismiss skip link"
         >
-          <X className="w-4 h-4" aria-hidden="true" />
+          <X className="size-4" aria-hidden="true" />
         </button>
       </a>
     </div>

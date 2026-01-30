@@ -71,10 +71,10 @@ const CustomVideoPlayer: React.FC<CustomVideoPlayerProps> = ({
   };
 
   return (
-    <div className="relative rounded-xl overflow-hidden bg-p4c-navy shadow-2xl group border border-gray-800">
+    <div className="group relative overflow-hidden rounded-xl border border-gray-800 bg-p4c-navy shadow-2xl">
       <video
         ref={videoRef}
-        className="w-full aspect-video object-cover"
+        className="aspect-video w-full object-cover"
         poster={poster}
         aria-label={ariaLabel}
         onTimeUpdate={handleTimeUpdate}
@@ -82,33 +82,33 @@ const CustomVideoPlayer: React.FC<CustomVideoPlayerProps> = ({
       >
         <track kind="captions" />
         <source src={src} type="video/mp4" />
-        <p className="text-white p-4">
+        <p className="p-4 text-white">
           Your browser does not support the video tag.
         </p>
       </video>
 
       {!isPlaying && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/40 transition-all duration-300">
+        <div className="absolute inset-0 flex items-center justify-center bg-black/30 transition-all duration-300 group-hover:bg-black/40">
           <button
             onClick={togglePlay}
-            className="w-20 h-20 rounded-full bg-p4c-gold/90 hover:bg-p4c-gold flex items-center justify-center shadow-xl backdrop-blur-sm transition-all duration-300 transform hover:scale-105"
+            className="bg-p4c-gold/90 flex size-20 items-center justify-center rounded-full shadow-xl backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-p4c-gold"
             aria-label="Play video"
           >
-            <Play className="w-8 h-8 text-p4c-navy ml-1" fill="currentColor" />
+            <Play className="ml-1 size-8 text-p4c-navy" fill="currentColor" />
           </button>
         </div>
       )}
 
-      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
         <div className="flex items-center gap-4">
           <button
             onClick={togglePlay}
-            className="text-white hover:text-p4c-gold transition-colors"
+            className="text-white transition-colors hover:text-p4c-gold"
           >
             {isPlaying ? (
-              <Pause className="w-5 h-5" />
+              <Pause className="size-5" />
             ) : (
-              <Play className="w-5 h-5" />
+              <Play className="size-5" />
             )}
           </button>
 
@@ -118,17 +118,17 @@ const CustomVideoPlayer: React.FC<CustomVideoPlayerProps> = ({
             max="100"
             value={progress}
             onChange={handleSeek}
-            className="flex-grow h-1 bg-white/30 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-p4c-gold"
+            className="h-1 grow cursor-pointer appearance-none rounded-full bg-white/30 [&::-webkit-slider-thumb]:size-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-p4c-gold"
           />
 
           <button
             onClick={toggleMute}
-            className="text-white hover:text-p4c-gold transition-colors"
+            className="text-white transition-colors hover:text-p4c-gold"
           >
             {isMuted ? (
-              <VolumeX className="w-5 h-5" />
+              <VolumeX className="size-5" />
             ) : (
-              <Volume2 className="w-5 h-5" />
+              <Volume2 className="size-5" />
             )}
           </button>
         </div>
@@ -197,25 +197,25 @@ const SuccessStories: React.FC = () => {
       </Helmet>
 
       {/* Hero Section */}
-      <div className="relative h-[50vh] min-h-[400px] w-full overflow-hidden flex items-center justify-center">
+      <div className="relative flex h-[50vh] min-h-[400px] w-full items-center justify-center overflow-hidden">
         <video
           autoPlay
           loop
           muted
           playsInline
           poster={IMAGES.BANNERS.HERO_IMPACT}
-          className="absolute top-0 left-0 w-full h-full object-cover"
+          className="absolute left-0 top-0 size-full object-cover"
         >
           <source src={IMAGES.VIDEOS.HERO_IMPACT} type="video/mp4" />
         </video>
-        <div className="absolute top-0 left-0 w-full h-full hero-overlay-primary bg-p4c-navy/60" />
-        <div className="absolute top-0 left-0 w-full h-full hero-overlay-secondary bg-gradient-to-t from-p4c-beige to-transparent" />
+        <div className="hero-overlay-primary bg-p4c-navy/60 absolute left-0 top-0 size-full" />
+        <div className="hero-overlay-secondary absolute left-0 top-0 size-full bg-gradient-to-t from-p4c-beige to-transparent" />
 
-        <div className="relative z-10 text-center px-4 max-w-4xl animate-fade-in-up">
-          <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">
+        <div className="relative z-10 max-w-4xl animate-fade-in-up px-4 text-center">
+          <h1 className="mb-6 font-serif text-4xl font-bold text-white md:text-5xl">
             Resident <span className="text-p4c-gold">Satisfaction</span>
           </h1>
-          <p className="text-xl text-gray-200 font-light max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-xl font-light text-gray-200">
             We don't just lease properties; we build long-term relationships
             through professional management and respect.
           </p>
@@ -223,17 +223,17 @@ const SuccessStories: React.FC = () => {
       </div>
 
       {/* Testimonials Grid */}
-      <section className="py-16 px-4 max-w-6xl mx-auto -mt-20 relative z-20">
+      <section className="relative z-20 mx-auto -mt-20 max-w-6xl px-4 py-16">
         <div className="grid grid-cols-1 gap-16">
           {testimonials.map((story, index) => (
             <article
               key={story.id}
-              className={`bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col ${
+              className={`flex flex-col overflow-hidden rounded-2xl bg-white shadow-xl ${
                 index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
               }`}
             >
               {/* Video Section */}
-              <div className="w-full lg:w-1/2 bg-gray-900">
+              <div className="w-full bg-gray-900 lg:w-1/2">
                 <CustomVideoPlayer
                   src={
                     story.id === 1
@@ -254,41 +254,41 @@ const SuccessStories: React.FC = () => {
               </div>
 
               {/* Content Section */}
-              <div className="w-full lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center">
-                <div className="flex gap-2 mb-6">
+              <div className="flex w-full flex-col justify-center p-8 lg:w-1/2 lg:p-12">
+                <div className="mb-6 flex gap-2">
                   {story.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1 bg-p4c-beige text-p4c-navy text-xs font-bold uppercase tracking-wider rounded-full"
+                      className="rounded-full bg-p4c-beige px-3 py-1 text-xs font-bold uppercase tracking-wider text-p4c-navy"
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
 
-                <Quote className="w-10 h-10 text-p4c-gold mb-6 opacity-50" />
+                <Quote className="mb-6 size-10 text-p4c-gold opacity-50" />
 
-                <blockquote className="text-xl md:text-2xl text-p4c-navy font-serif leading-relaxed mb-8">
+                <blockquote className="mb-8 font-serif text-xl leading-relaxed text-p4c-navy md:text-2xl">
                   "{story.quote}"
                 </blockquote>
 
                 <div className="flex items-center gap-4 border-t border-gray-100 pt-6">
-                  <div className="w-12 h-12 bg-p4c-navy rounded-full flex items-center justify-center text-white font-bold text-lg">
+                  <div className="flex size-12 items-center justify-center rounded-full bg-p4c-navy text-lg font-bold text-white">
                     {story.name.charAt(0)}
                   </div>
                   <div>
-                    <div className="font-bold text-p4c-navy text-lg">
+                    <div className="text-lg font-bold text-p4c-navy">
                       {story.name}
                     </div>
-                    <div className="text-sm text-gray-500 flex items-center gap-2">
+                    <div className="flex items-center gap-2 text-sm text-gray-500">
                       <span>{story.location}</span>
-                      <span className="w-1 h-1 bg-gray-300 rounded-full" />
+                      <span className="size-1 rounded-full bg-gray-300" />
                       <span>{story.role}</span>
                     </div>
                   </div>
                   <div className="ml-auto flex text-p4c-gold">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-current" />
+                      <Star key={i} className="size-4 fill-current" />
                     ))}
                   </div>
                 </div>
@@ -299,70 +299,70 @@ const SuccessStories: React.FC = () => {
       </section>
 
       {/* Value Creation Section (BRRR Breakdown) */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-4">
+      <section className="bg-white py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-16 text-center">
+            <h2 className="mb-4 font-serif text-3xl font-bold text-p4c-navy md:text-4xl">
               How We Create Value
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+            <p className="mx-auto max-w-2xl text-lg text-gray-600">
               Our systematic renovation process ensures consistency, quality,
               and long-term reliability for every home in our portfolio.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
             {[
               {
                 step: '1',
                 title: 'Acquisition',
                 desc: 'We identify high-potential properties in established neighborhoods.',
-                icon: <Home className="w-6 h-6" />,
+                icon: <Home className="size-6" />,
                 img: IMAGES.PROPERTIES.LINDALE_COTTAGE,
               },
               {
                 step: '2',
                 title: 'Renovation',
                 desc: 'Full mechanical and cosmetic overhaul using commercial-grade materials.',
-                icon: <Hammer className="w-6 h-6" />,
+                icon: <Hammer className="size-6" />,
                 img: IMAGES.GALLERY.FRAMING,
               },
               {
                 step: '3',
                 title: 'Leasing',
                 desc: 'Rigorous tenant screening and placement of families and veterans.',
-                icon: <DollarSign className="w-6 h-6" />,
+                icon: <DollarSign className="size-6" />,
                 img: IMAGES.TEAM.ONSITE,
               },
               {
                 step: '4',
                 title: 'Management',
                 desc: 'Ongoing professional maintenance and asset preservation.',
-                icon: <TrendingUp className="w-6 h-6" />,
+                icon: <TrendingUp className="size-6" />,
                 img: IMAGES.RENOVATION.LIVING_ROOM.AFTER,
               },
             ].map((item) => (
               <div
                 key={item.step}
-                className="group bg-p4c-beige rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
+                className="group overflow-hidden rounded-2xl bg-p4c-beige shadow-lg transition-all duration-300 hover:shadow-xl"
               >
                 <div className="relative h-48 overflow-hidden">
                   <img
                     src={item.img}
                     alt={item.title}
-                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                    className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-p4c-navy/50 mix-blend-multiply" />
-                  <div className="absolute top-4 left-4 bg-p4c-gold text-p4c-navy w-8 h-8 flex items-center justify-center rounded-full font-bold shadow-lg">
+                  <div className="bg-p4c-navy/50 absolute inset-0 mix-blend-multiply" />
+                  <div className="absolute left-4 top-4 flex size-8 items-center justify-center rounded-full bg-p4c-gold font-bold text-p4c-navy shadow-lg">
                     {item.step}
                   </div>
                 </div>
                 <div className="p-6">
-                  <div className="flex items-center gap-2 mb-3 text-p4c-navy">
+                  <div className="mb-3 flex items-center gap-2 text-p4c-navy">
                     {item.icon}
                     <h3 className="text-xl font-bold">{item.title}</h3>
                   </div>
-                  <p className="text-gray-600 text-sm leading-relaxed">
+                  <p className="text-sm leading-relaxed text-gray-600">
                     {item.desc}
                   </p>
                 </div>
@@ -373,25 +373,25 @@ const SuccessStories: React.FC = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 px-4 bg-p4c-navy">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-6">
+      <section className="bg-p4c-navy px-4 py-16">
+        <div className="mx-auto max-w-4xl text-center">
+          <h2 className="mb-6 font-serif text-3xl font-bold text-white md:text-4xl">
             Join Our Community
           </h2>
-          <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
+          <p className="mx-auto mb-8 max-w-2xl text-lg text-gray-300">
             Experience the Properties 4 Creation difference. Browse our
             available listings in East Texas today.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <button
               onClick={() => navigate('/#homes')}
-              className="bg-p4c-gold text-p4c-navy hover:bg-white hover:text-p4c-navy px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-xl flex items-center justify-center gap-2"
+              className="flex items-center justify-center gap-2 rounded-xl bg-p4c-gold px-8 py-4 text-lg font-bold text-p4c-navy shadow-xl transition-all duration-300 hover:bg-white hover:text-p4c-navy"
             >
-              See Available Homes <ArrowRight className="w-5 h-5" />
+              See Available Homes <ArrowRight className="size-5" />
             </button>
             <button
               onClick={() => navigate('/contact')}
-              className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-p4c-navy px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300"
+              className="rounded-xl border-2 border-white bg-transparent px-8 py-4 text-lg font-bold text-white transition-all duration-300 hover:bg-white hover:text-p4c-navy"
             >
               Contact Leasing Office
             </button>

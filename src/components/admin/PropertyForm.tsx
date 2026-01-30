@@ -40,7 +40,7 @@ export const PropertyForm = () => {
         sqft: '',
         description: '',
       });
-    } catch (error) {
+    } catch {
       addToast('Failed to create property. Check permissions.', 'error');
     } finally {
       setLoading(false);
@@ -50,7 +50,7 @@ export const PropertyForm = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="p-6 bg-white rounded-lg shadow-md space-y-4 border-t-4 border-p4c-gold"
+      className="space-y-4 rounded-lg border-t-4 border-p4c-gold bg-white p-6 shadow-md"
     >
       <h2 className="text-2xl font-bold text-p4c-navy">Add New Listing</h2>
 
@@ -111,7 +111,7 @@ export const PropertyForm = () => {
       <button
         type="submit"
         disabled={loading}
-        className="w-full py-2 px-4 bg-p4c-navy text-p4c-gold font-bold rounded-md hover:bg-opacity-90 transition-all disabled:opacity-50"
+        className="w-full rounded-md bg-p4c-navy px-4 py-2 font-bold text-p4c-gold transition-all hover:bg-opacity-90 disabled:opacity-50"
       >
         {loading ? 'Processing...' : 'Register Property'}
       </button>

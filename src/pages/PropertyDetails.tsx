@@ -39,7 +39,7 @@ const PropertyDetails: React.FC = () => {
         setError(null);
         const propertyData = await api.properties.getById(id);
         setProperty(propertyData || undefined);
-      } catch (err) {
+      } catch {
         setError('Failed to load property details. Please try again.');
       } finally {
         setLoading(false);
@@ -55,24 +55,24 @@ const PropertyDetails: React.FC = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-p4c-beige px-4">
+      <div className="flex min-h-screen flex-col items-center justify-center bg-p4c-beige px-4">
         <Helmet>
           <title>Error Loading Property | Properties 4 Creation</title>
         </Helmet>
-        <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-4">
+        <h2 className="mb-4 font-serif text-3xl font-bold text-p4c-navy">
           Unable to Load Property
         </h2>
-        <p className="text-gray-600 mb-4">{error}</p>
+        <p className="mb-4 text-gray-600">{error}</p>
         <div className="space-x-4">
           <button
             onClick={() => window.location.reload()}
-            className="bg-p4c-navy text-white px-6 py-3 rounded-md font-bold hover:bg-opacity-90"
+            className="rounded-md bg-p4c-navy px-6 py-3 font-bold text-white hover:bg-opacity-90"
           >
             Try Again
           </button>
           <Link
             to="/"
-            className="bg-gray-500 text-white px-6 py-3 rounded-md font-bold hover:bg-opacity-90"
+            className="rounded-md bg-gray-500 px-6 py-3 font-bold text-white hover:bg-opacity-90"
           >
             Back to Listings
           </Link>
@@ -83,20 +83,20 @@ const PropertyDetails: React.FC = () => {
 
   if (!property) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-p4c-beige px-4">
+      <div className="flex min-h-screen flex-col items-center justify-center bg-p4c-beige px-4">
         <Helmet>
           <title>Property Not Found | Properties 4 Creation</title>
         </Helmet>
-        <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-4">
+        <h2 className="mb-4 font-serif text-3xl font-bold text-p4c-navy">
           Property Not Found
         </h2>
-        <p className="text-gray-600 mb-8">
+        <p className="mb-8 text-gray-600">
           The listing you are looking for may have been removed or is
           unavailable.
         </p>
         <Link
           to="/"
-          className="bg-p4c-navy text-white px-6 py-3 rounded-md font-bold hover:bg-opacity-90"
+          className="rounded-md bg-p4c-navy px-6 py-3 font-bold text-white hover:bg-opacity-90"
         >
           Back to Listings
         </Link>
@@ -105,7 +105,7 @@ const PropertyDetails: React.FC = () => {
   }
 
   return (
-    <div className="bg-p4c-beige min-h-screen pb-20 animate-fade-in">
+    <div className="min-h-screen animate-fade-in bg-p4c-beige pb-20">
       <Helmet>
         <title>{property.title} | Properties 4 Creation Listings</title>
         <meta
@@ -123,75 +123,75 @@ const PropertyDetails: React.FC = () => {
         <img
           src={property.imageUrl}
           alt={property.title}
-          className="w-full h-full object-cover"
+          className="size-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-        <div className="absolute top-4 left-4 md:top-8 md:left-8 z-10">
+        <div className="absolute left-4 top-4 z-10 md:left-8 md:top-8">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 bg-white/90 hover:bg-white text-p4c-navy px-4 py-2 rounded-full font-bold shadow-lg transition-all"
+            className="inline-flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 font-bold text-p4c-navy shadow-lg transition-all hover:bg-white"
           >
-            <ArrowLeft className="w-4 h-4" /> Back to listings
+            <ArrowLeft className="size-4" /> Back to listings
           </Link>
         </div>
-        <div className="absolute bottom-0 left-0 w-full p-4 md:p-8 text-white">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex flex-wrap gap-2 mb-4">
+        <div className="absolute bottom-0 left-0 w-full p-4 text-white md:p-8">
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-4 flex flex-wrap gap-2">
               {property.badges.map((badge, idx) => (
                 <span
                   key={idx}
-                  className="bg-p4c-gold text-p4c-navy text-sm font-bold px-3 py-1 rounded-sm uppercase tracking-wide"
+                  className="rounded-sm bg-p4c-gold px-3 py-1 text-sm font-bold uppercase tracking-wide text-p4c-navy"
                 >
                   {badge}
                 </span>
               ))}
             </div>
-            <h1 className="text-4xl md:text-5xl font-serif font-bold mb-2 shadow-sm">
+            <h1 className="mb-2 font-serif text-4xl font-bold shadow-sm md:text-5xl">
               {property.title}
             </h1>
-            <p className="text-xl opacity-90 flex items-center gap-2">
-              <MapPin className="w-5 h-5 text-p4c-gold" /> {property.address}
+            <p className="flex items-center gap-2 text-xl opacity-90">
+              <MapPin className="size-5 text-p4c-gold" /> {property.address}
             </p>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="relative z-10 mx-auto -mt-10 max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           {/* Main Info */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="space-y-8 lg:col-span-2">
             {/* Stats Bar */}
-            <div className="bg-white rounded-xl shadow-lg p-6 flex justify-between items-center text-center">
+            <div className="flex items-center justify-between rounded-xl bg-white p-6 text-center shadow-lg">
               <div>
-                <div className="text-gray-500 text-xs uppercase tracking-widest font-bold mb-1">
+                <div className="mb-1 text-xs font-bold uppercase tracking-widest text-gray-500">
                   Monthly Rent
                 </div>
-                <div className="text-3xl font-serif font-bold text-p4c-navy">
+                <div className="font-serif text-3xl font-bold text-p4c-navy">
                   ${property.price}
                 </div>
               </div>
-              <div className="w-px h-12 bg-gray-200" />
+              <div className="h-12 w-px bg-gray-200" />
               <div>
-                <div className="flex items-center justify-center gap-2 text-gray-500 text-xs uppercase tracking-widest font-bold mb-1">
-                  <Bed className="w-4 h-4" /> Bedrooms
+                <div className="mb-1 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-500">
+                  <Bed className="size-4" /> Bedrooms
                 </div>
                 <div className="text-2xl font-bold text-p4c-navy">
                   {property.beds}
                 </div>
               </div>
-              <div className="w-px h-12 bg-gray-200" />
+              <div className="h-12 w-px bg-gray-200" />
               <div>
-                <div className="flex items-center justify-center gap-2 text-gray-500 text-xs uppercase tracking-widest font-bold mb-1">
-                  <Bath className="w-4 h-4" /> Bathrooms
+                <div className="mb-1 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-500">
+                  <Bath className="size-4" /> Bathrooms
                 </div>
                 <div className="text-2xl font-bold text-p4c-navy">
                   {property.baths}
                 </div>
               </div>
-              <div className="hidden sm:block w-px h-12 bg-gray-200" />
+              <div className="hidden h-12 w-px bg-gray-200 sm:block" />
               <div className="hidden sm:block">
-                <div className="flex items-center justify-center gap-2 text-gray-500 text-xs uppercase tracking-widest font-bold mb-1">
-                  <Move className="w-4 h-4" /> Square Ft
+                <div className="mb-1 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-500">
+                  <Move className="size-4" /> Square Ft
                 </div>
                 <div className="text-2xl font-bold text-p4c-navy">
                   {property.sqft}
@@ -199,18 +199,18 @@ const PropertyDetails: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-white rounded-xl shadow-sm p-8">
-              <h2 className="text-2xl font-serif font-bold text-p4c-navy mb-6">
+            <div className="rounded-xl bg-white p-8 shadow-sm">
+              <h2 className="mb-6 font-serif text-2xl font-bold text-p4c-navy">
                 About this Home
               </h2>
-              <p className="text-gray-700 leading-relaxed text-lg mb-8">
+              <p className="mb-8 text-lg leading-relaxed text-gray-700">
                 {property.description}
               </p>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+              <div className="mb-8 grid grid-cols-1 gap-8 md:grid-cols-2">
                 <div>
-                  <h3 className="font-bold text-lg text-p4c-navy mb-4 border-b border-gray-100 pb-2 flex items-center gap-2">
-                    <ShieldCheck className="w-5 h-5 text-p4c-gold" /> Amenities
+                  <h3 className="mb-4 flex items-center gap-2 border-b border-gray-100 pb-2 text-lg font-bold text-p4c-navy">
+                    <ShieldCheck className="size-5 text-p4c-gold" /> Amenities
                   </h3>
                   <ul className="space-y-3">
                     {property.amenities.map((item, i) => (
@@ -218,8 +218,8 @@ const PropertyDetails: React.FC = () => {
                         key={i}
                         className="flex items-center gap-3 text-gray-700"
                       >
-                        <div className="bg-green-100 p-1 rounded-full">
-                          <Check className="w-3 h-3 text-green-700" />
+                        <div className="rounded-full bg-green-100 p-1">
+                          <Check className="size-3 text-green-700" />
                         </div>
                         {item}
                       </li>
@@ -227,8 +227,8 @@ const PropertyDetails: React.FC = () => {
                   </ul>
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg text-p4c-navy mb-4 border-b border-gray-100 pb-2 flex items-center gap-2">
-                    <Accessibility className="w-5 h-5 text-p4c-gold" />{' '}
+                  <h3 className="mb-4 flex items-center gap-2 border-b border-gray-100 pb-2 text-lg font-bold text-p4c-navy">
+                    <Accessibility className="size-5 text-p4c-gold" />{' '}
                     Accessibility
                   </h3>
                   <ul className="space-y-3">
@@ -237,8 +237,8 @@ const PropertyDetails: React.FC = () => {
                         key={i}
                         className="flex items-center gap-3 text-gray-700"
                       >
-                        <div className="bg-blue-100 p-1 rounded-full">
-                          <Check className="w-3 h-3 text-blue-700" />
+                        <div className="rounded-full bg-blue-100 p-1">
+                          <Check className="size-3 text-blue-700" />
                         </div>
                         {item}
                       </li>
@@ -247,13 +247,13 @@ const PropertyDetails: React.FC = () => {
                 </div>
               </div>
 
-              <div className="bg-gray-50 rounded-xl p-6 border border-gray-100">
-                <h3 className="font-bold text-lg text-p4c-navy mb-4 flex items-center gap-2">
-                  <Map className="w-5 h-5 text-p4c-gold" /> Location & Schools
+              <div className="rounded-xl border border-gray-100 bg-gray-50 p-6">
+                <h3 className="mb-4 flex items-center gap-2 text-lg font-bold text-p4c-navy">
+                  <Map className="size-5 text-p4c-gold" /> Location & Schools
                 </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <div>
-                    <p className="text-xs uppercase tracking-widest text-gray-500 font-bold mb-1">
+                    <p className="mb-1 text-xs font-bold uppercase tracking-widest text-gray-500">
                       Neighborhood
                     </p>
                     <p className="font-medium text-p4c-navy">
@@ -261,8 +261,8 @@ const PropertyDetails: React.FC = () => {
                     </p>
                   </div>
                   <div>
-                    <p className="text-xs uppercase tracking-widest text-gray-500 font-bold mb-1 flex items-center gap-1">
-                      <School className="w-3 h-3" /> School District
+                    <p className="mb-1 flex items-center gap-1 text-xs font-bold uppercase tracking-widest text-gray-500">
+                      <School className="size-3" /> School District
                     </p>
                     <p className="font-medium text-p4c-navy">
                       {property.schoolDistrict}
@@ -275,10 +275,10 @@ const PropertyDetails: React.FC = () => {
 
           {/* Sidebar CTA */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-xl shadow-lg p-6 sticky top-24 border border-gray-100">
-              <div className="text-center mb-6">
+            <div className="sticky top-24 rounded-xl border border-gray-100 bg-white p-6 shadow-lg">
+              <div className="mb-6 text-center">
                 <h3 className="text-xl font-bold text-p4c-navy">Interested?</h3>
-                <p className="text-gray-500 text-sm">
+                <p className="text-sm text-gray-500">
                   Availability:{' '}
                   <span className="font-bold text-green-600">
                     {property.availabilityDate}
@@ -289,27 +289,27 @@ const PropertyDetails: React.FC = () => {
               <div className="space-y-4">
                 <Link
                   to="/apply"
-                  className="block w-full bg-p4c-navy text-white text-center py-4 rounded-md font-bold text-lg hover:bg-p4c-slate transition-colors shadow-md"
+                  className="block w-full rounded-md bg-p4c-navy py-4 text-center text-lg font-bold text-white shadow-md transition-colors hover:bg-p4c-slate"
                 >
                   Start Application
                 </Link>
-                <button className="w-full bg-white border-2 border-p4c-navy text-p4c-navy text-center py-3 rounded-md font-bold hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
-                  <Calendar className="w-5 h-5" /> Schedule Viewing
+                <button className="flex w-full items-center justify-center gap-2 rounded-md border-2 border-p4c-navy bg-white py-3 text-center font-bold text-p4c-navy transition-colors hover:bg-gray-50">
+                  <Calendar className="size-5" /> Schedule Viewing
                 </button>
               </div>
 
-              <div className="mt-6 pt-6 border-t border-gray-100">
-                <h4 className="font-bold text-sm text-gray-900 mb-2">
+              <div className="mt-6 border-t border-gray-100 pt-6">
+                <h4 className="mb-2 text-sm font-bold text-gray-900">
                   We Accept:
                 </h4>
                 <div className="flex flex-wrap gap-2">
-                  <span className="bg-gray-100 text-gray-600 text-xs font-bold px-2 py-1 rounded">
+                  <span className="rounded bg-gray-100 px-2 py-1 text-xs font-bold text-gray-600">
                     Section 8 / HCV
                   </span>
-                  <span className="bg-gray-100 text-gray-600 text-xs font-bold px-2 py-1 rounded">
+                  <span className="rounded bg-gray-100 px-2 py-1 text-xs font-bold text-gray-600">
                     HUD-VASH
                   </span>
-                  <span className="bg-gray-100 text-gray-600 text-xs font-bold px-2 py-1 rounded">
+                  <span className="rounded bg-gray-100 px-2 py-1 text-xs font-bold text-gray-600">
                     Rapid Rehousing
                   </span>
                 </div>

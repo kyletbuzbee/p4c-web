@@ -35,7 +35,7 @@ const AdminDashboard: React.FC = () => {
         setLoading(true);
         const propertiesData = await api.properties.getAll();
         setProperties(propertiesData);
-      } catch (error) {
+      } catch {
         addToast('Failed to load properties data', 'error');
         // Fallback to empty array if API fails so UI doesn't crash
         setProperties([]);
@@ -117,7 +117,7 @@ const AdminDashboard: React.FC = () => {
       // await api.properties.delete(id); // Uncomment when API is ready
       setProperties((prev) => prev.filter((p) => p.id !== id)); // Optimistic update
       addToast('Property deleted successfully', 'success');
-    } catch (error) {
+    } catch {
       addToast('Failed to delete property', 'error');
     }
   };
@@ -133,70 +133,70 @@ const AdminDashboard: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex">
+    <div className="flex min-h-screen bg-gray-100">
       <Helmet>
         <title>Admin Dashboard | Properties 4 Creation</title>
       </Helmet>
 
       {/* Sidebar Navigation */}
-      <aside className="w-64 bg-p4c-navy text-white hidden md:flex flex-col fixed h-full z-10">
-        <div className="p-6 border-b border-gray-700">
-          <h2 className="text-xl font-serif font-bold text-p4c-gold">
+      <aside className="fixed z-10 hidden h-full w-64 flex-col bg-p4c-navy text-white md:flex">
+        <div className="border-b border-gray-700 p-6">
+          <h2 className="font-serif text-xl font-bold text-p4c-gold">
             Properties 4 Creation
           </h2>
-          <p className="text-xs text-gray-400 mt-1">Administrator Portal</p>
+          <p className="mt-1 text-xs text-gray-400">Administrator Portal</p>
         </div>
 
-        <nav className="flex-1 p-4 space-y-2">
+        <nav className="flex-1 space-y-2 p-4">
           <button
             onClick={() => setActiveView('dashboard')}
-            className={`flex items-center w-full px-4 py-3 rounded-lg font-medium transition-colors ${
+            className={`flex w-full items-center rounded-lg px-4 py-3 font-medium transition-colors ${
               activeView === 'dashboard'
                 ? 'bg-white/10 text-p4c-gold'
                 : 'text-gray-300 hover:bg-white/5'
             }`}
             aria-label="Dashboard"
           >
-            <BarChart3 className="w-5 h-5 mr-3" /> Dashboard
+            <BarChart3 className="mr-3 size-5" /> Dashboard
           </button>
           <button
             onClick={() => setActiveView('properties')}
-            className={`flex items-center w-full px-4 py-3 rounded-lg font-medium transition-colors ${
+            className={`flex w-full items-center rounded-lg px-4 py-3 font-medium transition-colors ${
               activeView === 'properties'
                 ? 'bg-white/10 text-p4c-gold'
                 : 'text-gray-300 hover:bg-white/5'
             }`}
             aria-label="Properties"
           >
-            <Home className="w-5 h-5 mr-3" /> Properties
+            <Home className="mr-3 size-5" /> Properties
           </button>
           <button
             onClick={() => setActiveView('tenants')}
-            className={`flex items-center w-full px-4 py-3 rounded-lg font-medium transition-colors ${
+            className={`flex w-full items-center rounded-lg px-4 py-3 font-medium transition-colors ${
               activeView === 'tenants'
                 ? 'bg-white/10 text-p4c-gold'
                 : 'text-gray-300 hover:bg-white/5'
             }`}
             aria-label="Tenants"
           >
-            <Users className="w-5 h-5 mr-3" /> Tenants
+            <Users className="mr-3 size-5" /> Tenants
           </button>
           <button
             onClick={() => setActiveView('settings')}
-            className={`flex items-center w-full px-4 py-3 rounded-lg font-medium transition-colors ${
+            className={`flex w-full items-center rounded-lg px-4 py-3 font-medium transition-colors ${
               activeView === 'settings'
                 ? 'bg-white/10 text-p4c-gold'
                 : 'text-gray-300 hover:bg-white/5'
             }`}
             aria-label="Settings"
           >
-            <Settings className="w-5 h-5 mr-3" /> Settings
+            <Settings className="mr-3 size-5" /> Settings
           </button>
         </nav>
 
-        <div className="p-4 border-t border-gray-700">
-          <div className="flex items-center mb-4 gap-3">
-            <div className="w-8 h-8 rounded-full bg-p4c-gold flex items-center justify-center text-p4c-navy font-bold">
+        <div className="border-t border-gray-700 p-4">
+          <div className="mb-4 flex items-center gap-3">
+            <div className="flex size-8 items-center justify-center rounded-full bg-p4c-gold font-bold text-p4c-navy">
               {user?.name?.charAt(0).toUpperCase() || 'A'}
             </div>
             <div className="text-sm">
@@ -210,29 +210,29 @@ const AdminDashboard: React.FC = () => {
           </div>
           <button
             onClick={logout}
-            className="flex items-center justify-center w-full px-4 py-2 border border-gray-600 rounded-lg text-sm hover:bg-gray-800 transition-colors"
+            className="flex w-full items-center justify-center rounded-lg border border-gray-600 px-4 py-2 text-sm transition-colors hover:bg-gray-800"
             aria-label="Sign out"
           >
-            <LogOut className="w-4 h-4 mr-2" /> Sign Out
+            <LogOut className="mr-2 size-4" /> Sign Out
           </button>
         </div>
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 overflow-y-auto md:ml-64 transition-all">
+      <main className="flex-1 overflow-y-auto transition-all md:ml-64">
         <div className="p-8">
           {/* Header */}
-          <div className="flex justify-between items-center mb-8">
-            <h1 className="text-2xl font-bold text-gray-800 capitalize">
+          <div className="mb-8 flex items-center justify-between">
+            <h1 className="text-2xl font-bold capitalize text-gray-800">
               {activeView} Overview
             </h1>
             {activeView === 'properties' && (
               <button
                 onClick={handleAddNew}
-                className="bg-p4c-navy text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-p4c-slate transition-colors shadow-md"
+                className="flex items-center gap-2 rounded-lg bg-p4c-navy px-4 py-2 text-white shadow-md transition-colors hover:bg-p4c-slate"
                 aria-label="Add new property"
               >
-                <Plus className="w-4 h-4" /> Add Property
+                <Plus className="size-4" /> Add Property
               </button>
             )}
           </div>
@@ -241,19 +241,19 @@ const AdminDashboard: React.FC = () => {
           {activeView === 'dashboard' && (
             <>
               {/* Stats Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+              <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-4">
                 {stats.map((stat, i) => (
                   <div
                     key={i}
-                    className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
+                    className="rounded-xl border border-gray-100 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
                   >
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="text-sm text-gray-500 font-medium">
+                    <div className="mb-4 flex items-center justify-between">
+                      <div className="text-sm font-medium text-gray-500">
                         {stat.label}
                       </div>
                       <span className="text-2xl">{stat.icon}</span>
                     </div>
-                    <div className="text-3xl font-bold text-gray-900 mb-2">
+                    <div className="mb-2 text-3xl font-bold text-gray-900">
                       {stat.value}
                     </div>
                     <div className={`text-sm ${stat.color} font-medium`}>
@@ -264,11 +264,11 @@ const AdminDashboard: React.FC = () => {
               </div>
 
               {/* Recent Activity / Short List */}
-              <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                <h3 className="font-bold text-gray-800 mb-4">
+              <div className="rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
+                <h3 className="mb-4 font-bold text-gray-800">
                   Recent System Activity
                 </h3>
-                <p className="text-gray-500 text-sm">
+                <p className="text-sm text-gray-500">
                   No recent alerts or system notifications.
                 </p>
               </div>
@@ -278,9 +278,9 @@ const AdminDashboard: React.FC = () => {
           {/* VIEW: PROPERTIES (or Dashboard Preview) */}
           {(activeView === 'dashboard' || activeView === 'properties') && (
             <div
-              className={`bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden ${activeView === 'dashboard' ? 'mt-8' : ''}`}
+              className={`overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm ${activeView === 'dashboard' ? 'mt-8' : ''}`}
             >
-              <div className="px-6 py-4 border-b border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4">
+              <div className="flex flex-col items-center justify-between gap-4 border-b border-gray-100 px-6 py-4 md:flex-row">
                 <h3 className="font-bold text-gray-800">
                   {activeView === 'dashboard'
                     ? 'Recent Listings'
@@ -290,11 +290,11 @@ const AdminDashboard: React.FC = () => {
                 {/* Search Bar for Properties View */}
                 {activeView === 'properties' && (
                   <div className="relative">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-gray-400" />
                     <input
                       type="text"
                       placeholder="Search address..."
-                      className="pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-p4c-gold"
+                      className="rounded-lg border border-gray-200 py-2 pl-9 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-p4c-gold"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                     />
@@ -304,7 +304,7 @@ const AdminDashboard: React.FC = () => {
                 {activeView === 'dashboard' && (
                   <button
                     onClick={() => setActiveView('properties')}
-                    className="text-sm text-p4c-gold font-medium hover:underline"
+                    className="text-sm font-medium text-p4c-gold hover:underline"
                   >
                     View All
                   </button>
@@ -316,7 +316,7 @@ const AdminDashboard: React.FC = () => {
               ) : (
                 <div className="overflow-x-auto">
                   <table className="w-full text-left">
-                    <thead className="bg-gray-50 text-xs uppercase text-gray-500 font-semibold">
+                    <thead className="bg-gray-50 text-xs font-semibold uppercase text-gray-500">
                       <tr>
                         <th className="px-6 py-4">Property</th>
                         <th className="px-6 py-4">Status</th>
@@ -332,14 +332,14 @@ const AdminDashboard: React.FC = () => {
                       ).map((property) => (
                         <tr
                           key={property.id}
-                          className="hover:bg-gray-50/50 transition-colors"
+                          className="transition-colors hover:bg-gray-50/50"
                         >
                           <td className="px-6 py-4">
                             <div className="flex items-center">
                               <img
                                 src={property.imageUrl}
                                 alt=""
-                                className="w-10 h-10 rounded-md object-cover mr-3 bg-gray-200"
+                                className="mr-3 size-10 rounded-md bg-gray-200 object-cover"
                               />
                               <div>
                                 <div className="font-medium text-gray-900">
@@ -352,14 +352,14 @@ const AdminDashboard: React.FC = () => {
                             </div>
                           </td>
                           <td className="px-6 py-4">
-                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                            <span className="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">
                               Active
                             </span>
                           </td>
                           <td className="px-6 py-4 text-gray-600">
                             ${property.price}/mo
                           </td>
-                          <td className="px-6 py-4 text-gray-600 text-xs">
+                          <td className="px-6 py-4 text-xs text-gray-600">
                             {property.bedrooms}bd • {property.bathrooms}ba •{' '}
                             {property.sqft}sqft
                           </td>
@@ -367,19 +367,19 @@ const AdminDashboard: React.FC = () => {
                             <div className="flex justify-end gap-2">
                               <button
                                 onClick={() => handleEdit(property.id)}
-                                className="p-1.5 hover:bg-gray-100 rounded text-gray-500 hover:text-p4c-navy"
+                                className="rounded p-1.5 text-gray-500 hover:bg-gray-100 hover:text-p4c-navy"
                                 title="Edit Property"
                                 aria-label={`Edit ${property.title}`}
                               >
-                                <Edit2 className="w-4 h-4" />
+                                <Edit2 className="size-4" />
                               </button>
                               <button
                                 onClick={() => handleDelete(property.id)}
-                                className="p-1.5 hover:bg-red-50 rounded text-gray-500 hover:text-red-600"
+                                className="rounded p-1.5 text-gray-500 hover:bg-red-50 hover:text-red-600"
                                 title="Delete Property"
                                 aria-label={`Delete ${property.title}`}
                               >
-                                <Trash2 className="w-4 h-4" />
+                                <Trash2 className="size-4" />
                               </button>
                             </div>
                           </td>
@@ -404,8 +404,8 @@ const AdminDashboard: React.FC = () => {
 
           {/* VIEW: TENANTS (Placeholder) */}
           {activeView === 'tenants' && (
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-12 text-center">
-              <Users className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+            <div className="rounded-xl border border-gray-100 bg-white p-12 text-center shadow-sm">
+              <Users className="mx-auto mb-4 size-12 text-gray-300" />
               <h3 className="text-lg font-bold text-gray-900">
                 Tenant Management
               </h3>
@@ -417,8 +417,8 @@ const AdminDashboard: React.FC = () => {
 
           {/* VIEW: SETTINGS (Placeholder) */}
           {activeView === 'settings' && (
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-12 text-center">
-              <Settings className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+            <div className="rounded-xl border border-gray-100 bg-white p-12 text-center shadow-sm">
+              <Settings className="mx-auto mb-4 size-12 text-gray-300" />
               <h3 className="text-lg font-bold text-gray-900">
                 System Settings
               </h3>

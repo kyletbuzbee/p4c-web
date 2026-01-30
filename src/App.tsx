@@ -54,8 +54,8 @@ const ResidentServices = React.lazy(() => import('./pages/ResidentServices'));
 
 // Loading Fallback
 const PageLoader = () => (
-  <div className="min-h-screen flex items-center justify-center bg-p4c-beige">
-    <Loader2 className="w-12 h-12 text-p4c-gold animate-spin" />
+  <div className="flex min-h-screen items-center justify-center bg-p4c-beige">
+    <Loader2 className="size-12 animate-spin text-p4c-gold" />
     <span className="sr-only">Loading content...</span>
   </div>
 );
@@ -67,7 +67,7 @@ const StandardLayout = () => (
     {/* + ADDED: PWA Notification Bar */}
     <UpdateNotification />
 
-    <main id="main-content" className="flex-grow">
+    <main id="main-content" className="grow">
       <Suspense fallback={<PageLoader />}>
         <Routes>
           {/* --- 53% COMMUNITY (Revitalization) --- */}
@@ -77,13 +77,10 @@ const StandardLayout = () => (
           <Route path="/stories" element={<SuccessStories />} />
           <Route path="/transparency" element={<Transparency />} />
           {/* --- 35% FAMILIES (Housing) --- */}
-          (
           <Route path="/properties" element={<Properties />} />{' '}
           {/* List View */}
-          ) (
           <Route path="/properties/:id" element={<PropertyDetails />} />{' '}
           {/* Detail View */}
-          )
           <Route path="/apply" element={<Application />} />
           <Route path="/family-resources" element={<FamilyResources />} />
           <Route path="/equal-housing" element={<EqualHousing />} />
@@ -108,11 +105,11 @@ const StandardLayout = () => (
           {/* --- PROTECTED ROUTES --- */}
           <Route
             path="/admin"
-            element={
+            element={(
               <ProtectedRoute requiredRole="admin">
                 <AdminDashboard />
               </ProtectedRoute>
-            }
+            )}
           />
         </Routes>
       </Suspense>
@@ -133,7 +130,7 @@ function App() {
           <DarkModeProvider>
             <ImageFormatProvider>
               <AuthProvider>
-                <div className="font-sans antialiased text-p4c-navy bg-p4c-beige min-h-screen flex flex-col">
+                <div className="flex min-h-screen flex-col bg-p4c-beige font-sans text-p4c-navy antialiased">
                   <SkipLink />
                   <ScrollToTop />
                   <Routes>

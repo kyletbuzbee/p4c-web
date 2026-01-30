@@ -80,23 +80,23 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({
           <div
             key={toast.id}
             role="alert"
-            className={`min-w-[320px] max-w-md p-4 rounded-xl shadow-2xl flex items-start gap-3 animate-slide-in-from-bottom border-l-4 text-white ${
+            className={`animate-slide-in-from-bottom flex min-w-[320px] max-w-md items-start gap-3 rounded-xl border-l-4 p-4 text-white shadow-2xl ${
               toast.type === 'success'
-                ? 'bg-green-700 border-green-400'
+                ? 'border-green-400 bg-green-700'
                 : toast.type === 'error'
-                  ? 'bg-red-700 border-red-400'
-                  : 'bg-p4c-navy border-p4c-gold'
+                  ? 'border-red-400 bg-red-700'
+                  : 'border-p4c-gold bg-p4c-navy'
             }`}
           >
             <div className="mt-0.5 shrink-0">
               {toast.type === 'success' && (
-                <CheckCircle className="w-5 h-5 text-green-200" />
+                <CheckCircle className="size-5 text-green-200" />
               )}
               {toast.type === 'error' && (
-                <AlertCircle className="w-5 h-5 text-red-200" />
+                <AlertCircle className="size-5 text-red-200" />
               )}
               {toast.type === 'info' && (
-                <Info className="w-5 h-5 text-p4c-gold" />
+                <Info className="size-5 text-p4c-gold" />
               )}
             </div>
             <p className="flex-1 text-sm font-semibold leading-snug">
@@ -104,10 +104,10 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({
             </p>
             <button
               onClick={() => removeToast(toast.id)}
-              className="hover:bg-white/10 p-1 rounded-xl transition-colors"
+              className="rounded-xl p-1 transition-colors hover:bg-white/10"
               aria-label="Dismiss notification"
             >
-              <X className="w-4 h-4" />
+              <X className="size-4" />
             </button>
           </div>
         ))}

@@ -55,7 +55,7 @@ const FloatingChatbot: React.FC<FloatingChatbotProps> = ({
       {/* Floating Chat Button */}
       <button
         onClick={toggleChat}
-        className={`fixed bottom-6 right-6 z-50 p-4 bg-p4c-navy hover:bg-p4c-navy/90 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-p4c-gold/50 ${className}`}
+        className={`hover:bg-p4c-navy/90 focus:ring-p4c-gold/50 fixed bottom-6 right-6 z-50 rounded-full bg-p4c-navy p-4 text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4${className}`}
         aria-label={isOpen ? 'Close chat assistant' : 'Open chat assistant'}
         title={isOpen ? 'Close chat assistant' : 'Open chat assistant'}
       >
@@ -64,23 +64,23 @@ const FloatingChatbot: React.FC<FloatingChatbotProps> = ({
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 z-40 w-96 max-w-[calc(100vw-2rem)] bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
+        <div className="fixed bottom-24 right-6 z-40 w-96 max-w-[calc(100vw-2rem)] overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl">
           {/* Header */}
-          <div className="bg-p4c-navy text-white p-4 flex items-center justify-between">
+          <div className="flex items-center justify-between bg-p4c-navy p-4 text-white">
             <div className="flex items-center space-x-3">
               <BotAvatar size={24} />
               <div>
-                <h3 className="font-semibold text-sm">Patriot Assistant</h3>
+                <h3 className="text-sm font-semibold">Patriot Assistant</h3>
                 <p className="text-xs opacity-90">Properties 4 Creation</p>
               </div>
             </div>
             <button
               onClick={toggleChat}
-              className="text-white hover:text-p4c-gold transition-colors p-1"
+              className="p-1 text-white transition-colors hover:text-p4c-gold"
               aria-label="Close chat"
             >
               <svg
-                className="w-5 h-5"
+                className="size-5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -104,8 +104,8 @@ const FloatingChatbot: React.FC<FloatingChatbotProps> = ({
           />
 
           {/* Footer */}
-          <div className="bg-gray-50 px-4 py-2 border-t border-gray-200">
-            <p className="text-xs text-gray-600 text-center">
+          <div className="border-t border-gray-200 bg-gray-50 px-4 py-2">
+            <p className="text-center text-xs text-gray-600">
               Powered by Botpress • Veteran-Owned Business
             </p>
           </div>
@@ -115,7 +115,7 @@ const FloatingChatbot: React.FC<FloatingChatbotProps> = ({
       {/* Backdrop for mobile */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"
+          className="fixed inset-0 z-30 bg-black bg-opacity-50 md:hidden"
           onClick={toggleChat}
           aria-hidden="true"
         />

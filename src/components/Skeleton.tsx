@@ -10,7 +10,7 @@ interface SkeletonProps {
  */
 const Skeleton: React.FC<SkeletonProps> = ({ className = '' }) => (
   <div
-    className={`animate-pulse bg-gray-200 rounded-xl ${className}`}
+    className={`animate-pulse rounded-xl bg-gray-200 ${className}`}
     aria-hidden="true"
   />
 );

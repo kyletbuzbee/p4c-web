@@ -159,7 +159,7 @@ export const api = {
         }
 
         return data.map(mapMetricFromDB);
-      } catch (error) {
+      } catch {
         // Silent error handling - rely on ErrorBoundary and ToastContext
         return [];
       }
@@ -223,7 +223,7 @@ export const api = {
 
         if (error) throw error;
         return ((data as DatabaseProperty[]) || []).map(mapPropertyFromDB);
-      } catch (error) {
+      } catch {
         // Silent error handling - rely on ErrorBoundary and ToastContext
         return mockProperties;
       }
@@ -239,7 +239,7 @@ export const api = {
 
         if (error) throw error;
         return mapPropertyFromDB(data as DatabaseProperty);
-      } catch (error) {
+      } catch {
         const mock = getPropertyById(id);
         return mock || null;
       }

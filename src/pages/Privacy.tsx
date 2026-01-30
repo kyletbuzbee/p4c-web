@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Shield, Lock, Eye } from 'lucide-react';
 
 const Privacy: React.FC = () => (
-  <div className="bg-p4c-beige min-h-screen py-16">
+  <div className="min-h-screen bg-p4c-beige py-16">
     <Helmet>
       <title>Privacy Policy | Properties 4 Creation</title>
       <meta
@@ -16,10 +16,10 @@ const Privacy: React.FC = () => (
       />
     </Helmet>
 
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-gray-100">
-        <div className="border-b border-gray-200 pb-8 mb-8">
-          <h1 className="text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-4">
+    <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <div className="rounded-2xl border border-gray-100 bg-white p-8 shadow-xl md:p-12">
+        <div className="mb-8 border-b border-gray-200 pb-8">
+          <h1 className="mb-4 font-serif text-3xl font-bold text-p4c-navy md:text-4xl">
             Privacy Policy
           </h1>
           <p className="text-gray-500">Last Updated: October 24, 2023</p>
@@ -33,15 +33,15 @@ const Privacy: React.FC = () => (
             with the highest standards of security.
           </p>
 
-          <h3 className="text-xl font-bold text-p4c-navy mt-8 mb-4 flex items-center gap-2">
-            <Eye className="text-p4c-gold w-5 h-5" /> Information We Collect
+          <h3 className="mb-4 mt-8 flex items-center gap-2 text-xl font-bold text-p4c-navy">
+            <Eye className="size-5 text-p4c-gold" /> Information We Collect
           </h3>
           <p>
             We collect information necessary to process rental applications,
             manage lease agreements, and communicate with residents. This
             includes:
           </p>
-          <ul className="list-disc pl-5 space-y-2 mt-2">
+          <ul className="mt-2 list-disc space-y-2 pl-5">
             <li>
               <strong>Identity Data:</strong> Name, date of birth, social
               security number (encrypted), and government ID.
@@ -56,8 +56,8 @@ const Privacy: React.FC = () => (
             </li>
           </ul>
 
-          <h3 className="text-xl font-bold text-p4c-navy mt-8 mb-4 flex items-center gap-2">
-            <Shield className="text-p4c-gold w-5 h-5" /> How We Use Your
+          <h3 className="mb-4 mt-8 flex items-center gap-2 text-xl font-bold text-p4c-navy">
+            <Shield className="size-5 text-p4c-gold" /> How We Use Your
             Information
           </h3>
           <p>
@@ -65,7 +65,7 @@ const Privacy: React.FC = () => (
             We do <strong>not</strong> sell your personal data to third-party
             advertisers.
           </p>
-          <ul className="list-disc pl-5 space-y-2 mt-2">
+          <ul className="mt-2 list-disc space-y-2 pl-5">
             <li>
               To evaluate rental applications and conduct background/credit
               checks.
@@ -74,8 +74,8 @@ const Privacy: React.FC = () => (
             <li>To comply with Fair Housing laws and HUD/VA requirements.</li>
           </ul>
 
-          <h3 className="text-xl font-bold text-p4c-navy mt-8 mb-4 flex items-center gap-2">
-            <Lock className="text-p4c-gold w-5 h-5" /> Data Security
+          <h3 className="mb-4 mt-8 flex items-center gap-2 text-xl font-bold text-p4c-navy">
+            <Lock className="size-5 text-p4c-gold" /> Data Security
           </h3>
           <p>
             We implement enterprise-grade security measures to prevent your
@@ -85,7 +85,7 @@ const Privacy: React.FC = () => (
             business need to know and are subject to a duty of confidentiality.
           </p>
 
-          <h3 className="text-xl font-bold text-p4c-navy mt-8 mb-4">
+          <h3 className="mb-4 mt-8 text-xl font-bold text-p4c-navy">
             Your Rights
           </h3>
           <p>
@@ -94,8 +94,8 @@ const Privacy: React.FC = () => (
             of your data under certain conditions.
           </p>
 
-          <div className="bg-gray-50 p-6 rounded-xl mt-8 border border-gray-200">
-            <h4 className="font-bold text-p4c-navy mb-2">
+          <div className="mt-8 rounded-xl border border-gray-200 bg-gray-50 p-6">
+            <h4 className="mb-2 font-bold text-p4c-navy">
               Contact Us About Privacy
             </h4>
             <p className="text-sm">
@@ -103,7 +103,7 @@ const Privacy: React.FC = () => (
               practices, please contact us at: <br />
               <a
                 href="mailto:privacy@p4c-homes.com"
-                className="text-p4c-gold font-bold hover:underline"
+                className="font-bold text-p4c-gold hover:underline"
               >
                 privacy@p4c-homes.com
               </a>

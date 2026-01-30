@@ -36,10 +36,10 @@ export const IMAGES = {
     HERO_CONTACT_1920: '/images/banners/hero-contact-banner-1920.webp',
 
     // Impact Page
-    HERO_IMPACT: '/images/banners/hero-impact_banner-640.avif',
-    HERO_IMPACT_960: '/images/banners/hero-impact_banner-960.avif',
-    HERO_IMPACT_1280: '/images/banners/hero-impact_banner-1280.avif',
-    HERO_IMPACT_1920: '/images/banners/hero-impact_banner-1920.avif',
+    HERO_IMPACT: '/images/banners/hero-impact_banner-640.webp',
+    HERO_IMPACT_960: '/images/banners/hero-impact_banner-960.webp',
+    HERO_IMPACT_1280: '/images/banners/hero-impact_banner-1280.webp',
+    HERO_IMPACT_1920: '/images/banners/hero-impact_banner-1920.webp',
 
     // Privacy Page
     HERO_PRIVACY: '/images/banners/hero-privacy-banner.webp',
@@ -85,7 +85,7 @@ export const IMAGES = {
     HERO_FAQ: '/images/banners/hero-faq-banner.webp',
 
     // Community Impact Page
-    HERO_COMMUNITY_IMPACT: '/images/banners/hero-community-impact-banner.png',
+    HERO_COMMUNITY_IMPACT: '/images/banners/hero-community-impact-banner.webp',
 
     // Get Started / Success Story Page
     HERO_SUCCESS_STORY: '/images/banners/hero-get-started-banner.webp',
@@ -150,8 +150,9 @@ export const IMAGES = {
     OWNER: '/images/about/about-us-team-owner.webp',
     HEADSHOT: '/images/about/about-us-team-headshot.webp',
     ONSITE: '/images/about/about-us-team-onsite.webp',
-    ACQUISITION: '/images/about/acquisition.png',
-    REHABILITATION: '/images/about/rehabilitaion.png',
+    ACQUISITION: '/images/about/acquisition.webp',
+    REHABILITATION: '/images/about/rehabilitaion.webp',
+    GROWTH: '/images/about/growth.webp',
   },
 
   // Bot/Chat Assets

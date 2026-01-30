@@ -7,7 +7,6 @@ let swRegistration: ServiceWorkerRegistration | null = null;
  * Log messages only in development environment to avoid ESLint errors
  */
 function logDev(message: string, ...args: unknown[]): void {
-  // eslint-disable-next-line no-console
   if (import.meta.env.DEV) {
     console.log(message, ...args);
   }
@@ -17,7 +16,6 @@ function logDev(message: string, ...args: unknown[]): void {
  * Log error messages only in development environment
  */
 function logErrorDev(message: string, ...args: unknown[]): void {
-  // eslint-disable-next-line no-console
   if (import.meta.env.DEV) {
     console.error(message, ...args);
   }

@@ -37,7 +37,7 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <div className="bg-p4c-beige min-h-screen">
+    <div className="min-h-screen bg-p4c-beige">
       <Helmet>
         <title>Contact Us | Properties 4 Creation</title>
         <meta
@@ -47,42 +47,42 @@ const Contact: React.FC = () => {
       </Helmet>
 
       {/* Hero Section */}
-      <div className="relative h-[400px] w-full overflow-hidden flex items-center justify-center">
-        <div className="absolute top-0 left-0 w-full h-full z-0">
+      <div className="relative flex h-[400px] w-full items-center justify-center overflow-hidden">
+        <div className="absolute left-0 top-0 z-0 size-full">
           <img
             src={IMAGES.BANNERS.HERO_CONTACT}
             alt="Professional contact and support"
-            className="w-full h-full object-cover"
+            className="size-full object-cover"
           />
-          <div className="absolute top-0 left-0 w-full h-full bg-p4c-navy/80 mix-blend-multiply" />
+          <div className="bg-p4c-navy/80 absolute left-0 top-0 size-full mix-blend-multiply" />
         </div>
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-fade-in-up">
-          <div className="flex justify-center mb-6">
-            <div className="bg-p4c-gold/20 p-4 rounded-2xl border border-p4c-gold/30 backdrop-blur-sm">
-              <Mail className="w-10 h-10 text-p4c-gold" />
+        <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
+          <div className="mb-6 flex justify-center">
+            <div className="bg-p4c-gold/20 border-p4c-gold/30 rounded-2xl border p-4 backdrop-blur-sm">
+              <Mail className="size-10 text-p4c-gold" />
             </div>
           </div>
-          <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4 tracking-wide">
+          <h1 className="mb-4 font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
             Contact Us
           </h1>
-          <p className="text-xl text-gray-200 font-light max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-xl font-light text-gray-200">
             We're here to help with leasing, maintenance, and investment
             inquiries
           </p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
           {/* Info Side */}
           <div>
-            <h2 className="text-2xl font-serif font-bold text-p4c-navy mb-6">
+            <h2 className="mb-6 font-serif text-2xl font-bold text-p4c-navy">
               Get in Touch
             </h2>
             <div className="space-y-8">
               <div className="flex items-start gap-4">
-                <div className="bg-white p-3 rounded-lg shadow-sm">
-                  <Phone className="w-6 h-6 text-p4c-gold" />
+                <div className="rounded-lg bg-white p-3 shadow-sm">
+                  <Phone className="size-6 text-p4c-gold" />
                 </div>
                 <div>
                   <h3 className="font-bold text-p4c-navy">Phone</h3>
@@ -91,8 +91,8 @@ const Contact: React.FC = () => {
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <div className="bg-white p-3 rounded-lg shadow-sm">
-                  <Mail className="w-6 h-6 text-p4c-gold" />
+                <div className="rounded-lg bg-white p-3 shadow-sm">
+                  <Mail className="size-6 text-p4c-gold" />
                 </div>
                 <div>
                   <h3 className="font-bold text-p4c-navy">Email</h3>
@@ -105,8 +105,8 @@ const Contact: React.FC = () => {
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <div className="bg-white p-3 rounded-lg shadow-sm">
-                  <MapPin className="w-6 h-6 text-p4c-gold" />
+                <div className="rounded-lg bg-white p-3 shadow-sm">
+                  <MapPin className="size-6 text-p4c-gold" />
                 </div>
                 <div>
                   <h3 className="font-bold text-p4c-navy">Office</h3>
@@ -118,19 +118,19 @@ const Contact: React.FC = () => {
           </div>
 
           {/* Form Side */}
-          <div className="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+          <div className="rounded-2xl border border-gray-100 bg-white p-8 shadow-xl">
             {isSuccess ? (
-              <div className="text-center py-12">
-                <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+              <div className="py-12 text-center">
+                <CheckCircle className="mx-auto mb-4 size-16 text-green-500" />
                 <h3 className="text-2xl font-bold text-p4c-navy">
                   Message Sent!
                 </h3>
-                <p className="text-gray-600 mt-2">
+                <p className="mt-2 text-gray-600">
                   We will get back to you within 24 hours.
                 </p>
                 <button
                   onClick={() => setIsSuccess(false)}
-                  className="mt-6 text-p4c-gold font-bold hover:underline"
+                  className="mt-6 font-bold text-p4c-gold hover:underline"
                 >
                   Send another message
                 </button>
@@ -140,7 +140,7 @@ const Contact: React.FC = () => {
                 <div>
                   <label
                     htmlFor="name"
-                    className="block text-sm font-bold text-gray-700 mb-2"
+                    className="mb-2 block text-sm font-bold text-gray-700"
                   >
                     Name
                   </label>
@@ -157,7 +157,7 @@ const Contact: React.FC = () => {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-sm font-bold text-gray-700 mb-2"
+                    className="mb-2 block text-sm font-bold text-gray-700"
                   >
                     Email
                   </label>
@@ -174,7 +174,7 @@ const Contact: React.FC = () => {
                 <div>
                   <label
                     htmlFor="subject"
-                    className="block text-sm font-bold text-gray-700 mb-2"
+                    className="mb-2 block text-sm font-bold text-gray-700"
                   >
                     Subject
                   </label>
@@ -194,7 +194,7 @@ const Contact: React.FC = () => {
                 <div>
                   <label
                     htmlFor="message"
-                    className="block text-sm font-bold text-gray-700 mb-2"
+                    className="mb-2 block text-sm font-bold text-gray-700"
                   >
                     Message
                   </label>
@@ -211,13 +211,13 @@ const Contact: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-[#0B1120] text-white hover:bg-[#C5A059] transition-colors px-6 py-4 rounded-xl font-bold text-lg"
+                  className="w-full rounded-xl bg-[#0B1120] px-6 py-4 text-lg font-bold text-white transition-colors hover:bg-[#C5A059]"
                 >
                   {isSubmitting ? (
                     'Sending...'
                   ) : (
                     <>
-                      Send Message <Send className="w-4 h-4" />
+                      Send Message <Send className="size-4" />
                     </>
                   )}
                 </button>

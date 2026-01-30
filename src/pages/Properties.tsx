@@ -134,35 +134,35 @@ const Properties: React.FC = () => {
       </Helmet>
 
       {/* --- HERO SECTION --- */}
-      <div className="relative h-[500px] w-full overflow-hidden flex items-center justify-center">
-        <div className="absolute top-0 left-0 w-full h-full z-0">
+      <div className="relative flex h-[500px] w-full items-center justify-center overflow-hidden">
+        <div className="absolute left-0 top-0 z-0 size-full">
           <img
             src={IMAGES.BANNERS.HERO_PROPERTIES}
             alt="Properties in East Texas"
-            className="w-full h-full object-cover"
+            className="size-full object-cover"
           />
-          <div className="absolute top-0 left-0 w-full h-full bg-p4c-navy/60" />
+          <div className="bg-p4c-navy/60 absolute left-0 top-0 size-full" />
         </div>
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 font-serif">
+        <div className="relative z-10 mx-auto max-w-4xl px-4 text-center">
+          <h1 className="mb-6 font-serif text-4xl font-bold text-white sm:text-5xl lg:text-6xl">
             More Than a House. <br className="hidden sm:block" />
             {/* FIX: Escaped apostrophe */}
             <span className="text-p4c-beige">It&apos;s Your Sanctuary.</span>
           </h1>
-          <p className="text-xl text-white max-w-3xl mx-auto mb-8 font-sans">
+          <p className="mx-auto mb-8 max-w-3xl font-sans text-xl text-white">
             Quality affordable housing for families, veterans, and the
             community. We prioritize people over profit.
           </p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10">
+      <div className="mx-auto -mt-10 max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* --- CONTROL PANEL --- */}
-        <div className="bg-white rounded-xl shadow-lg p-6 mb-12 border border-slate-100 relative z-10">
+        <div className="relative z-10 mb-12 rounded-xl border border-slate-100 bg-white p-6 shadow-lg">
           {/* Top Row: Search & Mission Toggles */}
-          <div className="flex flex-col lg:flex-row gap-6 items-center justify-between mb-6 border-b border-slate-100 pb-6">
+          <div className="mb-6 flex flex-col items-center justify-between gap-6 border-b border-slate-100 pb-6 lg:flex-row">
             <div className="relative w-full lg:w-1/2">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
+              <Search className="absolute left-4 top-1/2 size-5 -translate-y-1/2 text-slate-400" />
               {/* FIX: Added id to input for accessibility */}
               <label htmlFor="search-input" className="sr-only">
                 Search properties
@@ -173,39 +173,39 @@ const Properties: React.FC = () => {
                 placeholder="Search by city, address, or amenity..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 rounded-lg border border-slate-200 focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold/20 outline-none transition-all"
+                className="focus:ring-p4c-gold/20 w-full rounded-lg border border-slate-200 py-3 pl-12 pr-4 outline-none transition-all focus:border-p4c-gold focus:ring-2"
               />
             </div>
 
-            <div className="flex flex-wrap gap-3 w-full lg:w-auto justify-end">
+            <div className="flex w-full flex-wrap justify-end gap-3 lg:w-auto">
               <button
                 onClick={() => setFilterSection8(!filterSection8)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-bold text-sm transition-all border ${
+                className={`flex items-center gap-2 rounded-lg border px-4 py-2 text-sm font-bold transition-all ${
                   filterSection8
-                    ? 'bg-emerald-600 text-white border-emerald-600 shadow-md'
-                    : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
+                    ? 'border-emerald-600 bg-emerald-600 text-white shadow-md'
+                    : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
                 }`}
               >
                 {filterSection8 ? (
-                  <CheckCircle className="w-4 h-4" />
+                  <CheckCircle className="size-4" />
                 ) : (
-                  <Filter className="w-4 h-4" />
+                  <Filter className="size-4" />
                 )}
                 Section 8 Eligible
               </button>
 
               <button
                 onClick={() => setFilterVeteran(!filterVeteran)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-bold text-sm transition-all border ${
+                className={`flex items-center gap-2 rounded-lg border px-4 py-2 text-sm font-bold transition-all ${
                   filterVeteran
-                    ? 'bg-p4c-gold text-p4c-navy border-p4c-gold shadow-md'
-                    : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
+                    ? 'border-p4c-gold bg-p4c-gold text-p4c-navy shadow-md'
+                    : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
                 }`}
               >
                 {filterVeteran ? (
-                  <CheckCircle className="w-4 h-4" />
+                  <CheckCircle className="size-4" />
                 ) : (
-                  <Filter className="w-4 h-4" />
+                  <Filter className="size-4" />
                 )}
                 Veteran Preferred
               </button>
@@ -213,21 +213,21 @@ const Properties: React.FC = () => {
           </div>
 
           {/* Bottom Row: Detailed Dropdowns */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {/* Location */}
             <div>
               {/* FIX: Removed conflicting 'flex'/'block' class, added htmlFor */}
               <label
                 htmlFor="location-filter"
-                className="text-xs font-bold text-slate-500 uppercase mb-1 flex items-center gap-1"
+                className="mb-1 flex items-center gap-1 text-xs font-bold uppercase text-slate-500"
               >
-                <MapPin className="w-3 h-3" /> Location
+                <MapPin className="size-3" /> Location
               </label>
               <select
                 id="location-filter"
                 value={selectedLocation}
                 onChange={(e) => setSelectedLocation(e.target.value)}
-                className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm text-p4c-navy focus:ring-2 focus:ring-p4c-gold outline-none cursor-pointer"
+                className="w-full cursor-pointer rounded-lg border border-slate-200 bg-slate-50 p-2.5 text-sm text-p4c-navy outline-none focus:ring-2 focus:ring-p4c-gold"
               >
                 <option value="all">All Locations</option>
                 {locations.map((loc) => (
@@ -243,7 +243,7 @@ const Properties: React.FC = () => {
               {/* FIX: Added htmlFor */}
               <label
                 htmlFor="bedrooms-filter"
-                className="block text-xs font-bold text-slate-500 uppercase mb-1"
+                className="mb-1 block text-xs font-bold uppercase text-slate-500"
               >
                 Bedrooms
               </label>
@@ -251,7 +251,7 @@ const Properties: React.FC = () => {
                 id="bedrooms-filter"
                 value={selectedBedrooms}
                 onChange={(e) => setSelectedBedrooms(e.target.value)}
-                className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm text-p4c-navy focus:ring-2 focus:ring-p4c-gold outline-none cursor-pointer"
+                className="w-full cursor-pointer rounded-lg border border-slate-200 bg-slate-50 p-2.5 text-sm text-p4c-navy outline-none focus:ring-2 focus:ring-p4c-gold"
               >
                 <option value="all">Any Size</option>
                 <option value="1+">1+ Bedrooms</option>
@@ -265,7 +265,7 @@ const Properties: React.FC = () => {
               {/* FIX: Added htmlFor */}
               <label
                 htmlFor="price-filter"
-                className="block text-xs font-bold text-slate-500 uppercase mb-1"
+                className="mb-1 block text-xs font-bold uppercase text-slate-500"
               >
                 Price / Month
               </label>
@@ -273,7 +273,7 @@ const Properties: React.FC = () => {
                 id="price-filter"
                 value={selectedPrice}
                 onChange={(e) => setSelectedPrice(e.target.value)}
-                className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm text-p4c-navy focus:ring-2 focus:ring-p4c-gold outline-none cursor-pointer"
+                className="w-full cursor-pointer rounded-lg border border-slate-200 bg-slate-50 p-2.5 text-sm text-p4c-navy outline-none focus:ring-2 focus:ring-p4c-gold"
               >
                 <option value="all">Any Price</option>
                 <option value="0-500">Under $500</option>
@@ -293,19 +293,19 @@ const Properties: React.FC = () => {
                   setFilterSection8(false);
                   setFilterVeteran(false);
                 }}
-                className="w-full py-2.5 bg-slate-100 text-slate-600 font-bold rounded-lg text-sm hover:bg-slate-200 hover:text-p4c-navy transition-colors flex items-center justify-center gap-2"
+                className="flex w-full items-center justify-center gap-2 rounded-lg bg-slate-100 py-2.5 text-sm font-bold text-slate-600 transition-colors hover:bg-slate-200 hover:text-p4c-navy"
               >
-                <SlidersHorizontal className="w-4 h-4" /> Reset Filters
+                <SlidersHorizontal className="size-4" /> Reset Filters
               </button>
             </div>
           </div>
         </div>
 
         {/* --- RESULTS HEADER --- */}
-        <div className="flex flex-col sm:flex-row justify-between items-center mb-6 px-2">
-          <h2 className="text-2xl font-serif font-bold text-p4c-navy">
+        <div className="mb-6 flex flex-col items-center justify-between px-2 sm:flex-row">
+          <h2 className="font-serif text-2xl font-bold text-p4c-navy">
             {filteredProperties.length}{' '}
-            <span className="text-slate-500 font-sans text-lg font-normal">
+            <span className="font-sans text-lg font-normal text-slate-500">
               Homes Available
             </span>
           </h2>
@@ -313,53 +313,53 @@ const Properties: React.FC = () => {
 
         {/* --- PROPERTIES GRID --- */}
         {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {[1, 2, 3].map((i) => (
               <div
                 key={i}
-                className="bg-white rounded-xl h-[450px] overflow-hidden shadow-sm animate-pulse"
+                className="h-[450px] animate-pulse overflow-hidden rounded-xl bg-white shadow-sm"
               >
-                <div className="w-full h-64 bg-slate-200" />
-                <div className="p-6 space-y-4">
-                  <div className="w-2/3 h-6 bg-slate-200 rounded" />
-                  <div className="w-1/2 h-4 bg-slate-200 rounded" />
+                <div className="h-64 w-full bg-slate-200" />
+                <div className="space-y-4 p-6">
+                  <div className="h-6 w-2/3 rounded bg-slate-200" />
+                  <div className="h-4 w-1/2 rounded bg-slate-200" />
                 </div>
               </div>
             ))}
           </div>
         ) : filteredProperties.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {filteredProperties.map((property) => (
               <PropertyCard key={property.id} property={property} />
             ))}
           </div>
         ) : (
           // --- EMPTY STATE ---
-          <div className="text-center py-24 bg-white rounded-2xl border-2 border-dashed border-slate-200">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-slate-50 rounded-full mb-6">
-              <Home className="w-10 h-10 text-slate-400" />
+          <div className="rounded-2xl border-2 border-dashed border-slate-200 bg-white py-24 text-center">
+            <div className="mb-6 inline-flex size-20 items-center justify-center rounded-full bg-slate-50">
+              <Home className="size-10 text-slate-400" />
             </div>
-            <h3 className="text-2xl font-serif font-bold text-p4c-navy mb-3">
+            <h3 className="mb-3 font-serif text-2xl font-bold text-p4c-navy">
               No homes match your search.
             </h3>
-            <p className="text-slate-500 max-w-md mx-auto mb-8 leading-relaxed">
+            <p className="mx-auto mb-8 max-w-md leading-relaxed text-slate-500">
               Our inventory updates weekly. We prioritize Section 8 families on
               our waitlist.
             </p>
-            <div className="flex gap-4 justify-center">
+            <div className="flex justify-center gap-4">
               <button
                 onClick={() => {
                   setSearchTerm('');
                   setFilterSection8(false);
                 }}
-                className="text-p4c-navy font-bold hover:underline"
+                className="font-bold text-p4c-navy hover:underline"
               >
                 Clear Filters
               </button>
               <span className="text-slate-300">|</span>
               <a
                 href="/contact"
-                className="text-p4c-gold font-bold hover:underline"
+                className="font-bold text-p4c-gold hover:underline"
               >
                 Join Priority Waitlist &rarr;
               </a>

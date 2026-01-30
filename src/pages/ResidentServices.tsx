@@ -35,7 +35,7 @@ const ResidentServices: React.FC = () => {
   };
 
   return (
-    <div className="bg-p4c-beige min-h-screen">
+    <div className="min-h-screen bg-p4c-beige">
       <Helmet>
         <title>Resident Services & Portal | Properties 4 Creation</title>
         <meta
@@ -45,44 +45,44 @@ const ResidentServices: React.FC = () => {
       </Helmet>
 
       {/* Hero Section */}
-      <div className="relative h-[400px] w-full overflow-hidden flex items-center justify-center">
-        <div className="absolute top-0 left-0 w-full h-full z-0">
+      <div className="relative flex h-[400px] w-full items-center justify-center overflow-hidden">
+        <div className="absolute left-0 top-0 z-0 size-full">
           <img
             src={IMAGES.BANNERS.RESIDENT_SERVICE_BANNER}
             alt="Happy resident family in their home"
-            className="w-full h-full object-cover"
+            className="size-full object-cover"
           />
-          <div className="absolute top-0 left-0 w-full h-full bg-p4c-navy/80 mix-blend-multiply" />
+          <div className="bg-p4c-navy/80 absolute left-0 top-0 size-full mix-blend-multiply" />
         </div>
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-fade-in-up">
-          <div className="flex justify-center mb-6">
-            <div className="bg-p4c-gold/20 p-4 rounded-2xl border border-p4c-gold/30 backdrop-blur-sm">
-              <Home className="w-10 h-10 text-p4c-gold" />
+        <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
+          <div className="mb-6 flex justify-center">
+            <div className="bg-p4c-gold/20 border-p4c-gold/30 rounded-2xl border p-4 backdrop-blur-sm">
+              <Home className="size-10 text-p4c-gold" />
             </div>
           </div>
-          <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4 tracking-wide">
+          <h1 className="mb-4 font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
             Resident Services
           </h1>
-          <p className="text-xl text-gray-200 font-light max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-xl font-light text-gray-200">
             Your home, your comfort, our priority
           </p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         {/* Resident Portal Section */}
         <section className="mb-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
+          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+            <div className="relative h-96 overflow-hidden rounded-2xl shadow-2xl">
               <img
                 src={IMAGES.BANNERS.RESIDENT_SERVICE_BANNER}
                 alt="Resident portal access"
-                className="w-full h-full object-cover"
+                className="size-full object-cover"
               />
-              <div className="absolute inset-0 bg-p4c-navy/20" />
-              <div className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-sm p-4 rounded-xl">
+              <div className="bg-p4c-navy/20 absolute inset-0" />
+              <div className="absolute inset-x-6 bottom-6 rounded-xl bg-white/90 p-4 backdrop-blur-sm">
                 <div className="flex items-center gap-3">
-                  <ShieldCheck className="w-6 h-6 text-p4c-gold" />
+                  <ShieldCheck className="size-6 text-p4c-gold" />
                   <div>
                     <div className="font-bold text-p4c-navy">Secure Access</div>
                     <div className="text-sm text-gray-600">
@@ -94,10 +94,10 @@ const ResidentServices: React.FC = () => {
             </div>
 
             <div>
-              <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-6">
+              <h2 className="mb-6 font-serif text-3xl font-bold text-p4c-navy">
                 Resident Portal
               </h2>
-              <p className="text-gray-600 mb-8 leading-relaxed">
+              <p className="mb-8 leading-relaxed text-gray-600">
                 Access your account to pay rent, submit maintenance requests,
                 and manage your lease information conveniently online.
               </p>
@@ -106,7 +106,7 @@ const ResidentServices: React.FC = () => {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="mb-2 block text-sm font-medium text-gray-700"
                   >
                     Email Address
                   </label>
@@ -116,7 +116,7 @@ const ResidentServices: React.FC = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-p4c-gold focus:border-p4c-gold transition-all"
+                    className="w-full rounded-xl border border-gray-300 px-4 py-3 transition-all focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold"
                     placeholder="your.email@example.com"
                     required
                   />
@@ -125,7 +125,7 @@ const ResidentServices: React.FC = () => {
                 <div>
                   <label
                     htmlFor="password"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="mb-2 block text-sm font-medium text-gray-700"
                   >
                     Password
                   </label>
@@ -135,7 +135,7 @@ const ResidentServices: React.FC = () => {
                     name="password"
                     value={formData.password}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-p4c-gold focus:border-p4c-gold transition-all"
+                    className="w-full rounded-xl border border-gray-300 px-4 py-3 transition-all focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold"
                     placeholder="••••••••"
                     required
                   />
@@ -143,7 +143,7 @@ const ResidentServices: React.FC = () => {
 
                 <button
                   type="submit"
-                  className="w-full bg-p4c-gold text-p4c-navy hover:bg-white hover:text-p4c-navy px-6 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+                  className="w-full rounded-xl bg-p4c-gold px-6 py-4 text-lg font-bold text-p4c-navy shadow-lg transition-all duration-300 hover:bg-white hover:text-p4c-navy hover:shadow-xl"
                 >
                   Login to Portal
                 </button>
@@ -152,7 +152,7 @@ const ResidentServices: React.FC = () => {
               <div className="mt-6 text-center">
                 <button
                   type="button"
-                  className="text-p4c-gold hover:underline text-sm bg-transparent border-none cursor-pointer"
+                  className="cursor-pointer border-none bg-transparent text-sm text-p4c-gold hover:underline"
                   onClick={() =>
                     addToast(
                       'Password reset functionality coming soon. Please contact our office for assistance.',
@@ -169,67 +169,67 @@ const ResidentServices: React.FC = () => {
 
         {/* Quick Access Section */}
         <section className="mb-20">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-4">
+          <div className="mb-12 text-center">
+            <h2 className="mb-4 font-serif text-3xl font-bold text-p4c-navy">
               Quick Access
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="mx-auto max-w-2xl text-gray-600">
               Common services at your fingertips
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow text-center">
-              <div className="bg-p4c-navy/5 w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-6">
-                <Wrench className="w-8 h-8 text-p4c-navy" />
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+            <div className="rounded-2xl bg-white p-8 text-center shadow-xl transition-shadow hover:shadow-2xl">
+              <div className="bg-p4c-navy/5 mx-auto mb-6 flex size-16 items-center justify-center rounded-xl">
+                <Wrench className="size-8 text-p4c-navy" />
               </div>
-              <h3 className="text-xl font-bold text-p4c-navy mb-4">
+              <h3 className="mb-4 text-xl font-bold text-p4c-navy">
                 Maintenance Request
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="mb-6 text-gray-600">
                 Report maintenance issues 24/7 for prompt resolution
               </p>
               <a
                 href="tel:(903) 555-0123"
-                className="inline-flex items-center gap-2 text-p4c-gold font-bold hover:underline"
+                className="inline-flex items-center gap-2 font-bold text-p4c-gold hover:underline"
               >
-                Call Maintenance <Phone className="w-4 h-4" />
+                Call Maintenance <Phone className="size-4" />
               </a>
             </div>
 
-            <div className="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow text-center">
-              <div className="bg-p4c-navy/5 w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-6">
-                <MessageCircle className="w-8 h-8 text-p4c-navy" />
+            <div className="rounded-2xl bg-white p-8 text-center shadow-xl transition-shadow hover:shadow-2xl">
+              <div className="bg-p4c-navy/5 mx-auto mb-6 flex size-16 items-center justify-center rounded-xl">
+                <MessageCircle className="size-8 text-p4c-navy" />
               </div>
-              <h3 className="text-xl font-bold text-p4c-navy mb-4">
+              <h3 className="mb-4 text-xl font-bold text-p4c-navy">
                 Contact Management
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="mb-6 text-gray-600">
                 Get in touch with our property management team
               </p>
               <a
                 href="/contact"
-                className="inline-flex items-center gap-2 text-p4c-gold font-bold hover:underline"
+                className="inline-flex items-center gap-2 font-bold text-p4c-gold hover:underline"
               >
                 Send Message
               </a>
             </div>
 
-            <div className="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow text-center">
-              <div className="bg-p4c-navy/5 w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-6">
-                <AlertTriangle className="w-8 h-8 text-p4c-navy" />
+            <div className="rounded-2xl bg-white p-8 text-center shadow-xl transition-shadow hover:shadow-2xl">
+              <div className="bg-p4c-navy/5 mx-auto mb-6 flex size-16 items-center justify-center rounded-xl">
+                <AlertTriangle className="size-8 text-p4c-navy" />
               </div>
-              <h3 className="text-xl font-bold text-p4c-navy mb-4">
+              <h3 className="mb-4 text-xl font-bold text-p4c-navy">
                 Emergency Contact
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="mb-6 text-gray-600">
                 For after-hours emergencies only
               </p>
               <a
                 href="tel:(903) 555-9111"
-                className="inline-flex items-center gap-2 text-red-500 font-bold hover:underline"
+                className="inline-flex items-center gap-2 font-bold text-red-500 hover:underline"
               >
-                Emergency Line <Phone className="w-4 h-4" />
+                Emergency Line <Phone className="size-4" />
               </a>
             </div>
           </div>
@@ -237,21 +237,21 @@ const ResidentServices: React.FC = () => {
 
         {/* Resident Resources Section */}
         <section className="mb-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
             <div>
-              <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-6">
+              <h2 className="mb-6 font-serif text-3xl font-bold text-p4c-navy">
                 Resident Resources
               </h2>
-              <p className="text-gray-600 mb-8 leading-relaxed">
+              <p className="mb-8 leading-relaxed text-gray-600">
                 Helpful information and resources for our residents to make your
                 living experience comfortable and enjoyable.
               </p>
 
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
-                  <div className="w-8 h-8 bg-p4c-gold/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                  <div className="bg-p4c-gold/20 mt-1 flex size-8 shrink-0 items-center justify-center rounded-full">
                     <svg
-                      className="w-5 h-5 text-p4c-gold"
+                      className="size-5 text-p4c-gold"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -265,7 +265,7 @@ const ResidentServices: React.FC = () => {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-bold text-p4c-navy mb-2">
+                    <h4 className="mb-2 font-bold text-p4c-navy">
                       Rent Payment Options
                     </h4>
                     <p className="text-gray-600">
@@ -275,9 +275,9 @@ const ResidentServices: React.FC = () => {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-8 h-8 bg-p4c-gold/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                  <div className="bg-p4c-gold/20 mt-1 flex size-8 shrink-0 items-center justify-center rounded-full">
                     <svg
-                      className="w-5 h-5 text-p4c-gold"
+                      className="size-5 text-p4c-gold"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -291,7 +291,7 @@ const ResidentServices: React.FC = () => {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-bold text-p4c-navy mb-2">
+                    <h4 className="mb-2 font-bold text-p4c-navy">
                       Maintenance Guidelines
                     </h4>
                     <p className="text-gray-600">
@@ -301,9 +301,9 @@ const ResidentServices: React.FC = () => {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-8 h-8 bg-p4c-gold/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                  <div className="bg-p4c-gold/20 mt-1 flex size-8 shrink-0 items-center justify-center rounded-full">
                     <svg
-                      className="w-5 h-5 text-p4c-gold"
+                      className="size-5 text-p4c-gold"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -317,7 +317,7 @@ const ResidentServices: React.FC = () => {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-bold text-p4c-navy mb-2">
+                    <h4 className="mb-2 font-bold text-p4c-navy">
                       Community Resources
                     </h4>
                     <p className="text-gray-600">
@@ -328,16 +328,16 @@ const ResidentServices: React.FC = () => {
               </div>
             </div>
 
-            <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative h-96 overflow-hidden rounded-2xl shadow-2xl">
               <img
                 src={IMAGES.FAMILY.HAPPY_KITCHEN}
                 alt="Happy family enjoying their home"
-                className="w-full h-full object-cover"
+                className="size-full object-cover"
               />
-              <div className="absolute inset-0 bg-p4c-navy/20" />
-              <div className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-sm p-4 rounded-xl">
+              <div className="bg-p4c-navy/20 absolute inset-0" />
+              <div className="absolute inset-x-6 bottom-6 rounded-xl bg-white/90 p-4 backdrop-blur-sm">
                 <div className="flex items-center gap-3">
-                  <Home className="w-6 h-6 text-p4c-gold" />
+                  <Home className="size-6 text-p4c-gold" />
                   <div>
                     <div className="font-bold text-p4c-navy">
                       Your Comfort Matters
@@ -354,23 +354,23 @@ const ResidentServices: React.FC = () => {
 
         {/* FAQ Section */}
         <section className="mb-20">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-4">
+          <div className="mb-12 text-center">
+            <h2 className="mb-4 font-serif text-3xl font-bold text-p4c-navy">
               Frequently Asked Questions
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="mx-auto max-w-2xl text-gray-600">
               Common questions from our residents
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto space-y-4">
-            <div className="bg-white rounded-xl shadow-md border border-gray-100">
-              <button className="w-full p-6 text-left flex justify-between items-center hover:bg-gray-50 transition-colors">
+          <div className="mx-auto max-w-4xl space-y-4">
+            <div className="rounded-xl border border-gray-100 bg-white shadow-md">
+              <button className="flex w-full items-center justify-between p-6 text-left transition-colors hover:bg-gray-50">
                 <span className="font-semibold text-p4c-navy">
                   How do I pay my rent online?
                 </span>
                 <svg
-                  className="w-5 h-5 text-gray-400"
+                  className="size-5 text-gray-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -392,13 +392,13 @@ const ResidentServices: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-white rounded-xl shadow-md border border-gray-100">
-              <button className="w-full p-6 text-left flex justify-between items-center hover:bg-gray-50 transition-colors">
+            <div className="rounded-xl border border-gray-100 bg-white shadow-md">
+              <button className="flex w-full items-center justify-between p-6 text-left transition-colors hover:bg-gray-50">
                 <span className="font-semibold text-p4c-navy">
                   How do I submit a maintenance request?
                 </span>
                 <svg
-                  className="w-5 h-5 text-gray-400"
+                  className="size-5 text-gray-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -420,13 +420,13 @@ const ResidentServices: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-white rounded-xl shadow-md border border-gray-100">
-              <button className="w-full p-6 text-left flex justify-between items-center hover:bg-gray-50 transition-colors">
+            <div className="rounded-xl border border-gray-100 bg-white shadow-md">
+              <button className="flex w-full items-center justify-between p-6 text-left transition-colors hover:bg-gray-50">
                 <span className="font-semibold text-p4c-navy">
                   What is the guest policy?
                 </span>
                 <svg
-                  className="w-5 h-5 text-gray-400"
+                  className="size-5 text-gray-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -448,13 +448,13 @@ const ResidentServices: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-white rounded-xl shadow-md border border-gray-100">
-              <button className="w-full p-6 text-left flex justify-between items-center hover:bg-gray-50 transition-colors">
+            <div className="rounded-xl border border-gray-100 bg-white shadow-md">
+              <button className="flex w-full items-center justify-between p-6 text-left transition-colors hover:bg-gray-50">
                 <span className="font-semibold text-p4c-navy">
                   How do I renew my lease?
                 </span>
                 <svg
-                  className="w-5 h-5 text-gray-400"
+                  className="size-5 text-gray-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -479,31 +479,31 @@ const ResidentServices: React.FC = () => {
         </section>
 
         {/* Contact Section */}
-        <section className="bg-p4c-navy rounded-2xl text-white p-12 text-center">
-          <div className="max-w-3xl mx-auto">
-            <div className="flex justify-center mb-6">
-              <div className="bg-p4c-gold/20 p-4 rounded-2xl border border-p4c-gold/30">
-                <MessageCircle className="w-10 h-10 text-p4c-gold" />
+        <section className="rounded-2xl bg-p4c-navy p-12 text-center text-white">
+          <div className="mx-auto max-w-3xl">
+            <div className="mb-6 flex justify-center">
+              <div className="bg-p4c-gold/20 border-p4c-gold/30 rounded-2xl border p-4">
+                <MessageCircle className="size-10 text-p4c-gold" />
               </div>
             </div>
-            <h2 className="text-3xl font-serif font-bold mb-6">
+            <h2 className="mb-6 font-serif text-3xl font-bold">
               Need Assistance?
             </h2>
-            <p className="text-gray-300 text-lg mb-8 leading-relaxed">
+            <p className="mb-8 text-lg leading-relaxed text-gray-300">
               Our resident services team is available to help with any questions
               or concerns. Contact us during business hours or use our 24/7
               emergency line for urgent matters.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col justify-center gap-4 sm:flex-row">
               <a
                 href="/contact"
-                className="bg-p4c-gold text-p4c-navy hover:bg-white hover:text-p4c-navy px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center gap-2"
+                className="inline-flex items-center gap-2 rounded-xl bg-p4c-gold px-8 py-4 text-lg font-bold text-p4c-navy shadow-lg transition-all duration-300 hover:bg-white hover:text-p4c-navy hover:shadow-xl"
               >
                 Contact Us
               </a>
               <a
                 href="tel:(903) 555-0123"
-                className="border-2 border-white text-white hover:bg-white hover:text-p4c-navy px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 inline-flex items-center gap-2"
+                className="inline-flex items-center gap-2 rounded-xl border-2 border-white px-8 py-4 text-lg font-bold text-white transition-all duration-300 hover:bg-white hover:text-p4c-navy"
               >
                 Call Office
               </a>

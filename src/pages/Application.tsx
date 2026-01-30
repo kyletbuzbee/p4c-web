@@ -46,22 +46,22 @@ const Application: React.FC = () => {
 
   if (isSuccess) {
     return (
-      <div className="min-h-screen bg-p4c-beige flex items-center justify-center p-4">
-        <div className="bg-white rounded-2xl shadow-xl p-8 max-w-lg w-full text-center">
-          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <CheckCircle className="w-10 h-10 text-green-600" />
+      <div className="flex min-h-screen items-center justify-center bg-p4c-beige p-4">
+        <div className="w-full max-w-lg rounded-2xl bg-white p-8 text-center shadow-xl">
+          <div className="mx-auto mb-6 flex size-20 items-center justify-center rounded-full bg-green-100">
+            <CheckCircle className="size-10 text-green-600" />
           </div>
-          <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-4">
+          <h2 className="mb-4 font-serif text-3xl font-bold text-p4c-navy">
             Application Received
           </h2>
-          <p className="text-gray-600 mb-8">
+          <p className="mb-8 text-gray-600">
             Thank you for applying with Properties 4 Creation. Our leasing team
             is reviewing your information and will contact you within 2 business
             days.
           </p>
           <a
             href="/"
-            className="inline-block bg-p4c-navy text-white px-8 py-3 rounded-lg font-bold hover:bg-p4c-slate transition-colors"
+            className="inline-block rounded-lg bg-p4c-navy px-8 py-3 font-bold text-white transition-colors hover:bg-p4c-slate"
           >
             Return Home
           </a>
@@ -80,20 +80,22 @@ const Application: React.FC = () => {
         />
       </Helmet>
 
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-10">
-          <h1 className="text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-4 max-w-lg mx-auto leading-tight">
-            Properties 4 Creation<br />Rental Application
+        <div className="mb-10 text-center">
+          <h1 className="mx-auto mb-4 max-w-lg font-serif text-3xl font-bold leading-tight text-p4c-navy md:text-4xl">
+            Properties 4 Creation
+            <br />
+            Rental Application
           </h1>
-          <p className="text-gray-600 flex items-center justify-center gap-2">
-            <Lock className="w-4 h-4" /> Secure 256-bit Encrypted Submission
+          <p className="flex items-center justify-center gap-2 text-gray-600">
+            <Lock className="size-4" /> Secure 256-bit Encrypted Submission
           </p>
         </div>
 
         {/* Progress Bar */}
         <div className="mb-12">
-          <div className="flex justify-between items-center relative z-10">
+          <div className="relative z-10 flex items-center justify-between">
             {STEPS.map((step) => (
               <div
                 key={step.id}
@@ -102,13 +104,13 @@ const Application: React.FC = () => {
                 }`}
               >
                 <div
-                  className={`w-10 h-10 rounded-full flex items-center justify-center font-bold transition-all duration-300 ${
+                  className={`flex size-10 items-center justify-center rounded-full font-bold transition-all duration-300 ${
                     currentStep >= step.id
-                      ? 'bg-p4c-gold text-p4c-navy shadow-lg scale-110'
-                      : 'bg-white border-2 border-gray-200'
+                      ? 'scale-110 bg-p4c-gold text-p4c-navy shadow-lg'
+                      : 'border-2 border-gray-200 bg-white'
                   }`}
                 >
-                  <step.icon className="w-5 h-5" />
+                  <step.icon className="size-5" />
                 </div>
                 <span className="text-xs font-bold uppercase tracking-wider">
                   {step.title}
@@ -117,25 +119,25 @@ const Application: React.FC = () => {
             ))}
           </div>
           {/* Progress Line */}
-          <div className="absolute top-[160px] left-0 w-full h-1 bg-gray-200 -z-0 hidden md:block">
+          <div className="absolute left-0 top-[160px] -z-0 hidden h-1 w-full bg-gray-200 md:block">
             {/* This requires precise positioning relative to container, simplified here */}
           </div>
         </div>
 
         {/* Form Container */}
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+        <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-xl">
           <form onSubmit={handleSubmit} className="p-8">
             {/* Step 1: Personal Info */}
             {currentStep === 1 && (
-              <div className="space-y-6 animate-fade-in">
-                <h3 className="text-xl font-bold text-p4c-navy border-b pb-4 mb-6">
+              <div className="animate-fade-in space-y-6">
+                <h3 className="mb-6 border-b pb-4 text-xl font-bold text-p4c-navy">
                   Personal Information
                 </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   <div>
                     <label
                       htmlFor="firstName"
-                      className="block text-sm font-bold text-gray-700 mb-2"
+                      className="mb-2 block text-sm font-bold text-gray-700"
                     >
                       First Name
                     </label>
@@ -143,7 +145,7 @@ const Application: React.FC = () => {
                       id="firstName"
                       name="firstName"
                       type="text"
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold/20 outline-none transition-all"
+                      className="focus:ring-p4c-gold/20 w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition-all focus:border-p4c-gold focus:ring-2"
                       placeholder="John"
                       required
                     />
@@ -151,7 +153,7 @@ const Application: React.FC = () => {
                   <div>
                     <label
                       htmlFor="lastName"
-                      className="block text-sm font-bold text-gray-700 mb-2"
+                      className="mb-2 block text-sm font-bold text-gray-700"
                     >
                       Last Name
                     </label>
@@ -159,7 +161,7 @@ const Application: React.FC = () => {
                       id="lastName"
                       name="lastName"
                       type="text"
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold/20 outline-none transition-all"
+                      className="focus:ring-p4c-gold/20 w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition-all focus:border-p4c-gold focus:ring-2"
                       placeholder="Doe"
                       required
                     />
@@ -167,7 +169,7 @@ const Application: React.FC = () => {
                   <div className="md:col-span-2">
                     <label
                       htmlFor="email"
-                      className="block text-sm font-bold text-gray-700 mb-2"
+                      className="mb-2 block text-sm font-bold text-gray-700"
                     >
                       Email Address
                     </label>
@@ -175,7 +177,7 @@ const Application: React.FC = () => {
                       id="email"
                       name="email"
                       type="email"
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold/20 outline-none transition-all"
+                      className="focus:ring-p4c-gold/20 w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition-all focus:border-p4c-gold focus:ring-2"
                       placeholder="john.doe@example.com"
                       required
                     />
@@ -183,7 +185,7 @@ const Application: React.FC = () => {
                   <div className="md:col-span-2">
                     <label
                       htmlFor="phone"
-                      className="block text-sm font-bold text-gray-700 mb-2"
+                      className="mb-2 block text-sm font-bold text-gray-700"
                     >
                       Phone Number
                     </label>
@@ -191,7 +193,7 @@ const Application: React.FC = () => {
                       id="phone"
                       name="phone"
                       type="tel"
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold/20 outline-none transition-all"
+                      className="focus:ring-p4c-gold/20 w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition-all focus:border-p4c-gold focus:ring-2"
                       placeholder="(555) 123-4567"
                       required
                     />
@@ -202,14 +204,14 @@ const Application: React.FC = () => {
 
             {/* Step 2: Housing History */}
             {currentStep === 2 && (
-              <div className="space-y-6 animate-fade-in">
-                <h3 className="text-xl font-bold text-p4c-navy border-b pb-4 mb-6">
+              <div className="animate-fade-in space-y-6">
+                <h3 className="mb-6 border-b pb-4 text-xl font-bold text-p4c-navy">
                   Housing History
                 </h3>
                 <div>
                   <label
                     htmlFor="address"
-                    className="block text-sm font-bold text-gray-700 mb-2"
+                    className="mb-2 block text-sm font-bold text-gray-700"
                   >
                     Current Address
                   </label>
@@ -217,7 +219,7 @@ const Application: React.FC = () => {
                     id="address"
                     name="address"
                     type="text"
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold/20 outline-none transition-all"
+                    className="focus:ring-p4c-gold/20 w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition-all focus:border-p4c-gold focus:ring-2"
                     placeholder="123 Main St, City, State, ZIP"
                     required
                   />
@@ -225,14 +227,14 @@ const Application: React.FC = () => {
                 <div>
                   <label
                     htmlFor="timeAtAddress"
-                    className="block text-sm font-bold text-gray-700 mb-2"
+                    className="mb-2 block text-sm font-bold text-gray-700"
                   >
                     Time at Address
                   </label>
                   <select
                     id="timeAtAddress"
                     name="timeAtAddress"
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold/20 outline-none transition-all"
+                    className="focus:ring-p4c-gold/20 w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition-all focus:border-p4c-gold focus:ring-2"
                   >
                     <option>Less than 1 year</option>
                     <option>1-3 years</option>
@@ -242,7 +244,7 @@ const Application: React.FC = () => {
                 <div>
                   <label
                     htmlFor="reasonForMoving"
-                    className="block text-sm font-bold text-gray-700 mb-2"
+                    className="mb-2 block text-sm font-bold text-gray-700"
                   >
                     Reason for Moving
                   </label>
@@ -250,7 +252,7 @@ const Application: React.FC = () => {
                     id="reasonForMoving"
                     name="reasonForMoving"
                     rows={3}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold/20 outline-none transition-all"
+                    className="focus:ring-p4c-gold/20 w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition-all focus:border-p4c-gold focus:ring-2"
                     placeholder="Briefly explain why you are looking for a new home..."
                   />
                 </div>
@@ -259,15 +261,15 @@ const Application: React.FC = () => {
 
             {/* Step 3: Review */}
             {currentStep === 3 && (
-              <div className="space-y-6 animate-fade-in">
-                <h3 className="text-xl font-bold text-p4c-navy border-b pb-4 mb-6">
+              <div className="animate-fade-in space-y-6">
+                <h3 className="mb-6 border-b pb-4 text-xl font-bold text-p4c-navy">
                   Review & Submit
                 </h3>
 
-                <div className="bg-blue-50 p-4 rounded-lg flex gap-3 items-start border border-blue-100">
-                  <AlertCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                <div className="flex items-start gap-3 rounded-lg border border-blue-100 bg-blue-50 p-4">
+                  <AlertCircle className="mt-0.5 size-5 shrink-0 text-blue-600" />
                   <div className="text-sm text-blue-800">
-                    <p className="font-bold mb-1">Fair Housing Notice</p>
+                    <p className="mb-1 font-bold">Fair Housing Notice</p>
                     <p>
                       Properties 4 Creation allows for equal housing
                       opportunity. We do not discriminate based on race, color,
@@ -277,12 +279,12 @@ const Application: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 mt-6">
+                <div className="mt-6 flex items-start gap-3">
                   <input
                     type="checkbox"
                     id="consent"
                     name="consent"
-                    className="mt-1 w-4 h-4 text-p4c-gold border-gray-300 rounded focus:ring-p4c-gold"
+                    className="mt-1 size-4 rounded border-gray-300 text-p4c-gold focus:ring-p4c-gold"
                     required
                   />
                   <label htmlFor="consent" className="text-sm text-gray-600">
@@ -295,14 +297,14 @@ const Application: React.FC = () => {
             )}
 
             {/* Navigation Buttons */}
-            <div className="flex justify-between mt-10 pt-6 border-t border-gray-100">
+            <div className="mt-10 flex justify-between border-t border-gray-100 pt-6">
               {currentStep > 1 ? (
                 <button
                   type="button"
                   onClick={prevStep}
-                  className="flex items-center gap-2 text-gray-500 hover:text-p4c-navy font-bold px-4 py-2 transition-colors"
+                  className="flex items-center gap-2 px-4 py-2 font-bold text-gray-500 transition-colors hover:text-p4c-navy"
                 >
-                  <ArrowLeft className="w-4 h-4" /> Back
+                  <ArrowLeft className="size-4" /> Back
                 </button>
               ) : (
                 <div /> /* Spacer */
@@ -312,15 +314,15 @@ const Application: React.FC = () => {
                 <button
                   type="button"
                   onClick={nextStep}
-                  className="bg-p4c-navy text-white px-6 py-3 rounded-lg font-bold hover:bg-p4c-slate transition-colors flex items-center gap-2"
+                  className="flex items-center gap-2 rounded-lg bg-p4c-navy px-6 py-3 font-bold text-white transition-colors hover:bg-p4c-slate"
                 >
-                  Next Step <ArrowRight className="w-4 h-4" />
+                  Next Step <ArrowRight className="size-4" />
                 </button>
               ) : (
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="bg-p4c-gold text-p4c-navy px-8 py-3 rounded-lg font-bold hover:bg-p4c-goldHover transition-colors shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                  className="flex items-center gap-2 rounded-lg bg-p4c-gold px-8 py-3 font-bold text-p4c-navy shadow-lg transition-colors hover:bg-p4c-goldHover hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {isSubmitting ? 'Processing...' : 'Submit Application'}
                 </button>

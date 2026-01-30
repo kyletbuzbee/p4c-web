@@ -9,7 +9,7 @@ const Community: React.FC = () => {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   return (
-    <div className="bg-p4c-beige min-h-screen">
+    <div className="min-h-screen bg-p4c-beige">
       <Helmet>
         <title>
           Community Impact | Revitalizing East Texas | Properties 4 Creation
@@ -21,97 +21,97 @@ const Community: React.FC = () => {
       </Helmet>
 
       {/* Hero Section with Banner Image */}
-      <div className="relative h-[500px] w-full overflow-hidden flex items-center justify-center">
+      <div className="relative flex h-[500px] w-full items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
             src={IMAGES.BANNERS.HERO_COMMUNITY_IMPACT}
             alt="Community impact banner"
-            className="w-full h-full object-cover"
+            className="size-full object-cover"
           />
-          <div className="absolute inset-0 bg-p4c-navy/60" />
+          <div className="bg-p4c-navy/60 absolute inset-0" />
         </div>
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4 tracking-wide">
+        <div className="relative z-10 mx-auto max-w-4xl px-4 text-center">
+          <h1 className="mb-4 font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
             Building Stronger Communities
           </h1>
-          <p className="text-xl text-gray-200 font-light max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-xl font-light text-gray-200">
             Through strategic property revitalization and community partnerships
           </p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         {/* Revitalization Cycle */}
         <section className="mb-20">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-4">
+          <div className="mb-12 text-center">
+            <h2 className="mb-4 font-serif text-3xl font-bold text-p4c-navy">
               The Revitalization Cycle
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="mx-auto max-w-2xl text-gray-600">
               How we create value for communities, investors, and residents
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {/* Step 1: Acquisition */}
-            <div className="bg-white p-8 rounded-2xl shadow-xl border-t-4 border-p4c-gold hover:shadow-2xl transition-shadow">
-              <div className="bg-p4c-navy/5 w-14 h-14 rounded-xl flex items-center justify-center mb-6">
-                <Home className="w-8 h-8 text-p4c-navy" />
+            <div className="rounded-2xl border-t-4 border-p4c-gold bg-white p-8 shadow-xl transition-shadow hover:shadow-2xl">
+              <div className="bg-p4c-navy/5 mb-6 flex size-14 items-center justify-center rounded-xl">
+                <Home className="size-8 text-p4c-navy" />
               </div>
-              <h3 className="text-xl font-bold text-p4c-navy mb-4">
+              <h3 className="mb-4 text-xl font-bold text-p4c-navy">
                 Acquisition
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="mb-6 text-gray-600">
                 Identifying distressed properties in Tyler, Longview, and
                 Marshall that have potential for transformation.
               </p>
-              <div className="relative h-48 rounded-xl overflow-hidden shadow-md">
+              <div className="relative h-48 overflow-hidden rounded-xl shadow-md">
                 <img
                   src={IMAGES.TEAM.ACQUISITION}
                   alt="Property acquisition process"
-                  className="w-full h-full object-cover"
+                  className="size-full object-cover"
                 />
               </div>
             </div>
 
             {/* Step 2: Rehabilitation */}
-            <div className="bg-white p-8 rounded-2xl shadow-xl border-t-4 border-p4c-gold hover:shadow-2xl transition-shadow">
-              <div className="bg-p4c-navy/5 w-14 h-14 rounded-xl flex items-center justify-center mb-6">
-                <Wrench className="w-8 h-8 text-p4c-navy" />
+            <div className="rounded-2xl border-t-4 border-p4c-gold bg-white p-8 shadow-xl transition-shadow hover:shadow-2xl">
+              <div className="bg-p4c-navy/5 mb-6 flex size-14 items-center justify-center rounded-xl">
+                <Wrench className="size-8 text-p4c-navy" />
               </div>
-              <h3 className="text-xl font-bold text-p4c-navy mb-4">
+              <h3 className="mb-4 text-xl font-bold text-p4c-navy">
                 Rehabilitation
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="mb-6 text-gray-600">
                 Professional renovation to modern standards with high-end
                 finishes that ensure longevity and tenant satisfaction.
               </p>
-              <div className="relative h-48 rounded-xl overflow-hidden shadow-md">
+              <div className="relative h-48 overflow-hidden rounded-xl shadow-md">
                 <img
                   src={IMAGES.TEAM.REHABILITATION}
                   alt="Property rehabilitation process"
-                  className="w-full h-full object-cover"
+                  className="size-full object-cover"
                 />
               </div>
             </div>
 
             {/* Step 3: Stabilization */}
-            <div className="bg-white p-8 rounded-2xl shadow-xl border-t-4 border-p4c-gold hover:shadow-2xl transition-shadow">
-              <div className="bg-p4c-navy/5 w-14 h-14 rounded-xl flex items-center justify-center mb-6">
-                <Users className="w-8 h-8 text-p4c-navy" />
+            <div className="rounded-2xl border-t-4 border-p4c-gold bg-white p-8 shadow-xl transition-shadow hover:shadow-2xl">
+              <div className="bg-p4c-navy/5 mb-6 flex size-14 items-center justify-center rounded-xl">
+                <Users className="size-8 text-p4c-navy" />
               </div>
-              <h3 className="text-xl font-bold text-p4c-navy mb-4">
+              <h3 className="mb-4 text-xl font-bold text-p4c-navy">
                 Stabilization
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="mb-6 text-gray-600">
                 Placing families in safe, forever homes and creating stable,
                 thriving neighborhoods.
               </p>
-              <div className="relative h-48 rounded-xl overflow-hidden shadow-md">
+              <div className="relative h-48 overflow-hidden rounded-xl shadow-md">
                 <img
                   src={IMAGES.PROPERTIES.TYLER_RANCH}
                   alt="Stabilized property with happy family"
-                  className="w-full h-full object-cover"
+                  className="size-full object-cover"
                 />
               </div>
             </div>
@@ -120,38 +120,38 @@ const Community: React.FC = () => {
 
         {/* Investor Prospectus Section */}
         <section className="mb-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
             <div>
-              <h2 className="text-3xl font-serif font-bold text-p4c-navy mb-6">
+              <h2 className="mb-6 font-serif text-3xl font-bold text-p4c-navy">
                 Investor Opportunities
               </h2>
-              <p className="text-gray-600 mb-6 leading-relaxed">
+              <p className="mb-6 leading-relaxed text-gray-600">
                 Properties 4 Creation offers accredited investors the
                 opportunity to participate in our proven real estate investment
                 strategy. With a focus on East Texas markets, we deliver
                 consistent returns through value-add acquisitions and
                 professional management.
               </p>
-              <p className="text-gray-600 mb-8 leading-relaxed">
+              <p className="mb-8 leading-relaxed text-gray-600">
                 Our portfolio includes single-family residences, multi-family
                 properties, and mixed-use developments in Tyler, Longview, and
                 surrounding areas.
               </p>
 
-              <div className="grid grid-cols-2 gap-6 mb-8">
-                <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100">
-                  <div className="text-3xl font-bold text-p4c-gold mb-2">
+              <div className="mb-8 grid grid-cols-2 gap-6">
+                <div className="rounded-xl border border-gray-100 bg-white p-6 shadow-md">
+                  <div className="mb-2 text-3xl font-bold text-p4c-gold">
                     12-15%
                   </div>
-                  <div className="text-sm text-gray-500 uppercase tracking-wide">
+                  <div className="text-sm uppercase tracking-wide text-gray-500">
                     Target Annual Returns
                   </div>
                 </div>
-                <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100">
-                  <div className="text-3xl font-bold text-p4c-gold mb-2">
+                <div className="rounded-xl border border-gray-100 bg-white p-6 shadow-md">
+                  <div className="mb-2 text-3xl font-bold text-p4c-gold">
                     3-5 yrs
                   </div>
-                  <div className="text-sm text-gray-500 uppercase tracking-wide">
+                  <div className="text-sm uppercase tracking-wide text-gray-500">
                     Investment Horizon
                   </div>
                 </div>
@@ -159,23 +159,23 @@ const Community: React.FC = () => {
 
               <button
                 onClick={() => setIsContactModalOpen(true)}
-                className="bg-p4c-gold text-p4c-navy hover:bg-white hover:text-p4c-navy px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
+                className="flex items-center gap-2 rounded-xl bg-p4c-gold px-8 py-4 text-lg font-bold text-p4c-navy shadow-lg transition-all duration-300 hover:bg-white hover:text-p4c-navy hover:shadow-xl"
               >
                 Request Prospectus
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="size-5" />
               </button>
             </div>
 
-            <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative h-96 overflow-hidden rounded-2xl shadow-2xl">
               <img
                 src={IMAGES.BANNERS.HERO_COMMUNITY_IMPACT}
                 alt="Community impact visualization"
-                className="w-full h-full object-cover"
+                className="size-full object-cover"
               />
-              <div className="absolute inset-0 bg-p4c-navy/20" />
-              <div className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-sm p-4 rounded-xl">
+              <div className="bg-p4c-navy/20 absolute inset-0" />
+              <div className="absolute inset-x-6 bottom-6 rounded-xl bg-white/90 p-4 backdrop-blur-sm">
                 <div className="flex items-center gap-3">
-                  <DollarSign className="w-6 h-6 text-p4c-gold" />
+                  <DollarSign className="size-6 text-p4c-gold" />
                   <div>
                     <div className="font-bold text-p4c-navy">
                       Accredited Investors
@@ -191,33 +191,33 @@ const Community: React.FC = () => {
         </section>
 
         {/* Impact Metrics */}
-        <section className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 p-10">
-          <h2 className="text-2xl font-serif font-bold text-p4c-navy mb-8 text-center">
+        <section className="overflow-hidden rounded-2xl border border-gray-100 bg-white p-10 shadow-xl">
+          <h2 className="mb-8 text-center font-serif text-2xl font-bold text-p4c-navy">
             Our Community Impact
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div className="px-4 py-4">
-              <div className="text-4xl font-bold text-p4c-gold mb-2">50+</div>
+          <div className="grid grid-cols-1 gap-8 text-center md:grid-cols-3">
+            <div className="p-4">
+              <div className="mb-2 text-4xl font-bold text-p4c-gold">50+</div>
               <div className="font-bold text-p4c-navy">
                 Properties Revitalized
               </div>
-              <div className="text-sm text-gray-500 mt-1">
+              <div className="mt-1 text-sm text-gray-500">
                 In Tyler and Longview
               </div>
             </div>
-            <div className="px-4 py-4">
-              <div className="text-4xl font-bold text-p4c-gold mb-2">200+</div>
+            <div className="p-4">
+              <div className="mb-2 text-4xl font-bold text-p4c-gold">200+</div>
               <div className="font-bold text-p4c-navy">Residents Housed</div>
-              <div className="text-sm text-gray-500 mt-1">
+              <div className="mt-1 text-sm text-gray-500">
                 Families and Veterans
               </div>
             </div>
-            <div className="px-4 py-4">
-              <div className="text-4xl font-bold text-p4c-gold mb-2">$15M+</div>
+            <div className="p-4">
+              <div className="mb-2 text-4xl font-bold text-p4c-gold">$15M+</div>
               <div className="font-bold text-p4c-navy">
                 Community Investment
               </div>
-              <div className="text-sm text-gray-500 mt-1">
+              <div className="mt-1 text-sm text-gray-500">
                 In East Texas Economy
               </div>
             </div>
@@ -227,21 +227,21 @@ const Community: React.FC = () => {
 
       {/* Contact Modal */}
       {isContactModalOpen && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl">
-            <div className="flex justify-between items-center mb-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
+          <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-2xl">
+            <div className="mb-6 flex items-center justify-between">
               <h3 className="text-xl font-bold text-p4c-navy">
                 Request Investor Prospectus
               </h3>
               <button
                 onClick={() => setIsContactModalOpen(false)}
-                className="text-gray-400 hover:text-red-500 transition-colors"
+                className="text-gray-400 transition-colors hover:text-red-500"
                 aria-label="Close modal"
               >
-                <X className="w-6 h-6" />
+                <X className="size-6" />
               </button>
             </div>
-            <p className="text-gray-600 mb-6">
+            <p className="mb-6 text-gray-600">
               Please contact us to learn more about our investment
               opportunities.
             </p>
@@ -250,7 +250,7 @@ const Community: React.FC = () => {
                 setIsContactModalOpen(false);
                 navigate('/contact');
               }}
-              className="w-full bg-p4c-gold text-p4c-navy hover:bg-white hover:text-p4c-navy px-6 py-3 rounded-xl font-bold transition-all duration-300"
+              className="w-full rounded-xl bg-p4c-gold px-6 py-3 font-bold text-p4c-navy transition-all duration-300 hover:bg-white hover:text-p4c-navy"
             >
               Go to Contact Page
             </button>

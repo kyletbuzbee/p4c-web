@@ -38,8 +38,8 @@
     "useUnknownInCatchVariables": true,
 
     /* Vite & Environment Types */
-    "types": ["vite/client", "node"]
+    "types": ["node"]
   },
-  "include": ["src", "src/types/global.d.ts", "src/types/env.d.ts"],
-  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"]
+  "include": ["src", "src/types/global.d.ts", "src/types/env.d.ts", "vite.config.ts"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts", "src/services/botpressService.test.ts"]
 }

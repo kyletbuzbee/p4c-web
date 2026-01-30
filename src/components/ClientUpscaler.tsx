@@ -16,6 +16,36 @@ interface UpscalerState {
   error: string | null;
 }
 
+// Canvas-based upscaling fallback when upscaler module is not available
+const upscaleWithCanvas = (img: HTMLImageElement): Promise<string> =>
+  new Promise((resolve, reject) => {
+    try {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      if (!ctx) {
+        reject(new Error('Could not get canvas context'));
+        return;
+      }
+
+      // Double the dimensions for 2x upscaling
+      canvas.width = img.naturalWidth * 2;
+      canvas.height = img.naturalHeight * 2;
+
+      // Use smooth scaling for better quality
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+
+      // Draw the image scaled up
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+      // Convert to data URL
+      const dataUrl = canvas.toDataURL('image/png', 0.9);
+      resolve(dataUrl);
+    } catch (error) {
+      reject(error);
+    }
+  });
+
 const ClientUpscaler: React.FC = () => {
   const [state, setState] = useState<UpscalerState>({
     originalImage: null,
@@ -78,13 +108,14 @@ const ClientUpscaler: React.FC = () => {
       }));
 
       // Import upscaler dynamically to avoid SSR issues
-      const { default: Upscaler } = await import('upscaler');
+      // Note: upscaler module not installed - functionality disabled
+      // const { default: Upscaler } = await import('upscaler');
 
       // Initialize upscaler
-      const upscaler = new Upscaler();
+      // const upscaler = new Upscaler();
 
       // Create image element for upscaler
-      const img = new Image();
+      const img = new window.Image();
       img.src = state.originalImage;
 
       // Wait for image to load
@@ -95,8 +126,9 @@ const ClientUpscaler: React.FC = () => {
       // Update progress
       setState((prev) => ({ ...prev, progress: 30 }));
 
-      // Upscale the image
-      const upscaled = await upscaler.upscale(img);
+      // Upscale the image - upscaler module not installed, using canvas fallback
+      // const upscaled = await upscaler.upscale(img);
+      const upscaled = await upscaleWithCanvas(img);
 
       // The upscaled result is already a data URL string
       if (typeof upscaled === 'string') {
@@ -108,6 +140,7 @@ const ClientUpscaler: React.FC = () => {
         }));
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Upscaling failed:', error);
       setState((prev) => ({
         ...prev,
@@ -142,22 +175,22 @@ const ClientUpscaler: React.FC = () => {
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto p-6 bg-white rounded-xl shadow-lg">
-      <div className="text-center mb-8">
-        <div className="flex items-center justify-center gap-3 mb-4">
-          <Zap className="w-8 h-8 text-p4c-gold" />
+    <div className="mx-auto max-w-6xl rounded-xl bg-white p-6 shadow-lg">
+      <div className="mb-8 text-center">
+        <div className="mb-4 flex items-center justify-center gap-3">
+          <Zap className="size-8 text-p4c-gold" />
           <h2 className="text-2xl font-bold text-p4c-navy">
             Free Image Upscaler
           </h2>
         </div>
         <p className="text-gray-600">
-          Upscale your images 2x using your browser's processing power -
+          Upscale your images 2x using your browser&apos;s processing power -
           completely free!
         </p>
       </div>
 
       {/* File Upload Area */}
-      <div className="border-2 border-dashed border-p4c-gold/30 rounded-lg p-8 text-center hover:border-p4c-gold/60 transition-colors">
+      <div className="border-p4c-gold/30 hover:border-p4c-gold/60 rounded-lg border-2 border-dashed p-8 text-center transition-colors">
         <input
           ref={fileInputRef}
           type="file"
@@ -169,24 +202,24 @@ const ClientUpscaler: React.FC = () => {
 
         {state.originalImage ? (
           <div className="space-y-4">
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <label htmlFor="file-upload" className="cursor-pointer">
-                <span className="inline-flex items-center gap-2 px-4 py-2 bg-p4c-gold text-p4c-navy rounded-lg hover:bg-p4c-goldHover transition-colors">
-                  <Upload className="w-4 h-4" />
+                <span className="inline-flex items-center gap-2 rounded-lg bg-p4c-gold px-4 py-2 text-p4c-navy transition-colors hover:bg-p4c-goldHover">
+                  <Upload className="size-4" />
                   Choose Different Image
                 </span>
               </label>
               <button
                 onClick={handleReset}
-                className="inline-flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 text-gray-600 transition-colors hover:text-gray-800"
               >
-                <X className="w-4 h-4" />
+                <X className="size-4" />
                 Reset
               </button>
             </div>
 
             {state.error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+              <div className="rounded border border-red-200 bg-red-50 px-4 py-3 text-red-700">
                 {state.error}
               </div>
             )}
@@ -194,20 +227,20 @@ const ClientUpscaler: React.FC = () => {
         ) : (
           <div className="space-y-4">
             <div className="text-p4c-gold">
-              <ImageIcon className="w-16 h-16 mx-auto" />
+              <ImageIcon className="mx-auto size-16" />
             </div>
             <label htmlFor="file-upload" className="cursor-pointer">
-              <span className="inline-flex items-center gap-3 px-6 py-3 bg-p4c-gold text-p4c-navy rounded-lg hover:bg-p4c-goldHover transition-colors text-lg font-semibold">
-                <Upload className="w-5 h-5" />
+              <span className="inline-flex items-center gap-3 rounded-lg bg-p4c-gold px-6 py-3 text-lg font-semibold text-p4c-navy transition-colors hover:bg-p4c-goldHover">
+                <Upload className="size-5" />
                 Upload Image
               </span>
             </label>
-            <p className="text-sm text-gray-500 mt-2">
+            <p className="mt-2 text-sm text-gray-500">
               Max file size: 5MB • Supported formats: JPG, PNG, WebP
             </p>
 
             {state.error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mt-4">
+              <div className="mt-4 rounded border border-red-200 bg-red-50 px-4 py-3 text-red-700">
                 {state.error}
               </div>
             )}
@@ -218,13 +251,13 @@ const ClientUpscaler: React.FC = () => {
       {/* Progress Bar */}
       {state.isProcessing && (
         <div className="mt-6">
-          <div className="flex justify-between text-sm text-gray-600 mb-2">
+          <div className="mb-2 flex justify-between text-sm text-gray-600">
             <span>Processing Image...</span>
             <span>{state.progress}%</span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
+          <div className="h-2 w-full rounded-full bg-gray-200">
             <div
-              className="bg-p4c-gold h-2 rounded-full transition-all duration-300"
+              className="h-2 rounded-full bg-p4c-gold transition-all duration-300"
               style={{ width: `${state.progress}%` }}
             />
           </div>
@@ -233,7 +266,7 @@ const ClientUpscaler: React.FC = () => {
 
       {/* Image Comparison */}
       {state.originalImage && (
-        <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-2">
           {/* Original Image */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
@@ -244,11 +277,11 @@ const ClientUpscaler: React.FC = () => {
                 {Math.round((state.originalImage.length * 0.75) / 1024)} KB
               </div>
             </div>
-            <div className="border-2 border-gray-200 rounded-lg p-4 bg-gray-50">
+            <div className="rounded-lg border-2 border-gray-200 bg-gray-50 p-4">
               <img
                 src={state.originalImage}
                 alt="Original"
-                className="w-full h-auto rounded"
+                className="h-auto w-full rounded"
                 style={{ maxHeight: '400px', objectFit: 'contain' }}
               />
             </div>
@@ -263,18 +296,18 @@ const ClientUpscaler: React.FC = () => {
               {state.upscaledImage && (
                 <button
                   onClick={handleDownload}
-                  className="inline-flex items-center gap-2 px-3 py-1 bg-p4c-gold text-p4c-navy rounded hover:bg-p4c-goldHover transition-colors text-sm"
+                  className="inline-flex items-center gap-2 rounded bg-p4c-gold px-3 py-1 text-sm text-p4c-navy transition-colors hover:bg-p4c-goldHover"
                 >
-                  <Download className="w-4 h-4" />
+                  <Download className="size-4" />
                   Download
                 </button>
               )}
             </div>
-            <div className="border-2 border-gray-200 rounded-lg p-4 bg-gray-50">
+            <div className="rounded-lg border-2 border-gray-200 bg-gray-50 p-4">
               {state.isProcessing ? (
-                <div className="flex items-center justify-center h-64 bg-gray-100 rounded">
+                <div className="flex h-64 items-center justify-center rounded bg-gray-100">
                   <div className="text-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-p4c-gold mx-auto" />
+                    <div className="mx-auto size-12 animate-spin rounded-full border-b-2 border-p4c-gold" />
                     <p className="mt-4 text-gray-600">
                       Upscaling your image...
                     </p>
@@ -284,17 +317,17 @@ const ClientUpscaler: React.FC = () => {
                 <img
                   src={state.upscaledImage}
                   alt="Upscaled"
-                  className="w-full h-auto rounded"
+                  className="h-auto w-full rounded"
                   style={{ maxHeight: '400px', objectFit: 'contain' }}
                 />
               ) : (
-                <div className="flex items-center justify-center h-64 bg-gray-100 rounded border-2 border-dashed border-gray-300">
+                <div className="flex h-64 items-center justify-center rounded border-2 border-dashed border-gray-300 bg-gray-100">
                   <button
                     onClick={handleUpscale}
                     disabled={state.isProcessing}
-                    className="inline-flex items-center gap-3 px-6 py-3 bg-p4c-navy text-white rounded-lg hover:bg-p4c-navy/80 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="hover:bg-p4c-navy/80 inline-flex items-center gap-3 rounded-lg bg-p4c-navy px-6 py-3 text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
                   >
-                    <Zap className="w-5 h-5" />
+                    <Zap className="size-5" />
                     <span className="font-semibold">Upscale Image</span>
                   </button>
                 </div>
@@ -305,28 +338,28 @@ const ClientUpscaler: React.FC = () => {
       )}
 
       {/* Features Info */}
-      <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600">
-        <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+      <div className="mt-8 grid grid-cols-1 gap-4 text-sm text-gray-600 md:grid-cols-3">
+        <div className="flex items-center gap-3 rounded-lg bg-gray-50 p-3">
           <span className="text-p4c-gold">
-            <FileText className="w-5 h-5" />
+            <FileText className="size-5" />
           </span>
           <div>
             <div className="font-medium">Free to Use</div>
             <div>Process images directly in your browser</div>
           </div>
         </div>
-        <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+        <div className="flex items-center gap-3 rounded-lg bg-gray-50 p-3">
           <span className="text-p4c-gold">
-            <Zap className="w-5 h-5" />
+            <Zap className="size-5" />
           </span>
           <div>
             <div className="font-medium">2x Resolution</div>
             <div>Double the pixel dimensions</div>
           </div>
         </div>
-        <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+        <div className="flex items-center gap-3 rounded-lg bg-gray-50 p-3">
           <span className="text-p4c-gold">
-            <ImageIcon className="w-5 h-5" />
+            <ImageIcon className="size-5" />
           </span>
           <div>
             <div className="font-medium">Quality Preserved</div>

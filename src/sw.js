@@ -7,12 +7,20 @@
 import { precacheAndRoute } from 'workbox-precaching';
 
 // The build system will replace this with the actual manifest
-precacheAndRoute(self.__WB_MANIFEST);
+// Wrap in try-catch to handle precache failures gracefully
+let precacheSuccessful = false;
+try {
+  precacheAndRoute(self.__WB_MANIFEST);
+  precacheSuccessful = true;
+} catch (error) {
+  console.error('[SW] Precaching failed:', error);
+}
 
-const CACHE_NAME = 'p4c-v2.0.0';
-const STATIC_CACHE = 'p4c-static-v2.0.0';
-const DYNAMIC_CACHE = 'p4c-dynamic-v2.0.0';
-const IMAGE_CACHE = 'p4c-images-v2.0.0';
+// Dynamic cache versioning - update this when deploying new versions
+const CACHE_VERSION = '2.0.1';
+const STATIC_CACHE = `p4c-static-v${CACHE_VERSION}`;
+const DYNAMIC_CACHE = `p4c-dynamic-v${CACHE_VERSION}`;
+const IMAGE_CACHE = `p4c-images-v${CACHE_VERSION}`;
 
 // Assets to cache immediately
 const STATIC_ASSETS = [
@@ -35,13 +43,26 @@ self.addEventListener('install', (event) => {
     caches
       .open(STATIC_CACHE)
       .then((cache) => {
-        return cache.addAll(STATIC_ASSETS);
+        // Use individual cache.put for better error handling
+        const cachePromises = STATIC_ASSETS.map(async (asset) => {
+          try {
+            const response = await fetch(asset, { cache: 'no-cache' });
+            if (response.ok) {
+              await cache.put(asset, response);
+            }
+          } catch (error) {
+            console.warn(`[SW] Failed to cache ${asset}:`, error);
+          }
+        });
+        return Promise.all(cachePromises);
       })
       .then(() => {
         return self.skipWaiting();
       })
       .catch((error) => {
         console.error('[SW] Failed to cache static assets:', error);
+        // Continue installation even if caching fails
+        return self.skipWaiting();
       })
   );
 });
@@ -54,12 +75,13 @@ self.addEventListener('activate', (event) => {
       .then((cacheNames) =>
         Promise.all(
           cacheNames.map((cacheName) => {
-            // Delete old caches
+            // Delete old caches that don't match current version
             if (
               cacheName !== STATIC_CACHE &&
               cacheName !== DYNAMIC_CACHE &&
               cacheName !== IMAGE_CACHE
             ) {
+              console.log('[SW] Deleting old cache:', cacheName);
               return caches.delete(cacheName);
             }
           })
@@ -118,7 +140,7 @@ function isNavigationRequest(request) {
   return request.mode === 'navigate';
 }
 
-// Cache-first strategy for images
+// Cache-first strategy for images with graceful fallback
 async function handleImageRequest(request) {
   try {
     const cachedResponse = await caches.match(request);
@@ -136,15 +158,14 @@ async function handleImageRequest(request) {
   } catch (error) {
     console.error('[SW] Image request failed:', error);
 
-    // Return a fallback image if available
-    const fallbackResponse = await caches.match('/images/fallback.png');
-    return (
-      fallbackResponse || new Response('Image not available', { status: 404 })
-    );
+    // Return a transparent 1x1 pixel as fallback (data URI)
+    const transparentPixel =
+      'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
+    return fetch(transparentPixel);
   }
 }
 
-// Cache-first strategy for static assets
+// Cache-first strategy for static assets with graceful fallback
 async function handleStaticAsset(request) {
   try {
     const cachedResponse = await caches.match(request);
@@ -161,11 +182,27 @@ async function handleStaticAsset(request) {
     return networkResponse;
   } catch (error) {
     console.error('[SW] Static asset request failed:', error);
+
+    // For CSS/JS files, return empty response to prevent breaking the app
+    const url = new URL(request.url);
+    if (/\.css$/i.test(url.pathname)) {
+      return new Response('/* CSS failed to load */', {
+        status: 200,
+        headers: { 'Content-Type': 'text/css' },
+      });
+    }
+    if (/\.js$/i.test(url.pathname)) {
+      return new Response('/* JS failed to load */', {
+        status: 200,
+        headers: { 'Content-Type': 'application/javascript' },
+      });
+    }
+
     return new Response('Asset not available', { status: 404 });
   }
 }
 
-// Network-first strategy for navigation requests
+// Network-first strategy for navigation requests with graceful fallback
 async function handleNavigationRequest(request) {
   try {
     const networkResponse = await fetch(request);
@@ -188,9 +225,26 @@ async function handleNavigationRequest(request) {
 
     // Final fallback to index.html for SPA routing
     const fallbackResponse = await caches.match('/index.html');
-    return (
-      fallbackResponse || new Response('Page not available', { status: 404 })
-    );
+    if (fallbackResponse) {
+      return fallbackResponse;
+    }
+
+    // Ultimate fallback - return a basic HTML page
+    const offlineHtml = `
+      <!DOCTYPE html>
+      <html>
+        <head><title>Offline - Properties 4 Creation</title></head>
+        <body style="font-family: sans-serif; text-align: center; padding: 50px;">
+          <h1>You are offline</h1>
+          <p>Please check your internet connection and try again.</p>
+          <button onclick="window.location.reload()">Retry</button>
+        </body>
+      </html>
+    `;
+    return new Response(offlineHtml, {
+      status: 200,
+      headers: { 'Content-Type': 'text/html' },
+    });
   }
 }
 
@@ -223,16 +277,27 @@ async function handleDynamicRequest(request) {
 
     // Wait for network if no cache
     const networkResponse = await networkResponsePromise;
-    return (
-      networkResponse || new Response('Content not available', { status: 404 })
-    );
+    if (networkResponse) {
+      return networkResponse;
+    }
+
+    // Return graceful fallback
+    return new Response('Content not available', {
+      status: 503,
+      statusText: 'Service Unavailable',
+    });
   } catch (error) {
     console.error('[SW] Dynamic request failed:', error);
 
     const cachedResponse = await caches.match(request);
-    return (
-      cachedResponse || new Response('Content not available', { status: 404 })
-    );
+    if (cachedResponse) {
+      return cachedResponse;
+    }
+
+    return new Response('Content not available', {
+      status: 503,
+      statusText: 'Service Unavailable',
+    });
   }
 }
 
@@ -257,8 +322,8 @@ async function performBackgroundSync() {
 self.addEventListener('push', (event) => {
   const options = {
     body: event.data ? event.data.text() : 'New notification',
-    icon: '/icon-192x192.png',
-    badge: '/badge-72x72.png',
+    icon: '/pwa-192x192.png',
+    badge: '/pwa-192x192.png',
     tag: 'p4c-notification',
     requireInteraction: true,
   };

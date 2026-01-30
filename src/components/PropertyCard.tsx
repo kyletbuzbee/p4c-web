@@ -65,10 +65,10 @@ const LazyImage = memo(
     if (imageError) {
       return (
         <div
-          className={`${className} bg-gray-200 flex items-center justify-center`}
+          className={`${className} flex items-center justify-center bg-gray-200`}
         >
           <div className="text-center text-gray-500">
-            <ImageIcon className="w-12 h-12 mx-auto mb-2" />
+            <ImageIcon className="mx-auto mb-2 size-12" />
             <p className="text-sm">Image not available</p>
           </div>
         </div>
@@ -79,9 +79,9 @@ const LazyImage = memo(
       <div className={`${className} relative overflow-hidden`}>
         {/* Loading placeholder */}
         {!imageLoaded && (
-          <div className="absolute inset-0 bg-gray-200 animate-pulse flex items-center justify-center">
+          <div className="absolute inset-0 flex animate-pulse items-center justify-center bg-gray-200">
             <div className="text-gray-400">
-              <ImageIcon className="w-8 h-8" />
+              <ImageIcon className="size-8" />
             </div>
           </div>
         )}
@@ -91,7 +91,7 @@ const LazyImage = memo(
           alt={alt}
           width="400"
           height="256"
-          className={`w-full h-full object-cover transition-opacity duration-300 ${
+          className={`size-full object-cover transition-opacity duration-300 ${
             imageLoaded ? 'opacity-100' : 'opacity-0'
           }`}
           onLoad={handleLoad}
@@ -133,11 +133,11 @@ const PropertyCard = memo<PropertyCardProps>(
       if (!property.badges || property.badges.length === 0) return null;
 
       return (
-        <div className="absolute top-4 left-4 flex flex-wrap gap-2 z-10">
+        <div className="absolute left-4 top-4 z-10 flex flex-wrap gap-2">
           {property.badges.map((badge, index) => (
             <span
               key={`${badge}-${index}`}
-              className="bg-p4c-navy text-white text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wide shadow-sm ring-1 ring-white/20"
+              className="rounded-md bg-p4c-navy px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-white shadow-sm ring-1 ring-white/20"
             >
               {badge}
             </span>
@@ -162,7 +162,7 @@ const PropertyCard = memo<PropertyCardProps>(
 
     return (
       <div
-        className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 ring-1 ring-gray-900/5 flex flex-col h-full group transform hover:-translate-y-1"
+        className="group flex h-full flex-col overflow-hidden rounded-xl border border-gray-100 bg-white shadow-lg ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -171,14 +171,14 @@ const PropertyCard = memo<PropertyCardProps>(
           <LazyImage
             src={property.imageUrl}
             alt={property.title}
-            className="w-full h-full transform transition-transform duration-700 group-hover:scale-105"
+            className="size-full transition-transform duration-700 group-hover:scale-105"
             priority={priority}
           />
 
           {renderBadges()}
 
           <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent p-4">
-            <div className="text-white font-bold text-lg">
+            <div className="text-lg font-bold text-white">
               {formatPrice(property.price)}{' '}
               <span className="text-sm font-normal opacity-90">/ month</span>
             </div>
@@ -186,36 +186,36 @@ const PropertyCard = memo<PropertyCardProps>(
         </div>
 
         {/* Content Section */}
-        <div className="p-6 flex-1 flex flex-col">
-          <h3 className="text-xl font-serif font-bold text-p4c-navy mb-1 line-clamp-2">
+        <div className="flex flex-1 flex-col p-6">
+          <h3 className="mb-1 line-clamp-2 font-serif text-xl font-bold text-p4c-navy">
             {property.title}
           </h3>
 
-          <p className="text-gray-500 text-sm flex items-center mb-4">
-            <MapPin className="w-3 h-3 mr-1 text-p4c-gold flex-shrink-0" />
+          <p className="mb-4 flex items-center text-sm text-gray-500">
+            <MapPin className="mr-1 size-3 shrink-0 text-p4c-gold" />
             <span className="truncate">{property.address}</span>
           </p>
 
-          <p className="text-gray-600 text-sm mb-6 line-clamp-3 leading-relaxed flex-grow">
+          <p className="mb-6 line-clamp-3 grow text-sm leading-relaxed text-gray-600">
             {property.description}
           </p>
 
           {/* Property Stats */}
-          <div className="mt-auto pt-4 border-t border-gray-100 grid grid-cols-3 gap-3 text-center">
-            <div className="flex flex-col items-center justify-center p-3 bg-gray-50 rounded-lg">
-              <Bed className="w-5 h-5 text-p4c-slate mb-1.5" />
+          <div className="mt-auto grid grid-cols-3 gap-3 border-t border-gray-100 pt-4 text-center">
+            <div className="flex flex-col items-center justify-center rounded-lg bg-gray-50 p-3">
+              <Bed className="mb-1.5 size-5 text-p4c-slate" />
               <span className="text-xs font-semibold text-p4c-navy">
                 {property.beds} Bed
               </span>
             </div>
-            <div className="flex flex-col items-center justify-center p-3 bg-gray-50 rounded-lg">
-              <Bath className="w-5 h-5 text-p4c-slate mb-1.5" />
+            <div className="flex flex-col items-center justify-center rounded-lg bg-gray-50 p-3">
+              <Bath className="mb-1.5 size-5 text-p4c-slate" />
               <span className="text-xs font-semibold text-p4c-navy">
                 {property.baths} Bath
               </span>
             </div>
-            <div className="flex flex-col items-center justify-center p-3 bg-gray-50 rounded-lg">
-              <Move className="w-5 h-5 text-p4c-slate mb-1.5" />
+            <div className="flex flex-col items-center justify-center rounded-lg bg-gray-50 p-3">
+              <Move className="mb-1.5 size-5 text-p4c-slate" />
               <span className="text-xs font-semibold text-p4c-navy">
                 {typeof property.sqft === 'number'
                   ? property.sqft.toLocaleString()
@@ -228,7 +228,7 @@ const PropertyCard = memo<PropertyCardProps>(
           {/* Action Button */}
           <Link
             to={`/properties/${property.id}`}
-            className="block w-full text-center mt-6 border-2 border-p4c-navy text-p4c-navy hover:bg-p4c-navy hover:text-white font-bold py-2.5 rounded-lg transition-colors duration-200 text-sm uppercase tracking-wide"
+            className="mt-6 block w-full rounded-lg border-2 border-p4c-navy py-2.5 text-center text-sm font-bold uppercase tracking-wide text-p4c-navy transition-colors duration-200 hover:bg-p4c-navy hover:text-white"
             aria-label={`View details for ${property.title}`}
           >
             View Details

@@ -12,19 +12,19 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
 
   return (
     <div
-      className={`group bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden ${
-        isOpen ? 'ring-2 ring-p4c-gold/50' : ''
+      className={`group overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm ${
+        isOpen ? 'ring-p4c-gold/50 ring-2' : ''
       }`}
     >
       <button
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
         aria-controls={`faq-content-${question.replace(/\s+/g, '-').toLowerCase()}`}
-        className="flex items-center justify-between w-full p-6 cursor-pointer list-none font-bold text-p4c-navy hover:bg-gray-50 text-left focus:outline-none focus:ring-2 focus:ring-p4c-gold focus:ring-inset transition-colors"
+        className="flex w-full cursor-pointer list-none items-center justify-between p-6 text-left font-bold text-p4c-navy transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-p4c-gold"
       >
         <span>{question}</span>
         <ChevronDown
-          className={`w-5 h-5 text-gray-400 transition-transform duration-300 ease-out flex-shrink-0 ${
+          className={`size-5 shrink-0 text-gray-400 transition-transform duration-300 ease-out ${
             isOpen ? 'rotate-180' : ''
           }`}
           aria-hidden="true"
@@ -38,7 +38,7 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
         role="region"
         aria-label={question}
       >
-        <div className="px-6 pb-6 text-gray-600 leading-relaxed border-t border-gray-100 pt-4">
+        <div className="border-t border-gray-100 px-6 pb-6 pt-4 leading-relaxed text-gray-600">
           {answer}
         </div>
       </div>
@@ -74,7 +74,7 @@ const FAQs = [
 ];
 
 const FAQ: React.FC = () => (
-  <div className="bg-p4c-beige min-h-screen py-16">
+  <div className="min-h-screen bg-p4c-beige py-16">
     <Helmet>
       <title>Leasing FAQ | Properties 4 Creation</title>
       <meta
@@ -87,12 +87,12 @@ const FAQ: React.FC = () => (
       />
     </Helmet>
 
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="text-center mb-12">
-        <div className="bg-white p-4 rounded-full inline-flex mb-4 shadow-sm border border-gray-100">
-          <HelpCircle className="w-8 h-8 text-p4c-gold" />
+    <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <div className="mb-12 text-center">
+        <div className="mb-4 inline-flex rounded-full border border-gray-100 bg-white p-4 shadow-sm">
+          <HelpCircle className="size-8 text-p4c-gold" />
         </div>
-        <h1 className="text-3xl md:text-4xl font-serif font-bold text-p4c-navy mb-4">
+        <h1 className="mb-4 font-serif text-3xl font-bold text-p4c-navy md:text-4xl">
           Leasing & Management FAQ
         </h1>
         <p className="text-gray-600">

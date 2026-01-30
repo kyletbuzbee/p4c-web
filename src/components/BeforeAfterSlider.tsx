@@ -20,46 +20,46 @@ const BeforeAfterSlider: React.FC<BeforeAfterProps> = ({
   };
 
   return (
-    <div className="relative w-full h-[300px] md:h-[400px] overflow-hidden rounded-2xl shadow-xl border border-gray-200 ring-1 ring-gray-900/5 group select-none">
+    <div className="group relative h-[300px] w-full select-none overflow-hidden rounded-2xl border border-gray-200 shadow-xl ring-1 ring-gray-900/5 md:h-[400px]">
       {/* After Image (Background) */}
       <img
         src={afterImage}
         alt={`Renovated ${label} - After`}
         loading="lazy"
-        className="absolute top-0 left-0 w-full h-full object-cover"
+        className="absolute left-0 top-0 size-full object-cover"
       />
-      <div className="absolute top-4 right-4 bg-p4c-navy/90 text-white text-xs px-3 py-1.5 rounded-full uppercase font-bold tracking-wider shadow-lg">
+      <div className="bg-p4c-navy/90 absolute right-4 top-4 rounded-full px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-white shadow-lg">
         After
       </div>
 
       {/* Before Image (Foreground - Clipped) */}
       <div
-        className="absolute top-0 left-0 h-full w-full overflow-hidden"
+        className="absolute left-0 top-0 size-full overflow-hidden"
         style={{ width: `${sliderPosition}%` }}
       >
         <img
           src={beforeImage}
           alt={`Original ${label} - Before`}
           loading="lazy"
-          className="absolute top-0 left-0 h-full max-w-none object-cover"
+          className="absolute left-0 top-0 h-full max-w-none object-cover"
           style={{
             width: containerRef.current
               ? containerRef.current.offsetWidth
               : '100%',
           }}
         />
-        <div className="absolute top-4 left-4 bg-gray-900/90 text-white text-xs px-3 py-1.5 rounded-full uppercase font-bold tracking-wider shadow-lg">
+        <div className="absolute left-4 top-4 rounded-full bg-gray-900/90 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-white shadow-lg">
           Before
         </div>
       </div>
 
       {/* Slider Control Line */}
       <div
-        className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize shadow-[0_0_15px_rgba(0,0,0,0.5)] z-20 pointer-events-none"
+        className="pointer-events-none absolute inset-y-0 z-20 w-1 cursor-ew-resize bg-white shadow-[0_0_15px_rgba(0,0,0,0.5)]"
         style={{ left: `${sliderPosition}%` }}
       >
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-p4c-gold rounded-full p-3 shadow-xl border-2 border-white">
-          <ArrowLeftRight className="w-5 h-5 text-p4c-navy" />
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-p4c-gold p-3 shadow-xl">
+          <ArrowLeftRight className="size-5 text-p4c-navy" />
         </div>
       </div>
 
@@ -70,7 +70,7 @@ const BeforeAfterSlider: React.FC<BeforeAfterProps> = ({
         max="100"
         value={sliderPosition}
         onChange={handleRangeChange}
-        className="absolute top-0 left-0 w-full h-full opacity-0 cursor-ew-resize z-30 focus:outline-none"
+        className="absolute left-0 top-0 z-30 size-full cursor-ew-resize opacity-0 focus:outline-none"
         aria-label={`Compare before and after renovation of ${label}`}
         aria-valuemin={0}
         aria-valuemax={100}
