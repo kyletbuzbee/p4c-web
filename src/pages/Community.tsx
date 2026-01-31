@@ -163,12 +163,16 @@ const Community: React.FC = () => {
           <div className="bg-p4c-navy/90 absolute inset-0" />
         </div>
         <div className="relative z-10 mx-auto max-w-4xl px-4 text-center">
-          <h1 className="mb-4 font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
-            Building Stronger Communities
-          </h1>
-          <p className="mx-auto max-w-2xl text-xl font-light text-gray-200">
-            Through strategic property revitalization and community partnerships
-          </p>
+          {/* Glassmorphism text container for enhanced contrast */}
+          <div className="bg-p4c-navy/30 rounded-2xl p-8 backdrop-blur-sm">
+            <h1 className="hero-text-enhanced mb-4 font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
+              Building Stronger Communities
+            </h1>
+            <p className="hero-text-enhanced mx-auto max-w-2xl text-xl font-light text-gray-200">
+              Through strategic property revitalization and community
+              partnerships
+            </p>
+          </div>
         </div>
       </div>
 

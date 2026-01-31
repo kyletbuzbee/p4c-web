@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, ShieldCheck } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { IMAGES } from '../constants/images';
 
@@ -26,7 +26,7 @@ const Hero: React.FC<HeroProps> = ({ variant = 'image' }) => {
             muted
             playsInline
             poster={IMAGES.BANNERS.HERO_PROJECTS}
-            className="size-full object-cover opacity-50" // Dimmed for readability
+            className="size-full object-cover"
           >
             <source src={IMAGES.VIDEOS.HERO_HOME} type="video/mp4" />
           </video>
@@ -34,31 +34,26 @@ const Hero: React.FC<HeroProps> = ({ variant = 'image' }) => {
           <img
             src={IMAGES.BANNERS.HERO_HOME}
             alt="Professional renovation in East Texas"
-            className="size-full object-cover opacity-40"
+            className="size-full object-cover"
           />
         )}
-        {/* Unified Gradient Overlay: More 'Enterprise', less 'Budget' */}
-        <div className="via-p4c-navy/70 absolute inset-0 bg-gradient-to-r from-p4c-navy to-transparent" />
+        {/* Dual-Layer Gradient Overlay for enhanced text contrast */}
+        {/* Layer 1: Global dimming to reduce overall image "noise" */}
+        <div className="absolute inset-0 bg-p4c-navy/40" />
+        {/* Layer 2: Directional gradient to anchor the text */}
+        <div className="absolute inset-0 bg-gradient-to-r from-p4c-navy/90 via-p4c-navy/60 to-transparent mobile-hero-intensify" />
       </div>
 
       {/* Main Content: Left-aligned for high-end editorial feel */}
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8">
-        <div className="max-w-3xl animate-fade-in-up">
-          {/* Mission Badge: Community & Trust (The Reliability Pledge) */}
-          <div className="bg-p4c-gold/10 border-p4c-gold/30 mb-8 inline-flex items-center gap-2 rounded-full border px-4 py-2">
-            <ShieldCheck className="size-5 text-p4c-gold" />
-            <span className="text-sm font-bold uppercase tracking-widest text-p4c-gold">
-              The Properties 4 Creation Reliability Pledge
-            </span>
-          </div>
-
-          <h1 className="mb-6 text-left font-serif text-5xl font-bold leading-[1.1] text-white md:text-7xl">
+        <div className="hero-text-container max-w-3xl animate-fade-in-up rounded-2xl border border-white/10 bg-p4c-navy/95 p-8 backdrop-blur-xl md:p-12">
+          <h1 className="hero-text-enhanced mb-6 text-left font-serif text-5xl font-bold leading-[1.1] text-white md:text-7xl">
             Revitalizing <span className="text-p4c-gold">East Texas</span>
             <br />
             One Home at a Time.
           </h1>
 
-          <p className="mb-10 text-xl font-light leading-relaxed text-gray-200 md:text-2xl">
+          <p className="hero-text-enhanced mb-10 text-xl font-light leading-relaxed text-gray-200 md:text-2xl">
             Delivering quality affordable housing for families and veterans.
             Sustainable community solutions in <strong>East Texas</strong>.
           </p>

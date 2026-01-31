@@ -4,7 +4,6 @@ import {
   HeartHandshake,
   Phone,
   Home,
-  Flag,
   ShieldCheck,
   Clock,
   FileCheck,
@@ -42,18 +41,15 @@ const Veterans: React.FC = () => (
         </div>
 
         <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
-          <div className="mb-6 flex justify-center">
-            <div className="bg-p4c-gold/20 border-p4c-gold/30 rounded-2xl border p-4 backdrop-blur-sm">
-              <Flag className="size-10 text-p4c-gold" />
-            </div>
+          <div className="hero-text-container rounded-2xl border border-white/10 bg-p4c-navy/95 p-8 backdrop-blur-xl md:p-12">
+            <h1 className="hero-text-enhanced mb-6 font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
+              Veterans Housing Initiative
+            </h1>
+            <p className="hero-text-enhanced mx-auto max-w-2xl text-xl font-light leading-relaxed text-gray-200">
+              Delivering dignified, high-quality housing solutions for veterans in
+              <strong> East Texas</strong>.
+            </p>
           </div>
-          <h1 className="mb-6 font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
-            Veterans Housing Initiative
-          </h1>
-          <p className="mx-auto max-w-2xl text-xl font-light leading-relaxed text-gray-200">
-            Delivering dignified, high-quality housing solutions for veterans in
-            <strong> East Texas</strong>.
-          </p>
         </div>
       </div>
 

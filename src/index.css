@@ -120,6 +120,10 @@
     @apply text-white tracking-tight leading-tight;
   }
 
+  .hero-text-container {
+    /* Container for hero text with glassmorphism - styles applied via Tailwind classes */
+  }
+
   /* Mobile Overlays */
   @media (max-width: 640px) {
     .hero-overlay-primary {
@@ -129,6 +133,11 @@
         rgba(11, 17, 32, 0.4) 50%,
         rgba(11, 17, 32, 0.5) 100%
       );
+    }
+
+    /* Mobile-specific hero overlay intensification for better text contrast */
+    .mobile-hero-intensify {
+      background: rgba(11, 17, 32, 0.85) !important;
     }
   }
 

@@ -3,7 +3,6 @@ import { Helmet } from 'react-helmet-async';
 import {
   Shield,
   Check,
-  FileSearch,
   HardHat,
   TrendingUp,
   Loader2,
@@ -54,22 +53,21 @@ const Transparency: React.FC = () => {
             alt="Transparency Banner"
             className="size-full object-cover"
           />
-          <div className="hero-overlay-primary absolute inset-0" />
-          <div className="hero-overlay-secondary absolute inset-0" />
+          <div className="hero-overlay-primary bg-p4c-navy/90 absolute inset-0" />
+          <div className="hero-overlay-secondary from-p4c-navy/80 absolute inset-0 bg-gradient-to-t to-transparent" />
         </div>
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-          <div className="mb-6 inline-flex items-center justify-center rounded-full border border-white/10 bg-white/10 p-3 backdrop-blur-sm">
-            <FileSearch className="size-8 text-p4c-gold" />
+          <div className="hero-text-container bg-p4c-navy/95 rounded-2xl border border-white/10 p-8 backdrop-blur-xl md:p-12">
+            <h1 className="hero-text-enhanced mb-6 font-serif text-4xl font-bold text-white md:text-5xl">
+              The Open Book Policy
+            </h1>
+            <p className="hero-text-enhanced mx-auto max-w-2xl text-xl leading-relaxed text-gray-300">
+              Trust is earned through action, not words. We believe tenants and
+              investors deserve to know exactly where every dollar goes and the
+              quality of materials we install.
+            </p>
           </div>
-          <h1 className="mb-6 font-serif text-4xl font-bold text-white md:text-5xl">
-            The Open Book Policy
-          </h1>
-          <p className="hero-text-enhanced mx-auto max-w-2xl text-xl leading-relaxed text-gray-300">
-            Trust is earned through action, not words. We believe tenants and
-            investors deserve to know exactly where every dollar goes and the
-            quality of materials we install.
-          </p>
         </div>
       </div>
 

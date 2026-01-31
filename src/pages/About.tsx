@@ -27,14 +27,17 @@ const About: React.FC = () => (
         <div className="bg-p4c-navy/90 absolute left-0 top-0 size-full mix-blend-multiply" />
       </div>
       <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
-        <h1 className="mb-4 font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
-          Revitalizing East Texas, One Home at a Time.
-        </h1>
-        <p className="mx-auto max-w-2xl text-xl font-light text-gray-200">
-          Setting the standard for residential property management and
-          development in
-          <strong> East Texas</strong>.
-        </p>
+        {/* Glassmorphism text container for enhanced contrast */}
+        <div className="rounded-2xl bg-p4c-navy/40 p-8 backdrop-blur-sm">
+          <h1 className="hero-text-enhanced mb-4 font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
+            Revitalizing East Texas, One Home at a Time.
+          </h1>
+          <p className="hero-text-enhanced mx-auto max-w-2xl text-xl font-light text-gray-200">
+            Setting the standard for residential property management and
+            development in
+            <strong> East Texas</strong>.
+          </p>
+        </div>
       </div>
     </div>
 
