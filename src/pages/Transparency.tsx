@@ -62,7 +62,7 @@ const Transparency: React.FC = () => {
           <div className="mb-6 inline-flex items-center justify-center rounded-full border border-white/10 bg-white/10 p-3 backdrop-blur-sm">
             <FileSearch className="size-8 text-p4c-gold" />
           </div>
-          <h1 className="hero-text-contrast mb-6 font-serif text-4xl font-bold md:text-5xl">
+          <h1 className="mb-6 font-serif text-4xl font-bold text-white md:text-5xl">
             The Open Book Policy
           </h1>
           <p className="hero-text-enhanced mx-auto max-w-2xl text-xl leading-relaxed text-gray-300">
@@ -139,7 +139,7 @@ const Transparency: React.FC = () => {
           <div className="bg-p4c-beige/30 border-t border-gray-100 p-6">
             <p className="text-center text-sm text-gray-600">
               <strong>Our Commitment:</strong> Every renovation is an investment
-              in East Texas communities. We don't just repair homes—we
+              in East Texas communities. We don&apos;t just repair homes— we
               revitalize neighborhoods, create local jobs, and provide dignified
               housing for families and veterans.
             </p>
@@ -153,7 +153,7 @@ const Transparency: React.FC = () => {
               <Shield className="size-4 text-p4c-gold" /> Quality Standards
             </div>
             <h2 className="font-serif text-2xl font-bold text-p4c-navy">
-              Sustainable Solutions for Property Owners & Residents
+              Sustainable Solutions for Property Owners &amp; Residents
             </h2>
             <p className="mt-2 text-gray-600">
               We believe quality housing is the foundation of thriving
@@ -230,9 +230,9 @@ const Transparency: React.FC = () => {
             </div>
             <div className="mt-8 rounded-xl bg-p4c-navy p-6 text-white">
               <p className="text-center italic">
-                &quot;Quality isn&apos;t just about materials—it&apos;s about
-                creating homes where families can thrive and communities can
-                grow.&quot;
+                &quot;Quality isn&apos;t just about materials&mdash;it&apos;s
+                about creating homes where families can thrive and communities
+                can grow.&quot;
               </p>
             </div>
           </div>
@@ -245,14 +245,14 @@ const Transparency: React.FC = () => {
               Contractor Integrity
             </h2>
             <p className="mb-6 leading-relaxed text-gray-700">
-              We don't just hire the cheapest bid. We hire partners who share
-              our values. Every contractor vetting process includes:
+              We don&apos;t just hire the cheapest bid. We hire partners who
+              share our values. Every contractor vetting process includes:
             </p>
             <ul className="space-y-4">
               <li className="flex items-center rounded-lg border border-gray-100 bg-white p-4 shadow-sm">
                 <Shield className="mr-4 size-6 text-p4c-gold" />
                 <span className="font-semibold text-p4c-navy">
-                  Background & License Verification
+                  Background &amp; License Verification
                 </span>
               </li>
               <li className="flex items-center rounded-lg border border-gray-100 bg-white p-4 shadow-sm">
@@ -278,8 +278,8 @@ const Transparency: React.FC = () => {
             <div className="bg-p4c-navy/30 absolute inset-0 mix-blend-multiply" />
             <div className="absolute inset-x-6 bottom-6 rounded-lg bg-white/90 p-4 backdrop-blur-sm">
               <p className="text-sm font-bold text-p4c-navy">
-                "We pay our contractors fairly and on time, ensuring they do
-                their best work for our families."
+                &quot;We pay our contractors fairly and on time, ensuring they
+                do their best work for our families.&quot;
               </p>
             </div>
           </div>

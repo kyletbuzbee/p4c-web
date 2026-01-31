@@ -26,7 +26,7 @@ const Privacy: React.FC = () => (
         </div>
 
         <div className="prose prose-slate max-w-none text-gray-700">
-          <p className="lead text-lg">
+          <p className="text-lg font-semibold leading-relaxed text-gray-700">
             At Properties 4 Creation, we value your dignity and your privacy. We
             understand that applying for housing requires sharing sensitive
             personal information, and we are committed to protecting that data

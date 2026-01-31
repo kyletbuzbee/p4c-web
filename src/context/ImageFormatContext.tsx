@@ -38,8 +38,7 @@ export const ImageFormatProvider: React.FC<{ children: React.ReactNode }> = ({
       try {
         const format = await checkFormatSupport();
         setSupportedFormat(format);
-      } catch (error) {
-        console.warn('Format detection failed, defaulting to jpeg:', error);
+      } catch (_error) {
         setSupportedFormat('jpeg');
       } finally {
         setIsLoading(false);

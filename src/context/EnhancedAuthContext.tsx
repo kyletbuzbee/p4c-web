@@ -236,44 +236,45 @@ class SessionManager {
 }
 
 // Enhanced user data validator
-const validateUserData = (userData: unknown): User | null => {
+  const validateUserData = (userData: unknown): User | null => {
   try {
-    if (!userData.id || !userData.email || !userData.role) {
+    const data = userData as Record<string, unknown>;
+    if (!data.id || !data.email || !data.role) {
       return null;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(userData.email)) {
+    if (!emailRegex.test(data.email as string)) {
       return null;
     }
 
-    if (!['guest', 'tenant', 'admin'].includes(userData.role)) {
+    if (!['guest', 'tenant', 'admin'].includes(data.role as string)) {
       return null;
     }
 
     // Validate data types
     if (
-      typeof userData.id !== 'string' ||
-      typeof userData.email !== 'string' ||
-      typeof userData.role !== 'string'
+      typeof data.id !== 'string' ||
+      typeof data.email !== 'string' ||
+      typeof data.role !== 'string'
     ) {
       return null;
     }
 
     return {
-      id: userData.id,
-      name: userData.name || userData.email.split('@')[0],
-      email: userData.email,
-      role: userData.role,
-      lastLogin: userData.lastLogin,
-      lastActivity: userData.lastActivity,
-      sessionStart: userData.sessionStart,
-      permissions: userData.permissions || getDefaultPermissions(userData.role),
-      mfaEnabled: userData.mfaEnabled || false,
-      loginAttempts: userData.loginAttempts || 0,
-      lockedUntil: userData.lockedUntil,
+      id: data.id,
+      name: data.name || (data.email as string).split('@')[0],
+      email: data.email,
+      role: data.role as UserRole,
+      lastLogin: data.lastLogin as string | undefined,
+      lastActivity: data.lastActivity as string | undefined,
+      sessionStart: data.sessionStart as string | undefined,
+      permissions: (data.permissions as string[]) || getDefaultPermissions(data.role as UserRole),
+      mfaEnabled: (data.mfaEnabled as boolean) || false,
+      loginAttempts: (data.loginAttempts as number) || 0,
+      lockedUntil: data.lockedUntil as string | undefined,
     };
-  } catch {
+  } catch (_error) {
     return null;
   }
 };
@@ -297,8 +298,7 @@ const validateSessionWithBackend = async (
     });
 
     return response.ok;
-  } catch (error) {
-    console.error('Session validation failed:', error);
+  } catch (_error) {
     return false;
   }
 };
@@ -315,10 +315,11 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
   const sessionTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
   const warningTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
-  // Session timeout handler
+  // Session timeout handler - uses logout which is defined later
   const handleSessionTimeout = useCallback(() => {
     logout();
     addToast('Your session has expired. Please log in again.', 'info');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addToast]);
 
   // Session warning handler
@@ -416,7 +417,8 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
         const sessionToken = localStorage.getItem('p4c_session_token');
 
         if (storedUser && sessionToken) {
-          const validatedUser = validateUserData(storedUser);
+          const parsedUser = JSON.parse(storedUser) as unknown;
+          const validatedUser = validateUserData(parsedUser);
 
           if (validatedUser && SessionManager.validateSession(validatedUser)) {
             const isValidSession = await validateSessionWithBackend(
@@ -427,16 +429,13 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
             if (isValidSession) {
               setUser(validatedUser);
             } else {
-              console.warn('Invalid session detected, clearing storage');
               clearSensitiveData();
             }
           } else {
-            console.warn('Invalid session data detected, clearing storage');
             clearSensitiveData();
           }
         }
-      } catch (error) {
-        console.error('Session validation error:', error);
+      } catch (_error) {
         clearSensitiveData();
       } finally {
         setIsLoading(false);
@@ -523,7 +522,6 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
       setUser(cleanUser);
       addToast(`Welcome back, ${cleanUser.name}`, 'success');
     } catch (error) {
-      console.error('Login error:', error);
       const errorMessage =
         error instanceof Error
           ? error.message
@@ -560,7 +558,7 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
     addToast('You have been logged out.', 'info');
   }, [addToast]);
 
-  // Clear sensitive data
+  // Clear sensitive data - defined before logout to avoid dependency cycle
   const clearSensitiveData = useCallback(() => {
     localStorage.removeItem('p4c_user');
     localStorage.removeItem('p4c_session_token');
@@ -589,11 +587,9 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
         const { token } = await response.json();
         localStorage.setItem('p4c_session_token', token);
       } else {
-        console.warn('Token refresh failed, logging out');
         logout();
       }
-    } catch (error) {
-      console.error('Token refresh error:', error);
+    } catch (_error) {
       logout();
     }
   };
@@ -618,9 +614,8 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
       // The secret should be handled server-side for security
 
       return qrCode;
-    } catch (error) {
-      console.error('MFA enable error:', error);
-      throw error;
+    } catch (_error) {
+      throw _error;
     }
   };
 
@@ -640,8 +635,7 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
       }
 
       return false;
-    } catch (error) {
-      console.error('MFA verification error:', error);
+    } catch (_error) {
       return false;
     }
   };
@@ -694,11 +688,8 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   // Account lock functions
-  const lockAccount = (reason?: string) => {
+  const lockAccount = (_reason?: string) => {
     setIsLocked(true);
-    if (reason) {
-      console.warn('Account locked:', reason);
-    }
   };
 
   const unlockAccount = () => {

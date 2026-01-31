@@ -94,8 +94,6 @@ const ImageOptimizer: React.FC<ImageOptimizerProps> = ({
         // Set source
         img.src = optimizedSrc;
       } catch (error) {
-        // eslint-disable-next-line no-console
-        console.warn('Image optimization failed, using original:', error);
         if (isMounted) {
           setCurrentSrc(src);
           setIsLoaded(true);

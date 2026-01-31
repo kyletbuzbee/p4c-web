@@ -23,6 +23,7 @@ export const logError = (
   // In development, also log to console
 
   if (import.meta.env.DEV) {
+    // eslint-disable-next-line no-console
     console.error(`[ErrorBoundary] ${severity.toUpperCase()}: ${message}`, {
       component,
       metadata,
@@ -47,6 +48,7 @@ export const logWarning = (
   const { component, metadata } = options || {};
 
   if (import.meta.env.DEV) {
+    // eslint-disable-next-line no-console
     console.warn(`[Warning] ${message}`, { component, metadata });
   }
 };
@@ -64,6 +66,7 @@ export const logInfo = (
   const { component, metadata } = options || {};
 
   if (import.meta.env.DEV) {
+    // eslint-disable-next-line no-console
     console.log(`[Info] ${message}`, { component, metadata });
   }
 };

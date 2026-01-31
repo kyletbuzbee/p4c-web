@@ -216,7 +216,7 @@ const SuccessStories: React.FC = () => {
             Resident <span className="text-p4c-gold">Satisfaction</span>
           </h1>
           <p className="mx-auto max-w-2xl text-xl font-light text-gray-200">
-            We don't just lease properties; we build long-term relationships
+            We don&apos;t just lease properties; we build long-term relationships
             through professional management and respect.
           </p>
         </div>
@@ -269,7 +269,7 @@ const SuccessStories: React.FC = () => {
                 <Quote className="mb-6 size-10 text-p4c-gold opacity-50" />
 
                 <blockquote className="mb-8 font-serif text-xl leading-relaxed text-p4c-navy md:text-2xl">
-                  "{story.quote}"
+                  &quot;{story.quote}&quot;
                 </blockquote>
 
                 <div className="flex items-center gap-4 border-t border-gray-100 pt-6">

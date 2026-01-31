@@ -139,9 +139,7 @@ const ClientUpscaler: React.FC = () => {
           isProcessing: false,
         }));
       }
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error('Upscaling failed:', error);
+    } catch (_error) {
       setState((prev) => ({
         ...prev,
         error: 'Failed to upscale image. Please try again.',

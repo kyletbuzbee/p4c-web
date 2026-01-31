@@ -47,20 +47,17 @@ const validateStoredUser = (storedUser: string): User | null => {
 
     // Validate required fields
     if (!user.id || !user.email || !user.role) {
-      console.warn('Invalid user data: missing required fields');
       return null;
     }
 
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(user.email)) {
-      console.warn('Invalid user data: invalid email format');
       return null;
     }
 
     // Validate role
     if (!['guest', 'tenant', 'admin'].includes(user.role)) {
-      console.warn('Invalid user data: invalid role');
       return null;
     }
 
@@ -70,13 +67,11 @@ const validateStoredUser = (storedUser: string): User | null => {
       typeof user.email !== 'string' ||
       typeof user.role !== 'string'
     ) {
-      console.warn('Invalid user data: incorrect data types');
       return null;
     }
 
     return user;
   } catch (error) {
-    console.warn('Failed to parse stored user data:', error);
     return null;
   }
 };
@@ -99,7 +94,6 @@ const validateSessionWithBackend = async (
 
     return response.ok;
   } catch (error) {
-    console.error('Session validation failed:', error);
     return false;
   }
 };
@@ -145,20 +139,17 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
             if (isValidSession) {
               setUser(validatedUser);
             } else {
-              console.warn('Invalid session detected, clearing storage');
               // Clear potentially compromised session
               localStorage.removeItem('p4c_user');
               localStorage.removeItem('p4c_session_token');
             }
           } else {
-            console.warn('Invalid user data detected, clearing storage');
             // Clear corrupted data
             localStorage.removeItem('p4c_user');
             localStorage.removeItem('p4c_session_token');
           }
         }
       } catch (error) {
-        console.error('Session validation error:', error);
         // Clear potentially corrupted data
         localStorage.removeItem('p4c_user');
         localStorage.removeItem('p4c_session_token');
@@ -223,7 +214,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
       addToast(`Welcome back, ${cleanUser.name}`, 'success');
     } catch (error) {
-      console.error('Login error:', error);
       const errorMessage =
         error instanceof Error
           ? error.message
@@ -278,11 +268,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         const { token } = await response.json();
         localStorage.setItem('p4c_session_token', token);
       } else {
-        console.warn('Token refresh failed, logging out');
         logout();
       }
     } catch (error) {
-      console.error('Token refresh error:', error);
       logout();
     }
   };

@@ -62,7 +62,7 @@ async function registerServiceWorker() {
       logDev('Service Worker is controlling the page');
     }
   } catch (error) {
-    logErrorDev('Error registering Service Worker:', error);
+    // Error registering Service Worker
   }
 }
 

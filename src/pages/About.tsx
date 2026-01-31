@@ -1,7 +1,8 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Building2 } from 'lucide-react';
+
 import { IMAGES } from '../constants/images';
+import { TimelineSection } from '../components/sections/TimelineSection';
 
 const About: React.FC = () => (
   <div className="min-h-screen bg-p4c-beige">
@@ -26,11 +27,6 @@ const About: React.FC = () => (
         <div className="bg-p4c-navy/80 absolute left-0 top-0 size-full mix-blend-multiply" />
       </div>
       <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
-        <div className="mb-6 flex justify-center">
-          <div className="bg-p4c-gold/20 border-p4c-gold/30 rounded-2xl border p-4 backdrop-blur-sm">
-            <Building2 className="size-10 text-p4c-gold" />
-          </div>
-        </div>
         <h1 className="mb-4 font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
           Revitalizing East Texas, One Home at a Time.
         </h1>
@@ -88,57 +84,8 @@ const About: React.FC = () => (
         </div>
       </div>
 
-      {/* Core Values Grid */}
-      <div className="mb-20">
-        <div className="mb-12 text-center">
-          <h2 className="mb-4 font-serif text-3xl font-bold text-p4c-navy">
-            Our Journey
-          </h2>
-          <p className="mx-auto max-w-2xl text-gray-600">
-            The milestones that define our growth and impact.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {[
-            {
-              year: '2018',
-              title: 'Founded',
-              desc: 'Properties 4 Creation was established with a mission to revitalize East Texas communities.',
-            },
-            {
-              year: '2020',
-              title: 'First Multi-family Acquired',
-              desc: 'Expanded our portfolio with the acquisition of our first multi-family property.',
-            },
-            {
-              year: '2023',
-              title: 'Veteran Housing Initiative',
-              desc: 'Launched our Veteran Housing Initiative to provide priority housing solutions for veterans.',
-            },
-            {
-              year: 'Future',
-              title: '500+ Families Housed',
-              desc: 'Our goal is to house over 500 families in safe, affordable homes.',
-            },
-          ].map((value, i) => (
-            <div
-              key={i}
-              className="rounded-xl border-t-4 border-p4c-gold bg-white p-8 shadow-sm transition-all hover:shadow-lg"
-            >
-              <div className="bg-p4c-navy/5 mb-6 flex size-14 items-center justify-center rounded-xl">
-                <span className="text-xl font-bold text-p4c-navy">
-                  {value.year}
-                </span>
-              </div>
-              <h3 className="mb-3 text-xl font-bold text-p4c-navy">
-                {value.title}
-              </h3>
-              <p className="text-gray-600">{value.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* Timeline Section */}
+      <TimelineSection />
 
       {/* Credentials / Trust Indicators */}
       <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white p-10 shadow-xl">

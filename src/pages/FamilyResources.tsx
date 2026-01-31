@@ -2,7 +2,6 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { IMAGES } from '../constants/images';
 import {
-  Heart,
   MapPin,
   School,
   Users,
@@ -139,11 +138,6 @@ const FamilyResources: React.FC = () => {
           <div className="hero-overlay-secondary absolute left-0 top-0 size-full" />
         </div>
         <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
-          <div className="mb-6 flex justify-center">
-            <div className="rounded-full bg-p4c-gold p-4 shadow-xl">
-              <Heart className="size-12 text-p4c-navy" />
-            </div>
-          </div>
           <h1 className="hero-text-contrast mb-6 font-serif text-4xl font-bold text-white md:text-6xl">
             Family Homes That Feel Like Home
           </h1>

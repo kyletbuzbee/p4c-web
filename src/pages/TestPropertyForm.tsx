@@ -19,10 +19,10 @@ const TestPropertyForm: React.FC = () => (
         </h2>
         <ul className="list-inside list-disc space-y-1 text-slate-700">
           <li>Fill out the form with property details</li>
-          <li>Click "Register Property" to submit</li>
+          <li>Click &quot;Register Property&quot; to submit</li>
           <li>You should see a success toast notification if it works</li>
           <li>
-            If there's an error (e.g., not logged in as admin), you'll see an
+            If there&apos;s an error (e.g., not logged in as admin), you&apos;ll see an
             error toast
           </li>
         </ul>
