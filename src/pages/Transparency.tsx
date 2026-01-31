@@ -148,7 +148,7 @@ const Transparency: React.FC = () => {
 
         {/* Quality Standards Section - Mission-Driven */}
         <div className="mb-20 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-xl">
-          <div className="from-p4c-gold/10 border-b border-gray-100 bg-gradient-to-r to-p4c-beige p-8">
+          <div className="border-b border-gray-100 bg-gradient-to-r from-[#c5a059]/10 to-p4c-beige p-8">
             <div className="border-p4c-gold/30 mb-4 inline-flex items-center gap-2 rounded-full border bg-white px-3 py-1 text-xs font-bold uppercase tracking-wider text-p4c-navy shadow-sm">
               <Shield className="size-4 text-p4c-gold" /> Quality Standards
             </div>

@@ -169,7 +169,10 @@ const Navbar = (): React.ReactElement => {
   };
 
   return (
-    <nav className="glass-navbar sticky top-0 z-50 border-b border-white/10 text-white shadow-xl backdrop-blur-2xl">
+    <nav
+      className="border-p4c-gold/30 sticky top-0 z-50 border-b text-white shadow-lg backdrop-blur-md transition-all duration-300"
+      style={{ backgroundColor: 'rgba(11, 17, 32, 0.8)' }}
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-20 items-center justify-between">
           {/* Logo */}
@@ -216,27 +219,28 @@ const Navbar = (): React.ReactElement => {
                 {/* Dropdown Menu */}
                 {activeDropdown === group.label && (
                   <div
-                    className="absolute left-0 top-full w-72 animate-fade-in-up overflow-hidden rounded-xl border border-gray-200 bg-white shadow-2xl"
+                    className="border-p4c-gold/30 absolute left-0 top-full mt-1 w-80 animate-fade-in-up overflow-hidden rounded-xl border p-2 shadow-2xl backdrop-blur-xl"
                     role="menu"
+                    style={{ backgroundColor: 'rgba(11, 17, 32, 0.95)' }}
                   >
-                    <div className="py-2">
+                    <div className="py-1">
                       {group.children?.map((child) => (
                         <button
                           key={child.label}
                           onClick={() => handleNavClick(child.path)}
                           onKeyDown={(e) => handleKeyDown(e, child.path)}
-                          className="group/item flex w-full items-start gap-3 px-4 py-3 text-left transition-colors hover:bg-gray-50"
+                          className="group/item flex w-full items-start gap-3 rounded-lg p-3 text-left transition-colors hover:bg-white/10"
                           role="menuitem"
                           aria-label={`${child.label} - ${child.desc}`}
                         >
-                          <div className="mt-1 rounded-md bg-p4c-beige p-1.5 text-p4c-navy transition-colors group-hover/item:bg-p4c-navy group-hover/item:text-p4c-gold">
+                          <div className="bg-p4c-gold/20 mt-0.5 rounded-md p-1.5 text-p4c-gold transition-colors group-hover/item:bg-p4c-gold group-hover/item:text-p4c-navy">
                             {child.icon}
                           </div>
                           <div>
-                            <div className="text-sm font-bold text-p4c-navy">
+                            <div className="text-sm font-bold text-white">
                               {child.label}
                             </div>
-                            <div className="text-xs text-gray-500">
+                            <div className="text-xs text-gray-300">
                               {child.desc}
                             </div>
                           </div>
@@ -306,7 +310,10 @@ const Navbar = (): React.ReactElement => {
 
       {/* Mobile Menu Overlay */}
       {isOpen && (
-        <div className="max-h-[calc(100vh-80px)] overflow-y-auto border-t border-gray-800 bg-[#0B1120] md:hidden">
+        <div
+          className="max-h-[calc(100vh-80px)] overflow-y-auto border-t border-white/10 backdrop-blur-xl md:hidden"
+          style={{ backgroundColor: 'rgba(11, 17, 32, 0.95)' }}
+        >
           <div className="space-y-6 px-4 pb-6 pt-4">
             {navStructure.map((group) => (
               <div key={group.label} className="space-y-3">

@@ -52,14 +52,9 @@ const ResidentServices: React.FC = () => {
             alt="Happy resident family in their home"
             className="size-full object-cover"
           />
-          <div className="bg-p4c-navy/80 absolute left-0 top-0 size-full mix-blend-multiply" />
+          <div className="bg-p4c-navy/90 absolute left-0 top-0 size-full mix-blend-multiply" />
         </div>
         <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
-          <div className="mb-6 flex justify-center">
-            <div className="bg-p4c-gold/20 border-p4c-gold/30 rounded-2xl border p-4 backdrop-blur-sm">
-              <Home className="size-10 text-p4c-gold" />
-            </div>
-          </div>
           <h1 className="mb-4 font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
             Resident Services
           </h1>
@@ -75,7 +70,7 @@ const ResidentServices: React.FC = () => {
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
             <div className="relative h-96 overflow-hidden rounded-2xl shadow-2xl">
               <img
-                src={IMAGES.BANNERS.RESIDENT_SERVICE_BANNER}
+                src={IMAGES.BANNERS.HERO_RESOURCES}
                 alt="Resident portal access"
                 className="size-full object-cover"
               />

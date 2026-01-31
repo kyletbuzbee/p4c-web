@@ -33,7 +33,7 @@ const Reviews: React.FC = () => {
             alt="P4C Quality Renovation in East Texas"
             className="size-full object-cover"
           />
-          <div className="bg-p4c-navy/80 absolute left-0 top-0 size-full mix-blend-multiply" />
+          <div className="bg-p4c-navy/90 absolute left-0 top-0 size-full mix-blend-multiply" />
         </div>
         <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
           <div className="bg-p4c-gold/20 border-p4c-gold/30 mb-6 inline-flex items-center gap-2 rounded-full border px-4 py-2 backdrop-blur-sm">

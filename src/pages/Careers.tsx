@@ -30,14 +30,9 @@ const Careers: React.FC = () => (
           alt="Professional team working together"
           className="size-full object-cover"
         />
-        <div className="bg-p4c-navy/80 absolute left-0 top-0 size-full mix-blend-multiply" />
+        <div className="bg-p4c-navy/90 absolute left-0 top-0 size-full mix-blend-multiply" />
       </div>
       <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
-        <div className="mb-6 flex justify-center">
-          <div className="bg-p4c-gold/20 border-p4c-gold/30 rounded-2xl border p-4 backdrop-blur-sm">
-            <Briefcase className="size-10 text-p4c-gold" />
-          </div>
-        </div>
         <h1 className="mb-4 font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
           Join Our Team
         </h1>

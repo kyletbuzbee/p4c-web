@@ -4,6 +4,138 @@ import { ArrowRight, Home, Wrench, Users, DollarSign, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { IMAGES } from '../constants/images';
 
+/**
+ * P4C ENTERPRISE INTERFACE: StreamStep
+ * Type-safe data model for revitalization process phases
+ */
+interface StreamStep {
+  id: string;
+  code: string;
+  label: string;
+  icon: React.ElementType;
+  description: string;
+  kpis: string[];
+  image: string;
+}
+
+/**
+ * P4C ENTERPRISE DATA MODEL: VALUE_STREAM
+ * Implements connected pipeline architecture for process transparency
+ */
+const VALUE_STREAM: StreamStep[] = [
+  {
+    id: '01',
+    code: 'AQ-TRANS',
+    label: 'Strategic Acquisition',
+    icon: Home,
+    description:
+      'Proprietary selection of distressed assets based on local economic indicators and community needs.',
+    kpis: ['Market Viability', 'Structural Integrity'],
+    image: IMAGES.TEAM.ACQUISITION,
+  },
+  {
+    id: '02',
+    code: 'RH-CORE',
+    label: 'Precision Rehabilitation',
+    icon: Wrench,
+    description:
+      'Execution of high-spec renovation protocols to meet P4C Excellence Standards and modern efficiency.',
+    kpis: ['Material Lifecycle', 'Energy Rating'],
+    image: IMAGES.TEAM.REHABILITATION,
+  },
+  {
+    id: '03',
+    code: 'ST-COMM',
+    label: 'Neighborhood Stabilization',
+    icon: Users,
+    description:
+      'Transitioning properties into forever-homes, ensuring long-term resident retention and local safety.',
+    kpis: ['Resident Stability', 'Economic Impact'],
+    image: IMAGES.TEAM.GROWTH,
+  },
+];
+
+/**
+ * P4C ENTERPRISE COMPONENT: RevitalizationValueStream
+ * Implements a connected pipeline architecture for process transparency
+ */
+const RevitalizationValueStream: React.FC = () => (
+  <section className="bg-white py-24">
+    <div className="mx-auto max-w-7xl px-4">
+      {/* Section Header with Enterprise Branding */}
+      <div className="mb-20 border-l-8 border-p4c-gold pl-8">
+        <h2 className="font-serif text-5xl font-extrabold tracking-tight text-p4c-navy">
+          Revitalization Value Stream
+        </h2>
+        <p className="text-p4c-slate/60 mt-4 font-mono text-sm uppercase tracking-widest">
+          Continuous Integration / Community Delivery (CI/CD) Framework
+        </p>
+      </div>
+
+      {/* The Connected Pipeline */}
+      <div className="relative">
+        {/* Horizontal Connector Line (Desktop Only) */}
+        <div
+          className="bg-p4c-beige/50 absolute left-0 top-[4.5rem] z-0 hidden h-1 w-full lg:block"
+          aria-hidden="true"
+        />
+
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-3">
+          {VALUE_STREAM.map((step) => (
+            <div key={step.code} className="group relative z-10 flex flex-col">
+              {/* Step Marker Node */}
+              <div className="mb-8 flex items-center gap-4">
+                <div className="flex size-20 items-center justify-center rounded-2xl bg-p4c-navy text-p4c-gold shadow-2xl ring-4 ring-white transition-all duration-500 group-hover:bg-p4c-gold group-hover:text-p4c-navy">
+                  <step.icon className="size-10" aria-hidden="true" />
+                </div>
+                <div className="font-mono text-xs font-bold text-p4c-gold">
+                  PHASE_{step.id} <br />
+                  <span className="text-p4c-navy/40">[{step.code}]</span>
+                </div>
+              </div>
+
+              {/* Technical Card Content */}
+              <div className="bg-p4c-beige/5 hover:shadow-p4c-navy/5 flex-1 rounded-3xl border border-gray-100 p-8 transition-all duration-500 hover:shadow-2xl">
+                <div className="border-p4c-gold/20 mb-6 h-48 overflow-hidden rounded-2xl border grayscale transition-all duration-700 group-hover:grayscale-0">
+                  <img
+                    src={step.image}
+                    alt={step.label}
+                    className="size-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    loading="lazy"
+                  />
+                </div>
+
+                <h3 className="mb-3 text-2xl font-bold text-p4c-navy">
+                  {step.label}
+                </h3>
+                <p className="text-p4c-slate/80 mb-6 text-sm leading-relaxed">
+                  {step.description}
+                </p>
+
+                {/* KPI Metadata Badges */}
+                <div className="flex flex-wrap gap-2">
+                  {step.kpis.map((kpi) => (
+                    <span
+                      key={kpi}
+                      className="inline-flex items-center rounded-full border border-gray-100 bg-white px-3 py-1 text-[10px] font-bold uppercase tracking-tighter text-p4c-navy shadow-sm"
+                    >
+                      <div
+                        className="mr-1.5 size-1.5 rounded-full bg-p4c-gold"
+                        aria-hidden="true"
+                      />
+                      {kpi}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
 const Community: React.FC = () => {
   const navigate = useNavigate();
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
@@ -28,7 +160,7 @@ const Community: React.FC = () => {
             alt="Community impact banner"
             className="size-full object-cover"
           />
-          <div className="bg-p4c-navy/60 absolute inset-0" />
+          <div className="bg-p4c-navy/90 absolute inset-0" />
         </div>
         <div className="relative z-10 mx-auto max-w-4xl px-4 text-center">
           <h1 className="mb-4 font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
@@ -41,82 +173,8 @@ const Community: React.FC = () => {
       </div>
 
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        {/* Revitalization Cycle */}
-        <section className="mb-20">
-          <div className="mb-12 text-center">
-            <h2 className="mb-4 font-serif text-3xl font-bold text-p4c-navy">
-              The Revitalization Cycle
-            </h2>
-            <p className="mx-auto max-w-2xl text-gray-600">
-              How we create value for communities, investors, and residents
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-            {/* Step 1: Acquisition */}
-            <div className="rounded-2xl border-t-4 border-p4c-gold bg-white p-8 shadow-xl transition-shadow hover:shadow-2xl">
-              <div className="bg-p4c-navy/5 mb-6 flex size-14 items-center justify-center rounded-xl">
-                <Home className="size-8 text-p4c-navy" />
-              </div>
-              <h3 className="mb-4 text-xl font-bold text-p4c-navy">
-                Acquisition
-              </h3>
-              <p className="mb-6 text-gray-600">
-                Identifying distressed properties in Tyler, Longview, and
-                Marshall that have potential for transformation.
-              </p>
-              <div className="relative h-48 overflow-hidden rounded-xl shadow-md">
-                <img
-                  src={IMAGES.TEAM.ACQUISITION}
-                  alt="Property acquisition process"
-                  className="size-full object-cover"
-                />
-              </div>
-            </div>
-
-            {/* Step 2: Rehabilitation */}
-            <div className="rounded-2xl border-t-4 border-p4c-gold bg-white p-8 shadow-xl transition-shadow hover:shadow-2xl">
-              <div className="bg-p4c-navy/5 mb-6 flex size-14 items-center justify-center rounded-xl">
-                <Wrench className="size-8 text-p4c-navy" />
-              </div>
-              <h3 className="mb-4 text-xl font-bold text-p4c-navy">
-                Rehabilitation
-              </h3>
-              <p className="mb-6 text-gray-600">
-                Professional renovation to modern standards with high-end
-                finishes that ensure longevity and tenant satisfaction.
-              </p>
-              <div className="relative h-48 overflow-hidden rounded-xl shadow-md">
-                <img
-                  src={IMAGES.TEAM.REHABILITATION}
-                  alt="Property rehabilitation process"
-                  className="size-full object-cover"
-                />
-              </div>
-            </div>
-
-            {/* Step 3: Stabilization */}
-            <div className="rounded-2xl border-t-4 border-p4c-gold bg-white p-8 shadow-xl transition-shadow hover:shadow-2xl">
-              <div className="bg-p4c-navy/5 mb-6 flex size-14 items-center justify-center rounded-xl">
-                <Users className="size-8 text-p4c-navy" />
-              </div>
-              <h3 className="mb-4 text-xl font-bold text-p4c-navy">
-                Stabilization
-              </h3>
-              <p className="mb-6 text-gray-600">
-                Placing families in safe, forever homes and creating stable,
-                thriving neighborhoods.
-              </p>
-              <div className="relative h-48 overflow-hidden rounded-xl shadow-md">
-                <img
-                  src={IMAGES.PROPERTIES.TYLER_RANCH}
-                  alt="Stabilized property with happy family"
-                  className="size-full object-cover"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* Revitalization Value Stream - Enterprise Pipeline */}
+        <RevitalizationValueStream />
 
         {/* Investor Prospectus Section */}
         <section className="mb-20">

@@ -141,7 +141,7 @@ const Properties: React.FC = () => {
             alt="Properties in East Texas"
             className="size-full object-cover"
           />
-          <div className="bg-p4c-navy/60 absolute left-0 top-0 size-full" />
+          <div className="bg-p4c-navy/90 absolute left-0 top-0 size-full" />
         </div>
         <div className="relative z-10 mx-auto max-w-4xl px-4 text-center">
           <h1 className="mb-6 font-serif text-4xl font-bold text-white sm:text-5xl lg:text-6xl">

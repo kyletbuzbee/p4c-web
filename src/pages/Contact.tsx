@@ -54,7 +54,7 @@ const Contact: React.FC = () => {
             alt="Professional contact and support"
             className="size-full object-cover"
           />
-          <div className="bg-p4c-navy/80 absolute left-0 top-0 size-full mix-blend-multiply" />
+          <div className="bg-p4c-navy/90 absolute left-0 top-0 size-full mix-blend-multiply" />
         </div>
         <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
           <div className="mb-6 flex justify-center">
