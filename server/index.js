@@ -7,6 +7,7 @@ const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
 const dotenv = require('dotenv');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 const {
   createEnhancedSecurityHeadersMiddleware,
   applyEnhancedSecurityHeaders,
@@ -71,6 +72,8 @@ app.use(
           "'self'",
           'https://generativelanguage.googleapis.com',
           'https://api.gemini.google.com',
+          'https://abjscrezxkqrzwgmufzr.supabase.co',
+          'https://*.supabase.co',
         ],
         frameSrc: ["'self'"],
         objectSrc: ["'none'"],

@@ -85,7 +85,7 @@ const OurImpact: React.FC = () => {
         <div className="hero-overlay-primary bg-p4c-navy/90 absolute left-0 top-0 size-full" />
         <div className="hero-overlay-secondary absolute left-0 top-0 size-full bg-gradient-to-t from-p4c-navy/80 to-transparent" />
         <div className="relative z-10 flex h-full items-center justify-center px-4">
-          <div className="hero-text-container max-w-4xl animate-fade-in-up rounded-2xl border border-white/10 bg-p4c-navy/95 p-8 text-center backdrop-blur-xl md:p-12">
+          <div className="hero-text-container max-w-4xl animate-fade-in-up rounded-2xl border border-white/10 bg-p4c-navy/95 p-4 text-center backdrop-blur-xl md:p-6">
             <h1 className="hero-text-enhanced mb-6 font-serif text-4xl font-bold leading-tight text-white md:text-6xl">
               Strategic Community <br />
               <span className="text-p4c-gold">Revitalization.</span>
@@ -156,6 +156,9 @@ const OurImpact: React.FC = () => {
                       src={IMAGES.TEAM.ACQUISITION}
                       alt="Acquisition of distressed property"
                       className="size-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0"
+                      loading="lazy"
+                      width={800}
+                      height={400}
                     />
                     <div className="absolute inset-0 flex items-center justify-center bg-black/40">
                       <span className="rounded-full bg-p4c-navy px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
@@ -179,6 +182,9 @@ const OurImpact: React.FC = () => {
                       src={IMAGES.TEAM.REHABILITATION}
                       alt="Capital improvement construction"
                       className="size-full object-cover"
+                      loading="lazy"
+                      width={800}
+                      height={400}
                     />
                     <div className="absolute inset-0 flex items-center justify-center bg-black/40">
                       <span className="rounded-full bg-p4c-navy px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
@@ -202,6 +208,9 @@ const OurImpact: React.FC = () => {
                       src={IMAGES.PROPERTIES.TYLER_RANCH}
                       alt="Stabilized asset with tenants"
                       className="size-full object-cover"
+                      loading="lazy"
+                      width={800}
+                      height={400}
                     />
                     <div className="absolute inset-0 flex items-center justify-center bg-black/40">
                       <span className="rounded-full bg-p4c-navy px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">

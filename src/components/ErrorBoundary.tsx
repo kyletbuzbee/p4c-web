@@ -75,7 +75,7 @@ class ErrorBoundaryInternal extends Component<InternalProps, State> {
       // mocking the call to avoid unused var warnings if you don't have the endpoint yet.
       // eslint-disable-next-line no-console
       console.debug('Logging error to service:', sanitizedErrorData);
-    } catch (_loggingError) {
+    } catch {
       // Error logging failed, silently ignore
     }
   };

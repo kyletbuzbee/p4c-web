@@ -61,7 +61,7 @@ async function registerServiceWorker() {
     if (navigator.serviceWorker.controller) {
       logDev('Service Worker is controlling the page');
     }
-  } catch (error) {
+  } catch {
     // Error registering Service Worker
   }
 }

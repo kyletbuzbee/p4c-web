@@ -33,9 +33,9 @@ const Privacy: React.FC = () => (
             with the highest standards of security.
           </p>
 
-          <h3 className="mb-4 mt-8 flex items-center gap-2 text-xl font-bold text-p4c-navy">
+          <h2 className="mb-4 mt-8 flex items-center gap-2 text-xl font-bold text-p4c-navy">
             <Eye className="size-5 text-p4c-gold" /> Information We Collect
-          </h3>
+          </h2>
           <p>
             We collect information necessary to process rental applications,
             manage lease agreements, and communicate with residents. This
@@ -56,10 +56,10 @@ const Privacy: React.FC = () => (
             </li>
           </ul>
 
-          <h3 className="mb-4 mt-8 flex items-center gap-2 text-xl font-bold text-p4c-navy">
+          <h2 className="mb-4 mt-8 flex items-center gap-2 text-xl font-bold text-p4c-navy">
             <Shield className="size-5 text-p4c-gold" /> How We Use Your
             Information
-          </h3>
+          </h2>
           <p>
             We use your data solely for business operations related to housing.
             We do <strong>not</strong> sell your personal data to third-party
@@ -74,9 +74,9 @@ const Privacy: React.FC = () => (
             <li>To comply with Fair Housing laws and HUD/VA requirements.</li>
           </ul>
 
-          <h3 className="mb-4 mt-8 flex items-center gap-2 text-xl font-bold text-p4c-navy">
+          <h2 className="mb-4 mt-8 flex items-center gap-2 text-xl font-bold text-p4c-navy">
             <Lock className="size-5 text-p4c-gold" /> Data Security
-          </h3>
+          </h2>
           <p>
             We implement enterprise-grade security measures to prevent your
             personal data from being accidentally lost, used, or accessed in an
@@ -85,9 +85,9 @@ const Privacy: React.FC = () => (
             business need to know and are subject to a duty of confidentiality.
           </p>
 
-          <h3 className="mb-4 mt-8 text-xl font-bold text-p4c-navy">
+          <h2 className="mb-4 mt-8 text-xl font-bold text-p4c-navy">
             Your Rights
-          </h3>
+          </h2>
           <p>
             Under applicable laws, you have the right to request access to your
             personal data, request correction of your data, or request erasure

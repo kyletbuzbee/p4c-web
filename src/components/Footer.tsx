@@ -21,6 +21,8 @@ const Footer: React.FC = () => (
               src={IMAGES.LOGO.WHITE_GOLD}
               alt="Properties 4 Creation Real Estate Logo"
               className="h-20 w-auto object-contain"
+              width={200}
+              height={80}
             />
           </div>
           <p className="mb-6 text-sm leading-relaxed text-gray-400">

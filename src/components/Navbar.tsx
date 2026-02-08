@@ -256,7 +256,8 @@ const Navbar = (): React.ReactElement => {
             <button
               onClick={() => handleNavClick('/contact')}
               className="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white"
-              aria-label="Contact us"
+              aria-label="Contact Properties 4 Creation"
+              aria-haspopup="false"
             >
               Contact
             </button>
@@ -268,6 +269,7 @@ const Navbar = (): React.ReactElement => {
               onClick={() => handleNavClick('/admin')}
               className="rounded-full p-2 text-gray-400 hover:text-p4c-gold"
               aria-label="Staff Dashboard"
+              aria-haspopup="false"
             >
               <LayoutDashboard className="size-4" aria-hidden="true" />
             </button>
@@ -287,6 +289,7 @@ const Navbar = (): React.ReactElement => {
               onClick={() => handleNavClick('/apply')}
               className="rounded-xl border border-p4c-gold bg-p4c-navy px-5 py-2.5 text-sm font-bold text-p4c-gold shadow-lg transition-all hover:-translate-y-0.5 hover:bg-p4c-gold hover:text-p4c-navy hover:shadow-xl"
               aria-label="Apply now for tenant application"
+              aria-haspopup="false"
             >
               Apply Now
             </button>

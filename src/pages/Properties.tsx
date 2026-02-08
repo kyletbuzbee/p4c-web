@@ -140,6 +140,8 @@ const Properties: React.FC = () => {
             src={IMAGES.BANNERS.HERO_PROPERTIES}
             alt="Properties in East Texas"
             className="size-full object-cover"
+            width={1920}
+            height={1080}
           />
           <div className="bg-p4c-navy/90 absolute left-0 top-0 size-full" />
         </div>

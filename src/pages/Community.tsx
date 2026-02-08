@@ -164,7 +164,7 @@ const Community: React.FC = () => {
         </div>
         <div className="relative z-10 mx-auto max-w-4xl px-4 text-center">
           {/* Glassmorphism text container for enhanced contrast */}
-          <div className="bg-p4c-navy/30 rounded-2xl p-8 backdrop-blur-sm">
+          <div className="bg-p4c-navy/30 rounded-2xl p-4 backdrop-blur-sm">
             <h1 className="hero-text-enhanced mb-4 font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
               Building Stronger Communities
             </h1>

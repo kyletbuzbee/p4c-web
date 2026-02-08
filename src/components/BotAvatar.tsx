@@ -6,16 +6,14 @@ interface BotAvatarProps {
   size?: number;
 }
 
-const BotAvatar: React.FC<BotAvatarProps> = ({ className = '', size = 48 }) => {
-  return (
-    <img
-      src={IMAGES.BOT.ARCHITECT}
-      alt="Properties 4 Creation Digital Architect Avatar"
-      width={size}
-      height={size}
-      className={`block rounded-full ${className}`}
-    />
-  );
-};
+const BotAvatar: React.FC<BotAvatarProps> = ({ className = '', size = 48 }) => (
+  <img
+    src={IMAGES.BOT.ARCHITECT}
+    alt="Properties 4 Creation Digital Architect Avatar"
+    width={size}
+    height={size}
+    className={`block rounded-full ${className}`}
+  />
+);
 
 export default BotAvatar;

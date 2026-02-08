@@ -32,9 +32,9 @@ const Terms: React.FC = () => (
             be bound by these terms.
           </p>
 
-          <h3 className="mb-4 mt-8 flex items-center gap-2 text-xl font-bold text-p4c-navy">
+          <h2 className="mb-4 mt-8 flex items-center gap-2 text-xl font-bold text-p4c-navy">
             <FileText className="size-5 text-p4c-gold" /> 1. Fair Housing Policy
-          </h3>
+          </h2>
           <p>
             Properties 4 Creation is committed to the letter and spirit of U.S.
             policy for the achievement of equal housing opportunity. We
@@ -44,9 +44,9 @@ const Terms: React.FC = () => (
             national origin.
           </p>
 
-          <h3 className="mb-4 mt-8 text-xl font-bold text-p4c-navy">
+          <h2 className="mb-4 mt-8 text-xl font-bold text-p4c-navy">
             2. Use of Site
-          </h3>
+          </h2>
           <p>
             You agree to use this site only for lawful purposes. You are
             prohibited from posting on or transmitting through this site any
@@ -55,9 +55,9 @@ const Terms: React.FC = () => (
             ethnically, or otherwise objectionable material of any kind.
           </p>
 
-          <h3 className="mb-4 mt-8 text-xl font-bold text-p4c-navy">
+          <h2 className="mb-4 mt-8 text-xl font-bold text-p4c-navy">
             3. Application Accuracy
-          </h3>
+          </h2>
           <p>
             By submitting an application for housing via our site, you certify
             that all information provided is true, accurate, and complete.
@@ -65,10 +65,10 @@ const Terms: React.FC = () => (
             application or termination of your lease.
           </p>
 
-          <h3 className="mb-4 mt-8 flex items-center gap-2 text-xl font-bold text-p4c-navy">
+          <h2 className="mb-4 mt-8 flex items-center gap-2 text-xl font-bold text-p4c-navy">
             <Scale className="size-5 text-p4c-gold" /> 4. Limitation of
             Liability
-          </h3>
+          </h2>
           <p>
             Properties 4 Creation shall not be liable for any direct, indirect,
             special, incidental, consequential, or punitive damages arising out
@@ -76,9 +76,9 @@ const Terms: React.FC = () => (
             on this website.
           </p>
 
-          <h3 className="mb-4 mt-8 text-xl font-bold text-p4c-navy">
+          <h2 className="mb-4 mt-8 text-xl font-bold text-p4c-navy">
             5. Third-Party Links
-          </h3>
+          </h2>
           <p>
             Our website may contain links to websites owned or operated by
             parties other than Properties 4 Creation (e.g., Veteran Affairs,

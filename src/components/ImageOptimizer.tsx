@@ -93,7 +93,7 @@ const ImageOptimizer: React.FC<ImageOptimizerProps> = ({
 
         // Set source
         img.src = optimizedSrc;
-      } catch (error) {
+      } catch {
         if (isMounted) {
           setCurrentSrc(src);
           setIsLoaded(true);

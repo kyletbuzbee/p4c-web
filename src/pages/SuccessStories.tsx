@@ -104,11 +104,12 @@ const CustomVideoPlayer: React.FC<CustomVideoPlayerProps> = ({
           <button
             onClick={togglePlay}
             className="text-white transition-colors hover:text-p4c-gold"
+            aria-label={isPlaying ? 'Pause video' : 'Play video'}
           >
             {isPlaying ? (
-              <Pause className="size-5" />
+              <Pause className="size-5" aria-hidden="true" />
             ) : (
-              <Play className="size-5" />
+              <Play className="size-5" aria-hidden="true" />
             )}
           </button>
 
@@ -119,16 +120,18 @@ const CustomVideoPlayer: React.FC<CustomVideoPlayerProps> = ({
             value={progress}
             onChange={handleSeek}
             className="h-1 grow cursor-pointer appearance-none rounded-full bg-white/30 [&::-webkit-slider-thumb]:size-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-p4c-gold"
+            aria-label="Video progress"
           />
 
           <button
             onClick={toggleMute}
             className="text-white transition-colors hover:text-p4c-gold"
+            aria-label={isMuted ? 'Unmute video' : 'Mute video'}
           >
             {isMuted ? (
-              <VolumeX className="size-5" />
+              <VolumeX className="size-5" aria-hidden="true" />
             ) : (
-              <Volume2 className="size-5" />
+              <Volume2 className="size-5" aria-hidden="true" />
             )}
           </button>
         </div>
@@ -212,7 +215,7 @@ const SuccessStories: React.FC = () => {
         <div className="hero-overlay-secondary absolute left-0 top-0 size-full bg-gradient-to-t from-p4c-navy/80 to-transparent" />
 
         <div className="relative z-10 max-w-4xl animate-fade-in-up px-4 text-center">
-          <div className="hero-text-container rounded-2xl border border-white/10 bg-p4c-navy/95 p-8 backdrop-blur-xl md:p-12">
+          <div className="hero-text-container rounded-2xl border border-white/10 bg-p4c-navy/95 p-4 backdrop-blur-xl md:p-6">
             <h1 className="hero-text-enhanced mb-6 font-serif text-4xl font-bold text-white md:text-5xl">
               Resident <span className="text-p4c-gold">Satisfaction</span>
             </h1>
@@ -239,17 +242,17 @@ const SuccessStories: React.FC = () => {
                 <CustomVideoPlayer
                   src={
                     story.id === 1
-                      ? '/videos/review-1.mp4'
+                      ? IMAGES.VIDEOS.REVIEW_1
                       : story.id === 2
-                        ? '/videos/review-2.mp4'
-                        : '/videos/review-3.mp4'
+                        ? IMAGES.VIDEOS.REVIEW_2
+                        : IMAGES.VIDEOS.REVIEW_3
                   }
                   poster={
                     story.id === 1
-                      ? '/images/resident-review/resident-review-mark.png'
+                      ? IMAGES.RESIDENT_REVIEW.MARK
                       : story.id === 2
-                        ? '/images/resident-review/resident-review-alex.png'
-                        : '/images/resident-review/resident-review-sarah.png'
+                        ? IMAGES.RESIDENT_REVIEW.ALEX
+                        : IMAGES.RESIDENT_REVIEW.SARAH
                   }
                   ariaLabel={story.videoLabel}
                 />

@@ -23,12 +23,14 @@ const About: React.FC = () => (
           src={IMAGES.BANNERS.HERO_ABOUT}
           alt="Properties 4 Creation team on site"
           className="size-full object-cover"
+          width={1920}
+          height={1080}
         />
         <div className="bg-p4c-navy/90 absolute left-0 top-0 size-full mix-blend-multiply" />
       </div>
       <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
         {/* Glassmorphism text container for enhanced contrast */}
-        <div className="rounded-2xl bg-p4c-navy/40 p-8 backdrop-blur-sm">
+        <div className="rounded-2xl bg-p4c-navy/40 p-4 backdrop-blur-sm">
           <h1 className="hero-text-enhanced mb-4 font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
             Revitalizing East Texas, One Home at a Time.
           </h1>
@@ -67,6 +69,9 @@ const About: React.FC = () => (
               src={IMAGES.TEAM.OWNER}
               alt="Richard Lonkert, Owner & Veteran"
               className="size-full object-cover"
+              loading="lazy"
+              width={400}
+              height={400}
             />
             <div className="bg-p4c-navy/80 absolute inset-x-0 bottom-0 p-4 text-white">
               <h3 className="text-lg font-bold">Richard Lonkert</h3>
@@ -78,6 +83,9 @@ const About: React.FC = () => (
               src={IMAGES.TEAM.HEADSHOT}
               alt="Kyle Buzbee, Managing Partner"
               className="size-full object-cover"
+              loading="lazy"
+              width={400}
+              height={400}
             />
             <div className="bg-p4c-navy/80 absolute inset-x-0 bottom-0 p-4 text-white">
               <h3 className="text-lg font-bold">Kyle Buzbee</h3>

@@ -139,7 +139,7 @@ const ClientUpscaler: React.FC = () => {
           isProcessing: false,
         }));
       }
-    } catch (_error) {
+    } catch {
       setState((prev) => ({
         ...prev,
         error: 'Failed to upscale image. Please try again.',

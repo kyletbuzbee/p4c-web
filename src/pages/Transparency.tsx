@@ -52,13 +52,15 @@ const Transparency: React.FC = () => {
             src={IMAGES.BANNERS.HERO_TRANSPARENCY}
             alt="Transparency Banner"
             className="size-full object-cover"
+            width={1920}
+            height={1080}
           />
           <div className="hero-overlay-primary bg-p4c-navy/90 absolute inset-0" />
           <div className="hero-overlay-secondary from-p4c-navy/80 absolute inset-0 bg-gradient-to-t to-transparent" />
         </div>
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-          <div className="hero-text-container bg-p4c-navy/95 rounded-2xl border border-white/10 p-8 backdrop-blur-xl md:p-12">
+          <div className="hero-text-container bg-p4c-navy/95 rounded-2xl border border-white/10 p-4 backdrop-blur-xl md:p-6">
             <h1 className="hero-text-enhanced mb-6 font-serif text-4xl font-bold text-white md:text-5xl">
               The Open Book Policy
             </h1>
@@ -272,6 +274,9 @@ const Transparency: React.FC = () => {
               src={IMAGES.GALLERY.MEASURING}
               alt="Contractor reviewing plans"
               className="size-full object-cover"
+              loading="lazy"
+              width={800}
+              height={400}
             />
             <div className="bg-p4c-navy/30 absolute inset-0 mix-blend-multiply" />
             <div className="absolute inset-x-6 bottom-6 rounded-lg bg-white/90 p-4 backdrop-blur-sm">

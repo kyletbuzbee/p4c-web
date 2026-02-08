@@ -166,12 +166,12 @@ const PropertyCard = memo<PropertyCardProps>(
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {/* Image Section */}
-        <div className="relative h-64 overflow-hidden">
+        {/* Image Section - Aspect ratio container for CLS stability */}
+        <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-100">
           <LazyImage
             src={property.imageUrl}
             alt={property.title}
-            className="size-full transition-transform duration-700 group-hover:scale-105"
+            className="size-full object-cover transition-transform duration-700 group-hover:scale-105"
             priority={priority}
           />
 

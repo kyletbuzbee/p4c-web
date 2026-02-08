@@ -245,5 +245,9 @@ export const IMAGES = {
     KITCHEN_TIMELAPSE: '/images/videos/hero-kitchen-timelapse.mp4',
     // Impact hero video alias
     IMPACT_HERO: '/images/videos/hero-kitchen-timelapse.mp4',
+    // Resident review videos
+    REVIEW_1: '/videos/review-1.mp4',
+    REVIEW_2: '/videos/review-2.mp4',
+    REVIEW_3: '/videos/review-3.mp4',
   },
 } as const;

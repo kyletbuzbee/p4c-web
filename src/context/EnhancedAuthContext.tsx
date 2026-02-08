@@ -274,7 +274,7 @@ class SessionManager {
       loginAttempts: (data.loginAttempts as number) || 0,
       lockedUntil: data.lockedUntil as string | undefined,
     };
-  } catch (_error) {
+  } catch {
     return null;
   }
 };
@@ -298,7 +298,7 @@ const validateSessionWithBackend = async (
     });
 
     return response.ok;
-  } catch (_error) {
+  } catch {
     return false;
   }
 };
@@ -435,7 +435,7 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
             clearSensitiveData();
           }
         }
-      } catch (_error) {
+      } catch {
         clearSensitiveData();
       } finally {
         setIsLoading(false);
@@ -589,34 +589,30 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
       } else {
         logout();
       }
-    } catch (_error) {
+    } catch {
       logout();
     }
   };
 
   // MFA functions
   const enableMFA = async (): Promise<string> => {
-    try {
-      const response = await fetch('/api/auth/enable-mfa', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('p4c_session_token')}`,
-          'Content-Type': 'application/json',
-        },
-      });
+    const response = await fetch('/api/auth/enable-mfa', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('p4c_session_token')}`,
+        'Content-Type': 'application/json',
+      },
+    });
 
-      if (!response.ok) {
-        throw new Error('Failed to enable MFA');
-      }
-
-      const { qrCode } = await response.json();
-      // Store MFA secret temporarily in memory only, not in localStorage
-      // The secret should be handled server-side for security
-
-      return qrCode;
-    } catch (_error) {
-      throw _error;
+    if (!response.ok) {
+      throw new Error('Failed to enable MFA');
     }
+
+    const { qrCode } = await response.json();
+    // Store MFA secret temporarily in memory only, not in localStorage
+    // The secret should be handled server-side for security
+
+    return qrCode;
   };
 
   const verifyMFA = async (code: string): Promise<boolean> => {
@@ -635,7 +631,7 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
       }
 
       return false;
-    } catch (_error) {
+    } catch {
       return false;
     }
   };

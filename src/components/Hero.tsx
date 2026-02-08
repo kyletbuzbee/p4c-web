@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { IMAGES } from '../constants/images';
+import OptimizedImage from './OptimizedImage';
 
 interface HeroProps {
   variant?: 'image' | 'video';
@@ -11,9 +12,25 @@ interface HeroProps {
  * P4C Hero Component
  * Refactored for: Revitalization Mission (East Texas Focus)
  * Content Makeup: 53% Community / 35% Family
+ * Optimized for LCP: fetchpriority="high", preloading, aspect-ratio
  */
 const Hero: React.FC<HeroProps> = ({ variant = 'image' }) => {
   const navigate = useNavigate();
+
+  // Resource hinting: Preload hero image for LCP optimization
+  useEffect(() => {
+    if (variant === 'image') {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'image';
+      link.href = IMAGES.BANNERS.HERO_HOME_1920;
+      link.setAttribute('fetchpriority', 'high');
+      document.head.appendChild(link);
+      return () => {
+        document.head.removeChild(link);
+      };
+    }
+  }, [variant]);
 
   return (
     <section className="relative flex h-[90vh] w-full items-center overflow-hidden bg-p4c-navy">
@@ -27,15 +44,23 @@ const Hero: React.FC<HeroProps> = ({ variant = 'image' }) => {
             playsInline
             poster={IMAGES.BANNERS.HERO_PROJECTS}
             className="size-full object-cover"
+            loading="lazy"
           >
             <source src={IMAGES.VIDEOS.HERO_HOME} type="video/mp4" />
           </video>
         ) : (
-          <img
-            src={IMAGES.BANNERS.HERO_HOME}
-            alt="Professional renovation in East Texas"
-            className="size-full object-cover"
-          />
+          <div className="aspect-video w-full" style={{ aspectRatio: '16/9' }}>
+            <OptimizedImage
+              src={IMAGES.BANNERS.HERO_HOME}
+              alt="Professional renovation in East Texas"
+              className="size-full object-cover"
+              width={1920}
+              height={1080}
+              priority={true}
+              sizes={['100vw']}
+              placeholder="blur"
+            />
+          </div>
         )}
         {/* Dual-Layer Gradient Overlay for enhanced text contrast */}
         {/* Layer 1: Global dimming to reduce overall image "noise" */}
@@ -46,7 +71,7 @@ const Hero: React.FC<HeroProps> = ({ variant = 'image' }) => {
 
       {/* Main Content: Left-aligned for high-end editorial feel */}
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8">
-        <div className="hero-text-container max-w-3xl animate-fade-in-up rounded-2xl border border-white/10 bg-p4c-navy/95 p-8 backdrop-blur-xl md:p-12">
+        <div className="hero-text-container max-w-3xl animate-fade-in-up rounded-2xl border border-white/10 bg-p4c-navy/95 p-4 backdrop-blur-xl md:p-6">
           <h1 className="hero-text-enhanced mb-6 text-left font-serif text-5xl font-bold leading-[1.1] text-white md:text-7xl">
             Revitalizing <span className="text-p4c-gold">East Texas</span>
             <br />

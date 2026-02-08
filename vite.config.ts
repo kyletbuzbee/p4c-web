@@ -258,21 +258,10 @@ export default defineConfig(({ mode }) => {
       // Performance optimizations
       rollupOptions: {
         output: {
-          // Manual chunks for better caching
-          manualChunks: {
-            // React and React DOM together
-            react: ['react', 'react-dom'],
-            // Router
-            router: ['react-router-dom'],
-            // UI library
-            ui: ['lucide-react'],
-            // Utils
-            utils: ['react-helmet-async'],
-          },
           // Optimize chunk file names
           chunkFileNames: 'js/[name]-[hash].js',
           assetFileNames: (assetInfo) => {
-            if (/\.(png|jpe?g|gif|svg|webp)$/i.test(assetInfo.name || '')) {
+            if (/\.(png|jpe?g|gif|svg|webp|avif)$/i.test(assetInfo.name || '')) {
               return 'images/[name]-[hash][extname]';
             }
             if (/\.(woff2?|eot|ttf|otf)$/i.test(assetInfo.name || '')) {
@@ -280,16 +269,56 @@ export default defineConfig(({ mode }) => {
             }
             return 'assets/[name]-[hash][extname]';
           },
+          // Manual chunking strategy for better performance
+          manualChunks: (id) => {
+            // Split lucide-react into separate chunk
+            if (id.includes('lucide-react')) {
+              return 'vendor-lucide';
+            }
+            // Split supabase-js into separate chunk
+            if (id.includes('@supabase/supabase-js')) {
+              return 'vendor-supabase';
+            }
+            // Split react-router-dom into separate chunk
+            if (id.includes('react-router-dom')) {
+              return 'vendor-router';
+            }
+            // Split recharts into separate chunk
+            if (id.includes('recharts')) {
+              return 'vendor-recharts';
+            }
+            // Split react-hook-form into separate chunk
+            if (id.includes('react-hook-form')) {
+              return 'vendor-forms';
+            }
+            // Split date-fns into separate chunk
+            if (id.includes('date-fns')) {
+              return 'vendor-date';
+            }
+          },
         },
       },
-      // Optimize terser options
+      // Optimize terser options for advanced minification
       terserOptions: {
         compress: {
           drop_console: mode === 'production',
+          drop_debugger: mode === 'production',
           pure_funcs:
             mode === 'production'
-              ? ['console.log', 'console.info', 'console.debug']
+              ? ['console.log', 'console.info', 'console.debug', 'console.warn']
               : [],
+          passes: 2,
+          pure_getters: true,
+          unsafe_arrows: true,
+          unsafe_methods: true,
+          unsafe_proto: true,
+        },
+        mangle: {
+          safari10: true,
+        },
+        format: {
+          comments: false,
+          ecma: 2020,
         },
       },
       // Chunk size warnings
@@ -298,6 +327,7 @@ export default defineConfig(({ mode }) => {
     // Performance optimizations
     optimizeDeps: {
       include: ['react', 'react-dom', 'react-router-dom', 'lucide-react'],
+      exclude: ['@supabase/supabase', 'react-hook-form', 'valibot'],
     },
     // CSS optimizations
     css: {

@@ -32,6 +32,8 @@ const Reviews: React.FC = () => {
             src={IMAGES.BANNERS.HERO_COMMUNITY_IMPACT}
             alt="P4C Quality Renovation in East Texas"
             className="size-full object-cover"
+            width={1920}
+            height={1080}
           />
           <div className="bg-p4c-navy/90 absolute left-0 top-0 size-full mix-blend-multiply" />
         </div>

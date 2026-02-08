@@ -143,9 +143,9 @@ const Tools: React.FC = () => {
             <div className="bg-p4c-gold/20 mx-auto mb-4 flex size-16 items-center justify-center rounded-full p-4">
               <Zap className="size-8 text-p4c-gold" />
             </div>
-            <h3 className="mb-2 text-xl font-semibold text-p4c-navy">
+            <h2 className="mb-2 text-xl font-semibold text-p4c-navy">
               Free Tools
-            </h3>
+            </h2>
             <p className="text-gray-600">
               No hidden fees, no subscriptions - everything is completely free
               for our veterans and families.
@@ -156,9 +156,9 @@ const Tools: React.FC = () => {
             <div className="bg-p4c-navy/20 mx-auto mb-4 flex size-16 items-center justify-center rounded-full p-4">
               <Brain className="size-8 text-p4c-navy" />
             </div>
-            <h3 className="mb-2 text-xl font-semibold text-p4c-navy">
+            <h2 className="mb-2 text-xl font-semibold text-p4c-navy">
               AI-Powered
-            </h3>
+            </h2>
             <p className="text-gray-600">
               Leverage cutting-edge AI technology to enhance your housing
               experience.
@@ -169,9 +169,9 @@ const Tools: React.FC = () => {
             <div className="bg-p4c-beige/80 mx-auto mb-4 flex size-16 items-center justify-center rounded-full p-4">
               <Shield className="size-8 text-p4c-navy" />
             </div>
-            <h3 className="mb-2 text-xl font-semibold text-p4c-navy">
+            <h2 className="mb-2 text-xl font-semibold text-p4c-navy">
               Veteran Support
-            </h3>
+            </h2>
             <p className="text-gray-600">
               Specialized resources and support tailored specifically for
               veterans and their families.

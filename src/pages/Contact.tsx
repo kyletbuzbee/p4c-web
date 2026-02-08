@@ -53,12 +53,14 @@ const Contact: React.FC = () => {
             src={IMAGES.BANNERS.HERO_CONTACT}
             alt="Professional contact and support"
             className="size-full object-cover"
+            width={1920}
+            height={1080}
           />
           <div className="bg-p4c-navy/90 absolute left-0 top-0 size-full mix-blend-multiply" />
         </div>
         <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
           {/* Glassmorphism text container for enhanced contrast */}
-          <div className="rounded-2xl bg-p4c-navy/40 p-8 backdrop-blur-sm">
+          <div className="rounded-2xl bg-p4c-navy/40 p-4 backdrop-blur-sm">
             <div className="mb-6 flex justify-center">
               <div className="bg-p4c-gold/20 border-p4c-gold/30 rounded-2xl border p-4 backdrop-blur-sm">
                 <Mail className="size-10 text-p4c-gold" />
