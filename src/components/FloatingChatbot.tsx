@@ -26,10 +26,10 @@ const FloatingChatbot: React.FC<FloatingChatbotProps> = ({
           height: '400px',
         });
         setIsLoaded(true);
-      } catch (error) {
+      } catch {
         // Log error in development only
         if (import.meta.env.DEV) {
-          console.error('Failed to initialize chatbot:', error);
+          // console.error('Failed to initialize chatbot');
         }
       }
     } else if (!isOpen && isLoaded) {
@@ -37,10 +37,10 @@ const FloatingChatbot: React.FC<FloatingChatbotProps> = ({
       try {
         destroyBotpressWebchat(containerId);
         setIsLoaded(false);
-      } catch (error) {
+      } catch {
         // Log error in development only
         if (import.meta.env.DEV) {
-          console.error('Failed to destroy chatbot:', error);
+          // console.error('Failed to destroy chatbot');
         }
       }
     }
@@ -55,7 +55,7 @@ const FloatingChatbot: React.FC<FloatingChatbotProps> = ({
       {/* Floating Chat Button */}
       <button
         onClick={toggleChat}
-        className={`hover:bg-p4c-navy/90 focus:ring-p4c-gold/50 fixed bottom-6 right-6 z-50 rounded-full bg-p4c-navy p-4 text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4${className}`}
+        className={`fixed bottom-6 right-6 z-50 rounded-full bg-p4c-navy p-4 text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-p4c-navy/90 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-p4c-gold/50${className}`}
         aria-label={isOpen ? 'Close chat assistant' : 'Open chat assistant'}
         title={isOpen ? 'Close chat assistant' : 'Open chat assistant'}
       >

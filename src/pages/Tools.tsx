@@ -140,7 +140,7 @@ const Tools: React.FC = () => {
         {/* Features Section */}
         <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-3">
           <div className="text-center">
-            <div className="bg-p4c-gold/20 mx-auto mb-4 flex size-16 items-center justify-center rounded-full p-4">
+            <div className="mx-auto mb-4 flex size-16 items-center justify-center rounded-full bg-p4c-gold/20 p-4">
               <Zap className="size-8 text-p4c-gold" />
             </div>
             <h2 className="mb-2 text-xl font-semibold text-p4c-navy">
@@ -153,7 +153,7 @@ const Tools: React.FC = () => {
           </div>
 
           <div className="text-center">
-            <div className="bg-p4c-navy/20 mx-auto mb-4 flex size-16 items-center justify-center rounded-full p-4">
+            <div className="mx-auto mb-4 flex size-16 items-center justify-center rounded-full bg-p4c-navy/20 p-4">
               <Brain className="size-8 text-p4c-navy" />
             </div>
             <h2 className="mb-2 text-xl font-semibold text-p4c-navy">
@@ -166,7 +166,7 @@ const Tools: React.FC = () => {
           </div>
 
           <div className="text-center">
-            <div className="bg-p4c-beige/80 mx-auto mb-4 flex size-16 items-center justify-center rounded-full p-4">
+            <div className="mx-auto mb-4 flex size-16 items-center justify-center rounded-full bg-p4c-beige/80 p-4">
               <Shield className="size-8 text-p4c-navy" />
             </div>
             <h2 className="mb-2 text-xl font-semibold text-p4c-navy">

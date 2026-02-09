@@ -35,7 +35,7 @@ const Reviews: React.FC = () => {
             width={1920}
             height={1080}
           />
-          <div className="bg-p4c-navy/90 absolute left-0 top-0 size-full mix-blend-multiply" />
+          <div className="absolute left-0 top-0 size-full bg-p4c-navy/90 mix-blend-multiply" />
         </div>
         <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
           <h1 className="mb-6 font-serif text-4xl font-bold text-white md:text-6xl">
@@ -114,7 +114,7 @@ const Reviews: React.FC = () => {
 
         {/* "Coming Soon" Placeholder Section */}
         <div className="py-20 text-center">
-          <div className="bg-p4c-gold/10 mb-6 inline-flex size-20 items-center justify-center rounded-full">
+          <div className="mb-6 inline-flex size-20 items-center justify-center rounded-full bg-p4c-gold/10">
             <Users className="size-10 text-p4c-gold" />
           </div>
           <h2 className="mb-4 font-serif text-3xl font-bold text-p4c-navy">

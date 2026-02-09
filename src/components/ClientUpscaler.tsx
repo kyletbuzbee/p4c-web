@@ -188,7 +188,7 @@ const ClientUpscaler: React.FC = () => {
       </div>
 
       {/* File Upload Area */}
-      <div className="border-p4c-gold/30 hover:border-p4c-gold/60 rounded-lg border-2 border-dashed p-8 text-center transition-colors">
+      <div className="rounded-lg border-2 border-dashed border-p4c-gold/30 p-8 text-center transition-colors hover:border-p4c-gold/60">
         <input
           ref={fileInputRef}
           type="file"
@@ -323,7 +323,7 @@ const ClientUpscaler: React.FC = () => {
                   <button
                     onClick={handleUpscale}
                     disabled={state.isProcessing}
-                    className="hover:bg-p4c-navy/80 inline-flex items-center gap-3 rounded-lg bg-p4c-navy px-6 py-3 text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+                    className="inline-flex items-center gap-3 rounded-lg bg-p4c-navy px-6 py-3 text-white transition-colors hover:bg-p4c-navy/80 disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     <Zap className="size-5" />
                     <span className="font-semibold">Upscale Image</span>

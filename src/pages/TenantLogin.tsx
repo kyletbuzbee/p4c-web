@@ -21,7 +21,11 @@ const TenantLogin: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from = (location.state as any)?.from?.pathname || '/';
+  interface LocationState {
+    from?: { pathname: string };
+  }
+
+  const from = (location.state as LocationState)?.from?.pathname || '/';
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -537,10 +537,10 @@ const Home: React.FC = () => {
                 className="absolute inset-0 size-full object-cover opacity-60"
                 src={IMAGES.VIDEOS.SUCCESS_STORY}
               />
-              <div className="bg-p4c-navy/30 absolute inset-0 mix-blend-multiply" />
+              <div className="absolute inset-0 bg-p4c-navy/30 mix-blend-multiply" />
             </div>
             <div className="text-white">
-              <div className="bg-p4c-gold/20 border-p4c-gold/30 mb-4 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold uppercase tracking-wider text-p4c-gold">
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-p4c-gold/30 bg-p4c-gold/20 px-4 py-2 text-sm font-bold uppercase tracking-wider text-p4c-gold">
                 Community Impact
               </div>
               <h2 className="mb-6 font-serif text-3xl font-bold md:text-4xl">

@@ -119,8 +119,8 @@ const HomeownerSolutions: React.FC = () => {
             alt="Waterfront property acquisition in East Texas"
             className="size-full object-cover"
           />
-          <div className="hero-overlay-primary bg-p4c-navy/60 absolute left-0 top-0 size-full" />
-          <div className="hero-overlay-secondary to-p4c-navy/80 absolute left-0 top-0 size-full bg-gradient-to-b from-transparent via-transparent" />
+          <div className="hero-overlay-primary absolute left-0 top-0 size-full bg-p4c-navy/60" />
+          <div className="hero-overlay-secondary absolute left-0 top-0 size-full bg-gradient-to-b from-transparent via-transparent to-p4c-navy/80" />
         </div>
 
         <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
@@ -230,7 +230,7 @@ const HomeownerSolutions: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-            <div className="border-p4c-gold/20 rounded-2xl border bg-p4c-beige p-8">
+            <div className="rounded-2xl border border-p4c-gold/20 bg-p4c-beige p-8">
               <div className="mb-4 flex items-center gap-3">
                 <div className="flex size-12 items-center justify-center rounded-full bg-p4c-navy">
                   <span className="text-lg font-bold text-white">S</span>
@@ -248,7 +248,7 @@ const HomeownerSolutions: React.FC = () => {
               <div className="flex text-p4c-gold">★★★★★</div>
             </div>
 
-            <div className="border-p4c-gold/20 rounded-2xl border bg-p4c-beige p-8">
+            <div className="rounded-2xl border border-p4c-gold/20 bg-p4c-beige p-8">
               <div className="mb-4 flex items-center gap-3">
                 <div className="flex size-12 items-center justify-center rounded-full bg-p4c-navy">
                   <span className="text-lg font-bold text-white">P</span>
@@ -339,7 +339,7 @@ const HomeownerSolutions: React.FC = () => {
       {/* Inquiry Form */}
       <section className="bg-white py-20">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <div className="border-p4c-gold/30 overflow-hidden rounded-2xl border bg-p4c-beige shadow-xl">
+          <div className="overflow-hidden rounded-2xl border border-p4c-gold/30 bg-p4c-beige shadow-xl">
             <div className="p-8 md:p-10">
               <div className="mb-8 text-center">
                 <h2 className="mb-3 font-serif text-3xl font-bold text-p4c-navy">

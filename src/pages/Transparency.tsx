@@ -55,12 +55,12 @@ const Transparency: React.FC = () => {
             width={1920}
             height={1080}
           />
-          <div className="hero-overlay-primary bg-p4c-navy/90 absolute inset-0" />
-          <div className="hero-overlay-secondary from-p4c-navy/80 absolute inset-0 bg-gradient-to-t to-transparent" />
+          <div className="hero-overlay-primary absolute inset-0 bg-p4c-navy/90" />
+          <div className="hero-overlay-secondary absolute inset-0 bg-gradient-to-t from-p4c-navy/80 to-transparent" />
         </div>
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-          <div className="hero-text-container bg-p4c-navy/95 rounded-2xl border border-white/10 p-4 backdrop-blur-xl md:p-6">
+          <div className="hero-text-container rounded-2xl border border-white/10 bg-p4c-navy/95 p-4 backdrop-blur-xl md:p-6">
             <h1 className="hero-text-enhanced mb-6 font-serif text-4xl font-bold text-white md:text-5xl">
               The Open Book Policy
             </h1>
@@ -136,7 +136,7 @@ const Transparency: React.FC = () => {
             </div>
           )}
 
-          <div className="bg-p4c-beige/30 border-t border-gray-100 p-6">
+          <div className="border-t border-gray-100 bg-p4c-beige/30 p-6">
             <p className="text-center text-sm text-gray-600">
               <strong>Our Commitment:</strong> Every renovation is an investment
               in East Texas communities. We don&apos;t just repair homes— we
@@ -149,7 +149,7 @@ const Transparency: React.FC = () => {
         {/* Quality Standards Section - Mission-Driven */}
         <div className="mb-20 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-xl">
           <div className="border-b border-gray-100 bg-gradient-to-r from-[#c5a059]/10 to-p4c-beige p-8">
-            <div className="border-p4c-gold/30 mb-4 inline-flex items-center gap-2 rounded-full border bg-white px-3 py-1 text-xs font-bold uppercase tracking-wider text-p4c-navy shadow-sm">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-p4c-gold/30 bg-white px-3 py-1 text-xs font-bold uppercase tracking-wider text-p4c-navy shadow-sm">
               <Shield className="size-4 text-p4c-gold" /> Quality Standards
             </div>
             <h2 className="font-serif text-2xl font-bold text-p4c-navy">
@@ -171,7 +171,7 @@ const Transparency: React.FC = () => {
               <strong>revitalizing East Texas one property at a time</strong>.
             </p>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              <div className="bg-p4c-beige/30 rounded-xl p-6">
+              <div className="rounded-xl bg-p4c-beige/30 p-6">
                 <div className="flex items-start">
                   <CheckCircle2 className="mr-3 size-6 shrink-0 text-p4c-gold" />
                   <div>
@@ -185,7 +185,7 @@ const Transparency: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="bg-p4c-beige/30 rounded-xl p-6">
+              <div className="rounded-xl bg-p4c-beige/30 p-6">
                 <div className="flex items-start">
                   <CheckCircle2 className="mr-3 size-6 shrink-0 text-p4c-gold" />
                   <div>
@@ -199,7 +199,7 @@ const Transparency: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="bg-p4c-beige/30 rounded-xl p-6">
+              <div className="rounded-xl bg-p4c-beige/30 p-6">
                 <div className="flex items-start">
                   <CheckCircle2 className="mr-3 size-6 shrink-0 text-p4c-gold" />
                   <div>
@@ -213,7 +213,7 @@ const Transparency: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="bg-p4c-beige/30 rounded-xl p-6">
+              <div className="rounded-xl bg-p4c-beige/30 p-6">
                 <div className="flex items-start">
                   <CheckCircle2 className="mr-3 size-6 shrink-0 text-p4c-gold" />
                   <div>
@@ -278,7 +278,7 @@ const Transparency: React.FC = () => {
               width={800}
               height={400}
             />
-            <div className="bg-p4c-navy/30 absolute inset-0 mix-blend-multiply" />
+            <div className="absolute inset-0 bg-p4c-navy/30 mix-blend-multiply" />
             <div className="absolute inset-x-6 bottom-6 rounded-lg bg-white/90 p-4 backdrop-blur-sm">
               <p className="text-sm font-bold text-p4c-navy">
                 &quot;We pay our contractors fairly and on time, ensuring they

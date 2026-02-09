@@ -67,7 +67,7 @@ const RevitalizationValueStream: React.FC = () => (
         <h2 className="font-serif text-5xl font-extrabold tracking-tight text-p4c-navy">
           Revitalization Value Stream
         </h2>
-        <p className="text-p4c-slate/60 mt-4 font-mono text-sm uppercase tracking-widest">
+        <p className="mt-4 font-mono text-sm uppercase tracking-widest text-p4c-slate/60">
           Continuous Integration / Community Delivery (CI/CD) Framework
         </p>
       </div>
@@ -76,7 +76,7 @@ const RevitalizationValueStream: React.FC = () => (
       <div className="relative">
         {/* Horizontal Connector Line (Desktop Only) */}
         <div
-          className="bg-p4c-beige/50 absolute left-0 top-[4.5rem] z-0 hidden h-1 w-full lg:block"
+          className="absolute left-0 top-[4.5rem] z-0 hidden h-1 w-full bg-p4c-beige/50 lg:block"
           aria-hidden="true"
         />
 
@@ -95,8 +95,8 @@ const RevitalizationValueStream: React.FC = () => (
               </div>
 
               {/* Technical Card Content */}
-              <div className="bg-p4c-beige/5 hover:shadow-p4c-navy/5 flex-1 rounded-3xl border border-gray-100 p-8 transition-all duration-500 hover:shadow-2xl">
-                <div className="border-p4c-gold/20 mb-6 h-48 overflow-hidden rounded-2xl border grayscale transition-all duration-700 group-hover:grayscale-0">
+              <div className="flex-1 rounded-3xl border border-gray-100 bg-p4c-beige/5 p-8 transition-all duration-500 hover:shadow-2xl hover:shadow-p4c-navy/5">
+                <div className="mb-6 h-48 overflow-hidden rounded-2xl border border-p4c-gold/20 grayscale transition-all duration-700 group-hover:grayscale-0">
                   <img
                     src={step.image}
                     alt={step.label}
@@ -108,7 +108,7 @@ const RevitalizationValueStream: React.FC = () => (
                 <h3 className="mb-3 text-2xl font-bold text-p4c-navy">
                   {step.label}
                 </h3>
-                <p className="text-p4c-slate/80 mb-6 text-sm leading-relaxed">
+                <p className="mb-6 text-sm leading-relaxed text-p4c-slate/80">
                   {step.description}
                 </p>
 
@@ -160,11 +160,11 @@ const Community: React.FC = () => {
             alt="Community impact banner"
             className="size-full object-cover"
           />
-          <div className="bg-p4c-navy/90 absolute inset-0" />
+          <div className="absolute inset-0 bg-p4c-navy/90" />
         </div>
         <div className="relative z-10 mx-auto max-w-4xl px-4 text-center">
           {/* Glassmorphism text container for enhanced contrast */}
-          <div className="bg-p4c-navy/30 rounded-2xl p-4 backdrop-blur-sm">
+          <div className="rounded-2xl bg-p4c-navy/30 p-4 backdrop-blur-sm">
             <h1 className="hero-text-enhanced mb-4 font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
               Building Stronger Communities
             </h1>
@@ -234,7 +234,7 @@ const Community: React.FC = () => {
                 alt="Community impact visualization"
                 className="size-full object-cover"
               />
-              <div className="bg-p4c-navy/20 absolute inset-0" />
+              <div className="absolute inset-0 bg-p4c-navy/20" />
               <div className="absolute inset-x-6 bottom-6 rounded-xl bg-white/90 p-4 backdrop-blur-sm">
                 <div className="flex items-center gap-3">
                   <DollarSign className="size-6 text-p4c-gold" />

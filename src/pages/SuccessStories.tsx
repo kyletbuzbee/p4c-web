@@ -91,7 +91,7 @@ const CustomVideoPlayer: React.FC<CustomVideoPlayerProps> = ({
         <div className="absolute inset-0 flex items-center justify-center bg-black/30 transition-all duration-300 group-hover:bg-black/40">
           <button
             onClick={togglePlay}
-            className="bg-p4c-gold/90 flex size-20 items-center justify-center rounded-full shadow-xl backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-p4c-gold"
+            className="flex size-20 items-center justify-center rounded-full bg-p4c-gold/90 shadow-xl backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-p4c-gold"
             aria-label="Play video"
           >
             <Play className="ml-1 size-8 text-p4c-navy" fill="currentColor" />
@@ -211,11 +211,11 @@ const SuccessStories: React.FC = () => {
         >
           <source src={IMAGES.VIDEOS.HERO_IMPACT} type="video/mp4" />
         </video>
-        <div className="hero-overlay-primary bg-p4c-navy/90 absolute left-0 top-0 size-full" />
-        <div className="hero-overlay-secondary from-p4c-navy/80 absolute left-0 top-0 size-full bg-gradient-to-t to-transparent" />
+        <div className="hero-overlay-primary absolute left-0 top-0 size-full bg-p4c-navy/90" />
+        <div className="hero-overlay-secondary absolute left-0 top-0 size-full bg-gradient-to-t from-p4c-navy/80 to-transparent" />
 
         <div className="relative z-10 max-w-4xl animate-fade-in-up px-4 text-center">
-          <div className="hero-text-container bg-p4c-navy/95 rounded-2xl border border-white/10 p-4 backdrop-blur-xl md:p-6">
+          <div className="hero-text-container rounded-2xl border border-white/10 bg-p4c-navy/95 p-4 backdrop-blur-xl md:p-6">
             <h1 className="hero-text-enhanced mb-6 font-serif text-4xl font-bold text-white md:text-5xl">
               Resident <span className="text-p4c-gold">Satisfaction</span>
             </h1>
@@ -357,7 +357,7 @@ const SuccessStories: React.FC = () => {
                     alt={item.title}
                     className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="bg-p4c-navy/50 absolute inset-0 mix-blend-multiply" />
+                  <div className="absolute inset-0 bg-p4c-navy/50 mix-blend-multiply" />
                   <div className="absolute left-4 top-4 flex size-8 items-center justify-center rounded-full bg-p4c-gold font-bold text-p4c-navy shadow-lg">
                     {item.step}
                   </div>

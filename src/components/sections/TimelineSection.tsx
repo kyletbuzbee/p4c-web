@@ -14,7 +14,7 @@ export const TimelineSection: React.FC = () => (
 
       {/* The Continuous Vertical Line */}
       <div
-        className="via-p4c-gold/20 absolute bottom-0 left-7 top-40 w-0.5 bg-gradient-to-b from-p4c-gold to-transparent md:left-1/2 md:-translate-x-1/2"
+        className="absolute bottom-0 left-7 top-40 w-0.5 bg-gradient-to-b from-p4c-gold via-p4c-gold/20 to-transparent md:left-1/2 md:-translate-x-1/2"
         aria-hidden="true"
       />
 

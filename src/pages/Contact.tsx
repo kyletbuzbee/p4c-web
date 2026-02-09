@@ -56,13 +56,13 @@ const Contact: React.FC = () => {
             width={1920}
             height={1080}
           />
-          <div className="bg-p4c-navy/90 absolute left-0 top-0 size-full mix-blend-multiply" />
+          <div className="absolute left-0 top-0 size-full bg-p4c-navy/90 mix-blend-multiply" />
         </div>
         <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
           {/* Glassmorphism text container for enhanced contrast */}
-          <div className="bg-p4c-navy/40 rounded-2xl p-4 backdrop-blur-sm">
+          <div className="rounded-2xl bg-p4c-navy/40 p-4 backdrop-blur-sm">
             <div className="mb-6 flex justify-center">
-              <div className="bg-p4c-gold/20 border-p4c-gold/30 rounded-2xl border p-4 backdrop-blur-sm">
+              <div className="rounded-2xl border border-p4c-gold/30 bg-p4c-gold/20 p-4 backdrop-blur-sm">
                 <Mail className="size-10 text-p4c-gold" />
               </div>
             </div>
@@ -70,7 +70,7 @@ const Contact: React.FC = () => {
               Contact Us
             </h1>
             <p className="hero-text-enhanced mx-auto max-w-2xl text-xl font-light text-gray-200">
-              We're here to help with leasing, maintenance, and investment
+              We are here to help with leasing, maintenance, and investment
               inquiries
             </p>
           </div>

@@ -445,7 +445,7 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
     };
 
     validateSession();
-  }, []);
+  }, [clearSensitiveData]);
 
   // Enhanced login function
   const login = async (email: string, password?: string, mfaCode?: string) => {
@@ -558,7 +558,7 @@ export const EnhancedAuthProvider: React.FC<{ children: ReactNode }> = ({
     });
 
     addToast('You have been logged out.', 'info');
-  }, [addToast]);
+  }, [addToast, clearSensitiveData]);
 
   // Clear sensitive data - defined before logout to avoid dependency cycle
   const clearSensitiveData = useCallback(() => {

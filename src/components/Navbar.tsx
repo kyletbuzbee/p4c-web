@@ -170,7 +170,7 @@ const Navbar = (): React.ReactElement => {
 
   return (
     <nav
-      className="border-p4c-gold/30 sticky top-0 z-50 border-b text-white shadow-lg backdrop-blur-md transition-all duration-300"
+      className="sticky top-0 z-50 border-b border-p4c-gold/30 text-white shadow-lg backdrop-blur-md transition-all duration-300"
       style={{ backgroundColor: 'rgba(11, 17, 32, 0.8)' }}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -219,7 +219,7 @@ const Navbar = (): React.ReactElement => {
                 {/* Dropdown Menu */}
                 {activeDropdown === group.label && (
                   <div
-                    className="border-p4c-gold/30 absolute left-0 top-full mt-1 w-80 animate-fade-in-up overflow-hidden rounded-xl border p-2 shadow-2xl backdrop-blur-xl"
+                    className="absolute left-0 top-full mt-1 w-80 animate-fade-in-up overflow-hidden rounded-xl border border-p4c-gold/30 p-2 shadow-2xl backdrop-blur-xl"
                     role="menu"
                     style={{ backgroundColor: 'rgba(11, 17, 32, 0.95)' }}
                   >
@@ -233,7 +233,7 @@ const Navbar = (): React.ReactElement => {
                           role="menuitem"
                           aria-label={`${child.label} - ${child.desc}`}
                         >
-                          <div className="bg-p4c-gold/20 mt-0.5 rounded-md p-1.5 text-p4c-gold transition-colors group-hover/item:bg-p4c-gold group-hover/item:text-p4c-navy">
+                          <div className="mt-0.5 rounded-md bg-p4c-gold/20 p-1.5 text-p4c-gold transition-colors group-hover/item:bg-p4c-gold group-hover/item:text-p4c-navy">
                             {child.icon}
                           </div>
                           <div>

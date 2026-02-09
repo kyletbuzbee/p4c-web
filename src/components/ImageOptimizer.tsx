@@ -121,12 +121,12 @@ const ImageOptimizer: React.FC<ImageOptimizerProps> = ({
         }
       );
 
-      if (imgRef.current) {
-        observer.observe(imgRef.current);
+      const currentRef = imgRef.current;
+      if (currentRef) {
+        observer.observe(currentRef);
       }
 
       return () => {
-        const currentRef = imgRef.current;
         if (currentRef) {
           observer.unobserve(currentRef);
         }
@@ -152,7 +152,7 @@ const ImageOptimizer: React.FC<ImageOptimizerProps> = ({
       alt={alt}
       width={width}
       height={height}
-      className={`image-optimizer ${isLoaded ? 'loaded' : 'loading'} ${hasError ? 'error' : ''} ${className}`}
+      className={`image-optimizer ${isLoaded ? 'loaded' : 'loading'} ${hasError ? 'opacity-50 grayscale' : ''} ${className}`}
       style={{
         ...style,
         // Add blur effect while loading

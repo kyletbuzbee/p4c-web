@@ -79,7 +79,7 @@ const Application: React.FC = () => {
           className="relative mb-16 flex justify-between px-2"
           aria-label="Progress"
         >
-          <div className="step-line" />
+          <div className="absolute inset-x-2 top-6 h-0.5 bg-gray-200" />
           {STEPS.map((step) => (
             <div key={step.id} className="group flex flex-col items-center">
               <div
@@ -103,7 +103,7 @@ const Application: React.FC = () => {
         </nav>
 
         {/* Multi-step Form Container */}
-        <div className="glass-card shadow-p4c-navy/5 rounded-2xl p-8 shadow-2xl ring-1 ring-white/20 sm:p-10">
+        <div className="rounded-2xl bg-white/80 p-8 shadow-2xl shadow-p4c-navy/5 ring-1 ring-white/20 backdrop-blur-sm sm:p-10">
           <form onSubmit={handleSubmit} className="space-y-8">
             {currentStep === 1 && (
               <section className="animate-fade-in-up space-y-6">
@@ -128,7 +128,7 @@ const Application: React.FC = () => {
                       type="text"
                       required
                       placeholder="John"
-                      className="focus:ring-p4c-gold/10 w-full rounded-lg border border-gray-200 p-3.5 outline-none transition-all focus:border-p4c-gold focus:ring-2"
+                      className="w-full rounded-lg border border-gray-200 p-3.5 outline-none transition-all focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold/10"
                     />
                   </div>
                   <div className="space-y-2">
@@ -234,9 +234,9 @@ const Application: React.FC = () => {
                     Review & Submit
                   </h3>
                 </div>
-                <div className="bg-p4c-gold/5 border-p4c-gold/20 flex gap-4 rounded-xl border p-5">
+                <div className="flex gap-4 rounded-xl border border-p4c-gold/20 bg-p4c-gold/5 p-5">
                   <AlertCircle className="shrink-0 text-p4c-gold" size={24} />
-                  <div className="text-p4c-navy/80 text-sm leading-relaxed">
+                  <div className="text-sm leading-relaxed text-p4c-navy/80">
                     <p className="mb-1 font-bold">Fair Housing Notice</p>
                     Properties 4 Creation allows for equal housing opportunity.
                     We do not discriminate based on protected classes.
@@ -272,7 +272,7 @@ const Application: React.FC = () => {
                   onClick={() =>
                     setCurrentStep((prev) => Math.min(3, prev + 1))
                   }
-                  className="shadow-p4c-navy/20 flex items-center gap-2 rounded-lg bg-p4c-navy px-10 py-3.5 font-bold text-white shadow-xl transition-all hover:bg-p4c-slate"
+                  className="flex items-center gap-2 rounded-lg bg-p4c-navy px-10 py-3.5 font-bold text-white shadow-xl shadow-p4c-navy/20 transition-all hover:bg-p4c-slate"
                 >
                   Next Step <ArrowRight size={18} />
                 </button>
@@ -280,7 +280,7 @@ const Application: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="shadow-p4c-gold/30 rounded-lg bg-p4c-gold px-12 py-3.5 font-bold text-white shadow-xl transition-all hover:bg-p4c-goldHover disabled:opacity-50"
+                  className="rounded-lg bg-p4c-gold px-12 py-3.5 font-bold text-white shadow-xl shadow-p4c-gold/30 transition-all hover:bg-p4c-goldHover disabled:opacity-50"
                 >
                   {isSubmitting ? 'Processing...' : 'Submit Application'}
                 </button>

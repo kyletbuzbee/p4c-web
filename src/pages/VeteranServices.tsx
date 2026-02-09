@@ -29,11 +29,11 @@ const VeteranServices: React.FC = () => (
           alt="American flag on a renovated porch in East Texas"
           className="size-full object-cover"
         />
-        <div className="hero-overlay-primary bg-p4c-navy/90 absolute left-0 top-0 size-full" />
+        <div className="hero-overlay-primary absolute left-0 top-0 size-full bg-p4c-navy/90" />
         <div className="hero-overlay-secondary absolute left-0 top-0 size-full bg-gradient-to-t from-p4c-navy to-transparent" />
       </div>
       <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
-        <div className="hero-text-container bg-p4c-navy/95 rounded-2xl border border-white/10 p-4 backdrop-blur-xl md:p-6">
+        <div className="hero-text-container rounded-2xl border border-white/10 bg-p4c-navy/95 p-4 backdrop-blur-xl md:p-6">
           <h1 className="hero-text-enhanced mb-4 font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
             Housing Logistics & Support
           </h1>
@@ -96,7 +96,7 @@ const VeteranServices: React.FC = () => (
               key={i}
               className="group rounded-xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-lg"
             >
-              <div className="bg-p4c-navy/5 mb-6 flex size-14 items-center justify-center rounded-xl transition-colors group-hover:bg-p4c-navy">
+              <div className="mb-6 flex size-14 items-center justify-center rounded-xl bg-p4c-navy/5 transition-colors group-hover:bg-p4c-navy">
                 <service.icon className="size-7 text-p4c-navy transition-colors group-hover:text-p4c-gold" />
               </div>
               <h3 className="mb-3 text-xl font-bold text-p4c-navy">

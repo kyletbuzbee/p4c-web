@@ -82,10 +82,10 @@ const OurImpact: React.FC = () => {
         >
           <source src={IMAGES.VIDEOS.KITCHEN_TIMELAPSE} type="video/mp4" />
         </video>
-        <div className="hero-overlay-primary bg-p4c-navy/90 absolute left-0 top-0 size-full" />
-        <div className="hero-overlay-secondary from-p4c-navy/80 absolute left-0 top-0 size-full bg-gradient-to-t to-transparent" />
+        <div className="hero-overlay-primary absolute left-0 top-0 size-full bg-p4c-navy/90" />
+        <div className="hero-overlay-secondary absolute left-0 top-0 size-full bg-gradient-to-t from-p4c-navy/80 to-transparent" />
         <div className="relative z-10 flex h-full items-center justify-center px-4">
-          <div className="hero-text-container bg-p4c-navy/95 max-w-4xl animate-fade-in-up rounded-2xl border border-white/10 p-4 text-center backdrop-blur-xl md:p-6">
+          <div className="hero-text-container max-w-4xl animate-fade-in-up rounded-2xl border border-white/10 bg-p4c-navy/95 p-4 text-center backdrop-blur-xl md:p-6">
             <h1 className="hero-text-enhanced mb-6 font-serif text-4xl font-bold leading-tight text-white md:text-6xl">
               Strategic Community <br />
               <span className="text-p4c-gold">Revitalization.</span>
@@ -112,7 +112,7 @@ const OurImpact: React.FC = () => {
                 className="rounded-2xl border-t-4 border-p4c-gold bg-white p-6 shadow-lg ring-1 ring-gray-900/5 transition-shadow hover:shadow-xl"
               >
                 <div className="mb-4 flex items-start justify-between">
-                  <div className="bg-p4c-navy/5 rounded-lg p-3 text-p4c-navy">
+                  <div className="rounded-lg bg-p4c-navy/5 p-3 text-p4c-navy">
                     {getIcon(stat.icon)}
                   </div>
                   {stat.trend === 'up' && (

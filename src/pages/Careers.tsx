@@ -30,10 +30,10 @@ const Careers: React.FC = () => (
           alt="Professional team working together"
           className="size-full object-cover"
         />
-        <div className="bg-p4c-navy/90 absolute left-0 top-0 size-full mix-blend-multiply" />
+        <div className="absolute left-0 top-0 size-full bg-p4c-navy/90 mix-blend-multiply" />
       </div>
       <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
-        <div className="hero-text-container bg-p4c-navy/95 rounded-2xl border border-white/10 p-4 backdrop-blur-xl md:p-6">
+        <div className="hero-text-container rounded-2xl border border-white/10 bg-p4c-navy/95 p-4 backdrop-blur-xl md:p-6">
           <h1 className="hero-text-enhanced mb-4 font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
             Join Our Team
           </h1>
@@ -113,7 +113,7 @@ const Careers: React.FC = () => (
               alt="Team members working on site"
               className="size-full object-cover"
             />
-            <div className="bg-p4c-navy/20 absolute inset-0" />
+            <div className="absolute inset-0 bg-p4c-navy/20" />
             <div className="absolute inset-x-6 bottom-6 rounded-xl bg-white/90 p-4 backdrop-blur-sm">
               <div className="flex items-center gap-3">
                 <Briefcase className="size-6 text-p4c-gold" />
@@ -152,13 +152,13 @@ const Careers: React.FC = () => (
                   tenant satisfaction and property maintenance.
                 </p>
                 <div className="mb-4 flex flex-wrap gap-3">
-                  <span className="bg-p4c-navy/10 rounded-full px-3 py-1 text-sm font-medium text-p4c-navy">
+                  <span className="rounded-full bg-p4c-navy/10 px-3 py-1 text-sm font-medium text-p4c-navy">
                     Full-time
                   </span>
-                  <span className="bg-p4c-navy/10 rounded-full px-3 py-1 text-sm font-medium text-p4c-navy">
+                  <span className="rounded-full bg-p4c-navy/10 px-3 py-1 text-sm font-medium text-p4c-navy">
                     Tyler, TX
                   </span>
-                  <span className="bg-p4c-navy/10 rounded-full px-3 py-1 text-sm font-medium text-p4c-navy">
+                  <span className="rounded-full bg-p4c-navy/10 px-3 py-1 text-sm font-medium text-p4c-navy">
                     $50,000 - $65,000/year
                   </span>
                 </div>
@@ -185,13 +185,13 @@ const Careers: React.FC = () => (
                   to ensure they meet our quality standards.
                 </p>
                 <div className="mb-4 flex flex-wrap gap-3">
-                  <span className="bg-p4c-navy/10 rounded-full px-3 py-1 text-sm font-medium text-p4c-navy">
+                  <span className="rounded-full bg-p4c-navy/10 px-3 py-1 text-sm font-medium text-p4c-navy">
                     Full-time
                   </span>
-                  <span className="bg-p4c-navy/10 rounded-full px-3 py-1 text-sm font-medium text-p4c-navy">
+                  <span className="rounded-full bg-p4c-navy/10 px-3 py-1 text-sm font-medium text-p4c-navy">
                     Longview, TX
                   </span>
-                  <span className="bg-p4c-navy/10 rounded-full px-3 py-1 text-sm font-medium text-p4c-navy">
+                  <span className="rounded-full bg-p4c-navy/10 px-3 py-1 text-sm font-medium text-p4c-navy">
                     $18 - $22/hour
                   </span>
                 </div>
@@ -218,13 +218,13 @@ const Careers: React.FC = () => (
                   Texas markets.
                 </p>
                 <div className="mb-4 flex flex-wrap gap-3">
-                  <span className="bg-p4c-navy/10 rounded-full px-3 py-1 text-sm font-medium text-p4c-navy">
+                  <span className="rounded-full bg-p4c-navy/10 px-3 py-1 text-sm font-medium text-p4c-navy">
                     Full-time
                   </span>
-                  <span className="bg-p4c-navy/10 rounded-full px-3 py-1 text-sm font-medium text-p4c-navy">
+                  <span className="rounded-full bg-p4c-navy/10 px-3 py-1 text-sm font-medium text-p4c-navy">
                     Tyler, TX
                   </span>
-                  <span className="bg-p4c-navy/10 rounded-full px-3 py-1 text-sm font-medium text-p4c-navy">
+                  <span className="rounded-full bg-p4c-navy/10 px-3 py-1 text-sm font-medium text-p4c-navy">
                     $60,000 - $80,000/year + commission
                   </span>
                 </div>
@@ -255,7 +255,7 @@ const Careers: React.FC = () => (
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div className="rounded-2xl bg-white p-8 text-center shadow-xl transition-shadow hover:shadow-2xl">
-            <div className="bg-p4c-navy/5 mx-auto mb-6 flex size-16 items-center justify-center rounded-xl">
+            <div className="mx-auto mb-6 flex size-16 items-center justify-center rounded-xl bg-p4c-navy/5">
               <Clock className="size-8 text-p4c-navy" />
             </div>
             <h3 className="mb-4 text-xl font-bold text-p4c-navy">
@@ -267,7 +267,7 @@ const Careers: React.FC = () => (
           </div>
 
           <div className="rounded-2xl bg-white p-8 text-center shadow-xl transition-shadow hover:shadow-2xl">
-            <div className="bg-p4c-navy/5 mx-auto mb-6 flex size-16 items-center justify-center rounded-xl">
+            <div className="mx-auto mb-6 flex size-16 items-center justify-center rounded-xl bg-p4c-navy/5">
               <Shield className="size-8 text-p4c-navy" />
             </div>
             <h3 className="mb-4 text-xl font-bold text-p4c-navy">
@@ -279,7 +279,7 @@ const Careers: React.FC = () => (
           </div>
 
           <div className="rounded-2xl bg-white p-8 text-center shadow-xl transition-shadow hover:shadow-2xl">
-            <div className="bg-p4c-navy/5 mx-auto mb-6 flex size-16 items-center justify-center rounded-xl">
+            <div className="mx-auto mb-6 flex size-16 items-center justify-center rounded-xl bg-p4c-navy/5">
               <TrendingUp className="size-8 text-p4c-navy" />
             </div>
             <h3 className="mb-4 text-xl font-bold text-p4c-navy">
@@ -296,7 +296,7 @@ const Careers: React.FC = () => (
       <section className="rounded-2xl bg-p4c-navy p-12 text-center text-white">
         <div className="mx-auto max-w-3xl">
           <div className="mb-6 flex justify-center">
-            <div className="bg-p4c-gold/20 border-p4c-gold/30 rounded-2xl border p-4">
+            <div className="rounded-2xl border border-p4c-gold/30 bg-p4c-gold/20 p-4">
               <Briefcase className="size-10 text-p4c-gold" />
             </div>
           </div>

@@ -50,11 +50,11 @@ export const supabase: SupabaseClient = createClient(
 );
 
 // Log environment info in development only
-if (import.meta.env.DEV) {
-  console.log(
-    '[Supabase] Client initialized:',
-    isLocalDev ? 'Local Development' : 'Production'
-  );
-}
+// if (import.meta.env.DEV) {
+//   console.log(
+//     '[Supabase] Client initialized:',
+//     isLocalDev ? 'Local Development' : 'Production'
+//   );
+// }
 
 export default supabase;

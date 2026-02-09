@@ -6,11 +6,11 @@ module.exports = {
     extend: {
       colors: {
         p4c: {
-          navy: 'var(--color-navy)',
-          beige: 'var(--color-beige)',
-          gold: 'var(--color-gold)',
-          goldHover: 'var(--color-gold-hover)',
-          slate: 'var(--color-slate)',
+          navy: 'rgb(11, 17, 32)', // #0B1120
+          beige: 'rgb(245, 245, 240)', // #F5F5F0
+          gold: 'rgb(197, 160, 89)', // #C5A059
+          goldHover: 'rgb(176, 141, 72)', // #B08D48
+          slate: 'rgb(51, 65, 85)', // #334155
         },
       },
       fontFamily: {

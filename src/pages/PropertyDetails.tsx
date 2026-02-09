@@ -66,7 +66,7 @@ const PropertyDetails: React.FC = () => {
         <div className="space-x-4">
           <button
             onClick={() => window.location.reload()}
-            className="hover:bg-p4c-navy/90 rounded-md bg-p4c-navy px-6 py-3 font-bold text-white"
+            className="rounded-md bg-p4c-navy px-6 py-3 font-bold text-white hover:bg-p4c-navy/90"
           >
             Try Again
           </button>
@@ -96,7 +96,7 @@ const PropertyDetails: React.FC = () => {
         </p>
         <Link
           to="/"
-          className="hover:bg-p4c-navy/90 rounded-md bg-p4c-navy px-6 py-3 font-bold text-white"
+          className="rounded-md bg-p4c-navy px-6 py-3 font-bold text-white hover:bg-p4c-navy/90"
         >
           Back to Listings
         </Link>

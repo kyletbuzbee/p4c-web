@@ -23,13 +23,13 @@ const Construction: React.FC = () => (
           alt="Professional construction and renovation work"
           className="size-full object-cover"
         />
-        <div className="bg-p4c-navy/90 absolute left-0 top-0 size-full mix-blend-multiply" />
+        <div className="absolute left-0 top-0 size-full bg-p4c-navy/90 mix-blend-multiply" />
       </div>
       <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
         {/* Glassmorphism text container for enhanced contrast */}
-        <div className="bg-p4c-navy/40 rounded-2xl p-4 backdrop-blur-sm">
+        <div className="rounded-2xl bg-p4c-navy/40 p-4 backdrop-blur-sm">
           <div className="mb-6 flex justify-center">
-            <div className="bg-p4c-gold/20 border-p4c-gold/30 rounded-2xl border p-4 backdrop-blur-sm">
+            <div className="rounded-2xl border border-p4c-gold/30 bg-p4c-gold/20 p-4 backdrop-blur-sm">
               <Hammer className="size-10 text-p4c-gold" />
             </div>
           </div>
@@ -57,7 +57,7 @@ const Construction: React.FC = () => (
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div className="rounded-2xl border-l-4 border-p4c-gold bg-white p-8 shadow-xl transition-shadow hover:shadow-2xl">
-            <div className="bg-p4c-navy/5 mb-6 flex size-14 items-center justify-center rounded-xl">
+            <div className="mb-6 flex size-14 items-center justify-center rounded-xl bg-p4c-navy/5">
               <span className="text-xl font-bold text-p4c-navy">01</span>
             </div>
             <h3 className="mb-4 text-xl font-bold text-p4c-navy">Assessment</h3>
@@ -67,7 +67,7 @@ const Construction: React.FC = () => (
           </div>
 
           <div className="rounded-2xl border-l-4 border-p4c-gold bg-white p-8 shadow-xl transition-shadow hover:shadow-2xl">
-            <div className="bg-p4c-navy/5 mb-6 flex size-14 items-center justify-center rounded-xl">
+            <div className="mb-6 flex size-14 items-center justify-center rounded-xl bg-p4c-navy/5">
               <span className="text-xl font-bold text-p4c-navy">02</span>
             </div>
             <h3 className="mb-4 text-xl font-bold text-p4c-navy">Planning</h3>
@@ -77,7 +77,7 @@ const Construction: React.FC = () => (
           </div>
 
           <div className="rounded-2xl border-l-4 border-p4c-gold bg-white p-8 shadow-xl transition-shadow hover:shadow-2xl">
-            <div className="bg-p4c-navy/5 mb-6 flex size-14 items-center justify-center rounded-xl">
+            <div className="mb-6 flex size-14 items-center justify-center rounded-xl bg-p4c-navy/5">
               <span className="text-xl font-bold text-p4c-navy">03</span>
             </div>
             <h3 className="mb-4 text-xl font-bold text-p4c-navy">Execution</h3>
@@ -87,7 +87,7 @@ const Construction: React.FC = () => (
           </div>
 
           <div className="rounded-2xl border-l-4 border-p4c-gold bg-white p-8 shadow-xl transition-shadow hover:shadow-2xl">
-            <div className="bg-p4c-navy/5 mb-6 flex size-14 items-center justify-center rounded-xl">
+            <div className="mb-6 flex size-14 items-center justify-center rounded-xl bg-p4c-navy/5">
               <span className="text-xl font-bold text-p4c-navy">04</span>
             </div>
             <h3 className="mb-4 text-xl font-bold text-p4c-navy">
@@ -182,7 +182,7 @@ const Construction: React.FC = () => (
               alt="Construction team working on property renovation"
               className="size-full object-cover"
             />
-            <div className="bg-p4c-navy/20 absolute inset-0" />
+            <div className="absolute inset-0 bg-p4c-navy/20" />
             <div className="absolute inset-x-6 bottom-6 rounded-xl bg-white/90 p-4 backdrop-blur-sm">
               <div className="flex items-center gap-3">
                 <ShieldCheck className="size-6 text-p4c-gold" />
@@ -279,7 +279,7 @@ const Construction: React.FC = () => (
       <section className="rounded-2xl bg-p4c-navy p-12 text-center text-white">
         <div className="mx-auto max-w-3xl">
           <div className="mb-6 flex justify-center">
-            <div className="bg-p4c-gold/20 border-p4c-gold/30 rounded-2xl border p-4">
+            <div className="rounded-2xl border border-p4c-gold/30 bg-p4c-gold/20 p-4">
               <Home className="size-10 text-p4c-gold" />
             </div>
           </div>

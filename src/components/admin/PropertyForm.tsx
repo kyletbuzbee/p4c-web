@@ -111,7 +111,7 @@ export const PropertyForm = () => {
       <button
         type="submit"
         disabled={loading}
-        className="hover:bg-p4c-navy/90 w-full rounded-md bg-p4c-navy px-4 py-2 font-bold text-p4c-gold transition-all disabled:opacity-50"
+        className="w-full rounded-md bg-p4c-navy px-4 py-2 font-bold text-p4c-gold transition-all hover:bg-p4c-navy/90 disabled:opacity-50"
       >
         {loading ? 'Processing...' : 'Register Property'}
       </button>

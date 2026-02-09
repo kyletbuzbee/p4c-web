@@ -143,7 +143,7 @@ const Properties: React.FC = () => {
             width={1920}
             height={1080}
           />
-          <div className="bg-p4c-navy/90 absolute left-0 top-0 size-full" />
+          <div className="absolute left-0 top-0 size-full bg-p4c-navy/90" />
         </div>
         <div className="relative z-10 mx-auto max-w-4xl px-4 text-center">
           <h1 className="mb-6 font-serif text-4xl font-bold text-white sm:text-5xl lg:text-6xl">
@@ -175,7 +175,7 @@ const Properties: React.FC = () => {
                 placeholder="Search by city, address, or amenity..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="focus:ring-p4c-gold/20 w-full rounded-lg border border-slate-200 py-3 pl-12 pr-4 outline-none transition-all focus:border-p4c-gold focus:ring-2"
+                className="w-full rounded-lg border border-slate-200 py-3 pl-12 pr-4 outline-none transition-all focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold/20"
               />
             </div>
 

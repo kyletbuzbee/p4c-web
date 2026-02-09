@@ -41,7 +41,7 @@ export const TimelineItem: React.FC<TimelineItemProps> = ({
           inView ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
         }`}
       >
-        <article className="border-p4c-gold/20 hover:border-p4c-gold/60 rounded-xl border bg-p4c-navy p-6 shadow-2xl transition-colors">
+        <article className="rounded-xl border border-p4c-gold/20 bg-p4c-navy p-6 shadow-2xl transition-colors hover:border-p4c-gold/60">
           <time className="mb-2 block font-serif text-3xl font-bold text-p4c-gold">
             {milestone.year}
           </time>

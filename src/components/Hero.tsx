@@ -64,14 +64,14 @@ const Hero: React.FC<HeroProps> = ({ variant = 'image' }) => {
         )}
         {/* Dual-Layer Gradient Overlay for enhanced text contrast */}
         {/* Layer 1: Global dimming to reduce overall image "noise" */}
-        <div className="bg-p4c-navy/40 absolute inset-0" />
+        <div className="absolute inset-0 bg-p4c-navy/40" />
         {/* Layer 2: Directional gradient to anchor the text */}
-        <div className="from-p4c-navy/90 via-p4c-navy/60 mobile-hero-intensify absolute inset-0 bg-gradient-to-r to-transparent" />
+        <div className="mobile-hero-intensify absolute inset-0 bg-gradient-to-r from-p4c-navy/90 via-p4c-navy/60 to-transparent" />
       </div>
 
       {/* Main Content: Left-aligned for high-end editorial feel */}
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8">
-        <div className="hero-text-container bg-p4c-navy/95 max-w-3xl animate-fade-in-up rounded-2xl border border-white/10 p-4 backdrop-blur-xl md:p-6">
+        <div className="hero-text-container max-w-3xl animate-fade-in-up rounded-2xl border border-white/10 bg-p4c-navy/95 p-4 backdrop-blur-xl md:p-6">
           <h1 className="hero-text-enhanced mb-6 text-left font-serif text-5xl font-bold leading-[1.1] text-white md:text-7xl">
             Revitalizing <span className="text-p4c-gold">East Texas</span>
             <br />

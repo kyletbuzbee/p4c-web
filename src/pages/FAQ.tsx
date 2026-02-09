@@ -13,7 +13,7 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
   return (
     <div
       className={`group overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm ${
-        isOpen ? 'ring-p4c-gold/50 ring-2' : ''
+        isOpen ? 'ring-2 ring-p4c-gold/50' : ''
       }`}
     >
       <button

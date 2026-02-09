@@ -38,12 +38,12 @@ const Veterans: React.FC = () => (
             width={1920}
             height={1080}
           />
-          <div className="bg-p4c-navy/90 absolute left-0 top-0 size-full mix-blend-multiply" />
+          <div className="absolute left-0 top-0 size-full bg-p4c-navy/90 mix-blend-multiply" />
           <div className="absolute left-0 top-0 size-full bg-gradient-to-t from-p4c-navy via-transparent to-transparent" />
         </div>
 
         <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
-          <div className="hero-text-container bg-p4c-navy/95 rounded-2xl border border-white/10 p-4 backdrop-blur-xl md:p-6">
+          <div className="hero-text-container rounded-2xl border border-white/10 bg-p4c-navy/95 p-4 backdrop-blur-xl md:p-6">
             <h1 className="hero-text-enhanced mb-6 font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
               Veterans Housing Initiative
             </h1>
@@ -272,7 +272,7 @@ const Veterans: React.FC = () => (
             </div>
 
             {/* Quick Doc Download */}
-            <div className="bg-p4c-beige/50 border-p4c-gold/20 rounded-2xl border p-6">
+            <div className="rounded-2xl border border-p4c-gold/20 bg-p4c-beige/50 p-6">
               <h4 className="mb-2 font-bold text-p4c-navy">
                 Required Documents
               </h4>
