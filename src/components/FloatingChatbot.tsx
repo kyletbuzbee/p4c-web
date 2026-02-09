@@ -115,7 +115,7 @@ const FloatingChatbot: React.FC<FloatingChatbotProps> = ({
       {/* Backdrop for mobile */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-30 bg-black bg-opacity-50 md:hidden"
+          className="fixed inset-0 z-30 bg-black/50 md:hidden"
           onClick={toggleChat}
           aria-hidden="true"
         />
