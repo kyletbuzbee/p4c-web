@@ -22,8 +22,8 @@ const TestPropertyForm: React.FC = () => (
           <li>Click &quot;Register Property&quot; to submit</li>
           <li>You should see a success toast notification if it works</li>
           <li>
-            If there&apos;s an error (e.g., not logged in as admin), you&apos;ll see an
-            error toast
+            If there&apos;s an error (e.g., not logged in as admin), you&apos;ll
+            see an error toast
           </li>
         </ul>
       </div>

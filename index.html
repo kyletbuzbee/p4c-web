@@ -1,47 +1,89 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Properties 4 Creation | Veteran Owned Housing</title>
+    <meta
+      name="description"
+      content="Veteran-owned affordable housing in East Texas. Premium renovations, Section 8 accepted."
+    />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Properties 4 Creation | Veteran Owned Housing</title>
-  <meta name="description"
-    content="Veteran-owned affordable housing in East Texas. Premium renovations, Section 8 accepted." />
+    <!-- DNS prefetch for external resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preconnect"
+      href="https://abjscrezxkqrzwgmufzr.supabase.co"
+      crossorigin
+    />
+    <link rel="dns-prefetch" href="https://generativelanguage.googleapis.com" />
 
-  <!-- DNS prefetch for external resources -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preconnect" href="https://abjscrezxkqrzwgmufzr.supabase.co" crossorigin />
-  <link rel="dns-prefetch" href="https://generativelanguage.googleapis.com" />
-  
-  <!-- Preload critical resources for LCP optimization -->
-  <link rel="preload" href="/images/banners/hero-home-banner.webp" as="image" fetchpriority="high" />
-  <link rel="preload" href="/images/banners/hero-home-banner-640.webp" as="image" />
-  <link rel="preload" href="/images/banners/hero-home-banner-960.webp" as="image" />
-  <link rel="preload" href="/images/banners/hero-home-banner-1280.webp" as="image" />
-  <link rel="preload" href="/images/banners/hero-home-banner-1920.webp" as="image" />
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" as="style" fetchpriority="high" />
-  <link rel="preload" href="/assets/index-UxX-qod-.css" as="style" fetchpriority="high" />
-  
-  <!-- Optimized font loading with display=swap for better performance -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
-    rel="stylesheet" media="print" onload="this.media='all'" />
-  <noscript>
+    <!-- Preload critical resources for LCP optimization -->
+    <link
+      rel="preload"
+      href="/images/banners/hero-home-banner.webp"
+      as="image"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      href="/images/banners/hero-home-banner-640.webp"
+      as="image"
+    />
+    <link
+      rel="preload"
+      href="/images/banners/hero-home-banner-960.webp"
+      as="image"
+    />
+    <link
+      rel="preload"
+      href="/images/banners/hero-home-banner-1280.webp"
+      as="image"
+    />
+    <link
+      rel="preload"
+      href="/images/banners/hero-home-banner-1920.webp"
+      as="image"
+    />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
+      as="style"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      href="/assets/index-UxX-qod-.css"
+      as="style"
+      fetchpriority="high"
+    />
+
+    <!-- Optimized font loading with display=swap for better performance -->
     <link
       href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
-      rel="stylesheet" />
-  </noscript>
-  <link rel="manifest" href="/manifest.json" />
-  
-  <!-- Content Security Policy for Supabase and development -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://abjscrezxkqrzwgmufzr.supabase.co; connect-src 'self' https://abjscrezxkqrzwgmufzr.supabase.co http://localhost:54321 https://fonts.googleapis.com; media-src 'self' blob:; frame-src 'self';">
-</head>
+      rel="stylesheet"
+      media="print"
+      onload="this.media = 'all'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+    <link rel="manifest" href="/manifest.json" />
 
-<body>
-  <div id="root" role="main" aria-label="Properties 4 Creation Web App"></div>
+    <!-- Content Security Policy for Supabase and development -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://abjscrezxkqrzwgmufzr.supabase.co; connect-src 'self' https://abjscrezxkqrzwgmufzr.supabase.co http://localhost:54321 https://fonts.googleapis.com; media-src 'self' blob:; frame-src 'self';"
+    />
+  </head>
 
-  <script type="module" src="./src/index.tsx"></script>
-</body>
+  <body>
+    <div id="root" role="main" aria-label="Properties 4 Creation Web App"></div>
 
+    <script type="module" src="./src/index.tsx"></script>
+  </body>
 </html>

@@ -30,7 +30,7 @@ const About: React.FC = () => (
       </div>
       <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
         {/* Glassmorphism text container for enhanced contrast */}
-        <div className="rounded-2xl bg-p4c-navy/40 p-4 backdrop-blur-sm">
+        <div className="bg-p4c-navy/40 rounded-2xl p-4 backdrop-blur-sm">
           <h1 className="hero-text-enhanced mb-4 font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
             Revitalizing East Texas, One Home at a Time.
           </h1>

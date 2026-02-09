@@ -3,9 +3,7 @@
     "name": "minScore",
     "expected": 0.9,
     "actual": 0,
-    "values": [
-      0
-    ],
+    "values": [0],
     "operator": ">=",
     "passed": false,
     "auditId": "color-contrast",
@@ -18,9 +16,7 @@
     "name": "minScore",
     "expected": 0.9,
     "actual": 0,
-    "values": [
-      0
-    ],
+    "values": [0],
     "operator": ">=",
     "passed": false,
     "auditId": "csp-xss",
@@ -33,9 +29,7 @@
     "name": "minScore",
     "expected": 0.9,
     "actual": 0,
-    "values": [
-      0
-    ],
+    "values": [0],
     "operator": ">=",
     "passed": false,
     "auditId": "errors-in-console",
@@ -48,9 +42,7 @@
     "name": "minScore",
     "expected": 0.9,
     "actual": 0.68,
-    "values": [
-      0.68
-    ],
+    "values": [0.68],
     "operator": ">=",
     "passed": false,
     "auditId": "first-contentful-paint",
@@ -63,9 +55,7 @@
     "name": "minScore",
     "expected": 0.9,
     "actual": 0.87,
-    "values": [
-      0.87
-    ],
+    "values": [0.87],
     "operator": ">=",
     "passed": false,
     "auditId": "first-meaningful-paint",
@@ -78,9 +68,7 @@
     "name": "minScore",
     "expected": 0.9,
     "actual": 0,
-    "values": [
-      0
-    ],
+    "values": [0],
     "operator": ">=",
     "passed": false,
     "auditId": "heading-order",
@@ -93,9 +81,7 @@
     "name": "auditRan",
     "expected": 1,
     "actual": 0,
-    "values": [
-      0
-    ],
+    "values": [0],
     "operator": ">=",
     "passed": false,
     "auditId": "is-on-https",
@@ -106,9 +92,7 @@
     "name": "minScore",
     "expected": 0.9,
     "actual": 0.02,
-    "values": [
-      0.02
-    ],
+    "values": [0.02],
     "operator": ">=",
     "passed": false,
     "auditId": "largest-contentful-paint",
@@ -121,9 +105,7 @@
     "name": "minScore",
     "expected": 0.9,
     "actual": 0.81,
-    "values": [
-      0.81
-    ],
+    "values": [0.81],
     "operator": ">=",
     "passed": false,
     "auditId": "mainthread-work-breakdown",
@@ -136,9 +118,7 @@
     "name": "minScore",
     "expected": 0.9,
     "actual": 0.76,
-    "values": [
-      0.76
-    ],
+    "values": [0.76],
     "operator": ">=",
     "passed": false,
     "auditId": "max-potential-fid",
@@ -151,9 +131,7 @@
     "name": "maxLength",
     "expected": 0,
     "actual": 1,
-    "values": [
-      1
-    ],
+    "values": [1],
     "operator": "<=",
     "passed": false,
     "auditId": "render-blocking-resources",
@@ -166,9 +144,7 @@
     "name": "minScore",
     "expected": 0.9,
     "actual": 0,
-    "values": [
-      0
-    ],
+    "values": [0],
     "operator": ">=",
     "passed": false,
     "auditId": "themed-omnibox",
@@ -181,9 +157,7 @@
     "name": "minScore",
     "expected": 0.9,
     "actual": 0,
-    "values": [
-      0
-    ],
+    "values": [0],
     "operator": ">=",
     "passed": false,
     "auditId": "unsized-images",
@@ -196,9 +170,7 @@
     "name": "maxLength",
     "expected": 0,
     "actual": 1,
-    "values": [
-      1
-    ],
+    "values": [1],
     "operator": "<=",
     "passed": false,
     "auditId": "unused-javascript",
@@ -211,9 +183,7 @@
     "name": "minScore",
     "expected": 0.9,
     "actual": 0,
-    "values": [
-      0
-    ],
+    "values": [0],
     "operator": ">=",
     "passed": false,
     "auditId": "video-caption",
@@ -226,9 +196,7 @@
     "name": "auditRan",
     "expected": 1,
     "actual": 0,
-    "values": [
-      0
-    ],
+    "values": [0],
     "operator": ">=",
     "passed": false,
     "message": "\"apple-touch-icon\" is not a known audit.",
@@ -240,9 +208,7 @@
     "name": "auditRan",
     "expected": 1,
     "actual": 0,
-    "values": [
-      0
-    ],
+    "values": [0],
     "operator": ">=",
     "passed": false,
     "message": "\"icon-size-192\" is not a known audit.",
@@ -254,9 +220,7 @@
     "name": "auditRan",
     "expected": 1,
     "actual": 0,
-    "values": [
-      0
-    ],
+    "values": [0],
     "operator": ">=",
     "passed": false,
     "message": "\"icon-size-512\" is not a known audit.",
@@ -268,9 +232,7 @@
     "name": "minScore",
     "expected": 0.9,
     "actual": 0,
-    "values": [
-      0
-    ],
+    "values": [0],
     "operator": ">=",
     "passed": false,
     "auditProperty": "image.size",

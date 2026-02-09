@@ -43,12 +43,13 @@ const Veterans: React.FC = () => (
         </div>
 
         <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
-          <div className="hero-text-container rounded-2xl border border-white/10 bg-p4c-navy/95 p-4 backdrop-blur-xl md:p-6">
+          <div className="hero-text-container bg-p4c-navy/95 rounded-2xl border border-white/10 p-4 backdrop-blur-xl md:p-6">
             <h1 className="hero-text-enhanced mb-6 font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
               Veterans Housing Initiative
             </h1>
             <p className="hero-text-enhanced mx-auto max-w-2xl text-xl font-light leading-relaxed text-gray-200">
-              Delivering dignified, high-quality housing solutions for veterans in
+              Delivering dignified, high-quality housing solutions for veterans
+              in
               <strong> East Texas</strong>.
             </p>
           </div>

@@ -236,7 +236,7 @@ class SessionManager {
 }
 
 // Enhanced user data validator
-  const validateUserData = (userData: unknown): User | null => {
+const validateUserData = (userData: unknown): User | null => {
   try {
     const data = userData as Record<string, unknown>;
     if (!data.id || !data.email || !data.role) {
@@ -269,7 +269,9 @@ class SessionManager {
       lastLogin: data.lastLogin as string | undefined,
       lastActivity: data.lastActivity as string | undefined,
       sessionStart: data.sessionStart as string | undefined,
-      permissions: (data.permissions as string[]) || getDefaultPermissions(data.role as UserRole),
+      permissions:
+        (data.permissions as string[]) ||
+        getDefaultPermissions(data.role as UserRole),
       mfaEnabled: (data.mfaEnabled as boolean) || false,
       loginAttempts: (data.loginAttempts as number) || 0,
       lockedUntil: data.lockedUntil as string | undefined,

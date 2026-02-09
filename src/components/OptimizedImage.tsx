@@ -16,12 +16,10 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   priority = false,
 }) => {
   // Generate responsive image sizes based on src
-  const getResponsiveSrcset = (imageSrc: string) => {
+  const getResponsiveSrcset = (imageSrc: string) =>
     // This would typically be implemented with image CDN support
     // For now, return the original src
-    return imageSrc;
-  };
-
+    imageSrc;
   return (
     <img
       src={src}

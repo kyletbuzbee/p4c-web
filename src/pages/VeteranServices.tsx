@@ -33,13 +33,13 @@ const VeteranServices: React.FC = () => (
         <div className="hero-overlay-secondary absolute left-0 top-0 size-full bg-gradient-to-t from-p4c-navy to-transparent" />
       </div>
       <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
-        <div className="hero-text-container rounded-2xl border border-white/10 bg-p4c-navy/95 p-4 backdrop-blur-xl md:p-6">
-            <h1 className="hero-text-enhanced mb-4 font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
+        <div className="hero-text-container bg-p4c-navy/95 rounded-2xl border border-white/10 p-4 backdrop-blur-xl md:p-6">
+          <h1 className="hero-text-enhanced mb-4 font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
             Housing Logistics & Support
           </h1>
           <p className="hero-text-enhanced mx-auto max-w-2xl text-xl font-light text-gray-200">
-            Structured housing solutions and resource coordination for veterans in
-            the
+            Structured housing solutions and resource coordination for veterans
+            in the
             <strong> East Texas</strong> area.
           </p>
         </div>

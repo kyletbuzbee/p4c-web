@@ -105,11 +105,11 @@ const StandardLayout = () => (
           {/* --- PROTECTED ROUTES --- */}
           <Route
             path="/admin"
-            element={(
+            element={
               <ProtectedRoute requiredRole="admin">
                 <AdminDashboard />
               </ProtectedRoute>
-            )}
+            }
           />
         </Routes>
       </Suspense>

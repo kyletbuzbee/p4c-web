@@ -38,12 +38,10 @@ export const TimelineItem: React.FC<TimelineItemProps> = ({
       {/* Content Card */}
       <div
         className={`ml-12 w-full transition-all delay-300 duration-1000 md:ml-0 md:w-[42%] ${
-          inView
-            ? 'translate-y-0 opacity-100'
-            : 'translate-y-10 opacity-0'
+          inView ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
         }`}
       >
-        <article className="rounded-xl border border-p4c-gold/20 bg-p4c-navy p-6 shadow-2xl transition-colors hover:border-p4c-gold/60">
+        <article className="border-p4c-gold/20 hover:border-p4c-gold/60 rounded-xl border bg-p4c-navy p-6 shadow-2xl transition-colors">
           <time className="mb-2 block font-serif text-3xl font-bold text-p4c-gold">
             {milestone.year}
           </time>

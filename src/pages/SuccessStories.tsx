@@ -212,16 +212,16 @@ const SuccessStories: React.FC = () => {
           <source src={IMAGES.VIDEOS.HERO_IMPACT} type="video/mp4" />
         </video>
         <div className="hero-overlay-primary bg-p4c-navy/90 absolute left-0 top-0 size-full" />
-        <div className="hero-overlay-secondary absolute left-0 top-0 size-full bg-gradient-to-t from-p4c-navy/80 to-transparent" />
+        <div className="hero-overlay-secondary from-p4c-navy/80 absolute left-0 top-0 size-full bg-gradient-to-t to-transparent" />
 
         <div className="relative z-10 max-w-4xl animate-fade-in-up px-4 text-center">
-          <div className="hero-text-container rounded-2xl border border-white/10 bg-p4c-navy/95 p-4 backdrop-blur-xl md:p-6">
+          <div className="hero-text-container bg-p4c-navy/95 rounded-2xl border border-white/10 p-4 backdrop-blur-xl md:p-6">
             <h1 className="hero-text-enhanced mb-6 font-serif text-4xl font-bold text-white md:text-5xl">
               Resident <span className="text-p4c-gold">Satisfaction</span>
             </h1>
             <p className="hero-text-enhanced mx-auto max-w-2xl text-xl font-light text-gray-200">
-              We don&apos;t just lease properties; we build long-term relationships
-              through professional management and respect.
+              We don&apos;t just lease properties; we build long-term
+              relationships through professional management and respect.
             </p>
           </div>
         </div>

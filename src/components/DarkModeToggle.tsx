@@ -11,7 +11,7 @@ const DarkModeToggle: React.FC<DarkModeToggleProps> = ({ className = '' }) => {
   return (
     <button
       onClick={toggleDarkMode}
-      className={`rounded-full p-2 transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-p4c-navy focus:ring-opacity-50 ${className}`}
+      className={`rounded-full p-2 transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-p4c-navy/50 ${className}`}
       aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
       title={`Current: ${isDarkMode ? 'Dark' : 'Light'} mode | System preference: ${systemPreference}`}
     >

@@ -32,7 +32,12 @@ const Skeleton: React.FC<SkeletonProps> = ({
   const baseStyles: React.CSSProperties = {
     width: width || '100%',
     height: height || 'auto',
-    borderRadius: variant === 'circular' ? '50%' : variant === 'text' ? undefined : '0.75rem',
+    borderRadius:
+      variant === 'circular'
+        ? '50%'
+        : variant === 'text'
+          ? undefined
+          : '0.75rem',
   };
 
   // Variant-specific styles
@@ -144,7 +149,7 @@ export const SkeletonAvatar: React.FC<{ size?: number }> = ({ size = 40 }) => (
     variant="circular"
     width={size}
     height={size}
-    className="flex-shrink-0"
+    className="shrink-0"
   />
 );
 

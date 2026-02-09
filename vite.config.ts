@@ -261,7 +261,9 @@ export default defineConfig(({ mode }) => {
           // Optimize chunk file names
           chunkFileNames: 'js/[name]-[hash].js',
           assetFileNames: (assetInfo) => {
-            if (/\.(png|jpe?g|gif|svg|webp|avif)$/i.test(assetInfo.name || '')) {
+            if (
+              /\.(png|jpe?g|gif|svg|webp|avif)$/i.test(assetInfo.name || '')
+            ) {
               return 'images/[name]-[hash][extname]';
             }
             if (/\.(woff2?|eot|ttf|otf)$/i.test(assetInfo.name || '')) {
