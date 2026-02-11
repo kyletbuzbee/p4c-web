@@ -25,6 +25,7 @@ const About: React.FC = () => (
           className="size-full object-cover"
           width={1920}
           height={1080}
+          role="img"
         />
         <div className="absolute left-0 top-0 size-full bg-p4c-navy/90 mix-blend-multiply" />
       </div>
@@ -72,6 +73,7 @@ const About: React.FC = () => (
               loading="lazy"
               width={400}
               height={400}
+              role="img"
             />
             <div className="absolute inset-x-0 bottom-0 bg-p4c-navy/80 p-4 text-white">
               <h3 className="text-lg font-bold">Richard Lonkert</h3>

@@ -278,9 +278,10 @@ const ClientUpscaler: React.FC = () => {
             <div className="rounded-lg border-2 border-gray-200 bg-gray-50 p-4">
               <img
                 src={state.originalImage}
-                alt="Original"
+                alt="Original uploaded image for upscaling"
                 className="h-auto w-full rounded"
                 style={{ maxHeight: '400px', objectFit: 'contain' }}
+                role="img"
               />
             </div>
           </div>

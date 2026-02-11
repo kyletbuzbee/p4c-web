@@ -1,3 +1,4 @@
+
 /**
  * Utility functions for formatting data throughout the application
  */
@@ -11,14 +12,18 @@
 export const formatCurrency = (
   amount: number,
   options?: Intl.NumberFormatOptions
-): string =>
-  new Intl.NumberFormat('en-US', {
+): string => {
+  // Default to whole numbers if not specified
+  const formatOptions: Intl.NumberFormatOptions = {
     style: 'currency',
     currency: 'USD',
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
     ...options,
-  }).format(amount);
+  };
+  
+  return new Intl.NumberFormat('en-US', formatOptions).format(amount);
+};
 
 /**
  * Formats a number with thousands separators
@@ -66,6 +71,7 @@ export const truncateText = (text: string, maxLength: number): string => {
 export const getInitials = (name: string): string =>
   name
     .split(' ')
+    .filter(part => part.length > 0)
     .map((part) => part[0])
     .join('')
     .toUpperCase()
@@ -82,4 +88,5 @@ export const slugify = (text: string): string =>
     .replace(/[^\w\s-]/g, '')
     .replace(/\s+/g, '-')
     .replace(/--+/g, '-')
-    .trim();
+    .trim()  // Trim whitespace first
+    .replace(/^-+|-+$/g, '');  // Remove leading and trailing hyphens

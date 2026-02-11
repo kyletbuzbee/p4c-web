@@ -27,6 +27,7 @@ const BeforeAfterSlider: React.FC<BeforeAfterProps> = ({
         alt={`Renovated ${label} - After`}
         loading="lazy"
         className="absolute left-0 top-0 size-full object-cover"
+        role="img"
       />
       <div className="absolute right-4 top-4 rounded-full bg-p4c-navy/90 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-white shadow-lg">
         After

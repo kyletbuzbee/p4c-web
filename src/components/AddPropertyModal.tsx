@@ -84,8 +84,10 @@ const AddPropertyModal: React.FC<AddPropertyModalProps> = ({
           <button
             onClick={onClose}
             className="rounded-full p-2 transition-colors hover:bg-gray-100"
+            aria-label="Close add property modal"
+            type="button"
           >
-            <X className="size-5 text-gray-500" />
+            <X className="size-5 text-gray-500" aria-hidden="true" />
           </button>
         </div>
 

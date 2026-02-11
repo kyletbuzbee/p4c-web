@@ -23,6 +23,7 @@ const Footer: React.FC = () => (
               className="h-20 w-auto object-contain"
               width={200}
               height={80}
+              role="img"
             />
           </div>
           <p className="mb-6 text-sm leading-relaxed text-gray-400">

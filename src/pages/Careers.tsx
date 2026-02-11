@@ -112,6 +112,7 @@ const Careers: React.FC = () => (
               src={IMAGES.TEAM.ONSITE}
               alt="Team members working on site"
               className="size-full object-cover"
+              role="img"
             />
             <div className="absolute inset-0 bg-p4c-navy/20" />
             <div className="absolute inset-x-6 bottom-6 rounded-xl bg-white/90 p-4 backdrop-blur-sm">

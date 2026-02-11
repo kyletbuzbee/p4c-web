@@ -10,9 +10,10 @@ import {
   SlidersHorizontal,
 } from 'lucide-react';
 
-// Components & Data
+// Components & Services
 import PropertyCard from '../components/PropertyCard';
-import { properties as initialProperties } from '../data/properties';
+import { api } from '../services/api';
+import { logError } from '../services/errorBoundaryService';
 import type { ExtendedProperty } from '../types/types';
 
 // FIX: Extended Interface to avoid 'any' casting errors
@@ -24,6 +25,7 @@ interface MissionProperty extends ExtendedProperty {
 const Properties: React.FC = () => {
   // --- STATE MANAGEMENT ---
   const [loading, setLoading] = useState(true);
+  const [properties, setProperties] = useState<MissionProperty[]>([]);
   const [filteredProperties, setFilteredProperties] = useState<
     MissionProperty[]
   >([]);
@@ -41,20 +43,33 @@ const Properties: React.FC = () => {
   const [filterVeteran, setFilterVeteran] = useState(false);
 
   // Extract unique locations for the dropdown
-  const locations = [...new Set(initialProperties.map((p) => p.city))];
+  const locations = [...new Set(properties.map((p) => p.city))];
 
-  // Simulate "Network Request"
+  // Fetch properties from API (proper data layer access)
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-      setFilteredProperties(initialProperties);
-    }, 600);
-    return () => clearTimeout(timer);
+    const fetchProperties = async () => {
+      try {
+        setLoading(true);
+        const data = await api.properties.getAll();
+        setProperties(data as MissionProperty[]);
+        setFilteredProperties(data as MissionProperty[]);
+      } catch (error) {
+        logError('Failed to fetch properties', {
+          error: error instanceof Error ? error : new Error(String(error)),
+          component: 'Properties',
+          severity: 'high',
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProperties();
   }, []);
 
   // --- FILTERING ENGINE ---
   useEffect(() => {
-    const filtered = initialProperties.filter((p) => {
+    const filtered = properties.filter((p) => {
       // Cast to MissionProperty for safer access
       const property = p as MissionProperty;
 

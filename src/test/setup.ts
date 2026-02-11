@@ -1,39 +1,45 @@
-/**
- * Global test setup file for Vitest
- * Configures the test environment for Properties 4 Creation React components
- */
 
 import { vi } from 'vitest';
 
-// Mock window.matchMedia for components that use it
-Object.defineProperty(window, 'matchMedia', {
-  writable: true,
-  value: vi.fn().mockImplementation((query) => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: vi.fn(),
-    removeListener: vi.fn(),
-    addEventListener: vi.fn(),
-    removeEventListener: vi.fn(),
-    dispatchEvent: vi.fn(),
-  })),
-});
+// Mock IntersectionObserver for LazyImage component
+global.IntersectionObserver = function() {
+  return {
+    observe: vi.fn(),
+    unobserve: vi.fn(),
+    disconnect: vi.fn(),
+    takeRecords: vi.fn(),
+  };
+} as any;
 
-// Mock ResizeObserver for components using it
-declare const global: typeof globalThis & {
-  ResizeObserver: typeof ResizeObserver;
-};
-global.ResizeObserver = vi.fn().mockImplementation(() => ({
-  observe: vi.fn(),
-  unobserve: vi.fn(),
-  disconnect: vi.fn(),
+// Mock ResizeObserver
+global.ResizeObserver = function() {
+  return {
+    observe: vi.fn(),
+    unobserve: vi.fn(),
+    disconnect: vi.fn(),
+  };
+} as any;
+
+// Mock matchMedia for responsive design
+window.matchMedia = vi.fn((query) => ({
+  matches: false,
+  media: query,
+  onchange: null,
+  addListener: vi.fn(),
+  removeListener: vi.fn(),
+  addEventListener: vi.fn(),
+  removeEventListener: vi.fn(),
+  dispatchEvent: vi.fn(),
 }));
 
-// Suppress console.error in tests to reduce noise
-// Only uncomment if debugging: vi.spyOn(console, 'error').mockImplementation(() => {});
+// Mock localStorage
+global.localStorage = {
+  getItem: vi.fn(),
+  setItem: vi.fn(),
+  removeItem: vi.fn(),
+  clear: vi.fn(),
+  length: 0,
+};
 
-// Set default test timeout
-vi.setConfig({
-  testTimeout: 10000,
-});
+// Extend expect with jest-dom matchers
+import '@testing-library/jest-dom';

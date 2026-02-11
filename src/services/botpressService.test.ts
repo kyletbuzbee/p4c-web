@@ -1,9 +1,9 @@
+
 /**
  * Botpress Service Tests
  * Unit tests for the Botpress service layer
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
 import {
   sendChatMessage,
   checkBotpressHealth,
@@ -35,9 +35,12 @@ describe('Botpress Service', () => {
       });
 
       it('should return false for non-string inputs', () => {
-        expect(validateBase64(123 as any)).toBe(false);
-        expect(validateBase64(null as any)).toBe(false);
-        expect(validateBase64(undefined as any)).toBe(false);
+        // @ts-expect-error Testing invalid input handling
+        expect(validateBase64(123)).toBe(false);
+        // @ts-expect-error Testing invalid input handling
+        expect(validateBase64(null)).toBe(false);
+        // @ts-expect-error Testing invalid input handling
+        expect(validateBase64(undefined)).toBe(false);
       });
     });
 
@@ -68,9 +71,12 @@ describe('Botpress Service', () => {
       });
 
       it('should return empty string for non-string inputs', () => {
-        expect(sanitizeInput(123 as any)).toBe('');
-        expect(sanitizeInput(null as any)).toBe('');
-        expect(sanitizeInput(undefined as any)).toBe('');
+        // @ts-expect-error Testing invalid input handling
+        expect(sanitizeInput(123)).toBe('');
+        // @ts-expect-error Testing invalid input handling
+        expect(sanitizeInput(null)).toBe('');
+        // @ts-expect-error Testing invalid input handling
+        expect(sanitizeInput(undefined)).toBe('');
       });
     });
   });

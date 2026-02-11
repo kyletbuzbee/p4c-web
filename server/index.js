@@ -37,6 +37,14 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Constants
+const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
+const RATE_LIMIT_MAX_REQUESTS = 100;
+const REQUEST_TIMEOUT_MS = 10000; // 10 seconds
+const MAX_REQUEST_SIZE = '10mb';
+const MAX_PROMPT_LENGTH = 1000;
+const MAX_MESSAGE_LENGTH = 4000;
+
 // Enhanced Security middleware
 app.use(
   createEnhancedSecurityHeadersMiddleware({
@@ -110,8 +118,8 @@ app.use(
 // Comprehensive security middleware
 app.use(
   createAdvancedRateLimiter({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // limit each IP to 100 requests per windowMs
+    windowMs: RATE_LIMIT_WINDOW_MS,
+    max: RATE_LIMIT_MAX_REQUESTS,
     skipSuccessfulRequests: false,
     skipFailedRequests: false,
     standardHeaders: true,
@@ -125,7 +133,7 @@ app.use(createInputValidation());
 // Request size limiting
 app.use(
   createSizeLimiter({
-    limit: '10mb',
+    limit: MAX_REQUEST_SIZE,
   })
 );
 
@@ -163,7 +171,7 @@ const validateInput = (req, res, next) => {
   next();
 };
 
-app.use(express.json({ limit: '10mb' }));
+app.use(express.json({ limit: MAX_REQUEST_SIZE }));
 app.use(validateInput);
 
 // Initialize Botpress configuration
@@ -246,11 +254,11 @@ app.post('/api/ai/edit-image', verifyApiKey, async (req, res) => {
     }
 
     // Validate prompt length
-    if (prompt.length > 1000) {
+    if (prompt.length > MAX_PROMPT_LENGTH) {
       return res.status(400).json({
         error: 'Prompt too long',
         code: 'PROMPT_TOO_LONG',
-        maxLength: 1000,
+        maxLength: MAX_PROMPT_LENGTH,
       });
     }
     const model = genAI.getGenerativeModel({ model: 'gemini-pro-3' });
@@ -311,11 +319,11 @@ app.post('/api/ai/chat', verifyApiKey, async (req, res) => {
       });
     }
 
-    if (message.length > 4000) {
+    if (message.length > MAX_MESSAGE_LENGTH) {
       return res.status(400).json({
         error: 'Message too long',
         code: 'MESSAGE_TOO_LONG',
-        maxLength: 4000,
+        maxLength: MAX_MESSAGE_LENGTH,
       });
     }
 
@@ -342,9 +350,9 @@ app.post('/api/ai/chat', verifyApiKey, async (req, res) => {
           // For now, we'll start a new conversation each time
           // In a production environment, you'd want to maintain session/thread ID
         }),
-        // Timeout after 10 seconds
+        // Timeout after configured duration
         new Promise((_, reject) =>
-          setTimeout(() => reject(new Error('Botpress timeout')), 10000)
+          setTimeout(() => reject(new Error('Botpress timeout')), REQUEST_TIMEOUT_MS)
         ),
       ]);
 

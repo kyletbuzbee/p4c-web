@@ -396,6 +396,7 @@ const Home: React.FC = () => {
               <button
                 onClick={() => navigate('/homeowner-solutions')}
                 className="inline-flex items-center gap-1 font-bold text-p4c-gold hover:text-p4c-navy"
+                aria-label="Get a cash offer for your property"
               >
                 Get a Cash Offer <ArrowRight className="size-4" />
               </button>
@@ -475,6 +476,7 @@ const Home: React.FC = () => {
                 <button
                   onClick={() => navigate('/homeowner-solutions')}
                   className="flex items-center justify-center gap-2 rounded-xl bg-p4c-gold px-8 py-4 text-lg font-bold text-p4c-navy shadow-lg transition-all duration-300 hover:bg-white hover:text-p4c-navy hover:shadow-xl"
+                  aria-label="Start my property sale process"
                 >
                   Start My Sale <ArrowRight className="size-5" />
                 </button>
@@ -555,6 +557,7 @@ const Home: React.FC = () => {
               <button
                 onClick={() => navigate('/transparency')}
                 className="flex items-center gap-2 rounded-xl bg-p4c-gold px-8 py-4 text-lg font-bold text-p4c-navy shadow-lg transition-all duration-300 hover:bg-white hover:text-p4c-navy hover:shadow-xl"
+                aria-label="View our community impact data and metrics"
               >
                 View Our Impact Data
                 <ArrowRight className="size-5" />
@@ -618,6 +621,7 @@ const Home: React.FC = () => {
           <button
             onClick={() => navigate('/apply')}
             className="rounded-xl bg-p4c-gold px-10 py-5 text-xl font-bold text-p4c-navy shadow-xl transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:text-p4c-navy hover:shadow-2xl"
+            aria-label="Start tenant application process"
           >
             Start Tenant Application
           </button>

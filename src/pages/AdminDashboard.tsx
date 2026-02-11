@@ -338,7 +338,7 @@ const AdminDashboard: React.FC = () => {
                             <div className="flex items-center">
                               <img
                                 src={property.imageUrl}
-                                alt=""
+                                alt={property.title}
                                 className="mr-3 size-10 rounded-md bg-gray-200 object-cover"
                               />
                               <div>

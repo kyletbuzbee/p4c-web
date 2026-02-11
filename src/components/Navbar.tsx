@@ -185,6 +185,7 @@ const Navbar = (): React.ReactElement => {
               src={IMAGES.LOGO.WHITE_GOLD}
               alt="Properties 4 Creation Logo"
               className="h-20 w-auto object-contain"
+              role="img"
             />
           </Link>
 

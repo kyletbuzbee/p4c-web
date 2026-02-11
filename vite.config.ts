@@ -340,11 +340,7 @@ export default defineConfig(({ mode }) => {
       environment: 'jsdom',
       globals: true,
       setupFiles: ['./src/test/setup.ts'],
-      include: [
-        'src/**/*.{test,spec}.{ts,tsx}',
-        'services/**/*.{test,spec}.{ts,tsx}',
-        'utils/**/*.{test,spec}.{ts,tsx}',
-      ],
+      include: ['**/*.{test,spec}.{ts,tsx}'],
       coverage: {
         provider: 'v8',
         reporter: ['text', 'json', 'html'],

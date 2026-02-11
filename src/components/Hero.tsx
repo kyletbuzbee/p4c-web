@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { IMAGES } from '../constants/images';
@@ -16,6 +16,7 @@ interface HeroProps {
  */
 const Hero: React.FC<HeroProps> = ({ variant = 'image' }) => {
   const navigate = useNavigate();
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   // Resource hinting: Preload hero image for LCP optimization
   useEffect(() => {
@@ -32,19 +33,29 @@ const Hero: React.FC<HeroProps> = ({ variant = 'image' }) => {
     }
   }, [variant]);
 
+  // Ensure video plays (some browsers block autoplay without user interaction)
+  useEffect(() => {
+    if (variant === 'video' && videoRef.current) {
+      const video = videoRef.current;
+      video.play().catch(() => {
+        // Autoplay was prevented, video will show poster instead
+      });
+    }
+  }, [variant]);
+
   return (
     <section className="relative flex h-[90vh] w-full items-center overflow-hidden bg-p4c-navy">
       {/* Background Media Layer */}
       <div className="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
         {variant === 'video' ? (
           <video
+            ref={videoRef}
             autoPlay
             loop
             muted
             playsInline
             poster={IMAGES.BANNERS.HERO_PROJECTS}
             className="size-full object-cover"
-            loading="lazy"
           >
             <source src={IMAGES.VIDEOS.HERO_HOME} type="video/mp4" />
           </video>
@@ -64,16 +75,16 @@ const Hero: React.FC<HeroProps> = ({ variant = 'image' }) => {
         )}
         {/* Dual-Layer Gradient Overlay for enhanced text contrast */}
         {/* Layer 1: Global dimming to reduce overall image "noise" */}
-        <div className="absolute inset-0 bg-p4c-navy/40" />
+        <div className="absolute inset-0 bg-p4c-navy/20" />
         {/* Layer 2: Directional gradient to anchor the text */}
-        <div className="mobile-hero-intensify absolute inset-0 bg-gradient-to-r from-p4c-navy/90 via-p4c-navy/60 to-transparent" />
+        <div className="mobile-hero-intensify absolute inset-0 bg-gradient-to-r from-p4c-navy/60 via-p4c-navy/30 to-transparent" />
       </div>
 
       {/* Main Content: Left-aligned for high-end editorial feel */}
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8">
-        <div className="hero-text-container max-w-3xl animate-fade-in-up rounded-2xl border border-white/10 bg-p4c-navy/95 p-4 backdrop-blur-xl md:p-6">
-          <h1 className="hero-text-enhanced mb-6 text-left font-serif text-5xl font-bold leading-[1.1] text-white md:text-7xl">
-            Revitalizing <span className="text-p4c-gold">East Texas</span>
+        <div className="hero-text-container max-w-4xl animate-fade-in-up rounded-2xl border border-white/10 bg-p4c-navy/95 p-6 backdrop-blur-xl md:p-8">
+          <h1 className="hero-text-enhanced mb-6 text-left font-serif text-4xl font-bold leading-[1.1] text-white sm:text-5xl md:text-6xl lg:text-7xl">
+            <span className="whitespace-nowrap">Revitalizing <span className="text-p4c-gold">East Texas</span></span>
             <br />
             One Home at a Time.
           </h1>
