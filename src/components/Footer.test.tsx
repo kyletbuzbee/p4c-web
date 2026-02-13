@@ -9,10 +9,13 @@ describe('Footer', () => {
         <Footer />
       </Router>
     );
-    
+
     const logo = document.querySelector('img');
     expect(logo).toBeInTheDocument();
-    expect(logo).toHaveAttribute('alt', 'Properties 4 Creation Real Estate Logo');
+    expect(logo).toHaveAttribute(
+      'alt',
+      'Properties 4 Creation Real Estate Logo'
+    );
   });
 
   it('should have accessible social media links', () => {
@@ -21,10 +24,10 @@ describe('Footer', () => {
         <Footer />
       </Router>
     );
-    
+
     const socialLinks = document.querySelectorAll('a[aria-label*="Visit our"]');
     expect(socialLinks.length).toBeGreaterThan(0);
-    socialLinks.forEach(link => {
+    socialLinks.forEach((link) => {
       expect(link).toHaveAttribute('aria-label');
       expect(link).toHaveAttribute('target', '_blank');
       expect(link).toHaveAttribute('rel', 'noopener noreferrer');
@@ -37,7 +40,7 @@ describe('Footer', () => {
         <Footer />
       </Router>
     );
-    
+
     expect(screen.getByText('Find a Home')).toBeInTheDocument();
     expect(screen.getByText('Company')).toBeInTheDocument();
     expect(screen.getByText('Residents')).toBeInTheDocument();
@@ -49,9 +52,9 @@ describe('Footer', () => {
         <Footer />
       </Router>
     );
-    
+
     const links = document.querySelectorAll('a');
-    links.forEach(link => {
+    links.forEach((link) => {
       if (link.getAttribute('href') && link.getAttribute('href') !== '#') {
         expect(link).toHaveAttribute('href');
       }
@@ -64,7 +67,7 @@ describe('Footer', () => {
         <Footer />
       </Router>
     );
-    
+
     expect(screen.getByText('Veteran Owned & Operated')).toBeInTheDocument();
     expect(screen.getByText('Equal Housing Opportunity')).toBeInTheDocument();
     expect(screen.getByText('ADA Compliant')).toBeInTheDocument();
@@ -76,8 +79,10 @@ describe('Footer', () => {
         <Footer />
       </Router>
     );
-    
+
     const currentYear = new Date().getFullYear();
-    expect(screen.getByText(new RegExp(currentYear.toString()))).toBeInTheDocument();
+    expect(
+      screen.getByText(new RegExp(currentYear.toString()))
+    ).toBeInTheDocument();
   });
 });

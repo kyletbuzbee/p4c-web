@@ -84,7 +84,9 @@ const Hero: React.FC<HeroProps> = ({ variant = 'image' }) => {
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8">
         <div className="hero-text-container max-w-4xl animate-fade-in-up rounded-2xl border border-white/10 bg-p4c-navy/95 p-6 backdrop-blur-xl md:p-8">
           <h1 className="hero-text-enhanced mb-6 text-left font-serif text-4xl font-bold leading-[1.1] text-white sm:text-5xl md:text-6xl lg:text-7xl">
-            <span className="whitespace-nowrap">Revitalizing <span className="text-p4c-gold">East Texas</span></span>
+            <span className="whitespace-nowrap">
+              Revitalizing <span className="text-p4c-gold">East Texas</span>
+            </span>
             <br />
             One Home at a Time.
           </h1>

@@ -352,7 +352,10 @@ app.post('/api/ai/chat', verifyApiKey, async (req, res) => {
         }),
         // Timeout after configured duration
         new Promise((_, reject) =>
-          setTimeout(() => reject(new Error('Botpress timeout')), REQUEST_TIMEOUT_MS)
+          setTimeout(
+            () => reject(new Error('Botpress timeout')),
+            REQUEST_TIMEOUT_MS
+          )
         ),
       ]);
 

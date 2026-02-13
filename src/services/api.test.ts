@@ -1,4 +1,3 @@
-
 import { api } from './api';
 
 // Mock the supabase client
@@ -17,8 +16,18 @@ describe('API Service', () => {
     it('should fetch all properties from the database', async () => {
       const mockData = {
         data: [
-          { id: '1', title: 'Property 1', price: '1000', address: '123 Main St' },
-          { id: '2', title: 'Property 2', price: '1500', address: '456 Oak St' },
+          {
+            id: '1',
+            title: 'Property 1',
+            price: '1000',
+            address: '123 Main St',
+          },
+          {
+            id: '2',
+            title: 'Property 2',
+            price: '1500',
+            address: '456 Oak St',
+          },
         ],
         error: null,
       };
@@ -27,7 +36,7 @@ describe('API Service', () => {
       const mockSelect = vi.fn().mockReturnValue({
         order: vi.fn().mockResolvedValue(mockData),
       });
-      
+
       const mockFrom = vi.fn().mockReturnValue({
         select: mockSelect,
       });
@@ -36,7 +45,7 @@ describe('API Service', () => {
       supabase.from = mockFrom;
 
       const properties = await api.properties.getAll();
-      
+
       expect(properties.length).toBe(2);
       expect(properties[0].title).toBe('Property 1');
       expect(supabase.from).toHaveBeenCalledWith('properties');
@@ -50,7 +59,7 @@ describe('API Service', () => {
       });
 
       const properties = await api.properties.getAll();
-      
+
       // Check that we fall back to mock data (which has 6 properties)
       expect(properties.length).toBeGreaterThan(0);
     });
@@ -59,14 +68,19 @@ describe('API Service', () => {
   describe('properties.getById', () => {
     it('should fetch a single property by ID', async () => {
       const mockData = {
-        data: { id: '1', title: 'Property 1', price: '1000', address: '123 Main St' },
+        data: {
+          id: '1',
+          title: 'Property 1',
+          price: '1000',
+          address: '123 Main St',
+        },
         error: null,
       };
 
       const mockSelect = vi.fn().mockReturnValue({
         single: vi.fn().mockResolvedValue(mockData),
       });
-      
+
       const mockFrom = vi.fn().mockReturnValue({
         select: mockSelect,
       });
@@ -75,7 +89,7 @@ describe('API Service', () => {
       supabase.from = mockFrom;
 
       const property = await api.properties.getById('1');
-      
+
       expect(property).toBeDefined();
       expect(property?.id).toBe('1');
       expect(supabase.from).toHaveBeenCalledWith('properties');
@@ -90,7 +104,7 @@ describe('API Service', () => {
       const mockSelect = vi.fn().mockReturnValue({
         single: vi.fn().mockResolvedValue(mockData),
       });
-      
+
       const mockFrom = vi.fn().mockReturnValue({
         select: mockSelect,
       });
@@ -99,7 +113,7 @@ describe('API Service', () => {
       supabase.from = mockFrom;
 
       const property = await api.properties.getById('999');
-      
+
       expect(property).toBeNull();
     });
   });
@@ -116,7 +130,7 @@ describe('API Service', () => {
           single: vi.fn().mockResolvedValue(mockData),
         }),
       });
-      
+
       const mockFrom = vi.fn().mockReturnValue({
         insert: mockInsert,
       });
@@ -134,7 +148,7 @@ describe('API Service', () => {
         description: 'A beautiful new property',
         imageUrl: 'https://example.com/image.jpg',
       });
-      
+
       expect(newProperty).toBeDefined();
       expect(newProperty?.title).toBe('New Property');
     });
@@ -149,7 +163,7 @@ describe('API Service', () => {
           single: vi.fn().mockResolvedValue(mockError),
         }),
       });
-      
+
       const mockFrom = vi.fn().mockReturnValue({
         insert: mockInsert,
       });
@@ -157,16 +171,18 @@ describe('API Service', () => {
       const { supabase } = await import('../lib/supabaseClient');
       supabase.from = mockFrom;
 
-      await expect(api.properties.create({
-        title: 'New Property',
-        address: '789 Pine St',
-        price: '1200',
-        bedrooms: 3,
-        bathrooms: 2,
-        sqft: 1500,
-        description: 'A beautiful new property',
-        imageUrl: 'https://example.com/image.jpg',
-      })).rejects.toThrow();
+      await expect(
+        api.properties.create({
+          title: 'New Property',
+          address: '789 Pine St',
+          price: '1200',
+          bedrooms: 3,
+          bathrooms: 2,
+          sqft: 1500,
+          description: 'A beautiful new property',
+          imageUrl: 'https://example.com/image.jpg',
+        })
+      ).rejects.toThrow();
     });
   });
 
@@ -182,7 +198,7 @@ describe('API Service', () => {
           select: vi.fn().mockResolvedValue(mockData),
         }),
       });
-      
+
       const mockFrom = vi.fn().mockReturnValue({
         delete: mockDelete,
       });
@@ -191,7 +207,7 @@ describe('API Service', () => {
       supabase.from = mockFrom;
 
       const deletedProperty = await api.properties.delete('1');
-      
+
       expect(deletedProperty).toBeDefined();
     });
   });

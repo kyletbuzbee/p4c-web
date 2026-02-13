@@ -68,6 +68,11 @@ export default [
       '*.min.js',
       'public/**',
       'server/node_modules/**',
+      'find-icon-buttons.js',
+      'find-images-without-alt.mjs',
+      'search-before-after.mjs',
+      'test-temp.ts',
+      'vitest.config.ts',
     ],
   },
   // Base JavaScript config
@@ -473,6 +478,7 @@ export default [
         speechSynthesis: 'readonly',
         SpeechSynthesisUtterance: 'readonly',
         global: 'readonly',
+        vi: 'readonly',
       },
     },
     rules: {

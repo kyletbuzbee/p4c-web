@@ -1,4 +1,3 @@
-
 import { render, screen, fireEvent } from '@testing-library/react';
 import PropertyCard from './PropertyCard';
 import type { Property } from '../types/types';
@@ -15,7 +14,8 @@ const mockProperty: Property = {
   sqft: 1500,
   imageUrl: 'https://example.com/image.jpg',
   badges: ['Available', 'Pet Friendly'],
-  description: 'A beautiful home in a quiet neighborhood with modern amenities.',
+  description:
+    'A beautiful home in a quiet neighborhood with modern amenities.',
 };
 
 describe('PropertyCard', () => {
@@ -45,7 +45,7 @@ describe('PropertyCard', () => {
         <PropertyCard property={mockProperty} />
       </Router>
     );
-    
+
     mockProperty.badges.forEach((badge) => {
       expect(screen.getByText(badge)).toBeInTheDocument();
     });
@@ -57,7 +57,7 @@ describe('PropertyCard', () => {
         <PropertyCard property={mockProperty} />
       </Router>
     );
-    
+
     const img = document.querySelector('img');
     expect(img).toBeInTheDocument();
     // Check that alt text is present (src might be lazy loaded)
@@ -71,7 +71,7 @@ describe('PropertyCard', () => {
         <PropertyCard property={mockProperty} />
       </Router>
     );
-    
+
     const link = document.querySelector('a');
     expect(link).toBeInTheDocument();
     expect(link).toHaveAttribute('href', `/properties/${mockProperty.id}`);
@@ -80,14 +80,14 @@ describe('PropertyCard', () => {
   it('should handle image loading states correctly', () => {
     // Create a spy to track if image onLoad is called
     const onLoadSpy = vi.fn();
-    
+
     // Render with custom image onLoad handler
     const { container } = render(
       <Router>
         <PropertyCard property={{ ...mockProperty }} />
       </Router>
     );
-    
+
     // Check if loading placeholder is rendered initially
     const placeholder = container.querySelector('.animate-pulse');
     expect(placeholder).toBeInTheDocument();
@@ -112,7 +112,7 @@ describe('PropertyCard', () => {
       </Router>
     );
     const card = container.querySelector('.group');
-    
+
     expect(card).toHaveClass('flex');
     expect(card).toHaveClass('flex-col');
     expect(card).toHaveClass('rounded-xl');
@@ -124,7 +124,7 @@ describe('PropertyCard', () => {
         <PropertyCard property={mockProperty} priority />
       </Router>
     );
-    
+
     const img = document.querySelector('img');
     expect(img).toHaveAttribute('loading', 'eager');
   });

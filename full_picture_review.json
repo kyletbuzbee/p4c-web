@@ -2,11 +2,7 @@
   "context": {
     "project_name": "Properties 4 Creation",
     "description": "Code review analysis",
-    "tech_stack": [
-      "React",
-      "TypeScript",
-      "Tailwind CSS"
-    ],
+    "tech_stack": ["React", "TypeScript", "Tailwind CSS"],
     "architecture_layers": {},
     "dependency_map": {
       "App.tsx": [],

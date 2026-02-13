@@ -9,7 +9,6 @@ import { IMAGES } from '../constants/images';
         src={IMAGES.BOT.ARCHITECT}
         alt="Properties 4 Creation Digital Architect Avatar"
         className="size-full object-cover"
-        role="img"
       />
     </div>
     <div>

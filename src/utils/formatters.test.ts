@@ -1,4 +1,3 @@
-
 import {
   formatCurrency,
   formatNumber,
@@ -27,7 +26,12 @@ describe('Formatters', () => {
     });
 
     it('should allow custom Intl.NumberFormat options', () => {
-      expect(formatCurrency(1000, { minimumFractionDigits: 2, maximumFractionDigits: 2 })).toBe('$1,000.00');
+      expect(
+        formatCurrency(1000, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })
+      ).toBe('$1,000.00');
     });
   });
 
@@ -50,7 +54,10 @@ describe('Formatters', () => {
     });
 
     it('should allow custom Intl.DateTimeFormat options', () => {
-      const result = formatDate('2023-12-25', { month: 'short', year: 'numeric' });
+      const result = formatDate('2023-12-25', {
+        month: 'short',
+        year: 'numeric',
+      });
       expect(typeof result).toBe('string');
     });
   });

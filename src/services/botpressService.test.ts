@@ -1,4 +1,3 @@
-
 /**
  * Botpress Service Tests
  * Unit tests for the Botpress service layer

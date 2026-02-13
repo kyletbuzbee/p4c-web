@@ -1,8 +1,7 @@
-
 import { vi } from 'vitest';
 
 // Mock IntersectionObserver for LazyImage component
-global.IntersectionObserver = function() {
+global.IntersectionObserver = function () {
   return {
     observe: vi.fn(),
     unobserve: vi.fn(),
@@ -12,7 +11,7 @@ global.IntersectionObserver = function() {
 } as any;
 
 // Mock ResizeObserver
-global.ResizeObserver = function() {
+global.ResizeObserver = function () {
   return {
     observe: vi.fn(),
     unobserve: vi.fn(),

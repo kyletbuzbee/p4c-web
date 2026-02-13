@@ -395,13 +395,13 @@ const SuccessStories: React.FC = () => {
             >
               See Available Homes <ArrowRight className="size-5" />
             </button>
-              <button
-                onClick={() => navigate('/contact')}
-                className="rounded-xl border-2 border-white bg-transparent px-8 py-4 text-lg font-bold text-white transition-all duration-300 hover:bg-white hover:text-p4c-navy"
-                aria-label="Contact leasing office for inquiries"
-              >
-                Contact Leasing Office
-              </button>
+            <button
+              onClick={() => navigate('/contact')}
+              className="rounded-xl border-2 border-white bg-transparent px-8 py-4 text-lg font-bold text-white transition-all duration-300 hover:bg-white hover:text-p4c-navy"
+              aria-label="Contact leasing office for inquiries"
+            >
+              Contact Leasing Office
+            </button>
           </div>
         </div>
       </section>

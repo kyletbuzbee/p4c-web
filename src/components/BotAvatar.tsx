@@ -13,7 +13,6 @@ const BotAvatar: React.FC<BotAvatarProps> = ({ className = '', size = 48 }) => (
     width={size}
     height={size}
     className={`block rounded-full ${className}`}
-    role="img"
   />
 );
 

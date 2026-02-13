@@ -9,7 +9,7 @@ describe('Navbar', () => {
         <Navbar />
       </Router>
     );
-    
+
     const logo = document.querySelector('img');
     expect(logo).toBeInTheDocument();
     expect(logo).toHaveAttribute('alt', 'Properties 4 Creation Logo');
@@ -21,13 +21,13 @@ describe('Navbar', () => {
         <Navbar />
       </Router>
     );
-    
+
     const nav = document.querySelector('nav');
     expect(nav).toBeInTheDocument();
-    
+
     // Check that nav items have accessible attributes
     const navItems = document.querySelectorAll('button[role="menuitem"]');
-    navItems.forEach(item => {
+    navItems.forEach((item) => {
       expect(item).toHaveAttribute('aria-label');
     });
   });
@@ -38,8 +38,10 @@ describe('Navbar', () => {
         <Navbar />
       </Router>
     );
-    
-    const mobileMenuButton = document.querySelector('button[aria-label*="navigation menu"]');
+
+    const mobileMenuButton = document.querySelector(
+      'button[aria-label*="navigation menu"]'
+    );
     expect(mobileMenuButton).toBeInTheDocument();
     expect(mobileMenuButton).toHaveAttribute('aria-expanded', 'false');
   });
@@ -50,10 +52,12 @@ describe('Navbar', () => {
         <Navbar />
       </Router>
     );
-    
-    const mobileMenuButton = document.querySelector('button[aria-label*="navigation menu"]');
+
+    const mobileMenuButton = document.querySelector(
+      'button[aria-label*="navigation menu"]'
+    );
     fireEvent.click(mobileMenuButton!);
-    
+
     expect(mobileMenuButton).toHaveAttribute('aria-expanded', 'true');
   });
 
@@ -63,7 +67,7 @@ describe('Navbar', () => {
         <Navbar />
       </Router>
     );
-    
+
     expect(screen.getByText('Find a Home')).toBeInTheDocument();
     expect(screen.getByText('About Us')).toBeInTheDocument();
     expect(screen.getByText('Residents')).toBeInTheDocument();
@@ -75,7 +79,7 @@ describe('Navbar', () => {
         <Navbar />
       </Router>
     );
-    
+
     const sellLink = screen.getByRole('link', { name: /sell your house/i });
     expect(sellLink).toBeInTheDocument();
     expect(sellLink).toHaveAttribute('aria-label');
@@ -87,7 +91,7 @@ describe('Navbar', () => {
         <Navbar />
       </Router>
     );
-    
+
     const applyButton = screen.getByRole('button', { name: /apply now/i });
     expect(applyButton).toBeInTheDocument();
     expect(applyButton).toHaveAttribute('aria-label');
