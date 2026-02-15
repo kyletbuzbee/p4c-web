@@ -158,7 +158,7 @@ const Contact: React.FC = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full rounded-md border-gray-300 shadow-sm focus:border-[#C5A059] focus:ring-[#C5A059]"
+                    className="w-full rounded-md border-gray-300 shadow-sm focus:border-p4c-gold focus:ring-p4c-gold"
                     required
                   />
                 </div>
@@ -175,7 +175,7 @@ const Contact: React.FC = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full rounded-md border-gray-300 shadow-sm focus:border-[#C5A059] focus:ring-[#C5A059]"
+                    className="w-full rounded-md border-gray-300 shadow-sm focus:border-p4c-gold focus:ring-p4c-gold"
                     required
                   />
                 </div>
@@ -191,7 +191,7 @@ const Contact: React.FC = () => {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    className="w-full rounded-md border-gray-300 shadow-sm focus:border-[#C5A059] focus:ring-[#C5A059]"
+                    className="w-full rounded-md border-gray-300 shadow-sm focus:border-p4c-gold focus:ring-p4c-gold"
                   >
                     <option>General Inquiry</option>
                     <option>Leasing Question</option>
@@ -212,14 +212,14 @@ const Contact: React.FC = () => {
                     value={formData.message}
                     onChange={handleChange}
                     rows={4}
-                    className="w-full rounded-md border-gray-300 shadow-sm focus:border-[#C5A059] focus:ring-[#C5A059]"
+                    className="w-full rounded-md border-gray-300 shadow-sm focus:border-p4c-gold focus:ring-p4c-gold"
                     required
                   />
                 </div>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full rounded-xl bg-[#0B1120] px-6 py-4 text-lg font-bold text-white transition-colors hover:bg-[#C5A059]"
+                  className="w-full rounded-xl bg-p4c-navy px-6 py-4 text-lg font-bold text-white transition-colors hover:bg-p4c-gold"
                 >
                   {isSubmitting ? (
                     'Sending...'
