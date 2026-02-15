@@ -28,7 +28,7 @@ export const TimelineItem: React.FC<TimelineItemProps> = ({
     >
       {/* The Central Spine Node */}
       <div
-        className={`absolute left-4 z-20 size-6 rounded-full border-4 border-p4c-navy -translate-x-1/2 transition-all duration-1000 md:left-1/2 ${
+        className={`absolute left-4 z-20 size-6 -translate-x-1/2 rounded-full border-4 border-p4c-navy transition-all duration-1000 md:left-1/2 ${
           inView
             ? 'scale-125 bg-p4c-gold shadow-[0_0_15px_rgba(212,175,55,0.6)]'
             : 'scale-100 bg-gray-400'

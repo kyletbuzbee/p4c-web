@@ -1,12 +1,13 @@
 {
   "ci": {
     "collect": {
-      "url": ["http://localhost:5173/index.html"],
+      "staticDistDir": "./dist",
+      "url": ["http://localhost:4173/index.html"],
       "numberOfRuns": 1,
       "settings": {
         "output": "json",
         "outputPath": "./lighthouseReport.json",
-        "chromeFlags": "--headless --no-sandbox --disable-gpu --disable-dev-shm-usage --disable-software-rasterizer",
+        "chromeFlags": "--headless --no-sandbox --disable-gpu --disable-dev-shm-usage --disable-software-rasterizer --ignore-certificate-errors",
         "staticFileExtensions": [
           ".html",
           ".js",
