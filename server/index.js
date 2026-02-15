@@ -7,7 +7,6 @@ const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
 const dotenv = require('dotenv');
-const { GoogleGenerativeAI } = require('@google/generative-ai');
 const {
   createEnhancedSecurityHeadersMiddleware,
   applyEnhancedSecurityHeaders,
@@ -42,7 +41,6 @@ const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
 const RATE_LIMIT_MAX_REQUESTS = 100;
 const REQUEST_TIMEOUT_MS = 10000; // 10 seconds
 const MAX_REQUEST_SIZE = '10mb';
-const MAX_PROMPT_LENGTH = 1000;
 const MAX_MESSAGE_LENGTH = 4000;
 
 // Enhanced Security middleware
@@ -64,13 +62,7 @@ app.use(
           'https://apis.google.com',
           'https://cdn.jsdelivr.net',
         ],
-        imgSrc: [
-          "'self'",
-          'data:',
-          'https:',
-          'blob:',
-          'https://*.googleusercontent.com',
-        ],
+        imgSrc: ["'self'", 'data:', 'https:', 'blob:'],
         fontSrc: [
           "'self'",
           'https://fonts.gstatic.com',
@@ -78,14 +70,13 @@ app.use(
         ],
         connectSrc: [
           "'self'",
-          'https://generativelanguage.googleapis.com',
-          'https://api.gemini.google.com',
           'https://abjscrezxkqrzwgmufzr.supabase.co',
           'https://*.supabase.co',
+          'https://api.botpress.cloud',
         ],
         frameSrc: ["'self'"],
         objectSrc: ["'none'"],
-        mediaSrc: ["'self'", 'https:', 'blob:'],
+        mediaSrc: ["'self'", 'https:', 'blob:', 'data:'],
         workerSrc: ["'self'", 'blob:'],
         childSrc: ["'self'"],
         formAction: ["'self'"],
@@ -108,6 +99,7 @@ app.use(
   cors({
     origin: process.env.ALLOWED_ORIGINS?.split(',') || [
       'http://localhost:3000',
+      'http://localhost:5173', // Vite dev server
     ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -175,15 +167,10 @@ app.use(express.json({ limit: MAX_REQUEST_SIZE }));
 app.use(validateInput);
 
 // Initialize Botpress configuration
-// Botpress API configuration - using provided API key
 const BOTPRESS_API_URL =
   process.env.BOTPRESS_API_URL || 'https://api.botpress.cloud';
-const BOTPRESS_API_KEY =
-  process.env.BOTPRESS_API_KEY || 'bp_bak_Vr4mQVS58PvsNUvx1VZXp4BBblxiBfCqDN0g';
-const BOTPRESS_BOT_ID = process.env.BOTPRESS_BOT_ID || 'your-bot-id'; // You'll need to get this from your Botpress dashboard
-
-// Initialize Google Generative AI
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const BOTPRESS_API_KEY = process.env.BOTPRESS_API_KEY || '';
+const BOTPRESS_BOT_ID = process.env.BOTPRESS_BOT_ID || '';
 
 // Initialize axios for Botpress API calls
 const botpressClient = axios.create({
@@ -194,18 +181,6 @@ const botpressClient = axios.create({
   },
 });
 
-// Middleware to verify API key presence
-const verifyApiKey = (req, res, next) => {
-  if (!process.env.GEMINI_API_KEY) {
-    console.error('GEMINI_API_KEY not configured');
-    return res.status(500).json({
-      error: 'Server configuration error',
-      code: 'API_KEY_MISSING',
-    });
-  }
-  next();
-};
-
 // CSP violation reporting endpoint
 app.post('/api/security/csp-violation', handleCSPViolation);
 
@@ -215,99 +190,8 @@ createPerformanceEndpoints(app);
 // Apply API-specific security headers for all API routes
 app.use('/api/', applyAPISecurityHeaders);
 
-// Proxy endpoint for image editing
-app.post('/api/ai/edit-image', verifyApiKey, async (req, res) => {
-  try {
-    const { base64Image, mimeType, prompt } = req.body;
-
-    // Input validation
-    if (!base64Image || !mimeType || !prompt) {
-      return res.status(400).json({
-        error: 'Missing required fields',
-        code: 'VALIDATION_ERROR',
-        details: ['base64Image', 'mimeType', 'prompt'],
-      });
-    }
-
-    // Validate base64 format
-    const base64Regex = /^[A-Za-z0-9+/]*={0,2}$/;
-    if (!base64Regex.test(base64Image)) {
-      return res.status(400).json({
-        error: 'Invalid image format',
-        code: 'INVALID_IMAGE_FORMAT',
-      });
-    }
-
-    // Validate MIME type
-    const allowedMimeTypes = [
-      'image/jpeg',
-      'image/jpg',
-      'image/png',
-      'image/webp',
-    ];
-    if (!allowedMimeTypes.includes(mimeType)) {
-      return res.status(400).json({
-        error: 'Unsupported image format',
-        code: 'UNSUPPORTED_FORMAT',
-        allowedFormats: allowedMimeTypes,
-      });
-    }
-
-    // Validate prompt length
-    if (prompt.length > MAX_PROMPT_LENGTH) {
-      return res.status(400).json({
-        error: 'Prompt too long',
-        code: 'PROMPT_TOO_LONG',
-        maxLength: MAX_PROMPT_LENGTH,
-      });
-    }
-    const model = genAI.getGenerativeModel({ model: 'gemini-pro-3' });
-
-    const result = await model.generateContent({
-      contents: {
-        parts: [
-          {
-            inlineData: {
-              data: base64Image,
-              mimeType,
-            },
-          },
-          {
-            text: `Edit this image: ${prompt}. Return only the visual result.`,
-          },
-        ],
-      },
-    });
-
-    for (const part of result.response.candidates?.[0]?.content?.parts || []) {
-      if (part.inlineData) {
-        return res.json({
-          success: true,
-          data: `data:image/png;base64,${part.inlineData.data}`,
-          timestamp: new Date().toISOString(),
-        });
-      }
-    }
-
-    console.warn('No image data returned from AI service');
-    res.status(500).json({
-      error: 'Failed to process image',
-      code: 'PROCESSING_FAILED',
-    });
-  } catch (error) {
-    console.error('Image edit proxy error:', error);
-
-    // Don't expose internal error details
-    res.status(500).json({
-      error: 'Internal server error',
-      code: 'INTERNAL_ERROR',
-      timestamp: new Date().toISOString(),
-    });
-  }
-});
-
-// Proxy endpoint for chat (now using Botpress)
-app.post('/api/ai/chat', verifyApiKey, async (req, res) => {
+// Proxy endpoint for chat (using Botpress)
+app.post('/api/ai/chat', async (req, res) => {
   try {
     const { message } = req.body;
 
@@ -346,9 +230,6 @@ app.post('/api/ai/chat', verifyApiKey, async (req, res) => {
         botpressClient.post(`/api/v1/bots/${BOTPRESS_BOT_ID}/converse`, {
           type: 'text',
           text: message,
-          // Botpress handles conversation context differently than Gemini
-          // For now, we'll start a new conversation each time
-          // In a production environment, you'd want to maintain session/thread ID
         }),
         // Timeout after configured duration
         new Promise((_, reject) =>
@@ -363,7 +244,6 @@ app.post('/api/ai/chat', verifyApiKey, async (req, res) => {
       const botpressData = botpressResponse.data;
 
       // Botpress response structure may vary based on version and configuration
-      // This is a basic mapping - you may need to adjust based on your Botpress setup
       let botResponse = "I'm sorry, I couldn't process that request right now.";
 
       if (
@@ -455,7 +335,7 @@ app.post('/api/ai/chat', verifyApiKey, async (req, res) => {
   }
 });
 
-// Health check endpoint (updated for Botpress)
+// Health check endpoint
 app.get('/api/health', async (req, res) => {
   try {
     // Check Botpress configuration
@@ -512,11 +392,9 @@ app.use('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  if (!process.env.GEMINI_API_KEY) {
-    console.warn(
-      '⚠️  WARNING: GEMINI_API_KEY not configured in environment variables'
-    );
-  }
+  console.log(`🚀 Express API Server running on http://localhost:${PORT}`);
+  console.log(`📡 Vite dev server should proxy /api/* requests here`);
+  console.log(`✅ CORS enabled for: http://localhost:5173`);
 });
 
 // Graceful shutdown

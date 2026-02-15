@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';
 import { IMAGES } from '../constants/images';
+import { TIMING } from '../constants/config';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -31,7 +32,9 @@ const Contact: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
     // Simulate network request
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    await new Promise((resolve) =>
+      setTimeout(resolve, TIMING.FORM_SUBMISSION_DELAY)
+    );
     setIsSubmitting(false);
     setIsSuccess(true);
   };
@@ -56,11 +59,11 @@ const Contact: React.FC = () => {
             width={1920}
             height={1080}
           />
-          <div className="absolute left-0 top-0 size-full bg-p4c-navy/90 mix-blend-multiply" />
+          <div className="absolute left-0 top-0 size-full bg-p4c-navy/15 mix-blend-multiply" />
         </div>
         <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
           {/* Glassmorphism text container for enhanced contrast */}
-          <div className="rounded-2xl bg-p4c-navy/40 p-4 backdrop-blur-sm">
+          <div className="rounded-2xl bg-p4c-navy/70 p-4 backdrop-blur-2xl">
             <div className="mb-6 flex justify-center">
               <div className="rounded-2xl border border-p4c-gold/30 bg-p4c-gold/20 p-4 backdrop-blur-sm">
                 <Mail className="size-10 text-p4c-gold" />

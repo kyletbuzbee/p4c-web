@@ -4,7 +4,7 @@ import { TIMELINE_DATA } from '../../constants/timelineData';
 
 export const TimelineSection: React.FC = () => (
   <section
-    className="overflow-hidden bg-p4c-beige py-20"
+    className="overflow-hidden bg-gradient-to-b from-p4c-beige to-white py-20"
     aria-label="Our Growth Timeline"
   >
     <div className="container relative mx-auto px-4">
@@ -12,11 +12,13 @@ export const TimelineSection: React.FC = () => (
         Our Journey of Revitalization
       </h2>
 
-      {/* The Continuous Vertical Line */}
+      {/* The Continuous Vertical Line with enhanced styling */}
       <div
         className="absolute bottom-0 left-7 top-40 w-0.5 bg-gradient-to-b from-p4c-gold via-p4c-gold/20 to-transparent md:left-1/2 md:-translate-x-1/2"
         aria-hidden="true"
-      />
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-p4c-gold/20 to-transparent" />
+      </div>
 
       <ol className="relative z-10 list-none">
         {TIMELINE_DATA.map((milestone, index) => (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { TimelineMilestone } from '../../types/timeline';
 
@@ -16,6 +16,7 @@ export const TimelineItem: React.FC<TimelineItemProps> = ({
     triggerOnce: true,
   });
 
+  const [isExpanded, setIsExpanded] = useState(false);
   const isEven = index % 2 === 0;
 
   return (
@@ -42,15 +43,48 @@ export const TimelineItem: React.FC<TimelineItemProps> = ({
         }`}
       >
         <article className="rounded-xl border border-p4c-gold/20 bg-p4c-navy p-6 shadow-2xl transition-colors hover:border-p4c-gold/60">
-          <time className="mb-2 block font-serif text-3xl font-bold text-p4c-gold">
-            {milestone.year}
-          </time>
+          <div className="flex items-center justify-between mb-4">
+            <time className="mb-2 block font-serif text-3xl font-bold text-p4c-gold">
+              {milestone.year}
+            </time>
+            {milestone.image && (
+              <button
+                onClick={() => setIsExpanded(!isExpanded)}
+                className="text-p4c-gold hover:text-white transition-colors"
+                aria-label={`Toggle details for ${milestone.title}`}
+              >
+                {isExpanded ? 'Hide Details' : 'Show Details'}
+              </button>
+            )}
+          </div>
           <h3 className="mb-3 text-xl font-bold text-white">
             {milestone.title}
           </h3>
-          <p className="text-sm leading-relaxed text-gray-300">
+          <p className="text-sm leading-relaxed text-gray-300 mb-4">
             {milestone.description}
           </p>
+          {isExpanded && milestone.image && (
+            <div className="mb-4">
+              <img
+                src={milestone.image}
+                alt={milestone.title}
+                className="w-full rounded-lg shadow-lg"
+              />
+            </div>
+          )}
+          {isExpanded && milestone.quote && (
+            <blockquote className="text-sm italic text-gray-400 mb-4">
+              &ldquo;{milestone.quote}&rdquo;
+            </blockquote>
+          )}
+          {isExpanded && (
+            <button
+              onClick={() => setIsExpanded(false)}
+              className="text-sm text-p4c-gold hover:text-white transition-colors"
+            >
+              Close
+            </button>
+          )}
         </article>
       </div>
     </li>

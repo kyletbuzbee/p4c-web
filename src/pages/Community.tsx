@@ -160,11 +160,11 @@ const Community: React.FC = () => {
             alt="Community impact banner"
             className="size-full object-cover"
           />
-          <div className="absolute inset-0 bg-p4c-navy/90" />
+          <div className="absolute inset-0 bg-p4c-navy/15" />
         </div>
         <div className="relative z-10 mx-auto max-w-4xl px-4 text-center">
           {/* Glassmorphism text container for enhanced contrast */}
-          <div className="rounded-2xl bg-p4c-navy/30 p-4 backdrop-blur-sm">
+          <div className="rounded-2xl bg-p4c-navy/70 p-4 backdrop-blur-2xl">
             <h1 className="hero-text-enhanced mb-4 font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
               Building Stronger Communities
             </h1>
@@ -234,7 +234,7 @@ const Community: React.FC = () => {
                 alt="Community impact visualization"
                 className="size-full object-cover"
               />
-              <div className="absolute inset-0 bg-p4c-navy/20" />
+              <div className="absolute inset-0 bg-p4c-navy/8" />
               <div className="absolute inset-x-6 bottom-6 rounded-xl bg-white/90 p-4 backdrop-blur-sm">
                 <div className="flex items-center gap-3">
                   <DollarSign className="size-6 text-p4c-gold" />

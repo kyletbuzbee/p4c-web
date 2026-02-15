@@ -10,6 +10,7 @@ import {
   CheckCircle,
   AlertCircle,
 } from 'lucide-react';
+import { TIMING } from '../constants/config';
 
 const STEPS = [
   { id: 1, title: 'Personal Info', icon: User },
@@ -26,7 +27,9 @@ const Application: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
     // Simulate API call for your real estate platform
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await new Promise((resolve) =>
+      setTimeout(resolve, TIMING.APPLICATION_SUBMISSION_DELAY)
+    );
     setIsSubmitting(false);
     setIsSuccess(true);
     window.scrollTo(0, 0);
@@ -49,6 +52,7 @@ const Application: React.FC = () => {
           <button
             onClick={() => (window.location.href = '/')}
             className="rounded-lg bg-p4c-navy px-8 py-3 font-bold text-white shadow-lg transition-all hover:bg-p4c-slate"
+            aria-label="Return to Properties 4 Creation home page"
           >
             Return Home
           </button>
@@ -262,6 +266,7 @@ const Application: React.FC = () => {
                 type="button"
                 onClick={() => setCurrentStep((prev) => Math.max(1, prev - 1))}
                 className={`flex items-center gap-2 px-4 py-2 font-bold text-gray-400 transition-all hover:text-p4c-navy ${currentStep === 1 ? 'invisible' : ''}`}
+                aria-label="Go back to previous step"
               >
                 <ArrowLeft size={18} /> Back
               </button>
@@ -273,6 +278,7 @@ const Application: React.FC = () => {
                     setCurrentStep((prev) => Math.min(3, prev + 1))
                   }
                   className="flex items-center gap-2 rounded-lg bg-p4c-navy px-10 py-3.5 font-bold text-white shadow-xl shadow-p4c-navy/20 transition-all hover:bg-p4c-slate"
+                  aria-label="Proceed to next step of application"
                 >
                   Next Step <ArrowRight size={18} />
                 </button>
@@ -281,6 +287,11 @@ const Application: React.FC = () => {
                   type="submit"
                   disabled={isSubmitting}
                   className="rounded-lg bg-p4c-gold px-12 py-3.5 font-bold text-white shadow-xl shadow-p4c-gold/30 transition-all hover:bg-p4c-goldHover disabled:opacity-50"
+                  aria-label={
+                    isSubmitting
+                      ? 'Processing your application'
+                      : 'Submit your rental application'
+                  }
                 >
                   {isSubmitting ? 'Processing...' : 'Submit Application'}
                 </button>

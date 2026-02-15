@@ -12,6 +12,7 @@ import {
   SlidersHorizontal,
   X,
   ArrowRight,
+  Heart,
   HeartHandshake,
   Briefcase,
   Building2,
@@ -107,11 +108,12 @@ const Home: React.FC = () => {
     <>
       <Helmet>
         <title>
-          Properties 4 Creation | Premium Affordable Housing & Investments
+          Properties 4 Creation | Community Revitalization & Quality Housing in
+          East Texas
         </title>
         <meta
           name="description"
-          content="Properties 4 Creation acquires and revitalizes real estate in East Texas, offering premium affordable housing to families and veterans in East Texas."
+          content="Transforming East Texas neighborhoods through strategic revitalization. Quality family housing, investment opportunities, and community impact in Tyler and Longview."
         />
       </Helmet>
 
@@ -319,88 +321,129 @@ const Home: React.FC = () => {
       >
         <div className="mb-16 text-center">
           <div className="mb-6 inline-block rounded-full bg-p4c-navy px-6 py-3 text-sm font-bold uppercase tracking-wider text-white">
-            Our Services
+            Our Mission
           </div>
           <h2 className="mb-4 font-serif text-3xl font-bold text-p4c-navy md:text-4xl">
-            Comprehensive Real Estate Solutions
+            Community-First Real Estate Solutions
           </h2>
           <p className="mx-auto max-w-3xl text-lg text-gray-600">
-            From premium family housing to direct asset acquisition, we provide
-            end-to-end real estate services across East Texas.
+            From neighborhood revitalization to quality family housing and
+            strategic investment opportunities, we transform East Texas
+            communities through thoughtful real estate development.
           </p>
         </div>
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-3 lg:gap-12">
-          {/* Card 1: Family/Community (50%) */}
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-4 lg:gap-12">
+          {/* Card 1: Community Revitalization (50% - PRIMARY) */}
+          <div className="rounded-2xl border-t-4 border-p4c-gold bg-white p-8 shadow-xl transition-shadow hover:shadow-2xl md:col-span-2">
+            <div className="mb-6 flex size-16 items-center justify-center rounded-xl bg-p4c-navy text-p4c-gold">
+              <Heart className="size-9" aria-hidden="true" />
+            </div>
+            <h3 className="mb-4 font-serif text-2xl font-bold text-p4c-navy">
+              Community Revitalization
+            </h3>
+            <p className="mb-6 font-sans text-base leading-relaxed text-slate-600">
+              Our primary mission is transforming distressed neighborhoods into
+              thriving communities. Through strategic acquisition, professional
+              renovation, and long-term property management, we create economic
+              impact at the block level across <strong>East Texas</strong>.
+            </p>
+            <div className="mb-6 grid grid-cols-2 gap-3 text-sm">
+              <div className="rounded-lg bg-p4c-beige p-3">
+                <div className="text-2xl font-bold text-p4c-navy">250+</div>
+                <div className="text-gray-600">Homes Renovated</div>
+              </div>
+              <div className="rounded-lg bg-p4c-beige p-3">
+                <div className="text-2xl font-bold text-p4c-navy">12</div>
+                <div className="text-gray-600">Neighborhoods</div>
+              </div>
+            </div>
+            <a
+              href="/community"
+              className="inline-flex items-center gap-2 font-bold text-p4c-navy hover:text-p4c-gold"
+            >
+              Our Community Impact <ArrowRight className="size-4" />
+            </a>
+          </div>
+
+          {/* Card 2: Family Housing (30%) */}
           <div className="rounded-2xl border-t-4 border-p4c-navy bg-white p-8 shadow-xl transition-shadow hover:shadow-2xl">
             <div className="mb-6 flex size-14 items-center justify-center rounded-xl bg-p4c-beige text-p4c-navy">
               <Building2 className="size-8" aria-hidden="true" />
             </div>
             <h3 className="mb-4 font-serif text-2xl font-bold text-p4c-navy">
-              Premium Family Living
+              Family Housing
             </h3>
             <p className="mb-4 font-sans leading-relaxed text-slate-600">
-              We deliver the &quot;Gold Standard&quot; in affordable housing.
-              Located in in top-rated school districts in{' '}
-              <strong>Tyler and Longview</strong>, our homes feature modern
-              renovations that provide families with dignity and stability.
+              Quality homes in revitalized neighborhoods. Located in top-rated
+              school districts in <strong>Tyler and Longview</strong>, providing
+              families with dignity, safety, and stability.
             </p>
             <div className="mb-4 flex flex-wrap gap-2">
-              <span className="rounded-full bg-p4c-navy px-3 py-1 text-sm font-bold text-white">
+              <span className="rounded-full bg-p4c-navy px-3 py-1 text-xs font-bold text-white">
                 Tyler ISD
               </span>
-              <span className="rounded-full bg-p4c-navy px-3 py-1 text-sm font-bold text-white">
-                Section 8 Accepted
-              </span>
-              <span className="rounded-full bg-p4c-navy px-3 py-1 text-sm font-bold text-white">
-                Pet Friendly
+              <span className="rounded-full bg-p4c-navy px-3 py-1 text-xs font-bold text-white">
+                Section 8
               </span>
             </div>
             <a
-              href="/family-resources"
+              href="/properties"
               className="inline-flex items-center gap-2 font-bold text-p4c-navy hover:text-p4c-gold"
             >
-              View Family Standards <ArrowRight className="size-4" />
+              Browse Homes <ArrowRight className="size-4" />
             </a>
           </div>
 
-          {/* Card 2: Veteran (30% - Reduced from Main Focus) */}
-          <div className="rounded-2xl border-t-4 border-p4c-gold bg-white p-8 shadow-xl transition-shadow hover:shadow-2xl">
-            <div className="mb-6 flex size-14 items-center justify-center rounded-xl bg-p4c-navy text-p4c-gold">
-              <HeartHandshake className="size-8" aria-hidden="true" />
-            </div>
-            <h3 className="mb-4 font-serif text-2xl font-bold text-p4c-navy">
-              Veteran Housing Partners
-            </h3>
-            <p className="font-sans leading-relaxed text-slate-600">
-              As a veteran-owned business, we understand the logistics of
-              relocation. We work directly with HUD-VASH case managers to
-              provide rapid, bureaucracy-free housing solutions for service
-              members.
-            </p>
-          </div>
-
-          {/* Card 3: Investor/Seller (20%) */}
+          {/* Card 3: Investor Opportunities (15%) */}
           <div className="rounded-2xl border-t-4 border-slate-500 bg-white p-8 shadow-xl transition-shadow hover:shadow-2xl">
             <div className="mb-6 flex size-14 items-center justify-center rounded-xl bg-slate-100 text-slate-700">
               <Briefcase className="size-8" aria-hidden="true" />
             </div>
             <h3 className="mb-4 font-serif text-2xl font-bold text-p4c-navy">
-              Direct Asset Acquisition
+              Investment Opportunities
             </h3>
-            <p className="font-sans leading-relaxed text-slate-600">
-              Selling a distressed property? We offer competitive cash buyouts
-              for homes in East Texas. We handle the repairs and closing costs,
-              providing liquid capital to sellers on their timeline.
+            <p className="mb-4 font-sans leading-relaxed text-slate-600">
+              Strategic real estate investment with community impact. Portfolio
+              growth, fair property acquisitions, and transparent ROI in growing
+              East Texas markets.
             </p>
-            <div className="mt-6">
-              <button
-                onClick={() => navigate('/homeowner-solutions')}
-                className="inline-flex items-center gap-1 font-bold text-p4c-gold hover:text-p4c-navy"
-                aria-label="Get a cash offer for your property"
-              >
-                Get a Cash Offer <ArrowRight className="size-4" />
-              </button>
+            <div className="mb-4 text-sm text-slate-600">
+              <div className="mb-2">✓ As-Is Cash Offers</div>
+              <div className="mb-2">✓ Fast Closing (14 days)</div>
+              <div>✓ Portfolio Analytics</div>
             </div>
+            <button
+              onClick={() => navigate('/homeowner-solutions')}
+              className="inline-flex items-center gap-1 font-bold text-p4c-gold hover:text-p4c-navy"
+              aria-label="Explore investment opportunities"
+            >
+              Learn More <ArrowRight className="size-4" />
+            </button>
+          </div>
+        </div>
+
+        {/* Veterans Support Bar (5% - Reduced, Respectful) */}
+        <div className="mt-12 rounded-xl border border-p4c-gold/30 bg-white p-6 shadow-md">
+          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+            <div className="flex items-center gap-4">
+              <div className="flex size-12 items-center justify-center rounded-lg bg-p4c-navy text-p4c-gold">
+                <HeartHandshake className="size-6" aria-hidden="true" />
+              </div>
+              <div>
+                <h4 className="font-bold text-p4c-navy">
+                  Veteran Housing Support
+                </h4>
+                <p className="text-sm text-gray-600">
+                  HUD-VASH partnership program for military families
+                </p>
+              </div>
+            </div>
+            <a
+              href="/veterans"
+              className="whitespace-nowrap rounded-lg bg-p4c-navy px-6 py-3 font-bold text-white transition-colors hover:bg-p4c-gold hover:text-p4c-navy"
+            >
+              Veteran Resources
+            </a>
           </div>
         </div>
       </section>
@@ -526,7 +569,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Impact Section - Community Focus */}
+      {/* Impact Section - Community Focus (PRIMARY) */}
       <section className="bg-p4c-slate py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
@@ -539,27 +582,39 @@ const Home: React.FC = () => {
                 className="absolute inset-0 size-full object-cover opacity-60"
                 src={IMAGES.VIDEOS.SUCCESS_STORY}
               />
-              <div className="absolute inset-0 bg-p4c-navy/30 mix-blend-multiply" />
+              <div className="absolute inset-0 bg-p4c-navy/10 mix-blend-multiply" />
             </div>
             <div className="text-white">
               <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-p4c-gold/30 bg-p4c-gold/20 px-4 py-2 text-sm font-bold uppercase tracking-wider text-p4c-gold">
-                Community Impact
+                Our Impact Story
               </div>
               <h2 className="mb-6 font-serif text-3xl font-bold md:text-4xl">
-                Building Stronger Communities Through Quality Renovations
+                Transforming Neighborhoods, Creating Economic Growth
               </h2>
               <p className="mb-8 text-lg leading-relaxed text-gray-300">
-                Every property we renovate represents an investment in East
-                Texas families. Our commitment to premium finishes and modern
-                amenities creates stable, long-term housing that strengthens
-                neighborhoods and supports local growth.
+                Every property we renovate represents a strategic investment in
+                East Texas communities. Our commitment to quality renovation and
+                long-term management creates stable neighborhoods, increases
+                property values, and strengthens local economies block by block.
               </p>
+              <div className="mb-8 grid grid-cols-2 gap-4">
+                <div className="rounded-lg bg-white/10 p-4 backdrop-blur-sm">
+                  <div className="text-3xl font-bold text-p4c-gold">$15M+</div>
+                  <div className="text-sm text-gray-300">
+                    Neighborhood Investment
+                  </div>
+                </div>
+                <div className="rounded-lg bg-white/10 p-4 backdrop-blur-sm">
+                  <div className="text-3xl font-bold text-p4c-gold">450+</div>
+                  <div className="text-sm text-gray-300">Families Housed</div>
+                </div>
+              </div>
               <button
-                onClick={() => navigate('/transparency')}
+                onClick={() => navigate('/community')}
                 className="flex items-center gap-2 rounded-xl bg-p4c-gold px-8 py-4 text-lg font-bold text-p4c-navy shadow-lg transition-all duration-300 hover:bg-white hover:text-p4c-navy hover:shadow-xl"
-                aria-label="View our community impact data and metrics"
+                aria-label="View our community impact data and transformation metrics"
               >
-                View Our Impact Data
+                See Our Community Impact
                 <ArrowRight className="size-5" />
               </button>
             </div>

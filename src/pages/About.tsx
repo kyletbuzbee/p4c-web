@@ -25,13 +25,12 @@ const About: React.FC = () => (
           className="size-full object-cover"
           width={1920}
           height={1080}
-          role="img"
         />
-        <div className="absolute left-0 top-0 size-full bg-p4c-navy/90 mix-blend-multiply" />
+        <div className="absolute left-0 top-0 size-full bg-p4c-navy/15 mix-blend-multiply" />
       </div>
       <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
         {/* Glassmorphism text container for enhanced contrast */}
-        <div className="rounded-2xl bg-p4c-navy/40 p-4 backdrop-blur-sm">
+        <div className="rounded-2xl bg-p4c-navy/70 p-4 backdrop-blur-2xl">
           <h1 className="hero-text-enhanced mb-4 font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
             Revitalizing East Texas, One Home at a Time.
           </h1>
@@ -73,7 +72,6 @@ const About: React.FC = () => (
               loading="lazy"
               width={400}
               height={400}
-              role="img"
             />
             <div className="absolute inset-x-0 bottom-0 bg-p4c-navy/80 p-4 text-white">
               <h3 className="text-lg font-bold">Richard Lonkert</h3>

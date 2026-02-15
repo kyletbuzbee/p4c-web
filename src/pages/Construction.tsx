@@ -23,11 +23,11 @@ const Construction: React.FC = () => (
           alt="Professional construction and renovation work"
           className="size-full object-cover"
         />
-        <div className="absolute left-0 top-0 size-full bg-p4c-navy/90 mix-blend-multiply" />
+        <div className="absolute left-0 top-0 size-full bg-p4c-navy/15 mix-blend-multiply" />
       </div>
       <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
         {/* Glassmorphism text container for enhanced contrast */}
-        <div className="rounded-2xl bg-p4c-navy/40 p-4 backdrop-blur-sm">
+        <div className="rounded-2xl bg-p4c-navy/70 p-4 backdrop-blur-2xl">
           <div className="mb-6 flex justify-center">
             <div className="rounded-2xl border border-p4c-gold/30 bg-p4c-gold/20 p-4 backdrop-blur-sm">
               <Hammer className="size-10 text-p4c-gold" />
@@ -182,7 +182,7 @@ const Construction: React.FC = () => (
               alt="Construction team working on property renovation"
               className="size-full object-cover"
             />
-            <div className="absolute inset-0 bg-p4c-navy/20" />
+            <div className="absolute inset-0 bg-p4c-navy/8" />
             <div className="absolute inset-x-6 bottom-6 rounded-xl bg-white/90 p-4 backdrop-blur-sm">
               <div className="flex items-center gap-3">
                 <ShieldCheck className="size-6 text-p4c-gold" />

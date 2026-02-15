@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Cookie } from 'lucide-react';
+import { TIMING } from '../constants/config';
 
 const CookieConsent: React.FC = (): React.ReactNode => {
   const [isVisible, setIsVisible] = useState(false);
@@ -8,7 +9,10 @@ const CookieConsent: React.FC = (): React.ReactNode => {
     const consent = localStorage.getItem('p4c_cookie_consent');
     if (!consent) {
       // Small delay to prevent layout shift on immediate load
-      const timer = setTimeout(() => setIsVisible(true), 1000);
+      const timer = setTimeout(
+        () => setIsVisible(true),
+        TIMING.COOKIE_BANNER_DELAY
+      );
       return () => clearTimeout(timer);
     }
     return undefined;

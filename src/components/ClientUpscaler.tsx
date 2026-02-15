@@ -210,6 +210,7 @@ const ClientUpscaler: React.FC = () => {
               <button
                 onClick={handleReset}
                 className="inline-flex items-center gap-2 px-4 py-2 text-gray-600 transition-colors hover:text-gray-800"
+                aria-label="Reset image upscaler"
               >
                 <X className="size-4" />
                 Reset
@@ -278,10 +279,9 @@ const ClientUpscaler: React.FC = () => {
             <div className="rounded-lg border-2 border-gray-200 bg-gray-50 p-4">
               <img
                 src={state.originalImage}
-                alt="Original uploaded image for upscaling"
+                alt="Original uploaded for upscaling"
                 className="h-auto w-full rounded"
                 style={{ maxHeight: '400px', objectFit: 'contain' }}
-                role="img"
               />
             </div>
           </div>
@@ -315,7 +315,7 @@ const ClientUpscaler: React.FC = () => {
               ) : state.upscaledImage ? (
                 <img
                   src={state.upscaledImage}
-                  alt="Upscaled"
+                  alt="Upscaled result at 2x resolution"
                   className="h-auto w-full rounded"
                   style={{ maxHeight: '400px', objectFit: 'contain' }}
                 />

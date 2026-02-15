@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import PropertyCard from './PropertyCard';
 import type { Property } from '../types/types';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -78,9 +78,6 @@ describe('PropertyCard', () => {
   });
 
   it('should handle image loading states correctly', () => {
-    // Create a spy to track if image onLoad is called
-    const onLoadSpy = vi.fn();
-
     // Render with custom image onLoad handler
     const { container } = render(
       <Router>

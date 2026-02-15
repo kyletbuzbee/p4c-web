@@ -70,13 +70,13 @@ const StandardLayout = () => (
     <main id="main-content" className="grow">
       <Suspense fallback={<PageLoader />}>
         <Routes>
-          {/* --- 53% COMMUNITY (Revitalization) --- */}
+          {/* --- 50% COMMUNITY (Revitalization) --- */}
           <Route path="/" element={<Home />} />
           <Route path="/community" element={<Community />} />
           <Route path="/impact" element={<OurImpact />} />
           <Route path="/stories" element={<SuccessStories />} />
           <Route path="/transparency" element={<Transparency />} />
-          {/* --- 35% FAMILIES (Housing) --- */}
+          {/* --- 30% FAMILIES (Housing) --- */}
           <Route path="/properties" element={<Properties />} />{' '}
           {/* List View */}
           <Route path="/properties/:id" element={<PropertyDetails />} />{' '}
@@ -84,11 +84,11 @@ const StandardLayout = () => (
           <Route path="/apply" element={<Application />} />
           <Route path="/family-resources" element={<FamilyResources />} />
           <Route path="/equal-housing" element={<EqualHousing />} />
-          {/* --- 6% VETERANS --- */}
+          {/* --- 15% INVESTORS/SELLERS --- */}
+          <Route path="/homeowner-solutions" element={<HomeownerSolutions />} />
+          {/* --- 5% VETERANS --- */}
           <Route path="/veterans" element={<Veterans />} />
           <Route path="/veteran-services" element={<VeteranServices />} />
-          {/* --- 6% INVESTORS --- */}
-          <Route path="/homeowner-solutions" element={<HomeownerSolutions />} />
           {/* --- UTILITY / SUPPORT --- */}
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />

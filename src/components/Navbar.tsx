@@ -39,8 +39,37 @@ const Navbar = (): React.ReactElement => {
   const dropdownTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const navigate = useNavigate();
 
-  // Define the Navigation Structure
+  // Define the Navigation Structure - Prioritized by new demographics
   const navStructure: NavItem[] = [
+    {
+      label: 'Community Impact',
+      children: [
+        {
+          label: 'Our Revitalization Work',
+          path: '/community',
+          icon: <Heart className="size-4" />,
+          desc: 'Neighborhood transformation metrics',
+        },
+        {
+          label: 'Our Impact Story',
+          path: '/impact',
+          icon: <CheckCircle2 className="size-4" />,
+          desc: 'Economic & social results',
+        },
+        {
+          label: 'Quality Standards',
+          path: '/transparency',
+          icon: <ShieldCheck className="size-4" />,
+          desc: 'Renovation quality specifications',
+        },
+        {
+          label: 'Success Stories',
+          path: '/stories',
+          icon: <HeartHandshake className="size-4" />,
+          desc: 'Community & resident testimonials',
+        },
+      ],
+    },
     {
       label: 'Find a Home',
       children: [
@@ -48,19 +77,13 @@ const Navbar = (): React.ReactElement => {
           label: 'Available Properties',
           path: '/properties',
           icon: <Home className="size-4" />,
-          desc: 'Premium rentals in Tyler & Longview',
+          desc: 'Quality homes in revitalized neighborhoods',
         },
         {
           label: 'Apply for Housing',
           path: '/apply',
           icon: <FileText className="size-4" />,
           desc: 'Fast, digital approval process',
-        },
-        {
-          label: 'Veteran Housing Program',
-          path: '/veterans',
-          icon: <Flag className="size-4" />,
-          desc: 'Specialized military housing',
         },
         {
           label: 'Family Resources',
@@ -71,43 +94,37 @@ const Navbar = (): React.ReactElement => {
       ],
     },
     {
-      label: 'About Us',
+      label: 'Investors',
       children: [
         {
-          label: 'Our Story',
-          path: '/about',
+          label: 'Investment Opportunities',
+          path: '/homeowner-solutions',
           icon: <Building2 className="size-4" />,
-          desc: 'Professional management team',
+          desc: 'Strategic real estate investment',
         },
         {
-          label: 'Community Impact',
-          path: '/community',
-          icon: <Heart className="size-4" />,
-          desc: 'Revitalization data & metrics',
-        },
-        {
-          label: 'Quality Standards',
-          path: '/transparency',
-          icon: <ShieldCheck className="size-4" />,
-          desc: 'See our renovation quality specs',
-        },
-        {
-          label: 'Resident Stories',
-          path: '/reviews',
-          icon: <CheckCircle2 className="size-4" />,
-          desc: 'Our commitment to excellence',
-        },
-        {
-          label: 'Careers',
-          path: '/careers',
+          label: 'Sell Your Property',
+          path: '/homeowner-solutions#sell',
           icon: <Hammer className="size-4" />,
-          desc: 'Join our renovation crews',
+          desc: 'Fair, fast, as-is offers',
         },
       ],
     },
     {
-      label: 'Residents',
+      label: 'Resources',
       children: [
+        {
+          label: 'About Us',
+          path: '/about',
+          icon: <Building2 className="size-4" />,
+          desc: 'Our team & mission',
+        },
+        {
+          label: 'Veteran Support',
+          path: '/veterans',
+          icon: <Flag className="size-4" />,
+          desc: 'HUD-VASH partnership program',
+        },
         {
           label: 'Resident Portal',
           path: '/portal',
@@ -121,22 +138,22 @@ const Navbar = (): React.ReactElement => {
           desc: 'Support & case management',
         },
         {
-          label: 'Veteran Services',
-          path: '/veteran-services',
-          icon: <Flag className="size-4" />,
-          desc: 'Veteran resident support',
-        },
-        {
           label: 'FAQ',
           path: '/faq',
           icon: <HelpCircle className="size-4" />,
-          desc: 'Leasing & policy questions',
+          desc: 'Common questions answered',
+        },
+        {
+          label: 'Careers',
+          path: '/careers',
+          icon: <Hammer className="size-4" />,
+          desc: 'Join our team',
         },
         {
           label: 'Accessibility',
           path: '/accessibility',
           icon: <Accessibility className="size-4" />,
-          desc: 'ADA compliance info',
+          desc: 'ADA compliance information',
         },
       ],
     },
@@ -171,10 +188,10 @@ const Navbar = (): React.ReactElement => {
   return (
     <nav
       className="sticky top-0 z-50 border-b border-p4c-gold/30 text-white shadow-lg backdrop-blur-md transition-all duration-300"
-      style={{ backgroundColor: 'rgba(11, 17, 32, 0.8)' }}
+      style={{ backgroundColor: 'rgba(11, 17, 32, 0.6)' }}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-20 items-center justify-between">
+        <div className="flex h-32 items-center justify-between">
           {/* Logo */}
           <Link
             to="/"
@@ -184,8 +201,7 @@ const Navbar = (): React.ReactElement => {
             <img
               src={IMAGES.LOGO.WHITE_GOLD}
               alt="Properties 4 Creation Logo"
-              className="h-20 w-auto object-contain"
-              role="img"
+              className="h-40 w-auto object-contain"
             />
           </Link>
 
@@ -199,7 +215,7 @@ const Navbar = (): React.ReactElement => {
                 onMouseLeave={handleMouseLeave}
               >
                 <button
-                  className={`flex items-center text-sm font-medium transition-colors duration-200 ${
+                  className={`nav-menu-enhanced flex items-center text-sm font-semibold transition-colors duration-200 ${
                     activeDropdown === group.label
                       ? 'text-p4c-gold'
                       : 'text-gray-300 hover:text-white'
@@ -210,7 +226,7 @@ const Navbar = (): React.ReactElement => {
                 >
                   {group.label}
                   <ChevronDown
-                    className={`ml-1 size-3 transition-transform duration-200 ${
+                    className={`ml-1 size-4 transition-transform duration-200 ${
                       activeDropdown === group.label ? 'rotate-180' : ''
                     }`}
                     aria-hidden="true"
@@ -256,7 +272,7 @@ const Navbar = (): React.ReactElement => {
             {/* Direct Links */}
             <button
               onClick={() => handleNavClick('/contact')}
-              className="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white"
+              className="nav-menu-enhanced px-3 py-2 text-sm font-semibold text-gray-300 hover:text-white"
               aria-label="Contact Properties 4 Creation"
               aria-haspopup="false"
             >
@@ -278,17 +294,17 @@ const Navbar = (): React.ReactElement => {
             {/* Sell Your House CTA */}
             <Link
               to="/homeowner-solutions"
-              className="mr-3 flex items-center gap-2 rounded-xl bg-p4c-gold px-5 py-2.5 text-sm font-bold text-p4c-navy shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-xl"
+              className="mr-3 flex items-center gap-2 rounded-xl bg-p4c-gold px-4 py-2 text-sm font-bold text-p4c-navy shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-xl"
               aria-label="Sell your house - Homeowner solutions"
             >
-              <Building2 className="size-4" aria-hidden="true" />
+              <Building2 className="size-5" aria-hidden="true" />
               Sell Your House
             </Link>
 
             {/* CTA Button */}
             <button
               onClick={() => handleNavClick('/apply')}
-              className="rounded-xl border border-p4c-gold bg-p4c-navy px-5 py-2.5 text-sm font-bold text-p4c-gold shadow-lg transition-all hover:-translate-y-0.5 hover:bg-p4c-gold hover:text-p4c-navy hover:shadow-xl"
+              className="rounded-xl border border-p4c-gold bg-p4c-navy px-4 py-2 text-sm font-bold text-p4c-gold shadow-lg transition-all hover:-translate-y-0.5 hover:bg-p4c-gold hover:text-p4c-navy hover:shadow-xl"
               aria-label="Apply now for tenant application"
               aria-haspopup="false"
             >

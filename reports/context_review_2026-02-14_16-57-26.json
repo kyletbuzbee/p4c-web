@@ -1,0 +1,1182 @@
+{
+  "context": {
+    "project_name": "Properties 4 Creation",
+    "description": "Code review analysis",
+    "tech_stack": ["React", "TypeScript", "Tailwind CSS"],
+    "architecture_layers": {},
+    "dependency_map": {
+      "App.tsx": [],
+      "index.tsx": [],
+      "pwa-register.ts": [],
+      "sw.js": [],
+      "vite-env.d.ts": [],
+      "components\\AccessibilityTools.tsx": [],
+      "components\\AddPropertyModal.tsx": [],
+      "components\\AdminDashboardSkeleton.tsx": [],
+      "components\\BeforeAfterSlider.tsx": [],
+      "components\\BotAvatar.tsx": [],
+      "components\\BotToggle.tsx": [],
+      "components\\ChatHeader.tsx": [],
+      "components\\ClientUpscaler.tsx": [],
+      "components\\CookieConsent.tsx": [],
+      "components\\DarkModeToggle.tsx": [],
+      "components\\ErrorBoundary.tsx": [],
+      "components\\FloatingChatbot.tsx": [],
+      "components\\Footer.test.tsx": [],
+      "components\\Footer.tsx": [],
+      "components\\Hero.tsx": [],
+      "components\\ImageOptimizer.tsx": [],
+      "components\\MicroInteractions.tsx": [],
+      "components\\Navbar.test.tsx": [],
+      "components\\Navbar.tsx": [],
+      "components\\OptimizedImage.tsx": [],
+      "components\\PropertyCard.test.tsx": [],
+      "components\\PropertyCard.tsx": [],
+      "components\\PropertyDetailsSkeleton.tsx": [],
+      "components\\ProtectedRoute.tsx": [],
+      "components\\ScrollToTop.tsx": [],
+      "components\\Skeleton.tsx": [],
+      "components\\SkipLink.tsx": [],
+      "components\\UpdateNotification.tsx": [],
+      "components\\admin\\PropertyForm.tsx": [],
+      "components\\sections\\TimelineSection.tsx": [],
+      "components\\ui\\TimelineItem.tsx": [],
+      "constants\\images.ts": [],
+      "constants\\timelineData.ts": [],
+      "context\\AuthContext.tsx": [],
+      "context\\DarkModeContext.tsx": [],
+      "context\\EnhancedAuthContext.tsx": [],
+      "context\\ImageFormatContext.tsx": [],
+      "context\\ToastContext.tsx": [],
+      "data\\properties.ts": [],
+      "lib\\supabaseClient.ts": [],
+      "pages\\About.tsx": [],
+      "pages\\AccessibilityStatement.tsx": [],
+      "pages\\AdminDashboard.tsx": [],
+      "pages\\Application.tsx": [],
+      "pages\\Careers.tsx": [],
+      "pages\\Community.tsx": [],
+      "pages\\Construction.tsx": [],
+      "pages\\Contact.tsx": [],
+      "pages\\Employment.tsx": [],
+      "pages\\EqualHousing.tsx": [],
+      "pages\\FamilyResources.tsx": [],
+      "pages\\FAQ.tsx": [],
+      "pages\\Home.tsx": [],
+      "pages\\HomeownerSolutions.tsx": [],
+      "pages\\OurImpact.tsx": [],
+      "pages\\Privacy.tsx": [],
+      "pages\\Properties.tsx": [],
+      "pages\\PropertyDetails.tsx": [],
+      "pages\\ResidentServices.tsx": [],
+      "pages\\Reviews.tsx": [],
+      "pages\\SuccessStories.tsx": [],
+      "pages\\TenantLogin.tsx": [],
+      "pages\\Terms.tsx": [],
+      "pages\\TestPropertyForm.tsx": [],
+      "pages\\Tools.tsx": [],
+      "pages\\Transparency.tsx": [],
+      "pages\\Veterans.tsx": [],
+      "pages\\VeteranServices.tsx": [],
+      "services\\api.test.ts": [],
+      "services\\api.ts": [],
+      "services\\botpressService.test.ts": [],
+      "services\\botpressService.ts": [],
+      "services\\botpressWebchatService.ts": [],
+      "services\\errorBoundaryService.ts": [],
+      "test\\setup.ts": [],
+      "types\\declarations.d.ts": [],
+      "types\\env.d.ts": [],
+      "types\\index.ts": [],
+      "types\\supabase.ts": [],
+      "types\\timeline.ts": [],
+      "types\\types.ts": [],
+      "utils\\formatters.test.ts": [],
+      "utils\\formatters.ts": [],
+      "utils\\imageOptimization.ts": [],
+      "utils\\importless-test.test.ts": [],
+      "utils\\minimal-test.test.ts": []
+    }
+  },
+  "analysis": {
+    "timestamp": "2026-02-14T16:57:26.423410",
+    "project_root": "c:\\p4c-web\\src",
+    "files": [
+      {
+        "path": "App.tsx",
+        "violations": [],
+        "summary": "import React, { Suspense } from 'react';\nimport { Routes, Route } from 'react-router-dom';\nimport { HelmetProvider } from 'react-helmet-async';\nimport { Loader2 } from 'lucide-react';\n\n// Layout & UI Components\nimport Navbar from './components/Navbar';\nimport Footer from './components/Footer';\nimport ScrollToTop from './components/ScrollToTop';\nimport ErrorBoundary from './components/ErrorBoundary';\nimport SkipLink from './components/SkipLink';\nimport ProtectedRoute from './components/ProtectedRoute';\nimport CookieConsent from './components/CookieConsent';\nimport AccessibilityTools from './components/AccessibilityTools';\nimport { UpdateNotification } from './components/UpdateNotification'; // + ADDED: PWA Support\nimport FloatingChatbot from './components/FloatingChatbot';\n\n// Context Providers\nimport { ToastProvider } from './context/ToastContext';\nimport { AuthProvider } from './context/AuthContext';\nimport { DarkModeProvider } from './context/DarkModeContext';\nimport { ImageFormatPro"
+      },
+      {
+        "path": "index.tsx",
+        "violations": [],
+        "summary": "import React from 'react';\nimport ReactDOM from 'react-dom/client';\nimport App from './App';\nimport { HashRouter } from 'react-router-dom';\nimport './index.css';\n\n// Import from the same directory (no /src/)\nimport { updateSW } from './pwa-register';\n\n// Run it\nupdateSW();\n\nconst rootElement = document.getElementById('root');\nif (!rootElement) {\n  throw new Error('Could not find root element to mount to');\n}\n\nconst root = ReactDOM.createRoot(rootElement);\nroot.render(\n  <React.StrictMode>\n    <HashRouter\n      future={{ v7_startTransition: true, v7_relativeSplatPath: true }}\n    >\n      <App />\n    </HashRouter>\n  </React.StrictMode>\n);\n"
+      },
+      {
+        "path": "pwa-register.ts",
+        "violations": [],
+        "summary": "// Fallback PWA registration logic\n// This provides basic service worker registration without virtual module dependencies\n\nlet swRegistration: ServiceWorkerRegistration | null = null;\n\n/**\n * Log messages only in development environment to avoid ESLint errors\n */\nfunction logDev(_message: string, ..._args: unknown[]): void {\n  if (import.meta.env.DEV) {\n    // console.log(message, ...args);\n  }\n}\n\n/**\n * Log error messages only in development environment\n */\nfunction logErrorDev(_message: string, ..._args: unknown[]): void {\n  if (import.meta.env.DEV) {\n    // console.error(message, ...args);\n  }\n}\n\nexport function updateSW() {\n  // Check if service workers are supported\n  if ('serviceWorker' in navigator) {\n    // Wait for DOM content to load before registering\n    if (document.readyState === 'loading') {\n      document.addEventListener('DOMContentLoaded', registerServiceWorker);\n    } else {\n      registerServiceWorker();\n    }\n  } else {\n    logDev('Service workers are not supported"
+      },
+      {
+        "path": "sw.js",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "CLEAN_CODE",
+            "message": "Console statement detected. Remove debug logs before production or use proper logging service."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "/**\n * Service Worker for Properties 4 Creation\n * Provides offline functionality and caching strategies\n */\n\n// Workbox manifest injection point - VitePWA will inject the manifest here\nimport { precacheAndRoute } from 'workbox-precaching';\n\n// The build system will replace this with the actual manifest\n// Wrap in try-catch to handle precache failures gracefully\nlet precacheSuccessful = false;\ntry {\n  precacheAndRoute(self.__WB_MANIFEST);\n  precacheSuccessful = true;\n} catch (error) {\n  console.error('[SW] Precaching failed:', error);\n}\n\n// Dynamic cache versioning - update this when deploying new versions\nconst CACHE_VERSION = '2.0.1';\nconst STATIC_CACHE = `p4c-static-v${CACHE_VERSION}`;\nconst DYNAMIC_CACHE = `p4c-dynamic-v${CACHE_VERSION}`;\nconst IMAGE_CACHE = `p4c-images-v${CACHE_VERSION}`;\n\n// Assets to cache immediately\nconst STATIC_ASSETS = [\n  '/',\n  '/index.html',\n  '/manifest.json',\n  // Add other static assets here\n];\n\n// Cache strategies\nconst CACHE_STRATEGIES = {\n  CACHE_FI"
+      },
+      {
+        "path": "vite-env.d.ts",
+        "violations": [],
+        "summary": "/// <reference types=\"vite/client\" />\n\ninterface ImportMetaEnv {\n  readonly VITE_SUPABASE_URL: string;\n  readonly VITE_SUPABASE_ANON_KEY: string;\n  readonly VITE_REPOSITORY_NAME?: string;\n  readonly VITE_USE_CUSTOM_DOMAIN?: string;\n}\n\ninterface ImportMeta {\n  readonly env: ImportMetaEnv;\n}\n"
+      },
+      {
+        "path": "components\\AccessibilityTools.tsx",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { useState, useEffect, useCallback, useRef } from 'react';\n\ninterface AccessibilityToolsProps {\n  className?: string;\n}\n\nconst AccessibilityTools: React.FC<AccessibilityToolsProps> = ({\n  className = '',\n}) => {\n  const [isOpen, setIsOpen] = useState(false);\n  const [fontSize, setFontSize] = useState(100);\n  const [contrast, setContrast] = useState('normal');\n  const [readingMode, setReadingMode] = useState(false);\n  const [focusMode, setFocusMode] = useState(false);\n  const [audioAssistance, setAudioAssistance] = useState(false);\n\n  // Use refs for stable access in event listeners\n  const stateRef = useRef({\n    fontSize,\n    contrast,\n    readingMode,\n    focusMode,\n    audioAssistance,\n  });\n\n  // Keep refs synced with state\n  useEffect(() => {\n    stateRef.current = {\n      fontSize,\n      contrast,\n      readingMode,\n      focusMode,\n      audioAssistance,\n    };\n  }, [fontSize, contrast, readingMode, focusMode, audioAssistance]);\n\n  // Apply styles to document\n  use"
+      },
+      {
+        "path": "components\\AddPropertyModal.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Icon button missing aria-label. Screen readers require descriptive labels for interactive elements."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { useState } from 'react';\nimport { X, Loader2, Save } from 'lucide-react';\nimport { useToast } from '../context/ToastContext';\nimport { api } from '../services/api';\nimport { IMAGES } from '../constants/images';\n\ninterface AddPropertyModalProps {\n  isOpen: boolean;\n  onClose: () => void;\n  onSuccess: () => void;\n}\n\nconst AddPropertyModal: React.FC<AddPropertyModalProps> = ({\n  isOpen,\n  onClose,\n  onSuccess,\n}) => {\n  const { addToast } = useToast();\n  const [loading, setLoading] = useState(false);\n\n  // Updated state to match your SQL Schema\n  const [formData, setFormData] = useState({\n    title: '',\n    address: '',\n    city: '', // [NEW]\n    price: '',\n    status: 'available',\n    bedrooms: 0,\n    bathrooms: 0,\n    sqft: 0,\n    description: '',\n    imageUrl: IMAGES.PROPERTIES.TYLER_RANCH as string,\n    neighborhood: '', // [NEW]\n    schoolDistrict: '', // [NEW]\n    availabilityDate: 'Available Now', // [NEW]\n  });\n\n  if (!isOpen) return null;\n\n  const handleSubmit = a"
+      },
+      {
+        "path": "components\\AdminDashboardSkeleton.tsx",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React from 'react';\n\ninterface AdminDashboardSkeletonProps {\n  variant?: 'sidebar' | 'full';\n}\n\nconst SidebarSkeleton: React.FC = () => (\n  <aside className=\"hidden w-64 animate-pulse flex-col bg-p4c-navy text-white md:flex\">\n    <div className=\"border-b border-gray-700 p-6\">\n      <div className=\"mb-2 h-6 w-3/4 rounded bg-gray-600\" />\n      <div className=\"h-4 w-1/2 rounded bg-gray-700\" />\n    </div>\n    <nav className=\"flex-1 space-y-2 p-4\">\n      {[1, 2, 3, 4].map((i) => (\n        <div\n          key={i}\n          className=\"flex w-full items-center rounded-lg bg-gray-700/30 px-4 py-3\"\n        >\n          <div className=\"mr-3 size-5 rounded bg-gray-600\" />\n          <div className=\"h-4 w-20 rounded bg-gray-600\" />\n        </div>\n      ))}\n    </nav>\n    <div className=\"border-t border-gray-700 p-4\">\n      <div className=\"mb-4 flex items-center gap-3\">\n        <div className=\"size-8 rounded-full bg-gray-600\" />\n        <div className=\"space-y-1\">\n          <div className=\"h-4 w"
+      },
+      {
+        "path": "components\\BeforeAfterSlider.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Image missing alt text. Provide meaningful alt attributes for screen reader accessibility."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { useState, useRef } from 'react';\nimport { ArrowLeftRight } from 'lucide-react';\n\ninterface BeforeAfterProps {\n  beforeImage: string;\n  afterImage: string;\n  label: string;\n}\n\nconst BeforeAfterSlider: React.FC<BeforeAfterProps> = ({\n  beforeImage,\n  afterImage,\n  label,\n}) => {\n  const [sliderPosition, setSliderPosition] = useState(50);\n  const containerRef = useRef<HTMLDivElement>(null);\n\n  const handleRangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {\n    setSliderPosition(Number(e.target.value));\n  };\n\n  return (\n    <div className=\"group relative h-[300px] w-full select-none overflow-hidden rounded-2xl border border-gray-200 shadow-xl ring-1 ring-gray-900/5 md:h-[400px]\">\n      {/* After Image (Background) */}\n      <img\n        src={afterImage}\n        alt={`Renovated ${label} - After`}\n        loading=\"lazy\"\n        className=\"absolute left-0 top-0 size-full object-cover\"\n      />\n      <div className=\"absolute right-4 top-4 rounded-full bg-p4c-navy/90 px-"
+      },
+      {
+        "path": "components\\BotAvatar.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Image missing alt text. Provide meaningful alt attributes for screen reader accessibility."
+          }
+        ],
+        "summary": "import React from 'react';\nimport { IMAGES } from '../constants/images';\n\ninterface BotAvatarProps {\n  className?: string;\n  size?: number;\n}\n\nconst BotAvatar: React.FC<BotAvatarProps> = ({ className = '', size = 48 }) => (\n  <img\n    src={IMAGES.BOT.ARCHITECT}\n    alt=\"Properties 4 Creation Digital Architect Avatar\"\n    width={size}\n    height={size}\n    className={`block rounded-full ${className}`}\n  />\n);\n\nexport default BotAvatar;\n"
+      },
+      {
+        "path": "components\\BotToggle.tsx",
+        "violations": [],
+        "summary": "/* src/components/bot/BotToggle.tsx */\nimport { MessageCircle } from 'lucide-react'; // Standard library import\n\n<button className=\"p4c-bot-toggle\" aria-label=\"Open support chat\">\n  <MessageCircle size={28} strokeWidth={2} /> {/* Clean, scalable vector */}\n</button>;\n"
+      },
+      {
+        "path": "components\\ChatHeader.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Image missing alt text. Provide meaningful alt attributes for screen reader accessibility."
+          }
+        ],
+        "summary": "import { IMAGES } from '../constants/images';\n\n/* src/components/bot/ChatHeader.tsx */\n<div className=\"p4c-bot-header\">\n  <div className=\"flex items-center gap-3\">\n    {/* The Avatar */}\n    <div className=\"size-8 overflow-hidden rounded-full border border-p4c-gold bg-white/10 p-1\">\n      <img\n        src={IMAGES.BOT.ARCHITECT}\n        alt=\"Properties 4 Creation Digital Architect Avatar\"\n        className=\"size-full object-cover\"\n      />\n    </div>\n    <div>\n      <h3>Digital Architect</h3>\n      <span className=\"status-indicator\">\n        <span className=\"status-dot\" />\n        Online\n      </span>\n    </div>\n  </div>\n</div>;\n"
+      },
+      {
+        "path": "components\\ClientUpscaler.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Image missing alt text. Provide meaningful alt attributes for screen reader accessibility."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { useState, useRef, useCallback } from 'react';\nimport {\n  Upload,\n  Zap,\n  Download,\n  Image as ImageIcon,\n  X,\n  FileText,\n} from 'lucide-react';\n\ninterface UpscalerState {\n  originalImage: string | null;\n  upscaledImage: string | null;\n  isProcessing: boolean;\n  progress: number;\n  error: string | null;\n}\n\n// Canvas-based upscaling fallback when upscaler module is not available\nconst upscaleWithCanvas = (img: HTMLImageElement): Promise<string> =>\n  new Promise((resolve, reject) => {\n    try {\n      const canvas = document.createElement('canvas');\n      const ctx = canvas.getContext('2d');\n      if (!ctx) {\n        reject(new Error('Could not get canvas context'));\n        return;\n      }\n\n      // Double the dimensions for 2x upscaling\n      canvas.width = img.naturalWidth * 2;\n      canvas.height = img.naturalHeight * 2;\n\n      // Use smooth scaling for better quality\n      ctx.imageSmoothingEnabled = true;\n      ctx.imageSmoothingQuality = 'high';\n\n      // Draw the "
+      },
+      {
+        "path": "components\\CookieConsent.tsx",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { useState, useEffect } from 'react';\nimport { Cookie } from 'lucide-react';\n\nconst CookieConsent: React.FC = (): React.ReactNode => {\n  const [isVisible, setIsVisible] = useState(false);\n\n  useEffect(() => {\n    const consent = localStorage.getItem('p4c_cookie_consent');\n    if (!consent) {\n      // Small delay to prevent layout shift on immediate load\n      const timer = setTimeout(() => setIsVisible(true), 1000);\n      return () => clearTimeout(timer);\n    }\n    return undefined;\n  }, []);\n\n  const handleAccept = () => {\n    localStorage.setItem('p4c_cookie_consent', 'true');\n    setIsVisible(false);\n  };\n\n  const handleDecline = () => {\n    localStorage.setItem('p4c_cookie_consent', 'false');\n    setIsVisible(false);\n  };\n\n  if (!isVisible) return null;\n\n  return (\n    <div className=\"fixed bottom-0 left-0 z-50 w-full animate-slide-in border-t border-gray-200 bg-white p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]\">\n      <div className=\"mx-auto flex max-w-7xl flex-col "
+      },
+      {
+        "path": "components\\DarkModeToggle.tsx",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React from 'react';\nimport { useDarkMode } from '../context/DarkModeContext';\n\ninterface DarkModeToggleProps {\n  className?: string;\n}\n\nconst DarkModeToggle: React.FC<DarkModeToggleProps> = ({ className = '' }) => {\n  const { isDarkMode, toggleDarkMode, systemPreference } = useDarkMode();\n\n  return (\n    <button\n      onClick={toggleDarkMode}\n      className={`rounded-full p-2 transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-p4c-navy/50 ${className}`}\n      aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}\n      title={`Current: ${isDarkMode ? 'Dark' : 'Light'} mode | System preference: ${systemPreference}`}\n    >\n      <div className=\"relative size-6\">\n        {/* Sun Icon */}\n        <div\n          className={`absolute inset-0 transition-all duration-500 ease-in-out ${\n            isDarkMode\n              ? 'rotate-180 scale-50 opacity-0'\n              : 'rotate-0 scale-100 opacity-100'\n          }`}\n        >\n      "
+      },
+      {
+        "path": "components\\ErrorBoundary.tsx",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "CLEAN_CODE",
+            "message": "Console statement detected. Remove debug logs before production or use proper logging service."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { Component } from 'react';\nimport type { ErrorInfo, ReactNode } from 'react';\nimport { AlertTriangle, RefreshCw } from 'lucide-react';\nimport { useToast } from '../context/ToastContext';\n\n// 1. Define the \"Public\" props (what you use in App.tsx)\ninterface ErrorBoundaryProps {\n  children?: ReactNode;\n  fallback?: ReactNode;\n  onError?: (error: Error, errorInfo: ErrorInfo) => void;\n  enableLogging?: boolean;\n}\n\n// 2. Define the \"Internal\" props (including the injected toast)\ninterface InternalProps extends ErrorBoundaryProps {\n  toast: ReturnType<typeof useToast>;\n}\n\ninterface State {\n  hasError: boolean;\n  error: Error | null;\n  errorId: string;\n  timestamp: string;\n}\n\n// 3. The Internal Class Component handles the logic\nclass ErrorBoundaryInternal extends Component<InternalProps, State> {\n  public override state: State = {\n    hasError: false,\n    error: null,\n    errorId: '',\n    timestamp: '',\n  };\n\n  public static getDerivedStateFromError(error: Error): State {\n    co"
+      },
+      {
+        "path": "components\\FloatingChatbot.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Icon button missing aria-label. Screen readers require descriptive labels for interactive elements."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { useState, useEffect, useRef } from 'react';\nimport BotAvatar from './BotAvatar';\nimport {\n  initializeBotpressWebchat,\n  destroyBotpressWebchat,\n} from '../services/botpressWebchatService';\n\ninterface FloatingChatbotProps {\n  className?: string;\n}\n\nconst FloatingChatbot: React.FC<FloatingChatbotProps> = ({\n  className = '',\n}) => {\n  const [isOpen, setIsOpen] = useState(false);\n  const [isLoaded, setIsLoaded] = useState(false);\n  const chatContainerRef = useRef<HTMLDivElement>(null);\n  const containerId = 'botpress-webchat-container';\n\n  useEffect(() => {\n    if (isOpen && !isLoaded) {\n      // Initialize webchat when opened\n      try {\n        initializeBotpressWebchat(containerId, {\n          width: '100%',\n          height: '400px',\n        });\n        setIsLoaded(true);\n      } catch {\n        // Log error in development only\n        if (import.meta.env.DEV) {\n          // console.error('Failed to initialize chatbot');\n        }\n      }\n    } else if (!isOpen && isL"
+      },
+      {
+        "path": "components\\Footer.test.tsx",
+        "violations": [],
+        "summary": "import { render, screen } from '@testing-library/react';\nimport Footer from './Footer';\nimport { BrowserRouter as Router } from 'react-router-dom';\n\ndescribe('Footer', () => {\n  it('should render logo with correct alt text', () => {\n    render(\n      <Router>\n        <Footer />\n      </Router>\n    );\n\n    const logo = document.querySelector('img');\n    expect(logo).toBeInTheDocument();\n    expect(logo).toHaveAttribute(\n      'alt',\n      'Properties 4 Creation Real Estate Logo'\n    );\n  });\n\n  it('should have accessible social media links', () => {\n    render(\n      <Router>\n        <Footer />\n      </Router>\n    );\n\n    const socialLinks = document.querySelectorAll('a[aria-label*=\"Visit our\"]');\n    expect(socialLinks.length).toBeGreaterThan(0);\n    socialLinks.forEach((link) => {\n      expect(link).toHaveAttribute('aria-label');\n      expect(link).toHaveAttribute('target', '_blank');\n      expect(link).toHaveAttribute('rel', 'noopener noreferrer');\n    });\n  });\n\n  it('should render "
+      },
+      {
+        "path": "components\\Footer.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Image missing alt text. Provide meaningful alt attributes for screen reader accessibility."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React from 'react';\nimport {\n  Accessibility,\n  Home,\n  Flag,\n  Facebook,\n  Instagram,\n  Linkedin,\n} from 'lucide-react';\nimport { Link } from 'react-router-dom';\nimport { IMAGES } from '../constants/images';\n\nconst Footer: React.FC = () => (\n  <footer className=\"border-t border-gray-800 bg-gray-900 pb-8 pt-16 text-white\">\n    <div className=\"mx-auto max-w-7xl px-4 sm:px-6 lg:px-8\">\n      <div className=\"mb-12 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4\">\n        {/* 1. Brand & Mission - BUSINESS FOCUSED */}\n        <div className=\"col-span-1\">\n          <div className=\"mb-4 flex items-center gap-2\">\n            <img\n              src={IMAGES.LOGO.WHITE_GOLD}\n              alt=\"Properties 4 Creation Real Estate Logo\"\n              className=\"h-40 w-auto object-contain\"\n              width={200}\n              height={80}\n            />\n          </div>\n          <p className=\"mb-6 text-sm leading-relaxed text-gray-400\">\n            Properties 4 Creation is an investment"
+      },
+      {
+        "path": "components\\Hero.tsx",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { useEffect, useRef } from 'react';\nimport { ArrowRight } from 'lucide-react';\nimport { useNavigate } from 'react-router-dom';\nimport { IMAGES } from '../constants/images';\nimport OptimizedImage from './OptimizedImage';\n\ninterface HeroProps {\n  variant?: 'image' | 'video';\n}\n\n/**\n * P4C Hero Component\n * Refactored for: Community Revitalization Mission (East Texas Focus)\n * Content Makeup: 50% Community / 30% Family / 15% Investors / 5% Veterans\n * Optimized for LCP: fetchpriority=\"high\", preloading, aspect-ratio\n */\nconst Hero: React.FC<HeroProps> = ({ variant = 'image' }) => {\n  const navigate = useNavigate();\n  const videoRef = useRef<HTMLVideoElement>(null);\n\n  // Resource hinting: Preload hero image for LCP optimization\n  useEffect(() => {\n    if (variant === 'image') {\n      const link = document.createElement('link');\n      link.rel = 'preload';\n      link.as = 'image';\n      link.href = IMAGES.BANNERS.HERO_HOME_1920;\n      link.setAttribute('fetchpriority', 'high'"
+      },
+      {
+        "path": "components\\ImageOptimizer.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Image missing alt text. Provide meaningful alt attributes for screen reader accessibility."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { useState, useEffect, useRef } from 'react';\nimport { useImageFormat } from '../context/ImageFormatContext';\n\ninterface ImageOptimizerProps {\n  src: string;\n  alt: string;\n  className?: string;\n  width?: number;\n  height?: number;\n  priority?: boolean;\n  placeholder?: string;\n  onLoad?: () => void;\n  onError?: () => void;\n  style?: React.CSSProperties;\n}\n\nconst ImageOptimizer: React.FC<ImageOptimizerProps> = ({\n  src,\n  alt,\n  className = '',\n  width,\n  height,\n  priority = false,\n  placeholder = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiM5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5Mb2FkaW5nLi4uPC90ZXh0Pjwvc3ZnPg==',\n  onLoad,\n  onError,\n  style,\n  ...props\n}) => {\n  const [isLoaded, setIsLoaded] = useState(false);\n  const [hasError, setHasError] = useState(false);\n  const [curre"
+      },
+      {
+        "path": "components\\MicroInteractions.tsx",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { useState, useEffect, useRef } from 'react';\n\ninterface AnimatedButtonProps {\n  children: React.ReactNode;\n  onClick?: () => void;\n  variant?: 'primary' | 'secondary' | 'ghost';\n  size?: 'sm' | 'md' | 'lg';\n  className?: string;\n  disabled?: boolean;\n  loading?: boolean;\n  animate?: boolean;\n  'aria-label'?: string;\n}\n\nexport const AnimatedButton: React.FC<AnimatedButtonProps> = ({\n  children,\n  onClick,\n  variant = 'primary',\n  size = 'md',\n  className = '',\n  disabled = false,\n  loading = false,\n  animate = true,\n  'aria-label': ariaLabel,\n  ...props\n}) => {\n  const [isPressed, setIsPressed] = useState(false);\n  const [ripples, setRipples] = useState<\n    Array<{ id: number; x: number; y: number }>\n  >([]);\n  const buttonRef = useRef<HTMLButtonElement>(null);\n\n  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {\n    if (disabled || loading) return;\n\n    if (animate) {\n      // Create ripple effect\n      const rect = buttonRef.current?.getBoundingClientRe"
+      },
+      {
+        "path": "components\\Navbar.test.tsx",
+        "violations": [],
+        "summary": "import { render, screen, fireEvent } from '@testing-library/react';\nimport Navbar from './Navbar';\nimport { BrowserRouter as Router } from 'react-router-dom';\n\ndescribe('Navbar', () => {\n  it('should render logo with correct alt text', () => {\n    render(\n      <Router>\n        <Navbar />\n      </Router>\n    );\n\n    const logo = document.querySelector('img');\n    expect(logo).toBeInTheDocument();\n    expect(logo).toHaveAttribute('alt', 'Properties 4 Creation Logo');\n  });\n\n  it('should have accessible navigation menu', () => {\n    render(\n      <Router>\n        <Navbar />\n      </Router>\n    );\n\n    const nav = document.querySelector('nav');\n    expect(nav).toBeInTheDocument();\n\n    // Check that nav items have accessible attributes\n    const navItems = document.querySelectorAll('button[role=\"menuitem\"]');\n    navItems.forEach((item) => {\n      expect(item).toHaveAttribute('aria-label');\n    });\n  });\n\n  it('should have accessible mobile menu button', () => {\n    render(\n      <Router>"
+      },
+      {
+        "path": "components\\Navbar.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Image missing alt text. Provide meaningful alt attributes for screen reader accessibility."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { useState, useRef } from 'react';\nimport { Link, useNavigate } from 'react-router-dom';\nimport {\n  Menu,\n  X,\n  Home,\n  ChevronDown,\n  Users,\n  Heart,\n  ShieldCheck,\n  Hammer,\n  Flag,\n  HeartHandshake,\n  HelpCircle,\n  Lock,\n  Phone,\n  FileText,\n  CheckCircle2,\n  LayoutDashboard,\n  Accessibility,\n  Building2,\n} from 'lucide-react';\nimport { IMAGES } from '../constants/images';\n\ninterface NavItem {\n  label: string;\n  path?: string;\n  children?: {\n    label: string;\n    path: string;\n    icon: React.ReactNode;\n    desc: string;\n  }[];\n}\n\nconst Navbar = (): React.ReactElement => {\n  const [isOpen, setIsOpen] = useState(false); // Mobile menu state\n  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);\n  const dropdownTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);\n  const navigate = useNavigate();\n\n  // Define the Navigation Structure - Prioritized by new demographics\n  const navStructure: NavItem[] = [\n    {\n      label: 'Community Imp"
+      },
+      {
+        "path": "components\\OptimizedImage.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Image missing alt text. Provide meaningful alt attributes for screen reader accessibility."
+          }
+        ],
+        "summary": "import React from 'react';\n\ninterface OptimizedImageProps {\n  src: string;\n  alt: string;\n  className?: string;\n  loading?: 'eager' | 'lazy';\n  priority?: boolean;\n}\n\nconst OptimizedImage: React.FC<OptimizedImageProps> = ({\n  src,\n  alt,\n  className = '',\n  loading = 'lazy',\n  priority = false,\n}) => {\n  // Generate responsive image sizes based on src\n  const getResponsiveSrcset = (imageSrc: string) =>\n    // This would typically be implemented with image CDN support\n    // For now, return the original src\n    imageSrc;\n  return (\n    <img\n      src={src}\n      srcSet={getResponsiveSrcset(src)}\n      sizes=\"(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw\"\n      alt={alt}\n      className={className}\n      loading={loading}\n      fetchPriority={priority ? 'high' : 'auto'}\n    />\n  );\n};\n\nexport default OptimizedImage;\n"
+      },
+      {
+        "path": "components\\PropertyCard.test.tsx",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import { render, screen } from '@testing-library/react';\nimport PropertyCard from './PropertyCard';\nimport type { Property } from '../types/types';\nimport { BrowserRouter as Router } from 'react-router-dom';\n\n// Mock data\nconst mockProperty: Property = {\n  id: '1',\n  title: 'Beautiful 3-Bedroom Home',\n  address: '123 Main St, Anytown, USA',\n  price: '1200',\n  beds: 3,\n  baths: 2,\n  sqft: 1500,\n  imageUrl: 'https://example.com/image.jpg',\n  badges: ['Available', 'Pet Friendly'],\n  description:\n    'A beautiful home in a quiet neighborhood with modern amenities.',\n};\n\ndescribe('PropertyCard', () => {\n  it('should render property details correctly', () => {\n    render(\n      <Router>\n        <PropertyCard property={mockProperty} />\n      </Router>\n    );\n\n    // Check that property title is rendered\n    expect(screen.getByText(mockProperty.title)).toBeInTheDocument();\n    // Check that address is rendered\n    expect(screen.getByText(mockProperty.address)).toBeInTheDocument();\n    // Check"
+      },
+      {
+        "path": "components\\PropertyCard.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Image missing alt text. Provide meaningful alt attributes for screen reader accessibility."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import { useState, useRef, useEffect, useCallback, memo } from 'react';\nimport type { Property } from '../types/types';\nimport { Bed, Bath, Move, MapPin, Image as ImageIcon } from 'lucide-react';\nimport { Link } from 'react-router-dom';\nimport { useInView } from 'react-intersection-observer';\n\ninterface PropertyCardProps {\n  property: Property;\n  priority?: boolean; // For above-the-fold content\n  viewType?: 'list' | 'grid';\n}\n\n// Lazy loaded image component with intersection observer\nconst LazyImage = memo(\n  ({\n    src,\n    alt,\n    className,\n    priority = false,\n  }: {\n    src: string;\n    alt: string;\n    className: string;\n    priority?: boolean;\n  }) => {\n    const [imageLoaded, setImageLoaded] = useState(false);\n    const [imageError, setImageError] = useState(false);\n    const imgRef = useRef<HTMLImageElement | null>(null);\n\n    const { ref: inViewRef, inView } = useInView({\n      triggerOnce: true,\n      skip: priority, // Don't skip if it's priority content\n      threshold:"
+      },
+      {
+        "path": "components\\PropertyDetailsSkeleton.tsx",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React from 'react';\nimport Skeleton from './Skeleton';\n\nconst PropertyDetailsSkeleton: React.FC = () => (\n  <div className=\"min-h-screen animate-fade-in bg-p4c-beige pb-20\">\n    {/* Hero Skeleton */}\n    <div className=\"relative h-[50vh] w-full bg-gray-200\">\n      <Skeleton className=\"size-full\" />\n      <div className=\"absolute bottom-0 left-0 w-full p-8\">\n        <Skeleton className=\"mb-4 h-10 w-2/3 bg-gray-300\" />\n        <Skeleton className=\"h-6 w-1/3 bg-gray-300\" />\n      </div>\n    </div>\n\n    <div className=\"relative z-10 mx-auto -mt-10 max-w-7xl px-4 sm:px-6 lg:px-8\">\n      <div className=\"grid grid-cols-1 gap-8 lg:grid-cols-3\">\n        {/* Main Info */}\n        <div className=\"space-y-8 lg:col-span-2\">\n          {/* Stats Bar */}\n          <div className=\"flex h-24 items-center justify-between rounded-2xl border border-gray-100 bg-white p-6 shadow-lg ring-1 ring-gray-900/5\">\n            <Skeleton className=\"h-12 w-20\" />\n            <div className=\"h-12 w-px bg-gray-100"
+      },
+      {
+        "path": "components\\ProtectedRoute.tsx",
+        "violations": [],
+        "summary": "import React from 'react';\nimport { Navigate, useLocation } from 'react-router-dom';\nimport { useAuth } from '../context/AuthContext';\nimport { Loader2 } from 'lucide-react';\n\ninterface ProtectedRouteProps {\n  children: React.ReactNode;\n  requiredRole?: 'tenant' | 'admin';\n}\n\nconst ProtectedRoute: React.FC<ProtectedRouteProps> = ({\n  children,\n  requiredRole,\n}) => {\n  const { user, isAuthenticated, isLoading } = useAuth();\n  const location = useLocation();\n\n  if (isLoading) {\n    return (\n      <div className=\"flex min-h-screen items-center justify-center\">\n        <Loader2 className=\"size-8 animate-spin text-p4c-gold\" />\n      </div>\n    );\n  }\n\n  if (!isAuthenticated) {\n    // Redirect them to the login page, but save the current location they were trying to go to\n    return <Navigate to=\"/portal\" state={{ from: location }} replace />;\n  }\n\n  if (requiredRole && user?.role !== requiredRole) {\n    // User is logged in but doesn't have permission\n    return <Navigate to=\"/\" replace />"
+      },
+      {
+        "path": "components\\ScrollToTop.tsx",
+        "violations": [],
+        "summary": "import { useEffect } from 'react';\nimport { useLocation } from 'react-router-dom';\n\nexport default function ScrollToTop() {\n  const { pathname } = useLocation();\n\n  useEffect(() => {\n    window.scrollTo(0, 0);\n  }, [pathname]);\n\n  return null;\n}\n"
+      },
+      {
+        "path": "components\\Skeleton.tsx",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React from 'react';\n\ninterface SkeletonProps {\n  className?: string;\n  variant?: 'text' | 'circular' | 'rectangular' | 'image' | 'card';\n  width?: string | number;\n  height?: string | number;\n  animation?: 'pulse' | 'wave' | 'none';\n}\n\n/**\n * Standardized Properties 4 Creation Skeleton Loader\n * Enforces rounded-xl standard to maintain brand dignity during loading states.\n * Optimized for CLS stability with explicit dimensions.\n */\nconst Skeleton: React.FC<SkeletonProps> = ({\n  className = '',\n  variant = 'rectangular',\n  width,\n  height,\n  animation = 'pulse',\n}) => {\n  // Animation styles\n  const animationClass =\n    animation === 'pulse'\n      ? 'animate-pulse'\n      : animation === 'wave'\n        ? 'animate-pulse'\n        : '';\n\n  // Base styles\n  const baseStyles: React.CSSProperties = {\n    width: width || '100%',\n    height: height || 'auto',\n    borderRadius:\n      variant === 'circular'\n        ? '50%'\n        : variant === 'text'\n          ? undefined\n          : '0.75"
+      },
+      {
+        "path": "components\\SkipLink.tsx",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { useEffect, useState, useCallback } from 'react';\nimport { ArrowRight, X } from 'lucide-react';\n\nconst SkipLink: React.FC = () => {\n  const [isVisible, setIsVisible] = useState(false);\n\n  const hideSkipLink = useCallback(() => {\n    setIsVisible(false);\n  }, []);\n\n  const handleKeyDown = useCallback(\n    (e: KeyboardEvent) => {\n      // Show skip link when user presses Tab for the first time\n      if (e.key === 'Tab' && !e.shiftKey) {\n        setIsVisible(true);\n      }\n      // Dismiss with Escape key\n      if (e.key === 'Escape') {\n        hideSkipLink();\n      }\n    },\n    [hideSkipLink]\n  );\n\n  useEffect(() => {\n    window.addEventListener('keydown', handleKeyDown);\n    return () => {\n      window.removeEventListener('keydown', handleKeyDown);\n    };\n  }, [handleKeyDown]);\n\n  const handleClick = (e: React.MouseEvent) => {\n    e.preventDefault();\n    const mainContent = document.getElementById('main-content');\n    if (mainContent) {\n      mainContent.setAttribute('tab"
+      },
+      {
+        "path": "components\\UpdateNotification.tsx",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "UI_CONSISTENCY",
+            "message": "Inconsistent border radius usage. Consider using standard Tailwind radius utilities."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { useEffect, useState } from 'react';\nimport { RefreshCw, X } from 'lucide-react';\nimport { updateSW } from '../pwa-register'; // Ensure this points to your src/pwa-register.ts\n\nexport const UpdateNotification: React.FC = () => {\n  const [showUpdate, setShowUpdate] = useState(false);\n\n  useEffect(() => {\n    // Listen for the custom event dispatched by pwa-register.ts\n    // This event name 'p4c-sw-update' MUST match what is in pwa-register.ts\n    const handleUpdateEvent = () => setShowUpdate(true);\n\n    window.addEventListener('p4c-sw-update', handleUpdateEvent);\n\n    return () => window.removeEventListener('p4c-sw-update', handleUpdateEvent);\n  }, []);\n\n  if (!showUpdate) return null;\n\n  return (\n    <div\n      className=\"fixed bottom-4 right-4 z-50\"\n      role=\"alert\"\n      aria-live=\"polite\"\n    >\n      <div className=\"flex max-w-sm animate-bounce items-start gap-4 rounded-r-xl border-l-4 border-p4c-gold bg-white p-4 shadow-2xl\">\n        <div className=\"mt-1 text-p4c-"
+      },
+      {
+        "path": "components\\admin\\PropertyForm.tsx",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { useState } from 'react';\nimport { api } from '../../services/api';\nimport { useToast } from '../../context/ToastContext';\n\nexport const PropertyForm = () => {\n  const { addToast } = useToast();\n  const [loading, setLoading] = useState(false);\n  const [formData, setFormData] = useState({\n    title: '',\n    address: '',\n    price: '',\n    bedrooms: '3',\n    bathrooms: '2',\n    sqft: '',\n    description: '',\n  });\n\n  const handleSubmit = async (e: React.FormEvent) => {\n    e.preventDefault();\n    setLoading(true);\n    try {\n      await api.properties.create({\n        ...formData,\n        // Convert string numbers to actual numbers for type safety\n        bedrooms: Number(formData.bedrooms),\n        bathrooms: Number(formData.bathrooms),\n        sqft: Number(formData.sqft),\n        // Add required fields with defaults\n        badges: ['Recently Renovated'],\n        amenities: ['Central Air'],\n        accessibilityFeatures: [],\n      });\n      addToast('Property created succ"
+      },
+      {
+        "path": "components\\sections\\TimelineSection.tsx",
+        "violations": [],
+        "summary": "import React from 'react';\nimport { TimelineItem } from '../ui/TimelineItem';\nimport { TIMELINE_DATA } from '../../constants/timelineData';\n\nexport const TimelineSection: React.FC = () => (\n  <section\n    className=\"overflow-hidden bg-gradient-to-b from-p4c-beige to-white py-20\"\n    aria-label=\"Our Growth Timeline\"\n  >\n    <div className=\"container relative mx-auto px-4\">\n      <h2 className=\"mb-16 animate-fade-in-up text-center font-serif text-4xl text-p4c-gold\">\n        Our Journey of Revitalization\n      </h2>\n\n      {/* The Continuous Vertical Line with enhanced styling */}\n      <div\n        className=\"absolute bottom-0 left-7 top-40 w-0.5 bg-gradient-to-b from-p4c-gold via-p4c-gold/20 to-transparent md:left-1/2 md:-translate-x-1/2\"\n        aria-hidden=\"true\"\n      >\n        <div className=\"absolute inset-0 bg-gradient-to-r from-p4c-gold/20 to-transparent\" />\n      </div>\n\n      <ol className=\"relative z-10 list-none\">\n        {TIMELINE_DATA.map((milestone, index) => (\n          <"
+      },
+      {
+        "path": "components\\ui\\TimelineItem.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Image missing alt text. Provide meaningful alt attributes for screen reader accessibility."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { useState } from 'react';\nimport { useInView } from 'react-intersection-observer';\nimport { TimelineMilestone } from '../../types/timeline';\n\ninterface TimelineItemProps {\n  milestone: TimelineMilestone;\n  index: number;\n}\n\nexport const TimelineItem: React.FC<TimelineItemProps> = ({\n  milestone,\n  index,\n}) => {\n  const { ref, inView } = useInView({\n    threshold: 0.2,\n    triggerOnce: true,\n  });\n\n  const [isExpanded, setIsExpanded] = useState(false);\n  const isEven = index % 2 === 0;\n\n  return (\n    <li\n      ref={ref}\n      className={`relative mb-16 flex w-full flex-col items-center md:mb-24 md:flex-row ${\n        isEven ? 'md:flex-row-reverse' : ''\n      }`}\n    >\n      {/* The Central Spine Node */}\n      <div\n        className={`absolute left-4 z-20 size-6 -translate-x-1/2 rounded-full border-4 border-p4c-navy transition-all duration-1000 md:left-1/2 ${\n          inView\n            ? 'scale-125 bg-p4c-gold shadow-[0_0_15px_rgba(212,175,55,0.6)]'\n            : 'sca"
+      },
+      {
+        "path": "constants\\images.ts",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "/**\n * Centralized Asset Registry\n * Maps application logic to physical file paths.\n *\n * Usage:\n * import { IMAGES } from '../constants/images';\n * <img src={IMAGES.BANNERS.HERO_HOME} alt=\"Home\" />\n */\n\nexport const P4C_MISSION_STATEMENT =\n  'Properties 4 Creation is committed to revitalizing East Texas: 53% Community Impact, 37% Family Stability, 5% Veteran Support, and 5% Investor ROI';\n\n// Brand Assets\nexport const IMAGES = {\n  // Page Hero Banners\n  BANNERS: {\n    // Home Page\n    HERO_HOME: '/images/banners/hero-home-banner.webp',\n    HERO_HOME_640: '/images/banners/hero-home-banner-640.webp',\n    HERO_HOME_960: '/images/banners/hero-home-banner-960.webp',\n    HERO_HOME_1280: '/images/banners/hero-home-banner-1280.webp',\n    HERO_HOME_1920: '/images/banners/hero-home-banner-1920.webp',\n\n    // About Page\n    HERO_ABOUT: '/images/banners/hero-about-banner-1280.webp',\n    HERO_ABOUT_640: '/images/banners/hero-about-banner-640.webp',\n    HERO_ABOUT_960: '/images/banners/hero-about-b"
+      },
+      {
+        "path": "constants\\timelineData.ts",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import { TimelineMilestone } from '../types/timeline';\n\nexport const TIMELINE_DATA: TimelineMilestone[] = [\n  {\n    id: '1',\n    year: '2018',\n    title: 'Founded',\n    description:\n      'Properties 4 Creation was established with a mission to revitalize East Texas communities.',\n    image: 'timeline/2018-founding.jpg',\n    quote: 'Building communities, one home at a time.',\n  },\n  {\n    id: '2',\n    year: '2019',\n    title: 'First Property Acquisition',\n    description:\n      'Acquired our first residential property in Tyler, marking the beginning of our portfolio growth.',\n    image: 'timeline/2019-first-property.jpg',\n    quote: 'Every great journey starts with a single step.',\n  },\n  {\n    id: '3',\n    year: '2020',\n    title: 'First Multi-family Acquired',\n    description:\n      'Expanded our portfolio with the acquisition of our first multi-family property.',\n    image: 'timeline/2020-multi-family.jpg',\n    quote: 'Scaling our impact through strategic investments.',\n  },\n  {\n   "
+      },
+      {
+        "path": "context\\AuthContext.tsx",
+        "violations": [],
+        "summary": "/* eslint-disable */\nimport React, {\n  createContext,\n  useContext,\n  useState,\n  useEffect,\n  useCallback,\n} from 'react';\nimport type { ReactNode } from 'react';\nimport { useToast } from './ToastContext';\n\ntype UserRole = 'guest' | 'tenant' | 'admin';\n\ninterface User {\n  id: string;\n  name: string;\n  email: string;\n  role: UserRole;\n  lastLogin?: string;\n  permissions: string[];\n}\n\ninterface AuthContextType {\n  user: User | null;\n  isAuthenticated: boolean;\n  isLoading: boolean;\n  login: (email: string, role: UserRole) => Promise<void>;\n  logout: () => void;\n  refreshToken: () => Promise<void>;\n  hasPermission: (permission: string) => boolean;\n}\n\nconst AuthContext = createContext<AuthContextType | undefined>(undefined);\n\nexport const useAuth = () => {\n  const context = useContext(AuthContext);\n  if (!context) {\n    throw new Error('useAuth must be used within an AuthProvider');\n  }\n  return context;\n};\n\n// Enhanced validation function - CRITICAL SECURITY FIX\nconst validateStoredUser "
+      },
+      {
+        "path": "context\\DarkModeContext.tsx",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { createContext, useContext, useEffect, useState } from 'react';\nimport type { ReactNode } from 'react';\n\ninterface DarkModeContextType {\n  isDarkMode: boolean;\n  toggleDarkMode: () => void;\n  setDarkMode: (isDark: boolean) => void;\n  systemPreference: 'light' | 'dark' | 'no-preference';\n}\n\nconst DarkModeContext = createContext<DarkModeContextType | undefined>(\n  undefined\n);\n\nexport const useDarkMode = () => {\n  const context = useContext(DarkModeContext);\n  if (!context) {\n    throw new Error('useDarkMode must be used within a DarkModeProvider');\n  }\n  return context;\n};\n\ninterface DarkModeProviderProps {\n  children: ReactNode;\n}\n\nexport const DarkModeProvider: React.FC<DarkModeProviderProps> = ({\n  children,\n}) => {\n  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {\n    // Check localStorage first\n    const saved = localStorage.getItem('p4c-dark-mode');\n    if (saved !== null) {\n      return JSON.parse(saved);\n    }\n\n    // Check system preference\n    cons"
+      },
+      {
+        "path": "context\\EnhancedAuthContext.tsx",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, {\n  createContext,\n  useContext,\n  useState,\n  useEffect,\n  useCallback,\n  useRef,\n} from 'react';\nimport type { ReactNode } from 'react';\nimport { useToast } from './ToastContext';\n\ntype UserRole = 'guest' | 'tenant' | 'admin';\n\ninterface User {\n  id: string;\n  name: string;\n  email: string;\n  role: UserRole;\n  lastLogin?: string;\n  lastActivity?: string;\n  sessionStart?: string;\n  permissions: string[];\n  mfaEnabled?: boolean;\n  loginAttempts?: number;\n  lockedUntil?: string;\n}\n\ninterface AuthContextType {\n  user: User | null;\n  isAuthenticated: boolean;\n  isLoading: boolean;\n  isLocked: boolean;\n  loginAttempts: number;\n  sessionTimeRemaining: number;\n  login: (email: string, password?: string, mfaCode?: string) => Promise<void>;\n  logout: () => void;\n  refreshToken: () => Promise<void>;\n  hasPermission: (permission: string) => boolean;\n  enableMFA: () => Promise<string>;\n  verifyMFA: (code: string) => Promise<boolean>;\n  changePassword: (\n    currentPassword: string,\n"
+      },
+      {
+        "path": "context\\ImageFormatContext.tsx",
+        "violations": [],
+        "summary": "import React, { createContext, useContext, useState, useEffect } from 'react';\n\ninterface ImageFormatContextType {\n  supportedFormat: string;\n  isLoading: boolean;\n}\n\nconst ImageFormatContext = createContext<ImageFormatContextType | undefined>(\n  undefined\n);\n\nexport const ImageFormatProvider: React.FC<{ children: React.ReactNode }> = ({\n  children,\n}) => {\n  const [supportedFormat, setSupportedFormat] = useState<string>('jpeg');\n  const [isLoading, setIsLoading] = useState<boolean>(true);\n\n  // Check browser WebP/AVIF support\n  const checkFormatSupport = () =>\n    new Promise<string>((resolve) => {\n      const canvas = document.createElement('canvas');\n      canvas.width = 1;\n      canvas.height = 1;\n\n      // Test AVIF support\n      const format = canvas\n        .toDataURL('image/avif')\n        .startsWith('data:image/avif')\n        ? 'avif'\n        : canvas.toDataURL('image/webp').startsWith('data:image/webp')\n          ? 'webp'\n          : 'jpeg';\n      resolve(format);\n    });\n\n  "
+      },
+      {
+        "path": "context\\ToastContext.tsx",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, {\n  createContext,\n  useContext,\n  useState,\n  useCallback,\n  useRef,\n  useEffect,\n} from 'react';\nimport type { ReactNode } from 'react';\nimport { X, CheckCircle, AlertCircle, Info } from 'lucide-react';\n\ntype ToastType = 'success' | 'error' | 'info';\n\ninterface Toast {\n  id: number;\n  message: string;\n  type: ToastType;\n}\n\ninterface ToastContextType {\n  addToast: (message: string, type: ToastType) => void;\n  removeToast: (id: number) => void;\n}\n\nconst ToastContext = createContext<ToastContextType | undefined>(undefined);\n\nexport const useToast = () => {\n  const context = useContext(ToastContext);\n  if (!context) {\n    throw new Error('useToast must be used within a ToastProvider');\n  }\n  return context;\n};\n\nexport const ToastProvider: React.FC<{ children: ReactNode }> = ({\n  children,\n}) => {\n  const [toasts, setToasts] = useState<Toast[]>([]);\n  const timeoutIdsRef = useRef<Set<number>>(new Set());\n\n  useEffect(\n    () => () => {\n      timeoutIdsRef.current.forEach((ti"
+      },
+      {
+        "path": "data\\properties.ts",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import type { ExtendedProperty } from '../types/types.ts';\nimport { IMAGES } from '../constants/images.ts';\n\n// Re-export ExtendedProperty type for backward compatibility\nexport type { ExtendedProperty };\n\nexport const properties: ExtendedProperty[] = [\n  {\n    id: '1',\n    title: 'Oakwood Ranch',\n    address: '1245 Oakwood Dr, Tyler, TX',\n    city: 'Tyler',\n    price: '950',\n    status: 'available',\n    bedrooms: 3,\n    bathrooms: 2,\n    beds: 3,\n    baths: 2,\n    sqft: 1450,\n    description:\n      'Beautifully renovated home in the heart of Tyler, featuring durable countertops, modern HVAC system, and a spacious fenced backyard. This property contributes to the revitalization of the Azalea District neighborhood, offering quality affordable housing in East Texas. Located within walking distance of local schools and community amenities.',\n    imageUrl: IMAGES.PROPERTIES.TYLER_RANCH,\n    images: [IMAGES.PROPERTIES.TYLER_RANCH],\n    badges: ['Family Friendly', 'Top Rated Schools'],\n    a"
+      },
+      {
+        "path": "lib\\supabaseClient.ts",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import { createClient, SupabaseClient } from '@supabase/supabase-js';\n\n/**\n * Supabase client configuration with environment-aware settings\n * Supports both local development (port 54321) and production\n */\n\nconst supabaseUrl = import.meta.env.VITE_SUPABASE_URL;\nconst supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;\n\n// Validate environment variables\nif (!supabaseUrl || !supabaseAnonKey) {\n  throw new Error(\n    'Missing Supabase environment variables. ' +\n      'Please ensure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are set in your .env file.'\n  );\n}\n\n// Detect if running in development mode with local Supabase\nconst isLocalDev =\n  supabaseUrl.includes('localhost') || supabaseUrl.includes('127.0.0.1');\n\n// Create Supabase client with appropriate configuration\nexport const supabase: SupabaseClient = createClient(\n  supabaseUrl,\n  supabaseAnonKey,\n  {\n    auth: {\n      autoRefreshToken: true,\n      persistSession: true,\n      detectSessionInUrl: true,\n    },\n    // Add requ"
+      },
+      {
+        "path": "pages\\About.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Image missing alt text. Provide meaningful alt attributes for screen reader accessibility."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React from 'react';\nimport { Helmet } from 'react-helmet-async';\n\nimport { IMAGES } from '../constants/images';\nimport { TimelineSection } from '../components/sections/TimelineSection';\n\nconst About: React.FC = () => (\n  <div className=\"min-h-screen bg-p4c-beige\">\n    <Helmet>\n      <title>\n        About Us | Professional Property Management | Properties 4 Creation\n      </title>\n      <meta\n        name=\"description\"\n        content=\"Properties 4 Creation is a premier property management and development firm in East Texas, dedicated to high-quality housing and community revitalization.\"\n      />\n    </Helmet>\n\n    {/* Hero Section */}\n    <div className=\"relative flex h-[400px] w-full items-center justify-center overflow-hidden\">\n      <div className=\"absolute left-0 top-0 z-0 size-full\">\n        <img\n          src={IMAGES.BANNERS.HERO_ABOUT}\n          alt=\"Properties 4 Creation team on site\"\n          className=\"size-full object-cover\"\n          width={1920}\n          height={"
+      },
+      {
+        "path": "pages\\AccessibilityStatement.tsx",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport { Accessibility } from 'lucide-react';\n\nconst AccessibilityStatement: React.FC = () => (\n  <div className=\"min-h-screen bg-p4c-beige py-16\">\n    <Helmet>\n      <title>Accessibility Statement | Properties 4 Creation</title>\n      <meta\n        name=\"description\"\n        content=\"Properties 4 Creation accessibility statement and commitment to WCAG 2.1 compliance for digital accessibility and inclusive housing services.\"\n      />\n      <meta\n        name=\"keywords\"\n        content=\"accessibility statement, web accessibility, WCAG compliance, disability access, inclusive housing, ADA compliance\"\n      />\n    </Helmet>\n\n    <div className=\"mx-auto max-w-4xl px-4 sm:px-6 lg:px-8\">\n      <div className=\"rounded-2xl border border-gray-100 bg-white p-8 shadow-xl md:p-12\">\n        <div className=\"mb-8 flex items-center gap-4 border-b border-gray-100 pb-8\">\n          <div className=\"rounded-full bg-p4c-gold p-3\">\n     "
+      },
+      {
+        "path": "pages\\AdminDashboard.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Image missing alt text. Provide meaningful alt attributes for screen reader accessibility."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { useState, useEffect, useMemo } from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport { useAuth } from '../context/AuthContext';\nimport { useToast } from '../context/ToastContext'; // Import Toast for feedback\nimport AdminDashboardSkeleton from '../components/AdminDashboardSkeleton';\nimport {\n  BarChart3,\n  Users,\n  Home,\n  Settings,\n  LogOut,\n  Plus,\n  Edit2,\n  Trash2,\n  Search,\n} from 'lucide-react';\nimport { api } from '../services/api';\nimport type { ExtendedProperty } from '../types/types';\n\n// Define the available views\ntype DashboardView = 'dashboard' | 'properties' | 'tenants' | 'settings';\n\nconst AdminDashboard: React.FC = () => {\n  const { user, logout } = useAuth();\n  const { addToast } = useToast(); // Use toast for feedback\n  const [properties, setProperties] = useState<ExtendedProperty[]>([]);\n  const [loading, setLoading] = useState(true);\n  const [activeView, setActiveView] = useState<DashboardView>('dashboard');\n  const [searchQuery, setSearc"
+      },
+      {
+        "path": "pages\\Application.tsx",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { useState } from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport {\n  User,\n  Home,\n  ShieldCheck,\n  Lock,\n  ArrowRight,\n  ArrowLeft,\n  CheckCircle,\n  AlertCircle,\n} from 'lucide-react';\n\nconst STEPS = [\n  { id: 1, title: 'Personal Info', icon: User },\n  { id: 2, title: 'Housing History', icon: Home },\n  { id: 3, title: 'Review & Submit', icon: ShieldCheck },\n];\n\nconst Application: React.FC = () => {\n  const [currentStep, setCurrentStep] = useState(1);\n  const [isSubmitting, setIsSubmitting] = useState(false);\n  const [isSuccess, setIsSuccess] = useState(false);\n\n  const handleSubmit = async (e: React.FormEvent) => {\n    e.preventDefault();\n    setIsSubmitting(true);\n    // Simulate API call for your real estate platform\n    await new Promise((resolve) => setTimeout(resolve, 2000));\n    setIsSubmitting(false);\n    setIsSuccess(true);\n    window.scrollTo(0, 0);\n  };\n\n  if (isSuccess) {\n    return (\n      <div className=\"flex min-h-[80vh] items-center justify-c"
+      },
+      {
+        "path": "pages\\Careers.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Image missing alt text. Provide meaningful alt attributes for screen reader accessibility."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport {\n  Briefcase,\n  Users,\n  ShieldCheck,\n  HeartHandshake,\n  Star,\n  Clock,\n  Shield,\n  TrendingUp,\n} from 'lucide-react';\nimport { IMAGES } from '../constants/images';\n\nconst Careers: React.FC = () => (\n  <div className=\"min-h-screen bg-p4c-beige\">\n    <Helmet>\n      <title>Careers | Join Our Team | Properties 4 Creation</title>\n      <meta\n        name=\"description\"\n        content=\"Explore career opportunities with Properties 4 Creation. Join our team in East Texas and help us revitalize communities through quality housing.\"\n      />\n    </Helmet>\n\n    {/* Hero Section */}\n    <div className=\"relative flex h-[400px] w-full items-center justify-center overflow-hidden\">\n      <div className=\"absolute left-0 top-0 z-0 size-full\">\n        <img\n          src={IMAGES.BANNERS.CAREER}\n          alt=\"Professional team working together\"\n          className=\"size-full object-cover\"\n        />\n        <div className=\"a"
+      },
+      {
+        "path": "pages\\Community.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Image missing alt text. Provide meaningful alt attributes for screen reader accessibility."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { useState } from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport { ArrowRight, Home, Wrench, Users, DollarSign, X } from 'lucide-react';\nimport { useNavigate } from 'react-router-dom';\nimport { IMAGES } from '../constants/images';\n\n/**\n * P4C ENTERPRISE INTERFACE: StreamStep\n * Type-safe data model for revitalization process phases\n */\ninterface StreamStep {\n  id: string;\n  code: string;\n  label: string;\n  icon: React.ElementType;\n  description: string;\n  kpis: string[];\n  image: string;\n}\n\n/**\n * P4C ENTERPRISE DATA MODEL: VALUE_STREAM\n * Implements connected pipeline architecture for process transparency\n */\nconst VALUE_STREAM: StreamStep[] = [\n  {\n    id: '01',\n    code: 'AQ-TRANS',\n    label: 'Strategic Acquisition',\n    icon: Home,\n    description:\n      'Proprietary selection of distressed assets based on local economic indicators and community needs.',\n    kpis: ['Market Viability', 'Structural Integrity'],\n    image: IMAGES.TEAM.ACQUISITION,\n  },\n  {"
+      },
+      {
+        "path": "pages\\Construction.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Image missing alt text. Provide meaningful alt attributes for screen reader accessibility."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport { Hammer, ShieldCheck, CheckCircle, Home } from 'lucide-react';\nimport { IMAGES } from '../constants/images';\n\nconst Construction: React.FC = () => (\n  <div className=\"min-h-screen bg-p4c-beige\">\n    <Helmet>\n      <title>\n        Construction Standards | Quality Renovation | Properties 4 Creation\n      </title>\n      <meta\n        name=\"description\"\n        content=\"Learn about Properties 4 Creation's professional construction standards and renovation processes for properties in East Texas, Texas.\"\n      />\n    </Helmet>\n\n    {/* Hero Section */}\n    <div className=\"relative flex h-[400px] w-full items-center justify-center overflow-hidden\">\n      <div className=\"absolute left-0 top-0 z-0 size-full\">\n        <img\n          src={IMAGES.BANNERS.HERO_RENOVATION}\n          alt=\"Professional construction and renovation work\"\n          className=\"size-full object-cover\"\n        />\n        <div className=\"absolute"
+      },
+      {
+        "path": "pages\\Contact.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Image missing alt text. Provide meaningful alt attributes for screen reader accessibility."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Hardcoded hex color detected. Consider using theme constants or CSS variables."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { useState } from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';\nimport { IMAGES } from '../constants/images';\n\nconst Contact: React.FC = () => {\n  const [formData, setFormData] = useState({\n    name: '',\n    email: '',\n    phone: '',\n    message: '',\n    subject: 'General Inquiry',\n  });\n  const [isSubmitting, setIsSubmitting] = useState(false);\n  const [isSuccess, setIsSuccess] = useState(false);\n\n  // FIX: Explicitly check the name to satisfy security rules\n  const handleChange = (\n    e: React.ChangeEvent<\n      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement\n    >\n  ) => {\n    const { name, value } = e.target;\n    // Whitelist allowed fields to prevent object injection\n    if (['name', 'email', 'phone', 'message', 'subject'].includes(name)) {\n      setFormData((prev) => ({ ...prev, [name]: value }));\n    }\n  };\n\n  const handleSubmit = async (e: React.FormEvent) => {\n    e.prevent"
+      },
+      {
+        "path": "pages\\Employment.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Image missing alt text. Provide meaningful alt attributes for screen reader accessibility."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport { HardHat, Briefcase, CheckCircle2 } from 'lucide-react';\nimport { Link } from 'react-router-dom';\nimport { IMAGES } from '../constants/images';\n\nconst Employment: React.FC = () => (\n  <>\n    <Helmet>\n      <title>\n        Careers | Join Our Veteran-Led Construction Team | Properties 4 Creation\n      </title>\n      <meta\n        name=\"description\"\n        content=\"Join Properties 4 Creation's veteran-led construction team. We hire veterans first with competitive pay, flexible schedules, and career advancement opportunities in East Texas.\"\n      />\n      <meta\n        name=\"keywords\"\n        content=\"veteran jobs East Texas, construction careers, veteran hiring, skilled trades jobs, veteran employment, construction company hiring\"\n      />\n    </Helmet>\n    <div className=\"min-h-screen bg-p4c-beige\">\n      {/* Hero Banner */}\n      <div className=\"relative flex h-[400px] w-full items-center justify-center ove"
+      },
+      {
+        "path": "pages\\EqualHousing.tsx",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport { Home } from 'lucide-react';\n\nconst EqualHousing: React.FC = () => (\n  <div className=\"min-h-screen bg-p4c-beige py-16\">\n    <Helmet>\n      <title>Equal Housing Opportunity | Properties 4 Creation</title>\n      <meta\n        name=\"description\"\n        content=\"Properties 4 Creation equal housing opportunity statement and commitment to fair housing practices without discrimination based on race, color, religion, or national origin.\"\n      />\n      <meta\n        name=\"keywords\"\n        content=\"equal housing opportunity, fair housing, housing discrimination, HUD fair housing, equal opportunity housing, non-discriminatory housing\"\n      />\n    </Helmet>\n\n    <div className=\"mx-auto max-w-4xl px-4 sm:px-6 lg:px-8\">\n      <div className=\"rounded-2xl border border-gray-100 bg-white p-8 text-center shadow-xl md:p-12\">\n        <div className=\"mb-6 inline-flex rounded-full bg-p4c-navy p-4\">\n          <Home className"
+      },
+      {
+        "path": "pages\\FamilyResources.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Image missing alt text. Provide meaningful alt attributes for screen reader accessibility."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport { IMAGES } from '../constants/images';\nimport {\n  MapPin,\n  School,\n  Users,\n  Home,\n  Shield,\n  DollarSign,\n  CheckCircle2,\n  Star,\n  Award,\n  BookOpen,\n  Baby,\n  Car,\n  Wifi,\n} from 'lucide-react';\n\nconst FamilyResources: React.FC = () => {\n  const schoolDistricts = [\n    {\n      name: 'Tyler ISD',\n      rating: 4.2,\n      schools: 25,\n      students: '12,000+',\n      highlights: ['STEM Programs', 'Arts Excellence', 'Sports Programs'],\n    },\n    {\n      name: 'Whitehouse ISD',\n      rating: 4.5,\n      schools: 8,\n      students: '4,200+',\n      highlights: ['Small Class Sizes', 'Technology Focus', 'Music Programs'],\n    },\n    {\n      name: 'Lindale ISD',\n      rating: 4.3,\n      schools: 6,\n      students: '3,100+',\n      highlights: [\n        'Agricultural Programs',\n        'Community Involvement',\n        'Academic Excellence',\n      ],\n    },\n  ];\n\n  const familyFeatures = [\n    {\n      icon: <Home c"
+      },
+      {
+        "path": "pages\\FAQ.tsx",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { useState } from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport { ChevronDown, HelpCircle } from 'lucide-react';\n\ninterface FAQItemProps {\n  question: string;\n  answer: string;\n}\n\nconst FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {\n  const [isOpen, setIsOpen] = useState(false);\n\n  return (\n    <div\n      className={`group overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm ${\n        isOpen ? 'ring-2 ring-p4c-gold/50' : ''\n      }`}\n    >\n      <button\n        onClick={() => setIsOpen(!isOpen)}\n        aria-expanded={isOpen}\n        aria-controls={`faq-content-${question.replace(/\\s+/g, '-').toLowerCase()}`}\n        className=\"flex w-full cursor-pointer list-none items-center justify-between p-6 text-left font-bold text-p4c-navy transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-p4c-gold\"\n      >\n        <span>{question}</span>\n        <ChevronDown\n          className={`size-5 shr"
+      },
+      {
+        "path": "pages\\Home.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Icon button missing aria-label. Screen readers require descriptive labels for interactive elements."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Hardcoded hex color detected. Consider using theme constants or CSS variables."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { useState, useMemo, useEffect } from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport Hero from '../components/Hero';\nimport PropertyCard from '../components/PropertyCard';\nimport BeforeAfterSlider from '../components/BeforeAfterSlider';\nimport { api } from '../services/api';\nimport { logError } from '../services/errorBoundaryService';\nimport type { ExtendedProperty } from '../types/types';\nimport { IMAGES } from '../constants/images';\nimport {\n  Search,\n  SlidersHorizontal,\n  X,\n  ArrowRight,\n  Heart,\n  HeartHandshake,\n  Briefcase,\n  Building2,\n} from 'lucide-react';\nimport { useNavigate } from 'react-router-dom';\n\nconst Home: React.FC = () => {\n  const navigate = useNavigate();\n\n  // States\n  const [properties, setProperties] = useState<ExtendedProperty[]>([]);\n  const [loading, setLoading] = useState(true);\n  const [searchQuery, setSearchQuery] = useState('');\n  const [maxPrice, setMaxPrice] = useState<number>(2000);\n  const [minBeds, setMinBeds] = useStat"
+      },
+      {
+        "path": "pages\\HomeownerSolutions.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Image missing alt text. Provide meaningful alt attributes for screen reader accessibility."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { useState } from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport { IMAGES } from '../constants/images';\nimport {\n  ArrowRight,\n  CheckCircle2,\n  Phone,\n  MapPin,\n  User,\n  DollarSign,\n  Clock,\n} from 'lucide-react';\n\ninterface FormData {\n  name: string;\n  address: string;\n  phone: string;\n  propertyType?: string;\n  timeline?: string;\n}\n\ninterface FormErrors {\n  name?: string;\n  address?: string;\n  phone?: string;\n}\n\nconst HomeownerSolutions: React.FC = () => {\n  // REMOVED: unused navigate hook\n  const [formData, setFormData] = useState<FormData>(() => {\n    const saved = localStorage.getItem('homeownerSolutionsForm');\n    return saved\n      ? JSON.parse(saved)\n      : {\n          name: '',\n          address: '',\n          phone: '',\n          propertyType: '',\n          timeline: '',\n        };\n  });\n  const [errors, setErrors] = useState<FormErrors>({});\n  const [isSubmitting, setIsSubmitting] = useState(false);\n  const [isSubmitted, setIsSubmitted] = useS"
+      },
+      {
+        "path": "pages\\OurImpact.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Image missing alt text. Provide meaningful alt attributes for screen reader accessibility."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { useEffect, useState } from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport { api } from '../services/api';\nimport type { StatMetric, FinancialBreakdown } from '../types/types';\nimport {\n  Home,\n  Users,\n  Hammer,\n  DollarSign,\n  Heart,\n  Loader2,\n  ArrowUpRight,\n  TrendingUp,\n  Building,\n} from 'lucide-react';\nimport { useToast } from '../context/ToastContext';\nimport { IMAGES } from '../constants/images';\n\nconst OurImpact: React.FC = () => {\n  const [metrics, setMetrics] = useState<StatMetric[]>([]);\n  const [financials, setFinancials] = useState<FinancialBreakdown[]>([]);\n  const [loading, setLoading] = useState(true);\n  const { addToast } = useToast();\n\n  useEffect(() => {\n    const fetchImpactData = async () => {\n      try {\n        const [metricsData, financialData] = await Promise.all([\n          api.impact.getMetrics(),\n          api.impact.getFinancialBreakdown(),\n        ]);\n        setMetrics(metricsData);\n        setFinancials(financialData);\n   "
+      },
+      {
+        "path": "pages\\Privacy.tsx",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport { Shield, Lock, Eye } from 'lucide-react';\n\nconst Privacy: React.FC = () => (\n  <div className=\"min-h-screen bg-p4c-beige py-16\">\n    <Helmet>\n      <title>Privacy Policy | Properties 4 Creation</title>\n      <meta\n        name=\"description\"\n        content=\"Privacy policy and data protection standards for Properties 4 Creation applicants and residents.\"\n      />\n      <meta\n        name=\"keywords\"\n        content=\"privacy policy, data protection, tenant privacy, housing privacy, rental application privacy, GDPR compliance\"\n      />\n    </Helmet>\n\n    <div className=\"mx-auto max-w-4xl px-4 sm:px-6 lg:px-8\">\n      <div className=\"rounded-2xl border border-gray-100 bg-white p-8 shadow-xl md:p-12\">\n        <div className=\"mb-8 border-b border-gray-200 pb-8\">\n          <h1 className=\"mb-4 font-serif text-3xl font-bold text-p4c-navy md:text-4xl\">\n            Privacy Policy\n          </h1>\n          <p className=\""
+      },
+      {
+        "path": "pages\\Properties.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Image missing alt text. Provide meaningful alt attributes for screen reader accessibility."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { useState, useEffect } from 'react';\nimport { IMAGES } from '../constants/images';\nimport { Helmet } from 'react-helmet-async';\nimport {\n  Search,\n  Filter,\n  Home,\n  CheckCircle,\n  MapPin,\n  SlidersHorizontal,\n} from 'lucide-react';\n\n// Components & Services\nimport PropertyCard from '../components/PropertyCard';\nimport { api } from '../services/api';\nimport { logError } from '../services/errorBoundaryService';\nimport type { ExtendedProperty } from '../types/types';\n\n// FIX: Extended Interface to avoid 'any' casting errors\ninterface MissionProperty extends ExtendedProperty {\n  isSection8Eligible?: boolean;\n  isVeteranPreferred?: boolean;\n}\n\nconst Properties: React.FC = () => {\n  // --- STATE MANAGEMENT ---\n  const [loading, setLoading] = useState(true);\n  const [properties, setProperties] = useState<MissionProperty[]>([]);\n  const [filteredProperties, setFilteredProperties] = useState<\n    MissionProperty[]\n  >([]);\n\n  // Search & Text Filters\n  const [searchTerm, setSea"
+      },
+      {
+        "path": "pages\\PropertyDetails.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Image missing alt text. Provide meaningful alt attributes for screen reader accessibility."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { useState, useEffect } from 'react';\nimport { useParams, Link } from 'react-router-dom';\nimport { api } from '../services/api';\nimport type { ExtendedProperty } from '../types/types';\nimport {\n  Bed,\n  Bath,\n  Move,\n  MapPin,\n  Check,\n  ArrowLeft,\n  Calendar,\n  School,\n  Accessibility,\n  ShieldCheck,\n  Map,\n} from 'lucide-react';\nimport { Helmet } from 'react-helmet-async';\nimport PropertyDetailsSkeleton from '../components/PropertyDetailsSkeleton';\n\nconst PropertyDetails: React.FC = () => {\n  const { id } = useParams<{ id: string }>();\n  const [property, setProperty] = useState<ExtendedProperty | undefined>(\n    undefined\n  );\n  const [loading, setLoading] = useState(true);\n  const [error, setError] = useState<string | null>(null);\n\n  useEffect(() => {\n    const fetchProperty = async () => {\n      if (!id) {\n        setError('Property ID is required');\n        setLoading(false);\n        return;\n      }\n\n      try {\n        setLoading(true);\n        setError(null);\n     "
+      },
+      {
+        "path": "pages\\ResidentServices.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Image missing alt text. Provide meaningful alt attributes for screen reader accessibility."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { useState } from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport {\n  Home,\n  Wrench,\n  MessageCircle,\n  Phone,\n  ShieldCheck,\n  AlertTriangle,\n} from 'lucide-react';\nimport { useToast } from '../context/ToastContext';\nimport { IMAGES } from '../constants/images';\n\nconst ResidentServices: React.FC = () => {\n  const { addToast } = useToast();\n  const [formData, setFormData] = useState({\n    email: '',\n    password: '',\n  });\n\n  const handleLogin = (e: React.FormEvent) => {\n    e.preventDefault();\n    addToast(\n      'Resident Portal is currently under maintenance. Please check back soon or contact our office for assistance.',\n      'info'\n    );\n  };\n\n  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {\n    const { name, value } = e.target;\n    setFormData((prev) => ({\n      ...prev,\n      [name]: value,\n    }));\n  };\n\n  return (\n    <div className=\"min-h-screen bg-p4c-beige\">\n      <Helmet>\n        <title>Resident Services & Portal | Prop"
+      },
+      {
+        "path": "pages\\Reviews.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Image missing alt text. Provide meaningful alt attributes for screen reader accessibility."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport {\n  Star,\n  ShieldCheck,\n  Hammer,\n  Clock,\n  Users,\n  ArrowRight,\n} from 'lucide-react';\nimport { IMAGES } from '../constants/images';\nimport BeforeAfterSlider from '../components/BeforeAfterSlider';\nimport { useNavigate } from 'react-router-dom';\n\nconst Reviews: React.FC = () => {\n  const navigate = useNavigate();\n\n  return (\n    <div className=\"min-h-screen bg-p4c-beige\">\n      <Helmet>\n        <title>Our Standard of Quality | Properties 4 Creation</title>\n        <meta\n          name=\"description\"\n          content=\"Explore the Properties 4 Creation quality standard. See our commitment to $30k+ renovations per unit and our pledge to East Texas families.\"\n        />\n      </Helmet>\n\n      {/* Hero Section - Mission Focused */}\n      <div className=\"relative flex h-[450px] w-full items-center justify-center overflow-hidden\">\n        <div className=\"absolute left-0 top-0 z-0 size-full\">\n          <img\n     "
+      },
+      {
+        "path": "pages\\SuccessStories.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Icon button missing aria-label. Screen readers require descriptive labels for interactive elements."
+          },
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Image missing alt text. Provide meaningful alt attributes for screen reader accessibility."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { useState, useRef } from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport {\n  Play,\n  Pause,\n  Volume2,\n  VolumeX,\n  Quote,\n  Home,\n  Hammer,\n  DollarSign,\n  TrendingUp,\n  ArrowRight,\n  Star,\n} from 'lucide-react';\nimport { IMAGES } from '../constants/images';\nimport { useNavigate } from 'react-router-dom';\n\n/**\n * CustomVideoPlayer Component\n * Enterprise-grade video player for testimonials\n */\ninterface CustomVideoPlayerProps {\n  src: string;\n  poster?: string;\n  ariaLabel: string;\n}\n\nconst CustomVideoPlayer: React.FC<CustomVideoPlayerProps> = ({\n  src,\n  poster,\n  ariaLabel,\n}) => {\n  const [isPlaying, setIsPlaying] = useState(false);\n  const [isMuted, setIsMuted] = useState(false);\n  const [progress, setProgress] = useState(0);\n  const videoRef = useRef<HTMLVideoElement>(null);\n\n  const togglePlay = () => {\n    if (videoRef.current) {\n      if (isPlaying) {\n        videoRef.current.pause();\n      } else {\n        videoRef.current.play();\n      }\n      set"
+      },
+      {
+        "path": "pages\\TenantLogin.tsx",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { useState } from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport {\n  Lock,\n  User,\n  ArrowRight,\n  ShieldCheck,\n  Wrench,\n  CreditCard,\n  AlertCircle,\n} from 'lucide-react';\nimport { Link, useNavigate, useLocation } from 'react-router-dom';\nimport { useAuth } from '../context/AuthContext';\nimport { IMAGES } from '../constants/images';\n\nconst TenantLogin: React.FC = () => {\n  const [email, setEmail] = useState('');\n  const [password, setPassword] = useState('');\n  const [error, setError] = useState('');\n  const { login, isLoading } = useAuth();\n  const navigate = useNavigate();\n  const location = useLocation();\n\n  interface LocationState {\n    from?: { pathname: string };\n  }\n\n  const from = (location.state as LocationState)?.from?.pathname || '/';\n\n  const handleLogin = async (e: React.FormEvent) => {\n    e.preventDefault();\n    setError('');\n\n    try {\n      // For demo purposes, accept these credentials\n      if (\n        (email === 'admin@p4c.com' && pass"
+      },
+      {
+        "path": "pages\\Terms.tsx",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport { Scale, FileText } from 'lucide-react';\n\nconst Terms: React.FC = () => (\n  <div className=\"min-h-screen bg-p4c-beige py-16\">\n    <Helmet>\n      <title>Terms of Service | Properties 4 Creation</title>\n      <meta\n        name=\"description\"\n        content=\"Terms of service for using the Properties 4 Creation website and portal.\"\n      />\n      <meta\n        name=\"keywords\"\n        content=\"terms of service, rental agreement terms, tenant rights, fair housing terms, lease terms, rental policies\"\n      />\n    </Helmet>\n\n    <div className=\"mx-auto max-w-4xl px-4 sm:px-6 lg:px-8\">\n      <div className=\"rounded-2xl border border-gray-100 bg-white p-8 shadow-xl md:p-12\">\n        <div className=\"mb-8 border-b border-gray-200 pb-8\">\n          <h1 className=\"mb-4 font-serif text-3xl font-bold text-p4c-navy md:text-4xl\">\n            Terms of Service\n          </h1>\n          <p className=\"text-gray-500\">Last Updated:"
+      },
+      {
+        "path": "pages\\TestPropertyForm.tsx",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React from 'react';\nimport { PropertyForm } from '../components/admin/PropertyForm';\nimport ErrorBoundary from '../components/ErrorBoundary';\n\nconst TestPropertyForm: React.FC = () => (\n  <div className=\"min-h-screen bg-p4c-beige p-8\">\n    <div className=\"mx-auto max-w-4xl\">\n      <h1 className=\"mb-8 font-serif text-3xl text-p4c-navy\">\n        Property Form Test\n      </h1>\n\n      <ErrorBoundary>\n        <PropertyForm />\n      </ErrorBoundary>\n\n      <div className=\"mt-8 rounded-lg bg-gray-100 p-4\">\n        <h2 className=\"mb-2 text-xl font-semibold text-p4c-navy\">\n          Test Instructions:\n        </h2>\n        <ul className=\"list-inside list-disc space-y-1 text-slate-700\">\n          <li>Fill out the form with property details</li>\n          <li>Click &quot;Register Property&quot; to submit</li>\n          <li>You should see a success toast notification if it works</li>\n          <li>\n            If there&apos;s an error (e.g., not logged in as admin), you&apos;ll\n            "
+      },
+      {
+        "path": "pages\\Tools.tsx",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React from 'react';\nimport ClientUpscaler from '../components/ClientUpscaler';\nimport { useNavigate } from 'react-router-dom';\nimport {\n  Zap,\n  Image as ImageIcon,\n  Brain,\n  Shield,\n  Users,\n  Home as HomeIcon,\n} from 'lucide-react';\n\nconst Tools: React.FC = () => {\n  const navigate = useNavigate();\n\n  const tools = [\n    {\n      id: 'image-upscaler',\n      title: 'Free Image Upscaler',\n      description:\n        'Enhance your property photos with AI - 2x resolution, completely free!',\n      icon: <Zap className=\"size-8 text-p4c-gold\" />,\n      component: <ClientUpscaler />,\n      color: 'from-p4c-gold to-p4c-navy',\n    },\n    {\n      id: 'ai-assistant',\n      title: 'AI Housing Assistant',\n      description:\n        'Get personalized help with your housing needs from our AI concierge.',\n      icon: <Brain className=\"size-8 text-p4c-navy\" />,\n      action: () => navigate('/'),\n      color: 'from-p4c-navy to-p4c-beige',\n    },\n    {\n      id: 'veteran-resources',\n      title: '"
+      },
+      {
+        "path": "pages\\Transparency.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Image missing alt text. Provide meaningful alt attributes for screen reader accessibility."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Hardcoded hex color detected. Consider using theme constants or CSS variables."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React, { useEffect, useState } from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport {\n  Shield,\n  Check,\n  HardHat,\n  TrendingUp,\n  Loader2,\n  CheckCircle2,\n} from 'lucide-react';\nimport { api } from '../services/api';\nimport type { RenovationStandard } from '../types/types';\nimport { useToast } from '../context/ToastContext';\nimport { IMAGES } from '../constants/images';\n\nconst Transparency: React.FC = () => {\n  const [standards, setStandards] = useState<RenovationStandard[]>([]);\n  const [loading, setLoading] = useState(true);\n  const { addToast } = useToast();\n\n  useEffect(() => {\n    const fetchData = async () => {\n      try {\n        const data = await api.transparency.getStandards();\n        setStandards(data);\n      } catch {\n        addToast(\n          'Failed to load transparency data. Please try again.',\n          'error'\n        );\n      } finally {\n        setLoading(false);\n      }\n    };\n    fetchData();\n  }, [addToast]);\n\n  return (\n    <div className"
+      },
+      {
+        "path": "pages\\Veterans.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Image missing alt text. Provide meaningful alt attributes for screen reader accessibility."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Hardcoded hex color detected. Consider using theme constants or CSS variables."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport {\n  HeartHandshake,\n  Phone,\n  Home,\n  ShieldCheck,\n  Clock,\n  FileCheck,\n  ArrowRight,\n} from 'lucide-react';\nimport { Link } from 'react-router-dom';\nimport { IMAGES } from '../constants/images';\n\nconst Veterans: React.FC = () => (\n  <>\n    <Helmet>\n      <title>\n        Veterans Housing Initiative | HUD-VASH Partners | Properties 4 Creation\n      </title>\n      <meta\n        name=\"description\"\n        content=\"Properties 4 Creation provides priority housing placement for veterans in East Texas. We specialize in HUD-VASH leasing and accessible home modifications.\"\n      />\n      <meta\n        name=\"keywords\"\n        content=\"veteran housing Tyler TX, HUD-VASH Longview, military housing assistance, accessible rentals East Texas, veteran property management\"\n      />\n    </Helmet>\n    <div className=\"min-h-screen bg-p4c-beige\">\n      {/* Hero Banner - Professional & Patriotic */}\n      <div className=\"relati"
+      },
+      {
+        "path": "pages\\VeteranServices.tsx",
+        "violations": [
+          {
+            "severity": "HIGH",
+            "type": "ACCESSIBILITY",
+            "message": "Image missing alt text. Provide meaningful alt attributes for screen reader accessibility."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import React from 'react';\nimport { Helmet } from 'react-helmet-async';\nimport { IMAGES } from '../constants/images';\nimport {\n  Briefcase,\n  Users,\n  Home,\n  Shield,\n  Phone,\n  FileCheck,\n  MapPin,\n} from 'lucide-react';\n\nconst VeteranServices: React.FC = () => (\n  <div className=\"min-h-screen bg-p4c-beige\">\n    <Helmet>\n      <title>Veteran Housing Logistics | Properties 4 Creation</title>\n      <meta\n        name=\"description\"\n        content=\"Operational support for veterans in East Texas. We coordinate HUD-VASH leasing, employment referrals, and housing stability.\"\n      />\n    </Helmet>\n\n    {/* Hero Banner */}\n    <div className=\"relative flex h-[400px] w-full items-center justify-center overflow-hidden\">\n      <div className=\"absolute left-0 top-0 z-0 size-full\">\n        <img\n          src={IMAGES.BANNERS.HERO_RESOURCES}\n          alt=\"American flag on a renovated porch in East Texas\"\n          className=\"size-full object-cover\"\n        />\n        <div className=\"hero-overlay-p"
+      },
+      {
+        "path": "services\\api.test.ts",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import { api } from './api';\n\n// Mock the supabase client\nvi.mock('../lib/supabaseClient', () => ({\n  supabase: {\n    from: vi.fn(),\n  },\n}));\n\ndescribe('API Service', () => {\n  beforeEach(() => {\n    vi.clearAllMocks();\n  });\n\n  describe('properties.getAll', () => {\n    it('should fetch all properties from the database', async () => {\n      const mockData = {\n        data: [\n          {\n            id: '1',\n            title: 'Property 1',\n            price: '1000',\n            address: '123 Main St',\n          },\n          {\n            id: '2',\n            title: 'Property 2',\n            price: '1500',\n            address: '456 Oak St',\n          },\n        ],\n        error: null,\n      };\n\n      // Create mock chain for supabase\n      const mockSelect = vi.fn().mockReturnValue({\n        order: vi.fn().mockResolvedValue(mockData),\n      });\n\n      const mockFrom = vi.fn().mockReturnValue({\n        select: mockSelect,\n      });\n\n      const { supabase } = await import('../lib/supaba"
+      },
+      {
+        "path": "services\\api.ts",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Hardcoded hex color detected. Consider using theme constants or CSS variables."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import { supabase } from '../lib/supabaseClient';\nimport type {\n  StatMetric,\n  RenovationStandard,\n  FinancialBreakdown,\n  ExtendedProperty,\n} from '../types/types';\n// Fallback data\nimport {\n  properties as mockProperties,\n  getPropertyById,\n} from '../data/properties';\n\n/**\n * Enhanced API Service\n * Maps Supabase Database Schemas directly to Frontend Types\n */\n\n/**\n * Internal DB Interfaces to resolve 'any' linting errors\n */\ninterface DatabaseProperty {\n  id: string;\n  title: string;\n  address: string;\n  city?: string;\n  price: number;\n  beds: number;\n  baths: number;\n  sqft: number;\n  description: string;\n  badges: string[];\n  amenities: string[];\n  accessibility_features: string[];\n  image_url: string;\n  neighborhood?: string;\n  school_district?: string;\n  is_active: boolean;\n  availability_date?: string;\n  created_at?: string;\n}\n\ninterface DatabaseMetric {\n  id: string;\n  label: string;\n  current_value: number;\n  icon_name?: string;\n}\n\n// --- DATA MAPPERS ----------------------"
+      },
+      {
+        "path": "services\\botpressService.test.ts",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "/**\n * Botpress Service Tests\n * Unit tests for the Botpress service layer\n */\n\nimport {\n  sendChatMessage,\n  checkBotpressHealth,\n  validationUtils,\n} from './botpressService';\n\n// Mock the global fetch function\nglobal.fetch = vi.fn();\n\ndescribe('Botpress Service', () => {\n  beforeEach(() => {\n    vi.clearAllMocks();\n  });\n\n  describe('validationUtils', () => {\n    const { validateBase64, validateMimeType, sanitizeInput } = validationUtils;\n\n    describe('validateBase64', () => {\n      it('should return true for valid base64 strings', () => {\n        expect(validateBase64('SGVsbG8gd29ybGQ=')).toBe(true);\n        expect(validateBase64('aGVsbG8=')).toBe(true);\n        expect(validateBase64('aGVsbG8gd29ybGQ=')).toBe(true);\n      });\n\n      it('should return false for invalid base64 strings', () => {\n        expect(validateBase64('not-base64')).toBe(false);\n        expect(validateBase64('')).toBe(false);\n        expect(validateBase64('SGVsbG8gd29ybGQ!')).toBe(false);\n      });\n\n      it('"
+      },
+      {
+        "path": "services\\botpressService.ts",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "/**\n * Botpress Service Layer\n * Client-side service for Botpress AI operations\n * Maintains same interface as geminiService for easy migration\n */\n\nimport { logError } from './errorBoundaryService';\n\ninterface ApiResponse<T> {\n  success: boolean;\n  data?: T;\n  message?: T; // For chat responses\n  error?: string;\n  code?: string;\n  timestamp?: string;\n}\n\ninterface ChatMessage {\n  role: 'user' | 'model';\n  parts: { text: string }[];\n}\n\nconst API_BASE_URL = '/api';\n\n// Input validation utilities (maintained from geminiService for consistency)\nconst validateBase64 = (base64Image: string): boolean => {\n  if (typeof base64Image !== 'string') return false;\n  const base64Regex = /^[A-Za-z0-9+/]*={0,2}$/;\n  return base64Regex.test(base64Image) && base64Image.length > 0;\n};\n\nconst validateMimeType = (mimeType: string): boolean => {\n  const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];\n  return allowedTypes.includes(mimeType);\n};\n\nconst sanitizeInput = (input: string): s"
+      },
+      {
+        "path": "services\\botpressWebchatService.ts",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "/**\n * Botpress Webchat Service\n * Service for embedding Botpress webchat directly in React components\n * This approach uses the existing working Botpress Cloud setup\n */\n\nimport { logError } from './errorBoundaryService';\n\ninterface WebchatConfig {\n  configUrl?: string;\n  width?: string;\n  height?: string;\n}\n\nconst BOTPRESS_WEBCHAT_URL =\n  'https://cdn.botpress.cloud/webchat/v3.5/shareable.html';\nconst BOTPRESS_CONFIG_URL =\n  'https://files.bpcontent.cloud/2025/10/13/00/20251013003640-UG466F0L.json';\n\n/**\n * Initialize Botpress webchat\n * This embeds the Botpress webchat directly into a container element\n *\n * @param containerId The ID of the HTML element to embed the webchat in\n * @param config Configuration options for the webchat\n */\nexport const initializeBotpressWebchat = (\n  containerId: string,\n  config: WebchatConfig = {}\n): void => {\n  try {\n    // Check if webchat is already initialized\n    if (document.getElementById(`bp-webchat-${containerId}`)) {\n      return;\n    }\n\n    "
+      },
+      {
+        "path": "services\\errorBoundaryService.ts",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "CLEAN_CODE",
+            "message": "Console statement detected. Remove debug logs before production or use proper logging service."
+          }
+        ],
+        "summary": "/**\n * Error Boundary Service\n * Centralized error logging and monitoring service\n * Follows architectural rules for error handling\n */\n\ntype ErrorSeverity = 'low' | 'medium' | 'high' | 'critical';\n\n/**\n * Log an error to the monitoring service\n */\nexport const logError = (\n  message: string,\n  options?: {\n    error?: Error;\n    component?: string;\n    severity?: ErrorSeverity;\n    metadata?: Record<string, unknown>;\n  }\n): void => {\n  const { error, component, severity = 'medium', metadata } = options || {};\n\n  // In development, also log to console\n\n  if (import.meta.env.DEV) {\n    // eslint-disable-next-line no-console\n    console.error(`[ErrorBoundary] ${severity.toUpperCase()}: ${message}`, {\n      component,\n      metadata,\n      error,\n    });\n  }\n\n  // In production, send to monitoring service (placeholder for future integration)\n  // TODO: Integrate with Sentry, LogRocket, or similar\n};\n\n/**\n * Log a warning message\n */\nexport const logWarning = (\n  message: string,\n  options?"
+      },
+      {
+        "path": "test\\setup.ts",
+        "violations": [],
+        "summary": "import { vi } from 'vitest';\n\n// Mock IntersectionObserver for LazyImage component\n(globalThis as typeof globalThis).IntersectionObserver = function () {\n  return {\n    observe: vi.fn(),\n    unobserve: vi.fn(),\n    disconnect: vi.fn(),\n    takeRecords: vi.fn(),\n  };\n} as unknown as typeof IntersectionObserver;\n\n// Mock ResizeObserver\n(globalThis as typeof globalThis).ResizeObserver = function () {\n  return {\n    observe: vi.fn(),\n    unobserve: vi.fn(),\n    disconnect: vi.fn(),\n  };\n} as unknown as typeof ResizeObserver;\n\n// Mock matchMedia for responsive design\nwindow.matchMedia = vi.fn((query) => ({\n  matches: false,\n  media: query,\n  onchange: null,\n  addListener: vi.fn(),\n  removeListener: vi.fn(),\n  addEventListener: vi.fn(),\n  removeEventListener: vi.fn(),\n  dispatchEvent: vi.fn(),\n}));\n\n// Mock localStorage\n(globalThis as typeof globalThis).localStorage = {\n  getItem: vi.fn(),\n  setItem: vi.fn(),\n  removeItem: vi.fn(),\n  clear: vi.fn(),\n  length: 0,\n  key: vi.fn(),\n};\n\n// Extend"
+      },
+      {
+        "path": "types\\declarations.d.ts",
+        "violations": [],
+        "summary": "declare module 'upscaler';\ndeclare module '@google/generative-ai';\n"
+      },
+      {
+        "path": "types\\env.d.ts",
+        "violations": [],
+        "summary": "// Environment variable type definitions\ninterface ImportMetaEnv {\n  readonly VITE_SUPABASE_URL: string;\n  readonly VITE_SUPABASE_ANON_KEY: string;\n}\n\ninterface ImportMeta {\n  readonly env: ImportMetaEnv;\n}\n\n// Global augmentation for import.meta\ndeclare global {\n  interface ImportMeta {\n    readonly env: ImportMetaEnv;\n  }\n}\n"
+      },
+      {
+        "path": "types\\index.ts",
+        "violations": [],
+        "summary": "export interface ExtendedProperty {\n  id: string;\n  title: string;\n  address: string;\n  city: string; // [NEW] From SQL\n  price: string;\n  status: 'available' | 'occupied' | 'maintenance';\n  bedrooms: number;\n  bathrooms: number;\n  sqft: number;\n  description: string;\n  imageUrl: string;\n  images: string[];\n  badges: string[]; // [NEW] From SQL\n  amenities: string[];\n  accessibilityFeatures: string[]; // [NEW] From SQL\n  neighborhood: string; // [NEW] From SQL\n  schoolDistrict: string; // [NEW] From SQL\n  availabilityDate: string; // [NEW] From SQL\n  yearBuilt?: number;\n  location?: {\n    lat: number;\n    lng: number;\n  };\n  beds?: number;\n  baths?: number;\n}\n\nexport interface StatMetric {\n  id: string;\n  label: string;\n  value: string;\n  icon: string;\n  description: string;\n  trend: 'up' | 'down' | 'neutral';\n  trendValue: string;\n}\n\nexport interface RenovationStandard {\n  id: string;\n  category: string;\n  standardLandlord: string;\n  p4cStandard: string;\n  benefit: string;\n}\n\nexport i"
+      },
+      {
+        "path": "types\\supabase.ts",
+        "violations": [],
+        "summary": "export type Json =\n  | string\n  | number\n  | boolean\n  | null\n  | { [key: string]: Json | undefined }\n  | Json[];\n\nexport type Database = {\n  // Allows to automatically instantiate createClient with right options\n  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)\n  __InternalSupabase: {\n    PostgrestVersion: '14.1';\n  };\n  public: {\n    Tables: {\n      applications: {\n        Row: {\n          email: string;\n          first_name: string;\n          id: string;\n          last_name: string;\n          message: string | null;\n          military_branch: string | null;\n          phone: string;\n          property_id: string | null;\n          status: string | null;\n          submitted_at: string;\n        };\n        Insert: {\n          email: string;\n          first_name: string;\n          id?: string;\n          last_name: string;\n          message?: string | null;\n          military_branch?: string | null;\n          phone: string;\n          property_id?: string | null;\n"
+      },
+      {
+        "path": "types\\timeline.ts",
+        "violations": [],
+        "summary": "export interface TimelineMilestone {\n  id: string;\n  year: string;\n  title: string;\n  description: string;\n  image?: string;\n  quote?: string;\n}\n"
+      },
+      {
+        "path": "types\\types.ts",
+        "violations": [],
+        "summary": "// Property Interfaces\nexport interface Property {\n  id: string;\n  title: string;\n  address: string;\n  price: string | number;\n  beds: number;\n  baths: number;\n  sqft: number;\n  imageUrl: string;\n  badges: string[];\n  description: string;\n}\n\nexport interface ExtendedProperty extends Property {\n  // New Fields for Supabase Integration\n  city: string;\n  neighborhood: string;\n  schoolDistrict: string;\n  availabilityDate: string;\n\n  // Arrays\n  amenities: string[];\n  accessibilityFeatures: string[];\n  images: string[]; // For galleries\n\n  // Status\n  status: 'available' | 'occupied' | 'maintenance';\n\n  // Compatibility helpers (handles DB column naming differences)\n  bedrooms?: number;\n  bathrooms?: number;\n\n  // Optional / Legacy\n  yearBuilt?: number;\n  location?: {\n    lat: number;\n    lng: number;\n  };\n}\n\n// Impact & Mission Interfaces\nexport interface StatMetric {\n  id: string;\n  label: string;\n  value: string;\n  icon: string;\n  description?: string;\n  trend?: 'up' | 'down' | 'neutral'"
+      },
+      {
+        "path": "utils\\formatters.test.ts",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "import {\n  formatCurrency,\n  formatNumber,\n  formatDate,\n  truncateText,\n  getInitials,\n  slugify,\n} from './formatters';\n\ndescribe('Formatters', () => {\n  describe('formatCurrency', () => {\n    it('should format numbers as USD currency', () => {\n      expect(formatCurrency(1000)).toBe('$1,000');\n      expect(formatCurrency(1500.5)).toBe('$1,501');\n      expect(formatCurrency(500)).toBe('$500');\n    });\n\n    it('should handle large numbers correctly', () => {\n      expect(formatCurrency(1000000)).toBe('$1,000,000');\n      expect(formatCurrency(1234567.89)).toBe('$1,234,568');\n    });\n\n    it('should handle negative numbers', () => {\n      expect(formatCurrency(-500)).toBe('-$500');\n      expect(formatCurrency(-1234.56)).toBe('-$1,235');\n    });\n\n    it('should allow custom Intl.NumberFormat options', () => {\n      expect(\n        formatCurrency(1000, {\n          minimumFractionDigits: 2,\n          maximumFractionDigits: 2,\n        })\n      ).toBe('$1,000.00');\n    });\n  });\n\n  describe"
+      },
+      {
+        "path": "utils\\formatters.ts",
+        "violations": [],
+        "summary": "/**\n * Utility functions for formatting data throughout the application\n */\n\n/**\n * Formats a number as USD currency\n * @param amount - The amount to format\n * @param options - Intl.NumberFormat options\n * @returns Formatted currency string\n */\nexport const formatCurrency = (\n  amount: number,\n  options?: Intl.NumberFormatOptions\n): string => {\n  // Default to whole numbers if not specified\n  const formatOptions: Intl.NumberFormatOptions = {\n    style: 'currency',\n    currency: 'USD',\n    minimumFractionDigits: 0,\n    maximumFractionDigits: 0,\n    ...options,\n  };\n\n  return new Intl.NumberFormat('en-US', formatOptions).format(amount);\n};\n\n/**\n * Formats a number with thousands separators\n * @param num - The number to format\n * @returns Formatted number string\n */\nexport const formatNumber = (num: number): string =>\n  new Intl.NumberFormat('en-US').format(num);\n\n/**\n * Formats a date string to a human-readable format\n * @param dateString - ISO date string\n * @param options - Intl.DateTi"
+      },
+      {
+        "path": "utils\\imageOptimization.ts",
+        "violations": [
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Hardcoded hex color detected. Consider using theme constants or CSS variables."
+          },
+          {
+            "severity": "LOW",
+            "type": "MAINTAINABILITY",
+            "message": "Magic number detected. Consider defining named constants for clarity."
+          }
+        ],
+        "summary": "/**\n * Image Optimization Utilities\n * Supports WebP/AVIF format detection and conversion\n */\n\nexport interface ImageFormat {\n  webp: boolean;\n  avif: boolean;\n  original: string;\n}\n\nexport interface OptimizedImageConfig {\n  quality: number;\n  progressive: boolean;\n  lossy: boolean;\n  effort: number;\n}\n\nexport interface ResponsiveImageConfig {\n  breakpoints: number[];\n  formats: ('webp' | 'avif' | 'jpeg' | 'png')[];\n  quality: number;\n  sizes: string[];\n}\n\n// Check browser support for modern image formats\nexport const detectImageFormatSupport = (): ImageFormat => {\n  const webp = checkWebPSupport();\n  const avif = checkAVIFSupport();\n\n  return {\n    webp,\n    avif,\n    original: 'jpeg',\n  };\n};\n\n// Check WebP support\nconst checkWebPSupport = (): boolean => {\n  const canvas = document.createElement('canvas');\n  canvas.width = 1;\n  canvas.height = 1;\n  return canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;\n};\n\n// Check AVIF support\nconst checkAVIFSupport = (): boolean =>"
+      },
+      {
+        "path": "utils\\importless-test.test.ts",
+        "violations": [],
+        "summary": "it('should run a simple test without imports', () => {\n  expect(true).toBe(true);\n});\n"
+      },
+      {
+        "path": "utils\\minimal-test.test.ts",
+        "violations": [],
+        "summary": "import { expect } from 'vitest';\n\nit('should run a simple test', () => {\n  expect(true).toBe(true);\n});\n"
+      }
+    ],
+    "summary": {
+      "total_files_scanned": 91,
+      "total_violations": 107,
+      "severity_breakdown": {
+        "CRITICAL": 0,
+        "HIGH": 32,
+        "MEDIUM": 0,
+        "LOW": 75
+      },
+      "violation_types": {
+        "CLEAN_CODE": 3,
+        "MAINTAINABILITY": 71,
+        "ACCESSIBILITY": 32,
+        "UI_CONSISTENCY": 1
+      }
+    }
+  }
+}

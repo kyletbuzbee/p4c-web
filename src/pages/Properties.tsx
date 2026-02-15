@@ -130,6 +130,7 @@ const Properties: React.FC = () => {
 
     setFilteredProperties(filtered);
   }, [
+    properties,
     searchTerm,
     selectedLocation,
     selectedBedrooms,
@@ -158,7 +159,7 @@ const Properties: React.FC = () => {
             width={1920}
             height={1080}
           />
-          <div className="absolute left-0 top-0 size-full bg-p4c-navy/90" />
+          <div className="absolute left-0 top-0 size-full bg-p4c-navy/15" />
         </div>
         <div className="relative z-10 mx-auto max-w-4xl px-4 text-center">
           <h1 className="mb-6 font-serif text-4xl font-bold text-white sm:text-5xl lg:text-6xl">

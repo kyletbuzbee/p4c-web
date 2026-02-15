@@ -52,10 +52,10 @@ const ResidentServices: React.FC = () => {
             alt="Happy resident family in their home"
             className="size-full object-cover"
           />
-          <div className="absolute left-0 top-0 size-full bg-p4c-navy/90 mix-blend-multiply" />
+          <div className="absolute left-0 top-0 size-full bg-p4c-navy/15 mix-blend-multiply" />
         </div>
         <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
-          <div className="hero-text-container rounded-2xl border border-white/10 bg-p4c-navy/95 p-4 backdrop-blur-xl md:p-6">
+          <div className="hero-text-container rounded-2xl border border-white/20 bg-p4c-navy/70 p-4 backdrop-blur-2xl md:p-6">
             <h1 className="hero-text-enhanced mb-4 font-serif text-4xl font-bold tracking-wide text-white md:text-5xl">
               Resident Services
             </h1>
@@ -76,7 +76,7 @@ const ResidentServices: React.FC = () => {
                 alt="Resident portal access"
                 className="size-full object-cover"
               />
-              <div className="absolute inset-0 bg-p4c-navy/20" />
+              <div className="absolute inset-0 bg-p4c-navy/8" />
               <div className="absolute inset-x-6 bottom-6 rounded-xl bg-white/90 p-4 backdrop-blur-sm">
                 <div className="flex items-center gap-3">
                   <ShieldCheck className="size-6 text-p4c-gold" />
@@ -335,7 +335,7 @@ const ResidentServices: React.FC = () => {
                 alt="Happy family enjoying their home"
                 className="size-full object-cover"
               />
-              <div className="absolute inset-0 bg-p4c-navy/20" />
+              <div className="absolute inset-0 bg-p4c-navy/8" />
               <div className="absolute inset-x-6 bottom-6 rounded-xl bg-white/90 p-4 backdrop-blur-sm">
                 <div className="flex items-center gap-3">
                   <Home className="size-6 text-p4c-gold" />

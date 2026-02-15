@@ -27,9 +27,9 @@ export default defineConfig(({ mode }) => {
   return {
     base,
     server: {
-      port: 3001,
+      port: 5173,
       host: '0.0.0.0', // Exposes the server to your local network (0.0.0.0)
-      strictPort: false, // Allows Vite to try 3002, 3003, etc., if 3001 is taken
+      strictPort: false, // Allows Vite to try 5174, 5175, etc., if 5173 is taken
       hmr: {
         // Removed clientPort restriction to allow Vite to automatically negotiate the HMR port
       },

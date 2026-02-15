@@ -55,12 +55,12 @@ const Transparency: React.FC = () => {
             width={1920}
             height={1080}
           />
-          <div className="hero-overlay-primary absolute inset-0 bg-p4c-navy/90" />
+          <div className="hero-overlay-primary absolute inset-0 bg-p4c-navy/15" />
           <div className="hero-overlay-secondary absolute inset-0 bg-gradient-to-t from-p4c-navy/80 to-transparent" />
         </div>
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-          <div className="hero-text-container rounded-2xl border border-white/10 bg-p4c-navy/95 p-4 backdrop-blur-xl md:p-6">
+          <div className="hero-text-container rounded-2xl border border-white/20 bg-p4c-navy/70 p-4 backdrop-blur-2xl md:p-6">
             <h1 className="hero-text-enhanced mb-6 font-serif text-4xl font-bold text-white md:text-5xl">
               The Open Book Policy
             </h1>
@@ -278,7 +278,7 @@ const Transparency: React.FC = () => {
               width={800}
               height={400}
             />
-            <div className="absolute inset-0 bg-p4c-navy/30 mix-blend-multiply" />
+            <div className="absolute inset-0 bg-p4c-navy/10 mix-blend-multiply" />
             <div className="absolute inset-x-6 bottom-6 rounded-lg bg-white/90 p-4 backdrop-blur-sm">
               <p className="text-sm font-bold text-p4c-navy">
                 &quot;We pay our contractors fairly and on time, ensuring they

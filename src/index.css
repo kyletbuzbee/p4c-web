@@ -43,6 +43,11 @@
 @layer components {
   /* --- NAVIGATION & LAYOUT --- */
 
+  /* Enhanced navbar menu text with subtle depth */
+  .nav-menu-enhanced {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
   .skip-link {
     @apply fixed left-4 top-4 bg-p4c-navy text-white p-3 z-[100] rounded-lg shadow-lg transition-all duration-200;
     transform: translateY(-100%);
@@ -112,9 +117,9 @@
   .hero-overlay-primary {
     background: linear-gradient(
       180deg,
-      rgba(11, 17, 32, 0.9) 0%,
-      rgba(11, 17, 32, 0.6) 50%,
-      rgba(11, 17, 32, 0.85) 100%
+      rgba(11, 17, 32, 0.15) 0%,
+      rgba(11, 17, 32, 0.1) 50%,
+      rgba(11, 17, 32, 0.15) 100%
     );
     mix-blend-mode: multiply;
   }
@@ -122,13 +127,15 @@
   .hero-overlay-secondary {
     background: linear-gradient(
       135deg,
-      rgba(0, 0, 0, 0.3) 0%,
-      rgba(0, 0, 0, 0.15) 100%
+      rgba(0, 0, 0, 0.1) 0%,
+      rgba(0, 0, 0, 0.05) 100%
     );
   }
 
   .hero-text-enhanced {
-    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow:
+      0px 4px 12px rgba(0, 0, 0, 0.9),
+      0px 2px 6px rgba(0, 0, 0, 0.8);
     @apply text-white tracking-tight leading-tight;
   }
 
@@ -141,15 +148,15 @@
     .hero-overlay-primary {
       background: linear-gradient(
         180deg,
-        rgba(11, 17, 32, 0.6) 0%,
-        rgba(11, 17, 32, 0.4) 50%,
-        rgba(11, 17, 32, 0.5) 100%
+        rgba(11, 17, 32, 0.15) 0%,
+        rgba(11, 17, 32, 0.1) 50%,
+        rgba(11, 17, 32, 0.15) 100%
       );
     }
 
-    /* Mobile-specific hero overlay intensification for better text contrast */
+    /* Mobile-specific hero overlay - reduced for image visibility */
     .mobile-hero-intensify {
-      background: rgba(11, 17, 32, 0.85) !important;
+      background: rgba(11, 17, 32, 0.18) !important;
     }
   }
 

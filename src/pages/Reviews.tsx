@@ -35,7 +35,7 @@ const Reviews: React.FC = () => {
             width={1920}
             height={1080}
           />
-          <div className="absolute left-0 top-0 size-full bg-p4c-navy/90 mix-blend-multiply" />
+          <div className="absolute left-0 top-0 size-full bg-p4c-navy/15 mix-blend-multiply" />
         </div>
         <div className="relative z-10 mx-auto max-w-4xl animate-fade-in-up px-4 text-center">
           <h1 className="mb-6 font-serif text-4xl font-bold text-white md:text-6xl">

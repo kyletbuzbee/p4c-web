@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { TIMING } from '../constants/config';
 
 interface AnimatedButtonProps {
   children: React.ReactNode;
@@ -52,7 +53,7 @@ export const AnimatedButton: React.FC<AnimatedButtonProps> = ({
 
       // Button press animation
       setIsPressed(true);
-      setTimeout(() => setIsPressed(false), 150);
+      setTimeout(() => setIsPressed(false), TIMING.BUTTON_PRESS_DURATION);
     }
 
     onClick?.();

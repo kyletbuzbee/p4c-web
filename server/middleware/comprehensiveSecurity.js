@@ -228,8 +228,12 @@ const createDynamicSecurityHeaders = () => (req, res, next) => {
  */
 const createAPIKeyValidator = () => (req, res, next) => {
   // Skip validation for public endpoints
-  const publicEndpoints = ['/api/health', '/api/security/status'];
-  if (publicEndpoints.includes(req.path)) {
+  const publicEndpoints = ['/api/health', '/api/security/status', '/health'];
+  const isPublic = publicEndpoints.some(
+    (endpoint) => req.path === endpoint || req.originalUrl === endpoint
+  );
+
+  if (isPublic) {
     return next();
   }
 

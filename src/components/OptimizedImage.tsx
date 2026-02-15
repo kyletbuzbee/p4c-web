@@ -29,7 +29,6 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
       className={className}
       loading={loading}
       fetchPriority={priority ? 'high' : 'auto'}
-      role="img"
     />
   );
 };

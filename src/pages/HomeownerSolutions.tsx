@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { IMAGES } from '../constants/images';
+import { TIMING } from '../constants/config';
 import {
   ArrowRight,
   CheckCircle2,
@@ -86,7 +87,9 @@ const HomeownerSolutions: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      await new Promise((resolve) =>
+        setTimeout(resolve, TIMING.FORM_SUBMISSION_DELAY)
+      );
       setIsSubmitted(true);
     } catch {
       // Error is handled by the error boundary service
@@ -119,7 +122,7 @@ const HomeownerSolutions: React.FC = () => {
             alt="Waterfront property acquisition in East Texas"
             className="size-full object-cover"
           />
-          <div className="hero-overlay-primary absolute left-0 top-0 size-full bg-p4c-navy/60" />
+          <div className="hero-overlay-primary absolute left-0 top-0 size-full bg-p4c-navy/15" />
           <div className="hero-overlay-secondary absolute left-0 top-0 size-full bg-gradient-to-b from-transparent via-transparent to-p4c-navy/80" />
         </div>
 
