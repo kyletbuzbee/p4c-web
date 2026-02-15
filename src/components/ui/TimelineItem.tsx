@@ -28,7 +28,7 @@ export const TimelineItem: React.FC<TimelineItemProps> = ({
     >
       {/* The Central Spine Node */}
       <div
-        className={`absolute left-4 z-20 size-6 -translate-x-1/2 rounded-full border-4 border-p4c-navy transition-all duration-1000 md:left-1/2 ${
+        className={`absolute left-4 z-20 size-6 rounded-full border-4 border-p4c-navy -translate-x-1/2 transition-all duration-1000 md:left-1/2 ${
           inView
             ? 'scale-125 bg-p4c-gold shadow-[0_0_15px_rgba(212,175,55,0.6)]'
             : 'scale-100 bg-gray-400'
@@ -43,14 +43,14 @@ export const TimelineItem: React.FC<TimelineItemProps> = ({
         }`}
       >
         <article className="rounded-xl border border-p4c-gold/20 bg-p4c-navy p-6 shadow-2xl transition-colors hover:border-p4c-gold/60">
-          <div className="flex items-center justify-between mb-4">
+          <div className="mb-4 flex items-center justify-between">
             <time className="mb-2 block font-serif text-3xl font-bold text-p4c-gold">
               {milestone.year}
             </time>
             {milestone.image && (
               <button
                 onClick={() => setIsExpanded(!isExpanded)}
-                className="text-p4c-gold hover:text-white transition-colors"
+                className="text-p4c-gold transition-colors hover:text-white"
                 aria-label={`Toggle details for ${milestone.title}`}
               >
                 {isExpanded ? 'Hide Details' : 'Show Details'}
@@ -60,7 +60,7 @@ export const TimelineItem: React.FC<TimelineItemProps> = ({
           <h3 className="mb-3 text-xl font-bold text-white">
             {milestone.title}
           </h3>
-          <p className="text-sm leading-relaxed text-gray-300 mb-4">
+          <p className="mb-4 text-sm leading-relaxed text-gray-300">
             {milestone.description}
           </p>
           {isExpanded && milestone.image && (
@@ -73,14 +73,14 @@ export const TimelineItem: React.FC<TimelineItemProps> = ({
             </div>
           )}
           {isExpanded && milestone.quote && (
-            <blockquote className="text-sm italic text-gray-400 mb-4">
+            <blockquote className="mb-4 text-sm italic text-gray-400">
               &ldquo;{milestone.quote}&rdquo;
             </blockquote>
           )}
           {isExpanded && (
             <button
               onClick={() => setIsExpanded(false)}
-              className="text-sm text-p4c-gold hover:text-white transition-colors"
+              className="text-sm text-p4c-gold transition-colors hover:text-white"
             >
               Close
             </button>

@@ -25,7 +25,8 @@
     "format:check": "prettier . --check",
     "server": "node server/index.js",
     "dev:all": "concurrently \"npm run server\" \"npm run dev\" --names \"API,VITE\" --prefix-colors \"blue,green\"",
-    "lighthouse:run": "npm run build && lhci autorun"
+    "lighthouse:run": "npm run build && npx lhci autorun",
+    "lighthouse:local": "set VITE_USE_CUSTOM_DOMAIN=true&& npm run build && npx lhci autorun"
   },
   "overrides": {
     "tar": "^7.5.7",

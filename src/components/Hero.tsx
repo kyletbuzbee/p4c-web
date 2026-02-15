@@ -65,11 +65,7 @@ const Hero: React.FC<HeroProps> = ({ variant = 'image' }) => {
               src={IMAGES.BANNERS.HERO_HOME}
               alt="Professional renovation in East Texas"
               className="size-full object-cover"
-              width={1920}
-              height={1080}
               priority
-              sizes={['100vw']}
-              placeholder="blur"
             />
           </div>
         )}
@@ -77,7 +73,7 @@ const Hero: React.FC<HeroProps> = ({ variant = 'image' }) => {
         {/* Layer 1: Minimal global dimming for subtle depth */}
         <div className="absolute inset-0 bg-p4c-navy/5" />
         {/* Layer 2: Light directional gradient to anchor the text */}
-        <div className="mobile-hero-intensify absolute inset-0 bg-gradient-to-r from-p4c-navy/15 via-p4c-navy/8 to-transparent" />
+        <div className="mobile-hero-intensify absolute inset-0 bg-gradient-to-r from-p4c-navy/15 via-black/20 to-transparent" />
       </div>
 
       {/* Main Content: Left-aligned for high-end editorial feel */}

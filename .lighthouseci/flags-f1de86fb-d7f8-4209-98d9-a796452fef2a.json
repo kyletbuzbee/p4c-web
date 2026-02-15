@@ -1,0 +1,1 @@
+{"chromeFlags":"--headless --no-sandbox --disable-gpu --disable-dev-shm-usage --disable-software-rasterizer --headless=new","staticFileExtensions":[".html",".js",".css",".png",".svg",".webp",".ico",".json"],"maxWaitForLoad":60000,"maxWaitForFcp":30000,"skipAudits":["is-on-https"],"onlyCategories":["performance","accessibility","best-practices","seo"]}
