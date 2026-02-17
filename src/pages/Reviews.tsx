@@ -28,12 +28,14 @@ const Reviews: React.FC = () => {
       {/* Hero Section - Mission Focused */}
       <div className="relative flex h-[450px] w-full items-center justify-center overflow-hidden">
         <div className="absolute left-0 top-0 z-0 size-full">
-          <img
-            src={IMAGES.BANNERS.HERO_COMMUNITY_IMPACT}
-            alt="P4C Quality Renovation in East Texas"
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
             className="size-full object-cover"
-            width={1920}
-            height={1080}
+            src={IMAGES.VIDEOS.REVIEW_HERO}
+            aria-label="P4C Quality Renovation in East Texas"
           />
           <div className="absolute left-0 top-0 size-full bg-p4c-navy/15 mix-blend-multiply" />
         </div>
@@ -108,6 +110,31 @@ const Reviews: React.FC = () => {
               beforeImage={IMAGES.RENOVATION.LIVING_ROOM.BEFORE}
               afterImage={IMAGES.RENOVATION.LIVING_ROOM.AFTER}
               label="East Texas Interior Revitalization"
+            />
+          </div>
+        </div>
+
+        {/* Video Transformation Showcase */}
+        <div className="mb-20 overflow-hidden rounded-3xl bg-p4c-navy p-8 shadow-2xl md:p-12">
+          <div className="mb-8 text-center">
+            <h2 className="mb-4 font-serif text-3xl font-bold text-white md:text-4xl">
+              Watch Our Transformations
+            </h2>
+            <p className="mx-auto max-w-2xl text-gray-300">
+              See the dramatic before and after transformations we bring to East
+              Texas neighborhoods. Every renovation represents a family&apos;s
+              new beginning.
+            </p>
+          </div>
+          <div className="relative aspect-video overflow-hidden rounded-2xl">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="size-full object-cover"
+              src={IMAGES.VIDEOS.BEFORE_AFTER}
+              aria-label="Before and after property transformation video"
             />
           </div>
         </div>
