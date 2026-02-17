@@ -25,8 +25,8 @@
     "format:check": "prettier . --check",
     "server": "node server/index.js",
     "dev:all": "concurrently \"npm run server\" \"npm run dev\" --names \"API,VITE\" --prefix-colors \"blue,green\"",
-    "lighthouse:run": "npm run build && npx lhci autorun",
-    "lighthouse:local": "set VITE_USE_CUSTOM_DOMAIN=true&& npm run build && npx lhci autorun"
+    "lighthouse": "cross-env VITE_USE_CUSTOM_DOMAIN=true npm run build && npx lhci autorun",
+    "lighthouse:ci": "npm run build && npx lhci autorun"
   },
   "overrides": {
     "tar": "^7.5.7",
@@ -88,6 +88,7 @@
     "autoprefixer": "^10.4.18",
     "concurrently": "^9.2.1",
     "cors": "^2.8.5",
+    "cross-env": "^10.1.0",
     "dotenv": "^16.6.1",
     "eslint": "^9.18.0",
     "eslint-config-prettier": "^10.1.8",
@@ -105,6 +106,7 @@
     "postcss-scss": "^4.0.9",
     "prettier": "^3.5.3",
     "qrcode-terminal": "^0.12.0",
+    "start-server-and-test": "^2.1.3",
     "supabase": "^2.76.8",
     "svgo": "^3.3.2",
     "tailwindcss": "^3.4.1",

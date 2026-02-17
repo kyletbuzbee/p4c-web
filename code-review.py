@@ -1,12 +1,3 @@
-#!/usr/bin/env python3
-"""
-AI-Optimized Code Review & Analysis Tool for Properties 4 Creation (Properties 4 Creation)
-Produces structured, comprehensive code reviews for AI processing.
-
-Properties 4 Creation MISSION: Housing veterans and families with dignity.
-This analyzer enforces "Dignity-First" UI patterns and architectural standards.
-"""
-
 import os
 import sys
 import json
@@ -46,7 +37,7 @@ class FileAnalysis:
 class ProjectManifest:
     """Project manifest providing global context for AI analysis."""
     project_name: str
-    mission_statement: str = "Housing veterans and families with dignity"
+    mission_statement: str = "property analyzer"
     architecture_patterns: Dict[str, str] = field(default_factory=dict)
     component_relationships: Dict[str, List[str]] = field(default_factory=dict)
     service_dependencies: Dict[str, List[str]] = field(default_factory=dict)
