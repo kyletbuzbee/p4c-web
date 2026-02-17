@@ -182,7 +182,7 @@ const Construction: React.FC = () => (
               alt="Construction team working on property renovation"
               className="size-full object-cover"
             />
-            <div className="bg-p4c-navy/8 absolute inset-0" />
+            <div className="absolute inset-0 bg-p4c-navy/10" />
             <div className="absolute inset-x-6 bottom-6 rounded-xl bg-white/90 p-4 backdrop-blur-sm">
               <div className="flex items-center gap-3">
                 <ShieldCheck className="size-6 text-p4c-gold" />
