@@ -25,8 +25,8 @@
     "format:check": "prettier . --check",
     "server": "node server/index.js",
     "dev:all": "concurrently \"npm run server\" \"npm run dev\" --names \"API,VITE\" --prefix-colors \"blue,green\"",
-    "lighthouse": "cross-env VITE_USE_CUSTOM_DOMAIN=true npm run build && npx lhci autorun",
-    "lighthouse:ci": "npm run build && npx lhci autorun"
+    "lighthouse": "cross-env VITE_USE_CUSTOM_DOMAIN=true npm run build && node scripts/run-lighthouse.js",
+    "lighthouse:ci": "npm run build && node scripts/run-lighthouse.js"
   },
   "overrides": {
     "tar": "^7.5.7",
@@ -66,7 +66,6 @@
     "@babel/eslint-parser": "^7.28.5",
     "@babel/preset-env": "^7.28.5",
     "@eslint/js": "^9.18.0",
-    "@lhci/cli": "^0.15.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@types/bcryptjs": "^2.4.6",
