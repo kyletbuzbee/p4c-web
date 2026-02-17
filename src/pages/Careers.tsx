@@ -113,7 +113,7 @@ const Careers: React.FC = () => (
               alt="Team members working on site"
               className="size-full object-cover"
             />
-            <div className="bg-p4c-navy/8 absolute inset-0" />
+            <div className="bg-p4c-navy bg-opacity-10 absolute inset-0" />
             <div className="absolute inset-x-6 bottom-6 rounded-xl bg-white/90 p-4 backdrop-blur-sm">
               <div className="flex items-center gap-3">
                 <Briefcase className="size-6 text-p4c-gold" />
