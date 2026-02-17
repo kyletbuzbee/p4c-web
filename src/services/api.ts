@@ -1,4 +1,5 @@
 import { supabase } from '../lib/supabaseClient';
+import DOMPurify from 'dompurify';
 import type {
   StatMetric,
   RenovationStandard,
@@ -250,10 +251,11 @@ export const api = {
       // Sanitize price input: strip currency symbols and commas
       const priceStr = (property.price || '0').toString().replace(/[$,]/g, '');
 
-      // Sanitize text fields to prevent XSS
+      // Sanitize text fields using DOMPurify to prevent XSS
       const sanitizeText = (text: string | undefined): string => {
         if (!text) return '';
-        return text.replace(/[<>]/g, ''); // Basic XSS prevention
+        // Strip all HTML tags and attributes for plain text fields
+        return DOMPurify.sanitize(text, { ALLOWED_TAGS: [], ALLOWED_ATTR: [] });
       };
 
       const dbPayload: Omit<DatabaseProperty, 'id' | 'created_at'> = {

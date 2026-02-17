@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, {
   createContext,
   useContext,
@@ -71,7 +70,7 @@ const validateStoredUser = (storedUser: string): User | null => {
     }
 
     return user;
-  } catch (error) {
+  } catch {
     return null;
   }
 };
@@ -93,7 +92,7 @@ const validateSessionWithBackend = async (
     });
 
     return response.ok;
-  } catch (error) {
+  } catch {
     return false;
   }
 };
@@ -149,7 +148,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
             localStorage.removeItem('p4c_session_token');
           }
         }
-      } catch (error) {
+      } catch {
         // Clear potentially corrupted data
         localStorage.removeItem('p4c_user');
         localStorage.removeItem('p4c_session_token');
@@ -270,7 +269,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       } else {
         logout();
       }
-    } catch (error) {
+    } catch {
       logout();
     }
   };

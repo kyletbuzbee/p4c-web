@@ -3,7 +3,7 @@
   "private": true,
   "version": "2.0.0",
   "type": "module",
-  "homepage": "http://http:///",
+  "homepage": "https://properties4creation.com",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -17,7 +17,7 @@
     "test:integration": "vitest run",
     "test:e2e": "echo 'E2E tests not configured' && exit 0",
     "test:coverage": "vitest run --coverage",
-    "security:check": "echo 'Security check passed' && exit 0",
+    "security:check": "npm audit --audit-level=moderate",
     "content:audit": "node scripts/content-audit.js",
     "optimize:images": "echo 'Images already optimized' && exit 0",
     "optimize:svg": "svgo -f public/images --recursive",
