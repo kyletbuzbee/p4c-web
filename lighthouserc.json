@@ -1,23 +1,13 @@
 {
   "ci": {
     "collect": {
-      "staticDistDir": "./dist",
-      "url": ["http://localhost:4173/index.html"],
       "numberOfRuns": 1,
+      "staticDistDir": "./dist",
+      "url": ["/index.html"],
       "settings": {
-        "output": "json",
-        "outputPath": "./lighthouseReport.json",
-        "chromeFlags": "--headless --no-sandbox --disable-gpu --disable-dev-shm-usage --disable-software-rasterizer --ignore-certificate-errors",
-        "staticFileExtensions": [
-          ".html",
-          ".js",
-          ".css",
-          ".png",
-          ".svg",
-          ".webp",
-          ".ico",
-          ".json"
-        ],
+        "output": "html",
+        "outputPath": "./lighthouseReport.html",
+        "chromeFlags": "--headless --no-sandbox --disable-gpu --disable-dev-shm-usage --disable-software-rasterizer",
         "maxWaitForLoad": 60000,
         "maxWaitForFcp": 30000,
         "skipAudits": ["is-on-https"],
