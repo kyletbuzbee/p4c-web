@@ -580,7 +580,8 @@ const Home: React.FC = () => {
                 muted
                 playsInline
                 className="absolute inset-0 size-full object-cover opacity-60"
-                src={IMAGES.VIDEOS.SUCCESS_STORY}
+                src={IMAGES.VIDEOS.HERO_COMMUNITY_IMPACT}
+                aria-label="Community impact transformation video"
               />
               <div className="absolute inset-0 bg-p4c-navy/10 mix-blend-multiply" />
             </div>

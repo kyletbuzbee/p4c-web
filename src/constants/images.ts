@@ -226,28 +226,40 @@ export const IMAGES = {
 
   // Videos
   VIDEOS: {
-    HOME: '/images/videos/home-page-hero.mp4',
-    HERO_PROJECTS: '/images/videos/hero-projects-banner.mp4',
-    // Updated: Mapped to actual file 'hero-properties-banner.mp4'
-    HERO_WORK: '/images/videos/hero-properties-banner.mp4',
+    // Home page - FIXED: was pointing to non-existent home-page-hero.mp4
+    HERO_HOME: '/images/videos/home.mp4',
+    HOME: '/images/videos/home.mp4',
+    HOME_PAGE: '/images/videos/home.mp4',
+
+    // Community Impact - NEW (User Requested)
+    HERO_COMMUNITY_IMPACT: '/images/videos/hero-community-impact.mp4',
+
     // Properties page hero video
+    HERO_PROJECTS: '/images/videos/hero-properties-banner.mp4',
+    HERO_WORK: '/images/videos/hero-properties-banner.mp4',
     HERO_PROPERTY: '/images/videos/hero-properties-banner.mp4',
-    HOME_PAGE: '/images/videos/home-page-hero.mp4',
-    SUCCESS_STORY: '/images/videos/success-stories.mp4',
-    HERO_COMMUNITY: '/images/videos/community-investment-banner.mp4',
-    // Updated: Removed '-banner' to match disk
+
+    // Our Impact page - FIXED: was pointing to non-existent hero-kitchen-timelapse.mp4
     HERO_IMPACT: '/images/videos/hero-our-impact.mp4',
-    // Added: Home page hero video
-    HERO_HOME: '/images/videos/home-page-hero.mp4',
-    // Added missing constant used in Hero.tsx
-    HERO_SPOTLIGHT: '/images/videos/Hero-Spotlight-Banner(8).mp4',
-    // Kitchen timelapse for Our Impact page
-    KITCHEN_TIMELAPSE: '/images/videos/hero-kitchen-timelapse.mp4',
-    // Impact hero video alias
-    IMPACT_HERO: '/images/videos/hero-kitchen-timelapse.mp4',
-    // Resident review videos
-    REVIEW_1: '/videos/review-1.mp4',
-    REVIEW_2: '/videos/review-2.mp4',
-    REVIEW_3: '/videos/review-3.mp4',
+    KITCHEN_TIMELAPSE: '/images/videos/hero-our-impact.mp4',
+    IMPACT_HERO: '/images/videos/hero-our-impact.mp4',
+
+    // Success Stories - FIXED: was pointing to non-existent files
+    SUCCESS_STORY: '/images/videos/success-stories-1.mp4',
+    SUCCESS_STORIES_1: '/images/videos/success-stories-1.mp4',
+    HERO_SPOTLIGHT: '/images/videos/hero-spotlight-banner.mp4',
+
+    // Reviews page - NEW
+    REVIEW_HERO: '/images/videos/review.mp4',
+    REVIEW: '/images/videos/review.mp4',
+
+    // Before/After transformation - NEW
+    BEFORE_AFTER: '/images/videos/before-and-after.mp4',
+
+    // Our Work banner
+    HERO_OUR_WORK: '/images/videos/hero-our-work-banner.mp4',
+
+    // Legacy paths for backwards compatibility
+    HERO_COMMUNITY: '/images/videos/hero-community-impact.mp4',
   },
 } as const;
