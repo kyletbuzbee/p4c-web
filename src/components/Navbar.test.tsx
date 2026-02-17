@@ -68,9 +68,10 @@ describe('Navbar', () => {
       </Router>
     );
 
+    expect(screen.getByText('Community Impact')).toBeInTheDocument();
     expect(screen.getByText('Find a Home')).toBeInTheDocument();
-    expect(screen.getByText('About Us')).toBeInTheDocument();
-    expect(screen.getByText('Residents')).toBeInTheDocument();
+    expect(screen.getByText('Investors')).toBeInTheDocument();
+    expect(screen.getByText('Resources')).toBeInTheDocument();
   });
 
   it('should have accessible sell your house link', () => {
