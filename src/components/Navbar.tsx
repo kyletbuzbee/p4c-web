@@ -250,7 +250,7 @@ const Navbar = (): React.ReactElement => {
                           role="menuitem"
                           aria-label={`${child.label} - ${child.desc}`}
                         >
-                          <div className="mt-0.5 rounded-md bg-p4c-gold/20 p-1.5 text-p4c-gold transition-colors group-hover/item:bg-p4c-gold group-hover/item:text-p4c-navy">
+                          <div className="mt-0.5 rounded-md bg-p4c-gold/40 p-1.5 text-p4c-gold transition-colors group-hover/item:bg-p4c-gold group-hover/item:text-p4c-navy">
                             {child.icon}
                           </div>
                           <div>
@@ -351,7 +351,7 @@ const Navbar = (): React.ReactElement => {
                       <div className="text-p4c-gold">{child.icon}</div>
                       <div>
                         <div className="text-sm font-medium">{child.label}</div>
-                        <div className="text-xs text-gray-500">
+                        <div className="text-xs text-gray-700">
                           {child.desc}
                         </div>
                       </div>

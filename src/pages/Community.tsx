@@ -205,7 +205,7 @@ const Community: React.FC = () => {
                   <div className="mb-2 text-3xl font-bold text-p4c-gold">
                     12-15%
                   </div>
-                  <div className="text-sm uppercase tracking-wide text-gray-500">
+                  <div className="text-sm uppercase tracking-wide text-gray-700">
                     Target Annual Returns
                   </div>
                 </div>
@@ -213,7 +213,7 @@ const Community: React.FC = () => {
                   <div className="mb-2 text-3xl font-bold text-p4c-gold">
                     3-5 yrs
                   </div>
-                  <div className="text-sm uppercase tracking-wide text-gray-500">
+                  <div className="text-sm uppercase tracking-wide text-gray-700">
                     Investment Horizon
                   </div>
                 </div>
@@ -263,14 +263,14 @@ const Community: React.FC = () => {
               <div className="font-bold text-p4c-navy">
                 Properties Revitalized
               </div>
-              <div className="mt-1 text-sm text-gray-500">
+              <div className="mt-1 text-sm text-gray-700">
                 In Tyler and Longview
               </div>
             </div>
             <div className="p-4">
               <div className="mb-2 text-4xl font-bold text-p4c-gold">200+</div>
               <div className="font-bold text-p4c-navy">Residents Housed</div>
-              <div className="mt-1 text-sm text-gray-500">
+              <div className="mt-1 text-sm text-gray-700">
                 Families and Veterans
               </div>
             </div>
@@ -279,7 +279,7 @@ const Community: React.FC = () => {
               <div className="font-bold text-p4c-navy">
                 Community Investment
               </div>
-              <div className="mt-1 text-sm text-gray-500">
+              <div className="mt-1 text-sm text-gray-700">
                 In East Texas Economy
               </div>
             </div>

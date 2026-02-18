@@ -64,9 +64,9 @@ const Footer: React.FC = () => (
 
         {/* 2. Find a Home (Prospective Residents) */}
         <div>
-          <h4 className="mb-4 font-serif text-lg font-bold text-p4c-gold">
+          <h2 className="mb-4 font-serif text-lg font-bold text-p4c-gold">
             Find a Home
-          </h4>
+          </h2>
           <ul className="space-y-2 text-sm text-gray-400">
             <li>
               <Link
@@ -102,9 +102,9 @@ const Footer: React.FC = () => (
 
         {/* 3. Company (About Us) */}
         <div>
-          <h4 className="mb-4 font-serif text-lg font-bold text-p4c-gold">
+          <h2 className="mb-4 font-serif text-lg font-bold text-p4c-gold">
             Company
-          </h4>
+          </h2>
           <ul className="space-y-2 text-sm text-gray-400">
             <li>
               <Link to="/about" className="transition-colors hover:text-white">
@@ -151,9 +151,9 @@ const Footer: React.FC = () => (
 
         {/* 4. Residents & Legal */}
         <div>
-          <h4 className="mb-4 font-serif text-lg font-bold text-p4c-gold">
+          <h2 className="mb-4 font-serif text-lg font-bold text-p4c-gold">
             Residents
-          </h4>
+          </h2>
           <ul className="mb-6 space-y-2 text-sm text-gray-400">
             <li>
               <Link to="/portal" className="transition-colors hover:text-white">
@@ -220,13 +220,13 @@ const Footer: React.FC = () => (
       {/* Badges Bar */}
       <div className="border-t border-gray-800 py-8">
         <div className="flex flex-wrap justify-center gap-6">
-          <div className="flex items-center gap-2 text-sm text-gray-500">
+          <div className="flex items-center gap-2 text-sm text-gray-700">
             <Flag className="size-4 text-p4c-gold" /> Veteran Owned & Operated
           </div>
-          <div className="flex items-center gap-2 text-sm text-gray-500">
+          <div className="flex items-center gap-2 text-sm text-gray-700">
             <Home className="size-4 text-p4c-gold" /> Equal Housing Opportunity
           </div>
-          <div className="flex items-center gap-2 text-sm text-gray-500">
+          <div className="flex items-center gap-2 text-sm text-gray-700">
             <Accessibility className="size-4 text-p4c-gold" /> ADA Compliant
           </div>
         </div>

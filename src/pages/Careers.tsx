@@ -296,7 +296,7 @@ const Careers: React.FC = () => (
       <section className="rounded-2xl bg-p4c-navy p-12 text-center text-white">
         <div className="mx-auto max-w-3xl">
           <div className="mb-6 flex justify-center">
-            <div className="rounded-2xl border border-p4c-gold/30 bg-p4c-gold/20 p-4">
+            <div className="rounded-2xl border border-p4c-gold/30 bg-p4c-gold/40 p-4">
               <Briefcase className="size-10 text-p4c-gold" />
             </div>
           </div>

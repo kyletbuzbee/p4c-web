@@ -122,7 +122,7 @@ const TenantLogin: React.FC = () => {
             <h2 className="font-serif text-2xl font-bold text-p4c-navy">
               Secure Login
             </h2>
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-2 text-sm text-gray-700">
               Resident & Staff Portal
             </p>
           </div>
@@ -205,7 +205,7 @@ const TenantLogin: React.FC = () => {
               Bank-Level 256-bit Encryption
             </div>
             <div className="space-y-3">
-              <p className="text-center text-xs text-gray-500">
+              <p className="text-center text-xs text-gray-700">
                 Not a resident yet?{' '}
                 <Link
                   to="/apply"

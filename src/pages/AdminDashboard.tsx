@@ -248,7 +248,7 @@ const AdminDashboard: React.FC = () => {
                     className="rounded-xl border border-gray-100 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
                   >
                     <div className="mb-4 flex items-center justify-between">
-                      <div className="text-sm font-medium text-gray-500">
+                      <div className="text-sm font-medium text-gray-700">
                         {stat.label}
                       </div>
                       <span className="text-2xl">{stat.icon}</span>
@@ -268,7 +268,7 @@ const AdminDashboard: React.FC = () => {
                 <h3 className="mb-4 font-bold text-gray-800">
                   Recent System Activity
                 </h3>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-gray-700">
                   No recent alerts or system notifications.
                 </p>
               </div>
@@ -316,7 +316,7 @@ const AdminDashboard: React.FC = () => {
               ) : (
                 <div className="overflow-x-auto">
                   <table className="w-full text-left">
-                    <thead className="bg-gray-50 text-xs font-semibold uppercase text-gray-500">
+                    <thead className="bg-gray-50 text-xs font-semibold uppercase text-gray-700">
                       <tr>
                         <th className="px-6 py-4">Property</th>
                         <th className="px-6 py-4">Status</th>
@@ -345,7 +345,7 @@ const AdminDashboard: React.FC = () => {
                                 <div className="font-medium text-gray-900">
                                   {property.title}
                                 </div>
-                                <div className="text-xs text-gray-500">
+                                <div className="text-xs text-gray-700">
                                   {property.address}
                                 </div>
                               </div>
@@ -367,7 +367,7 @@ const AdminDashboard: React.FC = () => {
                             <div className="flex justify-end gap-2">
                               <button
                                 onClick={() => handleEdit(property.id)}
-                                className="rounded p-1.5 text-gray-500 hover:bg-gray-100 hover:text-p4c-navy"
+                                className="rounded p-1.5 text-gray-700 hover:bg-gray-100 hover:text-p4c-navy"
                                 title="Edit Property"
                                 aria-label={`Edit ${property.title}`}
                               >
@@ -375,7 +375,7 @@ const AdminDashboard: React.FC = () => {
                               </button>
                               <button
                                 onClick={() => handleDelete(property.id)}
-                                className="rounded p-1.5 text-gray-500 hover:bg-red-50 hover:text-red-600"
+                                className="rounded p-1.5 text-gray-700 hover:bg-red-50 hover:text-red-600"
                                 title="Delete Property"
                                 aria-label={`Delete ${property.title}`}
                               >
@@ -389,7 +389,7 @@ const AdminDashboard: React.FC = () => {
                         <tr>
                           <td
                             colSpan={5}
-                            className="px-6 py-8 text-center text-gray-500"
+                            className="px-6 py-8 text-center text-gray-700"
                           >
                             No properties found matching your search.
                           </td>
@@ -409,7 +409,7 @@ const AdminDashboard: React.FC = () => {
               <h3 className="text-lg font-bold text-gray-900">
                 Tenant Management
               </h3>
-              <p className="text-gray-500">
+              <p className="text-gray-700">
                 Tenant list and application processing features coming soon.
               </p>
             </div>
@@ -422,7 +422,7 @@ const AdminDashboard: React.FC = () => {
               <h3 className="text-lg font-bold text-gray-900">
                 System Settings
               </h3>
-              <p className="text-gray-500">
+              <p className="text-gray-700">
                 Global configurations will be available here.
               </p>
             </div>

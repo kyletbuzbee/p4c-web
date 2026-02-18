@@ -130,7 +130,7 @@ function App() {
           <DarkModeProvider>
             <ImageFormatProvider>
               <AuthProvider>
-                <div className="flex min-h-screen flex-col bg-p4c-beige font-sans text-p4c-navy antialiased">
+                <div role="document" className="flex min-h-screen flex-col bg-p4c-beige font-sans text-p4c-navy antialiased">
                   <SkipLink />
                   <ScrollToTop />
                   <Routes>

@@ -234,7 +234,7 @@ const ClientUpscaler: React.FC = () => {
                 Upload Image
               </span>
             </label>
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-2 text-sm text-gray-700">
               Max file size: 5MB • Supported formats: JPG, PNG, WebP
             </p>
 
@@ -272,7 +272,7 @@ const ClientUpscaler: React.FC = () => {
               <h3 className="text-lg font-semibold text-p4c-navy">
                 Original Image
               </h3>
-              <div className="text-sm text-gray-500">
+              <div className="text-sm text-gray-700">
                 {Math.round((state.originalImage.length * 0.75) / 1024)} KB
               </div>
             </div>

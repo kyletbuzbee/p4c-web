@@ -126,7 +126,7 @@ const OurImpact: React.FC = () => {
                   {stat.value}
                 </div>
                 <div className="mb-2 font-bold text-gray-900">{stat.label}</div>
-                <p className="text-sm leading-snug text-gray-500">
+                <p className="text-sm leading-snug text-gray-700">
                   {stat.description}
                 </p>
               </div>
@@ -319,7 +319,7 @@ const OurImpact: React.FC = () => {
               ))}
             </div>
             <div className="mt-8 border-t border-gray-100 pt-6 text-center">
-              <p className="mb-4 text-sm text-gray-500">
+              <p className="mb-4 text-sm text-gray-700">
                 Interested in partnership opportunities?
               </p>
               <a

@@ -29,7 +29,7 @@ const Construction: React.FC = () => (
         {/* Glassmorphism text container for enhanced contrast */}
         <div className="rounded-2xl bg-p4c-navy/70 p-4 backdrop-blur-2xl">
           <div className="mb-6 flex justify-center">
-            <div className="rounded-2xl border border-p4c-gold/30 bg-p4c-gold/20 p-4 backdrop-blur-sm">
+            <div className="rounded-2xl border border-p4c-gold/30 bg-p4c-gold/40 p-4 backdrop-blur-sm">
               <Hammer className="size-10 text-p4c-gold" />
             </div>
           </div>
@@ -279,7 +279,7 @@ const Construction: React.FC = () => (
       <section className="rounded-2xl bg-p4c-navy p-12 text-center text-white">
         <div className="mx-auto max-w-3xl">
           <div className="mb-6 flex justify-center">
-            <div className="rounded-2xl border border-p4c-gold/30 bg-p4c-gold/20 p-4">
+            <div className="rounded-2xl border border-p4c-gold/30 bg-p4c-gold/40 p-4">
               <Home className="size-10 text-p4c-gold" />
             </div>
           </div>

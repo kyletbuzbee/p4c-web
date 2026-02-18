@@ -67,7 +67,7 @@ const LazyImage = memo(
         <div
           className={`${className} flex items-center justify-center bg-gray-200`}
         >
-          <div className="text-center text-gray-500">
+          <div className="text-center text-gray-700">
             <ImageIcon className="mx-auto mb-2 size-12" />
             <p className="text-sm">Image not available</p>
           </div>
@@ -191,7 +191,7 @@ const PropertyCard = memo<PropertyCardProps>(
             {property.title}
           </h3>
 
-          <p className="mb-4 flex items-center text-sm text-gray-500">
+          <p className="mb-4 flex items-center text-sm text-gray-700">
             <MapPin className="mr-1 size-3 shrink-0 text-p4c-gold" />
             <span className="truncate">{property.address}</span>
           </p>

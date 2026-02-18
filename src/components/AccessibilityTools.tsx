@@ -176,7 +176,7 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
             <h3 className="font-semibold text-gray-800">Accessibility Tools</h3>
             <button
               onClick={() => setIsOpen(false)}
-              className="text-gray-500 hover:text-gray-700"
+              className="text-gray-700 hover:text-gray-700"
               aria-label="Close accessibility tools"
             >
               ✕
@@ -320,7 +320,7 @@ const AccessibilityTools: React.FC<AccessibilityToolsProps> = ({
             {/* Keyboard Shortcuts */}
             <div className="border-t border-gray-200 pt-2">
               <p className="mb-2 text-xs text-gray-600">Keyboard Shortcuts:</p>
-              <div className="space-y-1 text-xs text-gray-500">
+              <div className="space-y-1 text-xs text-gray-700">
                 <div>Ctrl/Cmd + +/-: Font size</div>
                 <div>Ctrl/Cmd + 0: Reset font</div>
                 <div>Ctrl/Cmd + K: Contrast</div>

@@ -285,7 +285,7 @@ const SuccessStories: React.FC = () => {
                     <div className="text-lg font-bold text-p4c-navy">
                       {story.name}
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                    <div className="flex items-center gap-2 text-sm text-gray-700">
                       <span>{story.location}</span>
                       <span className="size-1 rounded-full bg-gray-300" />
                       <span>{story.role}</span>

@@ -182,11 +182,11 @@ const Veterans: React.FC = () => (
                   </p>
                   <p className="text-2xl font-bold text-p4c-navy">
                     988{' '}
-                    <span className="text-lg font-normal text-gray-500">
+                    <span className="text-lg font-normal text-gray-700">
                       (Press 1)
                     </span>
                   </p>
-                  <p className="mt-1 text-xs text-gray-500">
+                  <p className="mt-1 text-xs text-gray-700">
                     24/7 Confidential Support
                   </p>
                 </div>
@@ -200,7 +200,7 @@ const Veterans: React.FC = () => (
                   <p className="text-xl font-bold text-p4c-navy">
                     (903) 707-8460
                   </p>
-                  <p className="mt-1 text-xs text-gray-500">
+                  <p className="mt-1 text-xs text-gray-700">
                     Mon-Fri: 0800 - 1700
                   </p>
                 </div>
@@ -226,7 +226,7 @@ const Veterans: React.FC = () => (
                       <span className="block font-bold text-gray-700 transition-colors group-hover:text-p4c-navy">
                         CampV Tyler
                       </span>
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-gray-700">
                         Veteran Resource Center
                       </span>
                     </div>
@@ -244,7 +244,7 @@ const Veterans: React.FC = () => (
                       <span className="block font-bold text-gray-700 transition-colors group-hover:text-p4c-navy">
                         Texas Veterans Commission
                       </span>
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-gray-700">
                         Claims & Education
                       </span>
                     </div>
@@ -262,7 +262,7 @@ const Veterans: React.FC = () => (
                       <span className="block font-bold text-gray-700 transition-colors group-hover:text-p4c-navy">
                         HUD-VASH Program
                       </span>
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-gray-700">
                         Official Guidelines
                       </span>
                     </div>

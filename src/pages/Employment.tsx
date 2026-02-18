@@ -134,7 +134,7 @@ const Employment: React.FC = () => (
                       {job.type}
                     </span>
                   </div>
-                  <div className="mb-4 flex justify-between text-sm text-gray-500">
+                  <div className="mb-4 flex justify-between text-sm text-gray-700">
                     <span>{job.location}</span>
                     <span className="font-semibold text-p4c-navy">
                       {job.salary}

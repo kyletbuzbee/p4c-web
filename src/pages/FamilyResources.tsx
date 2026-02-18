@@ -411,7 +411,7 @@ const FamilyResources: React.FC = () => {
                   <div className="font-serif font-bold text-p4c-navy">
                     {testimonial.name}
                   </div>
-                  <div className="text-sm text-gray-500">
+                  <div className="text-sm text-gray-700">
                     {testimonial.family} • {testimonial.location}
                   </div>
                 </div>

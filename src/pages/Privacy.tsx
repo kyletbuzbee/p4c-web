@@ -22,7 +22,7 @@ const Privacy: React.FC = () => (
           <h1 className="mb-4 font-serif text-3xl font-bold text-p4c-navy md:text-4xl">
             Privacy Policy
           </h1>
-          <p className="text-gray-500">Last Updated: October 24, 2023</p>
+          <p className="text-gray-700">Last Updated: October 24, 2023</p>
         </div>
 
         <div className="prose prose-slate max-w-none text-gray-700">

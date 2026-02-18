@@ -30,6 +30,7 @@
   body {
     background-color: var(--color-beige);
     color: var(--color-navy);
+
     @apply antialiased;
   }
 
@@ -45,31 +46,35 @@
 
   /* Enhanced navbar menu text with subtle depth */
   .nav-menu-enhanced {
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 2px 4px rgb(0 0 0 / 30%);
   }
 
   .skip-link {
     @apply fixed left-4 top-4 bg-p4c-navy text-white p-3 z-[100] rounded-lg shadow-lg transition-all duration-200;
+
     transform: translateY(-100%);
   }
+
   .skip-link:focus {
     transform: translateY(0);
   }
 
   .glass-navbar {
-    background-color: rgba(11, 17, 32, 0.9); /* High-contrast fallback */
+    background-color: rgb(11 17 32 / 90%); /* High-contrast fallback */
+
     @apply transition-colors duration-300;
   }
 
   @supports (backdrop-filter: blur(10px)) {
     .glass-navbar {
       backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
-      background-color: rgba(11, 17, 32, 0.72);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(24px) saturate(180%);
+      background-color: rgb(11 17 32 / 72%);
+      border-bottom: 1px solid rgb(255 255 255 / 12%);
     }
+
     .glass-navbar:hover {
-      background-color: rgba(11, 17, 32, 0.78);
+      background-color: rgb(11 17 32 / 78%);
     }
   }
 
@@ -83,16 +88,17 @@
   }
 
   .glass-card {
-    background: rgba(255, 255, 255, 0.85);
+    background: rgb(255 255 255 / 85%);
     backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgb(255 255 255 / 20%);
   }
 
   /* --- BUTTONS & INTERACTION --- */
 
   .install-button {
     @apply bg-p4c-gold text-p4c-navy px-6 py-3 rounded-lg font-bold shadow-lg transition-all duration-300;
+
     background: linear-gradient(
       135deg,
       var(--color-gold),
@@ -102,12 +108,13 @@
 
   .install-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(197, 160, 89, 0.3);
+    box-shadow: 0 10px 25px rgb(197 160 89 / 30%);
   }
 
   .hover-lift {
     @apply transition-transform duration-200 ease-in-out;
   }
+
   .hover-lift:hover {
     @apply -translate-y-1 scale-105;
   }
@@ -117,9 +124,9 @@
   .hero-overlay-primary {
     background: linear-gradient(
       180deg,
-      rgba(11, 17, 32, 0.15) 0%,
-      rgba(11, 17, 32, 0.1) 50%,
-      rgba(11, 17, 32, 0.15) 100%
+      rgb(11 17 32 / 15%) 0%,
+      rgb(11 17 32 / 10%) 50%,
+      rgb(11 17 32 / 15%) 100%
     );
     mix-blend-mode: multiply;
   }
@@ -127,15 +134,16 @@
   .hero-overlay-secondary {
     background: linear-gradient(
       135deg,
-      rgba(0, 0, 0, 0.1) 0%,
-      rgba(0, 0, 0, 0.05) 100%
+      rgb(0 0 0 / 10%) 0%,
+      rgb(0 0 0 / 5%) 100%
     );
   }
 
   .hero-text-enhanced {
     text-shadow:
-      0px 4px 12px rgba(0, 0, 0, 0.9),
-      0px 2px 6px rgba(0, 0, 0, 0.8);
+      0 4px 12px rgb(0 0 0 / 90%),
+      0 2px 6px rgb(0 0 0 / 80%);
+
     @apply text-white tracking-tight leading-tight;
   }
 
@@ -144,19 +152,19 @@
   }
 
   /* Mobile Overlays */
-  @media (max-width: 640px) {
+  @media (width <= 640px) {
     .hero-overlay-primary {
       background: linear-gradient(
         180deg,
-        rgba(11, 17, 32, 0.15) 0%,
-        rgba(11, 17, 32, 0.1) 50%,
-        rgba(11, 17, 32, 0.15) 100%
+        rgb(11 17 32 / 15%) 0%,
+        rgb(11 17 32 / 10%) 50%,
+        rgb(11 17 32 / 15%) 100%
       );
     }
 
     /* Mobile-specific hero overlay - reduced for image visibility */
     .mobile-hero-intensify {
-      background: rgba(11, 17, 32, 0.18) !important;
+      background: rgb(11 17 32 / 18%) !important;
     }
   }
 
@@ -198,7 +206,7 @@
   }
 
   .reading-mode {
-    font-family: 'Georgia', serif !important;
+    font-family: Georgia, serif !important;
     line-height: 1.8 !important;
     letter-spacing: 0.02em !important;
     background-color: #fefefe !important;
@@ -222,16 +230,19 @@
     @keyframes glassMorph {
       0% {
         backdrop-filter: blur(20px);
-        background-color: rgba(11, 17, 32, 0.7);
+        background-color: rgb(11 17 32 / 70%);
       }
+
       100% {
         backdrop-filter: blur(24px);
-        background-color: rgba(11, 17, 32, 0.72);
+        background-color: rgb(11 17 32 / 72%);
       }
     }
+
     .glass-animation {
       animation: glassMorph 0.4s ease-out forwards;
     }
+
     .animate-fade-in {
       animation: fadeIn 0.6s ease-out;
     }
@@ -241,6 +252,7 @@
     from {
       opacity: 0;
     }
+
     to {
       opacity: 1;
     }

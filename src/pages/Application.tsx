@@ -72,7 +72,7 @@ const Application: React.FC = () => {
           <h1 className="mb-3 font-serif text-4xl font-bold tracking-tight text-p4c-navy">
             Properties 4 Creation <br /> Rental Application
           </h1>
-          <div className="flex items-center justify-center gap-2 text-sm font-medium text-gray-500">
+          <div className="flex items-center justify-center gap-2 text-sm font-medium text-gray-700">
             <Lock size={14} className="text-p4c-gold" />
             <span>Secure 256-bit Encrypted Submission</span>
           </div>
@@ -115,7 +115,7 @@ const Application: React.FC = () => {
                   <h3 className="font-serif text-xl font-bold text-p4c-navy">
                     Personal Information
                   </h3>
-                  <p className="mt-1 text-sm text-gray-500">
+                  <p className="mt-1 text-sm text-gray-700">
                     Please provide your legal contact details.
                   </p>
                 </div>
@@ -175,7 +175,7 @@ const Application: React.FC = () => {
                   <h3 className="font-serif text-xl font-bold text-p4c-navy">
                     Housing History
                   </h3>
-                  <p className="mt-1 text-sm text-gray-500">
+                  <p className="mt-1 text-sm text-gray-700">
                     Information regarding your current residence.
                   </p>
                 </div>

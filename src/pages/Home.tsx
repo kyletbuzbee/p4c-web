@@ -214,7 +214,7 @@ const Home: React.FC = () => {
 
           {/* Badges / Amenities Filter */}
           <div className="mt-6 border-t border-gray-100 pt-5">
-            <div className="mb-4 flex items-center gap-2.5 text-sm font-bold uppercase tracking-wide text-gray-500">
+            <div className="mb-4 flex items-center gap-2.5 text-sm font-bold uppercase tracking-wide text-gray-700">
               <SlidersHorizontal className="size-4" /> Filter by Features:
             </div>
             <div className="mb-4 flex flex-wrap gap-2.5">
@@ -236,7 +236,7 @@ const Home: React.FC = () => {
 
             {/* Family-Friendly Filters */}
             <div className="border-t border-gray-100 pt-4">
-              <div className="mb-3 flex items-center gap-2.5 text-sm font-bold uppercase tracking-wide text-gray-500">
+              <div className="mb-3 flex items-center gap-2.5 text-sm font-bold uppercase tracking-wide text-gray-700">
                 <HeartHandshake className="size-4" /> Lifestyle Amenities:
               </div>
               <div className="flex flex-wrap gap-2.5">
@@ -301,7 +301,7 @@ const Home: React.FC = () => {
             <h3 className="mb-2 text-xl font-bold text-p4c-navy">
               No properties found matching your criteria
             </h3>
-            <p className="mb-6 text-gray-500">
+            <p className="mb-6 text-gray-700">
               Our inventory in Tyler and Longview changes weekly.
             </p>
             <button
@@ -586,7 +586,7 @@ const Home: React.FC = () => {
               <div className="absolute inset-0 bg-p4c-navy/10 mix-blend-multiply" />
             </div>
             <div className="text-white">
-              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-p4c-gold/30 bg-p4c-gold/20 px-4 py-2 text-sm font-bold uppercase tracking-wider text-p4c-gold">
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-p4c-gold/30 bg-p4c-gold/40 px-4 py-2 text-sm font-bold uppercase tracking-wider text-p4c-gold">
                 Our Impact Story
               </div>
               <h2 className="mb-6 font-serif text-3xl font-bold md:text-4xl">
@@ -646,7 +646,7 @@ const Home: React.FC = () => {
             </div>
 
             <div className="w-full">
-              <div className="mb-4 text-center text-sm italic text-gray-500">
+              <div className="mb-4 text-center text-sm italic text-gray-700">
                 Drag the slider to see the value add
               </div>
               <BeforeAfterSlider

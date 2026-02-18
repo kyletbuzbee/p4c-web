@@ -87,7 +87,7 @@ const AddPropertyModal: React.FC<AddPropertyModalProps> = ({
             aria-label="Close add property modal"
             type="button"
           >
-            <X className="size-5 text-gray-500" aria-hidden="true" />
+            <X className="size-5 text-gray-700" aria-hidden="true" />
           </button>
         </div>
 

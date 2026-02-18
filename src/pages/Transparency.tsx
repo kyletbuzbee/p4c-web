@@ -94,7 +94,7 @@ const Transparency: React.FC = () => {
             <div className="overflow-x-auto">
               <table className="w-full border-collapse text-left">
                 <thead>
-                  <tr className="border-b border-gray-200 bg-gray-50 text-xs font-bold uppercase tracking-wider text-gray-500">
+                  <tr className="border-b border-gray-200 bg-gray-50 text-xs font-bold uppercase tracking-wider text-gray-700">
                     <th className="p-6">Feature</th>
                     <th className="bg-gray-50 p-6 text-gray-600">
                       Industry Standard
@@ -114,7 +114,7 @@ const Transparency: React.FC = () => {
                       <td className="p-6 font-bold text-p4c-navy">
                         {item.category}
                       </td>
-                      <td className="bg-gray-50/30 p-6 text-gray-500">
+                      <td className="bg-gray-50/30 p-6 text-gray-700">
                         <div className="flex items-start gap-2">
                           <span className="mt-1 text-gray-400">•</span>
                           {item.standardLandlord}

@@ -6,6 +6,7 @@ import './index.css';
 
 // Import from the same directory (no /src/)
 import { updateSW } from './pwa-register';
+import './vitals';
 
 // Run it
 updateSW();

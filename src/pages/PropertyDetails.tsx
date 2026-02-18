@@ -163,7 +163,7 @@ const PropertyDetails: React.FC = () => {
             {/* Stats Bar */}
             <div className="flex items-center justify-between rounded-xl bg-white p-6 text-center shadow-lg">
               <div>
-                <div className="mb-1 text-xs font-bold uppercase tracking-widest text-gray-500">
+                <div className="mb-1 text-xs font-bold uppercase tracking-widest text-gray-700">
                   Monthly Rent
                 </div>
                 <div className="font-serif text-3xl font-bold text-p4c-navy">
@@ -172,7 +172,7 @@ const PropertyDetails: React.FC = () => {
               </div>
               <div className="h-12 w-px bg-gray-200" />
               <div>
-                <div className="mb-1 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-500">
+                <div className="mb-1 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-700">
                   <Bed className="size-4" /> Bedrooms
                 </div>
                 <div className="text-2xl font-bold text-p4c-navy">
@@ -181,7 +181,7 @@ const PropertyDetails: React.FC = () => {
               </div>
               <div className="h-12 w-px bg-gray-200" />
               <div>
-                <div className="mb-1 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-500">
+                <div className="mb-1 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-700">
                   <Bath className="size-4" /> Bathrooms
                 </div>
                 <div className="text-2xl font-bold text-p4c-navy">
@@ -190,7 +190,7 @@ const PropertyDetails: React.FC = () => {
               </div>
               <div className="hidden h-12 w-px bg-gray-200 sm:block" />
               <div className="hidden sm:block">
-                <div className="mb-1 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-500">
+                <div className="mb-1 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-700">
                   <Move className="size-4" /> Square Ft
                 </div>
                 <div className="text-2xl font-bold text-p4c-navy">
@@ -253,7 +253,7 @@ const PropertyDetails: React.FC = () => {
                 </h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <div>
-                    <p className="mb-1 text-xs font-bold uppercase tracking-widest text-gray-500">
+                    <p className="mb-1 text-xs font-bold uppercase tracking-widest text-gray-700">
                       Neighborhood
                     </p>
                     <p className="font-medium text-p4c-navy">
@@ -261,7 +261,7 @@ const PropertyDetails: React.FC = () => {
                     </p>
                   </div>
                   <div>
-                    <p className="mb-1 flex items-center gap-1 text-xs font-bold uppercase tracking-widest text-gray-500">
+                    <p className="mb-1 flex items-center gap-1 text-xs font-bold uppercase tracking-widest text-gray-700">
                       <School className="size-3" /> School District
                     </p>
                     <p className="font-medium text-p4c-navy">
@@ -278,7 +278,7 @@ const PropertyDetails: React.FC = () => {
             <div className="sticky top-24 rounded-xl border border-gray-100 bg-white p-6 shadow-lg">
               <div className="mb-6 text-center">
                 <h3 className="text-xl font-bold text-p4c-navy">Interested?</h3>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-gray-700">
                   Availability:{' '}
                   <span className="font-bold text-green-600">
                     {property.availabilityDate}

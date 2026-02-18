@@ -250,7 +250,7 @@ const ResidentServices: React.FC = () => {
 
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
-                  <div className="mt-1 flex size-8 shrink-0 items-center justify-center rounded-full bg-p4c-gold/20">
+                  <div className="mt-1 flex size-8 shrink-0 items-center justify-center rounded-full bg-p4c-gold/40">
                     <svg
                       className="size-5 text-p4c-gold"
                       fill="none"
@@ -276,7 +276,7 @@ const ResidentServices: React.FC = () => {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="mt-1 flex size-8 shrink-0 items-center justify-center rounded-full bg-p4c-gold/20">
+                  <div className="mt-1 flex size-8 shrink-0 items-center justify-center rounded-full bg-p4c-gold/40">
                     <svg
                       className="size-5 text-p4c-gold"
                       fill="none"
@@ -302,7 +302,7 @@ const ResidentServices: React.FC = () => {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="mt-1 flex size-8 shrink-0 items-center justify-center rounded-full bg-p4c-gold/20">
+                  <div className="mt-1 flex size-8 shrink-0 items-center justify-center rounded-full bg-p4c-gold/40">
                     <svg
                       className="size-5 text-p4c-gold"
                       fill="none"
@@ -483,7 +483,7 @@ const ResidentServices: React.FC = () => {
         <section className="rounded-2xl bg-p4c-navy p-12 text-center text-white">
           <div className="mx-auto max-w-3xl">
             <div className="mb-6 flex justify-center">
-              <div className="rounded-2xl border border-p4c-gold/30 bg-p4c-gold/20 p-4">
+              <div className="rounded-2xl border border-p4c-gold/30 bg-p4c-gold/40 p-4">
                 <MessageCircle className="size-10 text-p4c-gold" />
               </div>
             </div>

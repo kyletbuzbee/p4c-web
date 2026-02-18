@@ -148,7 +148,7 @@ class ErrorBoundaryInternal extends Component<InternalProps, State> {
             </p>
 
             <div className="mb-6 rounded-lg bg-gray-50 p-3 text-left">
-              <p className="mb-1 text-sm text-gray-500">
+              <p className="mb-1 text-sm text-gray-700">
                 <strong>Error ID:</strong> {this.state.errorId}
               </p>
             </div>

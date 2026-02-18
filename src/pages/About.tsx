@@ -104,21 +104,21 @@ const About: React.FC = () => (
           <div className="p-4">
             <div className="mb-2 text-4xl font-bold text-p4c-gold">10+</div>
             <div className="font-bold text-p4c-navy">Years of Experience</div>
-            <div className="mt-1 text-sm text-gray-500">
+            <div className="mt-1 text-sm text-gray-700">
               In Real Estate & Development
             </div>
           </div>
           <div className="p-4">
             <div className="mb-2 text-4xl font-bold text-p4c-gold">100%</div>
             <div className="font-bold text-p4c-navy">Voucher Acceptance</div>
-            <div className="mt-1 text-sm text-gray-500">
+            <div className="mt-1 text-sm text-gray-700">
               Section 8 & HUD-VASH
             </div>
           </div>
           <div className="p-4">
             <div className="mb-2 text-4xl font-bold text-p4c-gold">A+</div>
             <div className="font-bold text-p4c-navy">Tenant Satisfaction</div>
-            <div className="mt-1 text-sm text-gray-500">
+            <div className="mt-1 text-sm text-gray-700">
               Based on retention rates
             </div>
           </div>

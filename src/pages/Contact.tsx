@@ -65,7 +65,7 @@ const Contact: React.FC = () => {
           {/* Glassmorphism text container for enhanced contrast */}
           <div className="rounded-2xl bg-p4c-navy/70 p-4 backdrop-blur-2xl">
             <div className="mb-6 flex justify-center">
-              <div className="rounded-2xl border border-p4c-gold/30 bg-p4c-gold/20 p-4 backdrop-blur-sm">
+              <div className="rounded-2xl border border-p4c-gold/30 bg-p4c-gold/40 p-4 backdrop-blur-sm">
                 <Mail className="size-10 text-p4c-gold" />
               </div>
             </div>
