@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { TimelineMilestone } from '../../types/timeline';
+import OptimizedImage from '../OptimizedImage';
 
 interface TimelineItemProps {
   milestone: TimelineMilestone;
@@ -65,10 +66,11 @@ export const TimelineItem: React.FC<TimelineItemProps> = ({
           </p>
           {isExpanded && milestone.image && (
             <div className="mb-4">
-              <img
+              <OptimizedImage
                 src={milestone.image}
                 alt={milestone.title}
                 className="w-full rounded-lg shadow-lg"
+                loading="lazy"
               />
             </div>
           )}

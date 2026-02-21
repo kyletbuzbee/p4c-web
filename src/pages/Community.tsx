@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { ArrowRight, Home, Wrench, Users, DollarSign, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { IMAGES } from '../constants/images';
+import OptimizedImage from '../components/OptimizedImage';
 
 /**
  * P4C ENTERPRISE INTERFACE: StreamStep
@@ -97,7 +98,7 @@ const RevitalizationValueStream: React.FC = () => (
               {/* Technical Card Content */}
               <div className="flex-1 rounded-3xl border border-gray-100 bg-p4c-beige/5 p-8 transition-all duration-500 hover:shadow-2xl hover:shadow-p4c-navy/5">
                 <div className="mb-6 h-48 overflow-hidden rounded-2xl border border-p4c-gold/20 grayscale transition-all duration-700 group-hover:grayscale-0">
-                  <img
+                  <OptimizedImage
                     src={step.image}
                     alt={step.label}
                     className="size-full object-cover transition-transform duration-700 group-hover:scale-110"
@@ -155,10 +156,11 @@ const Community: React.FC = () => {
       {/* Hero Section with Banner Image */}
       <div className="relative flex h-[500px] w-full items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img
+          <OptimizedImage
             src={IMAGES.BANNERS.HERO_COMMUNITY_IMPACT}
             alt="Community impact banner"
             className="size-full object-cover"
+            priority
           />
           <div className="absolute inset-0 bg-p4c-navy/15" />
         </div>
@@ -229,7 +231,7 @@ const Community: React.FC = () => {
             </div>
 
             <div className="relative h-96 overflow-hidden rounded-2xl shadow-2xl">
-              <img
+              <OptimizedImage
                 src={IMAGES.BANNERS.HERO_COMMUNITY_IMPACT}
                 alt="Community impact visualization"
                 className="size-full object-cover"

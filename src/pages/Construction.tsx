@@ -2,6 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Hammer, ShieldCheck, CheckCircle, Home } from 'lucide-react';
 import { IMAGES } from '../constants/images';
+import OptimizedImage from '../components/OptimizedImage';
 
 const Construction: React.FC = () => (
   <div className="min-h-screen bg-p4c-beige">
@@ -18,10 +19,11 @@ const Construction: React.FC = () => (
     {/* Hero Section */}
     <div className="relative flex h-[400px] w-full items-center justify-center overflow-hidden">
       <div className="absolute left-0 top-0 z-0 size-full">
-        <img
+        <OptimizedImage
           src={IMAGES.BANNERS.HERO_RENOVATION}
           alt="Professional construction and renovation work"
           className="size-full object-cover"
+          priority
         />
         <div className="absolute left-0 top-0 size-full bg-p4c-navy/15 mix-blend-multiply" />
       </div>
@@ -177,7 +179,7 @@ const Construction: React.FC = () => (
           </div>
 
           <div className="relative h-96 overflow-hidden rounded-2xl shadow-2xl">
-            <img
+            <OptimizedImage
               src={IMAGES.BANNERS.HERO_PROJECTS}
               alt="Construction team working on property renovation"
               className="size-full object-cover"
@@ -214,7 +216,7 @@ const Construction: React.FC = () => (
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           <div className="overflow-hidden rounded-2xl bg-white shadow-xl">
             <div className="relative">
-              <img
+              <OptimizedImage
                 src={IMAGES.RENOVATION.LIVING_ROOM.BEFORE}
                 alt="Living room before renovation"
                 className="h-64 w-full object-cover"
@@ -224,7 +226,7 @@ const Construction: React.FC = () => (
               </div>
             </div>
             <div className="relative">
-              <img
+              <OptimizedImage
                 src={IMAGES.RENOVATION.LIVING_ROOM.AFTER}
                 alt="Living room after renovation"
                 className="h-64 w-full object-cover"
@@ -246,7 +248,7 @@ const Construction: React.FC = () => (
 
           <div className="overflow-hidden rounded-2xl bg-white shadow-xl">
             <div className="relative">
-              <img
+              <OptimizedImage
                 src={IMAGES.RENOVATION.KITCHEN.BEFORE}
                 alt="Kitchen before renovation"
                 className="h-64 w-full object-cover"
@@ -256,7 +258,7 @@ const Construction: React.FC = () => (
               </div>
             </div>
             <div className="relative">
-              <img
+              <OptimizedImage
                 src={IMAGES.RENOVATION.KITCHEN.AFTER}
                 alt="Kitchen after renovation"
                 className="h-64 w-full object-cover"

@@ -11,16 +11,16 @@ import { Link } from 'react-router-dom';
 import { IMAGES } from '../constants/images';
 
 const Footer: React.FC = () => (
-  <footer className="border-t border-gray-800 bg-gray-900 pb-8 pt-16 text-white">
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div className="mb-12 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
+  <footer className="border-t border-gray-800 bg-gray-900 pb-8 pt-10 text-white sm:pt-16">
+    <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
+      <div className="mb-8 grid grid-cols-1 gap-8 sm:mb-12 md:grid-cols-2 lg:grid-cols-4">
         {/* 1. Brand & Mission - BUSINESS FOCUSED */}
         <div className="col-span-1">
           <div className="mb-4 flex items-center gap-2">
             <img
               src={IMAGES.LOGO.WHITE_GOLD}
               alt="Properties 4 Creation Real Estate Logo"
-              className="h-40 w-auto object-contain"
+              className="h-16 w-auto object-contain sm:h-20 md:h-24 lg:h-32"
               width={200}
               height={80}
             />
@@ -218,16 +218,16 @@ const Footer: React.FC = () => (
       </div>
 
       {/* Badges Bar */}
-      <div className="border-t border-gray-800 py-8">
-        <div className="flex flex-wrap justify-center gap-6">
-          <div className="flex items-center gap-2 text-sm text-gray-700">
-            <Flag className="size-4 text-p4c-gold" /> Veteran Owned & Operated
+      <div className="border-t border-gray-800 py-6 sm:py-8">
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-6">
+          <div className="flex items-center gap-1.5 text-xs text-gray-700 sm:gap-2 sm:text-sm">
+            <Flag className="size-3.5 sm:size-4 text-p4c-gold" /> <span className="hidden sm:inline">Veteran Owned & Operated</span><span className="sm:hidden">Veteran Owned</span>
           </div>
-          <div className="flex items-center gap-2 text-sm text-gray-700">
-            <Home className="size-4 text-p4c-gold" /> Equal Housing Opportunity
+          <div className="flex items-center gap-1.5 text-xs text-gray-700 sm:gap-2 sm:text-sm">
+            <Home className="size-3.5 sm:size-4 text-p4c-gold" /> <span className="hidden sm:inline">Equal Housing Opportunity</span><span className="sm:hidden">Equal Housing</span>
           </div>
-          <div className="flex items-center gap-2 text-sm text-gray-700">
-            <Accessibility className="size-4 text-p4c-gold" /> ADA Compliant
+          <div className="flex items-center gap-1.5 text-xs text-gray-700 sm:gap-2 sm:text-sm">
+            <Accessibility className="size-3.5 sm:size-4 text-p4c-gold" /> <span className="hidden sm:inline">ADA Compliant</span><span className="sm:hidden">ADA</span>
           </div>
         </div>
       </div>

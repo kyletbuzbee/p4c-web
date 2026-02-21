@@ -44,7 +44,7 @@ const Hero: React.FC<HeroProps> = ({ variant = 'image' }) => {
   }, [variant]);
 
   return (
-    <section className="relative flex h-[90vh] w-full items-center overflow-hidden bg-p4c-navy">
+    <section className="relative flex h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-[90vh] w-full items-center overflow-hidden bg-p4c-navy">
       {/* Background Media Layer */}
       <div className="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
         {variant === 'video' ? (
@@ -77,9 +77,9 @@ const Hero: React.FC<HeroProps> = ({ variant = 'image' }) => {
       </div>
 
       {/* Main Content: Left-aligned for high-end editorial feel */}
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8">
-        <div className="hero-text-container max-w-4xl animate-fade-in-up rounded-2xl border border-white/20 bg-p4c-navy/40 p-10 backdrop-blur-2xl md:p-16">
-          <h1 className="hero-text-enhanced mb-6 text-left font-serif text-4xl font-bold leading-[1.1] text-white sm:text-5xl md:text-6xl lg:text-7xl">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="hero-text-container w-full max-w-2xl animate-fade-in-up rounded-2xl border border-white/10 bg-p4c-navy/25 p-6 sm:p-8 md:p-10 backdrop-blur-lg">
+          <h1 className="hero-text-enhanced mb-4 text-left font-serif text-2xl font-bold leading-[1.1] text-white sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
             <span>
               Transforming{' '}
               <span className="inline-block text-p4c-gold">Communities</span>
@@ -88,23 +88,23 @@ const Hero: React.FC<HeroProps> = ({ variant = 'image' }) => {
             One Neighborhood at a Time.
           </h1>
 
-          <p className="hero-text-enhanced mb-10 text-xl font-light leading-relaxed text-gray-200 md:text-2xl">
+          <p className="hero-text-enhanced mb-6 text-base font-light leading-relaxed text-gray-200 sm:text-lg md:text-xl lg:text-2xl">
             Strategic revitalization. Quality housing. Economic growth. Building
             thriving neighborhoods in <strong>East Texas</strong>.
           </p>
 
-          <div className="flex flex-col gap-5 sm:flex-row">
+          <div className="flex flex-col gap-3 sm:flex-row sm:gap-5">
             <button
               onClick={() => navigate('/community')}
-              className="flex items-center justify-center gap-2 rounded-xl bg-p4c-gold px-10 py-4 text-lg font-bold text-p4c-navy shadow-xl transition-all hover:-translate-y-1 hover:bg-white"
+              className="flex items-center justify-center gap-2 rounded-xl bg-p4c-gold px-6 py-3 text-base font-bold text-p4c-navy shadow-xl transition-all hover:-translate-y-1 hover:bg-white sm:px-10 sm:py-4 sm:text-lg"
               aria-label="Explore our community revitalization initiatives in East Texas"
             >
-              Our Community Impact <ArrowRight className="size-5" />
+              Our Community Impact <ArrowRight className="size-4 sm:size-5" />
             </button>
 
             <button
               onClick={() => navigate('/properties')}
-              className="rounded-xl border-2 border-white/30 bg-transparent px-10 py-4 text-lg font-bold text-white backdrop-blur-sm transition-all hover:bg-white/10"
+              className="rounded-xl border-2 border-white/30 bg-transparent px-6 py-3 text-base font-bold text-white backdrop-blur-sm transition-all hover:bg-white/10 sm:px-10 sm:py-4 sm:text-lg"
               aria-label="Browse available properties in revitalized neighborhoods"
             >
               Find Your Home

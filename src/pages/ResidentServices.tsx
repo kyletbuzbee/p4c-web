@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { useToast } from '../context/ToastContext';
 import { IMAGES } from '../constants/images';
+import OptimizedImage from '../components/OptimizedImage';
 
 const ResidentServices: React.FC = () => {
   const { addToast } = useToast();
@@ -47,10 +48,11 @@ const ResidentServices: React.FC = () => {
       {/* Hero Section */}
       <div className="relative flex h-[400px] w-full items-center justify-center overflow-hidden">
         <div className="absolute left-0 top-0 z-0 size-full">
-          <img
+          <OptimizedImage
             src={IMAGES.BANNERS.RESIDENT_SERVICE_BANNER}
             alt="Happy resident family in their home"
             className="size-full object-cover"
+            priority
           />
           <div className="absolute left-0 top-0 size-full bg-p4c-navy/15 mix-blend-multiply" />
         </div>
@@ -71,7 +73,7 @@ const ResidentServices: React.FC = () => {
         <section className="mb-20">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
             <div className="relative h-96 overflow-hidden rounded-2xl shadow-2xl">
-              <img
+              <OptimizedImage
                 src={IMAGES.BANNERS.HERO_RESOURCES}
                 alt="Resident portal access"
                 className="size-full object-cover"
@@ -330,7 +332,7 @@ const ResidentServices: React.FC = () => {
             </div>
 
             <div className="relative h-96 overflow-hidden rounded-2xl shadow-2xl">
-              <img
+              <OptimizedImage
                 src={IMAGES.FAMILY.HAPPY_KITCHEN}
                 alt="Happy family enjoying their home"
                 className="size-full object-cover"

@@ -190,18 +190,18 @@ const Navbar = (): React.ReactElement => {
       className="sticky top-0 z-50 border-b border-p4c-gold/30 text-white shadow-lg backdrop-blur-md transition-all duration-300"
       style={{ backgroundColor: 'rgba(11, 17, 32, 0.6)' }}
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-32 items-center justify-between">
+      <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between md:h-20 lg:h-24 xl:h-28 2xl:h-32">
           {/* Logo */}
           <Link
             to="/"
-            className="flex shrink-0 items-center gap-3 transition-opacity hover:opacity-90"
+            className="flex shrink-0 items-center gap-2 transition-opacity hover:opacity-90"
             aria-label="Properties 4 Creation Home"
           >
             <img
               src={IMAGES.LOGO.WHITE_GOLD}
               alt="Properties 4 Creation Logo"
-              className="h-40 w-auto object-contain"
+              className="h-12 w-auto object-contain sm:h-14 md:h-16 lg:h-20 xl:h-24"
             />
           </Link>
 
