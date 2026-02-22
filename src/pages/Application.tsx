@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Helmet } from 'react-helmet-async';
 import {
   User,
@@ -11,6 +13,9 @@ import {
   AlertCircle,
 } from 'lucide-react';
 import { TIMING } from '../constants/config';
+import { ApplicationSchema, type ApplicationInput } from '../types/schemas';
+import { cn } from '../utils/cn';
+import { useToast } from '../context/ToastContext';
 
 const STEPS = [
   { id: 1, title: 'Personal Info', icon: User },
@@ -22,17 +27,48 @@ const Application: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const { addToast } = useToast();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    trigger,
+    getValues,
+  } = useForm<ApplicationInput>({
+    resolver: zodResolver(ApplicationSchema),
+    mode: 'onBlur',
+  });
+
+  const onSubmit = async (data: ApplicationInput) => {
     setIsSubmitting(true);
-    // Simulate API call for your real estate platform
-    await new Promise((resolve) =>
-      setTimeout(resolve, TIMING.APPLICATION_SUBMISSION_DELAY)
-    );
-    setIsSubmitting(false);
-    setIsSuccess(true);
-    window.scrollTo(0, 0);
+    try {
+      await new Promise((resolve) =>
+        setTimeout(resolve, TIMING.APPLICATION_SUBMISSION_DELAY)
+      );
+      // Optionally call API here: await api.applications.submit(data);
+      setIsSubmitting(false);
+      setIsSuccess(true);
+      window.scrollTo(0, 0);
+    } catch (error) {
+      setIsSubmitting(false);
+      addToast('Failed to submit application. Please try again.', 'error');
+    }
+  };
+
+  const handleNext = async () => {
+    let fieldsToValidate: (keyof ApplicationInput)[] = [];
+    
+    if (currentStep === 1) {
+      fieldsToValidate = ['firstName', 'lastName', 'email'];
+    } else if (currentStep === 2) {
+      fieldsToValidate = ['currentAddress', 'moveInDate'];
+    }
+    
+    const isValid = await trigger(fieldsToValidate);
+    if (isValid) {
+      setCurrentStep((prev) => Math.min(3, prev + 1));
+    }
   };
 
   if (isSuccess) {
@@ -87,18 +123,20 @@ const Application: React.FC = () => {
           {STEPS.map((step) => (
             <div key={step.id} className="group flex flex-col items-center">
               <div
-                className={`z-10 flex size-12 items-center justify-center rounded-full border-2 transition-all duration-500 ${
+                className={cn(
+                  'z-10 flex size-12 items-center justify-center rounded-full border-2 transition-all duration-500',
                   currentStep >= step.id
                     ? 'border-p4c-gold bg-p4c-gold text-white shadow-lg'
                     : 'border-gray-200 bg-white text-gray-400'
-                }`}
+                )}
               >
                 <step.icon size={22} />
               </div>
               <span
-                className={`mt-3 text-[10px] font-bold uppercase tracking-[0.2em] ${
+                className={cn(
+                  'mt-3 text-[10px] font-bold uppercase tracking-[0.2em]',
                   currentStep >= step.id ? 'text-p4c-navy' : 'text-gray-400'
-                }`}
+                )}
               >
                 {step.title}
               </span>
@@ -108,7 +146,7 @@ const Application: React.FC = () => {
 
         {/* Multi-step Form Container */}
         <div className="rounded-2xl bg-white/80 p-8 shadow-2xl shadow-p4c-navy/5 ring-1 ring-white/20 backdrop-blur-sm sm:p-10">
-          <form onSubmit={handleSubmit} className="space-y-8">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
             {currentStep === 1 && (
               <section className="animate-fade-in-up space-y-6">
                 <div className="border-b border-gray-100 pb-4">
@@ -130,10 +168,15 @@ const Application: React.FC = () => {
                     <input
                       id="firstName"
                       type="text"
-                      required
-                      placeholder="John"
-                      className="w-full rounded-lg border border-gray-200 p-3.5 outline-none transition-all focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold/10"
+                      {...register('firstName')}
+                      className={cn(
+                        'w-full rounded-lg border border-gray-200 p-3.5 outline-none transition-all focus:border-p4c-gold focus:ring-2 focus:ring-p4c-gold/10',
+                        errors.firstName && 'border-red-500 focus:border-red-500'
+                      )}
                     />
+                    {errors.firstName && (
+                      <p className="text-sm text-red-500">{errors.firstName.message}</p>
+                    )}
                   </div>
                   <div className="space-y-2">
                     <label
@@ -145,10 +188,15 @@ const Application: React.FC = () => {
                     <input
                       id="lastName"
                       type="text"
-                      required
-                      placeholder="Doe"
-                      className="w-full rounded-lg border border-gray-200 p-3.5 outline-none focus:border-p4c-gold"
+                      {...register('lastName')}
+                      className={cn(
+                        'w-full rounded-lg border border-gray-200 p-3.5 outline-none focus:border-p4c-gold',
+                        errors.lastName && 'border-red-500 focus:border-red-500'
+                      )}
                     />
+                    {errors.lastName && (
+                      <p className="text-sm text-red-500">{errors.lastName.message}</p>
+                    )}
                   </div>
                 </div>
                 <div className="space-y-2">
@@ -161,10 +209,36 @@ const Application: React.FC = () => {
                   <input
                     id="email"
                     type="email"
-                    required
-                    placeholder="john.doe@example.com"
-                    className="w-full rounded-lg border border-gray-200 p-3.5 outline-none"
+                    {...register('email')}
+                    className={cn(
+                      'w-full rounded-lg border border-gray-200 p-3.5 outline-none',
+                      errors.email && 'border-red-500 focus:border-red-500'
+                    )}
                   />
+                  {errors.email && (
+                    <p className="text-sm text-red-500">{errors.email.message}</p>
+                  )}
+                </div>
+                <div className="space-y-2">
+                  <label
+                    htmlFor="phone"
+                    className="text-xs font-bold uppercase tracking-wider text-gray-400"
+                  >
+                    Phone Number
+                  </label>
+                  <input
+                    id="phone"
+                    type="tel"
+                    {...register('phone')}
+                    placeholder="(903) 555-0123"
+                    className={cn(
+                      'w-full rounded-lg border border-gray-200 p-3.5 outline-none',
+                      errors.phone && 'border-red-500 focus:border-red-500'
+                    )}
+                  />
+                  {errors.phone && (
+                    <p className="text-sm text-red-500">{errors.phone.message}</p>
+                  )}
                 </div>
               </section>
             )}
@@ -190,42 +264,100 @@ const Application: React.FC = () => {
                     <input
                       id="currentAddress"
                       type="text"
-                      required
-                      placeholder="123 East Texas Way, Tyler, TX"
-                      className="w-full rounded-lg border border-gray-200 p-3.5 outline-none transition-all focus:border-p4c-gold"
+                      {...register('currentAddress')}
+                      className={cn(
+                        'w-full rounded-lg border border-gray-200 p-3.5 outline-none transition-all focus:border-p4c-gold',
+                        errors.currentAddress && 'border-red-500 focus:border-red-500'
+                      )}
                     />
+                    {errors.currentAddress && (
+                      <p className="text-sm text-red-500">{errors.currentAddress.message}</p>
+                    )}
                   </div>
                   <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                     <div className="space-y-2">
                       <label
-                        htmlFor="monthlyPayment"
+                        htmlFor="currentCity"
                         className="text-xs font-bold uppercase tracking-wider text-gray-400"
                       >
-                        Monthly Payment
+                        City
                       </label>
                       <input
-                        id="monthlyPayment"
+                        id="currentCity"
                         type="text"
-                        placeholder="$1,500"
-                        className="w-full rounded-lg border border-gray-200 p-3.5 outline-none"
+                        {...register('currentCity')}
+                        className={cn(
+                          'w-full rounded-lg border border-gray-200 p-3.5 outline-none',
+                          errors.currentCity && 'border-red-500 focus:border-red-500'
+                        )}
                       />
+                      {errors.currentCity && (
+                        <p className="text-sm text-red-500">{errors.currentCity.message}</p>
+                      )}
                     </div>
                     <div className="space-y-2">
                       <label
-                        htmlFor="lengthOfStay"
+                        htmlFor="currentState"
                         className="text-xs font-bold uppercase tracking-wider text-gray-400"
                       >
-                        Length of Stay
+                        State
                       </label>
-                      <select
-                        id="lengthOfStay"
-                        className="w-full rounded-lg border border-gray-200 bg-white p-3.5 outline-none"
-                      >
-                        <option>Less than 1 year</option>
-                        <option>1-3 years</option>
-                        <option>3+ years</option>
-                      </select>
+                      <input
+                        id="currentState"
+                        type="text"
+                        {...register('currentState')}
+                        maxLength={2}
+                        placeholder="TX"
+                        className={cn(
+                          'w-full rounded-lg border border-gray-200 p-3.5 outline-none',
+                          errors.currentState && 'border-red-500 focus:border-red-500'
+                        )}
+                      />
+                      {errors.currentState && (
+                        <p className="text-sm text-red-500">{errors.currentState.message}</p>
+                      )}
                     </div>
+                  </div>
+                  <div className="space-y-2">
+                    <label
+                      htmlFor="currentZip"
+                      className="text-xs font-bold uppercase tracking-wider text-gray-400"
+                    >
+                      ZIP Code
+                    </label>
+                    <input
+                      id="currentZip"
+                      type="text"
+                      {...register('currentZip')}
+                      placeholder="75701"
+                      className={cn(
+                        'w-full rounded-lg border border-gray-200 p-3.5 outline-none',
+                        errors.currentZip && 'border-red-500 focus:border-red-500'
+                      )}
+                    />
+                    {errors.currentZip && (
+                      <p className="text-sm text-red-500">{errors.currentZip.message}</p>
+                    )}
+                  </div>
+                  <div className="space-y-2">
+                    <label
+                      htmlFor="moveInDate"
+                      className="text-xs font-bold uppercase tracking-wider text-gray-400"
+                    >
+                      Desired Move-in Date
+                    </label>
+                    <input
+                      id="moveInDate"
+                      type="date"
+                      {...register('moveInDate')}
+                      className={cn(
+                        'w-full rounded-lg border border-gray-200 p-3.5 outline-none',
+                        errors.moveInDate && 'border-red-500 focus:border-red-500'
+                      )}
+                    />
+                    {errors.moveInDate && (
+                      <p className="text-sm text-red-500">{errors.moveInDate.message}</p>
+                    )}
                   </div>
                 </div>
               </section>
@@ -249,7 +381,7 @@ const Application: React.FC = () => {
                 <label className="group flex cursor-pointer items-start gap-3">
                   <input
                     type="checkbox"
-                    required
+                    {...register('termsAgreed')}
                     className="mt-1 size-5 rounded border-gray-300 text-p4c-gold transition-all focus:ring-p4c-gold"
                   />
                   <span className="text-sm text-gray-600 transition-colors group-hover:text-p4c-navy">
@@ -257,6 +389,9 @@ const Application: React.FC = () => {
                     I authorize Properties 4 Creation to verify these details.
                   </span>
                 </label>
+                {errors.termsAgreed && (
+                  <p className="text-sm text-red-500">{errors.termsAgreed.message}</p>
+                )}
               </section>
             )}
 
@@ -274,9 +409,7 @@ const Application: React.FC = () => {
               {currentStep < 3 ? (
                 <button
                   type="button"
-                  onClick={() =>
-                    setCurrentStep((prev) => Math.min(3, prev + 1))
-                  }
+                  onClick={handleNext}
                   className="flex items-center gap-2 rounded-lg bg-p4c-navy px-10 py-3.5 font-bold text-white shadow-xl shadow-p4c-navy/20 transition-all hover:bg-p4c-slate"
                   aria-label="Proceed to next step of application"
                 >

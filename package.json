@@ -36,17 +36,22 @@
     "lighthouse:ci": "npm run build && node scripts/run-lighthouse.js"
   },
   "overrides": {
-    "tar": "^7.5.7",
+    "tar": "^7.5.8",
+    "storybook": ">=8.6.15",
     "axios": "1.13.5",
     "valibot": "^1.2.0"
   },
   "dependencies": {
     "@botpress/webchat": "^4.3.2",
+    "@hookform/resolvers": "^5.2.2",
     "@supabase/supabase-js": "^2.91.1",
+    "@tanstack/react-query": "^5.90.21",
     "@types/dompurify": "^3.0.5",
     "@types/node": "^20.11.16",
     "axios": "1.13.5",
     "ci": "^2.3.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "dompurify": "^3.3.1",
     "express": "^4.22.1",
     "express-mongo-sanitize": "^2.2.0",
@@ -64,11 +69,13 @@
     "react-intersection-observer": "^10.0.2",
     "react-router-dom": "^6.22.3",
     "recharts": "^2.12.7",
-    "tar": "^7.5.7",
+    "tailwind-merge": "^3.5.0",
+    "tar": "^7.5.8",
     "uuid": "^13.0.0",
     "web-vitals": "^5.1.0",
     "winston": "^3.19.0",
-    "xss": "^1.0.15"
+    "xss": "^1.0.15",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@axe-core/cli": "^4.11.1",

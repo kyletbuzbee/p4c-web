@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { Loader2 } from 'lucide-react';
+import { QueryClientProvider } from '@tanstack/react-query';
 
 // Layout & UI Components
 import Navbar from './components/Navbar';
@@ -12,7 +13,7 @@ import SkipLink from './components/SkipLink';
 import ProtectedRoute from './components/ProtectedRoute';
 import CookieConsent from './components/CookieConsent';
 import AccessibilityTools from './components/AccessibilityTools';
-import { UpdateNotification } from './components/UpdateNotification'; // + ADDED: PWA Support
+import { UpdateNotification } from './components/UpdateNotification';
 import FloatingChatbot from './components/FloatingChatbot';
 
 // Context Providers
@@ -20,6 +21,9 @@ import { ToastProvider } from './context/ToastContext';
 import { AuthProvider } from './context/AuthContext';
 import { DarkModeProvider } from './context/DarkModeContext';
 import { ImageFormatProvider } from './context/ImageFormatContext';
+
+// Query Client
+import { queryClient } from './lib/queryClient';
 
 // Lazy Load Pages
 const Home = React.lazy(() => import('./pages/Home'));
@@ -124,25 +128,27 @@ const StandardLayout = () => (
 function App() {
   // Ensure we scroll to top on route change
   return (
-    <HelmetProvider>
-      <ToastProvider>
-        <ErrorBoundary>
-          <DarkModeProvider>
-            <ImageFormatProvider>
-              <AuthProvider>
-                <div role="document" className="flex min-h-screen flex-col bg-p4c-beige font-sans text-p4c-navy antialiased">
-                  <SkipLink />
-                  <ScrollToTop />
-                  <Routes>
-                    <Route path="*" element={<StandardLayout />} />
-                  </Routes>
-                </div>
-              </AuthProvider>
-            </ImageFormatProvider>
-          </DarkModeProvider>
-        </ErrorBoundary>
-      </ToastProvider>
-    </HelmetProvider>
+    <QueryClientProvider client={queryClient}>
+      <HelmetProvider>
+        <ToastProvider>
+          <ErrorBoundary>
+            <DarkModeProvider>
+              <ImageFormatProvider>
+                <AuthProvider>
+                  <div role="document" className="flex min-h-screen flex-col bg-p4c-beige font-sans text-p4c-navy antialiased">
+                    <SkipLink />
+                    <ScrollToTop />
+                    <Routes>
+                      <Route path="*" element={<StandardLayout />} />
+                    </Routes>
+                  </div>
+                </AuthProvider>
+              </ImageFormatProvider>
+            </DarkModeProvider>
+          </ErrorBoundary>
+        </ToastProvider>
+      </HelmetProvider>
+    </QueryClientProvider>
   );
 }
 
